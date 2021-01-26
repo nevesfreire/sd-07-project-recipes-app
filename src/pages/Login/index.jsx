@@ -26,7 +26,7 @@ function Login() {
     localStorage.setItem('cocktailsToken');
     const userEmail = email;
     const user = { email: userEmail };
-    localStorage.setItem('user', user);
+    localStorage.setItem('user', JSON.stringify(user));
   };
 
   return (
