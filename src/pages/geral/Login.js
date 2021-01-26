@@ -22,7 +22,7 @@ class Login extends Component {
     const { email } = this.state;
     const { history } = this.props;
     localStorage.setItem('mealsToken', '1');
-    localStorage.setItem('cocktailsToken ', '1');
+    localStorage.setItem('cocktailsToken', '1');
     localStorage.setItem('user', JSON.stringify({ email }));
     history.push('/comidas');
   }
@@ -55,7 +55,7 @@ class Login extends Component {
         <button
           type="button"
           data-testid="login-submit-btn"
-          disabled={ !regexEmail.test(email) || password.length < regexPassword }
+          disabled={ !regexEmail.test(email) || password.length <= regexPassword }
           onClick={ () => this.handleClick() }
         >
           Entrar
