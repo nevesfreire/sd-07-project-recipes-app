@@ -5,7 +5,7 @@ function ProcessFoodPage() {
     <div>
       Process Food
     </div>
-  )
+  );
 }
 
 export default ProcessFoodPage;
