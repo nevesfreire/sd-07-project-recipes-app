@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class Login extends React.Component {
   constructor() {
@@ -9,12 +10,23 @@ export default class Login extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.isDisable = this.isDisable.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleChange({ target: { name, value } }) {
     this.setState({
       [name]: value,
     });
+  }
+
+  handleClick() {
+    const { email } = this.state;
+    const { history } = this.props;
+    const user = { email };
+    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+    history.push('/comidas');
   }
 
   isDisable() {
@@ -27,6 +39,7 @@ export default class Login extends React.Component {
   }
 
   render() {
+    const { email, password } = this.state;
     return (
       <div>
         <input
@@ -34,7 +47,7 @@ export default class Login extends React.Component {
           name="email"
           data-testid="email-input"
           value={ email }
-          onChance={ this.handleChange }
+          onChange={ this.handleChange }
         />
         <input
           type="password"
@@ -47,6 +60,7 @@ export default class Login extends React.Component {
           type="button"
           data-testid="login-submit-btn"
           disabled={ this.isDisable() }
+          onClick={ this.handleClick }
         >
           Entrar
         </button>
@@ -54,3 +68,9 @@ export default class Login extends React.Component {
     );
   }
 }
+
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
