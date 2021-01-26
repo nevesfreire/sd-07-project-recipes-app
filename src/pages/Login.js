@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-//import { setStorage } from '../services';
+import { setStorage } from '../services/localStorage';
 import { CustomLogin } from '../components';
 import { addEmailAction, addPasswordAction } from '../redux/actions';
 
@@ -19,12 +19,18 @@ class Login extends Component {
     this.validaInput = this.validaInput.bind(this);
   }
 
+  componentDidMount() {
+    setStorage('mealsToken', 1)
+    setStorage('cocktailsToken ', 1)
+  }
+
   handleSubmit() {
     const { email, password } = this.state;
     const { history, dispatchEmail, dispatchPassword } = this.props
     dispatchEmail(email)
     dispatchPassword(password)
-    history.push('/');
+    setStorage('user', email)
+    history.push('/comidas');
   }
 
   handleInputChange({ target: { name, value } }) {
