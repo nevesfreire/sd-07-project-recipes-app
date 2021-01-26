@@ -14,6 +14,7 @@ function App() {
       >
         Glass
       </object>
+      <p>Teste</p>
     </div>
   );
 }
