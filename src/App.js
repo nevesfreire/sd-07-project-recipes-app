@@ -10,9 +10,6 @@ function App() {
     <Provider>
       <BrowserRouter>
         <Router />
-        <div className="meals">
-          Início
-        </div>
       </BrowserRouter>
     </Provider>
   );
