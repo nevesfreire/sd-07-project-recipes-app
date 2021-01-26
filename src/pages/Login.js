@@ -12,7 +12,7 @@ function Login() {
     const { loginEmail, password } = loginInfo;
     const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(loginEmail);
     const SIX = 6;
-    const validPassword = password.length >= SIX;
+    const validPassword = password.length > SIX;
 
     return validEmail && validPassword;
   };
@@ -29,6 +29,8 @@ function Login() {
   const handleClick = () => {
     const item = { email: loginInfo.loginEmail };
     localStorage.setItem('user', JSON.stringify(item));
+    localStorage.setItem('mealsToken', '1');
+    localStorage.setItem('cocktailsToken', '1');
     setShouldRedirect(true);
   };
 
