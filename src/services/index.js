@@ -4,7 +4,7 @@ const drinkUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 // areas: https://www.themealdb.com/api/json/v1/1/list.php?a=list
 // ingredientes: https://www.themealdb.com/api/json/v1/1/list.php?i=list
 
-export const mealsAPI =  async () => {
+export const mealsAPI = async () => {
 
   try {
     const response = await fetch(mealUrl);
@@ -17,7 +17,7 @@ export const mealsAPI =  async () => {
 
 }
 
-export const drinksAPI =  async () => {
+export const drinksAPI = async () => {
 
   try {
     const response = await fetch(drinkUrl);

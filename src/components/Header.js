@@ -1,10 +1,9 @@
-import React, { useContext } from 'react';
-import FoodAppContext from '../context/FoodAppContext';
+import React from 'react';
 
-function Header() { 
-  return(
+function Header() {
+  return (
     <h1>Header</h1>
-  )
+  );
 }
 
 export default Header;
