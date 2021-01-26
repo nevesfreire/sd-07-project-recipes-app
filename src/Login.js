@@ -32,7 +32,7 @@ export default class Login extends React.Component {
   isDisable() {
     const { email, password } = this.state;
     const SIX = 6;
-    if (email.includes('@') && email.includes('.com') && password.length >= SIX) {
+    if (email.includes('@') && email.includes('.com') && password.length > SIX) {
       return false;
     }
     return true;
