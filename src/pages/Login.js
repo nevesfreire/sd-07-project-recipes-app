@@ -6,7 +6,6 @@ function Login() {
     loginEmail: '',
     password: '',
   });
-  const [isValid, setIsValid] = useState(false);
   const [shouldRedirect, setShouldRedirect] = useState(false);
 
   const verifyInput = () => {
@@ -25,7 +24,6 @@ function Login() {
       ...loginInfo,
       [name]: value,
     });
-    setIsValid(verifyInput());
   };
 
   const handleClick = () => {
@@ -58,7 +56,7 @@ function Login() {
         <button
           type="button"
           data-testid="password-input"
-          disabled={ !isValid }
+          disabled={ !verifyInput() }
           onClick={ handleClick }
         >
           Entrar
