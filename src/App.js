@@ -11,7 +11,6 @@ function App() {
       <RecipeProvider>
         <Switch>
           <Route exact path="/" component={ Login } />
-
         </Switch>
       </RecipeProvider>
     </BrowserRouter>
