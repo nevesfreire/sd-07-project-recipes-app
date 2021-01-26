@@ -195,7 +195,7 @@ Aqui você vai encontrar os detalhes de como estruturar o desenvolvimento do seu
   <details>
     <summary>Tela de perfil</summary>
 
-  - [82 - Implemente os elementos da a tela de perfil respeitando os atributos descritos no protótipo](#82---implemente-os-elementos-da-a-tela-de-perfil-respeitando-os-atributos-descritos-no-protótipo)
+  - [82 - Implemente os elementos da a tela de perfil respeitando os atributos descritos no protótipos](#82---implemente-os-elementos-da-a-tela-de-perfil-respeitando-os-atributos-descritos-no-protótipo)
   - [83 - Implemente a solução de maneira que o e-mail da pessoa usuária deve estar visível](#83---implemente-a-solução-de-maneira-que-o-e-mail-da-pessoa-usuária-deve-estar-visível)
   - [84 - Implemente 3 botões: um de nome "Receitas Feitas", um de nome "Receitas Favoritas" e um de nome "Sair"](#84---implemente-3-botões-um-de-nome-receitas-feitas-um-de-nome-receitas-favoritas-e-um-de-nome-sair)
   - [85 - Redirecione a pessoa usuária que, ao clicar no botão de "Receitas Favoritas", a rota deve mudar para a tela de receitas favoritas](#85---redirecione-a-pessoa-usuária-que-ao-clicar-no-botão-de-receitas-favoritas-a-rota-deve-mudar-para-a-tela-de-receitas-favoritas)
