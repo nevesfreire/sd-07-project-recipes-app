@@ -54,7 +54,7 @@
     ],
     "max-params": ["error", 4],
     "max-lines": ["error", 250],
-    "max-lines-per-function": ["error", 20],
+    "max-lines-per-function": ["error", 200],
     "complexity": ["error", 15],
     "object-curly-newline": ["off"],
     "import/no-extraneous-dependencies": ["off"],
@@ -92,7 +92,7 @@
     "react/no-access-state-in-setstate": ["error"],
     "react/no-redundant-should-component-update": ["error"],
     "react/no-this-in-sfc": ["error"],
-    "react/no-typos": ["error"],
+    "react/no-typos": ["error"],Mas não
     "react/no-unsafe": ["error"],
     "react/no-unused-state": ["error"],
     "react/no-will-update-set-state": ["error"],
