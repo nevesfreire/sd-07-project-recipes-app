@@ -22,6 +22,19 @@ function Login() {
     return true;
   };
 
+  const saveLocalStorage = () => {
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+    const emailObj = {
+      email: login.email,
+    };
+    localStorage.setItem('user', JSON.stringify(emailObj));
+  };
+
+  const handleClick = () => {
+    saveLocalStorage();
+  };
+
   return (
     <div>
       <label htmlFor="userEmail">
@@ -49,7 +62,7 @@ function Login() {
       <button
         disabled={ validateImputs() }
         type="button"
-        // onClick={() => handleWallet()}
+        onClick={ () => handleClick() }
         data-testid="login-submit-btn"
       >
         Entrar
