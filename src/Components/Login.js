@@ -10,56 +10,60 @@ function Login() {
   const updateEmail = ({ target }) => {
     const { value } = target;
     setEmail(value);
-  }
+  };
 
   const updatePassword = ({ target }) => {
     const { value } = target;
     setPassword(value);
-  }
+  };
 
   const authLogin = () => {
     window.localStorage.setItem('mealsToken', 1);
     window.localStorage.setItem('cocktailsToken', 1);
     window.localStorage.setItem('user', JSON.stringify({ email }));
     setLogged(true);
-  }
+  };
 
   useEffect(() => {
     const regexEMAIL = /[\w.-]+@[\w-]+\.[\w-.]+/gi;
     const matchEmail = email.match(regexEMAIL);
+    const six = 6;
 
-    if(matchEmail && password.length >= 6) {
+    if (matchEmail && password.length > six) {
       setAuth(true);
     }
-  }, [email])
+  }, [email, password]);
 
-  if(logged) {
-    <Redirect to="/comidas" />;
+  if (logged) {
+    return <Redirect to="/comidas" />;
   }
-  
+
   return (
     <div>
       <label htmlFor="email">
         Email:
         <input
-          onChange={updateEmail}
+          onChange={ updateEmail }
           data-testid="email-input"
           id="email"
-          type="text" />
+          type="text"
+        />
       </label>
       <label htmlFor="password">
         Password:
         <input
-          onChange={updatePassword}
+          onChange={ updatePassword }
           data-testid="password-input"
           id="password"
-          type="text" />
+          type="text"
+        />
       </label>
       <button
-        disabled={!auth}
+        disabled={ !auth }
         data-testid="login-submit-btn"
         type="button"
-        onClick={ () => console.log('cliquei') }>
+        onClick={ authLogin }
+      >
         Login
       </button>
     </div>
