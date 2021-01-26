@@ -1,8 +1,9 @@
 import React from 'react';
+import './Login.css';
 
 export default function Login() {
   return (
-    <div>
+    <div className="login-container">
       <label htmlFor="email">
         E-mail:
         <input
