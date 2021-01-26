@@ -5,7 +5,6 @@ import { setStorage } from '../services/localStorage';
 import { CustomLogin } from '../components';
 import { addEmailAction, addPasswordAction } from '../redux/actions';
 
-
 class Login extends Component {
   constructor() {
     super();
@@ -19,17 +18,14 @@ class Login extends Component {
     this.validaInput = this.validaInput.bind(this);
   }
 
-  componentDidMount() {
-    setStorage('mealsToken', 1)
-    setStorage('cocktailsToken ', 1)
-  }
-
   handleSubmit() {
+    setStorage('mealsToken', 1);
+    setStorage('cocktailsToken', 1);
     const { email, password } = this.state;
-    const { history, dispatchEmail, dispatchPassword } = this.props
-    dispatchEmail(email)
-    dispatchPassword(password)
-    setStorage('user', email)
+    const { history, dispatchEmail, dispatchPassword } = this.props;
+    dispatchEmail(email);
+    dispatchPassword(password);
+    setStorage('user', { email });
     history.push('/comidas');
   }
 
@@ -39,7 +35,7 @@ class Login extends Component {
 
   validaInput() {
     const { email, password } = this.state;
-    console.log(password.length)
+    console.log(password.length);
     const number = 6;
     if (email.match(/\S+@\S+\.\S+/) && password.length > number) {
       this.setState({ buttonDisable: false });
@@ -53,8 +49,8 @@ class Login extends Component {
     return (
       <div className="margin-page">
         <CustomLogin
-          onInputChange={this.handleInputChange}
-          onHandleSubmit={this.handleSubmit}
+          onInputChange={ this.handleInputChange }
+          onHandleSubmit={ this.handleSubmit }
           validate={ buttonDisable }
         />
       </div>
@@ -70,8 +66,7 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(null, mapDispatchToProps)(Login);
 
 Login.propTypes = {
+  dispatchPassword: PropTypes.func.isRequired,
   dispatchEmail: PropTypes.func.isRequired,
-  dispatchNome: PropTypes.func.isRequired,
-  dispatchToken: PropTypes.func.isRequired,
   history: PropTypes.func.isRequired,
 };
