@@ -33,7 +33,7 @@ function Login() {
   };
 
   if (shouldRedirect) {
-    return <Redirect to="/receitas" />;
+    return <Redirect to="/comidas" />;
   }
 
   return (
