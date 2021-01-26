@@ -1,3 +1,10 @@
+body {
+  display: flex;
+  height: 640px;
+  text-align: center;
+  width: 360px;
+}
+
 .meals {
   align-items: center;
   background: #0fa36b;
