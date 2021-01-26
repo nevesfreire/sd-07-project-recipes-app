@@ -13,8 +13,7 @@ function Login() {
   };
 
   const ValidateFields = () => {
-    // eslint-disable-next-line
-    const re = '^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$';
+    const re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     const minLength = 5;
     if (re.test(email) && password.length > minLength) {
       return false;
@@ -25,8 +24,8 @@ function Login() {
   const CheckLocalStorage = () => {
     localStorage.setItem('mealsToken');
     localStorage.setItem('cocktailsToken');
-    // eslint-disable-next-line
-    const user = { 'email': email };
+    const userEmail = email;
+    const user = { email: userEmail };
     localStorage.setItem('user', user);
   };
 
