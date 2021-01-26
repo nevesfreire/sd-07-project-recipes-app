@@ -55,7 +55,7 @@ function Login() {
         />
         <button
           type="button"
-          data-testid="password-input"
+          data-testid="login-submit-btn"
           disabled={ !verifyInput() }
           onClick={ handleClick }
         >
