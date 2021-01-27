@@ -1,7 +1,7 @@
 import React from 'react';
 import { Header } from '../../components';
 
-export default function DrinkIngredients() {
+export default function FoodArea() {
   return (
     <Header />
   );

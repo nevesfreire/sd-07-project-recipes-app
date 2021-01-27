@@ -7,6 +7,7 @@ import ExploreDrinks from './ExploreDrinks';
 import FoodIngredients from './FoodIngredients';
 import DrinkIngredients from './DrinkIngredients';
 import FoodArea from './FoodArea';
+import Profile from './Profile';
 
 export {
   Login,
@@ -18,4 +19,5 @@ export {
   FoodIngredients,
   DrinkIngredients,
   FoodArea,
+  Profile,
 };
