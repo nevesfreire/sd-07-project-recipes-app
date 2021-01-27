@@ -1,9 +1,13 @@
 import React from 'react';
 import HeaderNoSearch from '../components/HeaderNoSearch';
+import Footer from '../components/Footer';
 
 function Perfil() {
   return (
-    <HeaderNoSearch title="Perfil" />
+    <div>
+      <HeaderNoSearch title="Perfil" />
+      <Footer />
+    </div>
   );
 }
 

@@ -18,7 +18,7 @@ import FavoriteRecipes from './pages/FavoriteRecipes';
 
 function App() {
   return (
-    <div>
+    <div className="app">
       <RecipesProvider>
         <BrowserRouter>
           <Route exact path="/" component={ Login } />
@@ -31,8 +31,16 @@ function App() {
           <Route exact path="/explorar" component={ Explorer } />
           <Route exact path="/explorar/comidas" component={ ExplorerFood } />
           <Route exact path="/explorar/bebidas" component={ ExplorerDrinks } />
-          <Route exact path="/explorar/comidas/ingredientes" component={ ExplorerFoodIngredients } />
-          <Route exact path="/explorar/bebidas/ingredientes" component={ ExplorerDrinksIngredients } />
+          <Route
+            exact
+            path="/explorar/comidas/ingredientes"
+            component={ ExplorerFoodIngredients }
+          />
+          <Route
+            exact
+            path="/explorar/bebidas/ingredientes"
+            component={ ExplorerDrinksIngredients }
+          />
           <Route exact path="/explorar/comidas/area" component={ ExplorerFoodArea } />
           <Route exact path="/perfil" component={ Perfil } />
           <Route exact path="/receitas-feitas" component={ DoneRecipes } />
