@@ -1,6 +1,8 @@
 import React from 'react';
-import SampleComponent from '../../Components/SampleComponent';
+import LoginForm from '../../Components/LoginForm';
 
-const LoginPage = () => <SampleComponent />;
+const LoginPage = () => (
+  <LoginForm />
+);
 
 export default LoginPage;
