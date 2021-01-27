@@ -37,12 +37,14 @@ export default function Header({ title }) {
         { renderProfileButton
           && (
             <button
-              data-testid="profile-top-btn"
-              src={ profileIcon }
               type="button"
               onClick={ () => history.push('/perfil') }
             >
-              <img alt="Icone de perfil" src={ profileIcon } />
+              <img
+                data-testid="profile-top-btn"
+                alt="Icone de perfil"
+                src={ profileIcon }
+              />
             </button>
 
           )}
@@ -51,12 +53,14 @@ export default function Header({ title }) {
         { renderSearchButton
           && (
             <button
-              data-testid="search-top-btn"
-              src={ searchIcon }
               onClick={ () => setShowSearchBar(!showSearchBar) }
               type="button"
             >
-              <img alt="Ícone de pesquisa" src={ searchIcon } />
+              <img
+                alt="Ícone de pesquisa"
+                data-testid="search-top-btn"
+                src={ searchIcon }
+              />
             </button>
           )}
         { showSearchBar && <SearchBar />}
