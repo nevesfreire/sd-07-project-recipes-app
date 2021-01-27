@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 
 import useLogin from '../hooks/useLogin';
-import '../style/login.css';
+import '../styles/login.css';
 
 function FormLogin() {
   const [email, password, route, getFilterEmail, handlerChangeLogin,

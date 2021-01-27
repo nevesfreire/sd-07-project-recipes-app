@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-import './Header.css';
+import '../styles/Header.css';
+import SearchBar from './SearchBar';
 
 function Header({ title, isSearchable }) {
   const [showSearch, setShowSearch] = useState(false);
@@ -21,6 +22,7 @@ function Header({ title, isSearchable }) {
       className="search"
     >
       <img
+        data-testid="search-top-btn"
         src={ searchIcon }
         alt="Search Icon"
       />
@@ -32,16 +34,15 @@ function Header({ title, isSearchable }) {
       <header>
         <Link
           to="/perfil"
-          data-testid="profile-top-btn"
           className="profile"
           tabIndex="-1"
         >
-          <img src={ profileIcon } alt="Profile Icon" />
+          <img src={ profileIcon } data-testid="profile-top-btn" alt="Profile Icon" />
         </Link>
-        <h1 className="title" data-test-id="page-title">{ title }</h1>
-        { isSearchable && renderSearchIcon() }
+        <h1 className="title" data-testid="page-title">{title}</h1>
+        {isSearchable && renderSearchIcon()}
       </header>
-      { showSearch && 'mostra a barra de busca'}
+      { showSearch && <SearchBar />}
     </div>
   );
 }
