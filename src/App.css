@@ -1,6 +1,15 @@
-.meals {
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap') ;
+
+* {
+  box-sizing: border-box;
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* .meals {
   align-items: center;
-  background: #0fa36b;
+  background: #ecf2fd;
   color: #464646;
   display: flex;
   flex-direction: column;
@@ -13,7 +22,7 @@
 .rocksGlass {
   animation: shake 1s infinite ease;
   max-height: 80vh;
-}
+} */
 
 /*
 #iceLeft {
@@ -29,16 +38,15 @@
 }
 */
 
-.meals > .logo {
+/* .meals > .logo {
   animation: shake 1.5s infinite ease;
   color: aliceblue;
-  font-family: Montserrat , sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 3em;
   font-weight: 900;
 }
 
 @keyframes shake {
-
   0% {
     transform: rotate(5deg);
   }
@@ -53,7 +61,6 @@
 }
 
 @keyframes clink {
-
   0% {
     transform: rotate(-10deg);
   }
@@ -65,4 +72,4 @@
   100% {
     transform: rotate(-10deg);
   }
-}
+} */
