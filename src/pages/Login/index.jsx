@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const history = useHistory();
 
   const HandleChange = ({ target }) => {
     if (target.name === 'email') {
@@ -22,15 +23,15 @@ function Login() {
   };
 
   const CheckLocalStorage = () => {
-    localStorage.setItem('mealsToken');
-    localStorage.setItem('cocktailsToken');
+    localStorage.setItem('mealsToken', '');
+    localStorage.setItem('cocktailsToken', '');
     const userEmail = email;
     const user = { email: userEmail };
     localStorage.setItem('user', JSON.stringify(user));
   };
 
   return (
-    <form>
+    <div>
       <label htmlFor="email">
         Email:
         <input
@@ -54,17 +55,17 @@ function Login() {
         />
       </label>
       <button
-        type="submit"
+        type="button"
         data-testid="login-submit-btn"
         disabled={ ValidateFields() }
-        onSubmit={ () => {
+        onClick={ () => {
           CheckLocalStorage();
-          return <Redirect to="/comidas" />;
-        } }
+          history.push('/comidas');
+        }}
       >
         Entrar
       </button>
-    </form>
+    </div>
   );
 }
 

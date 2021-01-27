@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import App from './App';
+import renderWithRouter from './renderWithRouter';
 
 describe('Login Page Tests', () => {
   it('Tests if the Login page, have email and password inputs and a Submit Button', ()=> {
@@ -41,34 +42,35 @@ describe('Login Page Tests', () => {
     expect(submit.disabled).toBe(false);
   });
 
-  // it('Checks if 2 tokens are saved on localStorage on Submit', () => {
-  //   const { getByTestId } = render(<App />);
-  //   fireEvent.change(getByTestId('email-input'), { target: { value: 'marcio@marcio.com'} });
-  //   fireEvent.change(getByTestId('password-input'), { target: { value: '123456'} });
-  //   localStorage.clear();
-  //   fireEvent.submit(getByTestId('login-submit-btn'));
-  //   const cocktailsToken = localStorage.getItem('cocktailsToken');
-  //   const mealsToken = localStorage.getItem('mealsToken');
-  //   expect(cocktailsToken).toBe('');
-  //   expect(mealsToken).toBe('');
-  // });
+  it('Checks if 2 tokens are saved on localStorage on Submit', () => {
+    const { getByTestId } = render(<App />);
+    fireEvent.change(getByTestId('email-input'), { target: { value: 'marcio@marcio.com'} });
+    fireEvent.change(getByTestId('password-input'), { target: { value: '123456'} });
+    localStorage.clear();
+    fireEvent.click(getByTestId('login-submit-btn'));
+    const cocktailsToken = localStorage.getItem('cocktailsToken');
+    const mealsToken = localStorage.getItem('mealsToken');
+    expect(cocktailsToken).toBe('');
+    expect(mealsToken).toBe('');
+  });
 
-  // it('Checks if the user email is saved on localStorage as specified', () => {
-  //   const { getByTestId } = render(<App />);
-  //   fireEvent.change(getByTestId('email-input'), { target: { value: 'marcio@marcio.com'} });
-  //   fireEvent.change(getByTestId('password-input'), { target: { value: '123456'} });
-  //   localStorage.clear();
-  //   fireEvent.submit(getByTestId('login-submit-btn'));
-  //   const user = localStorage.getItem('user');
-  //   expect(user).toBe('{ email: marcio@marcio.com }');
-  // });
+  it('Checks if the user email is saved on localStorage as specified', () => {
+    const { getByTestId } = render(<App />);
+    fireEvent.change(getByTestId('email-input'), { target: { value: 'marcio@marcio.com'} });
+    fireEvent.change(getByTestId('password-input'), { target: { value: '123456'} });
+    localStorage.clear();
+    fireEvent.click(getByTestId('login-submit-btn'));
+    const user = localStorage.getItem('user');
+    expect(user).toBe('{"email":"marcio@marcio.com"}');
+  });
 
-  // it('Tests if after form submition the application is redirected', () => {
-  //   const { getByTestId, history } = render(<App />);
-  //   fireEvent.change(getByTestId('email-input'), { target: { value: 'marcio@marcio.com'} });
-  //   fireEvent.change(getByTestId('password-input'), { target: { value: '123456'} });
-  //   localStorage.clear();
-  //   fireEvent.submit(getByTestId('login-submit-btn'));
-  //   expect(history).toBe('/comidas');
-  // });
+  it('Tests if after form submition the application is redirected', () => {
+    const { getByTestId, history } = renderWithRouter(<App />);
+    fireEvent.change(getByTestId('email-input'), { target: { value: 'marcio@marcio.com'} });
+    fireEvent.change(getByTestId('password-input'), { target: { value: '123456'} });
+    localStorage.clear();
+    fireEvent.click(getByTestId('login-submit-btn'));
+    const path = history.location.pathname;
+    expect(path).toBe('/comidas');
+  });
 });
