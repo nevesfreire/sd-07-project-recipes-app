@@ -1,3 +1,13 @@
+.footer {
+  background-color: grey;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  position: fixed;
+  width: 100%;
+}
+
 .meals {
   align-items: center;
   background: #0fa36b;

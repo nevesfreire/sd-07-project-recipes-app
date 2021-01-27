@@ -35,7 +35,6 @@ class Login extends Component {
 
   validaInput() {
     const { email, password } = this.state;
-    console.log(password.length);
     const number = 6;
     if (email.match(/\S+@\S+\.\S+/) && password.length > number) {
       this.setState({ buttonDisable: false });

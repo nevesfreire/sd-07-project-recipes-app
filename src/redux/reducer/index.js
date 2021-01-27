@@ -1,2 +1,3 @@
 export { default as loginReducer } from './loginReducer';
-export { default as umDiaUsaReducer } from './umDiaUsaReducer';
+export { default as foodRecipesReducer } from './foodRecipesReducer';
+export { default as drinkRecipesReducer } from './drinkRecipesReducer';
