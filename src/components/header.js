@@ -34,21 +34,21 @@ class Header extends Component {
     if (searchOn === 'on') {
       return (
         <header>
-          <button
-            type="button"
+          <input
+            type="image"
             data-testid="profile-top-btn"
+            src={ profileIcon }
+            alt="Imagem de perfil"
             onClick={ () => history.push('/perfil') }
-          >
-            <img src={ profileIcon } alt="Imagem de perfil" />
-          </button>
+          />
           <h3 data-testid="page-title">{title}</h3>
-          <button
-            type="button"
+          <input
+            type="image"
             data-testid="search-top-btn"
             onClick={ () => this.handleClick() }
-          >
-            <img src={ searchIcon } alt="Buscar" />
-          </button>
+            src={ searchIcon }
+            alt="Buscar"
+          />
           <div style={ { visibility: estilo } }>
             <Searchbar />
           </div>
@@ -57,13 +57,13 @@ class Header extends Component {
     }
     return (
       <header>
-        <button
-          type="button"
+        <input
+          type="image"
           data-testid="profile-top-btn"
+          src={ profileIcon }
+          alt="Imagem de perfil"
           onClick={ () => history.push('/perfil') }
-        >
-          <img src={ profileIcon } alt="Imagem de perfil" />
-        </button>
+        />
         <h3 data-testid="page-title">{title}</h3>
       </header>
     );
