@@ -1,14 +1,22 @@
-const mealUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 const drinkUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
-// categorias: https://www.themealdb.com/api/json/v1/1/list.php?c=list
-// areas: https://www.themealdb.com/api/json/v1/1/list.php?a=list
-// ingredientes: https://www.themealdb.com/api/json/v1/1/list.php?i=list
+const auxFunc = (term, type) => {
+  if (term && type) {
+    if (type === 'i') {
+      return `https://www.themealdb.com/api/json/v1/1/filter.php?${type}=${term}`;
+    } if (type === 'f' && term.length > 1) {
+      alert('Sua busca deve conter somente 1 (um) caracter');
+    } else {
+      return `https://www.themealdb.com/api/json/v1/1/search.php?${type}=${term}`;
+    }
+  }
+  return 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+};
 
-export const mealsAPI = async () => {
+export const mealsAPI = async (term, type) => {
+  const mealUrl = auxFunc(term, type);
   try {
     const response = await fetch(mealUrl);
     const dataMeal = await response.json();
-
     return dataMeal;
   } catch (error) {
     return error.message;
