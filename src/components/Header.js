@@ -1,14 +1,16 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import ProfileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
 function Header() {
-  const hasSearchIcon = useSelector((state) => state.hasSearchIcon);
-  console.log(hasSearchIcon);
+  const state = useSelector(({ header }) => header);
+  const { hasSearchIcon, pageTitle } = state;
+  const history = useHistory();
 
   const changePage = () => {
-
+    history.push('/perfil');
   };
 
   const renderIcon = () => {
@@ -16,7 +18,6 @@ function Header() {
       return (
         <button
           type="button"
-          onClick={ changePage }
         >
           <img
             data-testid="search-top-btn"
@@ -30,14 +31,17 @@ function Header() {
 
   return (
     <div>
-      <button type="button">
+      <button
+        type="button"
+        onClick={ changePage }
+      >
         <img
           data-testid="profile-top-btn"
           src={ ProfileIcon }
           alt="profile icon"
         />
       </button>
-      <h1 data-testid="page-title">Título</h1>
+      <h1 data-testid="page-title">{pageTitle}</h1>
       {renderIcon()}
     </div>
   );
