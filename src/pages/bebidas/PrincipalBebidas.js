@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../../components/header';
-import setLocal from '../../redux/action';
+import { setLocal } from '../../redux/action';
 
 class PrincipalBebidas extends Component {
   componentDidMount() {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { setReceitas } from '../redux/action';
 import {
   fetchFoodIngredient,
   fetchFoodName,
@@ -25,18 +26,19 @@ class Searchbar extends Component {
   }
 
   handleClick() {
-    const { local } = this.props;
+    const { local, setreceitas } = this.props;
     const { busca, inputValue } = this.state;
+    let object = {};
     switch (busca) {
     case 'ingredient':
-      fetchFoodIngredient(inputValue, local);
+      object = fetchFoodIngredient(inputValue, local);
       break;
     case 'name':
-      fetchFoodName(inputValue, local);
+      object = fetchFoodName(inputValue, local);
       break;
     case 'first-letter':
       if (inputValue.length === 1) {
-        fetchFoodLetter(inputValue, local);
+      object = fetchFoodLetter(inputValue, local);
       } else {
         alert('Sua busca deve conter somente 1 (um) caracter');
       }
@@ -44,6 +46,7 @@ class Searchbar extends Component {
     default:
       break;
     }
+    setReceitas(object);
   }
 
   render() {
@@ -106,6 +109,10 @@ class Searchbar extends Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  setreceitas: (object) => dispatch(setReceitas(object)),
+});
+
 const mapStateToProps = (state) => ({
   local: state.fastFood.tipo,
 });
@@ -114,4 +121,4 @@ Searchbar.propTypes = {
   local: PropTypes.string.isRequired,
 };
 
-export default connect(mapStateToProps)(Searchbar);
+export default connect(mapStateToProps, mapDispatchToProps)(Searchbar);
