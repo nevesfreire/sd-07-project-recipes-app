@@ -26,9 +26,9 @@
 
 .footer {
   background: #c4c4c4;
-  bottom: 0px;
+  bottom: 0;
   height: 58px;
-  left: 0px;
+  left: 0;
   position: fixed;
   width: 360px;
 }
