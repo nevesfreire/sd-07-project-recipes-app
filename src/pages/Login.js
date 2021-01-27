@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import LoginComp from '../components/LoginComp';
 import { useValideEmailAndPassword, useLocalStorage, useFetchApi } from '../hooks';
 import { SUBMIT_EMAIL } from '../reducers/userReducer';
 import { CupNodesContext } from '../contexts';
@@ -31,11 +30,49 @@ export default function Login({ history: { push } }) {
   };
 
   return (
-    <LoginComp
-      changeState={ changeState }
-      submitUser={ submitUser }
-      valid={ valid }
-    />);
+    <div>
+      <h3>Login</h3>
+      <div>
+        <label htmlFor="email-input">
+          Email:
+          <input
+            data-testid="email-input"
+            type="email"
+            onChange={ changeState }
+          />
+        </label>
+        <label htmlFor="password-input">
+          Senha:
+          <input
+            data-testid="password-input"
+            type="password"
+            onChange={ changeState }
+          />
+        </label>
+        {
+          valid
+            ? (
+              <button
+                type="submit"
+                data-testid="login-submit-btn"
+                onClick={ submitUser }
+              >
+                Entrar
+              </button>
+            )
+            : (
+              <button
+                type="submit"
+                data-testid="login-submit-btn"
+                disabled
+              >
+                Entrar
+              </button>
+            )
+        }
+      </div>
+    </div>
+  );
 }
 
 Login.propTypes = {
