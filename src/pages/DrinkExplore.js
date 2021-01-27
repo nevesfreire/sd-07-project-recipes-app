@@ -1,14 +1,24 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import Footer from '../components/Footer';
 import '../css/food.css';
 
 class DrinkExplore extends Component {
   render() {
+    const { history } = this.props;
     return (
       <div>
         Explorar Bebida
+        <Footer history={ history } />
       </div>
     );
   }
 }
 
 export default DrinkExplore;
+
+DrinkExplore.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
