@@ -34,9 +34,8 @@ function CardList({ arrayOfCard, typeOfCard }) {
 }
 
 CardList.propTypes = {
-  arrayOfCard: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
+  arrayOfCard: PropTypes.arrayOf(PropTypes.objectOf).isRequired,
   typeOfCard: PropTypes.string.isRequired,
-
 };
 
 export default CardList;
