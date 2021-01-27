@@ -1,9 +1,13 @@
 import React, { } from 'react';
 import Header from '../components/Header';
+import SearchHeaderBar from '../components/SearchHeaderBar';
 
 function Food() {
   return (
-    <Header />
+    <div>
+      <Header />
+      <SearchHeaderBar />
+    </div>
   );
 }
 
