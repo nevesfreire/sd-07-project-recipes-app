@@ -4,7 +4,8 @@ import {ReactComponent as SearchIcon} from '../images/searchIcon.svg';
 
 class Header extends React.Component {
   render() {
-    <div>
+    return(
+      <div>
       <button data-testid="profile-top-btn">
         <ProfileIcon />
       </button>
@@ -13,6 +14,7 @@ class Header extends React.Component {
         <SearchIcon />
       </button>
     </div>
+    )
   }
 }
 
