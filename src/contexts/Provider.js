@@ -21,5 +21,5 @@ export default function Provider({ children }) {
 }
 
 Provider.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.element).isRequired,
+  children: PropTypes.shape(PropTypes.element.isRequired).isRequired,
 };

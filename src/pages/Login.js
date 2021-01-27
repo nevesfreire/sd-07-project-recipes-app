@@ -11,21 +11,24 @@ export default function Login({ history: { push } }) {
   const { dispatchUser } = useContext(CupNodesContext);
   const [valid, verificationUser] = useValideEmailAndPassword();
   const [state, setState] = useState(initialState);
-  const [, setEmail] = useLocalStorage('user');
-  const [, setMealsToken] = useLocalStorage('mealsToken');
-  const [, setCocktailsToken] = useLocalStorage('cocktailsToken');
+  const [a, setStorage] = useLocalStorage(['user', 'mealsToken', 'cocktailsToken']);
 
   const changeState = ({ target: { type: key, value } }) => {
     setState({ ...state, [key]: value });
     verificationUser(state);
   };
 
+  const newLocalStorage = {
+    user: { email: state.email },
+    mealsToken: 1,
+    cocktailsToken: 1,
+  };
+  const action = { type: SUBMIT_EMAIL, payload: state.email };
   const submitUser = () => {
-    setEmail(state.email);
-    setMealsToken('1');
-    setCocktailsToken('1');
-    dispatchUser({ type: SUBMIT_EMAIL, payload: state.email });
+    setStorage(newLocalStorage);
+    dispatchUser(action);
     push('/comidas');
+    console.log(a);
   };
 
   return (
