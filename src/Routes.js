@@ -5,7 +5,6 @@ import Foods from './pages/Foods';
 import Profile from './pages/Profile';
 import Login from './pages/login';
 
-
 const Router = () => (
   <Switch>
     <Route path="/comidas" component={ Foods } />
