@@ -5,7 +5,6 @@ import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 
 function Header({title, explore}) {
-
   const [searchBar, setSearchBar] = useState(false)
 
   return (
