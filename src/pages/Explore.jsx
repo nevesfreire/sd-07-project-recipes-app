@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { CustomFooter } from '../components';
+import CustomExplore from '../components/CustomExplore';
 import CustomHeader from '../components/CustomHeader';
 
 export default class Explore extends Component {
@@ -7,6 +8,7 @@ export default class Explore extends Component {
     return (
       <div>
         <CustomHeader title="Explorar" />
+        <CustomExplore />
         <CustomFooter />
       </div>
     );

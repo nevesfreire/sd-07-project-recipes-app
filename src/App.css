@@ -76,3 +76,8 @@
     transform: rotate(-10deg);
   }
 }
+
+.link {
+  text-decoration: none;
+  color: #000;
+}
