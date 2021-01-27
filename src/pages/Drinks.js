@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { CustomSearchBar, CustomCardFood } from '../components';
-import getFoodRecipes from '../services/foodApi';
-import { updateFoodIsFetching } from '../redux/actions';
+import { CustomSearchBar, CustomCardDrink } from '../components';
+import getDrinkRecipes from '../services/drinkApi';
+import { updateDrinkIsFetching } from '../redux/actions';
 
-class Foods extends Component {
+class Drinks extends Component {
   constructor(props) {
     super(props);
 
@@ -31,43 +31,43 @@ class Foods extends Component {
   }
 
   async handleButtonClick() {
-    const { dispatchFoodRecipes } = this.props;
+    const { dispatchDrinkRecipes } = this.props;
     const { searchHeader } = this.state;
     const { searchRadio, searchInput } = searchHeader;
     if (searchRadio === 'f' && searchInput.length > 1) {
       return alert('Sua busca deve conter somente 1 (um) caracter');
     }
-    await dispatchFoodRecipes(searchHeader);
+    await dispatchDrinkRecipes(searchHeader);
   }
 
   handleRecipes() {
-    const { meals, isFetching } = this.props;
-    if (!meals.length && !isFetching) return this.renderAlertError();
-    if (meals.length === 1) return this.redirectToRecipeDetail();
+    const { drinks, isFetching } = this.props;
+    if (!drinks.length && !isFetching) return this.renderAlertError();
+    if (drinks.length === 1) return this.redirectToRecipeDetail();
     return this.renderRecipes();
   }
 
   redirectToRecipeDetail() {
-    const { meals } = this.props;
-    return <Redirect to={ `/comidas/${meals[0].idMeal}` } />;
+    const { drinks } = this.props;
+    return <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />;
   }
 
   renderAlertError() {
-    const { dispatchUpdateFoodIsFetching } = this.props;
-    dispatchUpdateFoodIsFetching();
+    const { dispatchUpdateDrinkIsFetching } = this.props;
+    dispatchUpdateDrinkIsFetching();
     return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   }
 
   renderRecipes() {
-    const { meals } = this.props;
+    const { drinks } = this.props;
     const LENGTH = 12;
     const INITIAL_LENGTH = 0;
-    const MAX_LENGTH = (meals.length > LENGTH) ? LENGTH : meals.length;
+    const MAX_LENGTH = (drinks.length > LENGTH) ? LENGTH : drinks.length;
     return (
       <div>
-        { meals.slice(INITIAL_LENGTH, MAX_LENGTH)
-          .map((meal, index) => (
-            <CustomCardFood key={ meal.idMeal } index={ index } meal={ meal } />)) }
+        { drinks.slice(INITIAL_LENGTH, MAX_LENGTH)
+          .map((drink, index) => (
+            <CustomCardDrink key={ drink.idDrink } index={ index } drink={ drink } />)) }
       </div>
     );
   }
@@ -87,23 +87,23 @@ class Foods extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  isFetching: state.foodRecipesReducer.isFetching,
-  meals: state.foodRecipesReducer.meals,
+  isFetching: state.drinkRecipesReducer.isFetching,
+  drinks: state.drinkRecipesReducer.drinks,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchFoodRecipes: (searchHeader) => dispatch(getFoodRecipes(searchHeader)),
-  dispatchUpdateFoodIsFetching: () => dispatch(updateFoodIsFetching()),
+  dispatchDrinkRecipes: (searchHeader) => dispatch(getDrinkRecipes(searchHeader)),
+  dispatchUpdateDrinkIsFetching: () => dispatch(updateDrinkIsFetching()),
 });
 
-Foods.propTypes = {
-  dispatchFoodRecipes: PropTypes.func.isRequired,
-  dispatchUpdateFoodIsFetching: PropTypes.func.isRequired,
+Drinks.propTypes = {
+  dispatchDrinkRecipes: PropTypes.func.isRequired,
+  dispatchUpdateDrinkIsFetching: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
-  meals: PropTypes.shape({
+  drinks: PropTypes.shape({
     length: PropTypes.number.isRequired,
     slice: PropTypes.func.isRequired,
   }).isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Foods);
+export default connect(mapStateToProps, mapDispatchToProps)(Drinks);
