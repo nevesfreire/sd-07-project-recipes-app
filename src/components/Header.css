@@ -6,9 +6,8 @@
 
 header {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-
   background-color: #c4c4c4;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .profile, .search {
