@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import saveDataLogin from '../services/localStorage';
 // import PropTypes from 'prop-types';
 
 function Login() {
@@ -28,6 +29,10 @@ function Login() {
     return true;
   }
 
+  function saveToken() {
+    saveDataLogin(email);
+  }
+
   return (
     <div>
       <form>
@@ -50,7 +55,7 @@ function Login() {
             type="button"
             data-testid="login-submit-btn"
             disabled={ verifyLogin() }
-            // onClick={ () =>  }
+            onClick={ () => saveToken() }
           >
             Entrar
           </button>
