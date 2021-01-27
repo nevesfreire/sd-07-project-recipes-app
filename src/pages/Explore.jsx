@@ -6,7 +6,7 @@ export default class Explore extends Component {
   render() {
     return (
       <div>
-        <CustomHeader title="Explorar" />
+        <CustomHeader title="Explorar" showSearchTopBtn={ false } />
         <CustomFooter />
       </div>
     );

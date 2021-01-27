@@ -9,6 +9,7 @@ export default function CustomHeader({
   // se nao passar nada como props renderiza o padrão
   route = '/perfil',
   title,
+  showSearchTopBtn = true,
 }) {
   const [show, setShow] = useState(false);
   const history = useHistory();
@@ -29,19 +30,24 @@ export default function CustomHeader({
       >
         <img src={ profile } alt="profile" />
       </button>
-      <button
-        type="button"
-        data-testid="search-top-btn"
-        onClick={ () => showSearchBar() }
-        src={ search }
-      >
-        <img src={ search } alt="buscar" />
-      </button>
-      { show && <CustomSearchBar title={ title } /> }
+      {showSearchTopBtn ? (
+        <div>
+          <button
+            type="button"
+            data-testid="search-top-btn"
+            onClick={ () => showSearchBar() }
+            src={ search }
+          >
+            <img src={ search } alt="buscar" />
+          </button>
+          {show && <CustomSearchBar title={ title } />}
+        </div>
+      ) : null}
     </header>
   );
 }
 CustomHeader.propTypes = {
   route: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  showSearchTopBtn: PropTypes.bool.isRequired,
 };

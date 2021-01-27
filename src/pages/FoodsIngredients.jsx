@@ -6,7 +6,11 @@ export default class FoodsIngredients extends Component {
   render() {
     return (
       <div>
-        <CustomHeader title="Explorar Comidas por ingredientes" />
+        <CustomHeader
+          title="
+          Explorar Ingredientes"
+          showSearchTopBtn={ false }
+        />
         <CustomFooter />
       </div>
     );
