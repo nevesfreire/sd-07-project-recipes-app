@@ -23,41 +23,41 @@ function Routes() {
       <Route exact path="/">
         <LoginPage />
       </Route>
-      <Route path="/comidas">
-        <FoodPage />
-      </Route>
-      <Route path="/bebidas">
-        <DrinkPage />
+      <Route path="/comidas/:id/in-progress">
+        <ProcessFoodPage />
       </Route>
       <Route path="/comidas/:id">
         <DetailFoodPage />
       </Route>
-      <Route path="/bebidas/:id">
-        <DetailDrinkPage />
-      </Route>
-      <Route path="/comidas/:id/in-progress">
-        <ProcessFoodPage />
+      <Route path="/comidas">
+        <FoodPage />
       </Route>
       <Route path="/bebidas/:id/in-progress">
         <ProcessDrinkPage />
       </Route>
-      <Route path="/explorar">
-        <ExplorePage />
+      <Route path="/bebidas/:id">
+        <DetailDrinkPage />
+      </Route>
+      <Route path="/bebidas">
+        <DrinkPage />
+      </Route>
+      <Route path="/explorar/comidas/ingredientes">
+        <ExploreFoodByIngredients />
+      </Route>
+      <Route path="/explorar/comidas/area">
+        <ExploreFoodByRegion />
       </Route>
       <Route path="/explorar/comidas">
         <ExploreFoodPage />
       </Route>
+      <Route path="/explorar/bebidas/ingredientes">
+        <ExploreDrinkByIngredients />
+      </Route>
       <Route path="/explorar/bebidas">
         <ExploreDrinkPage />
       </Route>
-      <Route path="/explorar/comidas/:ingredientes">
-        <ExploreFoodByIngredients />
-      </Route>
-      <Route path="/explorar/bebidas/:ingredientes">
-        <ExploreDrinkByIngredients />
-      </Route>
-      <Route path="/explorar/comidas/:area">
-        <ExploreFoodByRegion />
+      <Route path="/explorar">
+        <ExplorePage />
       </Route>
       <Route path="/perfil">
         <ProfilePage />
