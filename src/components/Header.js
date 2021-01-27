@@ -12,7 +12,7 @@ function Header({ title, toggle, toggleAction }) {
   return (
     <header>
       <div>
-        <Link to="/" data-testid="profile-top-btn">
+        <Link to="/perfil" data-testid="profile-top-btn">
           <img src={ ProfileIcon } alt="perfil" />
         </Link>
       </div>
