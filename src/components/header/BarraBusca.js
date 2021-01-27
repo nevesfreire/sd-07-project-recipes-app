@@ -30,7 +30,7 @@ class BarraBusca extends Component {
         <lable htmlFor="ingredient">
           Nome
           <input
-            name="ingredient"
+            name="select-search"
             id="ingredient"
             type="radio"
             data-testid="ingredient-search-radio"
@@ -39,15 +39,15 @@ class BarraBusca extends Component {
         <label htmlFor="name">
           Ingrediente
           <input
-            name="name"
+            name="select-search"
             type="radio"
             data-testid="name-search-radio"
           />
         </label>
         <label htmlFor="letter">
-          Primeria letra
+          Primeira letra
           <input
-            name="letter"
+            name="select-search"
             type="radio"
             data-testid="first-letter-search-radio"
           />
