@@ -5,7 +5,7 @@ function foodMeals(state = FOOD_INITIAL_STATE, action) {
   case 'REQUEST_FOOD':
     return { ...state, isFetching: true };
   case 'ADD_FOOD':
-    return { meals: action.food, isFetching: false };
+    return { meals: action.food.meals, isFetching: false };
   default:
     return state;
   }

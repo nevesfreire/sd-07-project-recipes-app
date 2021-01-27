@@ -11,7 +11,6 @@ export default function Login() {
   useEffect(() => {
     const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.+-]+\.com$/;
     const MIN_NUMBER = 6;
-    console.log('ala');
     if (
       regexEmail.test(String(email).toLowerCase())
       && password.length > MIN_NUMBER
