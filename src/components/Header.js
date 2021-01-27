@@ -1,17 +1,23 @@
 import React from 'react';
-import {ReactComponent as ProfileIcon} from '../images/profileIcon.svg';
-import {ReactComponent as SearchIcon} from '../images/searchIcon.svg';
+import ProfileIcon from '../images/profileIcon.svg';
+import searchIcon from '../images/searchIcon.svg';
 
 class Header extends React.Component {
   render() {
     return(
       <div>
-      <button data-testid="profile-top-btn">
-        <ProfileIcon />
+      <button type="button">
+        <img
+          data-testid="profile-top-btn"
+          src={ProfileIcon} alt="profile icon"
+        />
       </button>
       <h1 data-testid="page-title">Título</h1>
-      <button data-testid="search-top-btn">
-        <SearchIcon />
+      <button type="button">
+        <img
+          data-testid="search-top-btn"
+          src={searchIcon} alt="search icon"
+        />
       </button>
     </div>
     )

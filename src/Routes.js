@@ -24,10 +24,10 @@ function Routes() {
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
-      <Route path="/comidas" component={ Meals } />
-      <Route path="/bebidas" component={ Cocktails } />
-      <Route path={ `/comidas/${''}` } component={ MealDetails } />
-      <Route path={ `/bebidas/${''}` } component={ CocktailDetails } />
+      <Route exact path="/comidas" component={ Meals } />
+      <Route exact path="/bebidas" component={ Cocktails } />
+      <Route exact path={ `/comidas/${''}` } component={ MealDetails } />
+      <Route exact path={ `/bebidas/${''}` } component={ CocktailDetails } />
       <Route
         path={ `/comidas/${''}/in-progress` }
         component={ MealsInProgress }
