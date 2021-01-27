@@ -1,16 +1,68 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import {
+  fetchFoodIngredient,
+  fetchFoodName,
+  fetchFoodLetter,
+} from '../services';
 
 class Searchbar extends Component {
+  constructor() {
+    super();
+    this.state = {
+      busca: '',
+      inputValue: '',
+    };
+    this.handlechange = this.handlechange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handlechange({ target: { value, name } }) {
+    this.setState({
+      [name]: value,
+    });
+  }
+
+  handleClick() {
+    const { local } = this.props;
+    const { busca, inputValue } = this.state;
+    switch (busca) {
+    case 'ingredient':
+      fetchFoodIngredient(inputValue, local);
+      break;
+    case 'name':
+      fetchFoodName(inputValue, local);
+      break;
+    case 'first-letter':
+      if (inputValue.length === 1) {
+        fetchFoodLetter(inputValue, local);
+      } else {
+        alert('Sua busca deve conter somente 1 (um) caracter');
+      }
+      break;
+    default:
+      break;
+    }
+  }
+
   render() {
+    const { busca, inputValue } = this.state;
     return (
       <div>
         <input
+          onChange={ (event) => this.handlechange(event) }
+          name="inputValue"
           data-testid="search-input"
           type="text"
           placeholder="Busca"
+          value={ inputValue }
         />
         <label htmlFor="ingredient">
           <input
+            onChange={ (event) => this.handlechange(event) }
+            value="ingredient"
+            checked={ busca === 'ingredient' }
             name="busca"
             id="ingredient"
             type="radio"
@@ -20,6 +72,9 @@ class Searchbar extends Component {
         </label>
         <label htmlFor="name">
           <input
+            onChange={ (event) => this.handlechange(event) }
+            value="name"
+            checked={ busca === 'name' }
             name="busca"
             id="name"
             type="radio"
@@ -29,6 +84,9 @@ class Searchbar extends Component {
         </label>
         <label htmlFor="first-letter">
           <input
+            onChange={ (event) => this.handlechange(event) }
+            value="first-letter"
+            checked={ busca === 'first-letter' }
             name="busca"
             id="first-letter"
             type="radio"
@@ -39,6 +97,7 @@ class Searchbar extends Component {
         <button
           data-testid="exec-search-btn"
           type="button"
+          onClick={ () => this.handleClick() }
         >
           Buscar
         </button>
@@ -47,4 +106,12 @@ class Searchbar extends Component {
   }
 }
 
-export default Searchbar;
+const mapStateToProps = (state) => ({
+  local: state.fastFood.tipo,
+});
+
+Searchbar.propTypes = {
+  local: PropTypes.string.isRequired,
+};
+
+export default connect(mapStateToProps)(Searchbar);
