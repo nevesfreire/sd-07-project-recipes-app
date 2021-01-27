@@ -24,6 +24,11 @@ export default function Login() {
     validateEmailAndPassword();
   };
 
+  const handleSubmit = () => {
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+  };
+
   return (
     <div className="login-container">
       <label htmlFor="email">
@@ -48,6 +53,7 @@ export default function Login() {
         type="button"
         data-testid="login-submit-btn"
         disabled={ disabled }
+        onClick={ () => handleSubmit() }
       >
         Entrar
       </button>
