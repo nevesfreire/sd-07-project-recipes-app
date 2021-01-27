@@ -69,19 +69,19 @@
 
 .footer {
   bottom: 0;
-  display: flex;
   background-color: grey;
+  padding: 5px;
+  display: flex;
   justify-content: space-between;
   position: fixed;
-  padding: 5px;
   width: 100%;
 }
 
 .header {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   background-color: grey;
+  justify-content: space-between;
   padding: 5px;
   width: 100%;
 }
