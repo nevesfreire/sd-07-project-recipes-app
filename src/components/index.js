@@ -1,0 +1,3 @@
+export { default as BottomMenu } from './BottomMenu';
+export { default as Header } from './Header';
+export { default as SearchBar } from './SearchBar';
