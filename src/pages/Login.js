@@ -1,3 +1,4 @@
+import { Button, Form } from 'react-bootstrap';
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
@@ -21,35 +22,42 @@ function Login() {
   };
 
   return (
-    <form>
-      <input
-        type="email"
-        data-testid="email-input"
-        placeholder="Email"
-        name="email"
-        onChange={ (e) => setEmail(e.target.value) }
-      />
 
-      <input
-        type="password"
-        data-testid="password-input"
-        placeholder="Senha"
-        name="senha"
-        onChange={ (e) => setSenha(e.target.value) }
-      />
+    <Form>
+      <Form.Group controlId="formBasicEmail">
+
+        <Form.Control
+          type="email"
+          data-testid="email-input"
+          placeholder="Email"
+          name="email"
+          onChange={ (e) => setEmail(e.target.value) }
+        />
+      </Form.Group>
+
+      <Form.Group controlId="formBasicPassword">
+        <Form.Control
+          type="password"
+          data-testid="password-input"
+          placeholder="Senha"
+          name="senha"
+          onChange={ (e) => setSenha(e.target.value) }
+        />
+      </Form.Group>
 
       <Link to="/comidas">
-        <button
+        <Button
           type="button"
           data-testid="login-submit-btn"
           disabled={ isDisabled() }
           onClick={ handleEntrarButton }
+          variant="success"
         >
           Entrar
-        </button>
+        </Button>
       </Link>
+    </Form>
 
-    </form>
   );
 }
 
