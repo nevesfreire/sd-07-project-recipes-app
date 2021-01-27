@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Redirect } from 'react-router-dom';
 import RecipesContext from '../../context/RecipesContext';
 import './Login.css';
 
@@ -31,10 +32,19 @@ export default function Login() {
     const user = { email: login.email };
 
     localStorage.setItem('user', JSON.stringify(user));
+
+    setLogin({ ...login, redirect: true });
   };
 
   return (
     <div className="login-container">
+
+      {
+        login.redirect
+          ? <Redirect to="/comidas" />
+          : null
+      }
+
       <label htmlFor="email">
         E-mail:
         <input
