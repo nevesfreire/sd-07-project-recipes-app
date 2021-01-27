@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Header } from '../../components';
+import { Header, Footer } from '../../components';
 
 export default function ExploreDrinks({ history }) {
   return (
-    <Header history={ history } title="Explorar Bebidas" />
+    <div>
+      <Header history={ history } title="Explorar Bebidas" />
+      <Footer />
+    </div>
   );
 }
 

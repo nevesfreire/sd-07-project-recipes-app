@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import RecipesContext from '../../context/RecipesContext';
-import fetchingFoods from '../../services/mandaFoods';
+import { fetchingFoods } from '../../services/mandaFoods';
 import '../../App.css';
 
 export default function SearchBar() {
