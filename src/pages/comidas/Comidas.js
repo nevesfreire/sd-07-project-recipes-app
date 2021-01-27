@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Header from '../../components/Header/Header';
-import BarraBusca from '../../components/Header/BarraBusca';
+import {
+  Header,
+  BarraBusca } from '../../components/header';
 
 class Comidas extends Component {
   render() {
