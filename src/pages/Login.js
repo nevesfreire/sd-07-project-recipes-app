@@ -23,7 +23,7 @@ class Login extends Component {
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
     const emailInfo = JSON.stringify({ email });
-    localStorage.setItem('use', emailInfo);
+    localStorage.setItem('user', emailInfo);
     history.push('/comidas');
   }
 
