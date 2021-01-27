@@ -1,5 +1,4 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
 import renderWithRouter from '../renderWithRouter';
 import App from '../App';
 
@@ -11,9 +10,9 @@ describe('Testa App.js', () => {
   });
 
   test('Crie um local para que o usuário insira seu email e senha', () => {
-    renderWithRouter(<App />, '/');
-    const email = screen.getByTestId('email-input');
-    const senha = screen.getByTestId('password-input');
+    const { getByTestId } = renderWithRouter(<App />, '/');
+    const email = getByTestId('email-input');
+    const senha = getByTestId('password-input');
 
     expect(email).toBeInTheDocument();
     expect(senha).toBeInTheDocument();
