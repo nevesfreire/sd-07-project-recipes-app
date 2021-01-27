@@ -1,0 +1,14 @@
+import React, { Component } from 'react';
+import '../css/food.css';
+
+class DrinkInProgress extends Component {
+  render() {
+    return (
+      <div>
+        Drink in progress
+      </div>
+    );
+  }
+}
+
+export default DrinkInProgress;
