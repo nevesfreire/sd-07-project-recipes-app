@@ -1,10 +1,14 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import RecipeContext from './context/RecipeContext';
-import { InitialExplore, Explore, ExploreIngredients } from './pages';
+import { Comidas,
+  Bebidas,
+  InitialExplore,
+  Explore,
+  ExploreIngredients,
+  RecipeDetails,
+  Profile } from './pages';
 import Login from './pages/Login';
-import Comidas from './pages/Comidas';
-import Bebidas from './pages/Bebidas';
 import './App.css';
 import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -19,9 +23,20 @@ function App() {
             <Route exact path="/" component={ Login } />
             <Route exact path="/comidas" component={ Comidas } />
             <Route exact path="/bebidas" component={ Bebidas } />
+            <Route
+              exact
+              path="/comidas/:id"
+              render={ (props) => <RecipeDetails { ...props } /> }
+            />
+            <Route
+              exact
+              path="/bebidas/:id"
+              render={ (props) => <RecipeDetails { ...props } /> }
+            />
             <Route exact path="/explorar" component={ InitialExplore } />
             <Route exact path="/explorar/comidas" component={ Explore } />
             <Route exact path="/explorar/bebidas" component={ Explore } />
+            <Route exact path="/perfil" component={ Profile } />
             <Route
               exact
               path="/explorar/comidas/ingredientes"
