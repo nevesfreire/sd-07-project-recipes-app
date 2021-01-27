@@ -7,8 +7,8 @@ function Header({ title, hideSearchIcon }) {
   const [showSearchBar, setShowSearchBar] = useState(false);
   return (
     <header className="header">
-      <a data-testid="profile-top-btn" href="/perfil" src={profileIcon}>
-        <img src={profileIcon} alt="profile icon" />
+      <a data-testid="profile-top-btn" href="/perfil" src={ profileIcon }>
+        <img src={ profileIcon } alt="profile icon" />
       </a>
       <h1 data-testid="page-title">{title}</h1>
       {!JSON.parse(hideSearchIcon) && (
@@ -16,10 +16,10 @@ function Header({ title, hideSearchIcon }) {
           className="header-button"
           data-testid="search-top-btn"
           type="button"
-          src={searchIcon}
-          onClick={() => setShowSearchBar(!showSearchBar)}
+          src={ searchIcon }
+          onClick={ () => setShowSearchBar(!showSearchBar) }
         >
-          <img src={searchIcon} alt="search icon" />
+          <img src={ searchIcon } alt="search icon" />
         </button>
       )}
       {showSearchBar && (
@@ -30,7 +30,8 @@ function Header({ title, hideSearchIcon }) {
             id="search"
             name="search"
             placeholder="Digite Aqui"
-          /><br />
+          />
+          <br />
           <label htmlFor="ingredient">
             Ingredient
             <input

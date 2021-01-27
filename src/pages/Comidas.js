@@ -7,7 +7,7 @@ function Comidas() {
     <div>
       <Header title="Comidas" hideSearchIcon="false" />
 
-      <Footer/>
+      <Footer />
     </div>
   );
 }

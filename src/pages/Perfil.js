@@ -7,7 +7,7 @@ function Perfil() {
     <div>
       <Header title="Perfil" hideSearchIcon="true" />
 
-    <Footer />
+      <Footer />
     </div>
   );
 }

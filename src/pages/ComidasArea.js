@@ -5,9 +5,9 @@ import Footer from '../components/Footer';
 function ComidasArea() {
   return (
     <div>
-    <Header title="Explorar Origem" hideSearchIcon="false" />
+      <Header title="Explorar Origem" hideSearchIcon="false" />
 
-    <Footer />
+      <Footer />
     </div>
   );
 }

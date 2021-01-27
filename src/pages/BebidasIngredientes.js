@@ -5,9 +5,9 @@ import Footer from '../components/Footer';
 function BebidasIngredientes() {
   return (
     <div>
-    <Header title="Explorar Ingredientes" hideSearchIcon="true" />
-    
-    <Footer />
+      <Header title="Explorar Ingredientes" hideSearchIcon="true" />
+
+      <Footer />
     </div>
   );
 }
