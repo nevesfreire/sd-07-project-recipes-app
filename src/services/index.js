@@ -3,8 +3,9 @@ async function fetchFoodIngredient(ingredient, tipo) {
   if (tipo === 'comidas') {
     url = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
   }
-  const data = await fetch(url).then((response) => response.json());
-  return data;
+  const response = await fetch(url);
+  const responsejeson = await response.json();
+  return responsejeson;
 }
 
 async function fetchFoodName(nome, tipo) {
@@ -12,8 +13,9 @@ async function fetchFoodName(nome, tipo) {
   if (tipo === 'comidas') {
     url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${nome}`;
   }
-  const data = await fetch(url).then((response) => response.json());
-  return data;
+  const response = await fetch(url);
+  const responsejeson = await response.json();
+  return responsejeson;
 }
 
 async function fetchFoodLetter(letter, tipo) {
@@ -21,8 +23,9 @@ async function fetchFoodLetter(letter, tipo) {
   if (tipo === 'comidas') {
     url = `https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`;
   }
-  const data = await fetch(url).then((response) => response.json());
-  return data;
+  const response = await fetch(url);
+  const responsejeson = await response.json();
+  return responsejeson;
 }
 
 export {

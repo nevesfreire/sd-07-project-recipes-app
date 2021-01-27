@@ -25,20 +25,20 @@ class Searchbar extends Component {
     });
   }
 
-  handleClick() {
+  async handleClick() {
     const { local, setreceitas } = this.props;
     const { busca, inputValue } = this.state;
     let object = {};
     switch (busca) {
     case 'ingredient':
-      object = fetchFoodIngredient(inputValue, local);
+      object = await fetchFoodIngredient(inputValue, local);
       break;
     case 'name':
-      object = fetchFoodName(inputValue, local);
+      object = await fetchFoodName(inputValue, local);
       break;
     case 'first-letter':
       if (inputValue.length === 1) {
-        object = fetchFoodLetter(inputValue, local);
+        object = await fetchFoodLetter(inputValue, local);
       } else {
         alert('Sua busca deve conter somente 1 (um) caracter');
       }
@@ -46,6 +46,7 @@ class Searchbar extends Component {
     default:
       break;
     }
+    console.log(object);
     setreceitas(object);
   }
 
@@ -119,6 +120,7 @@ const mapStateToProps = (state) => ({
 
 Searchbar.propTypes = {
   local: PropTypes.string.isRequired,
+  setreceitas: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Searchbar);
