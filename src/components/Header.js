@@ -35,6 +35,7 @@ function Header() {
         src={ searchIcon }
         alt="profile icon"
         data-testid="search-top-btn"
+        id="searchBtn"
       />
     </div>
   );
