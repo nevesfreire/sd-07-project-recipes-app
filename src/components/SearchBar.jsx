@@ -1,4 +1,3 @@
-/* eslint-disable no-alert */
 import React from 'react';
 import PropTypes from 'prop-types';
 import apiTheCocktailDB from '../services/apiTheCocktailDB';
