@@ -1,6 +1,5 @@
-body {
-  align-items: center;
-  background: #0fa36b;
+.main {
+  background: #baf0db;
   color: #464646;
   display: flex;
   flex-direction: column;
@@ -10,10 +9,31 @@ body {
   width: 100%;
 }
 
-.rocksGlass {
+button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.footer {
+  background: lightgrey;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  width: 100%;
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* .rocksGlass {
   animation: shake 1s infinite ease;
   max-height: 80vh;
-}
+} */
 
 /*
 #iceLeft {
@@ -29,14 +49,15 @@ body {
 }
 */
 
-.meals > .logo {
+/* .meals > .logo {
   animation: shake 1.5s infinite ease;
   color: aliceblue;
   font-family: Montserrat , sans-serif;
   font-size: 3em;
   font-weight: 900;
-}
+} */
 
+/*
 @keyframes shake {
 
   0% {
@@ -65,4 +86,4 @@ body {
   100% {
     transform: rotate(-10deg);
   }
-}
+} */
