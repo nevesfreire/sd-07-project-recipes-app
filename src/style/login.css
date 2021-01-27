@@ -1,0 +1,31 @@
+.form-login {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 20%;
+}
+
+.form-login h1 {
+  margin: auto;
+  margin-bottom: 30px;
+  margin-top: 20px;
+}
+
+.form-login input {
+  font-size: 15pt;
+  margin-top: 20px;
+}
+
+.form-login button {
+  background-color: #be1003;
+  border: none;
+  color: aliceblue;
+  display: flex;
+  font-size: 15pt;
+  justify-content: center;
+  margin: auto;
+  margin-top: 70px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  width: 100%;
+}

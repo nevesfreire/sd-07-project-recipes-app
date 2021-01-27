@@ -4,16 +4,24 @@ import FoodAppContext from './FoodAppContext';
 import { mealsAPI, drinksAPI } from '../services';
 
 function Provider({ children }) {
-  const [mealsData, setMealsData] = useState({});
-  const [drinksData, setDrinksData] = useState({});
+  const [mealsData, setMealsData] = useState([]);
+  const [drinksData, setDrinksData] = useState([]);
   const getMealsDrinks = async () => {
     const { meals } = await mealsAPI();
     const { drinks } = await drinksAPI();
     setMealsData(meals);
     setDrinksData(drinks);
   };
-  useEffect(() => { getMealsDrinks(); }, []);
-  const context = { mealsData, drinksData };
+
+  useEffect(() => {
+    getMealsDrinks();
+  }, []);
+
+  const context = {
+    mealsData,
+    drinksData,
+  };
+
   return (
     <FoodAppContext.Provider value={ context }>
       { children }
@@ -22,7 +30,11 @@ function Provider({ children }) {
 }
 
 Provider.propTypes = {
-  children: PropTypes.shape().isRequired,
+  children: PropTypes.shape({}),
+};
+
+Provider.defaultProps = {
+  children: {},
 };
 
 export default Provider;
