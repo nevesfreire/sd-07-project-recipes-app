@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Foods from './pages/Foods';
 import Profile from './pages/Profile';
+import Login from './pages/login/Login';
 
 const Router = () => (
   <Switch>
@@ -20,7 +21,7 @@ const Router = () => (
     <Route path="/perfil" component={ Profile } />
     {/* <Route path="/receitas-feitas" component={ RecipesDone } /> */}
     {/* <Route path="/receitas-favoritas" component={ Favourites } /> */}
-    {/* <Route exact path="/" component={ Login } /> */}
+    <Route exact path="/" component={ Login } />
   </Switch>
 );
 
