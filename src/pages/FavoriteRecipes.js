@@ -5,7 +5,7 @@ class FavoriteRecipes extends React.Component {
   render() {
     return (
       <Header />
-    )
+    );
   }
 }
 

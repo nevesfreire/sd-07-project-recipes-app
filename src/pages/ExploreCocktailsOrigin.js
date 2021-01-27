@@ -5,7 +5,7 @@ class ExploreCocktailsOrigin extends React.Component {
   render() {
     return (
       <Header />
-    )
+    );
   }
 }
 

@@ -5,7 +5,7 @@ class DoneRecipes extends React.Component {
   render() {
     return (
       <Header />
-    )
+    );
   }
 }
 

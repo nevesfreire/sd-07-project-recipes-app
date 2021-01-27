@@ -5,7 +5,7 @@ class Meals extends React.Component {
   render() {
     return (
       <Header />
-    )
+    );
   }
 }
 

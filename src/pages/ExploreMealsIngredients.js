@@ -5,7 +5,7 @@ class ExploreMealsIngredients extends React.Component {
   render() {
     return (
       <Header />
-    )
+    );
   }
 }
 

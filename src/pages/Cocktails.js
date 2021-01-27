@@ -5,7 +5,7 @@ class Cocktails extends React.Component {
   render() {
     return (
       <Header />
-    )
+    );
   }
 }
 

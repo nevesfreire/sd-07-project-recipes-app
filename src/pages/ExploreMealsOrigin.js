@@ -5,7 +5,7 @@ class ExploreMealsOrigin extends React.Component {
   render() {
     return (
       <Header />
-    )
+    );
   }
 }
 

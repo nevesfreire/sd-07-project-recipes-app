@@ -5,7 +5,7 @@ class ExploreCocktails extends React.Component {
   render() {
     return (
       <Header />
-    )
+    );
   }
 }
 

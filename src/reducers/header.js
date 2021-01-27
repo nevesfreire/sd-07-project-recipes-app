@@ -4,7 +4,7 @@ import {
 
 const INITIAL_STATE = {
   hasSearchIcon: true,
-}
+};
 
 const header = (state = INITIAL_STATE, action) => {
   switch (action.type) {
