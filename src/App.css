@@ -1,11 +1,11 @@
 .footer {
-  position: fixed;
+  background-color: grey;
   bottom: 0px;
-  width: 100%;
   display: flex;
   justify-content: space-between;
-  background-color: grey;
   padding: 5px;
+  position: fixed;
+  width: 100%;
 }
 
 .meals {
