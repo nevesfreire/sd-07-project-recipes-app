@@ -34,7 +34,7 @@ const checkFirstTwelveRecipes = (recipes, meal = true) => {
   cy.get('[data-testid="12-card-name"]').should('not.exist');
 };
 
-describe.skip('25 - Implemente os elementos da tela principal de receitas respeitando os atributos descritos no protótipo', () => {
+describe('25 - Implemente os elementos da tela principal de receitas respeitando os atributos descritos no protótipo', () => {
   it('A tela tem os data-testids de todos os 12 cards da tela de comidas', () => {
     cy.visit('http://localhost:3000/comidas', {
       onBeforeLoad(win) {
@@ -73,7 +73,7 @@ describe.skip('25 - Implemente os elementos da tela principal de receitas respei
   });
 });
 
-describe.skip('26 - Carregue as 12 primeiras receitas de comidas ou bebidas, uma em cada card', () => {
+describe('26 - Carregue as 12 primeiras receitas de comidas ou bebidas, uma em cada card', () => {
   it('Caso as receitas sejam de comida, deve-se carregar as 12 primeiras receitas', () => {
     cy.visit('http://localhost:3000/comidas', {
       onBeforeLoad(win) {
