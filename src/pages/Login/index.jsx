@@ -27,6 +27,10 @@ export default function Login() {
   const handleSubmit = () => {
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
+
+    const user = { email: login.email };
+
+    localStorage.setItem('user', JSON.stringify(user));
   };
 
   return (
