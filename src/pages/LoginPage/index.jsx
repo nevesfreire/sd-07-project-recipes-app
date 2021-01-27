@@ -14,7 +14,7 @@ function Login() {
   };
 
   const ValidateFields = () => {
-    const re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    const re = /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/;
     const minLength = 6;
     if (re.test(email) && password.length > minLength) {
       return false;
@@ -23,8 +23,8 @@ function Login() {
   };
 
   const CheckLocalStorage = () => {
-    localStorage.setItem('mealsToken', '');
-    localStorage.setItem('cocktailsToken', '');
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
     const userEmail = email;
     const user = { email: userEmail };
     localStorage.setItem('user', JSON.stringify(user));
