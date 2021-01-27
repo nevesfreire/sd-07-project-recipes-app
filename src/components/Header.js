@@ -6,7 +6,7 @@ import searchIcon from '../images/searchIcon.svg';
 function Header({ title, hideSearchIcon }) {
   const [showSearchBar, setShowSearchBar] = useState(false);
   return (
-    <header>
+    <header className="header">
       <a data-testid="profile-top-btn" href="/perfil" src={ profileIcon }>
         <img src={ profileIcon } alt="profile icon" />
       </a>
