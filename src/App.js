@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import './App.css';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -7,16 +7,37 @@ import { initialize } from './services/localStorage';
 import { Provider } from './context/Provider';
 
 import Login from './pages/Login';
+import Explore from './pages/Explore';
+import Recipes from './pages/Recipes';
+import Details from './pages/Details';
+import Progress from './pages/Progress';
+import Profile from './pages/Profile';
 
 function App() {
   useEffect(initialize, []);
   return (
     <Provider>
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/" component={ Login } />
-        </Switch>
-      </BrowserRouter>
+      <Switch>
+        <Route path="/receitas-feitas" component={ Recipes } />
+        <Route path="/receitas-favoritas" component={ Recipes } />
+        <Route
+          path="/explorar/comidas/area"
+          render={ (props) => <Explore { ...props } search /> }
+        />
+        <Route path="/explorar/comidas/ingredientes" component={ Explore } />
+        <Route path="/explorar/bebidas/ingredientes" component={ Explore } />
+        <Route path="/explorar/comidas" component={ Explore } />
+        <Route path="/explorar/bebidas" component={ Explore } />
+        <Route path="/explorar" component={ Explore } />
+        <Route path="/comidas/:id/in-progress" component={ Progress } />
+        <Route path="/comidas/:id" component={ Details } />
+        <Route path="/comidas" render={ (props) => <Recipes { ...props } search /> } />
+        <Route path="/bebidas/:id/in-progress" component={ Progress } />
+        <Route path="/bebidas/:id" component={ Details } />
+        <Route path="/bebidas" render={ (props) => <Recipes { ...props } search /> } />
+        <Route path="/perfil" component={ Profile } />
+        <Route exact path="/" component={ Login } />
+      </Switch>
     </Provider>
   );
 }

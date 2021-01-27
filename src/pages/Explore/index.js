@@ -1,19 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import Header from '../../components/Header';
 
-function Profile({ history, search = false }) {
+function Explore({ history, search = false }) {
   return (
     <>
       <Header history={ history } search={ search } />
-      <p>Profile</p>
+      <p>Explore</p>
     </>
   );
 }
 
-Profile.defaultProps = { search: false };
+Explore.defaultProps = { search: false };
 
-Profile.propTypes = {
+Explore.propTypes = {
   search: PropTypes.bool,
   history: PropTypes.shape({
     location: PropTypes.shape({
@@ -22,4 +23,4 @@ Profile.propTypes = {
   }).isRequired,
 };
 
-export default Profile;
+export default Explore;
