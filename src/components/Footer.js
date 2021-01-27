@@ -1,10 +1,10 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
-import drinkIcon from "../images/drinkIcon.svg";
-import exploreIcon from "../images/exploreIcon.svg";
-import mealIcon from "../images/mealIcon.svg";
-import "./footer.css";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import drinkIcon from '../images/drinkIcon.svg';
+import exploreIcon from '../images/exploreIcon.svg';
+import mealIcon from '../images/mealIcon.svg';
+import './footer.css';
 
 function Footer() {
   return (
