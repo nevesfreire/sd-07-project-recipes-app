@@ -14,7 +14,7 @@ function Login() {
 
   function verifyPassword() {
     const SIX = 6;
-    const validatePassword = password.length >= SIX;
+    const validatePassword = password.length > SIX;
     return validatePassword;
   }
 
