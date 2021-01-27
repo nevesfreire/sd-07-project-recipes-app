@@ -21,7 +21,7 @@ function Footer() {
           data-testid="explore-bottom-btn"
         />
       </Link>
-      <Link to="/listaComidas">
+      <Link to="/bebidas">
         <img
           src={ mealIcon }
           alt="meal-icon"
