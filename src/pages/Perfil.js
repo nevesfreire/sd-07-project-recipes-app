@@ -1,14 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-class Profile extends React.Component {
+class Perfil extends React.Component {
   render() {
     const { history } = this.props;
     const emailLocal = JSON.parse(localStorage.getItem('user'));
 
     return (
       <div className="profile">
+        <Header pageTitle="Perfil" />
         <h1>Perfil</h1>
         <h4 data-testid="profile-email">{emailLocal.email}</h4>
         <button
@@ -38,9 +40,9 @@ class Profile extends React.Component {
   }
 }
 
-export default Profile;
+export default Perfil;
 
-Profile.propTypes = {
+Perfil.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
