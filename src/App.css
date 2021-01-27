@@ -15,6 +15,15 @@
   max-height: 80vh;
 }
 
+.footer {
+  border: 1px solid #030303;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  width: 100%;
+}
+
 /*
 #iceLeft {
   animation: clink .8s infinite ease;
