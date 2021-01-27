@@ -1,10 +1,10 @@
 .header-food-container {
-background: #C4C4C4;
-display: flex;
-flex-flow: row nowrap;
-height: 58px;
-justify-content: space-around;
-width: 100%;
+  background: #c4c4c4;
+  display: flex;
+  flex-flow: row nowrap;
+  height: 58px;
+  justify-content: space-around;
+  width: 100%;
 }
 
 .search-food-container {

@@ -130,7 +130,7 @@ describe('10 - Implemente um ícone para a tela de perfil, um título e um ícon
   });
 });
 
-describe.only('11 - Redirecione a pessoa usuária para a tela de perfil ao clicar no botão de perfil', () => {
+describe('11 - Redirecione a pessoa usuária para a tela de perfil ao clicar no botão de perfil', () => {
   it('A mudança de tela ocorre corretamente', () => {
     cy.visit('http://localhost:3000/comidas');
 
@@ -147,7 +147,7 @@ describe('12 - Desenvolva o botão de busca que, ao ser clicado, a barra de busc
     cy.visit('http://localhost:3000/comidas');
 
     cy.get('[data-testid="search-input"]').should('not.exist');
-
+    display: none;
     cy.get('[data-testid="search-top-btn"]').click();
 
     cy.get('[data-testid="search-input"]');
