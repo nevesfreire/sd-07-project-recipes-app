@@ -1,9 +1,10 @@
 import React from 'react';
+import Footer from '../components/Footer';
 
 export default function ComidasLocal() {
   return (
     <div>
-      Local
+      <Footer />
     </div>
   );
 }
