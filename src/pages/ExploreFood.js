@@ -7,6 +7,7 @@ import { addRecipes, addFoodRecipes } from '../redux/actions/searchRecipes';
 
 import Footer from '../components/Footer';
 
+// eslint-disable-next-line max-lines-per-function
 function ExploreFood(props) {
   const { history: { location: { pathname } }, pageConfig,
     foodRecipes, isLoading, dispatchInitialRecipes, dispatchRecipes } = props;
@@ -23,7 +24,8 @@ function ExploreFood(props) {
       dispatchInitialRecipes();
     }
   }, []);
-
+// o caminho vamos precisar por causa dos testes, pois cada página o Header tera um comportamento diferente.
+// entendi... estou procurando o título da página... pelo que vi tem que estar ligado ao pathname?//um min
   return (
     <div>
       <Header pathname={ pathname } componentConfig={ header } />
