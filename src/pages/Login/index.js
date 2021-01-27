@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
+import './styles.css';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -16,32 +17,41 @@ export default function Login() {
       && password.length > MIN_NUMBER
     ) {
       setisValid(true);
+      if (isClicked) {
+        localStorage.setItem('mealsToken', 1);
+        localStorage.setItem('cocktailsToken', 1);
+        localStorage.setItem('user', JSON.stringify({ email }));
+      }
+    } else {
+      setisValid(false);
     }
-    localStorage.setItem('mealsToken', 1);
-    localStorage.setItem('cocktailsToken', 1);
-    localStorage.setItem('user', JSON.stringify({ email }));
-  }, [email, password]);
+  }, [email, password, isClicked]);
 
   return (
-    <div>
-      <form>
+    <div className="form-wrapper">
+      <form className="form-login">
         <input
           onChange={ (e) => setEmail(e.target.value) }
-          type="text"
+          type="email"
           data-testid="email-input"
+          placeholder="Email"
+          className="form-input"
         />
         <input
           onChange={ (e) => setPassword(e.target.value) }
           type="password"
           data-testid="password-input"
+          placeholder="Password"
+          className="form-input"
         />
         <button
           type="button"
           data-testid="login-submit-btn"
           disabled={ !isValid }
           onClick={ () => setisClicked(true) }
+          className="form-button"
         >
-          Entrar
+          ENTRAR
         </button>
         {isClicked && <Redirect to="/comidas" />}
       </form>

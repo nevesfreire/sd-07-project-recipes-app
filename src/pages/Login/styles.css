@@ -1,0 +1,38 @@
+.form-wrapper {
+  padding: 30px 40px;
+  background-color: white;
+  border-radius: 16px;
+}
+
+.form-login {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-input {
+  margin: 4px 0;
+  padding: 8px 8px;
+  font-size: 16px;
+  border: 1px solid #dbe1ec;
+  
+  border-radius: 6px;
+}
+.form-input::-webkit-input-placeholder {color: #868f9e;}
+.form-button {
+    background-color: rgb(17, 85, 233);
+    color:white;
+
+    font-weight: bold;
+    font-size: 16px;
+
+    margin-top: 16px;
+    padding:8px 6px;
+    border: 1px solid rgb(5, 68, 202);
+    border-radius: 6px;
+}
+
+.form-button:disabled{
+    color:rgb(115, 122, 139);
+    background-color: rgb(45, 53, 71);
+    border: 1px solid rgb(18, 21, 27);
+}
