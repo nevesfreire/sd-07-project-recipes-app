@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import React from 'react';
 import PropTypes from 'prop-types';
 import apiTheCocktailDB from '../services/apiTheCocktailDB';
@@ -67,15 +68,7 @@ class SearchBar extends React.Component {
 
   renderResults() {
     const { meals, drinks } = this.state;
-    if (meals) {
-      return (
-        meals.map((item) => (
-          <div key={ item.idMeal }>
-            <p>{item.strMeal}</p>
-            <img src={ item.strMealThumb } alt="thumbMeal" />
-          </div>))
-      );
-    }
+    console.log(meals, drinks);
   }
 
   render() {
@@ -129,7 +122,6 @@ class SearchBar extends React.Component {
         >
           Buscar
         </button>
-        {this.renderResults()}
       </div>
     );
   }
