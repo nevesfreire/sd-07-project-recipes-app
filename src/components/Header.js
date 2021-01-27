@@ -1,70 +1,77 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import SearchRecipes from './SearchRecipes';
 
 // eslint-disable-next-line max-lines-per-function
-function Header(props) {
+export default function Header({ pathname, componentConfig }) {
+  const [toggleSearch, setToggleSearch] = useState(false);
   const { title, profileButton, searchButton } = props;
 
-  const renderProfileTopBtn = () => (
-    <div>
-      { profileButton
-        ? (
-          <Link to="/perfil">
-            <img src={ profileIcon } alt="profileIcon" data-testid="profile-top-btn" />
-          </Link>
-        )
-        : null }
-    </div>
-  );
+  const renderProfileTopBtn = () => {
+    if (profileButton) {
+      return (
+        <Link to="/perfil" replace>
+          <button type="button">
+            <img
+              src={ profileIcon }
+              alt="profile-icon"
+              data-testid="profile-top-btn"
+            />
+          </button>
+        </Link>
+      );
+    }
+  };
 
   const renderPageTitle = () => (
-    <div>
-      <h1 data-testid="page-title">{title}</h1>
-    </div>
+
+    <h1 data-testid="page-title">{title}</h1>
+
   );
 
-  const renderSearchTopBtn = () => (
-    <div>
-      { searchButton
-        ? (
-          <div>
-            <button type="button" onClick={ (e) => showHeaderSerchBar(e) }>
-              <img
-                src={ searchIcon }
-                alt="searchIcon"
-                data-testid="search-top-btn"
-              />
-            </button>
-          </div>
-        )
-        : null }
-    </div>
+  const renderSearchBtn = () => {
+    if (searchButton) {
+      return (
+        <button
+          type="button"
+          data-testid="header_search_bar"
+          onClick={ () => setToggleSearch(!toggleSearch) }
+        >
+          <img
+            data-testid="search-top-btn"
+            src={ searchIcon }
+            alt="search-icon"
+          />
+        </button>
+      );
+    }
+  };
+
+  const renderSearchRecipeComponent = () => (
+    toggleSearch ? (
+      <SearchRecipes
+        title={ title }
+        pathname={ pathname }
+      />) : null
   );
 
-  const showHeaderSerchBar = (event) => {
-    event.target
-  }
+const render = () => (
+  <div className="header_content">
+    {renderProfileTopBtn()}
+    {renderPageTitle()}
+    {renderSearchBtn()}
+    {renderSearchRecipeComponent()}
+  </div>
+);
 
-  const render = () => (
-    <div>
-      {renderProfileTopBtn()}
-      {renderPageTitle()}
-      {renderSearchTopBtn()}
-    </div>
-  );
-
-  return render();
-}
-
-const mapStateToProps = (state) => ({
-  siteMap: state.sitemap,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+Header.propTypes = {
+  pathname: PropTypes.string.isRequired,
+  componentConfig: PropTypes.shape({
+    profileButton: PropTypes.bool.isRequired,
+    searchButton: PropTypes.bool.isRequired,
+  }).isRequired,
+};
