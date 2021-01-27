@@ -5,8 +5,8 @@
 }
 
 header {
-  display: grid;
   background-color: #c4c4c4;
+  display: grid;
   grid-template-columns: repeat(3, 1fr);
 }
 
