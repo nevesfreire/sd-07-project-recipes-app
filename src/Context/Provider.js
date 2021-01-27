@@ -4,6 +4,7 @@ import RecipeContext from './Context';
 
 function RecipeProvider({ children }) {
   const context = {};
+
   return (
     <RecipeContext.Provider value={ context }>
       {children}
