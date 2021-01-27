@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import profile from '../../images/profileIcon.svg';
-import searchbar from '../../images/searchIcon.svg';
 
-function Header(props) {
+function HeaderNoSearch(props) {
   const { title } = props;
   const [search, setSearch] = useState(false);
 
@@ -18,21 +17,15 @@ function Header(props) {
 
   return (
     <div>
-      <Link to="/perfil">
-        <img src={ profile } data-testid="profile-top-btn" alt="profileIcon" />
-      </Link>
 
-      <h1 data-testid="page-title">{title}</h1>
       <button
         type="button"
-        onClick={ () => input() }
+        onClick={ () => <Redirect to="/perfil" /> }
       >
-        <img
-          data-testid="search-top-btn"
-          src={ searchbar }
-          alt="search-icon"
-        />
+        <img data-testid="profile-top-btn" src={ profile } alt="profile-icon" />
       </button>
+
+      <h1 data-testid="page-title">{title}</h1>
       <div>
         { search && <input
           type="text"
@@ -44,8 +37,8 @@ function Header(props) {
 
   );
 }
-Header.propTypes = {
+HeaderNoSearch.propTypes = {
   title: PropTypes.string.isRequired,
 };
 
-export default Header;
+export default HeaderNoSearch;

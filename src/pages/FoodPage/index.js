@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../../components/Header/index';
 
-function Comidas() {
+function FoodPage() {
   return (
     <div>
       <Header title="Comidas" />
@@ -10,4 +10,4 @@ function Comidas() {
   );
 }
 
-export default Comidas;
+export default FoodPage;

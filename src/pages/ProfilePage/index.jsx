@@ -1,10 +1,10 @@
 import React from 'react';
-import Header from '../../components/Header/index';
+import HeaderNoSearch from '../../components/Header/HeaderNoSearch';
 
 function Perfil() {
   return (
     <div>
-      <Header title="Perfil" />
+      <HeaderNoSearch title="Perfil" />
     </div>
 
   );
