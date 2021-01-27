@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 function Login() {
   const [login, setLogin] = useState({
@@ -31,8 +32,11 @@ function Login() {
     localStorage.setItem('user', JSON.stringify(emailObj));
   };
 
+  const history = useHistory();
+
   const handleClick = () => {
     saveLocalStorage();
+    history.push('/comidas');
   };
 
   return (
@@ -59,6 +63,7 @@ function Login() {
 
       </label>
       <br />
+
       <button
         disabled={ validateImputs() }
         type="button"
