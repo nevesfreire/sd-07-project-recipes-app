@@ -10,8 +10,16 @@ class PrincipalComidas extends Component {
     setlocal('comidas');
   }
 
+  mapMeals() {
+    const { receitas } = this.props;
+    return (
+      receitas.meals.map((receitas) => <div key={ receitas }>Texto </div>)
+    );
+  }
+
   render() {
-    const { history } = this.props;
+    const { history, receitas } = this.props;
+    const redirecionar = receitas.meals.length === 1;
     return (
       <div>
         <Header title="Comidas" searchOn="on" history={ history } />
@@ -23,10 +31,15 @@ class PrincipalComidas extends Component {
 PrincipalComidas.propTypes = {
   history: PropTypes.objectOf({ push: PropTypes.func.isRequired }).isRequired,
   setlocal: PropTypes.func.isRequired,
+  receitas: PropTypes.objectOf().isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  receitas: state.fastFood.receitas,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   setlocal: (tipo) => dispatch(setLocal(tipo)),
 });
 
-export default connect(null, mapDispatchToProps)(PrincipalComidas);
+export default connect(mapStateToProps, mapDispatchToProps)(PrincipalComidas);
