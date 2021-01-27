@@ -5,6 +5,7 @@ import Explore from './Explore';
 import ExploreFoods from './ExploreFoods';
 import ExploreDrinks from './ExploreDrinks';
 import FoodIngredients from './FoodIngredients';
+import DrinkIngredients from './DrinkIngredients';
 
 export {
   Login,
@@ -14,4 +15,5 @@ export {
   ExploreFoods,
   ExploreDrinks,
   FoodIngredients,
+  DrinkIngredients,
 };
