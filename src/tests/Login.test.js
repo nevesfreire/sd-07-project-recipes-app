@@ -1,7 +1,8 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
-import App from './App';
-import Login from './pages/Login';
+import App from '../App';
+import renderWithRouter from '../renderWithRouter';
+import Login from '../pages/Login';
 
 describe('2 - Crie todos os elementos que devem respeitar os atributos descritos no protótipo para a tela de login', () => {
   it('Tem os data-testids email-input, password-input e login-submit-btn', () => {
@@ -9,7 +10,7 @@ describe('2 - Crie todos os elementos que devem respeitar os atributos descritos
     const emailInput = getByTestId('email-input');
     const passwordInput = getByTestId('password-input');
     const submitButton = getByTestId('login-submit-btn');
-    
+
     expect(emailInput).toBeInTheDocument();
     expect(passwordInput).toBeInTheDocument();
     expect(submitButton).toBeInTheDocument();
@@ -81,5 +82,72 @@ describe('5 - Desenvolva a tela de maneira que o formulário só seja válido ap
     fireEvent.change(passwordInput, { target: { value: '1234567' } });
 
     expect(submitButton.disabled).toBeFalsy();
+  });
+});
+
+describe('6 - Salve 2 tokens no localStorage após a submissão, identificados pelas chaves mealsToken e cocktailsToken', () => {
+  it('Após a submissão mealsToken e cocktailsToken devem estar salvos em localStorage', () => {
+    const { getByTestId } = render(<Login />);
+    const emailInput = getByTestId('email-input');
+    const passwordInput = getByTestId('password-input');
+    const submitButton = getByTestId('login-submit-btn');
+
+    localStorage.clear();
+
+    expect(submitButton.disabled).toBeTruthy();
+    expect(localStorage.getItem('mealsToken')).toBeNull();
+    expect(localStorage.getItem('cocktailsToken')).toBeNull();
+
+    fireEvent.change(emailInput, { target: { value: 'email@mail.com' } });
+    fireEvent.change(passwordInput, { target: { value: '1234567' } });
+    fireEvent.click(submitButton);
+
+    expect(localStorage.getItem('mealsToken')).toBe('1');
+    expect(localStorage.getItem('cocktailsToken')).toBe('1');
+
+    localStorage.clear();
+  });
+});
+
+describe('7 - Salve o e-mail da pessoa usuária no localStorage na chave user após a submissão', () => {
+  it('Após a submissão a chave user deve estar salva em localStorage', () => {
+    const { getByTestId } = render(<Login />);
+    const emailInput = getByTestId('email-input');
+    const passwordInput = getByTestId('password-input');
+    const submitButton = getByTestId('login-submit-btn');
+
+    localStorage.clear();
+
+    expect(submitButton.disabled).toBeTruthy();
+    expect(localStorage.getItem('user')).toBeNull();
+
+    fireEvent.change(emailInput, { target: { value: 'email@mail.com' } });
+    fireEvent.change(passwordInput, { target: { value: '1234567' } });
+    fireEvent.click(submitButton);
+
+    expect(JSON.parse(localStorage.getItem('user'))).toEqual({email: 'email@mail.com'});
+    localStorage.clear();
+  });
+});
+
+describe('8 - Redirecione a pessoa usuária para a tela principal de receitas de comidas após a submissão e validação com sucesso do login', () => {
+  it('A rota muda para a tela principal de receitas de comidas', () => {
+    const { getByTestId, history } = renderWithRouter(<App />);
+    const emailInput = getByTestId('email-input');
+    const passwordInput = getByTestId('password-input');
+    const submitButton = getByTestId('login-submit-btn');
+
+    localStorage.clear();
+
+    expect(submitButton.disabled).toBeTruthy();
+    expect(localStorage.getItem('user')).toBeNull();
+
+    fireEvent.change(emailInput, { target: { value: 'email@mail.com' } });
+    fireEvent.change(passwordInput, { target: { value: '1234567' } });
+    fireEvent.click(submitButton);
+
+    expect(history.location.pathname).toBe('/comidas');
+
+    localStorage.clear();
   });
 });

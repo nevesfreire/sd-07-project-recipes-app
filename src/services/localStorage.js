@@ -12,4 +12,4 @@ export const initialize = () => {
 
 export const saveItem = (name, data) => localStorage.setItem(name, JSON.stringify(data));
 
-export const getItem = (name) => localStorage.getItem(name);
+export const getItem = (name) => JSON.parse(localStorage.getItem(name));
