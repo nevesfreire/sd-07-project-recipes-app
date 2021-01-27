@@ -1,4 +1,4 @@
-const fetchFoodByIngredient = async (ingredient) => {
+export const fetchFoodByIngredient = async (ingredient) => {
   const request = await fetch(
     `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`,
   );
@@ -6,7 +6,7 @@ const fetchFoodByIngredient = async (ingredient) => {
   return response;
 };
 
-const fetchFoodByName = async (name) => {
+export const fetchFoodByName = async (name) => {
   const request = await fetch(
     `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`,
   );
@@ -14,7 +14,7 @@ const fetchFoodByName = async (name) => {
   return response;
 };
 
-const fetchFoodByFirstLetter = async (letter) => {
+export const fetchFoodByFirstLetter = async (letter) => {
   const request = await fetch(
     `https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`,
   );
@@ -22,7 +22,7 @@ const fetchFoodByFirstLetter = async (letter) => {
   return response;
 };
 
-const fetchAllFoodRecipes = async () => {
+export const fetchAllFoodRecipes = async () => {
   const request = await fetch(
     'https://www.themealdb.com/api/json/v1/1/search.php?s=',
   );
@@ -30,7 +30,7 @@ const fetchAllFoodRecipes = async () => {
   return response;
 };
 
-const fetchAllFoodCategories = async () => {
+export const fetchAllFoodCategories = async () => {
   const request = await fetch(
     'https://www.themealdb.com/api/json/v1/1/list.php?c=list',
   );
@@ -38,7 +38,7 @@ const fetchAllFoodCategories = async () => {
   return response;
 };
 
-const fetchFilterFoodByCategory = async (category) => {
+export const fetchFilterFoodByCategory = async (category) => {
   const request = await fetch(
     `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`,
   );
@@ -46,7 +46,7 @@ const fetchFilterFoodByCategory = async (category) => {
   return response;
 };
 
-const fetchFoodDetailById = async (id) => {
+export const fetchFoodDetailById = async (id) => {
   const request = await fetch(
     `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`,
   );
@@ -54,7 +54,7 @@ const fetchFoodDetailById = async (id) => {
   return response;
 };
 
-const fetchRandomFoodRecipes = async () => {
+export const fetchRandomFoodRecipes = async () => {
   const request = await fetch(
     'https://www.themealdb.com/api/json/v1/1/random.php',
   );
@@ -62,13 +62,13 @@ const fetchRandomFoodRecipes = async () => {
   return response;
 };
 
-export default {
-  fetchFoodByIngredient,
-  fetchFoodByName,
-  fetchFoodByFirstLetter,
-  fetchAllFoodRecipes,
-  fetchAllFoodCategories,
-  fetchFilterFoodByCategory,
-  fetchFoodDetailById,
-  fetchRandomFoodRecipes,
-};
+// export default {
+//   fetchFoodByIngredient,
+//   fetchFoodByName,
+//   fetchFoodByFirstLetter,
+//   fetchAllFoodRecipes,
+//   fetchAllFoodCategories,
+//   fetchFilterFoodByCategory,
+//   fetchFoodDetailById,
+//   fetchRandomFoodRecipes,
+// };
