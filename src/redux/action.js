@@ -1,5 +1,3 @@
-import { func } from "prop-types";
-
 function setLocal(local) {
   return ({
     type: 'SETLOCAL',
@@ -11,7 +9,7 @@ function setReceitas(local) {
   return ({
     type: 'SETRECEITAS',
     value: local,
-  })
+  });
 }
 
-export {setLocal, setReceitas};
+export { setLocal, setReceitas };

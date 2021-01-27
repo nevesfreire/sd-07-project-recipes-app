@@ -38,7 +38,7 @@ class Searchbar extends Component {
       break;
     case 'first-letter':
       if (inputValue.length === 1) {
-      object = fetchFoodLetter(inputValue, local);
+        object = fetchFoodLetter(inputValue, local);
       } else {
         alert('Sua busca deve conter somente 1 (um) caracter');
       }
@@ -46,7 +46,7 @@ class Searchbar extends Component {
     default:
       break;
     }
-    setReceitas(object);
+    setreceitas(object);
   }
 
   render() {
