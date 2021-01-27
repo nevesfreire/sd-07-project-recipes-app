@@ -66,3 +66,17 @@
     transform: rotate(-10deg);
   }
 }
+
+.footer {
+  align-items: center;
+  background-color: #0fa36b;
+  bottom: 0px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 200px;
+  position: fixed;
+  height: 100px;
+  width: 100%;
+}
