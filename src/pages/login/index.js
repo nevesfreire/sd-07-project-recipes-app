@@ -1,11 +1,24 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import RecipesContext from '../../Context/RecipesContext';
+import { setStorage } from '../../services/localStorage';
 
 function Login() {
   const { handleChange, btActive, login } = useContext(RecipesContext);
-  const { password } = login;
+  const { password, email } = login;
   const numberCharacters = 6;
-  console.log(password);
+  const history = useHistory();
+
+  const handleClick = () => {
+    const emailObject = {
+      email,
+    };
+    setStorage('user', emailObject);
+    setStorage('mealsToken', 1);
+    setStorage('cocktailsToken', 1);
+    history.push('/comidas');
+  };
+
   return (
     <div>
       <label htmlFor="email">
@@ -34,6 +47,7 @@ function Login() {
         type="button"
         data-testid="login-submit-btn"
         disabled={ !btActive || password.length <= numberCharacters }
+        onClick={ handleClick }
       >
         Entrar
       </button>

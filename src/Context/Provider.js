@@ -11,7 +11,6 @@ function Provider({ children }) {
 
   const handleChange = ({ target: { value } }, key) => {
     setLogin({ ...login, [key]: value });
-    if (login !== null) window.localStorage.setItem('user', ` email: ${value} `);
   };
 
   const contextValue = {
