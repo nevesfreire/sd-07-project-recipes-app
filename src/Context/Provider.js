@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
 import getMeals from '../services/mealAPI';
@@ -46,12 +46,37 @@ function Provider({ children }) {
     return resultReturn;
   };
 
+  const [login, setLogin] = useState({
+    email: '',
+    password: '',
+  });
+  const [btActive, setBtActive] = useState(true);
+
+  const handleChange = ({ target: { value } }, key) => {
+    setLogin({ ...login, [key]: value });
+  };
+
+  useEffect(() => {
+    const { email } = login;
+    const regexEmail = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+    const verifyEmail = email.match(regexEmail);
+    console.log(email);
+    if (verifyEmail) {
+      setBtActive(true);
+    } else {
+      setBtActive(false);
+    }
+  }, [login]);
+
   const contextValue = {
     control,
     setControl,
     recipes,
     fetchMeals,
     fetchDrinks,
+    handleChange,
+    btActive,
+    login,
   };
 
   return (
