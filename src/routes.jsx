@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import ComidaPage from './Pages/ComidaPage';
 import LoginPage from './Pages/LoginPage';
 import HomePage from './Pages/HomePage';
 
@@ -7,6 +8,7 @@ const Routes = () => (
   <BrowserRouter>
     <Switch>
       <Route exact path="/" component={ LoginPage } />
+      <Route exact path="/comidas" component={ ComidaPage } />
       {/* TODO PAGES */}
       { <Route exact path="/comidas" component={ HomePage } />
       /*<Route exact path="/bebidas" component={  } />

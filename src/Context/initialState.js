@@ -1,1 +1,7 @@
-// TODO INITSTATE
+const initialState = {
+  user: {
+    userEmail: '',
+  },
+};
+
+export default initialState;
