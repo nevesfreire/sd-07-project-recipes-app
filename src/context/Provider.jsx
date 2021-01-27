@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import RecipesContext from './RecipesContext';
 
 function Provider({ children }) {
-  const [a, setA] = useState('Funcionou');
-
   return (
     <RecipesContext.Provider
-      value={ { a, setA } }
+      value={ { } }
     >
       {children}
     </RecipesContext.Provider>

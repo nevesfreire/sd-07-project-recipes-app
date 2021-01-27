@@ -1,10 +1,7 @@
-import React, { useContext } from 'react';
-import RecipesContext from '../context/RecipesContext';
+import React from 'react';
 
 function Foods() {
-  const { a } = useContext(RecipesContext);
-
-  return (<span>{a}</span>);
+  return (<span>Comidas</span>);
 }
 
 export default Foods;
