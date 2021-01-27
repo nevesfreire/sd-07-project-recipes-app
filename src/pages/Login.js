@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import LoginComp from '../components/LoginComp';
-import { useValideEmailAndPassword, useLocalStorage } from '../hooks';
+import { useValideEmailAndPassword, useLocalStorage, useFetchApi } from '../hooks';
 import { SUBMIT_EMAIL } from '../reducers/userReducer';
 import { CupNodesContext } from '../contexts';
 
@@ -11,7 +11,7 @@ export default function Login({ history: { push } }) {
   const { dispatchUser } = useContext(CupNodesContext);
   const [valid, verificationUser] = useValideEmailAndPassword();
   const [state, setState] = useState(initialState);
-  const [a, setStorage] = useLocalStorage(['user', 'mealsToken', 'cocktailsToken']);
+  const [, setStorage] = useLocalStorage(['user', 'mealsToken', 'cocktailsToken']);
 
   const changeState = ({ target: { type: key, value } }) => {
     setState({ ...state, [key]: value });
@@ -28,7 +28,6 @@ export default function Login({ history: { push } }) {
     setStorage(newLocalStorage);
     dispatchUser(action);
     push('/comidas');
-    console.log(a);
   };
 
   return (
