@@ -24,8 +24,24 @@ export default function LoginComp({ changeState, submitUser, valid }) {
         </label>
         {
           valid
-            ? <button type="submit" onClick={ submitUser }>Entrar</button>
-            : <button type="submit" disabled>Entrar</button>
+            ? (
+              <button
+                type="submit"
+                data-testid="login-submit-btn"
+                onClick={ submitUser }
+              >
+                Entrar
+              </button>
+            )
+            : (
+              <button
+                type="submit"
+                data-testid="login-submit-btn"
+                disabled
+              >
+                Entrar
+              </button>
+            )
         }
       </div>
     </div>
