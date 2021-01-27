@@ -2,5 +2,5 @@ import React from 'react';
 
 export default function Login() {
   return (
-    <h1>Eu sou o Login!</h1>)
+    <h1>Eu sou o Login!</h1>);
 }

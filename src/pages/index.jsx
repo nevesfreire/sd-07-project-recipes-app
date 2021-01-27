@@ -1,10 +1,10 @@
 export { default as AreaFoodExplore } from './AreaFoodExplore';
-export { default as DrinkDetails } from './DrinkDetails'; 
+export { default as DrinkDetails } from './DrinkDetails';
 export { default as Drinks } from './Drinks';
-export { default as DrinksExplore } from './DrinksExplore'; 
+export { default as DrinksExplore } from './DrinksExplore';
 export { default as Explore } from './Explore';
 export { default as FavoriteRecipes } from './FavoriteRecipes';
-export { default as FoodDetails } from './FoodDetails'; 
+export { default as FoodDetails } from './FoodDetails';
 export { default as Foods } from './Foods';
 export { default as FoodsExplore } from './FoodsExplore';
 export { default as IngredientsDrink } from './IngredientsDrink';
