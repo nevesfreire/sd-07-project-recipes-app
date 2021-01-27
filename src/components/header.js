@@ -49,9 +49,7 @@ class Header extends Component {
             src={ searchIcon }
             alt="Buscar"
           />
-          <div style={ { visibility: estilo } }>
-            <Searchbar />
-          </div>
+          { estilo === 'visible' ? <Searchbar /> : undefined }
         </header>
       );
     }
