@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
-import getMeal from '../services/mealAPI';
+import getMeals from '../services/mealAPI';
+import getDrinks from '../services/cockTailAPI';
 
 function Provider({ children }) {
-  const [pageTitle, setPageTitle] = useState('');
   const [control, setControl] = useState(false);
   const [recipes, setRecipes] = useState({});
 
-  const fetchMeal = async (type, value) => {
-    const result = await getMeal(type, value);
+  const fetchMeals = async (type, value) => {
+    const result = await getMeals(type, value);
     setRecipes(result);
     const resultReturn = {
       result,
@@ -27,13 +27,31 @@ function Provider({ children }) {
     return resultReturn;
   };
 
+  const fetchDrinks = async (type, value) => {
+    const result = await getDrinks(type, value);
+    setRecipes(result);
+    const resultReturn = {
+      result,
+      redirect: false,
+    };
+    if (result.drinks === null) {
+      return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
+    if (result.drinks.length === 1) {
+      resultReturn.redirect = true;
+      setControl(true);
+      return resultReturn;
+    }
+    setControl(true);
+    return resultReturn;
+  };
+
   const contextValue = {
-    pageTitle,
-    setPageTitle,
     control,
     setControl,
     recipes,
-    fetchMeal,
+    fetchMeals,
+    fetchDrinks,
   };
 
   return (

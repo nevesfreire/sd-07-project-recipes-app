@@ -10,10 +10,10 @@ const ENDPOINT = {
   listIngredient: 'list.php?i=list',
 };
 
-async function getMeal(key, name) {
+async function getMeals(key, name) {
   const requestResponse = await fetch(`${URL}${ENDPOINT[key]}${name}`)
     .then((response) => response.json());
   return requestResponse;
 }
 
-export default getMeal;
+export default getMeals;

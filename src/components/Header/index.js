@@ -1,9 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { profileIcon, searchIcon } from '../../images';
 import SearchBar from './SearchBar';
-import RecipesContext from '../../Context/RecipesContext';
 
 const profileButtonPaths = [
   '/comidas',
@@ -25,62 +24,47 @@ const searchButtonPaths = [
   '/explorar/comidas/area',
 ];
 
-export default function Header() {
+export default function Header({ title }) {
   const history = useHistory();
   const [showSearchBar, setShowSearchBar] = useState(false);
-  const { pageTitle } = useContext(RecipesContext);
-  // console.log('titulo: ', pageTitle)
   const { pathname } = history.location;
-  // console.log(pathname);
-  // console.log(profileButtonPaths[0])
-  // console.log(pathname === profileButtonPaths[0])
   const renderProfileButton = profileButtonPaths.find((e) => e === pathname);
   const renderSearchButton = searchButtonPaths.find((e) => e === pathname);
 
   return (
     <div>
-      { renderProfileButton
-        && (
-          <button
-            data-testid="profile-top-btn"
-            src="/perfil"
-            type="button"
-            onClick={ () => history.push('/perfil') }
-          >
-            <img alt="Icone de perfil" src={ profileIcon } />
-          </button>
-
-        )}
-
-      {/* <Link
-            to="/perfil"
-          >
+      <header>
+        { renderProfileButton
+          && (
             <button
               data-testid="profile-top-btn"
+              src={ profileIcon }
               type="button"
+              onClick={ () => history.push('/perfil') }
             >
               <img alt="Icone de perfil" src={ profileIcon } />
             </button>
-          </Link> */}
 
-      <div data-testid="page-title">{pageTitle}</div>
+          )}
+        <div data-testid="page-title">{title}</div>
 
-      { renderSearchButton
-        && (
-          <button
-            data-testid="search-top-btn"
-            onClick={ () => setShowSearchBar(!showSearchBar) }
-            type="button"
-          >
-            <img alt="Ícone de pesquisa" src={ searchIcon } />
-          </button>
-        )}
-
-      { showSearchBar && <SearchBar />}
+        { renderSearchButton
+          && (
+            <button
+              data-testid="search-top-btn"
+              src={ searchIcon }
+              onClick={ () => setShowSearchBar(!showSearchBar) }
+              type="button"
+            >
+              <img alt="Ícone de pesquisa" src={ searchIcon } />
+            </button>
+          )}
+        { showSearchBar && <SearchBar />}
+      </header>
     </div>
   );
 }
 
-// Header.propTypes = {
-//   pageTitle: PropTypes.string.isRequired,
-// };
+Header.propTypes = {
+  title: PropTypes.string.isRequired,
+};

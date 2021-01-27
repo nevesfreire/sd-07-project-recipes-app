@@ -1,12 +1,13 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import Drinks from './pages/Drinks';
 import Foods from './pages/Foods';
 import Profile from './pages/Profile';
 
 const Router = () => (
   <Switch>
     <Route path="/comidas" component={ Foods } />
-    {/* <Route path="/bebidas" component={ Drinks } /> */}
+    <Route path="/bebidas" component={ Drinks } />
     {/* <Route path="/comidas/:id" component={ FoodDetail } /> */}
     {/* <Route path="/bebidas/:id" component={ DrinkDetail } /> */}
     {/* <Route path="/comidas/:id/in-progress" component={ FoodProgress } /> */}
