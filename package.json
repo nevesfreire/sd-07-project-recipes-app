@@ -16,10 +16,12 @@
     "react": "^16.13.1",
     "react-bootstrap": "^1.4.0",
     "react-dom": "^16.13.1",
+    "react-image": "^4.0.3",
     "react-logger": "^1.1.0",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
+    "react-svg": "^11.2.3",
     "websocket-extensions": ">=0.1.4"
   },
   "scripts": {
@@ -59,6 +61,7 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-react-redux": "^3.3.0",
     "eslint-plugin-sonarjs": "^0.5.0",
+    "file-loader": "^6.2.0",
     "fs-extra": "^9.0.1",
     "mocha": "^8.0.1",
     "mochawesome": "^6.1.1",
