@@ -68,7 +68,6 @@ describe('Login Page Tests', () => {
     const { getByTestId, history } = renderWithRouter(<App />);
     fireEvent.change(getByTestId('email-input'), { target: { value: 'marcio@marcio.com'} });
     fireEvent.change(getByTestId('password-input'), { target: { value: '123456'} });
-    localStorage.clear();
     fireEvent.click(getByTestId('login-submit-btn'));
     const path = history.location.pathname;
     expect(path).toBe('/comidas');

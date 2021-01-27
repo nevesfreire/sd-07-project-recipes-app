@@ -15,7 +15,7 @@ function Login() {
 
   const ValidateFields = () => {
     const re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    const minLength = 5;
+    const minLength = 6;
     if (re.test(email) && password.length > minLength) {
       return false;
     }
@@ -61,7 +61,7 @@ function Login() {
         onClick={ () => {
           CheckLocalStorage();
           history.push('/comidas');
-        }}
+        } }
       >
         Entrar
       </button>
