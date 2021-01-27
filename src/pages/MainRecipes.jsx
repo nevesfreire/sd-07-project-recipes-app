@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
 import profileIcon from '../images/profileIcon.svg';
 
 class MainRecipes extends React.Component {
@@ -10,6 +11,7 @@ class MainRecipes extends React.Component {
         <Link to="/perfil">
           <img src={ profileIcon } alt="Foto Perfil" />
         </Link>
+        <Footer />
       </div>
     );
   }
