@@ -38,14 +38,14 @@ describe('Login Page Tests', () => {
     fireEvent.change(getByTestId('password-input'), { target: { value: '123456'} });
     expect(submit.disabled).toBe(true);
     fireEvent.change(getByTestId('email-input'), { target: { value: 'marcio@marcio.com'} });
-    fireEvent.change(getByTestId('password-input'), { target: { value: '123456'} });
+    fireEvent.change(getByTestId('password-input'), { target: { value: '1234567'} });
     expect(submit.disabled).toBe(false);
   });
 
   it('Checks if 2 tokens are saved on localStorage on Submit', () => {
     const { getByTestId } = render(<App />);
     fireEvent.change(getByTestId('email-input'), { target: { value: 'marcio@marcio.com'} });
-    fireEvent.change(getByTestId('password-input'), { target: { value: '123456'} });
+    fireEvent.change(getByTestId('password-input'), { target: { value: '1234567'} });
     localStorage.clear();
     fireEvent.click(getByTestId('login-submit-btn'));
     const cocktailsToken = localStorage.getItem('cocktailsToken');
@@ -57,7 +57,7 @@ describe('Login Page Tests', () => {
   it('Checks if the user email is saved on localStorage as specified', () => {
     const { getByTestId } = render(<App />);
     fireEvent.change(getByTestId('email-input'), { target: { value: 'marcio@marcio.com'} });
-    fireEvent.change(getByTestId('password-input'), { target: { value: '123456'} });
+    fireEvent.change(getByTestId('password-input'), { target: { value: '1234567'} });
     localStorage.clear();
     fireEvent.click(getByTestId('login-submit-btn'));
     const user = localStorage.getItem('user');
@@ -67,7 +67,7 @@ describe('Login Page Tests', () => {
   it('Tests if after form submition the application is redirected', () => {
     const { getByTestId, history } = renderWithRouter(<App />);
     fireEvent.change(getByTestId('email-input'), { target: { value: 'marcio@marcio.com'} });
-    fireEvent.change(getByTestId('password-input'), { target: { value: '123456'} });
+    fireEvent.change(getByTestId('password-input'), { target: { value: '1234567'} });
     fireEvent.click(getByTestId('login-submit-btn'));
     const path = history.location.pathname;
     expect(path).toBe('/comidas');
