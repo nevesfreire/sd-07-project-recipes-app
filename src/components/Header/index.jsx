@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
 
-export default function Header({ history }) {
+export default function Header({ history, title }) {
   const isSearchPresent = () => {
     const { location: { pathname } } = history;
     if (pathname === '/comidas'
@@ -28,7 +28,7 @@ export default function Header({ history }) {
           data-testid="profile-top-btn"
         />
       </div>
-      <h1 data-testid="page-title">Title</h1>
+      <h1 data-testid="page-title">{ title }</h1>
       <div>
         { isSearchPresent() }
       </div>
@@ -42,4 +42,5 @@ Header.propTypes = {
       pathname: PropTypes.string.isRequired,
     }),
   }).isRequired,
+  title: PropTypes.string.isRequired,
 };

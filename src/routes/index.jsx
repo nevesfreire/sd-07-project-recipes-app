@@ -23,10 +23,12 @@ const Routes = () => (
       component={ Login }
     />
     <Route
+      exact
       path="/comidas"
       component={ MainFood }
     />
     <Route
+      exact
       path="/bebidas"
       component={ MainDrink }
     />
@@ -36,10 +38,12 @@ const Routes = () => (
       component={ Explore }
     />
     <Route
+      exact
       path="/explorar/comidas"
       component={ ExploreFoods }
     />
     <Route
+      exact
       path="/explorar/bebidas"
       component={ ExploreDrinks }
     />
