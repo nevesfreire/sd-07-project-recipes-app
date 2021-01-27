@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import Header from '../components/Header';
+import allActions from '../actions';
 
-class Cocktails extends React.Component {
-  render() {
-    return (
-      <Header />
-    );
-  }
+function Cocktails() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(allActions.renderSearchIcon());
+    dispatch(allActions.changePageTitle('Bebidas'));
+  }, [dispatch]);
+
+  return (
+    <Header />
+  );
 }
 
 export default Cocktails;
