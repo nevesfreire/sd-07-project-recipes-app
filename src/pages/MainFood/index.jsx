@@ -4,5 +4,5 @@ import { Header } from '../../components';
 export default function MainFood() {
   return (
     <Header />
-  )
+  );
 }
