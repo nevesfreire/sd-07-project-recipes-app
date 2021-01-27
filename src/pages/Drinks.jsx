@@ -2,44 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { CustomSearchBar, CustomCardDrink } from '../components';
-import getDrinkRecipes from '../services/drinkApi';
+import { CustomCardDrink, CustomFooter } from '../components';
+import CustomHeader from '../components/CustomHeader';
 import { updateDrinkIsFetching } from '../redux/actions';
 
 class Drinks extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      searchHeader: {
-        searchInput: '',
-        searchRadio: '',
-      },
-    };
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleButtonClick = this.handleButtonClick.bind(this);
-  }
-
-  handleInputChange({ target: { name, value } }) {
-    this.setState((prevState) => ({
-      ...prevState,
-      searchHeader: {
-        ...prevState.searchHeader,
-        [name]: value,
-      },
-    }));
-  }
-
-  async handleButtonClick() {
-    const { dispatchDrinkRecipes } = this.props;
-    const { searchHeader } = this.state;
-    const { searchRadio, searchInput } = searchHeader;
-    if (searchRadio === 'f' && searchInput.length > 1) {
-      return alert('Sua busca deve conter somente 1 (um) caracter');
-    }
-    await dispatchDrinkRecipes(searchHeader);
-  }
-
   handleRecipes() {
     const { drinks, isFetching } = this.props;
     if (!drinks.length && !isFetching) return this.renderAlertError();
@@ -75,12 +42,9 @@ class Drinks extends Component {
   render() {
     return (
       <div>
-        <button type="button" data-testid="search-top-btn">SearchBar</button>
-        <CustomSearchBar
-          inputChange={ this.handleInputChange }
-          buttonClick={ this.handleButtonClick }
-        />
+        <CustomHeader title="Bebidas" />
         { this.handleRecipes() }
+        <CustomFooter />
       </div>
     );
   }
@@ -92,12 +56,10 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchDrinkRecipes: (searchHeader) => dispatch(getDrinkRecipes(searchHeader)),
   dispatchUpdateDrinkIsFetching: () => dispatch(updateDrinkIsFetching()),
 });
 
 Drinks.propTypes = {
-  dispatchDrinkRecipes: PropTypes.func.isRequired,
   dispatchUpdateDrinkIsFetching: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
   drinks: PropTypes.shape({

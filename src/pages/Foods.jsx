@@ -2,44 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { CustomSearchBar, CustomCardFood } from '../components';
-import getFoodRecipes from '../services/foodApi';
+import { CustomCardFood, CustomFooter } from '../components';
+import CustomHeader from '../components/CustomHeader';
 import { updateFoodIsFetching } from '../redux/actions';
 
 class Foods extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      searchHeader: {
-        searchInput: '',
-        searchRadio: '',
-      },
-    };
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleButtonClick = this.handleButtonClick.bind(this);
-  }
-
-  handleInputChange({ target: { name, value } }) {
-    this.setState((prevState) => ({
-      ...prevState,
-      searchHeader: {
-        ...prevState.searchHeader,
-        [name]: value,
-      },
-    }));
-  }
-
-  async handleButtonClick() {
-    const { dispatchFoodRecipes } = this.props;
-    const { searchHeader } = this.state;
-    const { searchRadio, searchInput } = searchHeader;
-    if (searchRadio === 'f' && searchInput.length > 1) {
-      return alert('Sua busca deve conter somente 1 (um) caracter');
-    }
-    await dispatchFoodRecipes(searchHeader);
-  }
-
   handleRecipes() {
     const { meals, isFetching } = this.props;
     if (!meals.length && !isFetching) return this.renderAlertError();
@@ -75,12 +42,9 @@ class Foods extends Component {
   render() {
     return (
       <div>
-        <button type="button" data-testid="search-top-btn">SearchBar</button>
-        <CustomSearchBar
-          inputChange={ this.handleInputChange }
-          buttonClick={ this.handleButtonClick }
-        />
+        <CustomHeader title="Comidas" />
         { this.handleRecipes() }
+        <CustomFooter />
       </div>
     );
   }
@@ -92,12 +56,10 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchFoodRecipes: (searchHeader) => dispatch(getFoodRecipes(searchHeader)),
   dispatchUpdateFoodIsFetching: () => dispatch(updateFoodIsFetching()),
 });
 
 Foods.propTypes = {
-  dispatchFoodRecipes: PropTypes.func.isRequired,
   dispatchUpdateFoodIsFetching: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
   meals: PropTypes.shape({
