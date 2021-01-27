@@ -1,9 +1,11 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import Foods from './pages/Foods';
+import Profile from './pages/Profile';
 
 const Router = () => (
   <Switch>
-    {/* <Route path="/comidas" component={ Foods } /> */}
+    <Route path="/comidas" component={ Foods } />
     {/* <Route path="/bebidas" component={ Drinks } /> */}
     {/* <Route path="/comidas/:id" component={ FoodDetail } /> */}
     {/* <Route path="/bebidas/:id" component={ DrinkDetail } /> */}
@@ -15,7 +17,7 @@ const Router = () => (
     {/* <Route path="/explorar/comidas/ingredientes" component={ FoodIngredients } /> */}
     {/* <Route path="/explorar/bebidas/ingredientes" component={ DrinkIngredients } /> */}
     {/* <Route path="/explorar/comidas/area" component={ FoodByArea } /> */}
-    {/* <Route path="/perfil" component={ Profile } /> */}
+    <Route path="/perfil" component={ Profile } />
     {/* <Route path="/receitas-feitas" component={ RecipesDone } /> */}
     {/* <Route path="/receitas-favoritas" component={ Favourites } /> */}
     {/* <Route exact path="/" component={ Login } /> */}
