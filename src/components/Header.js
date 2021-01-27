@@ -6,13 +6,14 @@ import searchIcon from '../images/searchIcon.svg';
 function Header({ title, hideSearchIcon }) {
   const [showSearchBar, setShowSearchBar] = useState(false);
   return (
-    <header>
+    <header className="header">
       <a data-testid="profile-top-btn" href="/perfil" src={ profileIcon }>
         <img src={ profileIcon } alt="profile icon" />
       </a>
       <h1 data-testid="page-title">{title}</h1>
       {!JSON.parse(hideSearchIcon) && (
         <button
+          className="header-button"
           data-testid="search-top-btn"
           type="button"
           src={ searchIcon }
@@ -30,6 +31,7 @@ function Header({ title, hideSearchIcon }) {
             name="search"
             placeholder="Digite Aqui"
           />
+          <br />
           <label htmlFor="ingredient">
             Ingredient
             <input
