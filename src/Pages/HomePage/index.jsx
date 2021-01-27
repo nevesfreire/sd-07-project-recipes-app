@@ -4,7 +4,7 @@ import Header from '../../Components/Header';
 const Home = () => {
     <div className="container-fluid">
         <div className="container">
-            <Header />
+            <Header title="food"/>
         </div>
     </div>
 }

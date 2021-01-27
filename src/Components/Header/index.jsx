@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import SearchIcon from '../../images/searchicon.svg'
 
-const Header = () => {
+const Header = (props) => {
     <div className="header">
         <div className="user" data-test-id="profile-top-btn">
             <Link to={{pathname="/perfil"}}>
@@ -9,11 +10,11 @@ const Header = () => {
           <p>{userName}</p>
           </Link>
         </div>
-        <div className="title-header">
-            <h1>Food</h1>
+        <div className="title-header" data-test-id="page-title">
+            <h1>{props.title}</h1>
         </div>
-        <div className="search">
-         <img src={serachIcon} />
+        <div className="search" data-test-id="search-top-btn">
+         <img src={SearchIcon} />
         </div>
     </div>
 }
