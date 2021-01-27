@@ -33,4 +33,3 @@ function Footer() {
 }
 
 export default Footer;
-https://trello.com/c/j5ZhtkPa/33-requisito-21-menu-inferior
