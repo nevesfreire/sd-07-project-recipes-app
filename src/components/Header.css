@@ -1,14 +1,14 @@
 *, h1 {
-  margin: 0;
-  padding: 0;  
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 header {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 
-  background-color: #C4C4C4 
+  background-color: #c4c4c4;
 }
 
 .profile, .search {
@@ -20,8 +20,8 @@ header {
 }
 
 .profile {
-  padding-left: 1rem;
   justify-self: left;
+  padding-left: 1rem;
 }
 
 .search {
