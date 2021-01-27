@@ -1,4 +1,4 @@
-COCKTAIL_INITIAL_STATE = { cocktails: [], isFetching: false };
+const COCKTAIL_INITIAL_STATE = { cocktails: [], isFetching: false };
 
 function cocktailsDrinks(state = COCKTAIL_INITIAL_STATE, action) {
   switch (action.type) {
