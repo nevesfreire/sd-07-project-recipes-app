@@ -27,7 +27,7 @@ class BarraBusca extends Component {
             data-testid="search-input"
           />
         </label>
-        <lable htmlFor="ingredient">
+        <label htmlFor="ingredient">
           Nome
           <input
             name="select-search"
@@ -35,7 +35,7 @@ class BarraBusca extends Component {
             type="radio"
             data-testid="ingredient-search-radio"
           />
-        </lable>
+        </label>
         <label htmlFor="name">
           Ingrediente
           <input
