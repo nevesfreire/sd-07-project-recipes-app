@@ -31,9 +31,7 @@ class Login extends Component {
     localStorage.setItem('user', JSON.stringify(localEmail));
 
     const { history } = this.props;
-    history.push({
-      pathname: '/comidas',
-    });
+    history.push('/comidas');
   }
 
   verifyLogin() {
@@ -56,6 +54,7 @@ class Login extends Component {
 
     return (
       <div>
+        <h1>App de Receitas</h1>
         <form>
           <input
             type="text"
