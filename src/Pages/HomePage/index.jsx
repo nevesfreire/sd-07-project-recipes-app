@@ -1,10 +1,11 @@
 import React from 'react';
 import Header from '../../Components/Header';
+import '../../App.css';
 
 const Home = () => (
-  <div className="container-fluid">
-    <div className="container">
-      <Header title="food" />
+  <div className="container-over">
+    <div className="container-int">
+      <Header title="Food" />
     </div>
   </div>
 );
