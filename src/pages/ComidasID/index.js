@@ -6,12 +6,13 @@ import { fetchFoodById } from '../../redux/actions/foodActions';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 
-function ComidasID() {
+function ComidasID({ meals, fetchFoodId }) {
   const { id } = useParams();
 
   useEffect(() => {
-    fetchFoodById();
+    fetchFoodId(id);
   }, []);
+
   return (
     <div>
       <img
@@ -31,8 +32,12 @@ function ComidasID() {
         <img alt="" src={ whiteHeartIcon } />
       </button>
       <h4 data-testid="recipe-category">texto da categoria</h4>
-      {/** inserir lista de ingredientes aqui
-       * data-testid="${index}-ingredient-name-and-measure" */}
+      {Object.keys(meals[0]).map((key) => {
+        if (meals[0][key] && key.includes('strIngredient')) {
+          return (<li>{meals[0][key]}</li>);
+        }
+        return null;
+      })}
       <p data-testid="instructions">instruções</p>
       {/** data-testid="video" para video */}
       {/** card de recomendaçoes data-testid="${index}-recomendation-card" */}
@@ -48,8 +53,8 @@ function ComidasID() {
   );
 }
 
-const mapStateToProps = {};
+const mapStateToProps = (state) => ({ meals: state.foodMeals.meals });
 
-const mapDispatchToProps = { fetchFoodById };
+const mapDispatchToProps = { fetchFoodId: fetchFoodById };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ComidasID);
