@@ -19,7 +19,7 @@ function App() {
             path="/bebidas/:id"
             render={ (props) => <DrinkDetails { ...props } /> }
           />
-          <Route path="/explorar" component={ Explore } />
+          <Route exact path="/explorar" component={ Explore } />
           <Route path="/explorar/comidas" component={ FoodsExplore } />
           <Route path="/explorar/bebidas" component={ DrinksExplore } />
           <Route path="/explorar/comidas/ingredientes" component={ IngredientsFood } />
