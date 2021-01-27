@@ -41,4 +41,5 @@ describe('test LoginPage', () => {
     fireEvent.change(password, { target: {value: '1234567'}})
 
     expect(loginButton.disabled).toBe(false);
-  });
+  })
+});
