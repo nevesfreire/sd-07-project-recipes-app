@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   Header,
   BarraBusca } from '../../components/header';
+import Footer from '../../components/footer/Footer';
 
 class Comidas extends Component {
   render() {
@@ -9,6 +10,7 @@ class Comidas extends Component {
       <div>
         <Header title="Comidas" />
         <BarraBusca />
+        <Footer />
       </div>
     );
   }
