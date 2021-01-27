@@ -1,9 +1,9 @@
 import React from 'react';
+import SearchHeaderBar from './SearchHeaderBar';
 
 function Header() {
   return (
     <div>
-
       <button
         type="button"
         data-testid="profile-top-btn"
@@ -21,6 +21,7 @@ function Header() {
       >
         Search
       </button>
+      <SearchHeaderBar />
 
     </div>
   );
