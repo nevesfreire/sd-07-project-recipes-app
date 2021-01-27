@@ -1,3 +1,7 @@
 import Header from './Header';
+import SearchBar from './SearchBar';
 
-export default Header;
+export {
+  Header,
+  SearchBar,
+};
