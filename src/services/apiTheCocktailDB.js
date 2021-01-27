@@ -1,5 +1,5 @@
-const apiTheMealDB = async (searchParam) => {
-  const URL = `https://www.themealdb.com/api/json/v1/1/${searchParam}`;
+const apiTheCocktailDB = async (searchParam) => {
+  const URL = `https://www.thecocktaildb.com/api/json/v1/1/${searchParam}`;
   try {
     const response = await fetch(URL);
     const json = await response.json();
@@ -9,4 +9,4 @@ const apiTheMealDB = async (searchParam) => {
   }
 };
 
-export default apiTheMealDB;
+export default apiTheCocktailDB;

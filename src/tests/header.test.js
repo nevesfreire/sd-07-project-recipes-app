@@ -1,5 +1,4 @@
 import React from 'react';
-// import { fireEvent } from '@testing-library/react';
 import renderWithRouter from '../components/renderWithRouter';
 import MainRecipes from '../pages/MainRecipes';
 
