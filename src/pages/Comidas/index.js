@@ -2,8 +2,9 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Footer from '../../components/Footer';
+import Footer from '../../components/Footer/index';
 import { fetchFoodByName, fetchFoodByCategory } from '../../redux/actions/foodActions';
+import './styles.css';
 
 function Comidas(props) {
   const [categories, setCategories] = useState([]);
@@ -16,11 +17,11 @@ function Comidas(props) {
     if (isFetching) return <div>Loading...</div>;
     const comida = meals.slice(INITIAL_RETURN, MAX_RETURN);
     return (
-      <div>
+      <div className="container-foods">
         { comida.map((item, index) => (
           <Link
             key={ index }
-            className="container-foods"
+            className="list-foods"
             to={ `/comidas/${item.idMeal}` }
           >
             <img src={ item.strMealThumb } alt={ item.strMeal } />
