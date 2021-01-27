@@ -1,8 +1,8 @@
 import React from 'react';
 import { Header } from '../../components';
 
-export default function FoodIngredients() {
+export default function FoodIngredients({ history }) {
   return (
-    <Header />
+    <Header history={ history } />
   );
 }

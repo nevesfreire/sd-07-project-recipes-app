@@ -1,8 +1,24 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
 
-export default function Header() {
+export default function Header({ history }) {
+  const isSearchPresent = () => {
+    const { location: { pathname } } = history;
+    if (pathname === '/comidas'
+      || pathname === '/bebidas'
+      || pathname === '/explorar/comidas/area') {
+      return (
+        <img
+          src={ searchIcon }
+          alt="search icon"
+          data-testid="search-top-btn"
+        />
+      );
+    }
+    return '';
+  };
   return (
     <div>
       <div>
@@ -14,12 +30,16 @@ export default function Header() {
       </div>
       <h1 data-testid="page-title">Title</h1>
       <div>
-        <img
-          src={ searchIcon }
-          alt="search icon"
-          data-testid="search-top-btn"
-        />
+        { isSearchPresent() }
       </div>
     </div>
   );
 }
+
+Header.propTypes = {
+  history: PropTypes.shape({
+    location: PropTypes.shape({
+      pathname: PropTypes.string.isRequired,
+    }),
+  }).isRequired,
+};

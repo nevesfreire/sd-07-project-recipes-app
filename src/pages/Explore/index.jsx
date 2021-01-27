@@ -1,8 +1,8 @@
 import React from 'react';
 import { Header } from '../../components';
 
-export default function Explore() {
+export default function Explore({ history }) {
   return (
-    <Header />
+    <Header history={ history } />
   );
 }

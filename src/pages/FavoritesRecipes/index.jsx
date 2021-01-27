@@ -1,8 +1,8 @@
 import React from 'react';
 import { Header } from '../../components';
 
-export default function FavoritesRecipes() {
+export default function FavoritesRecipes({ history }) {
   return (
-    <Header />
+    <Header history={ history } />
   );
 }
