@@ -1,11 +1,13 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import ComidaPage from './Pages/ComidaPage';
 import LoginPage from './Pages/LoginPage';
 
 const Routes = () => (
   <BrowserRouter>
     <Switch>
       <Route exact path="/" component={ LoginPage } />
+      <Route exact path="/comidas" component={ ComidaPage } />
       {/* TODO PAGES */}
       {/* <Route exact path="/comidas" component={  } />
       <Route exact path="/bebidas" component={  } />
