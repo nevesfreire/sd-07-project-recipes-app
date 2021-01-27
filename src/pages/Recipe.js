@@ -2,7 +2,7 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
-import FoodDetail from './foodsDetails';
+import FoodDetail from './FoodDetail';
 // import DrinkDetail from './DrinkDetail';
 
 function Recipe(props) {
