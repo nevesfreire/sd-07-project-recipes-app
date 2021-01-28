@@ -70,7 +70,7 @@ function HeaderSearchBar() {
       <button
         type="button"
         data-testid="exec-search-btn"
-        onClick={ (e) => getApiData(e) }
+        // onClick={ (e) => getApiData(e) }
       >
         Buscar
       </button>
