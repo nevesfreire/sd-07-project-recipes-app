@@ -1,16 +1,27 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import RecipesContext from '../providers/Context/Context';
+import { DrinkContext } from '../providers/DrinkProvider';
 
-const SearchBarComp = () => {
+const SearchBarComp = ({ context }) => {
+  const history = useHistory();
+  const whichContext = context === 'Comidas' ? RecipesContext : DrinkContext;
+  const whichId = context === 'Comidas' ? 'idMeal' : 'idDrink';
   const {
     searchWithFilter,
     setInputText,
     setRadioType,
-  } = useContext(RecipesContext);
+    data,
+  } = useContext(whichContext);
 
-  const inputSearch = () => {
-    searchWithFilter();
-  };
+  useEffect(() => {
+    if (data && data.length === 1) {
+      history.push(`/${context.toLowerCase()}/${data[0][whichId]}`);
+    }
+  }, [data, history, whichId, context]);
+
+  const inputSearch = () => searchWithFilter();
 
   return (
     <div>
@@ -64,4 +75,9 @@ const SearchBarComp = () => {
     </div>
   );
 };
+
+SearchBarComp.propTypes = {
+  context: PropTypes.string.isRequired,
+};
+
 export default SearchBarComp;

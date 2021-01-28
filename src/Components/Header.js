@@ -29,7 +29,7 @@ const Header = ({ children }) => {
         >
           <img data-testid="search-top-btn" src={ searchIcon } alt="SVG Search" />
         </button>) }
-      { searchBar && <SearchBarComp /> }
+      { searchBar && <SearchBarComp context={ children } /> }
     </header>
   );
 };
