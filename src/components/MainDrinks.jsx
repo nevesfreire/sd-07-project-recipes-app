@@ -7,6 +7,7 @@ import '../styles/recipes.css';
 function MainDrinks() {
   const { drinksData, setDrinksData, showSearch } = useContext(FoodAppContext);
   const [drinksCategory, setDrinksCategory] = useState([]);
+  // const [toggle, setToggle] = useState(false);
 
   async function fecthCategory() {
     const { drinks: category } = await categoryDrinkApi();
@@ -26,7 +27,7 @@ function MainDrinks() {
       <div className="div-category">
         <button
           type="button"
-          data-testid="category-filter"
+          data-testid="All-category-filter"
           hidden={ showSearch ? bools : false }
           onClick={ async () => {
             const { drinks } = await drinksAPI('', '');
@@ -43,7 +44,8 @@ function MainDrinks() {
             hidden={ showSearch ? bools : false }
             value={ strCategory }
             onClick={ async ({ target }) => {
-              const { drinks } = await drinksAPI(target.value, 'c');
+              const term = target.value;
+              const { drinks } = await drinksAPI(term, 'c');
               setDrinksData(drinks);
             } }
           >
@@ -52,12 +54,26 @@ function MainDrinks() {
         ))}
       </div>
       <section className="section-meals">
-        {drinksData.slice(zero, doze).map(({ idDrink, strDrink, strDrinkThumb }) => (
-          <div key={ idDrink } className="div-meals" data-testid={ strDrink }>
-            <img src={ strDrinkThumb } alt="drinks" />
-            <p>{ strDrink }</p>
-          </div>
-        ))}
+        {drinksData.slice(zero, doze).map(
+          ({ idDrink, strDrink, strDrinkThumb }, index) => (
+            <div
+              key={ idDrink }
+              className="div-meals"
+              data-testid={ `${index}-recipe-card` }
+            >
+              <img
+                src={ strDrinkThumb }
+                alt="drinks"
+                data-testid={ `${index}-card-img` }
+              />
+              <p
+                data-testid={ `${index}-card-name` }
+              >
+                { strDrink }
+              </p>
+            </div>
+          ),
+        )}
       </section>
     </section>
   );
