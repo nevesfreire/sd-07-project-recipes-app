@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const getCocktailsByIngredient = (i) => new Promise((resolve, reject) => {
-  axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?i=${i}`)
+  axios.get(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${i}`)
     .then((response) => resolve(response.data))
     .catch((error) => reject(error));
 });

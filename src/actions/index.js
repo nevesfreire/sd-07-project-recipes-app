@@ -1,10 +1,7 @@
-const USER_EMAIL = 'USER_EMAIL';
+export {
+  REQUEST_COCKTAILS,
+  REQUEST_COCKTAILS_SUCCESS,
+  REQUEST_COCKTAILS_FAILURE,
+} from './cocktails';
 
-export default {
-  USER_EMAIL,
-};
-
-export const getEmail = (email) => ({
-  type: USER_EMAIL,
-  email,
-});
+export { USER_EMAIL, getEmail } from './userEmail';
