@@ -10,6 +10,11 @@ const CategoryList = (props) => {
   const {
     state: { mealsCategory, cocktailsCategory },
   } = useContext(RecipeContext);
+  const {
+    state: {
+      search: { categoryFilterDrinks, categoryFilterMeals },
+    },
+  } = useContext(RecipeContext);
 
   useEffect(() => {
     fetchCategoriesMeals().then((arrayLimit) => dispatch({
@@ -22,25 +27,75 @@ const CategoryList = (props) => {
     }));
   }, [dispatch]);
 
-  const mapButtonCallBack = ({ strCategory }) => (
-    <button
-      key={ strCategory }
-      type="button"
-      data-testid={ `${strCategory}-category-filter` }
-    >
-      {strCategory}
-    </button>
-  );
+  const handleCategoryDrinks = ({ target }) => {
+    const { name } = target;
+    if (name === categoryFilterDrinks) {
+      dispatch({ type: 'SET_FILTER_CATEGORY_DRINKS', categoryName: '' });
+    } else {
+      dispatch({ type: 'SET_FILTER_CATEGORY_DRINKS', categoryName: name });
+    }
+  };
+
+  const handleCategoryMeals = ({ target }) => {
+    const { name } = target;
+    if (name === categoryFilterMeals) {
+      dispatch({ type: 'SET_FILTER_CATEGORY_MEALS', categoryName: '' });
+    } else {
+      dispatch({ type: 'SET_FILTER_CATEGORY_MEALS', categoryName: name });
+    }
+  };
 
   const mealsCategoriesDoc = () => (
     <div>
-      {mealsCategory.map(mapButtonCallBack)}
+      {mealsCategory.map(({ strCategory }) => (
+        <button
+          name={ strCategory }
+          key={ strCategory }
+          type="button"
+          data-testid={ `${strCategory}-category-filter` }
+          onClick={ handleCategoryMeals }
+        >
+          {strCategory}
+        </button>
+      ))}
+      <button
+        name="All"
+        key="All"
+        type="button"
+        data-testid="All-category-filter"
+        onClick={ () => dispatch({
+          type: 'SET_FILTER_CATEGORY_MEALS',
+          categoryName: '' }) }
+      >
+        All
+      </button>
     </div>
   );
 
   const cocktailsCategoriesDoc = () => (
     <div>
-      {cocktailsCategory.map(mapButtonCallBack)}
+      {cocktailsCategory.map(({ strCategory }) => (
+        <button
+          name={ strCategory }
+          key={ strCategory }
+          type="button"
+          data-testid={ `${strCategory}-category-filter` }
+          onClick={ handleCategoryDrinks }
+        >
+          {strCategory}
+        </button>
+      ))}
+      <button
+        name="All"
+        key="All"
+        type="button"
+        data-testid="All-category-filter"
+        onClick={ () => dispatch({
+          type: 'SET_FILTER_CATEGORY_DRINKS',
+          categoryName: '' }) }
+      >
+        All
+      </button>
     </div>
   );
 
