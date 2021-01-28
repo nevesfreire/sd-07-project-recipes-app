@@ -56,3 +56,15 @@ export async function fetchDrinkByCategory(category) {
     return [];
   }
 }
+
+export async function fetchDrinkDetailsById(id) {
+  const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+  const details = await response.json();
+  return details.drinks;
+}
+
+export async function fetchFoodDetailsById(id) {
+  const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+  const details = await response.json();
+  if (details) return details.meals;
+}
