@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
+import PropTypes from 'prop-types';
 
 const TitleContext = createContext();
 
@@ -63,3 +64,5 @@ export function useTitleContext() {
   const { titleHeaderName, setHeaderName } = context;
   return { titleHeaderName, setHeaderName };
 }
+
+TitleHeaderProvider.propTypes = { children: PropTypes.element.isRequired };
