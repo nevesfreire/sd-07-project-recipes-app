@@ -47,6 +47,10 @@
   width: 90%;
 }
 
+.card {
+  width: 50vw;
+}
+
 @keyframes shake {
 
   0% {

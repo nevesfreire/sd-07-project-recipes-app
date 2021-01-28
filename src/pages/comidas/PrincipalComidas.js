@@ -2,13 +2,23 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../../components/header';
-import { setLocal } from '../../redux/action';
+import { loadRecipes } from '../../redux/action';
 import Footer from '../../components/footer';
 
 class PrincipalComidas extends Component {
+  constructor() {
+    super();
+    this.handleClick = this.handleClick.bind(this);
+  }
+
   componentDidMount() {
     const { setlocal } = this.props;
     setlocal('comidas');
+  }
+
+  handleClick(valor) {
+    const { history } = this.props;
+    history.push(`/comidas/${valor}`);
   }
 
   Meals() {
@@ -18,7 +28,7 @@ class PrincipalComidas extends Component {
       if (receitas.meals === null && !controlealert) {
         controlealert = true;
         alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-      } else if (receitas.meals.length === 1) {
+      } else if (receitas.meals.length === 1 && receitas.redirect) {
         const id = receitas.meals[0].idMeal;
         history.push(`/comidas/${id}`);
       } else {
@@ -26,14 +36,29 @@ class PrincipalComidas extends Component {
           const limit = 12;
           if (index < limit) {
             return (
-              <div key={ index } data-testid={ `${index}-recipe-card` }>
+              <button
+                className="card"
+                name={ receita.idMeal }
+                type="button"
+                onClick={ ({ target }) => this.handleClick(target.name) }
+                key={ index }
+                data-testid={ `${index}-recipe-card` }
+              >
                 <img
+                  className="card"
+                  name={ receita.idMeal }
                   data-testid={ `${index}-card-img` }
                   src={ receita.strMealThumb }
                   alt="imagem da receita"
                 />
-                <h1 data-testid={ `${index}-card-name` }>{receita.strMeal}</h1>
-              </div>
+                <h1
+                  className="card"
+                  name={ receita.idMeal }
+                  data-testid={ `${index}-card-name` }
+                >
+                  {receita.strMeal}
+                </h1>
+              </button>
             );
           }
           return null;
@@ -67,7 +92,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setlocal: (tipo) => dispatch(setLocal(tipo)),
+  setlocal: (tipo) => dispatch(loadRecipes(tipo)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PrincipalComidas);

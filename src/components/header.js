@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import Searchbar from './searchbar';
+import Categories from './categories';
 
 class Header extends Component {
   constructor() {
@@ -49,7 +50,7 @@ class Header extends Component {
             src={ searchIcon }
             alt="Buscar"
           />
-          { estilo === 'visible' ? <Searchbar /> : undefined }
+          { estilo === 'visible' ? <Searchbar /> : <Categories /> }
         </header>
       );
     }
