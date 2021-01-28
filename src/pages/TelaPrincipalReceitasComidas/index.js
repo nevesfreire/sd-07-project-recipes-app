@@ -1,9 +1,13 @@
 import React from 'react';
 
-class TelaPrincipalReceitasComidas extends React.Component {
+class FoodRecipe extends React.Component {
   render() {
-    return <h1>ola mundo</h1>;
+    return (
+      <div>
+        <h1>Tela principal de receitas de comidas</h1>
+      </div>
+    );
   }
 }
 
-export default TelaPrincipalReceitasComidas;
+export default FoodRecipe;

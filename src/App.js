@@ -6,7 +6,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-    // eslint-disable-next-line react/react-in-jsx-scope
     <BrowserRouter>
       <Routes />
     </BrowserRouter>
