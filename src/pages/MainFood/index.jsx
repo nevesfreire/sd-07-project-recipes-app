@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Header, RecipeCard } from '../../components';
+import { Header, Footer } from '../../components';
 
 export default function MainFood({ history }) {
   const cardsIndex = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
@@ -13,7 +13,7 @@ export default function MainFood({ history }) {
           cardsIndex.map(index => <RecipeCard key={index} id={index} />)
         }
       </main>
-      <footer>footer</footer>
+      <Footer />
     </div>
   );
 }
