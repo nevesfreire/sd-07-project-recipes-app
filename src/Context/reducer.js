@@ -16,6 +16,23 @@ export default function reducer(state, action) {
   case 'SET_CATEGORIES_COCKTAILS':
     return { ...state, cocktailsCategory: action.data };
 
+  case 'SET_FILTER_CATEGORY_DRINKS':
+    return {
+      ...state,
+      search: {
+        ...state.search,
+        categoryFilterDrinks: action.categoryName,
+      },
+    };
+
+  case 'SET_FILTER_CATEGORY_MEALS':
+    return {
+      ...state,
+      search: {
+        ...state.search,
+        categoryFilterMeals: action.categoryName,
+      },
+    };
   default:
     throw new Error();
   }
