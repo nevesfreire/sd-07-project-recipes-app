@@ -10,8 +10,7 @@ class Drinks extends Component {
     const { history } = this.props;
     return (
       <div>
-        Bebidas
-        <Header history={ history } />
+        <Header title="Bebidas" history={ history } />
         <DrinksRecipes endPoint="https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" />
         <Footer history={ history } />
 

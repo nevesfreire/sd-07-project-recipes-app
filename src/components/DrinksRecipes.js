@@ -1,24 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchRecipes, changeFetching } from '../actions';
+import { fetchRecipes } from '../actions';
 import '../css/food.css';
 
 class DrinksRecipes extends Component {
   componentDidMount() {
-    const { requestRecipes, endPoint, isFetching } = this.props;
-    isFetching();
+    const { requestRecipes, endPoint } = this.props;
     requestRecipes(endPoint);
   }
 
   render() {
-    const { getRecipes, isFetching } = this.props;
+    const { getRecipes } = this.props;
     const DRINK_LENGTH = 12;
-    console.log(getRecipes);
-
-    if (!isFetching) {
+    // console.log(getRecipes);
+    if (getRecipes.drinks) {
       console.log(getRecipes);
-      const filterArray = getRecipes.filter((_drink, index) => index < DRINK_LENGTH);
+      const filterArray = getRecipes.drinks
+        .filter((_drink, index) => index < DRINK_LENGTH);
       return (
         <div>
           {filterArray.map((drink, index) => (
@@ -44,12 +43,10 @@ class DrinksRecipes extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   requestRecipes: (endPoint) => dispatch(fetchRecipes(endPoint)),
-  isFetching: () => dispatch(changeFetching()),
 });
 
 const mapStateToProps = ({ recipes }) => ({
-  getRecipes: recipes.recipes.drinks,
-  isFetching: recipes.isFetching,
+  getRecipes: recipes.recipes,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DrinksRecipes);
@@ -58,5 +55,4 @@ DrinksRecipes.propTypes = {
   endPoint: PropTypes.string.isRequired,
   requestRecipes: PropTypes.func.isRequired,
   getRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
-  isFetching: PropTypes.bool.isRequired,
 };
