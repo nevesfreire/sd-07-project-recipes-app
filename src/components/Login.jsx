@@ -13,6 +13,7 @@ function Login() {
   const isEmail = ({ target: { value }}) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+    // https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test;
     if (emailRegex.test(value)) setEmail(value);
     else setEmail('');
   }
