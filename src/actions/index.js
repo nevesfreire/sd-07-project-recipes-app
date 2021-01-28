@@ -1,4 +1,5 @@
 import { SEARCH_TOGGLE } from './actionSearchToggle';
+
 const USER_EMAIL = 'USER_EMAIL';
 
 export default {
