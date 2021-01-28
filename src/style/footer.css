@@ -1,0 +1,28 @@
+.footer {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: row;
+  height: 10%;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.rocksGlass {
+  animation: shake 1s infinite ease;
+  max-height: 80vh;
+}
+
+@keyframes shake {
+
+  0% {
+    transform: rotate(5deg);
+  }
+
+  50% {
+    transform: rotate(-5deg);
+  }
+
+  100% {
+    transform: rotate(5deg);
+  }
+}

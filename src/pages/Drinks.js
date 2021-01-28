@@ -1,9 +1,14 @@
 import React from 'react';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 function Drinks() {
   return (
-    <Header title="Bebidas" isSearchable />
+    <div>
+      <Header title="Bebidas" isSearchable />
+      <Footer />
+    </div>
+
   );
 }
 export default Drinks;
