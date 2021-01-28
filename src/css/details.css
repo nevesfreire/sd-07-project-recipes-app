@@ -1,14 +1,11 @@
-body {
-  
+body {  
   border: 1px solid green;
   width: 360px;
 }
 .button-position {
-
   position: fixed;
 }
 .main-image {
-
   width: 100%;
 }
 .recomendation-image {
@@ -20,18 +17,16 @@ body {
 }
 
 .recomendation-image li {
-
   margin: 0 8px;
-  width: 55%;
   text-align: center;
-  bottom: 0;
+  width: 55%;
 }
 
 .recomendation-image li img {
   border-radius: 15px 15px 0 0;
 }
 
-.recomendation-image li h1{
+.recomendation-image li h1 {
   background-color: rgb(134, 148, 160);
   color: white;
 }
