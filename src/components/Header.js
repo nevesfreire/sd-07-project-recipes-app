@@ -48,7 +48,7 @@ const renderSearchBtn = (searchButton, toggleSearch, setToggleSearch) => {
   }
 };
 
-const renderSearchRecipeComponent = (pathname) => (
+const renderSearchRecipeComponent = (pathname, toggleSearch, title) => (
   toggleSearch ? (
     <SearchRecipes
       title={ title }

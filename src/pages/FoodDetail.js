@@ -1,6 +1,5 @@
 /* eslint-disable max-lines */
 /* eslint-disable max-lines-per-function */
-/* eslint-disable sonarjs/no-duplicate-string */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
