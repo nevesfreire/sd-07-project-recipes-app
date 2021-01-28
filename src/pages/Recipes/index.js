@@ -5,15 +5,17 @@ import { Context } from '../../context/Provider';
 
 import Card from '../../components/Card';
 import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 
 function Recipes({ history, search = false }) {
   const [slicedResults, setSlicedResults] = useState([]);
   const { setApi, results, isFetching, setIsFetching } = useContext(Context);
+  const { pathname } = history.location;
 
   useEffect(() => {
-    if (history.location.pathname.includes('bebidas')) setApi('drinks');
+    if (pathname.includes('bebidas')) setApi('drinks');
     else setApi('meal');
-  }, [history.location.pathname, setApi]);
+  }, [pathname, setApi]);
 
   useEffect(() => {
     if (!isFetching) return;
@@ -41,6 +43,11 @@ function Recipes({ history, search = false }) {
           <Card key={ index + 1 } data={ card } index={ index } />
         );
       })}
+      {
+        pathname !== '/receitas-feitas'
+        && (
+          pathname !== '/receitas-favoritas' && <Footer />)
+      }
     </>
   );
 }
