@@ -1,6 +1,5 @@
 import React from 'react';
 import { fireEvent } from '@testing-library/react';
-import { useHistory } from 'react-router-dom';
 import renderWithRouter from './renderWithRouter';
 import Login from '../pages/Login';
 import App from '../App'
