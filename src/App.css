@@ -1,3 +1,10 @@
+.footer {
+  bottom: 0;
+  /* height: 150px; */
+  position: fixed;
+  width: 100%;
+}
+
 .meals {
   align-items: center;
   background: #0fa36b;
