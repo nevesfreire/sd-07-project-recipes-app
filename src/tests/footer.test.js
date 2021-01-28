@@ -37,7 +37,7 @@ describe('Testes menu inferior', () => {
     expect(pathname).toBe('/explorar');
   });
   it('o botão drinks aparece na tela e direciona para a pagina Drinks', () => {
-    const { history } = renderWithRouter(<Food />);
+    const { history } = renderWithRouter(<Explorar />);
     fireEvent.click(screen.getByTestId('drinks-bottom-btn'));
     const { pathname } = history.location;
     expect(pathname).toBe('/bebidas');
