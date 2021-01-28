@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap') ; 
 
 body {
-  font-family: 'Roboto', sans-serif;
-  background: url(../../images/mountain.jpg) no-repeat center center fixed;
+  background: url('../../images/mountain.jpg') no-repeat center center fixed ;
   background-size: cover;
+  font-family: Roboto, sans-serif;
 }
 
 .main-section {
@@ -14,21 +14,21 @@ body {
 
 .modal-content {
   background-color: #3b4652;
-  padding: 0 18px;
-  opacity: .95;
   box-shadow: 0 0 3px #848484;
+  opacity: 0.95;
+  padding: 0 18px;
 }
 
 .logo-img {
-  margin-top: -50px;
   margin-bottom: 35px;
+  margin-top: -50px;
 }
 
 .logo-img img {
-  width: 100px;
-  height: 100px;
   border-radius: 5px;
   box-shadow: 0 0 2px #3b4652;
+  height: 100px;
+  width: 100px;
 }
 
 .form-group {
@@ -36,15 +36,15 @@ body {
 }
 
 .form-group input {
-  height: 42px;
-  border-radius: 5px;
   border: 0;
+  border-radius: 5px;
   font-size: 18px;
+  height: 42px;
 }
 
 button {
-  width: 40%;
   margin: 5px 0 25px;
+  width: 40%;
 }
 
 .btn {
@@ -52,8 +52,8 @@ button {
   background-color: #27c2a5;
   border-radius: 5px;
   color: white;
-  font-weight: 500;
   font-size: 19px;
+  font-weight: 500;
   padding: 7px 14px;
 }
 
