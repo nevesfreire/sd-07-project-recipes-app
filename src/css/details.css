@@ -1,26 +1,30 @@
 body {
-  width: 360px;
+  
   border: 1px solid green;
+  width: 360px;
 }
 .button-position {
+
   position: fixed;
-  bottom: 0;
 }
 .main-image {
+
   width: 100%;
 }
 .recomendation-image {
+
+  border: 1px solid red;
   display: flex;
   flex-direction: row;
-  border: 1px solid red;
   overflow: scroll;
 }
 
 .recomendation-image li {
 
-  width: 55%;
   margin: 0 8px;
+  width: 55%;
   text-align: center;
+  bottom: 0;
 }
 
 .recomendation-image li img {
