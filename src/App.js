@@ -1,20 +1,20 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Recipes from './pages/Recipes';
 import './App.css';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { initialize } from './services/localStorage';
 import { Provider } from './context/Provider';
 
 import Login from './pages/Login';
 
 function App() {
-  useEffect(initialize, []);
   return (
     <Provider>
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={ Login } />
+          <Route exact path="/comidas" component={ Recipes } />
         </Switch>
       </BrowserRouter>
     </Provider>
