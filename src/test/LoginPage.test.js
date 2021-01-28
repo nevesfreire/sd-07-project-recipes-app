@@ -1,10 +1,11 @@
 import React from 'react';
 import { fireEvent } from '@testing-library/react';
+import { useHistory } from 'react-router-dom';
 import renderWithRouter from './renderWithRouter';
 import Login from '../pages/Login';
 import App from '../App'
 
-/*  */ describe('Os elementos devem respeitar os atributos descritos', () => {
+describe('Os elementos devem respeitar os atributos descritos', () => {
   it('O campo de e-mail deve possuir o data-testid="email-input"', () => {
     const { getByTestId } = renderWithRouter(<Login />);
     const email = getByTestId('email-input');
@@ -114,13 +115,14 @@ describe('Salvar o e-mail no localStore após o login efetuado com sucesso', () 
 
 describe('Verificar se o usuário é redirecionado para página "/comidas" após o login efetuado com sucesso', () => {
   it('O usuário é redirecionado para página "/comidas"', () => {
-    const { getByTestId } = renderWithRouter(<Login />);
+    const { getByTestId, history } = renderWithRouter(<Login />);
     const inputEmail = getByTestId('email-input');
     const button = getByTestId('login-submit-btn');
     const inputPassword = getByTestId('password-input');
     fireEvent.change(inputEmail, { target: { value: 'Edythe61@gmail.com' } });
     fireEvent.change(inputPassword, { target: { value: '2IflVJOPW_FFZF6' } });
     fireEvent.click(button);
+    //const { pathname } = useHistory().location;
     const { pathname } = history.location;
     expect(pathname).toBe('/comidas');
   });
