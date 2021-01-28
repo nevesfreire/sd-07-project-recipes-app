@@ -12,7 +12,7 @@ export default function Header() {
           to="/perfil"
           data-testid="profile-top-btn"
         >
-          <img src="../../images/profileIcon.svg" alt="profile"/>
+          <img src="../../images/profileIcon.svg" alt="profile" />
         </Link>
 
         <span data-testid="page-title">Titulo Variável</span>
