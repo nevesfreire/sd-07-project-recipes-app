@@ -24,9 +24,9 @@ export default function MainFood({ history }) {
 
   const fetchFoodsCategories = async () => {
     try {
-      const URL = 'https://www.themealdb.com/api/json/v1/1/categories.php';
+      const URL = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
       const results = await fetch(URL).then((response) => response.json());
-      setCategories(results.categories);
+      setCategories(results.meals);
     } catch (error) {
       console.log(error);
     }
