@@ -21,16 +21,22 @@ class PrincipalComidas extends Component {
         const id = receitas.meals[0].idMeal;
         history.push(`/comidas/${id}`);
       } else {
-        return (receitas.meals.map((receita, index) => (
-          <div key={ index } data-testid={ `${index}-recipe-card` }>
-            <img
-              data-testid={ `${index}-card-img` }
-              src={ receita.strMealThumb }
-              alt="imagem da receita"
-            />
-            <h1 data-testid={ `${index}-card-name` }>{receita.strMeal}</h1>
-          </div>
-        )));
+        return (receitas.meals.map((receita, index) => {
+          const limit = 12;
+          if (index < limit) {
+            return (
+              <div key={ index } data-testid={ `${index}-recipe-card` }>
+                <img
+                  data-testid={ `${index}-card-img` }
+                  src={ receita.strMealThumb }
+                  alt="imagem da receita"
+                />
+                <h1 data-testid={ `${index}-card-name` }>{receita.strMeal}</h1>
+              </div>
+            );
+          }
+          return null;
+        }));
       }
     }
   }

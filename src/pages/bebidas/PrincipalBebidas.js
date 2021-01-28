@@ -21,16 +21,22 @@ class PrincipalBebidas extends Component {
         const id = receitas.drinks[0].idDrink;
         history.push(`/bebidas/${id}`);
       } else {
-        return (receitas.drinks.map((receita, index) => (
-          <div key={ index } data-testid={ `${index}-recipe-card` }>
-            <img
-              data-testid={ `${index}-card-img` }
-              src={ receita.strDrinkThumb }
-              alt="imagem da receita"
-            />
-            <h1 data-testid={ `${index}-card-name` }>{receita.strDrink}</h1>
-          </div>
-        )));
+        return (receitas.drinks.map((receita, index) => {
+          const limit = 12;
+          if (index < limit) {
+            return (
+              <div key={ index } data-testid={ `${index}-recipe-card` }>
+                <img
+                  data-testid={ `${index}-card-img` }
+                  src={ receita.strDrinkThumb }
+                  alt="imagem da receita"
+                />
+                <h1 data-testid={ `${index}-card-name` }>{receita.strDrink}</h1>
+              </div>
+            );
+          }
+          return null;
+        }));
       }
     }
   }
