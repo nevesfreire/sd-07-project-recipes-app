@@ -2,19 +2,18 @@ import React, { useState } from 'react';
 import propTypes from 'prop-types';
 import RecipesContext from './Context/Context';
 import RequestFoodAPI from '../services/foodApi';
-
 import RequestFoodBayName from '../services/nameFoodApi';
 import RequestFoodByLetter from '../services/firstLetterFoodApi';
 
 const FoodProvider = ({ children }) => {
   const [tittleHeader, setTittleHeader] = useState('Comidas');
   const [searchBar, setSearchBar] = useState(false);
-  const [inputText, setInputText] = useState('');
+  const [inputText, setInputText] = useState('chicken');
   const [radioType, setRadioType] = useState('');
   const [foodData, setFoodData] = useState();
 
   const changeSearchBarState = () => {
-    if (searchBar === true) setSearchBar(false);
+    if (searchBar === true) setSearchBar(false); console.log(inputText);
     if (searchBar === false) setSearchBar(true);
   };
 
@@ -41,7 +40,8 @@ const FoodProvider = ({ children }) => {
         await setFoodData(results);
         await console.log(results);
       }
-      inputText.length > 1 ? alert('Sua busca deve conter somente 1 (um) caracter') : getApi();
+      inputText.length > 1 ? (
+        alert('Sua busca deve conter somente 1 (um) caracter')) : getApi();
     }
   };
 

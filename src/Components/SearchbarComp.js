@@ -5,6 +5,7 @@ const SearchBarComp = () => {
   const {
     searchWithFilter,
     setInputText,
+    setRadioType,
   } = useContext(RecipesContext);
 
   const inputSearch = () => {
@@ -13,7 +14,7 @@ const SearchBarComp = () => {
 
   return (
     <div>
-      <input type="text" data-testid="search-input" />
+      <input type="text" data-testid="search-input" onChange={ ({ target }) => { setInputText(target.value); } } />
       <div>
         <input
           type="radio"
@@ -21,6 +22,7 @@ const SearchBarComp = () => {
           name="elementsForSearch"
           value="Ingrediente"
           data-testid="ingredient-search-radio"
+          onClick={ () => { setRadioType('Ingrediente'); } }
         />
         <label htmlFor="Ingredient">Ingrediente</label>
         <input
@@ -29,6 +31,7 @@ const SearchBarComp = () => {
           name="elementsForSearch"
           value="Nome"
           data-testid="name-search-radio"
+          onClick={ () => { setRadioType('Nome'); } }
         />
         <label htmlFor="Nome">Nome</label>
         <input
@@ -37,6 +40,7 @@ const SearchBarComp = () => {
           name="elementsForSearch"
           value="Primeira letra"
           data-testid="first-letter-search-radio"
+          onClick={ () => { setRadioType('firtLetter'); } }
         />
         <label htmlFor="firtLetter">Primeira letra</label>
       </div>
