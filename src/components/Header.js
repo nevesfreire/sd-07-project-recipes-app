@@ -62,7 +62,7 @@ class Header extends Component {
                 value="foodName"
                 data-testid="name-search-radio"
               />
-              <label for="foodName">Name</label>
+              <label for="foodName">Nome</label>
               <input
                 type="radio"
                 id="firstLetterName"
@@ -70,13 +70,13 @@ class Header extends Component {
                 value="firstLetterName"
                 data-testid="first-letter-search-radio"
               />
-              <label for="firstLetterName">First Letter</label>
+              <label for="firstLetterName">Primeira letra</label>
               <button
                 type="button"
                 data-testid="exec-search-btn"
                 // onClick={}
               >
-                Search
+                Buscar
               </button>
             </div>
             <div className="search-food-container">
