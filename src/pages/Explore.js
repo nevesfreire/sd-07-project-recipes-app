@@ -14,12 +14,14 @@ function Explore() {
   }, [dispatch]);
 
   return (
-    <FlexContainer>
+    <div>
       <Header />
-      <ButtonLarge data-testid="explore-food">Explorar Comidas</ButtonLarge>
-      <ButtonLarge data-testid="explore-drinks">Explorar Bebidas</ButtonLarge>
+      <FlexContainer>
+        <ButtonLarge data-testid="explore-food">Explorar Comidas</ButtonLarge> 
+        <ButtonLarge data-testid="explore-drinks">Explorar Bebidas</ButtonLarge>
+      </FlexContainer>
       <Footer />
-    </FlexContainer>
+    </div>
   );
 }
 
