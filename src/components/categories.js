@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { loadCategories, setFilterRecipes } from '../redux/action';
+import { loadCategories, setFilterRecipes, loadRecipes } from '../redux/action';
 import { fetchFoodCategory } from '../services';
 
 class Categories extends Component {
@@ -9,6 +9,7 @@ class Categories extends Component {
     super(props);
     this.state = {
       controlAPI: props.tipo,
+      categoriaAtual: 'All',
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -20,9 +21,20 @@ class Categories extends Component {
   }
 
   async handleClick(valor) {
-    const { tipo, setfilterrecipes } = this.props;
-    const filterCategory = await fetchFoodCategory(valor, tipo);
-    setfilterrecipes(filterCategory);
+    const { tipo, setfilterrecipes, loadrecipes } = this.props;
+    const { categoriaAtual } = this.state;
+    if (categoriaAtual !== valor && valor !== 'All') {
+      this.setState({
+        categoriaAtual: valor,
+      });
+      const filterCategory = await fetchFoodCategory(valor, tipo);
+      setfilterrecipes(filterCategory);
+    } else {
+      loadrecipes(tipo);
+      this.setState({
+        categoriaAtual: 'All',
+      });
+    }
   }
 
   render() {
@@ -36,7 +48,12 @@ class Categories extends Component {
     }
     return (
       <div>
-        <button type="button">All</button>
+        <button
+          type="button"
+          onClick={ () => this.handleClick('All') }
+        >
+          All
+        </button>
         { categorias.map((categoria) => (
           <button
             name={ categoria.strCategory }
@@ -61,6 +78,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   loadcategories: (e) => dispatch(loadCategories(e)),
   setfilterrecipes: (e) => dispatch(setFilterRecipes(e)),
+  loadrecipes: (e) => dispatch(loadRecipes(e)),
 });
 
 Categories.propTypes = {
@@ -68,6 +86,7 @@ Categories.propTypes = {
   categorias: PropTypes.arrayOf().isRequired,
   loadcategories: PropTypes.func.isRequired,
   setfilterrecipes: PropTypes.func.isRequired,
+  loadrecipes: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Categories);
