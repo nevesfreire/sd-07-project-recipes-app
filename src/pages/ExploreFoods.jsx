@@ -6,7 +6,7 @@ export default class ExploreFoods extends Component {
   render() {
     return (
       <div>
-        <CustomHeader title="Explorar Comidas" />
+        <CustomHeader title="Explorar Comidas" showSearchTopBtn={ false } />
         <CustomFooter />
       </div>
     );

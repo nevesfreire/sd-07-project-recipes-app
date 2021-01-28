@@ -6,7 +6,9 @@ export default class FoodsOrigin extends Component {
   render() {
     return (
       <div>
-        <CustomHeader title="Explorar Comidas por local de origem" />
+        <CustomHeader
+          title="Explorar Origem"
+        />
         <CustomFooter />
       </div>
     );
