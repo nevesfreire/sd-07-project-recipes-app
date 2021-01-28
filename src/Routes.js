@@ -20,6 +20,9 @@ import RecipesMadePage from './Pages/RecipesMadePage';
 function Routes() {
   return (
     <Switch>
+      <Route path="/perfil">
+        <ProfilePage />
+      </Route>
       <Route exact path="/">
         <LoginPage />
       </Route>
@@ -58,9 +61,6 @@ function Routes() {
       </Route>
       <Route path="/explorar">
         <ExplorePage />
-      </Route>
-      <Route path="/perfil">
-        <ProfilePage />
       </Route>
       <Route path="/receitas-feitas">
         <RecipesMadePage />

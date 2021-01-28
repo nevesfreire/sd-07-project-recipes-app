@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 function Profile() {
-  const getUserEmail = () => {
-    const { email } = JSON.parse(window.localStorage.getItem('user'));
-    // console.log(email);
-    return email;
-  };
+  const [userEmail, setUserEmail] = useState('');
+
+  useEffect(() => {
+    const profileEmail = window.localStorage.getItem('user');
+    if (profileEmail) {
+      const { email } = JSON.parse(profileEmail);
+      setUserEmail(email);
+    }
+  }, []);
 
   const clearLocalStorage = () => {
     window.localStorage.clear();
@@ -14,7 +18,7 @@ function Profile() {
 
   return (
     <div>
-      <h3 data-testid="profile-email">{ getUserEmail() }</h3>
+      <h3 data-testid="profile-email">{ userEmail }</h3>
       <Link to="/receitas-feitas">
         <button type="button" data-testid="profile-done-btn">Receitas Feitas</button>
       </Link>

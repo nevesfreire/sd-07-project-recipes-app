@@ -6,22 +6,55 @@ import Footer from '../Components/Footer';
 import RecipesContext from '../context/RecipesContext';
 
 function FoodPage() {
-  const { globalRecipes } = useContext(RecipesContext);
-  const [isFetching, setIsFetching] = useState(true);
-  const [isOnlyOne, setIsOnlyOne] = useState(false);
-  const [firstTwelveRecipes, setFirstTwelveRecipes] = useState([]);
+  const {
+    globalRecipes,
+    isOnlyOne,
+    setFirstTwelveRecipes,
+    isFetching,
+    setIsFetching,
+    firstTwelveRecipes } = useContext(RecipesContext);
+  const [filtered, setFiltered] = useState(false);
+  const [filter, setFilter] = useState('');
+  const [fiveCategories, setFiveCategories] = useState([]);
   const twelve = 12;
   const zero = 0;
+  const five = 5;
+
   useEffect(() => {
-    if (globalRecipes.meals !== undefined) {
-      setIsFetching(false);
-      if (globalRecipes.meals !== null && globalRecipes.meals.length === 1) {
-        setIsOnlyOne(true);
-      } else if (globalRecipes.meals !== null) {
-        setFirstTwelveRecipes(globalRecipes.meals.slice(zero, twelve));
-      }
+    if (!globalRecipes.meals && !filtered) {
+      const fetchFood = async () => {
+        const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+        const foods = await response.json();
+        setFirstTwelveRecipes(foods.meals.slice(zero, twelve));
+        setIsFetching(false);
+      };
+      const fetchCategories = async () => {
+        const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
+        const resultCategories = await response.json();
+        setFiveCategories(resultCategories.meals.slice(zero, five));
+        setIsFetching(false);
+      };
+      fetchFood();
+      fetchCategories();
     }
-  }, [globalRecipes]);
+  }, [filtered]);
+
+  const filterByCategory = async (category) => {
+    if (!filtered || filter !== category) {
+      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
+      const filteredMeals = await response.json();
+      setFirstTwelveRecipes(filteredMeals.meals.slice(zero, twelve));
+      setIsFetching(false);
+      setFilter(category);
+      setFiltered(true);
+    } else {
+      setFiltered(false);
+    }
+  };
+
+  const clearFilter = () => {
+    setFiltered(false);
+  };
 
   if (isOnlyOne) {
     const id = globalRecipes.meals[0].idMeal;
@@ -29,7 +62,26 @@ function FoodPage() {
   }
   return (
     <div>
-      <Header title="Comidas" />
+      <Header title="Comidas" showSearcIcon />
+      <button
+        onClick={ clearFilter }
+        type="button"
+        data-testid="All-category-filter"
+      >
+        All
+      </button>
+      {!isFetching && (
+        fiveCategories.map(({ strCategory }) => (
+          <button
+            key={ strCategory }
+            onClick={ () => filterByCategory(strCategory) }
+            type="button"
+            data-testid={ `${strCategory}-category-filter` }
+          >
+            {strCategory}
+          </button>
+        ))
+      )}
       {!isFetching
         ? (
           firstTwelveRecipes.map(
