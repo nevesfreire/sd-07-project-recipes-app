@@ -12,22 +12,27 @@ const MainScreen = (props) => {
   const {
     state: { mealsData, cocktailsData },
   } = useContext(RecipeContext);
+  const {
+    state: { search: { categoryFilterDrinks, categoryFilterMeals } },
+  } = useContext(RecipeContext);
 
   useEffect(() => {
-    fetchAllRecipes().then((arrayLimit) => dispatch({
+    fetchAllRecipes('', categoryFilterMeals).then((arrayLimit) => dispatch({
       type: 'SET_MEALS',
       data: arrayLimit,
     }));
-    fetchAllCocktails().then((arrayLimit) => dispatch({
+    fetchAllCocktails('', categoryFilterDrinks).then((arrayLimit) => dispatch({
       type: 'SET_COCKTAILS',
       data: arrayLimit,
     }));
-  }, [dispatch]);
+  }, [dispatch, categoryFilterDrinks, categoryFilterMeals]);
 
   const mealsDoc = () => (
     <div>
-      {mealsData.map(({ strMealThumb, strMeal }, index) => (
+      {mealsData.map(({ strMealThumb, strMeal, idMeal }, index) => (
         <CardFood
+          idFood={ idMeal }
+          page={ page }
           key={ strMeal }
           index={ index }
           foodName={ strMeal }
@@ -39,8 +44,10 @@ const MainScreen = (props) => {
 
   const cockTailsDoc = () => (
     <div>
-      {cocktailsData.map(({ strDrinkThumb, strDrink }, index) => (
+      {cocktailsData.map(({ strDrinkThumb, strDrink, idDrink }, index) => (
         <CardFood
+          idFood={ idDrink }
+          page={ page }
           key={ strDrink }
           index={ index }
           foodName={ strDrink }
