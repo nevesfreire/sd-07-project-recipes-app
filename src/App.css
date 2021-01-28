@@ -112,12 +112,11 @@
   overflow: auto;
   overflow-x: scroll;
   width: 100vw;
-  
 }
 
 .button-begin {
-  bottom: 0px;
-  position: fixed
+  bottom: 0;
+  position: fixed;
 }
 
 .details {
