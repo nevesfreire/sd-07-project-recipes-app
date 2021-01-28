@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import searchIcon from '../../images/searchIcon.svg';
@@ -32,3 +33,9 @@ export default function Header({
     </div>
   );
 }
+
+Header.propTypes = {
+  searchButtonExists: PropTypes.bool.isRequired,
+  setIsSearchBarVisible: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+};

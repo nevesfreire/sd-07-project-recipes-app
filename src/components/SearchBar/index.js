@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import './styles.css';
@@ -116,6 +117,16 @@ function SearchBar({ foodType, fi, fn, fl, ci, cn, cl }) {
     </div>
   );
 }
+
+SearchBar.propTypes = {
+  ci: PropTypes.func.isRequired,
+  cl: PropTypes.func.isRequired,
+  cn: PropTypes.func.isRequired,
+  fi: PropTypes.func.isRequired,
+  fl: PropTypes.func.isRequired,
+  fn: PropTypes.func.isRequired,
+  foodType: PropTypes.string.isRequired,
+};
 
 const mapStateToProps = ({
   cocktailsDrinks: { cocktails },
