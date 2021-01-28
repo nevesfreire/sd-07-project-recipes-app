@@ -30,55 +30,55 @@ class Header extends Component {
           <button
             type="button"
             data-testid="profile-top-btn"
-            onClick={ () => history.push('/perfil') }
+            onClick={() => history.push('/perfil')}
           >
-            <img src={ profileIcon } alt="profileIcon" />
+            <img src={profileIcon} alt="profileIcon" />
           </button>
 
           <h1 data-testid="page-title">Comidas</h1>
           <button
             type="button"
             data-testid="search-top-btn"
-            onClick={ this.changeDisplayInput }
+            onClick={this.changeDisplayInput}
           >
-            <img src={ searchIcon } alt="searchIcon" />
+            <img src={searchIcon} alt="searchIcon" />
           </button>
         </header>
-        <div>
-          <input
-            type="radio"
-            id="ingrediente"
-            name="IngredientFilter"
-            value="ingrediente"
-            data-testid="ingredient-search-radio"
-          />
-          <label for="ingrediente">Ingrediente</label>
-          <input
-            type="radio"
-            id="foodName"
-            name="foodNameFilter"
-            value="foodName"
-            data-testid="name-search-radio"
-          />
-          <label for="name">Name</label>
-          <input
-            type="radio"
-            id="firstLetterName"
-            name="firstLetterFilter"
-            value="firstLetterName"
-            data-testid="first-letter-search-radio"
-          />
-          <label for="firstLetterName">First Letter</label>
-          <button
-            type="button"
-            data-testid="exec-search-btn"
-            // onClick={}
-          >
-            "exec-search-btn"
-          </button>
-        </div>
-        <section>
-          {showInputSearch && (
+        {showInputSearch && (
+          <section>
+            <div>
+              <input
+                type="radio"
+                id="ingrediente"
+                name="Filter"
+                value="ingrediente"
+                data-testid="ingredient-search-radio"
+              />
+              <label for="ingrediente">Ingrediente</label>
+              <input
+                type="radio"
+                id="foodName"
+                name="Filter"
+                value="foodName"
+                data-testid="name-search-radio"
+              />
+              <label for="foodName">Name</label>
+              <input
+                type="radio"
+                id="firstLetterName"
+                name="Filter"
+                value="firstLetterName"
+                data-testid="first-letter-search-radio"
+              />
+              <label for="firstLetterName">First Letter</label>
+              <button
+                type="button"
+                data-testid="exec-search-btn"
+                // onClick={}
+              >
+                Search
+              </button>
+            </div>
             <div className="search-food-container">
               <input
                 name="searchFood"
@@ -88,8 +88,8 @@ class Header extends Component {
                 data-testid="search-input"
               />
             </div>
-          )}
-        </section>
+          </section>
+        )}
       </div>
     );
   }
