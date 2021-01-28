@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function CardList({ arrayOfCard, typeOfCard }) {
+function CardList({ arrayOfCard, typeOfCard, sideScroll, recommendation }) {
   arrayOfCard.length = 12;
   const magicNumberZero = 0;
 
@@ -9,32 +9,38 @@ function CardList({ arrayOfCard, typeOfCard }) {
   const name = `str${typeOfCard}`;
   const src = `str${typeOfCard}Thumb`;
   const pathType = typeOfCard === 'Meal' ? 'comidas' : 'bebidas';
+  console.log(recommendation, 'recommendation');
 
   return (
-    <div className="card-list">
+    <div
+      className={ `card-list${sideScroll}` }
+    >
       { arrayOfCard.length > magicNumberZero
-      && arrayOfCard.map((item, index) => (
-        <div
-          data-testid={ `${index}-recipe-card` }
-          className="item-card"
-          key={ item[id] }
-
-        >
-          <a href={ `/${pathType}/${item[id]}` }>
-            <img
-              data-testid={ `${index}-card-img` }
-              width="100%"
-              src={ item[src] }
-              alt="item"
-            />
-            <h3
-              data-testid={ `${index}-card-name` }
-            >
-              { item[name] }
-            </h3>
-          </a>
-        </div>
-      ))}
+        && arrayOfCard.map((item, index) => (
+          <div
+            data-testid={
+              recommendation ? `${index}-recomendation-card` : `${index}-recipe-card`
+            }
+            className="item-card"
+            key={ item[id] }
+          >
+            <a href={ `/${pathType}/${item[id]}` }>
+              <img
+                data-testid={ `${index}-card-img` }
+                width="200px"
+                src={ item[src] }
+                alt="item"
+              />
+              <h3
+                data-testid={
+                  recommendation ? `${index}-recomendation-title` : `${index}-card-name`
+                }
+              >
+                {item[name]}
+              </h3>
+            </a>
+          </div>
+        ))}
     </div>
   );
 }
@@ -42,6 +48,8 @@ function CardList({ arrayOfCard, typeOfCard }) {
 CardList.propTypes = {
   arrayOfCard: PropTypes.arrayOf(PropTypes.objectOf).isRequired,
   typeOfCard: PropTypes.string.isRequired,
+  sideScroll: PropTypes.string.isRequired,
+  recommendation: PropTypes.bool.isRequired,
 };
 
 export default CardList;

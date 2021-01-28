@@ -16,14 +16,17 @@
 }
 
 .item-card {
+  display: inline-block;
+  margin: 5px;
   padding: 5px;
-  width: 180px;
+  width: 200px;
 }
 
 .card-list {
   display: flex;
-  flex-wrap: wrap;
+  flex-flow: wrap;
   justify-content: space-evenly;
+  padding: 5px;
 }
 
 /*
@@ -99,4 +102,24 @@
 
 .header-button {
   background-color: grey;
+}
+
+.sideScroll {
+  display: flex;
+  flex-flow: row nowrap;
+  height: 300px;
+  justify-content: flex-start;
+  overflow: auto;
+  overflow-x: scroll;
+  width: 100vw;
+}
+
+.button-begin {
+  bottom: 0;
+  position: fixed;
+}
+
+.details {
+  display: flex;
+  flex-flow: column;
 }
