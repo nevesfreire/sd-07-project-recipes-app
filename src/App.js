@@ -5,11 +5,14 @@ import { BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import LoginPage from './Pages/LoginPage';
 import Routes from './Routes';
+import RecipesContextProvider from './context/RecipesContextProvider';
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes />
+      <RecipesContextProvider>
+        <Routes />
+      </RecipesContextProvider>
     </BrowserRouter>
   );
 }
