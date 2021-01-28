@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import CoffeAndCodeContext from '../context/CoffeeAndCodeContext';
 
 function Login() {
-
   const {
     email,
     setEmail,
@@ -10,19 +9,19 @@ function Login() {
     setPassword,
   } = useContext(CoffeAndCodeContext);
 
-  const isEmail = ({ target: { value }}) => {
+  const isEmail = ({ target: { value } }) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     // https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test;
     if (emailRegex.test(value)) setEmail(value);
     else setEmail('');
-  }
+  };
 
-  const isPassword = ({ target: { value }}) => {
+  const isPassword = ({ target: { value } }) => {
     const minimumLength = 6;
     if (value.length >= minimumLength) setPassword(value);
     else setPassword('');
-  }
+  };
 
   return (
     <div>
