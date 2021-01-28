@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 class ExplorarComidas extends React.Component {
@@ -6,6 +7,7 @@ class ExplorarComidas extends React.Component {
     return (
       <div>
         <Header pageTitle="Explorar Comidas" />
+        <Footer />
       </div>
     );
   }

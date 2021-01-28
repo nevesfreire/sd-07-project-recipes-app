@@ -39,7 +39,7 @@ class SearchBar extends React.Component {
     const searchParam = `${searchType}${searchText}`;
     if (searchType === 'search.php?f=' && searchText.length > 1) {
       // eslint-disable-next-line no-alert
-      return alert('Sua busca deve conter somente 1 (um) caracter.');
+      return alert('Sua busca deve conter somente 1 (um) caracter');
     }
     if (searchText && searchType) {
       await this.setState({ searchParam });
@@ -52,7 +52,7 @@ class SearchBar extends React.Component {
     const { search } = this.props;
     if (search === 'meals') {
       const result = await apiTheMealDB(searchParam);
-      if (!result.meals) {
+      if (!result || !result.meals) {
         // eslint-disable-next-line no-alert
         return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       }

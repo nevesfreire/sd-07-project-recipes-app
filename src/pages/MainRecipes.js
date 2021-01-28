@@ -6,7 +6,7 @@ class MainRecipes extends React.Component {
   render() {
     return (
       <div>
-        <Header shouldRenderSearchIcon="yes" pageTitle="Comidas" />
+        <Header shouldRenderSearchIcon="yes" pageTitle="Comidas" search="meals" />
         <Footer />
       </div>
     );

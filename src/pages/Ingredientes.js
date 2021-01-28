@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 class Ingredientes extends React.Component {
@@ -6,6 +7,7 @@ class Ingredientes extends React.Component {
     return (
       <div>
         <Header pageTitle="Explorar Ingredientes" />
+        <Footer />
       </div>
     );
   }
