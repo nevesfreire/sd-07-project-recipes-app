@@ -17,8 +17,8 @@ export const getFirstLetter = (payload) => ({
   payload,
 });
 
-async function fetchIngredients(ingredient) {
-  const responseAPI = await fetch('https://www.themealdb.com/api/json/v1/1/filter.php?i=chicken_breast');
+async function fetchIngredients() {
+  const responseAPI = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
   const recipesWithIngredient = await responseAPI.json();
   return recipesWithIngredient;
 }
