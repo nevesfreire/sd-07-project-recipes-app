@@ -1,0 +1,9 @@
+.container-nav {
+  background-color: #42bcde;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1.5rem 0.5rem 1rem;
+  position: fixed;
+  width: 360px;
+}

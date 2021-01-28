@@ -1,7 +1,14 @@
 import React from 'react';
 
+import Footer from '../components/Footer';
+
 function IngredientsFoods() {
-  return (<span>Comidas Por Ingrediente</span>);
+  return (
+    <div>
+      <span>Explorar Comidas por Ingredientes</span>
+      <Footer />
+    </div>
+  );
 }
 
 export default IngredientsFoods;
