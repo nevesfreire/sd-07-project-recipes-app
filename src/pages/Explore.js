@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import FlexContainer from '../components/FlexContainer';
 import ButtonLarge from '../components/ButtonLarge';
 import allActions from '../actions';
-import { useHistory } from 'react-router-dom';
 
-function Explore(props) {
+function Explore() {
   const dispatch = useDispatch();
 
   useEffect(() => {
