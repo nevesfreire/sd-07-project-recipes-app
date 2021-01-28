@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import AddInput from './InputPesquisa';
+import './Header.css';
 
 function Header({ text, search }) {
   const [renderComponent, setRenderComponent] = useState(false);
 
   return (
-    <div>
+    <header className="header">
       <a
         href="/perfil"
         type="button"
@@ -20,7 +21,7 @@ function Header({ text, search }) {
           src={ profileIcon }
         />
       </a>
-      <div data-testid="page-title">{text}</div>
+      <p data-testid="page-title">{text}</p>
       { search
         && (
           <button
@@ -35,7 +36,7 @@ function Header({ text, search }) {
             />
           </button>)}
       { renderComponent && <AddInput /> }
-    </div>
+    </header>
   );
 }
 

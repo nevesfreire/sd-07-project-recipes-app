@@ -1,14 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { apiFoods } from '../services/Services';
+import React, { useContext, useEffect } from 'react';
+import RecipesContext from '../context/recipesContext';
 
 function CardsFood() {
-  const [foods, setFoods] = useState([]);
+  const { foods, fetchFoods } = useContext(RecipesContext);
 
   useEffect(() => {
-    const fetchFoods = async () => {
-      const searchFoods = await apiFoods('search.php?s=');
-      setFoods(searchFoods);
-    };
     fetchFoods();
   }, []);
 
