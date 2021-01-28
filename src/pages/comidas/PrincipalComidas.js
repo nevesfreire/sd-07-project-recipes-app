@@ -6,9 +6,19 @@ import { loadRecipes } from '../../redux/action';
 import Footer from '../../components/footer';
 
 class PrincipalComidas extends Component {
+  constructor() {
+    super();
+    this.handleClick = this.handleClick.bind(this);
+  }
+
   componentDidMount() {
     const { setlocal } = this.props;
     setlocal('comidas');
+  }
+
+  handleClick(valor) {
+    const { history } = this.props;
+    history.push(`/comidas/${valor}`);
   }
 
   Meals() {
@@ -26,14 +36,29 @@ class PrincipalComidas extends Component {
           const limit = 12;
           if (index < limit) {
             return (
-              <div key={ index } data-testid={ `${index}-recipe-card` }>
+              <button
+                className="card"
+                name={ receita.idMeal }
+                type="button"
+                onClick={ ({ target }) => this.handleClick(target.name) }
+                key={ index }
+                data-testid={ `${index}-recipe-card` }
+              >
                 <img
+                  className="card"
+                  name={ receita.idMeal }
                   data-testid={ `${index}-card-img` }
                   src={ receita.strMealThumb }
                   alt="imagem da receita"
                 />
-                <h1 data-testid={ `${index}-card-name` }>{receita.strMeal}</h1>
-              </div>
+                <h1
+                  className="card"
+                  name={ receita.idMeal }
+                  data-testid={ `${index}-card-name` }
+                >
+                  {receita.strMeal}
+                </h1>
+              </button>
             );
           }
           return null;

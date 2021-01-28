@@ -49,6 +49,7 @@ class Categories extends Component {
     return (
       <div>
         <button
+          data-testid="All-category-filter"
           type="button"
           onClick={ () => this.handleClick('All') }
         >
