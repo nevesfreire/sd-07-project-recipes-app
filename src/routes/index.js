@@ -14,7 +14,7 @@ const Routes = () => (
     <Route path="/bebidas" component={ TelaPrincipalReceitasBebidas } />
     <Route path="/comidas" component={ TelaPrincipalReceitasComidas } />
     <Route path="/bebidas/id-da-receita" component={ TelaDetalheBebida } />
-    <Route path="/comidas/id-da-receita" component={ TelaDetalheComida } />
+    <Route path={ `/comidas/${idDaReceita}` } component={ TelaDetalheComida } />
   </Switch>
 );
 
