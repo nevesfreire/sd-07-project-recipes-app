@@ -114,8 +114,10 @@ Bebidas.propTypes = {
   fetchDrinkCategory: PropTypes.func.isRequired,
   drinks: PropTypes.shape({
     isFetching: PropTypes.bool.isRequired,
+    isRequired: PropTypes.bool.isRequired,
     cocktails: PropTypes.arrayOf(PropTypes.object).isRequired,
   }).isRequired,
+  notRequired: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

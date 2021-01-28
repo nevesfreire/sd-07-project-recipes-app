@@ -5,13 +5,13 @@ import { Link } from 'react-router-dom';
 import Footer from '../../../../components/Footer';
 import {
   fetchFoodByArea,
-  requestRequired
+  requestRequired,
 } from '../../../../redux/actions/foodActions';
 import './styles.css';
 
 function ExplorarAreaComidas(props) {
   const [areas, setAreas] = useState([]);
-  const [currentArea, setCurrentArea] = useState('Canadian')
+  const [currentArea, setCurrentArea] = useState('Canadian');
 
   async function fetchArea() {
     const INITIAL_RETURN = 0;
@@ -29,7 +29,7 @@ function ExplorarAreaComidas(props) {
   }
 
   function renderOptions() {
-    if(!areas) return <div>Loading...</div>
+    if (!areas) return <div>Loading...</div>;
     return (
       <label htmlFor="area">
         <select
@@ -78,7 +78,7 @@ function ExplorarAreaComidas(props) {
   useEffect(() => {
     const { fetchFoodArea } = props;
     fetchFoodArea(currentArea);
-  }, [currentArea])
+  }, [currentArea]);
 
   useEffect(() => {
     fetchArea();
@@ -99,7 +99,7 @@ ExplorarAreaComidas.propTypes = {
   foods: PropTypes.shape({
     isFetching: PropTypes.bool.isRequired,
     meals: PropTypes.shape({
-      slice: PropTypes.func.isRequired
+      slice: PropTypes.func.isRequired,
     }).isRequired,
   }).isRequired,
 };

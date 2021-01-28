@@ -44,11 +44,6 @@ function Routes() {
           path="/bebidas/:id-da-receita/in-progress"
           component={ BebidasIDProgress }
         />
-        
-        
-
-
-
         <Route exact path="/perfil" component={ Perfil } />
         <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
         <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } /> */}

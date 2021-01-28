@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 function ExplorarComidas() {
-  const [id, setId] = useState(0);
+  const [id, setId] = useState();
 
   async function fetchRandom() {
     const result = await fetch(
@@ -24,13 +24,13 @@ function ExplorarComidas() {
       >
         Por Ingredientes
       </Link>
-      <br></br>
+      <br />
       <Link to="/explorar/comidas/area" data-testid="explore-by-area">
         Por Local de Origem
       </Link>
-      <br></br>
+      <br />
       <Link
-        to={`/comidas/${id}`}
+        to={ `/comidas/${id}` }
         data-testid="explore-surprise"
       >
         Me Surpreenda!

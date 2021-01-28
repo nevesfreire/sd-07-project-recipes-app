@@ -93,8 +93,7 @@ function Comidas(props) {
     const { fetchFood, foods, notRequired } = props;
     if (foods.isRequired) {
       notRequired();
-    }
-    else{
+    } else {
       fetchFood('');
     }
     fetchCategories();
@@ -115,8 +114,10 @@ Comidas.propTypes = {
   fetchFoodCategory: PropTypes.func.isRequired,
   foods: PropTypes.shape({
     isFetching: PropTypes.bool.isRequired,
+    isRequired: PropTypes.bool,
     meals: PropTypes.arrayOf(PropTypes.object).isRequired,
   }).isRequired,
+  notRequired: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

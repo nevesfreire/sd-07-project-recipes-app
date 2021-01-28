@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Footer from '../../../../components/Footer';
 import {
   fetchFoodByIngredient,
-  requestRequired
+  requestRequired,
 } from '../../../../redux/actions/foodActions';
 import './styles.css';
 
@@ -29,8 +29,7 @@ function ExplorarComidasIngredientes(props) {
   }
 
   function renderMeals() {
-
-    if(!ingredients) return (<div>Loading...</div>)
+    if (!ingredients) return (<div>Loading...</div>);
     return (
       <div className="container-foods">
         { ingredients.map((item, index) => (
@@ -65,9 +64,9 @@ function ExplorarComidasIngredientes(props) {
 }
 
 ExplorarComidasIngredientes.propTypes = {
-  fetchFoodIngredient: PropTypes.func,
-  request: PropTypes.func
-}
+  fetchFoodIngredient: PropTypes.func.isRequired,
+  request: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = (state) => ({
   foods: state.foodMeals,

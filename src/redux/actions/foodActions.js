@@ -2,9 +2,9 @@ export const addFood = (food) => ({ type: 'ADD_FOOD', food });
 
 export const requestingData = () => ({ type: 'REQUEST_FOOD' });
 
-export const requestRequired = () => ({ type: 'REQUEST_REQUIRED_FOOD'});
+export const requestRequired = () => ({ type: 'REQUEST_REQUIRED_FOOD' });
 
-export const stopRequired = () => ({ type: 'STOP_REQUIRED_FOOD'});
+export const stopRequired = () => ({ type: 'STOP_REQUIRED_FOOD' });
 
 export function fetchFoodById(id) {
   return async (dispatch) => {
