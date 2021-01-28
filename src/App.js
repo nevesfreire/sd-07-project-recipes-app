@@ -1,14 +1,19 @@
 import React from 'react';
 import './App.css';
-import Routes from './routes';
-import RecipesProvider from './context/RecipesProvider';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Routes from './Routes';
+import RecipesProvider from './context/RecipesProvider';
 
 function App() {
   return (
-    <RecipesProvider>
-      <Routes />
-    </RecipesProvider>
+    <div>
+
+      <RecipesProvider>
+        <Routes />
+      </RecipesProvider>
+
+    </div>
+
   );
 }
 
