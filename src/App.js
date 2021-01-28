@@ -2,13 +2,13 @@ import React from 'react';
 import Routes from './routes';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import HeaderProvider from './providers/HeaderProvider';
+import FoodProvider from './providers/FoodProvider';
 
 function App() {
   return (
-    <HeaderProvider>
+    <FoodProvider>
       <Routes />
-    </HeaderProvider>
+    </FoodProvider>
   );
 }
 

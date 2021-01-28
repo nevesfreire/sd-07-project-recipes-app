@@ -4,6 +4,7 @@ import propTypes from 'prop-types';
 import RecipesContext from '../providers/Context/Context';
 import ImgPerfil from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import SearchBarComp from './SearchbarComp';
 
 const Header = ({ children }) => {
   const {
@@ -28,7 +29,7 @@ const Header = ({ children }) => {
         >
           <img data-testid="search-top-btn" src={ searchIcon } alt="SVG Search" />
         </button>) }
-      { searchBar && <input type="text" data-testid="search-input" /> }
+      { searchBar && <SearchBarComp /> }
     </header>
   );
 };
