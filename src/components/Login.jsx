@@ -10,12 +10,17 @@ function Login() {
     setPassword,
   } = useContext(CoffeAndCodeContext);
 
-  const isEmail = (event) => {
+  const isEmail = ({ target: { value }}) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+    if (emailRegex.test(value)) setEmail(value);
+    else setEmail('');
   }
 
-  const isPassword = (event) => {
-
+  const isPassword = ({ target: { value }}) => {
+    const minimumLength = 6;
+    if (value.length >= minimumLength) setPassword(value);
+    else setPassword('');
   }
 
   return (

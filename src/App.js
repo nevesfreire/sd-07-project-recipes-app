@@ -1,12 +1,17 @@
 import React from 'react';
-import { Router, Switch } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
+import Provider from './context/Provider';
 import Home from './pages/Home';
 
 function App() {
   return (
-    <Switch>
-      <Router path="/" exact component={ Home } />
-    </Switch>
+    <div>
+      <Provider>
+        <Switch>
+          <Route exact path="/" component={ Home } />
+        </Switch>
+      </Provider>
+    </div>
   );
 }
 
