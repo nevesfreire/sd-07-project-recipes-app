@@ -15,6 +15,8 @@ import OriginFoods from './pages/OriginFoods';
 import Profile from './pages/Profile';
 import RecipesDone from './pages/RecipesDone';
 import RecipesFavorites from './pages/RecipesFavorites';
+import ExplorerFoods from './pages/ExplorerFoods';
+import ExplorerDrinks from './pages/ExplorerDrinks';
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
           <Route exact path="/comidas" component={ Foods } />
           <Route exact path="/bebidas" component={ Drinks } />
           <Route exact path="/explorar" component={ Explorer } />
+          <Route exact path="/explorar/comidas" component={ ExplorerFoods } />
+          <Route exact path="/explorar/bebidas" component={ ExplorerDrinks } />
           <Route
             exact
             path="/explorar/comidas/ingredientes"
