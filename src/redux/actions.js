@@ -2,9 +2,9 @@ export const GET_INGREDIENTS = 'GET_INGREDIENTS';
 export const GET_NAME = 'GET_NAME';
 export const GET_FIRST_LETTER = 'GET_FIRST_LETTER';
 
-export const getIngredients = (payload) => ({
+export const getIngredients = (recipesByIngredients) => ({
   type: GET_INGREDIENTS,
-  payload,
+  recipesByIngredients,
 });
 
 export const getName = (payload) => ({
@@ -18,7 +18,7 @@ export const getFirstLetter = (payload) => ({
 });
 
 async function fetchIngredients(ingredient) {
-  const responseAPI = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
+  const responseAPI = await fetch('https://www.themealdb.com/api/json/v1/1/filter.php?i=chicken_breast');
   const recipesWithIngredient = await responseAPI.json();
   return recipesWithIngredient;
 }

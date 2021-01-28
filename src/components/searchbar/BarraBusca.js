@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { getIngredients } from '../../redux/actions';
 
 class BarraBusca extends Component {
   constructor() {
@@ -56,6 +57,7 @@ class BarraBusca extends Component {
           type="button"
           id="botão"
           data-testid="exec-search-btn"
+          onClick={ getIngredients('chicken_breast') }
         >
           Buscar
         </button>
