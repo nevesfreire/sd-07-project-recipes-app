@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import initialState from '../data/dataLogin';
 import GlobalContext from './GlobalContext';
 
-export default function Provider(props) {
+export default function GlobalProvider({ children }) {
   const [state, setState] = useState(initialState);
-  const { children } = props;
+
   function updateState(key, value) {
     setState((prevState) => ({
       ...prevState,
@@ -13,9 +14,16 @@ export default function Provider(props) {
     }));
   }
 
+  const history = useHistory();
+
+  const redirect = (path) => {
+    history.push({ pathname: path });
+  };
+
   return (
     <GlobalContext.Provider
       value={ {
+        redirect,
         email: state.email,
         statusEmail: state.validatedEmail,
         statusPassword: state.validatedPassword,
@@ -29,6 +37,9 @@ export default function Provider(props) {
   );
 }
 
-Provider.propTypes = {
-  children: PropTypes.shape().isRequired,
+GlobalProvider.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+  children: PropTypes.node.isRequired,
 };

@@ -1,5 +1,10 @@
 import React from 'react';
+import Footer from '../components/Footer';
 
 export default function DrinksExplore() {
-  return <div />;
+  return (
+    <div>
+      <Footer />
+    </div>
+  );
 }
