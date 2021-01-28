@@ -25,21 +25,21 @@ export default function Header(props) {
   return (
     <div className="gusta-css-Header">
       <Link to="/perfil" className="top-btn-gusta-css">
-        <img src={userlogo} alt="Imagem user" data-testid="profile-top-btn" />
+        <img src={ userlogo } alt="Imagem user" data-testid="profile-top-btn" />
       </Link>
       <div data-testid="page-title" className="bar-search-gusta-css">
         <span>{newTitle}</span>
       </div>
       <div
-        style={{ visibility: topSearch ? 'hidden' : 'visible' }}
+        style={ { visibility: topSearch ? 'hidden' : 'visible' } }
         className="Top-Btn-gusta-css"
       >
         <Link
-          onClick={() => setSearchNice(!searchNice)}
+          onClick={ () => setSearchNice(!searchNice) }
           className="Top-Btn-gusta-css"
         >
           <img
-            src={IconSearch}
+            src={ IconSearch }
             alt="Search Logo"
             data-testid="search-top-btn-gusta-css"
           />

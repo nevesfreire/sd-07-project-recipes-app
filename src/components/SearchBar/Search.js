@@ -9,7 +9,7 @@ export default function Search() {
       data-testid="search-input"
       className="search-input-gusta"
       type="text"
-      onChange={(event) => setSearchValue(event.target.value)}
+      onChange={ (event) => setSearchValue(event.target.value) }
     />
   );
 }

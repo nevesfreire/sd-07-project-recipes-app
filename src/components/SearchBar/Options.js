@@ -14,7 +14,7 @@ export default function Options() {
           type="radio"
           value="ingrediente"
           name="options"
-          onChange={() => setValueOptions('ingrediente')}
+          onChange={ () => setValueOptions('ingrediente') }
         />
         <label htmlFor="ingrediente">Ingrediente</label>
       </div>
@@ -26,7 +26,7 @@ export default function Options() {
           type="radio"
           value="nome"
           name="options"
-          onChange={() => setValueOptions('nome')}
+          onChange={ () => setValueOptions('nome') }
         />
         <label htmlFor="nome">Nome</label>
       </div>
@@ -38,7 +38,7 @@ export default function Options() {
           type="radio"
           value="primeiraLetra"
           name="options"
-          onChange={() => setOptionsValue('primeiraLetra')}
+          onChange={ () => setOptionsValue('primeiraLetra') }
         />
         <label htmlFor="primeiraLetra">Primeira letra</label>
       </div>

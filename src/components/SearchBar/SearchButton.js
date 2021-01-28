@@ -7,14 +7,13 @@ export default function SearchButton(props) {
   return (
     <div>
       <button
-      type="submit"
+        type="submit"
         data-testid="exec=search-btn"
         className="gusta-css"
         onClick={ () => {
-        props.automatic(true);
-        setchangeFilter(changeFilter + 1);
-        }
-       }
+          props.automatic(true);
+          setchangeFilter(changeFilter + 1);
+        } }
       >
         Buscar...
       </button>

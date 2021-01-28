@@ -13,9 +13,9 @@ export default function SearchBarHeader(props) {
   return (
     <div className="Gusta-css">
       <Header
-        titile={props.title}
-        setSearchNice={update}
-        searchNice={searchNice}
+        titile={ props.title }
+        setSearchNice={ update }
+        searchNice={ searchNice }
       />
       <div className="GUsta-css">
         { searchNice ? <Search /> : null }
