@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ButtonDetails from './ButtonDetails';
 import ButtonsShhareAndFav from './ButtonsShhareAndFav';
+import RecipeIngredients from './RecipeIngredients';
 
 function DetailsFood() {
   const [recipe, setRecipe] = useState({});
@@ -52,18 +53,7 @@ function DetailsFood() {
         <ButtonsShhareAndFav fav={ fav } setFav={ setFav } />
         <h1 data-testid="recipe-title">{strMeal}</h1>
         <h3 data-testid="recipe-category">{strCategory}</h3>
-        {recipeIngredients.map((ingredient, index) => {
-          const ingredientName = Object.keys(ingredient);
-          const ingredientQty = Object.values(ingredient);
-          return (
-            <p
-              key={ ingredientName[0] }
-              data-testid={ `${index}-ingredient-name-and-measure` }
-            >
-              { `${ingredientName[0]}: ${ingredientQty[0]} ` }
-            </p>
-          );
-        })}
+        <RecipeIngredients recipeIngredients={ recipeIngredients } />
         <p data-testid="instructions">{strInstructions}</p>
         <iframe
           data-testid="video"
