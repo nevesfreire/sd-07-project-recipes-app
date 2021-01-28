@@ -25,8 +25,8 @@ function Header({ title, explore, funcFetch }) {
           src={ searchIcon }
           alt="search icon"
         />
-      </button>}
-      {searchBar && <SearchBar drinkFetch={ funcFetch } />}
+         </button>}
+      {searchBar && <SearchBar theFetch={ funcFetch } />}
     </div>);
 }
 

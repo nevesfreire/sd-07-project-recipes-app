@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
 
-function SearchBar({ drinkFetch }) {
+function SearchBar({ theFetch }) {
   const [searchType, setSearchType] = useState();
   const [searchInput, setSearchInput] = useState();
+
+  function handleClick() {
+    const um = 1;
+    if (searchInput.length > um) {
+      alert('Sua busca deve conter somente 1 (um) caracter');
+    }
+    theFetch(searchInput, searchType);
+  }
 
   return (
     <div>
@@ -42,7 +50,7 @@ function SearchBar({ drinkFetch }) {
         Primeira letra
       </label>
       <button
-        onClick={ () => drinkFetch(searchInput, searchType) }
+        onClick={ handleClick }
         type="button"
         data-testid="exec-search-btn"
       >
