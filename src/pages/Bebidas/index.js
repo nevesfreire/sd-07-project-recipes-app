@@ -3,41 +3,41 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Footer from '../../components/Footer/index';
-import {
-  fetchFoodByName,
-  fetchFoodByCategory,
-} from '../../redux/actions/foodActions';
-import './styles.css';
-import SearchBar from '../../components/SearchBar';
 import Header from '../../components/Header';
+import SearchBar from '../../components/SearchBar';
+import {
+  fetchCocktailByName,
+  fetchDrinkByCategory,
+} from '../../redux/actions/drinkActions';
+import './styles.css';
 
-function Comidas(props) {
+function Bebidas(props) {
   const [categories, setCategories] = useState([]);
   const [currentCategory, setCurrentCategory] = useState('');
   const [isSearchBarVisible, setIsSearchBarVisible] = useState(false);
 
-  function renderMeals() {
+  function renderDrinks() {
     const INITIAL_RETURN = 0;
     const MAX_RETURN = 12;
-    const { foods } = props;
-    const { meals, isFetching } = foods;
+    const { drinks } = props;
+    const { cocktails, isFetching } = drinks;
     if (isFetching) return <div>Loading...</div>;
-    const comida = meals.slice(INITIAL_RETURN, MAX_RETURN);
+    const cocktail = cocktails.slice(INITIAL_RETURN, MAX_RETURN);
     return (
-      <div className="container-foods">
-        {comida.map((item, index) => (
+      <div className="container-drinks">
+        {cocktail.map((item, index) => (
           <Link
             key={ index }
-            className="list-foods"
-            to={ `/comidas/${item.idMeal}` }
+            className="list-drinks"
+            to={ `/bebidas/${item.idDrink}` }
             data-testid={ `${index}-recipe-card` }
           >
             <img
               data-testid={ `${index}-card-img` }
-              src={ item.strMealThumb }
-              alt={ item.strMeal }
+              src={ item.strDrinkThumb }
+              alt={ item.strDrink }
             />
-            <div data-testid={ `${index}-card-name` }>{item.strMeal}</div>
+            <div data-testid={ `${index}-card-name` }>{item.strDrink}</div>
           </Link>
         ))}
       </div>
@@ -48,20 +48,20 @@ function Comidas(props) {
     const INITIAL_RETURN = 0;
     const MAX_RETURN = 5;
     const results = await fetch(
-      'https://www.themealdb.com/api/json/v1/1/list.php?c=list',
+      'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list',
     ).then((response) => response.json());
-    const result = results.meals.slice(INITIAL_RETURN, MAX_RETURN);
+    const result = results.drinks.slice(INITIAL_RETURN, MAX_RETURN);
     setCategories(result);
   }
 
   function handleCategories({ target }) {
-    const { fetchFoodCategory, fetchFood } = props;
+    const { fetchDrinkCategory, fetchDrink } = props;
     if (currentCategory === target.value || target.value === '') {
       setCurrentCategory('');
-      return fetchFood('');
+      return fetchDrink('');
     }
     setCurrentCategory(target.value);
-    fetchFoodCategory(target.value);
+    fetchDrinkCategory(target.value);
   }
 
   function renderCategories() {
@@ -92,42 +92,42 @@ function Comidas(props) {
   }
 
   useEffect(() => {
-    const { fetchFood } = props;
-    fetchFood('');
+    const { fetchDrink } = props;
+    fetchDrink('');
     fetchCategories();
   }, []);
 
   return (
     <div>
       <Header
-        title="Comidas"
+        title="Bebidas"
         searchButtonExists
         setIsSearchBarVisible={ setIsSearchBarVisible }
       />
-      {isSearchBarVisible && <SearchBar foodType="comidas" />}
+      {isSearchBarVisible && <SearchBar foodType="bebidas" />}
       {renderCategories()}
-      {renderMeals()}
+      {renderDrinks()}
       <Footer />
     </div>
   );
 }
 
-Comidas.propTypes = {
-  fetchFood: PropTypes.func.isRequired,
-  fetchFoodCategory: PropTypes.func.isRequired,
-  foods: PropTypes.shape({
+Bebidas.propTypes = {
+  fetchDrink: PropTypes.func.isRequired,
+  fetchDrinkCategory: PropTypes.func.isRequired,
+  drinks: PropTypes.shape({
     isFetching: PropTypes.bool.isRequired,
-    meals: PropTypes.arrayOf(PropTypes.object).isRequired,
+    cocktails: PropTypes.arrayOf(PropTypes.object).isRequired,
   }).isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  foods: state.foodMeals,
+  drinks: state.cocktailsDrinks,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchFood: (food) => dispatch(fetchFoodByName(food)),
-  fetchFoodCategory: (food) => dispatch(fetchFoodByCategory(food)),
+  fetchDrink: (drink) => dispatch(fetchCocktailByName(drink)),
+  fetchDrinkCategory: (drink) => dispatch(fetchDrinkByCategory(drink)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Comidas);
+export default connect(mapStateToProps, mapDispatchToProps)(Bebidas);

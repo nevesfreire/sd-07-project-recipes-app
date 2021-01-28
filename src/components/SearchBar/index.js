@@ -12,7 +12,7 @@ import {
   fetchCocktailByFirstLetter,
 } from '../../redux/actions/drinkActions';
 
-function SearchBar({ foodType, fi, fn, fl, ci, cn, cl, cocktails, meals }) {
+function SearchBar({ foodType, fi, fn, fl, ci, cn, cl }) {
   const [type, setType] = useState('ingredient');
   const [searchTerm, setSearchTerm] = useState('');
   useEffect(() => {
@@ -65,7 +65,6 @@ function SearchBar({ foodType, fi, fn, fl, ci, cn, cl, cocktails, meals }) {
 
   return (
     <div>
-      <button data-testid="search-top-btn" type="button">Faz de conta que é serio</button>
       <form className="search-form-wrapper">
         <input
           type="text"
@@ -114,12 +113,6 @@ function SearchBar({ foodType, fi, fn, fl, ci, cn, cl, cocktails, meals }) {
           Buscar
         </button>
       </form>
-      {meals !== null
-        && meals.map((meal, index) => <p key={ index }>{meal.strMeal}</p>)}
-      {cocktails !== null
-        && cocktails.map((cocktail, index) => (
-          <p key={ index }>{cocktail.strDrink}</p>
-        ))}
     </div>
   );
 }

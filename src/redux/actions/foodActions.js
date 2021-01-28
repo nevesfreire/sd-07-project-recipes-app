@@ -45,3 +45,14 @@ export function fetchFoodByFirstLetter(name) {
     return dispatch(addFood(json));
   };
 }
+
+export function fetchFoodByCategory(category) {
+  return async (dispatch) => {
+    dispatch(requestingData());
+    const resolve = await fetch(
+      `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`,
+    );
+    const json = await resolve.json();
+    return dispatch(addFood(json));
+  };
+}
