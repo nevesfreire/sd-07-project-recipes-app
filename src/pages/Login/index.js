@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
-import { PropTypes } from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import { initialize, saveItem } from '../../services/localStorage';
 
-function Login({ history }) {
+function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [disabled, setDisabled] = useState(true);
+
+  const history = useHistory();
 
   useEffect(() => {
     const isEmailValid = () => {
@@ -72,10 +74,10 @@ function Login({ history }) {
   );
 }
 
-Login.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
-};
+// Login.propTypes = {
+//   history: PropTypes.shape({
+//     push: PropTypes.func.isRequired,
+//   }).isRequired,
+// };
 
 export default Login;
