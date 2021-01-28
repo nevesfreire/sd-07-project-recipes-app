@@ -1,5 +1,5 @@
 .footerContainer {
-  bottom: 0px;
+  bottom: 0;
   display: flex;
   justify-content: space-around;
   position: fixed;
