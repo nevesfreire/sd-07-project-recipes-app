@@ -10,13 +10,12 @@ import {
   ReceitaBebida,
   InProgress,
   Explorar,
-  ExplorarComidas,
-  ExplorarBebidas,
   Ingredientes,
   ExplorarComidasArea,
   Perfil,
   ReceitasFeitas,
   ReceitasFavoritas,
+  ExplorarBebidasOuComidas,
 } from './pages';
 
 function App() {
