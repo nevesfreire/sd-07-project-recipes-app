@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { resultIngredients, resultName, resultLetter } from '../../redux/actions';
+import { resultIngredientsBebida,
+  resultNameBebida,
+  resultLetterBebida } from '../../redux/actionsBebidas';
 
-class BarraBusca extends Component {
+class BarraBuscaBebidas extends Component {
   constructor() {
     super();
     this.state = {
-      busca: '',
+      buscaBebida: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.searchContent = this.searchContent.bind(this);
@@ -21,20 +23,20 @@ class BarraBusca extends Component {
   }
 
   searchContent() {
-    const { getIngredient, getName, getLetter } = this.props;
-    const { busca, select } = this.state;
+    const { getIngredientBebida, getNameBebida, getLetterBebida } = this.props;
+    const { buscaBebida, select } = this.state;
     switch (select) {
-    case 'nome':
-      getName(busca);
+    case 'nomeBebida':
+      getNameBebida(buscaBebida);
       break;
-    case 'ingrediente':
-      getIngredient(busca);
+    case 'ingredienteBebida':
+      getIngredientBebida(buscaBebida);
       break;
-    case 'letra':
-      if (busca.length !== 1) {
+    case 'letraBebida':
+      if (buscaBebida.length !== 1) {
         alert('Sua busca deve conter somente 1 (um) caracter');
       } else {
-        getLetter(busca);
+        getLetterBebida(buscaBebida);
       }
       break;
     default:
@@ -43,37 +45,38 @@ class BarraBusca extends Component {
   }
 
   render() {
-    const { busca } = this.state;
+    const { buscaBebida } = this.state;
     return (
       <div>
         <label htmlFor="busca">
           <input
             type="text"
-            name="busca"
+            name="buscaBebida"
             id="busca"
-            value={ busca }
+            value={ buscaBebida }
             onChange={ this.handleChange }
             data-testid="search-input"
           />
         </label>
-        <label htmlFor="ingredient">
+        <label htmlFor="name">
           Nome
+          <input
+            name="select"
+            id="name"
+            type="radio"
+            data-testid="name-search-radio"
+            value="nomeBebida"
+            onChange={ this.handleChange }
+          />
+        </label>
+        <label htmlFor="ingredient">
+          Ingrediente
           <input
             name="select"
             id="ingredient"
             type="radio"
-            data-testid="name-search-radio"
-            value="nome"
-            onChange={ this.handleChange }
-          />
-        </label>
-        <label htmlFor="name">
-          Ingrediente
-          <input
-            name="select"
-            type="radio"
             data-testid="ingredient-search-radio"
-            value="ingrediente"
+            value="ingredienteBebida"
             onChange={ this.handleChange }
           />
         </label>
@@ -81,9 +84,10 @@ class BarraBusca extends Component {
           Primeira letra
           <input
             name="select"
+            id="letter"
             type="radio"
             data-testid="first-letter-search-radio"
-            value="letra"
+            value="letraBebida"
             onChange={ this.handleChange }
           />
         </label>
@@ -101,15 +105,15 @@ class BarraBusca extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  getIngredient: (ingredient) => dispatch(resultIngredients(ingredient)),
-  getName: (name) => dispatch(resultName(name)),
-  getLetter: (letter) => dispatch(resultLetter(letter)),
+  getIngredientBebida: (ingredient) => dispatch(resultIngredientsBebida(ingredient)),
+  getNameBebida: (name) => dispatch(resultNameBebida(name)),
+  getLetterBebida: (letter) => dispatch(resultLetterBebida(letter)),
 });
 
-export default connect(null, mapDispatchToProps)(BarraBusca);
+export default connect(null, mapDispatchToProps)(BarraBuscaBebidas);
 
-BarraBusca.propTypes = {
-  getIngredient: PropTypes.func.isRequired,
-  getName: PropTypes.func.isRequired,
-  getLetter: PropTypes.func.isRequired,
+BarraBuscaBebidas.propTypes = {
+  getIngredientBebida: PropTypes.func.isRequired,
+  getNameBebida: PropTypes.func.isRequired,
+  getLetterBebida: PropTypes.func.isRequired,
 };

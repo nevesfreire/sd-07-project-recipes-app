@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Header from '../../components/header/Header';
-import BarraBusca from '../../components/searchbar/BarraBusca';
+import BarraBuscaComidas from '../../components/searchbar/BarraBuscaComidas';
 import Footer from '../../components/footer/Footer';
 
 class Comidas extends Component {
@@ -8,7 +8,7 @@ class Comidas extends Component {
     return (
       <div>
         <Header title="Comidas" />
-        <BarraBusca />
+        <BarraBuscaComidas />
         <Footer />
       </div>
     );
