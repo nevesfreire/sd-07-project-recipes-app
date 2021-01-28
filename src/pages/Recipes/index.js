@@ -2,12 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 
 function Recipes({ history, search = false }) {
+  const { pathname } = history.location;
   return (
     <>
       <Header history={ history } search={ search } />
-      <p>Recipes</p>
+      {
+        pathname !== '/receitas-feitas'
+        && (
+          pathname !== '/receitas-favoritas' && <Footer />)
+      }
     </>
   );
 }

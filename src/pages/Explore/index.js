@@ -2,12 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 
 function Explore({ history, search = false }) {
   return (
     <>
       <Header history={ history } search={ search } />
       <p>Explore</p>
+      <Footer />
     </>
   );
 }
