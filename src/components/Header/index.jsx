@@ -20,10 +20,10 @@ export default function Header({ history, title }) {
       return (
         <button
           type="button"
-          onClick={handleSearchBar}
+          onClick={ handleSearchBar }
         >
           <img
-            src={searchIcon}
+            src={ searchIcon }
             alt="search icon"
             data-testid="search-top-btn"
           />
