@@ -2,9 +2,15 @@ export const REQUEST_DRINK_RECIPES = 'REQUEST_DRINK_RECIPES';
 export const REQUEST_DRINK_FAILED = 'REQUEST_DRINK_FAILED';
 export const LIST_DRINK_RECIPES = 'LIST_DRINK_RECIPES';
 export const UPDATE_DRINK_IS_FETCHING = 'UPDATE_DRINK_IS_FETCHING';
+export const RESQUEST_ALL_CATEGORIES_DRINKS = 'RESQUEST_ALL_CATEGORIES_DRINKS';
 
 export const updateDrinkIsFetching = () => ({
   type: UPDATE_DRINK_IS_FETCHING,
+});
+
+export const allCategoriesDrinksAction = (categories) => ({
+  type: RESQUEST_ALL_CATEGORIES_DRINKS,
+  categories,
 });
 
 export const requestDrinkRecipes = () => ({
