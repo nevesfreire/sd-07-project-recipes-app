@@ -11,7 +11,7 @@ function Meals() {
   useEffect(() => {
     dispatch(allActions.renderSearchIcon());
     dispatch(allActions.changePageTitle('Comidas'));
-    dispatch(allActions.fetchMeals());
+    dispatch(allActions.fetchCards(true));
   }, [dispatch]);
 
   if (isLoading) {
@@ -25,7 +25,10 @@ function Meals() {
       {meals.map((meal, index) => {
         const CARDS_NUMBER = 12;
         if (index < CARDS_NUMBER) return (
-          <div data-testid={`${index}-recipe-card`}>
+          <div
+            data-testid={`${index}-recipe-card`}
+            key={`meal-card-${index}`}
+          >
             <img
               key={`meal-thumb-${index}`}
               src={meal.strMealThumb}

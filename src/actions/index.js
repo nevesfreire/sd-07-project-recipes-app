@@ -6,7 +6,7 @@ import {
 } from './header';
 
 import {
-  fetchMeals,
+  fetchCards,
 } from './mainpage';
 
 export default {
@@ -14,5 +14,5 @@ export default {
   changePageTitle,
   showBar,
   hideBar,
-  fetchMeals,
+  fetchCards,
 };
