@@ -62,7 +62,7 @@ const fetchRandomFoodRecipes = async () => {
   return response;
 };
 
-export default {
+export {
   fetchFoodByIngredient,
   fetchFoodByName,
   fetchFoodByFirstLetter,

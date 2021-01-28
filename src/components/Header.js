@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-import '../App.css';
+import './header.css';
 
 function Header({ title }) {
   return (
-    <header>
+    <header
+      className="header"
+    >
       <Link to="/perfil">
         <img
           className="title"

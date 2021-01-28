@@ -62,7 +62,7 @@ const fetchRandomDrinkRecipes = async () => {
   return response;
 };
 
-export default {
+export {
   fetchDrinkByIngredient,
   fetchDrinkByName,
   fetchDrinkByFirstLetter,

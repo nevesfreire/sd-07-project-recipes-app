@@ -4,10 +4,16 @@ import RecipesContext from './RecipesContext';
 
 function RecipesProvider({ children }) {
   const [login, setLogin] = useState({ email: '', password: '' });
+  const [foodDetail, setFoodDetail] = useState([]);
+  const [drinkDetail, setDrinkDetail] = useState([]);
 
   const context = {
     login,
     setLogin,
+    foodDetail,
+    setFoodDetail,
+    drinkDetail,
+    setDrinkDetail,
   };
 
   return (
