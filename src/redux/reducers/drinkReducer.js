@@ -4,8 +4,8 @@ function cocktailsDrinks(state = COCKTAIL_INITIAL_STATE, action) {
   switch (action.type) {
   case 'REQUEST_FOOD':
     return { ...state, isFetching: true };
-  case 'COCKTAIL':
-    return { cocktails: action.cocktails, isFetching: false };
+  case 'ADD_COCKTAIL':
+    return { cocktails: action.cocktails.drinks, isFetching: false };
   default:
     return state;
   }

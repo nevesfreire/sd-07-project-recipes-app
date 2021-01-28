@@ -34,3 +34,14 @@ export function fetchCocktailByName(name) {
     return dispatch(addCocktail(json));
   };
 }
+
+export function fetchCocktailByFirstLetter(name) {
+  return async (dispatch) => {
+    dispatch(requestingData());
+    const resolve = await fetch(
+      `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${name}`,
+    );
+    const json = await resolve.json();
+    return dispatch(addCocktail(json));
+  };
+}

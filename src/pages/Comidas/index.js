@@ -1,11 +1,12 @@
 import React from 'react';
 
 import Footer from '../../components/Footer';
+import SearchBar from '../../components/SearchBar';
 
 export default function Comidas() {
   return (
     <div>
-      Comidas
+      <SearchBar foodType="comidas" />
       <Footer />
     </div>
   );

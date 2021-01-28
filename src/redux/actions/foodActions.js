@@ -34,3 +34,14 @@ export function fetchFoodByName(name) {
     return dispatch(addFood(json));
   };
 }
+
+export function fetchFoodByFirstLetter(name) {
+  return async (dispatch) => {
+    dispatch(requestingData());
+    const resolve = await fetch(
+      `https://www.themealdb.com/api/json/v1/1/search.php?f=${name}`,
+    );
+    const json = await resolve.json();
+    return dispatch(addFood(json));
+  };
+}
