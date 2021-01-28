@@ -26,7 +26,6 @@ const Routes = () => (
       <Route exact path="/explorar/comidas/ingredientes" component={  } />
       <Route exact path="/explorar/bebidas/ingredientes" component={  } />
       <Route exact path=" /explorar/comidas/area" component={  } />
-      
       <Route exact path="/receitas-feitas" component={  } />
       <Route exact path="/receitas-favoritas" component={  } /> */}
     </Switch>
