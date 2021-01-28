@@ -8,12 +8,19 @@ function SearchBar({ theFetch }) {
   const [searchInput, setSearchInput] = useState();
   console.log(recipes);
 
-  function handleClick() {
+  async function alertEmpty() {
+    if (recipes.meals === null) {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
+  }
+
+  async function handleClick() {
     const um = 1;
     if (searchInput.length > um && searchType === 'first-letter') {
       alert('Sua busca deve conter somente 1 (um) caracter');
     }
-    theFetch(searchInput, searchType);
+    await theFetch(searchInput, searchType);
+    alertEmpty();
   }
 
   return (
