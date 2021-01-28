@@ -1,24 +1,39 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { foodFilterByCategory } from '../services';
+import { drinksFilteredByCategory } from '../services/drinkApi';
 
-export default function CustomCartegory(category) {
-  console.log(category);
-
-  // const filterByCategory = async () => {
-  //   const urlForFilterFoodByCategory = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category.category.strCategory}`;
-  // const urlForFIlterDrinksByCategory = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category.category.strCategory}`;
-
-  //   const resquestFilteredByCategory = await fetch(urlForFilterByCategory);
-  //   const JSONResquestFilteredByCategory = await resquestFilteredByCategory.json();
-  //   console.log(JSONResquestFilteredByCategory)
-  // };
-
-  return (
-    <button
-      type="button"
-      data-testid={ `${category.category.strCategory}-category-filter` }
-      // onClick={}
-    >
-      {category.category.strCategory}
-    </button>
-  );
+class CustomCartegory extends Component {
+  render() {
+    const {
+      category,
+      title,
+      dispatchFoodFilteredByCategory,
+      dispatchDrinkFilteredByCategory,
+    } = this.props;
+    return (
+      <button
+        type="button"
+        data-testid={ `${category.strCategory}-category-filter` }
+        onClick={ () => {
+          console.log(title);
+          if (title === 'Comidas') dispatchFoodFilteredByCategory(category);
+          if (title === 'Bebidas') dispatchDrinkFilteredByCategory(category);
+        } }
+      >
+        {category.strCategory}
+      </button>
+    );
+  }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatchDrinkFilteredByCategory: (category) => {
+    dispatch(drinksFilteredByCategory(category));
+  },
+  dispatchFoodFilteredByCategory: (category) => {
+    dispatch(foodFilterByCategory(category));
+  },
+});
+
+export default connect(null, mapDispatchToProps)(CustomCartegory);

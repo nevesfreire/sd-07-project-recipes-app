@@ -27,7 +27,6 @@ class Drinks extends Component {
     const fetchDrinks = async () => {
       const requestAllCategories = await fetch(urlDrinks);
       const JSONRequestAllCAtegories = await requestAllCategories.json();
-      console.log(JSONRequestAllCAtegories);
       dispatchInitialCards(JSONRequestAllCAtegories);
     };
     fetchDrinks();
@@ -68,7 +67,7 @@ class Drinks extends Component {
       <div>
         { drinks.slice(INITIAL_LENGTH, MAX_LENGTH)
           .map((drink, index) => (
-            <CustomCardDrink key={ drink.idDrink } index={ index } drink={ drink } />)) }
+            <CustomCardDrink key={ drink.idDrink } index={ index } drink={ drink } />))}
       </div>
     );
   }
@@ -82,7 +81,12 @@ class Drinks extends Component {
         <div>
           { drinks.slice(INITIAL_LENGTH, MAX_LENGTH)
             .map((category, index) => (
-              <CustomCartegory key={ index } index={ index } category={ category } />)) }
+              <CustomCartegory
+                key={ index }
+                index={ index }
+                category={ category }
+                title="Bebidas"
+              />))}
         </div>
       );
     }
@@ -92,8 +96,8 @@ class Drinks extends Component {
     return (
       <div>
         <CustomHeader title="Bebidas" />
-        { this.renderCategories() }
-        { this.handleRecipes() }
+        { this.renderCategories()}
+        { this.handleRecipes()}
         <CustomFooter />
       </div>
     );

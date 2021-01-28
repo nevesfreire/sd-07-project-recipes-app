@@ -82,7 +82,12 @@ class Foods extends Component {
         <div>
           { mealsCategories.slice(INITIAL_LENGTH, MAX_LENGTH)
             .map((category, index) => (
-              <CustomCartegory key={ index } index={ index } category={ category } />))}
+              <CustomCartegory
+                key={ index }
+                index={ index }
+                category={ category }
+                title="Comidas"
+              />))}
         </div>
       );
     }

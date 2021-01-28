@@ -4,6 +4,7 @@ import {
   REQUEST_DRINK_FAILED,
   UPDATE_DRINK_IS_FETCHING,
   RESQUEST_ALL_CATEGORIES_DRINKS,
+  FILTERED_DRINK_BY_CATEGORY,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -19,6 +20,12 @@ const drinkRecipesReducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       categories: action.categories,
+    };
+  case FILTERED_DRINK_BY_CATEGORY:
+    return {
+      ...state,
+      drinks: (!action.drinkFilteredByCategory) ? [] : action.drinkFilteredByCategory,
+      isFetching: false,
     };
   case REQUEST_DRINK_RECIPES:
     return { ...state, isFetching: true };
