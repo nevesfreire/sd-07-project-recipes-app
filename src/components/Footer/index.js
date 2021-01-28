@@ -11,7 +11,7 @@ function Footer() {
       <Link to="/bebidas">
         <img
           className="footer-icon-drink"
-          src={drinkIcon}
+          src={ drinkIcon }
           alt="Ir para a página de bebibas"
           data-testid="drinks-bottom-btn"
         />
@@ -19,7 +19,7 @@ function Footer() {
       <Link to="/explorar">
         <img
           className="footer-icon-explore"
-          src={exploreIcon}
+          src={ exploreIcon }
           alt="Ir para a página de exploração"
           data-testid="explore-bottom-btn"
         />
@@ -27,7 +27,7 @@ function Footer() {
       <Link to="/comidas">
         <img
           className="footer-icon-meal"
-          src={mealIcon}
+          src={ mealIcon }
           alt="Ir para a página de comidas"
           data-testid="food-bottom-btn"
         />
