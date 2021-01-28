@@ -4,30 +4,45 @@ const api = axios.create({
   baseURL: 'https://www.themealdb.com/api/json/v1/1',
 });
 
-const searchMealsByName = async (name) => {
+const startPositionToShow = 0;
+
+const searchMealsByName = async (name, limit) => {
   const response = await api.get(`/search.php?s=${name}`);
   const { meals } = response.data;
 
+  if (limit) {
+    const mealsWithLessItems = meals.slice(startPositionToShow, limit);
+    return mealsWithLessItems;
+  }
+
   return meals;
 };
 
-const searchMealsByFirstLetter = async (letter) => {
+const searchMealsByFirstLetter = async (letter, limit) => {
   const response = await api.get(`/search.php?f=${letter}`);
   const { meals } = response.data;
 
+  if (limit) {
+    const mealsWithLessItems = meals.slice(startPositionToShow, limit);
+    return mealsWithLessItems;
+  }
+
   return meals;
 };
 
-const searchMealsByIngredient = async (ingredient) => {
+const searchMealsByIngredient = async (ingredient, limit) => {
   const response = await api.get(`/filter.php?i=${ingredient}`);
   const { meals } = response.data;
+
+  if (limit) {
+    const mealsWithLessItems = meals.slice(startPositionToShow, limit);
+    return mealsWithLessItems;
+  }
 
   return meals;
 };
 
 const searchMealsByCategory = async (category, limit) => {
-  const startPositionToShow = 0;
-
   const response = await api.get(`/filter.php?c=${category}`);
   const { meals } = response.data;
 
@@ -39,17 +54,8 @@ const searchMealsByCategory = async (category, limit) => {
   return meals;
 };
 
-const searchMealsByArea = async (area) => {
+const searchMealsByArea = async (area, limit) => {
   const response = await api.get(`/filter.php?a=${area}`);
-  const { meals } = response.data;
-
-  return meals;
-};
-
-const getMeals = async (limit) => {
-  const startPositionToShow = 0;
-
-  const response = await api.get('/search.php?s=');
   const { meals } = response.data;
 
   if (limit) {
@@ -60,9 +66,14 @@ const getMeals = async (limit) => {
   return meals;
 };
 
-const getAllMeals = async () => {
+const getMeals = async (limit) => {
   const response = await api.get('/search.php?s=');
   const { meals } = response.data;
+
+  if (limit) {
+    const mealsWithLessItems = meals.slice(startPositionToShow, limit);
+    return mealsWithLessItems;
+  }
 
   return meals;
 };
@@ -81,39 +92,52 @@ const getRandomMeal = async () => {
   return randomMeal;
 };
 
-const getMealCategories = async () => {
+const getMealCategories = async (limit) => {
   const response = await api.get('/categories.php');
   const { categories } = response.data;
+
+  if (limit) {
+    const categoriesWithLessItems = categories.slice(startPositionToShow, limit);
+    return categoriesWithLessItems;
+  }
 
   return categories;
 };
 
 const getMealCategoryList = async (limit) => {
-  const startPositionToShow = 0;
-
   const response = await api.get('list.php?c=list');
-  const { meals } = response.data;
+  const { meals: mealCategories } = response.data;
 
   if (limit) {
-    const mealsWithLessItems = meals.slice(startPositionToShow, limit);
-    return mealsWithLessItems;
+    const mealCategoriesWithLessItems = meals.slice(startPositionToShow, limit);
+    return mealCategoriesWithLessItems;
   }
 
-  return meals;
+  return mealCategories;
 };
 
-const getMealIngredientList = async () => {
+const getMealIngredientList = async (limit) => {
   const response = await api.get('list.php?i=list');
-  const { meals } = response.data;
+  const { meals: mealIngredients } = response.data;
 
-  return meals;
+  if (limit) {
+    const mealIngredientsWithLessItems = meals.slice(startPositionToShow, limit);
+    return mealIngredientsWithLessItems;
+  }
+
+  return mealIngredients;
 };
 
-const getMealAreaList = async () => {
+const getMealAreaList = async (limit) => {
   const response = await api.get('list.php?a=list');
-  const { meals } = response.data;
+  const { meals: mealAreas } = response.data;
 
-  return meals;
+  if (limit) {
+    const mealAreasWithLessItems = meals.slice(startPositionToShow, limit);
+    return mealAreasWithLessItems;
+  }
+
+  return mealAreas;
 };
 
 export default {
@@ -123,7 +147,6 @@ export default {
   searchMealsByCategory,
   searchMealsByArea,
   getMeals,
-  getAllMeals,
   getMealDetailsById,
   getRandomMeal,
   getMealCategories,
