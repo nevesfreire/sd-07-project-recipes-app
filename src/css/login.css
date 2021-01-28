@@ -1,0 +1,31 @@
+.input-group {
+    display: flex;
+    flex-direction: column;
+    padding: 3em;
+}
+
+.login-container {
+    border: 1px solid black;
+    color: rgb(67, 64, 57);
+    display: flex;
+    flex-direction: column;
+    max-width: 360px;
+    padding: 2em;
+}
+
+.logo-image {
+    height: 32px;
+    width: 32px;
+}
+
+.title-container {
+    background: rgb(242, 103, 62);
+    border: 1px solid black;
+    border-bottom: none;
+    color: white;
+    display: flex;
+    font-size: 26px;
+    justify-content: space-around;
+    max-width: 360px;
+    padding: 0.5em;
+}
