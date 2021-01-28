@@ -6,6 +6,7 @@ import RequestFoodBayName from '../services/nameFoodApi';
 import RequestFoodByLetter from '../services/firstLetterFoodApi';
 
 const FoodProvider = ({ children }) => {
+  const massage = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
   const [tittleHeader, setTittleHeader] = useState('Comidas');
   const [searchBar, setSearchBar] = useState(false);
   const [inputText, setInputText] = useState('');
@@ -22,9 +23,7 @@ const FoodProvider = ({ children }) => {
       const results = await RequestFoodAPI(inputText);
       setData(results);
       if (!results) {
-        alert(
-          'Sinto muito, não encontramos nenhuma receita para esses filtros.'
-        );
+        alert(massage);
       }
     }
 
@@ -32,9 +31,7 @@ const FoodProvider = ({ children }) => {
       const results = await RequestFoodBayName(inputText);
       setData(results);
       if (!results) {
-        alert(
-          'Sinto muito, não encontramos nenhuma receita para esses filtros.'
-        );
+        alert(massage);
       }
     }
 
@@ -43,9 +40,7 @@ const FoodProvider = ({ children }) => {
       setData(results);
       console.log('requestByLetter', results);
       if (!results) {
-        alert(
-          'Sinto muito, não encontramos nenhuma receita para esses filtros.'
-        );
+        alert(massage);
       }
     }
 
@@ -80,7 +75,7 @@ const FoodProvider = ({ children }) => {
   };
 
   return (
-    <RecipesContext.Provider value={context}>
+    <RecipesContext.Provider value={ context }>
       {children}
     </RecipesContext.Provider>
   );

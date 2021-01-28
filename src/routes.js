@@ -1,7 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Food, Drink, Explore, Perfil, Login, DrinkDetails, FoodDetails } from './pages';
-
+import {
+  Food,
+  Drink,
+  Explore,
+  Perfil,
+  Login,
+  DrinkDetails,
+  FoodDetails,
+} from './pages';
 
 const Routes = () => (
   <Router>

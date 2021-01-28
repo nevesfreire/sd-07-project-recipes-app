@@ -6,6 +6,8 @@ import RequestDrinkByLetter from '../services/firstLetterDrinkApi';
 
 export const DrinkContext = createContext();
 
+const massage = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
+
 const DrinkProvider = ({ children }) => {
   const [searchBar, setSearchBar] = useState(false);
   const [inputText, setInputText] = useState('');
@@ -23,9 +25,7 @@ const DrinkProvider = ({ children }) => {
       setData(results);
       await console.log(results);
       if (!results) {
-        alert(
-          'Sinto muito, não encontramos nenhuma receita para esses filtros.',
-        );
+        alert(massage);
       }
     }
 
@@ -33,9 +33,7 @@ const DrinkProvider = ({ children }) => {
       const results = await RequestDrinkByName(inputText);
       setData(results);
       if (!results) {
-        alert(
-          'Sinto muito, não encontramos nenhuma receita para esses filtros.',
-        );
+        alert(massage);
       }
     }
 
@@ -43,9 +41,7 @@ const DrinkProvider = ({ children }) => {
       const results = await RequestDrinkByLetter(inputText);
       setData(results);
       if (!results) {
-        alert(
-          'Sinto muito, não encontramos nenhuma receita para esses filtros.',
-        );
+        alert(massage);
       }
     }
 
