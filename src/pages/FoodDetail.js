@@ -18,6 +18,7 @@ import '../css/details.css';
 function FoodDetail(props) {
   const {
     match: { url, path, params: { id } },
+    // eslint-disable-next-line
     fetchId: { Comidas, Bebidas },
     dispatchRecipeDetail } = props;
   const [objResponse, setObjResponse] = useState({});

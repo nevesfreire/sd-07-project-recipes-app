@@ -24,8 +24,8 @@ function ExploreFood(props) {
       dispatchInitialRecipes();
     }
   }, []);
-// o caminho vamos precisar por causa dos testes, pois cada página o Header tera um comportamento diferente.
-// entendi... estou procurando o título da página... pelo que vi tem que estar ligado ao pathname?//um min
+  // o caminho vamos precisar por causa dos testes, pois cada página o Header tera um comportamento diferente.
+  // entendi... estou procurando o título da página... pelo que vi tem que estar ligado ao pathname?//um min
   return (
     <div>
       <Header pathname={ pathname } componentConfig={ header } />
