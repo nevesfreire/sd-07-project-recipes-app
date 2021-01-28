@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getEmail } from '../actions';
-import { getCocktailsByFirstLetter, getCocktailsByName, getCocktailsByIngredient } from '../services/cocktailsAPI';
 
 class Login extends Component {
   constructor(props) {
@@ -15,15 +14,6 @@ class Login extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.verifyEmailAndPassword = this.verifyEmailAndPassword.bind(this);
-  }
-
-  async componentDidMount() {
-    const resposta = await getCocktailsByFirstLetter('f');
-    const resposta2 = await getCocktailsByName('Foxy Lady');
-    const resposta3 = await getCocktailsByIngredient('lemon');
-    console.log(resposta);
-    console.log(resposta2);
-    console.log(resposta3);
   }
 
   handleSubmit() {

@@ -2,6 +2,7 @@ import {
   getCocktailsByFirstLetter,
   getCocktailsByIngredient,
   getCocktailsByName,
+  getRandomCocktails,
 } from '../services/cocktailsAPI';
 
 export const REQUEST_COCKTAILS = 'REQUEST_COCKTAILS';
@@ -32,6 +33,13 @@ export const fetchCocktailsByName = (name) => (dispatch) => {
 export const fetchCocktailsByFirstLetter = (firstLetter) => (dispatch) => {
   dispatch(requestCocktails());
   return getCocktailsByFirstLetter(firstLetter)
+    .then((response) => dispatch(setCocktailsSuccess(response)))
+    .catch((error) => dispatch(setCocktailsFailure(error)));
+};
+
+export const fetchRandomCocktails = () => (dispatch) => {
+  dispatch(requestCocktails());
+  return getRandomCocktails()
     .then((response) => dispatch(setCocktailsSuccess(response)))
     .catch((error) => dispatch(setCocktailsFailure(error)));
 };

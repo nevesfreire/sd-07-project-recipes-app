@@ -1,9 +1,13 @@
-import { REQUEST_COCKTAILS, REQUEST_COCKTAILS_SUCCESS, REQUEST_COCKTAILS_FAILURE } from '../actions';
+import {
+  REQUEST_COCKTAILS,
+  REQUEST_COCKTAILS_SUCCESS,
+  REQUEST_COCKTAILS_FAILURE,
+} from '../actions';
 
 const INITIAL_STATE = {
   cocktails: [],
   isFetching: false,
-  error,
+  error: '',
 };
 
 export default function cocktails(state = INITIAL_STATE, action) {
@@ -13,8 +17,8 @@ export default function cocktails(state = INITIAL_STATE, action) {
   case REQUEST_COCKTAILS_SUCCESS:
     return { ...state, isFetching: false, cocktails: [...action.cocktails.drinks] };
   case REQUEST_COCKTAILS_FAILURE:
-    return { ...state, isFetching: false, error };
+    return { ...state, isFetching: false, error: action.error };
   default:
     return state;
   }
-};
+}
