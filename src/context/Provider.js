@@ -1,39 +1,57 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import FoodAppContext from './FoodAppContext';
-import { mealsAPI, drinksAPI, categoryMealApi, categoryDrinkApi } from '../services';
+import { mealsAPI, drinksAPI } from '../services';
 
 function Provider({ children }) {
   const [mealsData, setMealsData] = useState([]);
   const [drinksData, setDrinksData] = useState([]);
-  const [mealsCategory, setMealsCategory] = useState([]);
-  const [drinksCategory, setDrinksCategory] = useState([]);
+
+  const [fields, setFields] = useState({ term: '', type: '' });
+
   const getMealsDrinks = async () => {
-    const { meals } = await mealsAPI();
-    const { drinks } = await drinksAPI();
-    const { meals: categoryMeal } = await categoryMealApi();
-    const { drinks: categoryDrink } = await categoryDrinkApi();
+    const { meals } = await mealsAPI(fields.term, fields.type);
+    const { drinks } = await drinksAPI(fields.term, fields.type);
     setMealsData(meals);
     setDrinksData(drinks);
-    setMealsCategory(categoryMeal);
-    setDrinksCategory(categoryDrink);
   };
 
   const [showSearch, setShowSearch] = useState(false);
+
+  const handlerChange = ({ target }) => {
+    const { name, value } = target;
+    setFields({
+      ...fields,
+      [name]: value,
+    });
+  };
+
+  const handlerClick = async ({ target }) => {
+    const { value } = target;
+    const { term, type } = fields;
+    if (value === 'Comidas') {
+      const { meals } = await mealsAPI(term, type);
+      setMealsData(meals);
+    } else {
+      const { drinks } = await drinksAPI(term, type);
+      setDrinksData(drinks);
+    }
+  };
 
   useEffect(() => {
     getMealsDrinks();
   }, []);
 
   const context = {
+    fields,
+    drinksData,
     mealsData,
     setMealsData,
     setDrinksData,
-    drinksData,
-    mealsCategory,
-    drinksCategory,
     showSearch,
     setShowSearch,
+    handlerChange,
+    handlerClick,
   };
 
   return (

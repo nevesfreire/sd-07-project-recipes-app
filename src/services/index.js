@@ -1,25 +1,36 @@
-const mealUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-const drinkUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 const categoryMealUrl = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
 const categoryDrinkUrl = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
-// categorias: https://www.themealdb.com/api/json/v1/1/list.php?c=list
-// areas: https://www.themealdb.com/api/json/v1/1/list.php?a=list
-// ingredientes: https://www.themealdb.com/api/json/v1/1/list.php?i=list
 
-export const mealsAPI = async () => {
+const auxFunc = (term, type, url) => {
+  if (term && type) {
+    if (type === 'i' || type === 'c' || type === 'a') {
+      return `${url}filter.php?${type}=${term}`;
+    } if (type === 'f' && term.length > 1) {
+      alert('Sua busca deve conter somente 1 (um) caracter');
+    } else {
+      return `${url}search.php?${type}=${term}`;
+    }
+  }
+  return `${url}search.php?s=`;
+};
+
+export const mealsAPI = async (term, type) => {
+  const mealUrl = 'https://www.themealdb.com/api/json/v1/1/';
+  const URL = auxFunc(term, type, mealUrl);
   try {
-    const response = await fetch(mealUrl);
+    const response = await fetch(URL);
     const dataMeal = await response.json();
-
     return dataMeal;
   } catch (error) {
     return error.message;
   }
 };
 
-export const drinksAPI = async () => {
+export const drinksAPI = async (term, type) => {
+  const drinkUrl = 'https://www.thecocktaildb.com/api/json/v1/1/';
+  const URL = auxFunc(term, type, drinkUrl);
   try {
-    const response = await fetch(drinkUrl);
+    const response = await fetch(URL);
     const dataDrink = await response.json();
 
     return dataDrink;
@@ -39,7 +50,7 @@ export const categoryMealApi = async () => {
   }
 };
 
-export const categoryDrinkApi = async () => {
+export const categoryDrinkApi = async (term, type) => {
   try {
     const response = await fetch(categoryDrinkUrl);
     const categoryDrink = await response.json();

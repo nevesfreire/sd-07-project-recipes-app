@@ -43,7 +43,7 @@ function Header({ title, isSearchable }) {
         <h1 className="title" data-testid="page-title">{title}</h1>
         {isSearchable && renderSearchIcon()}
       </header>
-      { showSearch && <SearchBar />}
+      { showSearch && <SearchBar title={ title } />}
     </div>
   );
 }

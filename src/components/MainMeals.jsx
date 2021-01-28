@@ -1,11 +1,21 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import FoodAppContext from '../context/FoodAppContext';
+import { categoryMealApi, mealsAPI } from '../services';
 import '../styles/recipes.css';
 
 function MainMeals() {
-  const { mealsData, setMealsData,
-    mealsCategory, showSearch } = useContext(FoodAppContext);
+  const { mealsData, setMealsData, showSearch } = useContext(FoodAppContext);
+  const [mealsCategory, setMealsCategory] = useState([]);
+
+  async function fecthCategory() {
+    const { meals: category } = await categoryMealApi();
+    setMealsCategory(category);
+  }
+
+  useEffect(() => {
+    fecthCategory();
+  }, []);
 
   const zero = 0;
   const cinco = 5;
@@ -15,6 +25,17 @@ function MainMeals() {
   return (
     <section>
       <div className="div-category">
+        <button
+          type="button"
+          data-testid="category-filter"
+          hidden={ showSearch ? bools : false }
+          onClick={ async () => {
+            const { meals } = await mealsAPI('', '');
+            setMealsData(meals);
+          } }
+        >
+          All
+        </button>
         {mealsCategory.slice(zero, cinco).map(({ strCategory }, index) => (
           <button
             type="button"
@@ -22,10 +43,10 @@ function MainMeals() {
             data-testid={ `${strCategory}-category-filter` }
             hidden={ showSearch ? bools : false }
             value={ strCategory }
-            onClick={ ({ target }) => setMealsData(mealsData.slice(zero, doze).filter(
-              ({ strCategory: mealsCat }) => mealsCat.includes(target.value),
-            ))
-            }
+            onClick={ async ({ target }) => {
+              const { meals } = await mealsAPI(target.value, 'c');
+              setMealsData(meals);
+            } }
           >
             { strCategory }
           </button>
