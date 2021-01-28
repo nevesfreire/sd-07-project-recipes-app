@@ -21,17 +21,32 @@ const FoodProvider = ({ children }) => {
     async function requestByIngredient() {
       const results = await RequestFoodAPI(inputText);
       setData(results);
+      if (!results) {
+        alert(
+          'Sinto muito, não encontramos nenhuma receita para esses filtros.',
+        );
+      }
     }
 
     async function requestByName() {
       const results = await RequestFoodBayName(inputText);
       setData(results);
-      console.log(results);
+      if (!results) {
+        alert(
+          'Sinto muito, não encontramos nenhuma receita para esses filtros.',
+        );
+      }
     }
 
     async function requestByLetter() {
       const results = await RequestFoodByLetter(inputText);
       setData(results);
+      console.log('requestByLetter', results);
+      if (!results) {
+        alert(
+          'Sinto muito, não encontramos nenhuma receita para esses filtros.',
+        );
+      }
     }
 
     // const teste = () => { customAlert('Sua busca deve conter somente 1 (um) caracter'); };

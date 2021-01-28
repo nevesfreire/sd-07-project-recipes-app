@@ -21,19 +21,32 @@ const DrinkProvider = ({ children }) => {
     async function requestByIngredient() {
       const results = await RequestDrinkAPI(inputText);
       setData(results);
-      console.log(results);
+      await console.log(results);
+      if (!results) {
+        alert(
+          'Sinto muito, não encontramos nenhuma receita para esses filtros.',
+        );
+      }
     }
 
     async function requestByName() {
       const results = await RequestDrinkByName(inputText);
       setData(results);
-      console.log(results);
+      if (!results) {
+        alert(
+          'Sinto muito, não encontramos nenhuma receita para esses filtros.',
+        );
+      }
     }
 
     async function requestByLetter() {
       const results = await RequestDrinkByLetter(inputText);
       setData(results);
-      console.log(results);
+      if (!results) {
+        alert(
+          'Sinto muito, não encontramos nenhuma receita para esses filtros.',
+        );
+      }
     }
 
     // const teste = () => { customAlert('Sua busca deve conter somente 1 (um) caracter'); };
@@ -65,9 +78,7 @@ const DrinkProvider = ({ children }) => {
   };
 
   return (
-    <DrinkContext.Provider value={ context }>
-      {children}
-    </DrinkContext.Provider>
+    <DrinkContext.Provider value={ context }>{children}</DrinkContext.Provider>
   );
 };
 

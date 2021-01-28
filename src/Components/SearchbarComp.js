@@ -3,17 +3,15 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from '../providers/Context/Context';
 import { DrinkContext } from '../providers/DrinkProvider';
+import Cards from './Cards';
 
 const SearchBarComp = ({ context }) => {
   const history = useHistory();
   const whichContext = context === 'Comidas' ? RecipesContext : DrinkContext;
   const whichId = context === 'Comidas' ? 'idMeal' : 'idDrink';
-  const {
-    searchWithFilter,
-    setInputText,
-    setRadioType,
-    data,
-  } = useContext(whichContext);
+  const { searchWithFilter, setInputText, setRadioType, data } = useContext(
+    whichContext,
+  );
 
   useEffect(() => {
     if (data && data.length === 1) {
@@ -21,14 +19,25 @@ const SearchBarComp = ({ context }) => {
     }
   }, [data, history, whichId, context]);
 
+  const renderCards = () => {
+    const maximo = 12;
+    const tweelveCards = data.filter((card, index) => index < maximo);
+    return tweelveCards.map((card, index) => (
+      <Cards key={ index } index={ index } context={ context } card={ card } />
+    ));
+  };
+
   const inputSearch = () => searchWithFilter();
 
+  const valid = 0;
   return (
     <div>
       <input
         type="text"
         data-testid="search-input"
-        onChange={ ({ target }) => { setInputText(target.value); } }
+        onChange={ ({ target }) => {
+          setInputText(target.value);
+        } }
       />
       <div>
         <label htmlFor="Ingredient">
@@ -38,7 +47,9 @@ const SearchBarComp = ({ context }) => {
             name="elementsForSearch"
             value="Ingrediente"
             data-testid="ingredient-search-radio"
-            onClick={ () => { setRadioType('Ingrediente'); } }
+            onClick={ () => {
+              setRadioType('Ingrediente');
+            } }
           />
           Ingrediente
         </label>
@@ -49,7 +60,9 @@ const SearchBarComp = ({ context }) => {
             name="elementsForSearch"
             value="Nome"
             data-testid="name-search-radio"
-            onClick={ () => { setRadioType('Nome'); } }
+            onClick={ () => {
+              setRadioType('Nome');
+            } }
           />
           Nome
         </label>
@@ -60,7 +73,9 @@ const SearchBarComp = ({ context }) => {
             name="elementsForSearch"
             value="Primeira letra"
             data-testid="first-letter-search-radio"
-            onClick={ () => { setRadioType('firtLetter'); } }
+            onClick={ () => {
+              setRadioType('firtLetter');
+            } }
           />
           Primeira letra
         </label>
@@ -68,10 +83,13 @@ const SearchBarComp = ({ context }) => {
       <button
         data-testid="exec-search-btn"
         type="button"
-        onClick={ () => { inputSearch(); } }
+        onClick={ () => {
+          inputSearch();
+        } }
       >
         Buscar
       </button>
+      {data && data.length > valid && renderCards()}
     </div>
   );
 };
