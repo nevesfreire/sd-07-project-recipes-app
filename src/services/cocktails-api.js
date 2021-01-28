@@ -4,39 +4,63 @@ const api = axios.create({
   baseURL: 'https://www.thecocktaildb.com/api/json/v1/1',
 });
 
-const searchCocktailsByName = async (name) => {
+const limitResult = (array, limit) => {
+  const startPositionToShow = 0;
+
+  const smallerArray = array.slice(startPositionToShow, limit);
+  return smallerArray;
+};
+
+const searchCocktailsByName = async (name, limit) => {
   const response = await api.get(`/search.php?s=${name}`);
   const { drinks } = response.data;
 
+  if (limit) return limitResult(drinks, limit);
+
   return drinks;
 };
 
-const searchCocktailsByFirstLetter = async (letter) => {
+const searchCocktailsByFirstLetter = async (letter, limit) => {
   const response = await api.get(`/search.php?f=${letter}`);
   const { drinks } = response.data;
 
+  if (limit) return limitResult(drinks, limit);
+
   return drinks;
 };
 
-const searchCocktailsByIngredient = async (ingredient) => {
+const searchCocktailsByIngredient = async (ingredient, limit) => {
   const response = await api.get(`/filter.php?i=${ingredient}`);
   const { drinks } = response.data;
 
+  if (limit) return limitResult(drinks, limit);
+
   return drinks;
 };
 
-const searchCocktailsByCategory = async (category) => {
+const searchCocktailsByCategory = async (category, limit) => {
   const response = await api.get(`/filter.php?c=${category}`);
   const { drinks } = response.data;
 
+  if (limit) return limitResult(drinks, limit);
+
   return drinks;
 };
 
-const getCocktailsDetailsById = async (id) => {
+const getCocktailDetailsById = async (id) => {
   const response = await api.get(`/lookup.php?i=${id}`);
   const drinkDetails = response.data.drinks[0];
 
   return drinkDetails;
+};
+
+const getCocktails = async (limit) => {
+  const response = await api.get('/search.php?s=');
+  const { drinks } = response.data;
+
+  if (limit) return limitResult(drinks, limit);
+
+  return drinks;
 };
 
 const getRandomCocktail = async () => {
@@ -46,18 +70,22 @@ const getRandomCocktail = async () => {
   return randomDrink;
 };
 
-const getCocktailCategoryList = async () => {
+const getCocktailCategoryList = async (limit) => {
   const response = await api.get('list.php?c=list');
-  const { drinks } = response.data;
+  const { drinks: drinkCategories } = response.data;
 
-  return drinks;
+  if (limit) return limitResult(drinkCategories, limit);
+
+  return drinkCategories;
 };
 
-const getCocktailIngredientList = async () => {
+const getCocktailIngredientList = async (limit) => {
   const response = await api.get('list.php?i=list');
-  const { drinks } = response.data;
+  const { drinks: drinkIngredients } = response.data;
 
-  return drinks;
+  if (limit) return limitResult(drinkIngredients, limit);
+
+  return drinkIngredients;
 };
 
 export default {
@@ -65,8 +93,9 @@ export default {
   searchCocktailsByFirstLetter,
   searchCocktailsByIngredient,
   searchCocktailsByCategory,
-  getCocktailsDetailsById,
+  getCocktailDetailsById,
   getRandomCocktail,
   getCocktailCategoryList,
   getCocktailIngredientList,
+  getCocktails,
 };

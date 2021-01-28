@@ -74,7 +74,9 @@ function SearchBarByDrinks(props) {
         </button>
       </div>
       <div>
-        {drink}
+        {drink.map((obj)=>{
+          <
+        })}
       </div>
     </div>
 

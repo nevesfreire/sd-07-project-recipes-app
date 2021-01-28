@@ -1,5 +1,6 @@
 import React from 'react';
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+
 import LoginPage from './pages/LoginPage';
 import FoodPage from './pages/FoodPage';
 import DrinkPage from './pages/DrinkPage';
@@ -45,7 +46,6 @@ function Routes() {
         <Route path="/receitas-favoritas" component={ RecipesFavoritesPage } />
       </Switch>
     </BrowserRouter>
-
   );
 }
 
