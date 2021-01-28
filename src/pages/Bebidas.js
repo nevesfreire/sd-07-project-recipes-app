@@ -30,16 +30,12 @@ function Bebidas() {
   }, []);
 
   useEffect(() => {
-    console.log(category, 'pagina de bebidas');
-    // const regexCategory = category.replace(/ /g, '_');
-    // const regexCategory = category.split(' ').join('_');
     async function getDrinksByCategory() {
       const data = await fetchDrinkByCategory(category);
-      console.log(data, 'arquivo bebidas');
       const dataDrinks = data;
       if (dataDrinks.length > magicNumberZero) setFilteredByCategory(dataDrinks);
-      // setFilteredByCategory(await fetchDrinkByCategory(regexCategory));
     }
+
     getDrinksByCategory();
   }, [category]);
 

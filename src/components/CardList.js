@@ -4,9 +4,12 @@ import PropTypes from 'prop-types';
 function CardList({ arrayOfCard, typeOfCard }) {
   arrayOfCard.length = 12;
   const magicNumberZero = 0;
+
   const id = `id${typeOfCard}`;
   const name = `str${typeOfCard}`;
   const src = `str${typeOfCard}Thumb`;
+  const pathType = typeOfCard === 'Meal' ? 'comidas' : 'bebidas';
+
   return (
     <div className="card-list">
       { arrayOfCard.length > magicNumberZero
@@ -15,18 +18,21 @@ function CardList({ arrayOfCard, typeOfCard }) {
           data-testid={ `${index}-recipe-card` }
           className="item-card"
           key={ item[id] }
+
         >
-          <img
-            data-testid={ `${index}-card-img` }
-            width="100%"
-            src={ item[src] }
-            alt="item"
-          />
-          <h3
-            data-testid={ `${index}-card-name` }
-          >
-            { item[name] }
-          </h3>
+          <a href={ `/${pathType}/${item[id]}` }>
+            <img
+              data-testid={ `${index}-card-img` }
+              width="100%"
+              src={ item[src] }
+              alt="item"
+            />
+            <h3
+              data-testid={ `${index}-card-name` }
+            >
+              { item[name] }
+            </h3>
+          </a>
         </div>
       ))}
     </div>
