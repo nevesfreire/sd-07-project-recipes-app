@@ -7,7 +7,7 @@
   width: 100vw;
 }
 
-input[ data-testid = 'search-input' ] {
+.form-input {
   width: 100%;
 }
 
