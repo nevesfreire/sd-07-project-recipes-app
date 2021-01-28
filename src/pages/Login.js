@@ -57,7 +57,7 @@ class Login extends Component {
           <label htmlFor="password">
             Senha
             <input
-              placeholder="Nome"
+              placeholder="Senha"
               data-testid="password-input"
               type="text"
               value={ password }
