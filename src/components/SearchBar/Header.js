@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import userlogo from '../../images/profileIcon.svg';
 import IconSearch from '../../images/searchIcon.svg';
@@ -36,7 +36,6 @@ export default function Header(props) {
       >
         <Link
           onClick={ () => setSearchNice(!searchNice) }
-          className="Top-Btn-gusta-css"
         >
           <img
             src={ IconSearch }
