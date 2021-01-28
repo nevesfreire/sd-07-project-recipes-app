@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-import '../styles/Header.css';
+import '../styles/header.css';
 import SearchBar from './SearchBar';
+import FoodAppContext from '../context/FoodAppContext';
 
 function Header({ title, isSearchable }) {
-  const [showSearch, setShowSearch] = useState(false);
-
+  const { showSearch, setShowSearch } = useContext(FoodAppContext);
   const handleSearchClick = () => {
     setShowSearch(!showSearch);
   };
