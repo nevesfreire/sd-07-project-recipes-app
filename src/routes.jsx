@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import BebidasPage from './Pages/BebidasPage';
 import ComidaPage from './Pages/ComidaPage';
 import LoginPage from './Pages/LoginPage';
 
@@ -8,9 +9,9 @@ const Routes = () => (
     <Switch>
       <Route exact path="/" component={ LoginPage } />
       <Route exact path="/comidas" component={ ComidaPage } />
+      <Route exact path="/bebidas" component={ BebidasPage } />
       {/* TODO PAGES */}
-      {/* <Route exact path="/comidas" component={  } />
-      <Route exact path="/bebidas" component={  } />
+      {/*
       <Route exact path="/comidas/:id-receita" component={  } />
       <Route exact path="/bebidas/:id-receita" component={  } />
       <Route exact path="/comidas/:id-receita/in-progress" component={  } />
