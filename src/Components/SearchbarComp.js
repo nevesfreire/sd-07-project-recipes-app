@@ -14,37 +14,51 @@ const SearchBarComp = () => {
 
   return (
     <div>
-      <input type="text" data-testid="search-input" onChange={ ({ target }) => { setInputText(target.value); } } />
+      <input
+        type="text"
+        data-testid="search-input"
+        onChange={ ({ target }) => { setInputText(target.value); } }
+      />
       <div>
-        <input
-          type="radio"
-          id="Ingredient"
-          name="elementsForSearch"
-          value="Ingrediente"
-          data-testid="ingredient-search-radio"
-          onClick={ () => { setRadioType('Ingrediente'); } }
-        />
-        <label htmlFor="Ingredient">Ingrediente</label>
-        <input
-          type="radio"
-          id="Nome"
-          name="elementsForSearch"
-          value="Nome"
-          data-testid="name-search-radio"
-          onClick={ () => { setRadioType('Nome'); } }
-        />
-        <label htmlFor="Nome">Nome</label>
-        <input
-          type="radio"
-          id="firtLetter"
-          name="elementsForSearch"
-          value="Primeira letra"
-          data-testid="first-letter-search-radio"
-          onClick={ () => { setRadioType('firtLetter'); } }
-        />
-        <label htmlFor="firtLetter">Primeira letra</label>
+        <label htmlFor="Ingredient">
+          <input
+            type="radio"
+            id="Ingredient"
+            name="elementsForSearch"
+            value="Ingrediente"
+            data-testid="ingredient-search-radio"
+            onClick={ () => { setRadioType('Ingrediente'); } }
+          />
+          Ingrediente
+        </label>
+        <label htmlFor="Nome">
+          <input
+            type="radio"
+            id="Nome"
+            name="elementsForSearch"
+            value="Nome"
+            data-testid="name-search-radio"
+            onClick={ () => { setRadioType('Nome'); } }
+          />
+          Nome
+        </label>
+        <label htmlFor="firtLetter">
+          <input
+            type="radio"
+            id="firtLetter"
+            name="elementsForSearch"
+            value="Primeira letra"
+            data-testid="first-letter-search-radio"
+            onClick={ () => { setRadioType('firtLetter'); } }
+          />
+          Primeira letra
+        </label>
       </div>
-      <button data-testid="exec-search-btn" type="button" onClick={ () => { inputSearch(); } }>
+      <button
+        data-testid="exec-search-btn"
+        type="button"
+        onClick={ () => { inputSearch(); } }
+      >
         Buscar
       </button>
     </div>

@@ -8,40 +8,48 @@ import RequestFoodByLetter from '../services/firstLetterFoodApi';
 const FoodProvider = ({ children }) => {
   const [tittleHeader, setTittleHeader] = useState('Comidas');
   const [searchBar, setSearchBar] = useState(false);
-  const [inputText, setInputText] = useState('chicken');
+  const [inputText, setInputText] = useState('');
   const [radioType, setRadioType] = useState('');
   const [foodData, setFoodData] = useState();
 
   const changeSearchBarState = () => {
-    if (searchBar === true) setSearchBar(false); console.log(inputText);
+    if (searchBar === true) setSearchBar(false);
     if (searchBar === false) setSearchBar(true);
   };
 
   const searchWithFilter = () => {
+    async function getApi() {
+      const results = await RequestFoodAPI(inputText);
+      await setFoodData(results);
+      await console.log(results);
+    }
+
+    async function getApi2() {
+      const results = await RequestFoodBayName(inputText);
+      await setFoodData(results);
+      await console.log(results);
+    }
+
+    async function getApi3() {
+      const results = await RequestFoodByLetter(inputText);
+      await setFoodData(results);
+      await console.log(results);
+    }
+
+    // const teste = () => { customAlert('Sua busca deve conter somente 1 (um) caracter'); };
+
     if (radioType === 'Ingrediente') {
-      async function getApi() {
-        const results = await RequestFoodAPI(inputText);
-        await setFoodData(results);
-        await console.log(results);
-      }
       getApi();
     }
     if (radioType === 'Nome') {
-      async function getApi() {
-        const results = await RequestFoodBayName(inputText);
-        await setFoodData(results);
-        await console.log(results);
-      }
-      getApi();
+      getApi2();
     }
     if (radioType === 'firtLetter') {
-      async function getApi() {
-        const results = await RequestFoodByLetter(inputText);
-        await setFoodData(results);
-        await console.log(results);
+      if (inputText.length > 1) {
+        alert('Sua busca deve conter somente 1 (um) caracter');
+      } else {
+        getApi3();
       }
-      inputText.length > 1 ? (
-        alert('Sua busca deve conter somente 1 (um) caracter')) : getApi();
     }
   };
 
