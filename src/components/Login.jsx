@@ -21,7 +21,7 @@ function Login() {
 
   const isPassword = ({ target: { value } }) => {
     const minimumLength = 6;
-    if (value.length >= minimumLength) setPassword(value);
+    if (value.length > minimumLength) setPassword(value);
     else setPassword('');
   };
 
@@ -50,7 +50,7 @@ function Login() {
           onChange={ isPassword }
           data-testid="password-input"
         />
-        <Link to="/food">
+        <Link to="/comidas">
           <button
             data-testid="login-submit-btn"
             type="button"

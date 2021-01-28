@@ -1,7 +1,7 @@
 import React from 'react';
 
-function Food() {
+function Comidas() {
   return <div>Food</div>;
 }
 
-export default Food;
+export default Comidas;

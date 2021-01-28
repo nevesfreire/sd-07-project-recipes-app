@@ -36,7 +36,7 @@ describe('Component Login', () => {
     expect(disabledEnterButton).toHaveAttribute('disabled');
 
     fireEvent.change(emailInput, { target: { value: 'example@email.com' } });
-    fireEvent.change(passwordInput, { target: { value: '123456' } });
+    fireEvent.change(passwordInput, { target: { value: '1234567' } });
 
     expect(disabledEnterButton).not.toHaveAttribute('disabled');
   });
@@ -45,7 +45,7 @@ describe('Component Login', () => {
     const { history } = renderWithRouter(<Login />);
 
     fireEvent.change(emailInput, { target: { value: 'example@email.com' } });
-    fireEvent.change(passwordInput, { target: { value: '123456' } });
+    fireEvent.change(passwordInput, { target: { value: '1234567' } });
 
     const enterButton = screen.getByTestId('login-submit-btn');
 
@@ -53,6 +53,6 @@ describe('Component Login', () => {
 
     const { pathname } = history.location;
 
-    expect(pathname).toBe('/food');
+    expect(pathname).toBe('/comidas');
   });
 });
