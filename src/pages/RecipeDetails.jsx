@@ -56,7 +56,6 @@ export default class RecipeDetails extends Component {
   render() {
     const { isLoading, recipe, recipeType } = this.state;
     const {
-      strCategory,
       strInstructions,
     } = recipe;
     if (isLoading) return <div> Loading... </div>;
@@ -74,7 +73,9 @@ export default class RecipeDetails extends Component {
         </h2>
         <button type="button" data-testid="share-btn"> SHARE </button>
         <button type="button" data-testid="favorite-btn"> FAVORITE </button>
-        <h3 data-testid="recipe-category">{ strCategory }</h3>
+        <h3 data-testid="recipe-category">
+          { (recipeType === 'comidas') ? recipe.strCategory : recipe.strAlcoholic }
+        </h3>
         <p data-testid="instructions">{ strInstructions }</p>
         <li>
           <ul data-testid="${index}-ingredient-name-and-measure"> INGREDIENT</ul>
