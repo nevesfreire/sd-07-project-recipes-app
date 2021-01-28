@@ -15,10 +15,10 @@ function App() {
       <RecipeProvider>
         <Switch>
           <Route exact path="/" component={ Login } />
+          <Route exact path="/comidas/:id" component={ DetailsPage } />
           <Route path="/comidas" component={ FoodRecipes } />
           <Route path="/perfil" component={ Profile } />
           <Route path="/bebidas" component={ DrinksRecipes } />
-          <Route path="/comidas/:id" component={ DetailsPage } />
         </Switch>
       </RecipeProvider>
     </BrowserRouter>
