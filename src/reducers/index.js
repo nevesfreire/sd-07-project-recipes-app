@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
-import login from './login';
-import recipes from './recipes';
-import header from './header';
+import loginReducer from './login';
+import recipesReducer from './recipes';
+import headerReducer from './header';
 
 const rootReducer = combineReducers({
-  login,
-  recipes,
-  header,
+  loginReducer,
+  recipesReducer,
+  headerReducer,
 });
 
 export default rootReducer;

@@ -42,8 +42,8 @@ const mapDispatchToProps = (dispatch) => ({
   requestRecipes: (endPoint) => dispatch(fetchRecipes(endPoint)),
 });
 
-const mapStateToProps = ({ recipes }) => ({
-  getRecipes: recipes.recipes,
+const mapStateToProps = ({ recipesReducer }) => ({
+  getRecipes: recipesReducer.recipes,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MealRecipes);
