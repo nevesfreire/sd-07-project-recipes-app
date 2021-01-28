@@ -7,9 +7,9 @@ class CardC extends React.Component {
 
     return (
       <Card>
-        <Card.Img variant="top" src={ img } />
+        <Card.Img variant="top" src="" />
         <Card.Body>
-          <Card.Title>{title}</Card.Title>
+          <Card.Title>teg de para titulo aqui</Card.Title>
           <Card.Text>Some quick example text to build on the card</Card.Text>
         </Card.Body>
       </Card>

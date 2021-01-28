@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header } from '../../components';
+import { Header, Footer } from '../../components';
 
 class Explorar extends Component {
   render() {
@@ -7,6 +7,7 @@ class Explorar extends Component {
     return (
       <div>
         <Header title={ title } />
+        <Footer />
       </div>
     );
   }
