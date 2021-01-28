@@ -23,7 +23,7 @@ code {
   justify-content: space-around;
   left: 0px;
   position: fixed;
-  top: 467px;
+  top: 570px;
   width: 100%;
 }
 
@@ -64,4 +64,20 @@ code {
   font-weight: 500;
   line-height: 35px;
   margin-top: 10px;
+}
+
+.Container__Category__Btns {
+  display: flex;
+  padding-left: 10px;
+  flex-wrap: wrap;
+  position: absolute;
+  top: 59px;
+  width: 400px;
+  align-items: center;
+  justify-content: center;
+}
+
+.Container__Category__Btns button {
+  padding: 5px;
+  margin: 5px;
 }
