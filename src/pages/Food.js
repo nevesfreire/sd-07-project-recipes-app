@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import MealRecipes from '../components/MealRecipes';
 import '../css/food.css';
 
@@ -11,6 +12,7 @@ class Food extends Component {
       <div>
         <Header history={ history } />
         <MealRecipes endPoint="https://www.themealdb.com/api/json/v1/1/search.php?s=" />
+        <Footer history={ history } />
       </div>
     );
   }

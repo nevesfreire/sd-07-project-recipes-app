@@ -2,10 +2,15 @@ export const EMAIL = 'EMAIL';
 export const RECEIVED_RECIPES = 'RECEIVED_RECIPES';
 export const ERROR = 'ERROR';
 export const SEARCH_INPUT = 'SEARCH_INPUT'
+export const CHANGE_FETCH = 'CHANGE_FETCH';
 
 export const sendSearchInput = (value) => ({
   type: SEARCH_INPUT,
   value,
+});
+
+export const changeFetching = () => ({
+  type: CHANGE_FETCH,
 });
 
 export const sendEmail = (email) => ({

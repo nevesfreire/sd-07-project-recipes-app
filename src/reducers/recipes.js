@@ -1,4 +1,4 @@
-import { ERROR, RECEIVED_RECIPES } from '../actions';
+import { ERROR, RECEIVED_RECIPES, CHANGE_FETCH } from '../actions';
 
 const INITIAL_STATE = {
   isFetching: true,
@@ -8,6 +8,11 @@ const INITIAL_STATE = {
 
 const recipes = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+  case CHANGE_FETCH:
+    return {
+      ...state,
+      isFetching: true,
+    };
   case RECEIVED_RECIPES:
     return {
       ...state,

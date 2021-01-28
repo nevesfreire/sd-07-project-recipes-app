@@ -1,20 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchRecipes } from '../actions';
+import { fetchRecipes, changeFetching } from '../actions';
 import '../css/food.css';
 
 class DrinksRecipes extends Component {
   componentDidMount() {
-    const { requestRecipes, endPoint } = this.props;
+    const { requestRecipes, endPoint, isFetching } = this.props;
+    isFetching();
     requestRecipes(endPoint);
   }
 
   render() {
     const { getRecipes, isFetching } = this.props;
     const DRINK_LENGTH = 12;
+    console.log(getRecipes);
 
     if (!isFetching) {
+      console.log(getRecipes);
       const filterArray = getRecipes.filter((_drink, index) => index < DRINK_LENGTH);
       return (
         <div>
@@ -41,6 +44,7 @@ class DrinksRecipes extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   requestRecipes: (endPoint) => dispatch(fetchRecipes(endPoint)),
+  isFetching: () => dispatch(changeFetching()),
 });
 
 const mapStateToProps = ({ recipes }) => ({
