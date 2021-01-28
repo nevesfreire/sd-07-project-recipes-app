@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { getFood, getDrink } from '../services';
+import { CustomCardSuggested } from '../components';
+import { getFood, getDrink, getSuggestedFoods, getSuggestedDrinks } from '../services';
 
 export default class RecipeDetails extends Component {
   constructor(props) {
@@ -8,9 +9,11 @@ export default class RecipeDetails extends Component {
     this.getTypeOfRecipe = this.getTypeOfRecipe.bind(this);
     this.getYoutubeEmbedUrl = this.getYoutubeEmbedUrl.bind(this);
     this.getIngredientsList = this.getIngredientsList.bind(this);
+    this.getSuggestedRecipes = this.getSuggestedRecipes.bind(this);
     this.state = {
       isLoading: true,
       recipe: {},
+      suggestedRecipes: [],
       recipeType: '',
     };
   }
@@ -30,8 +33,23 @@ export default class RecipeDetails extends Component {
     const { recipe: { strYoutube } } = this.state;
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
     const match = strYoutube.match(regExp);
-    this.getIngredientsList();
+    if (!match) return '';
     return `https://www.youtube.com/embed/${match[2]}`;
+  }
+
+  getSuggestedRecipes() {
+    const { suggestedRecipes, recipeType } = this.state;
+    const sufixeRecipe = (recipeType === 'comidas') ? 'Drink' : 'Meal';
+    const INITIAL_INDEX = 0;
+    const MAX_INDEX = 6;
+    return (
+      suggestedRecipes.slice(INITIAL_INDEX, MAX_INDEX)
+        .map((recipe) => (
+          <CustomCardSuggested
+            key={ recipe[`id${sufixeRecipe}`] }
+            thumb={ recipe[`str${sufixeRecipe}Thumb`] }
+          />))
+    );
   }
 
   getIngredientsList() {
@@ -64,17 +82,21 @@ export default class RecipeDetails extends Component {
     this.setState({ isLoading: true });
     if (recipeType === 'comidas') {
       const { meals } = await getFood(id);
+      const { drinks } = await getSuggestedDrinks();
       this.setState({
         isLoading: false,
         recipe: meals[0],
+        suggestedRecipes: drinks,
         recipeType,
       });
     }
     if (recipeType === 'bebidas') {
       const { drinks } = await getDrink(id);
+      const { meals } = await getSuggestedFoods();
       this.setState({
         isLoading: false,
         recipe: drinks[0],
+        suggestedRecipes: meals,
         recipeType,
       });
     }
@@ -115,7 +137,7 @@ export default class RecipeDetails extends Component {
           allow-fullscreen
           title="video"
         /> }
-        <div data-testid="${index}-recomendation-card"> RECOMENDED RECIPES </div>
+        <div data-testid="${index}-recomendation-card">{ this.getSuggestedRecipes() }</div>
         <button type="button" data-testid="start-recipe-btn"> START RECIPE </button>
       </div>
     );
