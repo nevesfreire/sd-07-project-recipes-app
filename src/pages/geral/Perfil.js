@@ -9,7 +9,7 @@ class Perfil extends Component {
     return (
       <div>
         <Header title="Perfil" searchOn="off" history={ history } />
-        <Footer />
+        <Footer history={ history } />
       </div>
     );
   }
