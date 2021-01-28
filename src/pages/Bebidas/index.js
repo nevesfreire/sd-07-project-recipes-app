@@ -6,6 +6,7 @@ import Footer from '../../components/Footer/index';
 import {
   fetchCocktailByName,
   fetchDrinkByCategory,
+  stopRequired,
 } from '../../redux/actions/drinkActions';
 import './styles.css';
 
@@ -89,8 +90,12 @@ function Bebidas(props) {
   }
 
   useEffect(() => {
-    const { fetchDrink } = props;
-    fetchDrink('');
+    const { fetchDrink, drinks, notRequired } = props;
+    if (drinks.isRequired) {
+      notRequired();
+    } else {
+      fetchDrink('');
+    }
     fetchCategories();
   }, []);
 
@@ -120,6 +125,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   fetchDrink: (drink) => dispatch(fetchCocktailByName(drink)),
   fetchDrinkCategory: (drink) => dispatch(fetchDrinkByCategory(drink)),
+  notRequired: () => dispatch(stopRequired()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Bebidas);
