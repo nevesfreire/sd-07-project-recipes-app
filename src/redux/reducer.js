@@ -1,0 +1,18 @@
+import { GET_INGREDIENTS } from './actions';
+
+const initialState = {
+  recipesByIngredients: {},
+};
+
+function reducer(state = initialState, action) {
+  switch (action.type) {
+  case GET_INGREDIENTS:
+    return {
+      ...state, recipesByIngredients: action.payload,
+    };
+  default:
+    return state;
+  }
+}
+
+export default reducer;
