@@ -1,5 +1,5 @@
+/* eslint-disable max-lines */
 /* eslint-disable max-lines-per-function */
-/* eslint-disable sonarjs/no-duplicate-string */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
@@ -18,6 +18,7 @@ import '../css/details.css';
 function FoodDetail(props) {
   const {
     match: { url, path, params: { id } },
+    // eslint-disable-next-line
     fetchId: { Comidas, Bebidas },
     dispatchRecipeDetail } = props;
   const [objResponse, setObjResponse] = useState({});
@@ -90,29 +91,29 @@ function FoodDetail(props) {
   };
 
   const randomName = (array) => {
-    if (path === '/comidas/:id') {
-      const nameType = 'Drink';
-      const changeCategory = 'strAlcoholic';
-      const arrayfiltered = array.map((element) => (
-        {
-          name: element[`str${nameType}`],
-          category: element[changeCategory],
-          img: element[`str${nameType}Thumb`],
-        }
-      ));
-      return arrayfiltered;
-    }
     if (path === '/bebidas/:id') {
-      const nameType = 'Meal';
-      const changeCategory = 'strCategory';
-      const arrayfiltered = array.map((element) => (
+      const nameTypeDrink = 'Drink';
+      const changeCategoryDrink = 'strAlcoholic';
+      const arrayfilteredDrink = array.map((element) => (
         {
-          name: element[`str${nameType}`],
-          category: element[changeCategory],
-          img: element[`str${nameType}Thumb`],
+          name: element[`str${nameTypeDrink}`],
+          category: element[changeCategoryDrink],
+          img: element[`str${nameTypeDrink}Thumb`],
         }
       ));
-      return arrayfiltered;
+      return arrayfilteredDrink;
+    }
+    if (path === '/comidas/:id') {
+      const nameTypeMeal = 'Meal';
+      const changeCategoryMeal = 'strCategory';
+      const arrayfilteredMeal = array.map((element) => (
+        {
+          name: element[`str${nameTypeMeal}`],
+          category: element[changeCategoryMeal],
+          img: element[`str${nameTypeMeal}Thumb`],
+        }
+      ));
+      return arrayfilteredMeal;
     }
   };
 

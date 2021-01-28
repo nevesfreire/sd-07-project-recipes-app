@@ -1,8 +1,9 @@
+/* eslint-disable max-lines-per-function */
 import React from 'react';
 import './App.css';
 import { Switch, Route } from 'react-router-dom';
-import Login from './pages/login';
-import Food from './pages/foods';
+import Login from './pages/Login';
+import Food from './pages/Food';
 import Cocktail from './pages/CockTail';
 import Recipe from './pages/Recipe';
 import RecipeInProgress from './pages/RecipeInProgress';
