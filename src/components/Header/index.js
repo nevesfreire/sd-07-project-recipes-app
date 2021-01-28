@@ -73,7 +73,7 @@ function Header({ history, search = false }) {
         )}
       </nav>
       {searchInput && (
-        <SearchBar />
+        <SearchBar history={ history } />
       )}
     </header>
   );

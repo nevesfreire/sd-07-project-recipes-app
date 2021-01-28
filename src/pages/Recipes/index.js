@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
+import { Context } from '../../context/Provider';
 import Header from '../../components/Header';
 
 function Recipes({ history, search = false }) {
+  const { setApi } = useContext(Context);
+
+  useEffect(() => {
+    if (history.location.pathname.includes('bebidas')) setApi('drinks');
+    else setApi('meal');
+  }, [history.location.pathname, setApi]);
+
   return (
     <>
       <Header history={ history } search={ search } />
