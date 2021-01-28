@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { HeaderS } from '../../components';
 
-class TelaPrincipalReceitasComidas extends Component {
+class ExplorarComidasLoc extends Component {
   render() {
-    const title = 'Comidas';
+    const title = 'Explorar Origem';
     return (
       <div>
         <HeaderS title={ title } />
@@ -12,4 +12,4 @@ class TelaPrincipalReceitasComidas extends Component {
   }
 }
 
-export default TelaPrincipalReceitasComidas;
+export default ExplorarComidasLoc;
