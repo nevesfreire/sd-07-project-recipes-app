@@ -6,19 +6,20 @@ import '../css/food.css';
 
 class DrinksRecipes extends Component {
   componentDidMount() {
-    const { requestRecipes, endPoint, isFetching } = this.props;
-    isFetching();
+    const { requestRecipes, endPoint, updateFetching, isFetching } = this.props;
+    if (isFetching === false) {
+      updateFetching();
+    }
     requestRecipes(endPoint);
   }
 
   render() {
     const { getRecipes, isFetching } = this.props;
     const DRINK_LENGTH = 12;
-    console.log(getRecipes);
-
-    if (!isFetching) {
+    // console.log(getRecipes);
+    if (getRecipes.drinks) {
       console.log(getRecipes);
-      const filterArray = getRecipes.filter((_drink, index) => index < DRINK_LENGTH);
+      const filterArray = getRecipes.drinks.filter((_drink, index) => index < DRINK_LENGTH);
       return (
         <div>
           {filterArray.map((drink, index) => (
@@ -44,11 +45,11 @@ class DrinksRecipes extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   requestRecipes: (endPoint) => dispatch(fetchRecipes(endPoint)),
-  isFetching: () => dispatch(changeFetching()),
+  updateFetching: () => dispatch(changeFetching()),
 });
 
 const mapStateToProps = ({ recipes }) => ({
-  getRecipes: recipes.recipes.drinks,
+  getRecipes: recipes.recipes,
   isFetching: recipes.isFetching,
 });
 

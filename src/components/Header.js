@@ -23,7 +23,7 @@ class Header extends Component {
   render() {
     const { history } = this.props;
     const { showInputSearch } = this.state;
-    console.log(history);
+    // console.log(history);
     return (
       <div>
         <header className="header-food-container">

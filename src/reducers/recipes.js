@@ -22,7 +22,7 @@ const recipes = (state = INITIAL_STATE, action) => {
   case ERROR:
     return {
       ...state,
-      isFetching: false,
+      // isFetching: false,
       error: action.error,
     };
   default:
