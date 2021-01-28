@@ -59,14 +59,16 @@ export default function Header({ pathname, componentConfig }) {
       />) : null
   );
 
-const render = () => (
-  <div className="header_content">
-    {renderProfileTopBtn()}
-    {renderPageTitle()}
-    {renderSearchBtn()}
-    {renderSearchRecipeComponent()}
-  </div>
-);
+  const render = () => (
+    <div className="header_content">
+      {renderProfileTopBtn()}
+      {renderPageTitle()}
+      {renderSearchBtn()}
+      {renderSearchRecipeComponent()}
+    </div>
+  );
+  return render();
+}
 
 Header.propTypes = {
   pathname: PropTypes.string.isRequired,
