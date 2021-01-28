@@ -1,0 +1,11 @@
+.footer-container {
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+}
+
+.footer-context {
+  background-color: lightgray;
+  display: flex;
+  justify-content: space-between;
+}
