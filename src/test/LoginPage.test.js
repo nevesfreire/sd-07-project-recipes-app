@@ -126,3 +126,4 @@ describe('Verificar se o usuário é redirecionado para página "/comidas" após
     expect(pathname).toBe('/comidas');
   });
 });
+//
