@@ -23,28 +23,28 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
     <Switch>
-      <Route exact path="/" component={ Login } />
-      <Route path="/comidas" component={ Comidas } />
-      <Route path="/bebidas" component={ Bebidas } />
-      <Route path="/bebidas/:id" component={ DetalhesBebidas } />
       <Route path="/bebidas/:id/in-progress" component={ ProcessoBebidas } />
-      <Route path="/comidas/:id" component={ DetalhesComidas } />
+      <Route path="/bebidas/:id" component={ DetalhesBebidas } />
+      <Route path="/bebidas" component={ Bebidas } />
       <Route path="/comidas/:id/in-progress" component={ ProcessoComidas } />
-      <Route path="/explorar" component={ Explorar } />
-      <Route path="/explorar/comidas" component={ ExplorarComidas } />
-      <Route path="/explorar/bebidas" component={ ExplorarBebidas } />
+      <Route path="/comidas/:id" component={ DetalhesComidas } />
+      <Route path="/comidas" component={ Comidas } />
+      <Route path="/explorar/comidas/area" component={ ExplorarComidasArea } />
       <Route
         path="/explorar/comidas/ingredientes"
         component={ ExplorarComidasIngredientes }
       />
+      <Route path="/explorar/comidas" component={ ExplorarComidas } />
       <Route
         path="/explorar/bebidas/ingredientes"
         component={ ExplorarBebidasIngredientes }
       />
-      <Route path="/explorar/comidas/area" component={ ExplorarComidasArea } />
+      <Route path="/explorar/bebidas" component={ ExplorarBebidas } />
+      <Route path="/explorar" component={ Explorar } />
       <Route path="/perfil" component={ Perfil } />
       <Route path="/receitas-feitas" component={ ReceitasFeitas } />
       <Route path="/receitas-favoritas" component={ ReceitasFavoritas } />
+      <Route exact path="/" component={ Login } />
     </Switch>
   );
 }
