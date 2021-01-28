@@ -39,3 +39,15 @@ export default function Card({ recipe, index }) {
     </Link>
   );
 }
+
+Card.propTypes = {
+  recipe: PropTypes.shape({
+    idMeal: PropTypes.string.isRequired,
+    strMealThumb: PropTypes.string.isRequired,
+    strMeal: PropTypes.string.isRequired,
+    idDrink: PropTypes.string.isRequired,
+    strDrinkThumb: PropTypes.string.isRequired,
+    strDrink: PropTypes.string.isRequired,
+  }).isRequired,
+  index: PropTypes.number.isRequired,
+};
