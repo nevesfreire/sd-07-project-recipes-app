@@ -5,8 +5,6 @@ import Footer from '../../Components/Footer';
 const Perfil = () => (
   <div>
     <Header>Perfil</Header>
-    Perfil PG
-
     <Footer />
   </div>
 );

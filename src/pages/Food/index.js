@@ -5,6 +5,7 @@ import Footer from '../../Components/Footer';
 const Food = () => (
   <div>
     <Header test="page-title">Comidas</Header>
+    <Footer />
   </div>
 );
 

@@ -23,7 +23,7 @@ const FoodProvider = ({ children }) => {
       setData(results);
       if (!results) {
         alert(
-          'Sinto muito, não encontramos nenhuma receita para esses filtros.',
+          'Sinto muito, não encontramos nenhuma receita para esses filtros.'
         );
       }
     }
@@ -33,7 +33,7 @@ const FoodProvider = ({ children }) => {
       setData(results);
       if (!results) {
         alert(
-          'Sinto muito, não encontramos nenhuma receita para esses filtros.',
+          'Sinto muito, não encontramos nenhuma receita para esses filtros.'
         );
       }
     }
@@ -44,7 +44,7 @@ const FoodProvider = ({ children }) => {
       console.log('requestByLetter', results);
       if (!results) {
         alert(
-          'Sinto muito, não encontramos nenhuma receita para esses filtros.',
+          'Sinto muito, não encontramos nenhuma receita para esses filtros.'
         );
       }
     }
@@ -80,7 +80,7 @@ const FoodProvider = ({ children }) => {
   };
 
   return (
-    <RecipesContext.Provider value={ context }>
+    <RecipesContext.Provider value={context}>
       {children}
     </RecipesContext.Provider>
   );
