@@ -17,9 +17,9 @@ function Header({ title, toggle, toggleAction }) {
         </Link>
       </div>
       <div>
-        <h2 data-testid="page-title">
+        <h1 data-testid="page-title">
           { title }
-        </h2>
+        </h1>
       </div>
       <div>
         <button
