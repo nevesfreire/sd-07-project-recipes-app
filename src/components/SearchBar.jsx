@@ -2,9 +2,8 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import FoodAppContext from '../context/FoodAppContext';
 
-function SearchBar({ title }) {
+function SearchBar({ title, props }) {
   const { handlerChange, handlerClick } = useContext(FoodAppContext);
-  console.log(title);
   return (
     <div>
       <input
@@ -50,7 +49,7 @@ function SearchBar({ title }) {
       <button
         type="button"
         data-testid="exec-search-btn"
-        onClick={ handlerClick }
+        onClick={ (e) => handlerClick(e, props) }
         value={ title }
       >
         Buscar
@@ -60,6 +59,7 @@ function SearchBar({ title }) {
 }
 
 SearchBar.propTypes = {
+  props: PropTypes.shape({}).isRequired,
   title: PropTypes.string.isRequired,
 };
 

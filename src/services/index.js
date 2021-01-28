@@ -1,6 +1,9 @@
+const categoryMealUrl = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+const categoryDrinkUrl = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+
 const auxFunc = (term, type, url) => {
   if (term && type) {
-    if (type === 'i') {
+    if (type === 'i' || type === 'c' || type === 'a') {
       return `${url}filter.php?${type}=${term}`;
     } if (type === 'f' && term.length > 1) {
       alert('Sua busca deve conter somente 1 (um) caracter');
@@ -31,6 +34,28 @@ export const drinksAPI = async (term, type) => {
     const dataDrink = await response.json();
 
     return dataDrink;
+  } catch (error) {
+    return error.message;
+  }
+};
+
+export const categoryMealApi = async () => {
+  try {
+    const response = await fetch(categoryMealUrl);
+    const categoryMeal = await response.json();
+
+    return categoryMeal;
+  } catch (error) {
+    return error.message;
+  }
+};
+
+export const categoryDrinkApi = async (term, type) => {
+  try {
+    const response = await fetch(categoryDrinkUrl);
+    const categoryDrink = await response.json();
+
+    return categoryDrink;
   } catch (error) {
     return error.message;
   }

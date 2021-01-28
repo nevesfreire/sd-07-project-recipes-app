@@ -27,8 +27,8 @@ function Routes() {
         />
         <Route
           exact
-          path="/comidas"
-          component={ Food }
+          path="/comidas/"
+          render={ (props) => <Food { ...props } /> }
         />
         <Route
           exact
