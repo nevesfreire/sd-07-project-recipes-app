@@ -38,7 +38,7 @@ function Login() {
         onChange={ (e) => setSenha(e.target.value) }
       />
 
-      <Link to="/comidas">
+      <Link to='/comidas'>
         <button
           type="button"
           data-testid="login-submit-btn"

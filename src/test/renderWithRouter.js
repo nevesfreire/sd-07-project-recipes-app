@@ -9,7 +9,9 @@ function renderWithRouter(component) {
   return ({
     ...render(
       <Provider>
-        <Router history={history}>{component}</Router>
+        <Router history={history}>
+          {component}
+        </Router>
       </Provider>,
     ),
     history,
