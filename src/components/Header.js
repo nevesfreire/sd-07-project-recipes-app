@@ -44,6 +44,39 @@ class Header extends Component {
             <img src={ searchIcon } alt="searchIcon" />
           </button>
         </header>
+        <div>
+          <input
+            type="radio"
+            id="ingrediente"
+            name="IngredientFilter"
+            value="ingrediente"
+            data-testid="ingredient-search-radio"
+          />
+          <label for="ingrediente">Ingrediente</label>
+          <input
+            type="radio"
+            id="foodName"
+            name="foodNameFilter"
+            value="foodName"
+            data-testid="name-search-radio"
+          />
+          <label for="name">Name</label>
+          <input
+            type="radio"
+            id="firstLetterName"
+            name="firstLetterFilter"
+            value="firstLetterName"
+            data-testid="first-letter-search-radio"
+          />
+          <label for="firstLetterName">First Letter</label>
+          <button
+            type="button"
+            data-testid="exec-search-btn"
+            // onClick={}
+          >
+            "exec-search-btn"
+          </button>
+        </div>
         <section>
           {showInputSearch && (
             <div className="search-food-container">
@@ -52,6 +85,7 @@ class Header extends Component {
                 data-testid="search-input"
                 className="search-food-input"
                 placeholder="Buscar Receita"
+                data-testid="search-input"
               />
             </div>
           )}

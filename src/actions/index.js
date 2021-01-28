@@ -4,3 +4,4 @@ export const sendEmail = (email) => ({
   type: EMAIL,
   email,
 });
+
