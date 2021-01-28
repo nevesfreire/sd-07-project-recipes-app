@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import SearchBar from '../../components/SearchBar';
 
 export default function Login() {
   const history = useHistory();
@@ -41,7 +42,8 @@ export default function Login() {
 
   return (
     <div>
-      <form>
+      <SearchBar />
+      {/* <form>
         <label htmlFor="email">
           Email:
           <input
@@ -70,7 +72,7 @@ export default function Login() {
         >
           Entrar
         </button>
-      </form>
+      </form> */}
     </div>
   );
 }
