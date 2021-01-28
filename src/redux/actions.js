@@ -39,10 +39,17 @@ export const getLetter = (recipesWithLetter) => ({
   recipesWithLetter,
 });
 
+<<<<<<< HEAD
 async function fetchLetter(letter) {
   const responseAPI = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${letter}`);
   const recipesWithLetter = await responseAPI.json();
   return recipesWithLetter;
+=======
+async function fetchIngredients(ingredient) {
+  const responseAPI = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
+  const recipesWithIngredient = await responseAPI.json();
+  return recipesWithIngredient;
+>>>>>>> 03419fbe342c10ca7451fcb8aa237923601e2650
 }
 
 export const resultLetter = (letter) => async (dispatch) => {
