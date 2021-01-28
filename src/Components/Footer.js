@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import drinkIcon from '../images/drinkIcon.svg';
-import exploreIcon from '../images/exploreIcon.svg';
+import explIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 
 const Footer = () => (
-  <footer data-testid="footer">
+  <footer data-testid="footer" className="footer">
     <Link to="/bedidas">
       <button
         type="button"
@@ -17,7 +17,7 @@ const Footer = () => (
       <button
         type="button"
       >
-        <img src={ exploreIcon } data-testid="explore-bottom-btn" alt="SVG explore Icon" />
+        <img src={ explIcon } data-testid="explore-bottom-btn" alt="SVG explore Icon" />
       </button>
     </Link>
     <Link to="/comidas">
