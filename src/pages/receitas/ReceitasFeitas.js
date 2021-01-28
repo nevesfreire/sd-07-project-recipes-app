@@ -1,9 +1,9 @@
 import React from 'react';
 
-class TelaReceitasFeitas extends React.Component {
+class ReceitasFeitas extends React.Component {
   render() {
     return (<div>TelaReceitasFeitas</div>);
   }
 }
 
-export default TelaReceitasFeitas;
+export default ReceitasFeitas;

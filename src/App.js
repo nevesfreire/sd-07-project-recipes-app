@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 import Login from './pages/Login';
 import Comidas from './pages/comidas/Comidas';
 import Bebidas from './pages/bebidas/Bebidas';
+import ReceitasFavoritas from './pages/receitas/ReceitasFavoritas';
+import ReceitasFeitas from './pages/receitas/ReceitasFeitas';
 import Perfil from './pages/Perfil';
 import store from './redux/store';
 import './App.css';
@@ -18,6 +20,8 @@ function App() {
           <Route path="/comidas" component={ Comidas } />
           <Route path="/perfil" component={ Perfil } />
           <Route path="/bebidas" component={ Bebidas } />
+          <Route path="/receitas-favoritas" component={ ReceitasFavoritas } />
+          <Route path="/receitas-feitas" component={ ReceitasFeitas } />
         </Switch>
       </BrowserRouter>
     </Provider>
