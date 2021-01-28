@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import '../styles/Explore.css';
 
 function Explore() {
   return (
     <>
-      <Header title="Explorar" isSearchable={false} />
+      <Header title="Explorar" isSearchable={ false } />
       <div className="content">
         <Link
           to="/explorar/comidas"

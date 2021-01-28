@@ -9,3 +9,5 @@ export { default as ExploreByArea } from './ExploreByArea';
 export { default as Profile } from './Profile';
 export { default as DoneRecipes } from './DoneRecipes';
 export { default as FavoriteRecipes } from './FavoriteRecipes';
+export { default as FoodDetails } from './FoodDetails';
+export { default as DrinkDetails } from './DrinkDetails';
