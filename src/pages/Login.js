@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { sendEmail } from '../actions';
+import logo from '../images/mastercode.png';
+import '../css/login.css';
 
 class Login extends Component {
   constructor(props) {
@@ -41,29 +43,47 @@ class Login extends Component {
 
   render() {
     return (
-      <div>
-        <input
-          type="email"
-          name="email"
-          placeholder="Digite seu e-mail"
-          data-testid="email-input"
-          onChange={ this.handleChange }
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Digite sua senha"
-          data-testid="password-input"
-          onChange={ this.handleChange }
-        />
-        <button
-          type="button"
-          data-testid="login-submit-btn"
-          disabled={ !this.inputValidation() }
-          onClick={ this.handleClick }
-        >
-          Entrar
-        </button>
+      <div className="body-container">
+        <div className="input-group">
+          <div className="title-container">
+            <div>
+              MasterCode
+            </div>
+            <div>
+              <img className="logo-image" src={ logo } alt="logo" />
+            </div>
+          </div>
+          <div className="login-container">
+            Login to your MasterCode Account
+            <input
+              type="email"
+              name="email"
+              className="form-control"
+              placeholder="Digite seu e-mail"
+              data-testid="email-input"
+              onChange={ this.handleChange }
+            />
+            <input
+              type="password"
+              name="password"
+              className="form-control"
+              placeholder="Digite sua senha"
+              data-testid="password-input"
+              onChange={ this.handleChange }
+            />
+            <div>
+              <button
+                type="button"
+                className="btn btn-success btn-md btn-block"
+                data-testid="login-submit-btn"
+                disabled={ !this.inputValidation() }
+                onClick={ this.handleClick }
+              >
+                Entrar
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
