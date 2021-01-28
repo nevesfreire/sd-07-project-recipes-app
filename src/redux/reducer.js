@@ -5,8 +5,8 @@ const INITIAL_STATE = {
 
 function fastFood(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case 'SETLOCAL':
-    return { ...state, tipo: action.value };
+  case 'LOADRECIPES':
+    return { ...state, tipo: action.value, receitas: action.object };
   case 'SETRECEITAS':
     return { ...state, receitas: action.value };
   default:

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../../components/header';
-import { setLocal } from '../../redux/action';
+import { loadRecipes } from '../../redux/action';
 import Footer from '../../components/footer';
 
 class PrincipalBebidas extends Component {
@@ -67,7 +67,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setlocal: (tipo) => dispatch(setLocal(tipo)),
+  setlocal: (tipo) => dispatch(loadRecipes(tipo)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PrincipalBebidas);
