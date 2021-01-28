@@ -1,5 +1,9 @@
-/* export const REQUEST_TOKEN_FAIL = 'REQUEST_TOKEN_FAIL';
+import {
+  renderSearchIcon,
+  changePageTitle,
+} from './header';
 
-export const requestToken = () => ({
-  type: REQUEST_TOKEN,
-}); */
+export default {
+  renderSearchIcon,
+  changePageTitle,
+};
