@@ -4,12 +4,15 @@ import PropTypes from 'prop-types';
 import RecipesContext from './index';
 
 function RecipesProvider({ children }) {
-  const [meals, setMeals] = useState([]);
+  const [data, setData] = useState([]);
+  const [categoryList, setCategoryList] = useState([]);
 
   const states = {
     email: '',
-    meals,
-    setMeals,
+    data,
+    setData,
+    categoryList,
+    setCategoryList,
   };
 
   return (

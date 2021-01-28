@@ -39,6 +39,16 @@ const searchMealsByArea = async (area) => {
   return meals;
 };
 
+const getMeals = async (limit) => {
+  const startPositionToShow = 0;
+
+  const response = await api.get('/search.php?s=');
+  const { meals } = response.data;
+  const limitToShow = meals.slice(startPositionToShow, limit);
+
+  return limitToShow;
+};
+
 const getAllMeals = async () => {
   const response = await api.get('/search.php?s=');
   const { meals } = response.data;
@@ -67,11 +77,14 @@ const getMealCategories = async () => {
   return categories;
 };
 
-const getMealCategoryList = async () => {
+const getMealCategoryList = async (limit) => {
+  const startPositionToShow = 0;
+
   const response = await api.get('list.php?c=list');
   const { meals } = response.data;
+  const limitToShow = meals.slice(startPositionToShow, limit);
 
-  return meals;
+  return limitToShow;
 };
 
 const getMealIngredientList = async () => {
@@ -94,6 +107,7 @@ export default {
   searchMealsByIngredient,
   searchMealsByCategory,
   searchMealsByArea,
+  getMeals,
   getAllMeals,
   getMealDetailsById,
   getRandomMeal,
