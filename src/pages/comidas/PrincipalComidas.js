@@ -18,7 +18,7 @@ class PrincipalComidas extends Component {
       if (receitas.meals === null && !controlealert) {
         controlealert = true;
         alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-      } else if (receitas.meals.length === 1) {
+      } else if (receitas.meals.length === 1 && receitas.redirect) {
         const id = receitas.meals[0].idMeal;
         history.push(`/comidas/${id}`);
       } else {

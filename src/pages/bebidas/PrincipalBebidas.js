@@ -18,7 +18,7 @@ class PrincipalBebidas extends Component {
       if (receitas.drinks === null && !controlealert) {
         controlealert = true;
         alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-      } else if (receitas.drinks.length === 1) {
+      } else if (receitas.drinks.length === 1 && receitas.redirect) {
         const id = receitas.drinks[0].idDrink;
         history.push(`/bebidas/${id}`);
       } else {
