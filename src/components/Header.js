@@ -18,8 +18,9 @@ class Header extends Component {
   }
 
   renderSearchBar() {
+    const { search } = this.props;
     return (
-      <SearchBar search="meals" />
+      <SearchBar search={ search } />
     );
   }
 
@@ -77,6 +78,7 @@ class Header extends Component {
 Header.propTypes = {
   pageTitle: PropTypes.string.isRequired,
   shouldRenderSearchIcon: PropTypes.string.isRequired,
+  search: PropTypes.string.isRequired,
 };
 
 export default Header;
