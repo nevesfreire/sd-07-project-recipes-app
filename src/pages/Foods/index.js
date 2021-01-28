@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import Card from '../../components/Cards';
 import Header from '../../components/Header';
+import Footer from '../Footer';
 import RecipesContext from '../../Context/RecipesContext';
 
 let filter = '';
@@ -113,6 +114,7 @@ export default function Foods() {
         }
         return null;
       })}
+      <Footer />
     </div>
   );
 }
