@@ -2,13 +2,16 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 function Perfil() {
-  const { email } = JSON.parse(localStorage.getItem('user'));
+  const userStorage = JSON.parse(localStorage.getItem('user'));
+  const emailStorage = userStorage && userStorage.email;
 
   return (
     <div>
-      <span data-testid="profile-email">{ email }</span>
+      <Header />
+      <h3 data-testid="profile-email">{ emailStorage }</h3>
       <Link to="/receitas-feitas">
         <Button
           type="button"
