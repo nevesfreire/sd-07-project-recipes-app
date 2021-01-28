@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import profile from '../../images/profileIcon.svg';
 import searchbar from '../../images/searchIcon.svg';
 
 function Header(props) {
-  const { title } = props;
+  const { title, onSearchChange } = props;
   const [search, setSearch] = useState(false);
+  const [inputSearch, setInputSearch] = useState('');
 
   function input() {
     if (!search) {
@@ -16,6 +17,13 @@ function Header(props) {
     }
   }
 
+  function setInput(e) {
+    const text = e.target.value;
+    setInputSearch(text);
+  }
+  useEffect(() => {
+    onSearchChange(inputSearch);
+  });
   return (
     <div>
       <Link to="/perfil">
@@ -35,6 +43,8 @@ function Header(props) {
       </button>
       <div>
         { search && <input
+          value={ inputSearch }
+          onChange={ setInput }
           type="text"
           data-testid="search-input"
           placeholder="Buscar Receita"
@@ -46,6 +56,7 @@ function Header(props) {
 }
 Header.propTypes = {
   title: PropTypes.string.isRequired,
+  onSearchChange: PropTypes.func.isRequired,
 };
 
 export default Header;
