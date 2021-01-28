@@ -2,27 +2,39 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import '../../App.css';
+import profileicon from '../../images/profileIcon.svg';
+import searchicon from '../../images/searchIcon.svg';
 
-// import searchicon from ''
-// import profileicon from '../../images/profileico.svg';
+const userName = 'User';
+const Header = (props) => {
+  const { title } = props;
 
-const userName = 'Filipi Firmino';
-const Header = (props) => (
-  <div className="header">
-    <div className="user" data-testid="profile-top-btn">
-      <Link to="/perfil">
-        <img src="./src/images/profileico.svg" alt="avatar-user" className="user-avatar" />
+  return (
+    <div className="header">
+      <div className="user">
+        <Link to="/perfil">
+          <img
+            src={ profileicon }
+            alt="avatar-user"
+            className="user-avatar"
+            data-testid="profile-top-btn"
+          />
+        </Link>
         <p>{ userName }</p>
-      </Link>
+      </div>
+      <div className="title-header" data-testid="page-title">
+        <h1>{ title }</h1>
+      </div>
+      <div className="search" data-testid="search-top-btn">
+        <img
+          src={ searchicon }
+          alt="serchIcon"
+          data-testid="search-top-btn"
+        />
+      </div>
     </div>
-    <div className="title-header" data-testid="page-title">
-      <h1>{ props.title }</h1>
-    </div>
-    <div className="search" data-testid="search-top-btn">
-      <img src="./src/images/searchicon.svg" alt="serchIcon" />
-    </div>
-  </div>
-);
+  );
+};
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,

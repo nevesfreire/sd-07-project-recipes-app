@@ -2,12 +2,12 @@ import React from 'react';
 import Header from '../../Components/Header';
 import '../../App.css';
 
-const Home = () => (
+const Explorar = () => (
   <div className="container-over">
     <div className="container-int">
-      <Header title="Comidas" />
+      <Header title="Explorar" />
     </div>
   </div>
 );
 
-export default Home;
+export default Explorar;

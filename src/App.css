@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
 body {
   margin: 0;
   padding: 0;
@@ -34,7 +36,11 @@ body {
 .title-header {
   font-weight: 700;
   color: #FDCBB4 ;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Fredoka One', cursive;
+}
+.user {
+  font-size: 10pt;
+  text-align: center;
 }
 
 @media only screen and (max-width: 380px) {
@@ -64,8 +70,9 @@ body {
 
   .title-header {
     font-weight: 700;
-    color: #FDCBB4 ;
-    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14pt;
+    color: #f7a782 ;
+    font-family: 'Fredoka One', cursive;
     margin-left: 10px;
     margin-right:10px;
   }
