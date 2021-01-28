@@ -7,6 +7,7 @@ class TelaPrincipalReceitasBebidas extends Component {
     return (
       <div>
         <HeaderS title={ title } />
+
       </div>
     );
   }
