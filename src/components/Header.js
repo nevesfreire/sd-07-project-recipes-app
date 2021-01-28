@@ -1,7 +1,8 @@
+/* eslint-disable max-len */
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import Food from '../pages/Food';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchRecipes from './SearchRecipes';
@@ -59,19 +60,20 @@ export default function Header({ pathname, componentConfig }) {
       />) : null
   );
 
-const render = () => (
-  <div className="header_content">
-    {renderProfileTopBtn()}
-    {renderPageTitle()}
-    {renderSearchBtn()}
-    {renderSearchRecipeComponent()}
-  </div>
-);
+  const render = () => (
+    <div className="header_content">
+      {renderProfileTopBtn()}
+      {renderPageTitle()}
+      {renderSearchBtn()}
+      {renderSearchRecipeComponent()}
+    </div>
+  );
 
-Header.propTypes = {
-  pathname: PropTypes.string.isRequired,
-  componentConfig: PropTypes.shape({
-    profileButton: PropTypes.bool.isRequired,
-    searchButton: PropTypes.bool.isRequired,
-  }).isRequired,
-};
+  Header.propTypes = {
+    pathname: PropTypes.string.isRequired,
+    componentConfig: PropTypes.shape({
+      profileButton: PropTypes.bool.isRequired,
+      searchButton: PropTypes.bool.isRequired,
+    }).isRequired,
+  };
+}
