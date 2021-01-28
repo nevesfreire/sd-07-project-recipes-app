@@ -1,22 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchRecipes, changeFetching } from '../actions';
+import { fetchRecipes } from '../actions';
 import '../css/food.css';
 
 class MealRecipes extends Component {
   componentDidMount() {
-    const { requestRecipes, endPoint, isFetching } = this.props;
-    isFetching();
+    const { requestRecipes, endPoint } = this.props;
     requestRecipes(endPoint);
   }
 
   render() {
-    const { getRecipes, isFetching } = this.props;
+    const { getRecipes } = this.props;
     const MEAL_LENGTH = 12;
-
-    if (!isFetching) {
-      const filterArray = getRecipes.filter((_meal, index) => index < MEAL_LENGTH);
+    if (getRecipes.meals) {
+      const filterArray = getRecipes.meals.filter((_meal, index) => index < MEAL_LENGTH);
       return (
         <div>
           {filterArray.map((meal, index) => (
@@ -42,12 +40,10 @@ class MealRecipes extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   requestRecipes: (endPoint) => dispatch(fetchRecipes(endPoint)),
-  isFetching: () => dispatch(changeFetching()),
 });
 
 const mapStateToProps = ({ recipes }) => ({
-  getRecipes: recipes.recipes.meals,
-  isFetching: recipes.isFetching,
+  getRecipes: recipes.recipes,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MealRecipes);
@@ -56,5 +52,4 @@ MealRecipes.propTypes = {
   endPoint: PropTypes.string.isRequired,
   requestRecipes: PropTypes.func.isRequired,
   getRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
-  isFetching: PropTypes.bool.isRequired,
 };

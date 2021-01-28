@@ -40,9 +40,15 @@ class Header extends Component {
   }
 
   render() {
+<<<<<<< HEAD
     const { history, catchSearchValue } = this.props;
     const { showInputSearch, searchInput } = this.state;
     console.log(history);
+=======
+    const { history, title } = this.props;
+    const { showInputSearch } = this.state;
+    // console.log(history);
+>>>>>>> 764125ba4e84a603e47bb19da21c4c58b676fa0d
     return (
       <div>
         <header className="header-food-container">
@@ -54,7 +60,7 @@ class Header extends Component {
             <img src={profileIcon} alt="profileIcon" />
           </button>
 
-          <h1 data-testid="page-title">Comidas</h1>
+          <h1 data-testid="page-title">{title}</h1>
           <button
             type="button"
             data-testid="search-top-btn"
@@ -128,6 +134,7 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(null, mapDispatchToProps)(Header);
 
 Header.propTypes = {
+  title: PropTypes.string.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,

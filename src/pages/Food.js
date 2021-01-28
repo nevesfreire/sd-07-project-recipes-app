@@ -10,7 +10,7 @@ class Food extends Component {
     const { history } = this.props;
     return (
       <div>
-        <Header history={ history } />
+        <Header title="Comidas" history={ history } />
         <MealRecipes endPoint="https://www.themealdb.com/api/json/v1/1/search.php?s=" />
         <Footer history={ history } />
       </div>

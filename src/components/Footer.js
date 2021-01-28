@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { changeFetching } from '../actions';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
@@ -17,7 +15,6 @@ class Footer extends Component {
           type="button"
           data-testid="drinks-bottom-btn"
           onClick={ () => {
-            // isFetching();
             history.push('/bebidas');
           } }
         >
@@ -29,7 +26,6 @@ class Footer extends Component {
           data-testid="explore-bottom-btn"
           onClick={ () => {
             history.push('/explorar');
-            // isFetching();
           } }
         >
           <img src={ exploreIcon } alt="exploreIcon" />
@@ -39,7 +35,6 @@ class Footer extends Component {
           type="button"
           data-testid="food-bottom-btn"
           onClick={ () => {
-            // isFetching();
             history.push('/comidas');
           } }
         >
@@ -50,11 +45,7 @@ class Footer extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  isFetching: () => dispatch(changeFetching()),
-});
-
-export default connect(null, mapDispatchToProps)(Footer);
+export default Footer;
 
 Footer.propTypes = {
   history: PropTypes.shape({
