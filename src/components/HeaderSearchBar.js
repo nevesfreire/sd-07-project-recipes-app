@@ -14,7 +14,7 @@ function HeaderSearchBar() {
     console.log(radioButtonValue);
   };
 
-  const getApiData = (e) => {
+  const getApiData = () => {
     if (inputValue.length > 1 && radioButtonValue === 'primeiraLetra') {
       alert('Sua busca deve conter somente 1 (um) caracter');
     } else {
