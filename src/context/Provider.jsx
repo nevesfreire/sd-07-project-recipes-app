@@ -2,14 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import RecipesContext from './RecipesContext';
+import TitleContext from './TitleContext';
 
 function Provider({ children }) {
   return (
-    <RecipesContext.Provider
-      value={ { } }
-    >
-      {children}
-    </RecipesContext.Provider>
+    <TitleContext>
+      <RecipesContext.Provider
+        value={ { } }
+      >
+        {children}
+      </RecipesContext.Provider>
+    </TitleContext>
   );
 }
 

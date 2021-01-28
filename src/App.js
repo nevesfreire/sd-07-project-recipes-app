@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, useHistory } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import './App.css';
 import Header from './components/Header';
@@ -17,12 +17,10 @@ import RecipesDone from './pages/RecipesDone';
 import RecipesFavorites from './pages/RecipesFavorites';
 
 function App() {
-  const path = useHistory().location.pathname;
-
   return (
     <Provider>
       <div>
-        {(path !== '/') ? <Header /> : null}
+        <Header />
         <Switch>
           <Route exact path="/" component={ Login } />
           <Route exact path="/comidas" component={ Foods } />
