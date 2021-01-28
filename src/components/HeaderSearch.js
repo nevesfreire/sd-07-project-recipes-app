@@ -14,7 +14,6 @@ function HeaderSearch({ toggle }) {
 
   const handlerSubmit = (event) => {
     event.preventDefault();
-
   };
 
   return (
