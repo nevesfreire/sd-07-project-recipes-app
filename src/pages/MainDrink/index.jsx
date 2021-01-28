@@ -1,11 +1,16 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Header, Footer, RecipeCard } from '../../components';
+import { Header, Footer, RecipeCard, Category } from '../../components';
 import { RecipesContext } from '../../context';
 
 export default function MainDrink({ history }) {
-  const { setDrinks, drinks } = useContext(RecipesContext);
+  const {
+    setDrinks,
+    drinks,
+  } = useContext(RecipesContext);
   const TWELVE = 12;
+  const five = 5;
+  const [categories, setCategories] = useState([]);
 
   const fetchDrinks = async () => {
     try {
@@ -17,14 +22,31 @@ export default function MainDrink({ history }) {
     }
   };
 
+  const fetchDrinkCategories = async () => {
+    try {
+      const URL = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+      const results = await fetch(URL).then((response) => response.json());
+      setCategories(results.drinks);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     fetchDrinks();
+    fetchDrinkCategories();
   }, []);
 
   return (
     <div>
       <Header history={ history } title="Bebidas" />
       <main>
+        <div>
+          {
+            categories && categories.filter((_, index) => index < five)
+              .map((category, index) => <Category key={ index } category={ category } />)
+          }
+        </div>
         {
           drinks.filter((_, index) => index < TWELVE)
             .map((drink, index) => (
