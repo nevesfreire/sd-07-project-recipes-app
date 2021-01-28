@@ -2,14 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-<<<<<<< HEAD
 import store from './store';
-=======
->>>>>>> 9377cce30b0885da3044cf40103827911c71c9f6
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import store from './store';
 
 ReactDOM.render(
   <BrowserRouter>
