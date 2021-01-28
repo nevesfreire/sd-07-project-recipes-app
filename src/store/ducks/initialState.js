@@ -5,9 +5,11 @@ export default {
     // Estados referentes a tela de login
   },
   receitasDeBebidas: {
+    drinks: '',
     // Estados referentes a receitas de bebidas
   },
   receitasDeComidas: {
+    meals: '',
     // Estados referentes a receitas de comidas
   },
 };
