@@ -1,12 +1,12 @@
 import React from 'react';
 import Footer from '../../Components/Footer/Footer';
 
-const ComidaPage = () => (
+const ExplorarComida = () => (
   <div>
-    <h1>Pagina de Comida</h1>
+    <h1>Pagina Para Explorar Comidas</h1>
     <Footer />
   </div>
 
 );
 
-export default ComidaPage;
+export default ExplorarComida;
