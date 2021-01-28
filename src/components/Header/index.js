@@ -27,7 +27,7 @@ export default function Header() {
               data-testid="search-top-btn"
               onClick={ () => setEnableSearch(!enableSearch) }
             >
-              <img src="../../images/profileIcon.svg" alt="" />
+              <img src="../../images/searchIcon.svg" alt="" />
             </button>
           )
         }
