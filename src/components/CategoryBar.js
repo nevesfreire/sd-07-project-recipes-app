@@ -1,19 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function CategoryBar({ arrayOfCategories, typeOfCategory }) {
+function CategoryBar({ arrayOfCategories, setCategory, category }) {
   const magicNumberZero = 0;
   arrayOfCategories.length = 5;
 
+  const setCategoryOnClick = async ({ target }) => {
+    if (target.value === category) {
+      setCategory('');
+    } else {
+      setCategory(target.value);
+    }
+  };
+
   return (
     <div>
-      <button type="button">All</button>
+      <button
+        type="button"
+        value=""
+        data-testid="All-category-filter"
+        onClick={ (event) => setCategory(event.target.value) }
+      >
+        All
+      </button>
       { arrayOfCategories.length > magicNumberZero
         && arrayOfCategories.map((item) => (
           <button
             type="button"
             data-testid={ `${item.strCategory}-category-filter` }
             key={ item.strCategory }
+            value={ item.strCategory }
+            onClick={ (event) => setCategoryOnClick(event) }
           >
             {item.strCategory}
           </button>
@@ -24,7 +41,8 @@ function CategoryBar({ arrayOfCategories, typeOfCategory }) {
 
 CategoryBar.propTypes = {
   arrayOfCategories: PropTypes.arrayOf(PropTypes.objectOf).isRequired,
-  typeOfCategory: PropTypes.string.isRequired,
+  setCategory: PropTypes.func.isRequired,
+  category: PropTypes.string.isRequired,
 };
 
 export default CategoryBar;
