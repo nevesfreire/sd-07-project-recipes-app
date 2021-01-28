@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { useValideEmailAndPassword, useLocalStorage, useFetchApi } from '../hooks';
+import { useValideEmailAndPassword, useLocalStorage } from '../hooks';
 import { SUBMIT_EMAIL } from '../reducers/userReducer';
 import { CupNodesContext } from '../contexts';
 
