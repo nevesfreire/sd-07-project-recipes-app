@@ -10,6 +10,13 @@ const Header = (props) => {
   const { title } = props;
   const history = useHistory();
   const { location } = history;
+
+  const isHeader = () => (
+    <div className="search">
+      <img src={ searchicon } alt="serchIcon" data-testid="search-top-btn" />
+    </div>
+  );
+
   return (
     <div className="header">
       <div className="user">
@@ -28,13 +35,7 @@ const Header = (props) => {
       </div>
       {location.pathname === '/comidas'
       || location.pathname === '/bebidas'
-      || location.pathname === '/explorar/comidas/area' ? (
-          <div className="search">
-            <img src={ searchicon } alt="serchIcon" data-testid="search-top-btn" />
-          </div>
-        ) : (
-          <span />
-        )}
+      || location.pathname === '/explorar/comidas/area' ? isHeader() : null}
     </div>
   );
 };
