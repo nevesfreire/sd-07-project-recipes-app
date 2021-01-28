@@ -62,7 +62,7 @@ class BarraBusca extends Component {
             name="select"
             id="ingredient"
             type="radio"
-            data-testid="ingredient-search-radio"
+            data-testid="name-search-radio"
             value="nome"
             onChange={ this.handleChange }
           />
@@ -72,7 +72,7 @@ class BarraBusca extends Component {
           <input
             name="select"
             type="radio"
-            data-testid="name-search-radio"
+            data-testid="ingredient-search-radio"
             value="ingrediente"
             onChange={ this.handleChange }
           />
