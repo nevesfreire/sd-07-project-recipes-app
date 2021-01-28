@@ -37,7 +37,7 @@ const Grid = () => {
   return (
     <>
       <div>
-        <button type="button">
+        <button type="button" onClick={ () => handleClickCategory('All') }>
           All
         </button>
         {

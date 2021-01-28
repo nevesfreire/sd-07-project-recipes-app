@@ -27,6 +27,7 @@ function RecipesProvider({ children }) {
       setFilteredData(meals);
       return setCurrentFilterCategory(category);
     }
+
     setFilteredData(data);
     setCurrentFilterCategory('All');
   };
