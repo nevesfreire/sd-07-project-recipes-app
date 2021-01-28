@@ -1,10 +1,11 @@
 import React from 'react';
 
 export default function Cards(number, info) {
-  const titleList = info.map((i) => i.strMeal);
-  const imageList = info.map((i) => i.strMealThumb);
+  const titleList = info.map((i) => i.name);
+  const imageList = info.map((i) => i.image);
   const listOfCards = [];
-  for (let index = 0; index < number; index += 1) {
+  const zero = 0;
+  for (let index = zero; index < number; index += 1) {
     listOfCards.push(
       <div
         data-testid={ `${index}-recipe-card` }
