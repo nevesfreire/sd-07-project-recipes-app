@@ -28,6 +28,12 @@
   transform-origin: 60px 78px;
 }
 */
+footer{
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  }
 
 .meals > .logo {
   animation: shake 1.5s infinite ease;
