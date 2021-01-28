@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchRecipes, changeFetching } from '../actions';
+import { fetchRecipes } from '../actions';
 import '../css/food.css';
 
 class MealRecipes extends Component {
@@ -13,7 +13,6 @@ class MealRecipes extends Component {
   render() {
     const { getRecipes } = this.props;
     const MEAL_LENGTH = 12;
-    // console.log(getRecipes);
     if (getRecipes.meals) {
       const filterArray = getRecipes.meals.filter((_meal, index) => index < MEAL_LENGTH);
       return (
@@ -41,7 +40,6 @@ class MealRecipes extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   requestRecipes: (endPoint) => dispatch(fetchRecipes(endPoint)),
-  updateFetching: () => dispatch(changeFetching()),
 });
 
 const mapStateToProps = ({ recipes }) => ({
