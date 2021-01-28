@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap') ;
 
 body {
   margin: 0;
@@ -26,23 +26,24 @@ body {
   background-color: #f8f8f8;
   display: flex;
   justify-content: space-between;
-  padding-top: 10px;
-  padding-right: 20px;
   padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
   width: 100%;
 }
 
 .title-header {
-  color: #FDCBB4 ;
-  font-family: 'Fredoka One', cursive;
+  color: #fdcbb4 ;
+  font-family: Fredoka One, cursive;
   font-weight: 700;
 }
+
 .user {
   font-size: 10pt;
   text-align: center;
 }
 
-@media only screen and (max-width: 380px) {
+@media only screen and ( max-width: 380px ) {
   .container-fluid {
     align-items: center;
     border: 1px solid green;
@@ -62,22 +63,23 @@ body {
 
   .header {
     background-color: #f8f8f8;
-    padding-top: 10px;
     display: flex;
     justify-content: space-between;
+    padding-top: 10px;    
   }
 
   .title-header {
     color: #f7a782;
     font-family: 'Fredoka One', cursive;
     font-size: 14pt;
-    font-weight: 700;   
+    font-weight: 700;
     margin-left: 10px;
-    margin-right:10px;
+    margin-right: 10px;
   }
+
 }
 
-@media only screen and (max-width: 1120px) {
+@media only screen and ( max-width: 1120px ) {
   .container {
     height: 100vh;
     max-width: 1000px;
@@ -87,4 +89,5 @@ body {
     display: flex;
     justify-content: space-around;
   }
+
 }
