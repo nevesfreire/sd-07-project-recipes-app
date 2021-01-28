@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './ducks/rootReducer';
+import initialState from './ducks/initialState';
 import { loadState, saveState } from '../services/localStorage';
 
 /* eslint-disable no-underscore-dangle */

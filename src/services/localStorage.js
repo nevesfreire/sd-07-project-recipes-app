@@ -19,7 +19,7 @@ export const loadState = (state) => {
       const resultStateKey = JSON.parse(serializedStateKey);
       switch (KEY) {
       case 'USER_KEY':
-        state.auth.user.email = resultStateKey.email;
+        state.auth.user.email = resultStateKey ? resultStateKey.email : '';
         break;
       case 'MEALS_TOKEN_KEY':
         state.recipes.mealsToken = resultStateKey || 1;
@@ -34,8 +34,10 @@ export const loadState = (state) => {
         state.recipes.favoriteRecipes = resultStateKey || [];
         break;
       case 'IN_PROGRESS_RECIPES_KEY':
-        state.inProgressRecipes.cocktails = resultStateKey.cocktails || {};
-        state.inProgressRecipes.meals = resultStateKey.meals || {};
+        if (resultStateKey !== null) {
+          state.inProgressRecipes.cocktails = resultStateKey.cocktails || {};
+          state.inProgressRecipes.meals = resultStateKey.meals || {};
+        }
         break;
       default:
         console.log('ERROR LOAD LS: KEY INVÁLIDA > ', KEY);
