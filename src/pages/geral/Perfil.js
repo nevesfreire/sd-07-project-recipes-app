@@ -13,7 +13,11 @@ class Perfil extends Component {
         <Footer history={ history } />
         <div>
           <h4 data-testid="profile-email">
-            {obj.email}
+            {
+              obj
+                ? obj.eamil
+                : <h1>sem email</h1>
+            }
           </h4>
           <button
             type="button"
