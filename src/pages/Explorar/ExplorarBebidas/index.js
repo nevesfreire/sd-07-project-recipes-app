@@ -24,10 +24,6 @@ function ExplorarBebidas() {
         Por Ingredientes
       </Link>
       <br></br>
-      <Link to="/explorar/bebidas/area" data-testid="explore-by-area">
-        Por Local de Origem
-      </Link>
-      <br></br>
       <Link to={ `/bebidas/${id}` } data-testid="explore-surprise">
         Me Surpreenda!
       </Link>
