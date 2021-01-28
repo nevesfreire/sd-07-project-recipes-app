@@ -4,7 +4,7 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 
-function Header({ title, explore, drinkFetch }) {
+function Header({ title, explore, funcFetch }) {
   const [searchBar, setSearchBar] = useState(false);
 
   return (
@@ -16,17 +16,17 @@ function Header({ title, explore, drinkFetch }) {
       </Link>
       <h1 data-testid="page-title">{title}</h1>
       {explore
-        && <button
-          type="button"
-          data-testid="search-top-btn"
-          onClick={ () => setSearchBar(!searchBar) }
-        >
-          <img
-            src={ searchIcon }
-            alt="search icon"
-          />
-        </button>}
-      {searchBar && <SearchBar drinkFetch={ drinkFetch } />}
+      && <button
+        type="button"
+        data-testid="search-top-btn"
+        onClick={ () => setSearchBar(!searchBar) }
+      >
+        <img
+          src={ searchIcon }
+          alt="search icon"
+        />
+      </button>}
+      {searchBar && <SearchBar drinkFetch={ funcFetch } />}
     </div>);
 }
 

@@ -1,12 +1,12 @@
 import React from 'react';
 import Header from '../components/Header';
-import useFetchFood from '../hooks/useFetchFood';
+import useFetch from '../hooks/useFetch';
 
 function FoodRecipes() {
-  const { foodFetch } = useFetchFood();
+  const { foodFetch } = useFetch();
   return (
     <div>
-      <Header title="Comidas" explore foodFetch={ foodFetch } />
+      <Header title="Comidas" explore funcFetch={ foodFetch } />
     </div>
   );
 }

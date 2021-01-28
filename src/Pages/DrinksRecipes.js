@@ -1,13 +1,12 @@
 import React from 'react';
 import Header from '../components/Header';
-import useFetchDrink from '../hooks/useFetchDrink';
+import useFetch from '../hooks/useFetch';
 
 function DrinksRecipes() {
-  const { drinkFetch } = useFetchDrink();
-  console.log(drinkFetch);
+  const { drinkFetch } = useFetch();
   return (
     <div>
-      <Header title="Bebidas" explore drinkFetch={ () => drinkFetch } />
+      <Header title="Bebidas" explore funcFetch={ drinkFetch } />
     </div>
   );
 }
