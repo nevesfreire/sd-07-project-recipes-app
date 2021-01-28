@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import FoodImage from '../images/mealIcon.svg';
 import DrinkImage from '../images/drinkIcon.svg';
-import ExploreImage from '../images/exploreIcon.sivg';
+import ExploreImage from '../images/exploreIcon.svg';
 import Mais from '../images/mais.png';
 
 Footer () {
