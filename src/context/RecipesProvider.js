@@ -4,10 +4,16 @@ import RecipesContext from './RecipesContext';
 
 function RecipesProvider({ children }) {
   const [login, setLogin] = useState({ email: '', password: '' });
+  const [showSearchBar, setShowSearchBar] = useState(false);
 
+  const toggleSearchBar = () => {
+    setShowSearchBar(!showSearchBar);
+  };
   const context = {
     login,
     setLogin,
+    showSearchBar,
+    toggleSearchBar,
   };
 
   return (
