@@ -5,12 +5,29 @@ import RecipesContext from './RecipesContext';
 function Provider({ children }) {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const [url, setUrl] = useState('');
+  const [searching, setSearching] = useState(false);
 
   const handleEntrarButton = () => {
     localStorage.clear();
     localStorage.setItem('mealsToken', JSON.stringify(1));
     localStorage.setItem('cocktailsToken', JSON.stringify(1));
     localStorage.setItem('user', JSON.stringify({ email }));
+  };
+
+  const handleUrlChange = () => {
+    setUrl(window.location.href);
+  };
+
+  const handleSearchButton = (e) => {
+    if (e) {
+      switch (searching) {
+      case true:
+        return setSearching(false);
+      default:
+        return setSearching(true);
+      }
+    }
   };
 
   return (
@@ -21,7 +38,11 @@ function Provider({ children }) {
           setSenha,
           handleEntrarButton,
           email,
-          senha }
+          senha,
+          url,
+          handleSearchButton,
+          handleUrlChange,
+          searching }
       }
     >
       { children }
