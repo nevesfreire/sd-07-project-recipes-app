@@ -1,13 +1,11 @@
-.navBarContainer {
+.footerContainer {
   display: flex;
   justify-content: space-around;
   position: fixed;
   bottom: 0px
 }
 
-.navBarButton {
-  /* height: 12vh;
-  width: 33.3333vw; */
+.footerButton {
   height: 70px;
-  width: 167px;
+  width: 120px;
 }
