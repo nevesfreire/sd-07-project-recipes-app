@@ -32,6 +32,7 @@ function App() {
         <Route path="/comidas" render={ (props) => <Recipes { ...props } search /> } />
         <Route path="/bebidas/:id/in-progress" component={ Progress } />
         <Route path="/bebidas/:id" component={ Details } />
+        <Route path="/bebidas" render={ (props) => <Recipes { ...props } search /> } />
         <Route path="/perfil" component={ Profile } />
         <Route exact path="/" component={ Login } />
       </Switch>

@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+
+import SearchBar from '../SearchBar';
 
 import ProfileIcon from '../../images/profileIcon.svg';
 import SearchIcon from '../../images/searchIcon.svg';
 
 function Header({ history, search = false }) {
   const { location: { pathname } } = history;
+  const [searchInput, setSearchInput] = useState(false);
 
   let path = '';
   switch (pathname) {
@@ -48,7 +51,7 @@ function Header({ history, search = false }) {
   return (
     <header>
       <nav>
-        <Link to="/profile">
+        <Link to="/perfil">
           <img
             src={ ProfileIcon }
             alt="profile link"
@@ -57,13 +60,21 @@ function Header({ history, search = false }) {
         </Link>
         <p data-testid="page-title">{path}</p>
         {search && (
-          <img
-            src={ SearchIcon }
-            alt="search icon"
-            data-testid="search-top-btn"
-          />
+          <button
+            type="button"
+            onClick={ () => setSearchInput((prev) => !prev) }
+          >
+            <img
+              src={ SearchIcon }
+              alt="search icon"
+              data-testid="search-top-btn"
+            />
+          </button>
         )}
       </nav>
+      {searchInput && (
+        <SearchBar />
+      )}
     </header>
   );
 }
