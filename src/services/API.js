@@ -12,26 +12,25 @@ export async function fetchMealCategory() {
 
 export async function fetchMealByIngredients(ingredient) {
   const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
-  const meals = response.json();
+  const meals = await response.json();
   return meals.meals;
 }
 
 export async function fetchMealByName(name) {
   const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`);
-  const meals = response.json();
+  const meals = await response.json();
   return meals.meals;
 }
 
 export async function fetchMealByFirstLetter(letter) {
   const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`);
-  const meals = response.json();
+  const meals = await response.json();
   return meals.meals;
 }
 
 export async function fetchMealByCategory(category) {
   const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
   const meals = await response.json();
-  console.log(meals);
   return meals.meals;
 }
 
@@ -47,6 +46,23 @@ export async function fetchDrinkCategory() {
   return categories.drinks;
 }
 
+export async function fetchDrinkByIngredients(ingredient) {
+  const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`);
+  const drinks = await response.json();
+  return drinks.drinks;
+}
+
+export async function fetchDrinkByName(name) {
+  const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`);
+  const drinks = await response.json();
+  return drinks.drinks;
+}
+
+export async function fetchDrinksByFirstLetter(letter) {
+  const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${letter}`);
+  const drinks = await response.json();
+  return drinks.drinks;
+}
 export async function fetchDrinkByCategory(category) {
   try {
     const response1 = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`);
