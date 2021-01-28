@@ -1,9 +1,10 @@
 import React from 'react';
+import DetailsFood from '../Components/DetailsFood';
 
 function DetailFoodPage() {
   return (
     <div>
-      Detail Food
+      <DetailsFood />
     </div>
   );
 }
