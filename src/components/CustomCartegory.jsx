@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { foodFilterByCategory } from '../services';
 import { drinksFilteredByCategory } from '../services/drinkApi';
@@ -11,6 +12,7 @@ class CustomCartegory extends Component {
       dispatchFoodFilteredByCategory,
       dispatchDrinkFilteredByCategory,
     } = this.props;
+    console.log(category);
     return (
       <button
         type="button"
@@ -37,3 +39,12 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(null, mapDispatchToProps)(CustomCartegory);
+
+CustomCartegory.propTypes = {
+  category: PropTypes.shape({
+    strCategory: PropTypes.string.isRequired,
+  }).isRequired,
+  title: PropTypes.string.isRequired,
+  dispatchFoodFilteredByCategory: PropTypes.func.isRequired,
+  dispatchDrinkFilteredByCategory: PropTypes.func.isRequired,
+};

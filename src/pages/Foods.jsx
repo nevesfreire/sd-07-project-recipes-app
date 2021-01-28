@@ -122,6 +122,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Foods.propTypes = {
+  categories: PropTypes.arrayOf(PropTypes.object).isRequired,
   dispatchUpdateFoodIsFetching: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
   dispatchInitialCards: PropTypes.func.isRequired,
