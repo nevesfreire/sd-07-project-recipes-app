@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ExplorarComida from '../components/ExplorarComida';
 import ExplorarBebida from '../components/ExplorarBebida';
 
-class ExplorarComidas extends React.Component {
+class ExplorarBebidasOuComidas extends React.Component {
   render() {
     const { location: { pathname } } = this.props;
     console.log(pathname);
@@ -15,4 +16,8 @@ class ExplorarComidas extends React.Component {
   }
 }
 
-export default ExplorarComidas;
+ExplorarBebidasOuComidas.propTypes = {
+  location: PropTypes.shape({ pathname: PropTypes.func.isRequired }).isRequired,
+};
+
+export default ExplorarBebidasOuComidas;
