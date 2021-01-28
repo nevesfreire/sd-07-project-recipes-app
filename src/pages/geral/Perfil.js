@@ -6,10 +6,37 @@ import Footer from '../../components/footer';
 class Perfil extends Component {
   render() {
     const { history } = this.props;
+    const obj = JSON.parse(localStorage.getItem('user'));
     return (
       <div>
         <Header title="Perfil" searchOn="off" history={ history } />
         <Footer history={ history } />
+        <div>
+          <h4 data-testid="profile-email">
+            {obj.email}
+          </h4>
+          <button
+            type="button"
+            data-testid="profile-done-btn"
+            onClick={ () => history.push('/receitas-feitas') }
+          >
+            Receitas Feitas
+          </button>
+          <button
+            type="button"
+            data-testid="profile-favorite-btn"
+            onClick={ () => history.push('/receitas-favoritas') }
+          >
+            Receitas Favoritas
+          </button>
+          <button
+            type="button"
+            data-testid="profile-logout-btn"
+            onClick={ () => localStorage.clear(history.push('/')) }
+          >
+            Sair
+          </button>
+        </div>
       </div>
     );
   }
