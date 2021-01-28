@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-// import initialState from '../data/dataLogin';
 import geral from '../data';
 import GlobalContext from './GlobalContext';
 
@@ -56,8 +55,5 @@ export default function GlobalProvider({ children }) {
 }
 
 GlobalProvider.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }),
   children: PropTypes.node.isRequired,
 };
