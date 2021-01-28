@@ -1,14 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { apiDrinks } from '../services/Services';
+import React, { useContext, useEffect } from 'react';
+import RecipesContext from '../context/recipesContext';
 
 function CardsDrinks() {
-  const [drinks, setdrinks] = useState([]);
+  const { drinks, fetchdrinks } = useContext(RecipesContext);
 
   useEffect(() => {
-    const fetchdrinks = async () => {
-      const searchdrinks = await apiDrinks('search.php?s=');
-      setdrinks(searchdrinks);
-    };
     fetchdrinks();
   }, []);
 
