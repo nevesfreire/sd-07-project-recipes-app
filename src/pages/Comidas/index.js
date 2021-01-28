@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import Footer from '../../components/Footer/index';
 import {
   fetchFoodByName,
@@ -15,6 +15,7 @@ function Comidas(props) {
   const [categories, setCategories] = useState([]);
   const [currentCategory, setCurrentCategory] = useState('');
   const [isSearchBarVisible, setIsSearchBarVisible] = useState(false);
+  const history = useHistory();
 
   function renderMeals() {
     const INITIAL_RETURN = 0;
@@ -22,6 +23,14 @@ function Comidas(props) {
     const { foods } = props;
     const { meals, isFetching } = foods;
     if (isFetching) return <div>Loading...</div>;
+    if (meals === null) {
+      return alert(
+        'Sinto muito, não encontramos nenhuma receita para esses filtros.',
+      );
+    }
+    if (meals.length === 1) {
+      history.push(`/comidas/${meals[0].idMeal}`);
+    }
     const comida = meals.slice(INITIAL_RETURN, MAX_RETURN);
     return (
       <div className="container-foods">
