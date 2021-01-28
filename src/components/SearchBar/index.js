@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import './styles.css';
 import {
   fetchFoodByIngredient,
   fetchFoodByName,
@@ -65,14 +66,15 @@ function SearchBar({ foodType, fi, fn, fl, ci, cn, cl, cocktails, meals }) {
   return (
     <div>
       <button data-testid="search-top-btn" type="button">Faz de conta que é serio</button>
-      <form>
+      <form className="search-form-wrapper">
         <input
           type="text"
           data-testid="search-input"
           onChange={ (e) => setSearchTerm(e.currentTarget.value) }
+          className="form-input"
         />
-        <div onChange={ (e) => setType(e.target.value) }>
-          <label htmlFor="ing">
+        <div onChange={ (e) => setType(e.target.value) } className="search-wrap-radio">
+          <label htmlFor="ing" className="search-label">
             <input
               type="radio"
               id="ing"
@@ -82,7 +84,7 @@ function SearchBar({ foodType, fi, fn, fl, ci, cn, cl, cocktails, meals }) {
             />
             Ingrediente
           </label>
-          <label htmlFor="nam">
+          <label htmlFor="nam" className="search-label">
             <input
               type="radio"
               id="nam"
@@ -92,7 +94,7 @@ function SearchBar({ foodType, fi, fn, fl, ci, cn, cl, cocktails, meals }) {
             />
             Nome
           </label>
-          <label htmlFor="pletra">
+          <label htmlFor="pletra" className="search-label">
             <input
               type="radio"
               id="pletra"
@@ -107,6 +109,7 @@ function SearchBar({ foodType, fi, fn, fl, ci, cn, cl, cocktails, meals }) {
           type="button"
           data-testid="exec-search-btn"
           onClick={ handleStore }
+          className="form-button"
         >
           Buscar
         </button>
