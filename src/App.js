@@ -10,13 +10,12 @@ import {
   ReceitaBebida,
   InProgress,
   Explorar,
-  ExplorarComidas,
-  ExplorarBebidas,
   Ingredientes,
   ExplorarComidasArea,
   Perfil,
   ReceitasFeitas,
   ReceitasFavoritas,
+  ExplorarBebidasOuComidas,
 } from './pages';
 
 function App() {
@@ -26,13 +25,21 @@ function App() {
         <Route exact path="/" component={ Login } />
         <Route exact path="/comidas" component={ Comidas } />
         <Route exact path="/bebidas" component={ Bebidas } />
-        <Route path="/comidas/{id-da-receita}" component={ ReceitaComida } />
-        <Route path="/bebidas/{id-da-receita}" component={ ReceitaBebida } />
-        <Route path="/comidas/{id-da-receita}/in-progress" component={ InProgress } />
-        <Route path="/bebidas/{id-da-receita}/in-progress" component={ InProgress } />
+        <Route exact path={ `/comidas/${'id'}` } component={ ReceitaComida } />
+        <Route exact path={ `/bebidas/${'id'}` } component={ ReceitaBebida } />
+        <Route
+          exact
+          path="/comidas/{id-da-receita}/in-progress"
+          component={ InProgress }
+        />
+        <Route
+          exact
+          path="/bebidas/{id-da-receita}/in-progress"
+          component={ InProgress }
+        />
         <Route exact path="/explorar" component={ Explorar } />
-        <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
-        <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
+        <Route exact path="/explorar/comidas" component={ ExplorarBebidasOuComidas } />
+        <Route exact path="/explorar/bebidas" component={ ExplorarBebidasOuComidas } />
         <Route exact path="/explorar/comidas/ingredientes" component={ Ingredientes } />
         <Route exact path="/explorar/bebidas/ingredientes" component={ Ingredientes } />
         <Route exact path="/explorar/comidas/area" component={ ExplorarComidasArea } />
