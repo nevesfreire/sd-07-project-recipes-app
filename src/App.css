@@ -5,6 +5,16 @@
   padding: 10px 20px;
 }
 
+.footer {
+  background-color: #cecece;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  position: fixed;
+  width: 100%;
+}
+
 .meals {
   align-items: center;
   background: #0fa36b;
