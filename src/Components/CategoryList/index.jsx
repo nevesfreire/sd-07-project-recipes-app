@@ -22,31 +22,25 @@ const CategoryList = (props) => {
     }));
   }, [dispatch]);
 
+  const mapButtonCallBack = ({ strCategory }) => (
+    <button
+      key={ strCategory }
+      type="button"
+      data-testid={ `${strCategory}-category-filter` }
+    >
+      {strCategory}
+    </button>
+  );
+
   const mealsCategoriesDoc = () => (
     <div>
-      {mealsCategory.map(({ strCategory }) => (
-        <button
-          key={ strCategory }
-          type="button"
-          data-testid={ `${strCategory}-category-filter` }
-        >
-          {strCategory}
-        </button>
-      ))}
+      {mealsCategory.map(mapButtonCallBack)}
     </div>
   );
 
   const cocktailsCategoriesDoc = () => (
     <div>
-      {cocktailsCategory.map(({ strCategory }) => (
-        <button
-          key={ strCategory }
-          type="button"
-          data-testid={ `${strCategory}-category-filter` }
-        >
-          {strCategory}
-        </button>
-      ))}
+      {cocktailsCategory.map(mapButtonCallBack)}
     </div>
   );
 
