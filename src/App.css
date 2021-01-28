@@ -33,8 +33,8 @@ body {
 }
 
 .title-header {
-  color: #fdcbb4 ;
-  font-family: Fredoka One, cursive;
+  color: #fdcbb4;
+  font-family: Fredoka One , cursive;
   font-weight: 700;
 }
 
@@ -44,6 +44,7 @@ body {
 }
 
 @media only screen and ( max-width: 380px ) {
+  
   .container-fluid {
     align-items: center;
     border: 1px solid green;
@@ -65,12 +66,12 @@ body {
     background-color: #f8f8f8;
     display: flex;
     justify-content: space-between;
-    padding-top: 10px;    
+    padding-top: 10px;
   }
 
   .title-header {
     color: #f7a782;
-    font-family: 'Fredoka One', cursive;
+    font-family: Fredoka One , cursive;
     font-size: 14pt;
     font-weight: 700;
     margin-left: 10px;
@@ -80,6 +81,7 @@ body {
 }
 
 @media only screen and ( max-width: 1120px ) {
+  
   .container {
     height: 100vh;
     max-width: 1000px;
