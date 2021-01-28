@@ -1,20 +1,28 @@
 import React, { Component } from 'react';
-import { getFood } from '../services';
+import { getFood, getDrink } from '../services';
 
 export default class RecipeDetails extends Component {
   constructor(props) {
     super(props);
     this.fetchRecipe = this.fetchRecipe.bind(this);
+    this.getTypeOfRecipe = this.getTypeOfRecipe.bind(this);
+    this.getYoutubeEmbedUrl = this.getYoutubeEmbedUrl.bind(this);
     this.state = {
       isLoading: true,
       recipe: {},
+      recipeType: '',
     };
   }
 
   componentDidMount() {
-    const { match: { params: { id } } } = this.props;
-    console.log(id);
-    this.fetchRecipe(id);
+    const { match: { params: { id }, path } } = this.props;
+    this.fetchRecipe(id, path);
+  }
+
+  getTypeOfRecipe(path) {
+    const regExp = /(\w+)/;
+    const match = path.match(regExp);
+    return match[0];
   }
 
   getYoutubeEmbedUrl() {
@@ -24,28 +32,46 @@ export default class RecipeDetails extends Component {
     return `https://www.youtube.com/embed/${match[2]}`;
   }
 
-  async fetchRecipe(id) {
+  async fetchRecipe(id, path) {
+    const recipeType = this.getTypeOfRecipe(path);
     this.setState({ isLoading: true });
-    const { meals } = await getFood(id);
-    this.setState({
-      isLoading: false,
-      recipe: meals[0],
-    });
+    if (recipeType === 'comidas') {
+      const { meals } = await getFood(id);
+      this.setState({
+        isLoading: false,
+        recipe: meals[0],
+        recipeType,
+      });
+    }
+    if (recipeType === 'bebidas') {
+      const { drinks } = await getDrink(id);
+      this.setState({
+        isLoading: false,
+        recipe: drinks[0],
+        recipeType,
+      });
+    }
   }
 
   render() {
-    const { isLoading, recipe } = this.state;
+    const { isLoading, recipe, recipeType } = this.state;
     const {
-      strMealThumb,
-      strMeal,
       strCategory,
       strInstructions,
     } = recipe;
     if (isLoading) return <div> Loading... </div>;
     return (
       <div>
-        <img data-testid="recipe-photo" src={ strMealThumb } alt="" />
-        <h2 data-testid="recipe-title">{ strMeal }</h2>
+        <img
+          data-testid="recipe-photo"
+          src={ (recipeType === 'comidas') ? recipe.strMealThumb : recipe.strDrinkThumb }
+          alt="recipe-exemple"
+        />
+        <h2
+          data-testid="recipe-title"
+        >
+          { (recipeType === 'comidas') ? recipe.strMeal : recipe.strDrink }
+        </h2>
         <button type="button" data-testid="share-btn"> SHARE </button>
         <button type="button" data-testid="favorite-btn"> FAVORITE </button>
         <h3 data-testid="recipe-category">{ strCategory }</h3>
@@ -53,14 +79,14 @@ export default class RecipeDetails extends Component {
         <li>
           <ul data-testid="${index}-ingredient-name-and-measure"> INGREDIENT</ul>
         </li>
-        <iframe
+        { (recipeType === 'comidas') && <iframe
           data-testid="video"
           src={ this.getYoutubeEmbedUrl() }
           frame-border="0"
           allow="autoplay; encrypted-media"
           allow-fullscreen
           title="video"
-        />
+        /> }
         <div data-testid="${index}-recomendation-card"> RECOMENDED RECIPES </div>
         <button type="button" data-testid="start-recipe-btn"> START RECIPE </button>
       </div>
