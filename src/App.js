@@ -1,20 +1,18 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import './App.css';
-import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Routes from './routes';
+import RecipeContext from './Context/RecipeContext';
+import reducer from './Context/reducer';
+import initialState from './Context/initialState';
 
 function App() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
   return (
-    <div className="meals">
-      <span className="logo">TRYBE</span>
-      <object
-        className="rocksGlass"
-        type="image/svg+xml"
-        data={ rockGlass }
-      >
-        Glass
-      </object>
-    </div>
+    <RecipeContext.Provider value={ { state, dispatch } }>
+      <Routes />
+    </RecipeContext.Provider>
   );
 }
 

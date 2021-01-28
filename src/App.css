@@ -1,68 +1,95 @@
-.meals {
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap') ;
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.container-over {
   align-items: center;
-  background: #0fa36b;
-  color: #464646;
   display: flex;
-  flex-direction: column;
-  font-family: sans-serif;
-  height: 100vh;
   justify-content: center;
+  margin: 0;
+  padding-left: 0;
+  padding-right: 0;
   width: 100%;
 }
 
-.rocksGlass {
-  animation: shake 1s infinite ease;
-  max-height: 80vh;
+.container-int {
+  height: 100vh;
+  padding-left: 0;
+  padding-right: 0;
+  width: 100%;
 }
 
-/*
-#iceLeft {
-  animation: clink .8s infinite ease;
-  opacity: 0.6;
-  transform-origin: 36px 66px;
+.header {
+  background-color: #f8f8f8;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+  width: 100%;
 }
 
-#iceRight {
-  animation: clink .8s .2s infinite ease;
-  opacity: 0.6;
-  transform-origin: 60px 78px;
-}
-*/
-
-.meals > .logo {
-  animation: shake 1.5s infinite ease;
-  color: aliceblue;
-  font-family: Montserrat , sans-serif;
-  font-size: 3em;
-  font-weight: 900;
+.title-header {
+  color: #fdcbb4;
+  font-family: Fredoka One , cursive;
+  font-weight: 700;
 }
 
-@keyframes shake {
-
-  0% {
-    transform: rotate(5deg);
-  }
-
-  50% {
-    transform: rotate(-5deg);
-  }
-
-  100% {
-    transform: rotate(5deg);
-  }
+.user {
+  font-size: 10pt;
+  text-align: center;
 }
 
-@keyframes clink {
+@media only screen and ( max-width : 380px ) {
 
-  0% {
-    transform: rotate(-10deg);
+  .container-fluid {
+    align-items: center;
+    border: 1px solid green;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+    width: 100%;
   }
 
-  50% {
-    transform: rotate(20deg);
+  .container {
+    border: 1px solid red;
+    height: 100vh;
+    width: 100%;
   }
 
-  100% {
-    transform: rotate(-10deg);
+  .header {
+    background-color: #f8f8f8;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
   }
+
+  .title-header {
+    color: #f7a782;
+    font-family: Fredoka One , cursive;
+    font-size: 14pt;
+    font-weight: 700;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+}
+
+@media only screen and ( max-width : 1120px ) {
+
+  .container {
+    height: 100vh;
+    max-width: 1000px;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-around;
+  }
+
 }
