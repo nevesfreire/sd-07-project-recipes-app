@@ -6,7 +6,7 @@ import mealIcon from '../images/mealIcon.svg';
 
 const Footer = () => (
   <footer data-testid="footer" className="footer">
-    <Link to="/bedidas">
+    <Link to="/bebidas">
       <button
         type="button"
       >
