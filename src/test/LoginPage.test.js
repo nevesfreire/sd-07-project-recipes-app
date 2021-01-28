@@ -2,25 +2,24 @@ import React from 'react';
 import { fireEvent } from '@testing-library/react';
 import renderWithRouter from './renderWithRouter';
 import Login from '../pages/Login';
-import App from '../App'
 
 describe('Os elementos devem respeitar os atributos descritos', () => {
   it('O campo de e-mail deve possuir o data-testid="email-input"', () => {
     const { getByTestId } = renderWithRouter(<Login />);
-    const email = getByTestId('email-input');
-    expect(email).toBeInTheDocument();
+    const inputEmail = getByTestId('email-input');
+    expect(inputEmail).toBeInTheDocument();
   });
 
   it('O campo de senha deve possuir o data-testid="password-input"', () => {
     const { getByTestId } = renderWithRouter(<Login />);
-    const password = getByTestId('password-input');
-    expect(password).toBeInTheDocument();
+    const inputPassword = getByTestId('password-input');
+    expect(inputPassword).toBeInTheDocument();
   });
 
   it('O botão deve possuir o data-testid="login-submit-btn"', () => {
     const { getByTestId } = renderWithRouter(<Login />);
     const button = getByTestId('login-submit-btn');
-    expect(button).toBeInTheDocument()
+    expect(button).toBeInTheDocument();
   });
 });
 
@@ -82,7 +81,8 @@ describe('Verificar validações do formulário', () => {
   });
 });
 
-describe('Salvar tokens com chaves mealsToken e cocktailsToken no localStorage após o login efetuado com sucesso', () => {
+describe('Salvar tokens com chaves mealsToken e cocktailsToken'
++ 'no localStorage após o login efetuado com sucesso', () => {
   it('Veriicar a existência do token de teste', () => {
     const { getByTestId } = renderWithRouter(<Login />);
     const inputEmail = getByTestId('email-input');
@@ -112,7 +112,8 @@ describe('Salvar o e-mail no localStore após o login efetuado com sucesso', () 
   });
 });
 
-describe('Verificar se o usuário é redirecionado para página "/comidas" após o login efetuado com sucesso', () => {
+describe('Verificar se o usuário é redirecionado para página "/comidas"'
++ 'após o login efetuado com sucesso', () => {
   it('O usuário é redirecionado para página "/comidas"', () => {
     const { getByTestId, history } = renderWithRouter(<Login />);
     const inputEmail = getByTestId('email-input');
@@ -121,9 +122,7 @@ describe('Verificar se o usuário é redirecionado para página "/comidas" após
     fireEvent.change(inputEmail, { target: { value: 'Edythe61@gmail.com' } });
     fireEvent.change(inputPassword, { target: { value: '2IflVJOPW_FFZF6' } });
     fireEvent.click(button);
-    //const { pathname } = useHistory().location;
     const { pathname } = history.location;
     expect(pathname).toBe('/comidas');
   });
 });
-//

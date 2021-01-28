@@ -11,7 +11,7 @@ function Provider({ children }) {
     localStorage.setItem('mealsToken', JSON.stringify(1));
     localStorage.setItem('cocktailsToken', JSON.stringify(1));
     localStorage.setItem('user', JSON.stringify({ email }));
-    //history.pushState('/comidas');
+    // history.pushState('/comidas');
   };
 
   return (
