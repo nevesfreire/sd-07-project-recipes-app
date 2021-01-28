@@ -15,7 +15,7 @@ export default function meals(state = INITIAL_STATE, action) {
   case REQUEST_MEALS:
     return { ...state, isFetching: true };
   case REQUEST_MEALS_SUCCESS:
-    return { ...state, isFetching: false, meals: [...action.meals.drinks] };
+    return { ...state, isFetching: false, meals: [...action.meals.meals] };
   case REQUEST_MEALS_FAILURE:
     return { ...state, isFetching: false, error: action.error };
   default:
