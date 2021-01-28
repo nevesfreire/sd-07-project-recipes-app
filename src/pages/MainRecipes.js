@@ -9,13 +9,16 @@ function MainRecipes() {
   const [foodsToRender, setFoodsToRender] = useState([]);
   const [allFiltersToRender, setAllFiltersToRender] = useState([]);
   const [filtersToRender, setFiltersToRender] = useState([]);
+  const [filtered, setFiltered] = useState(false);
 
   useEffect(() => {
     foodApiFunctions.fetchAllFoodRecipes().then((response) => setData(response));
   }, []);
 
   useEffect(() => {
-    foodApiFunctions.fetchAllFoodCategories().then((response) => setAllFiltersToRender(response));
+    foodApiFunctions
+      .fetchAllFoodCategories()
+      .then((response) => setAllFiltersToRender(response));
   }, []);
 
   useEffect(() => {
@@ -42,17 +45,46 @@ function MainRecipes() {
     return finalArray;
   };
 
+  const filterButton = (category) => {
+    if (filtered === false) {
+      const oldArray = [...data.meals];
+      const newArray = oldArray.filter((food) => food.strCategory === category);
+      setFoodsToRender(newArray);
+      setFiltered(true);
+    } else {
+      setFoodsToRender(data.meals);
+      setFiltered(false);
+    }
+  };
+
+  const resetFoodsToRender = () => {
+    setFoodsToRender(data.meals);
+    setFiltered(false);
+  };
+
   const renderFilveFilters = (array) => {
     const four = 4;
     const finalArray = array
       .filter((_someFilter, index) => index <= four)
       .map((filter, index) => (
-        <button type="button" key={ index }>{filter.strCategory}</button>
+        <button
+          type="button"
+          key={ index }
+          data-testid={ `${filter.strCategory}-category-filter` }
+          onClick={ () => filterButton(filter.strCategory) }
+        >
+          {filter.strCategory}
+        </button>
       ));
-    const buttonAll = <button type="button" key="all">All</button>;
+    const buttonAll = (
+      <button type="button" key="all" onClick={ () => resetFoodsToRender() }>
+        All
+      </button>
+    );
     finalArray.push(buttonAll);
     return finalArray;
   };
+
   return (
     <div>
       <Header title="Comidas" />
