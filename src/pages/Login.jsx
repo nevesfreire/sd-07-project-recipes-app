@@ -19,12 +19,11 @@ export default function Login(props) {
     const isValid = value.match(/^\w+@[a-zA-Z_]+?.[a-zA-Z]{2,3}$/);
     setEmail(value);
     if (isValid) {
-      console.log(validEmail());
+      validEmail();
     }
   }
 
   function validatePassword(value) {
-    console.log(value);
     const six = 6;
     if (value.length > six) validPassword();
   }
@@ -32,11 +31,7 @@ export default function Login(props) {
   function loadcocktailsToken() {
     const cocktailsToken = 1;
     if (Storage) {
-      const getcocktailsToken = JSON.parse(
-        localStorage.getItem('cocktailsToken'),
-      );
-      const value = getcocktailsToken === null ? [] : getcocktailsToken;
-      value.push(cocktailsToken);
+      const value = cocktailsToken;
       localStorage.setItem('cocktailsToken', JSON.stringify(value));
     }
   }
@@ -44,9 +39,7 @@ export default function Login(props) {
   function loadmealsToken() {
     const mealsToken = 1;
     if (Storage) {
-      const getMealsToken = JSON.parse(localStorage.getItem('mealsToken'));
-      const value = getMealsToken === null ? [] : getMealsToken;
-      value.push(mealsToken);
+      const value = mealsToken;
       localStorage.setItem('mealsToken', JSON.stringify(value));
     }
   }
@@ -56,9 +49,7 @@ export default function Login(props) {
       email: payload,
     };
     if (Storage) {
-      const getUserSaved = JSON.parse(localStorage.getItem('user'));
-      const value = getUserSaved === null ? [] : getUserSaved;
-      value.push(user);
+      const value = user;
       localStorage.setItem('user', JSON.stringify(value));
     }
   }
