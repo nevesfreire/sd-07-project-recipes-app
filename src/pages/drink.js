@@ -4,7 +4,7 @@ import SearchHeaderBar from '../components/SearchHeaderBar';
 import Footer from '../components/Footer';
 import RecipeContext from '../context/RecipeContext';
 
-function Food() {
+function Drink() {
   const { showBtn } = useContext(RecipeContext);
   return (
     <div>
@@ -15,4 +15,4 @@ function Food() {
   );
 }
 
-export default Food;
+export default Drink;
