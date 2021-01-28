@@ -18,19 +18,19 @@ const FoodProvider = ({ children }) => {
   };
 
   const searchWithFilter = () => {
-    async function getApi() {
+    async function requestByIngredient() {
       const results = await RequestFoodAPI(inputText);
       await setFoodData(results);
       await console.log(results);
     }
 
-    async function getApi2() {
+    async function requestByName() {
       const results = await RequestFoodBayName(inputText);
       await setFoodData(results);
       await console.log(results);
     }
 
-    async function getApi3() {
+    async function requestByLetter() {
       const results = await RequestFoodByLetter(inputText);
       await setFoodData(results);
       await console.log(results);
@@ -39,16 +39,16 @@ const FoodProvider = ({ children }) => {
     // const teste = () => { customAlert('Sua busca deve conter somente 1 (um) caracter'); };
 
     if (radioType === 'Ingrediente') {
-      getApi();
+      requestByIngredient();
     }
     if (radioType === 'Nome') {
-      getApi2();
+      requestByName();
     }
     if (radioType === 'firtLetter') {
       if (inputText.length > 1) {
         alert('Sua busca deve conter somente 1 (um) caracter');
       } else {
-        getApi3();
+        requestByLetter();
       }
     }
   };
