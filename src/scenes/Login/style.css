@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap') ; 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap') ;
 
 body {
-  background: url('../../images/mountain.jpg') no-repeat center center fixed ;
+  background: url('../../images/mountain.jpg') no-repeat center center fixed;
   background-size: cover;
-  font-family: Roboto, sans-serif;
+  font-family: Roboto , sans-serif;
 }
 
 .main-section {
@@ -48,8 +48,8 @@ button {
 }
 
 .btn {
-  border-bottom: 4px solid #219882;
   background-color: #27c2a5;
+  border-bottom: 4px solid #219882;
   border-radius: 5px;
   color: white;
   font-size: 19px;
