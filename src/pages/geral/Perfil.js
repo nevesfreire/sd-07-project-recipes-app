@@ -6,7 +6,7 @@ import Footer from '../../components/footer';
 class Perfil extends Component {
   render() {
     const { history } = this.props;
-    const obj = JSON.parse(localStorage.getItem('user'));
+    const obje = JSON.parse(localStorage.getItem('user'));
     return (
       <div>
         <Header title="Perfil" searchOn="off" history={ history } />
@@ -14,8 +14,8 @@ class Perfil extends Component {
         <div>
           <h4 data-testid="profile-email">
             {
-              obj
-                ? obj.eamil
+              obje
+                ? obje.eamil
                 : <h1>sem email</h1>
             }
           </h4>
