@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Footer from '../components/Footer';
+import Header from '../components/Header';
+import DrinksRecipes from '../components/DrinksRecipes';
 import '../css/food.css';
 
 class Drinks extends Component {
@@ -9,7 +11,10 @@ class Drinks extends Component {
     return (
       <div>
         Bebidas
+        <Header history={ history } />
+        <DrinksRecipes endPoint="https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" />
         <Footer history={ history } />
+
       </div>
     );
   }
