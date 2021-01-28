@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import Context from '../../Context';
 import Meals from '../../services/meals-api';
@@ -10,8 +11,7 @@ const Grid = () => {
     categoryList,
     setCategoryList,
     filteredData,
-    // setFilteredData,
-    handleOnClickCategory,
+    handleClickCategory,
   } = useContext(Context);
 
   useEffect(() => {
@@ -46,7 +46,7 @@ const Grid = () => {
               type="button"
               key={ strCategory }
               data-testid={ `${strCategory}-category-filter` }
-              onClick={ () => handleOnClickCategory(strCategory) }
+              onClick={ () => handleClickCategory(strCategory) }
             >
               { strCategory}
             </button>
@@ -55,11 +55,14 @@ const Grid = () => {
       </div>
       <div>
         {
-          filteredData.map(({ strMeal, strMealThumb }) => (
-            <div key={ strMeal }>
+          filteredData.map(({ idMeal, strMeal, strMealThumb }) => (
+            <Link
+              to={ `/comidas/${idMeal}` }
+              key={ idMeal }
+            >
               <img src={ strMealThumb } alt="meal" />
               <h2>{strMeal}</h2>
-            </div>
+            </Link>
           ))
         }
       </div>

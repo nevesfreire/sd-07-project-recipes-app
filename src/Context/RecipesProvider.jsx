@@ -8,16 +8,27 @@ function RecipesProvider({ children }) {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
+  const [currentFilterCategory, setCurrentFilterCategory] = useState('All');
 
   useEffect(() => {
     setFilteredData(data);
   }, [data]);
 
-  const handleOnClickCategory = async (category) => {
+  const handleClickCategory = async (category) => {
     const mealsAmountToShow = 12;
 
-    const meals = await Meals.searchMealsByCategory(category, mealsAmountToShow);
-    setFilteredData(meals);
+    if (category === 'All') {
+      setFilteredData(data);
+      return setCurrentFilterCategory('All');
+    }
+
+    if (currentFilterCategory !== category) {
+      const meals = await Meals.searchMealsByCategory(category, mealsAmountToShow);
+      setFilteredData(meals);
+      return setCurrentFilterCategory(category);
+    }
+    setFilteredData(data);
+    setCurrentFilterCategory('All');
   };
 
   const states = {
@@ -28,7 +39,7 @@ function RecipesProvider({ children }) {
     setCategoryList,
     filteredData,
     setFilteredData,
-    handleOnClickCategory,
+    handleClickCategory,
   };
 
   return (
