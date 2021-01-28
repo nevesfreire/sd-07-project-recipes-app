@@ -25,9 +25,16 @@ const searchMealsByIngredient = async (ingredient) => {
   return meals;
 };
 
-const searchMealsByCategory = async (category) => {
+const searchMealsByCategory = async (category, limit) => {
+  const startPositionToShow = 0;
+
   const response = await api.get(`/filter.php?c=${category}`);
   const { meals } = response.data;
+
+  if (limit) {
+    const mealsWithLessItems = meals.slice(startPositionToShow, limit);
+    return mealsWithLessItems;
+  }
 
   return meals;
 };
@@ -44,9 +51,13 @@ const getMeals = async (limit) => {
 
   const response = await api.get('/search.php?s=');
   const { meals } = response.data;
-  const limitToShow = meals.slice(startPositionToShow, limit);
 
-  return limitToShow;
+  if (limit) {
+    const mealsWithLessItems = meals.slice(startPositionToShow, limit);
+    return mealsWithLessItems;
+  }
+
+  return meals;
 };
 
 const getAllMeals = async () => {
@@ -82,9 +93,13 @@ const getMealCategoryList = async (limit) => {
 
   const response = await api.get('list.php?c=list');
   const { meals } = response.data;
-  const limitToShow = meals.slice(startPositionToShow, limit);
 
-  return limitToShow;
+  if (limit) {
+    const mealsWithLessItems = meals.slice(startPositionToShow, limit);
+    return mealsWithLessItems;
+  }
+
+  return meals;
 };
 
 const getMealIngredientList = async () => {

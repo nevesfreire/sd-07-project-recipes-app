@@ -4,7 +4,15 @@ import Context from '../../Context';
 import Meals from '../../services/meals-api';
 
 const Grid = () => {
-  const { data, setData, categoryList, setCategoryList } = useContext(Context);
+  const {
+    data,
+    setData,
+    categoryList,
+    setCategoryList,
+    filteredData,
+    // setFilteredData,
+    handleOnClickCategory,
+  } = useContext(Context);
 
   useEffect(() => {
     const mealsAmountToShow = 12;
@@ -22,7 +30,7 @@ const Grid = () => {
       .catch((err) => console.log(err));
   }, [setCategoryList]);
 
-  if (!data.length && !categoryList.length) {
+  if (!data.length || !categoryList.length) {
     return <h1>Loading meals...</h1>;
   }
 
@@ -38,6 +46,7 @@ const Grid = () => {
               type="button"
               key={ strCategory }
               data-testid={ `${strCategory}-category-filter` }
+              onClick={ () => handleOnClickCategory(strCategory) }
             >
               { strCategory}
             </button>
@@ -46,7 +55,7 @@ const Grid = () => {
       </div>
       <div>
         {
-          data.map(({ strMeal, strMealThumb }) => (
+          filteredData.map(({ strMeal, strMealThumb }) => (
             <div key={ strMeal }>
               <img src={ strMealThumb } alt="meal" />
               <h2>{strMeal}</h2>
