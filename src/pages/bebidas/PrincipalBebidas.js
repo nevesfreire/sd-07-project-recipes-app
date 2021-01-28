@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../../components/header';
 import { setLocal } from '../../redux/action';
+import Footer from '../../components/footer';
 
 class PrincipalBebidas extends Component {
   componentDidMount() {
@@ -49,6 +50,7 @@ class PrincipalBebidas extends Component {
         {
           this.Drinks()
         }
+        <Footer history={ history } />
       </div>
     );
   }

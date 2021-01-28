@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Header from '../../components/header';
+import Footer from '../../components/footer';
 
 class Perfil extends Component {
   render() {
@@ -8,6 +9,7 @@ class Perfil extends Component {
     return (
       <div>
         <Header title="Perfil" searchOn="off" history={ history } />
+        <Footer />
       </div>
     );
   }

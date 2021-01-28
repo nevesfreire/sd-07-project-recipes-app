@@ -37,6 +37,16 @@
   font-weight: 900;
 }
 
+.footer {
+  display: flex;
+  bottom: 0;
+  justify-content: space-around;
+  margin: 12px;
+  position: fixed;
+  width: 90%;
+  text-align: center;
+}
+
 @keyframes shake {
 
   0% {
