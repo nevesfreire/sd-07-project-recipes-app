@@ -4,6 +4,7 @@ import './App.css';
 import RecipeProvider from './Context/Provider';
 import DrinksRecipes from './Pages/DrinksRecipes';
 import FoodRecipes from './Pages/FoodRecipes';
+import DetailsPage from './Pages/DetailsPage';
 import Login from './Pages/Login';
 import Profile from './Pages/Profile';
 // import 'bootstrap/dist/css/bootstrap.min.css';
@@ -17,6 +18,7 @@ function App() {
           <Route path="/comidas" component={ FoodRecipes } />
           <Route path="/perfil" component={ Profile } />
           <Route path="/bebidas" component={ DrinksRecipes } />
+          <Route path="/comidas/:id" component={ DetailsPage } />
         </Switch>
       </RecipeProvider>
     </BrowserRouter>

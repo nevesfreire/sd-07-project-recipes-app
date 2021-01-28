@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
+import RecipeContext from '../Context/Context';
 
 function SearchBar({ theFetch }) {
+  const { recipes } = useContext(RecipeContext);
   const [searchType, setSearchType] = useState();
   const [searchInput, setSearchInput] = useState();
+  console.log(recipes);
 
   function handleClick() {
     const um = 1;
