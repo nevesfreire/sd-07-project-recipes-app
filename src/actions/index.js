@@ -10,4 +10,6 @@ export {
   REQUEST_MEALS_FAILURE,
 } from './meals';
 
+export { SEARCH_TOGGLE } from './actionSearchToggle';
+
 export { USER_EMAIL, getEmail } from './userEmail';
