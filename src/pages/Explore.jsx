@@ -7,12 +7,8 @@ export default class Explore extends Component {
   render() {
     return (
       <div>
-<<<<<<< HEAD
         <CustomHeader title="Explorar" />
         <CustomExplore />
-=======
-        <CustomHeader title="Explorar" showSearchTopBtn={ false } />
->>>>>>> main-group-18
         <CustomFooter />
       </div>
     );
