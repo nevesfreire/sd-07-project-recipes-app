@@ -59,7 +59,7 @@ function Routes() {
       <Route path="/explorar">
         <ExplorePage />
       </Route>
-      <Route path="/perfil">
+      <Route exact path="/perfil">
         <ProfilePage />
       </Route>
       <Route path="/receitas-feitas">

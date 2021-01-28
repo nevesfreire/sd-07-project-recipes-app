@@ -6,7 +6,7 @@ import profile from '../images/profileIcon.svg';
 import SearchBar from './SearchBar';
 
 const Header = (props) => {
-  const { title } = props;
+  const { title, showSearcIcon } = props;
   const [showSearch, setShowSearch] = useState(false);
 
   function toggleShowSearch() {
@@ -21,16 +21,18 @@ const Header = (props) => {
         <Link to="/perfil">
           <img src={ profile } data-testid="profile-top-btn" alt="profileIcon" />
         </Link>
-        <button
-          type="button"
-          onClick={ () => toggleShowSearch() }
-        >
-          <img
-            src={ search }
-            data-testid="search-top-btn"
-            alt="searchIcon"
-          />
-        </button>
+        {showSearcIcon && (
+          <button
+            type="button"
+            onClick={ () => toggleShowSearch() }
+          >
+            <img
+              src={ search }
+              data-testid="search-top-btn"
+              alt="searchIcon"
+            />
+          </button>
+        )}
       </header>
       {showSearch && (
         <SearchBar pageId={ title } />
@@ -39,8 +41,13 @@ const Header = (props) => {
   );
 };
 
+Header.defaultProps = {
+  showSearcIcon: false,
+};
+
 Header.propTypes = {
   title: PropTypes.string.isRequired,
+  showSearcIcon: PropTypes.bool,
 };
 
 export default Header;
