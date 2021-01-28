@@ -8,12 +8,20 @@ import { titleHeaderNames, useTitleContext } from '../context/TitleContext';
 
 function Header() {
   const { setHeaderName } = useTitleContext();
-  const explorerOrigin = <h1 data-testid="page-title">Explorar Origem</h1>;
 
   const path = useHistory().location.pathname;
 
+  function checkIsNumber(elem) {
+    if (Number.isNaN(elem)) {
+      return false;
+    }
+    return true;
+  }
+
+  const checkDetails = checkIsNumber(parseInt(path.split('/')[2], 10));
+  console.log(checkDetails);
+
   const renderTitlePage = path.split('/').join('').split('-').join('');
-  console.log(renderTitlePage);
 
   const elementProfile = (
     <Link to="/perfil">
@@ -50,7 +58,7 @@ function Header() {
   }
 
   function renderHeader() {
-    if (path === '/comidas' || path === '/bebidas') {
+    if (path === '/comidas' || path === '/bebidas' || path === '/explorar/comidas/area') {
       return (
         <div>
           {elementProfile}
@@ -59,16 +67,7 @@ function Header() {
         </div>
       );
     }
-    if (path === '/explorar/comidas/area') {
-      return (
-        <div>
-          {elementProfile}
-          {explorerOrigin}
-          {elementSearch}
-        </div>
-      );
-    }
-    if (path === '/') return null;
+    if (path === '/' || checkDetails === true) return null;
     return (
       <div>
         {elementProfile}
