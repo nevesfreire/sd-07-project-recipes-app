@@ -10,6 +10,16 @@
   width: 100%;
 }
 
+.footer {
+  background-color: #cfcfcf;
+  bottom: 0;
+  left: 0;
+  padding: 5px;
+  position: fixed;
+  right: 0;
+  text-align: center;
+}
+
 .rocksGlass {
   animation: shake 1s infinite ease;
   max-height: 80vh;

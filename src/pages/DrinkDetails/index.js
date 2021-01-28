@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 const DrinkDetails = () => {
   const bebida = 'drink';
   return (

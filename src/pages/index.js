@@ -7,3 +7,4 @@ import DrinkDetails from './DrinkDetails';
 import FoodDetails from './FoodDetails';
 
 export { Explore, Food, Drink, Perfil, Login, DrinkDetails, FoodDetails };
+
