@@ -1,6 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import CoffeAndCodeContext from '../context/CoffeeAndCodeContext';
 
 function Login() {
+
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+  } = useContext(CoffeAndCodeContext);
+
+  const isEmail = (event) => {
+
+  }
+
+  const isPassword = (event) => {
+
+  }
 
   return (
     <div>
@@ -24,6 +40,7 @@ function Login() {
         <button
           data-testid="login-submit-btn"
           type="button"
+          disabled={ !email || !password }
         >
           Enter
         </button>
