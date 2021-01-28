@@ -53,7 +53,7 @@ export default function Foods() {
         data-testid="Beef-category-filter"
         onClick={ ({ target }) => applyFilter(target.value) }
         type="button"
-        value="beef"
+        value="Beef"
       >
         Beef
       </button>
@@ -61,7 +61,7 @@ export default function Foods() {
         data-testid="Breakfast-category-filter"
         onClick={ ({ target }) => applyFilter(target.value) }
         type="button"
-        value="breakfast"
+        value="Breakfast"
       >
         Breakfast
       </button>
@@ -69,7 +69,7 @@ export default function Foods() {
         data-testid="Chicken-category-filter"
         onClick={ ({ target }) => applyFilter(target.value) }
         type="button"
-        value="chicken"
+        value="Chicken"
       >
         Chicken
       </button>
@@ -77,7 +77,7 @@ export default function Foods() {
         data-testid="Dessert-category-filter"
         onClick={ ({ target }) => applyFilter(target.value) }
         type="button"
-        value="dessert"
+        value="Dessert"
       >
         Dessert
       </button>
@@ -85,7 +85,7 @@ export default function Foods() {
         data-testid="Goat-category-filter"
         onClick={ ({ target }) => applyFilter(target.value) }
         type="button"
-        value="goat"
+        value="Goat"
       >
         Goat
       </button>
