@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import apiTheCocktailDB from '../services/apiTheCocktailDB';
 import apiTheMealDB from '../services/apiTheMealDB';
+import { sendDrinkRecipes, sendMealRecipes } from '../redux/actions';
 
 class SearchBar extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       searchType: '',
       searchText: '',
@@ -14,42 +17,51 @@ class SearchBar extends React.Component {
       drinks: [],
     };
     this.handleSearch = this.handleSearch.bind(this);
+    this.callApi = this.callApi.bind(this);
     this.submitSearch = this.submitSearch.bind(this);
   }
 
   handleSearch({ target: { value, name } }) {
-    const { searchType } = this.state;
+    const { searchType, searchText } = this.state;
     if (name === 'searchType') {
       switch (value) {
       case 'ingrediente':
-        return this.setState({ searchType: 'filter.php?i=' });
+        return this.setState(
+          { searchType: 'filter.php?i=', searchParam: `filter.php?i=${searchText}` },
+        );
       case 'nome':
-        return this.setState({ searchType: 'search.php?s=' });
+        return this.setState(
+          { searchType: 'search.php?s=', searchParam: `search.php?s=${searchText}` },
+        );
       case 'primeiraLetra':
-        return this.setState({ searchType: 'search.php?f=' });
+        return this.setState(
+          { searchType: 'search.php?f=', searchParam: `search.php?f=${searchText}` },
+        );
       default:
         return searchType;
       }
     }
-    if (name === 'searchText') this.setState({ searchText: value });
+    if (name === 'searchText') {
+      this.setState({
+        searchText: value,
+        searchParam: `${searchType}${value}`,
+      });
+    }
   }
 
   async submitSearch() {
     const { searchType, searchText } = this.state;
-    const searchParam = `${searchType}${searchText}`;
     if (searchType === 'search.php?f=' && searchText.length > 1) {
       // eslint-disable-next-line no-alert
       return alert('Sua busca deve conter somente 1 (um) caracter');
     }
-    if (searchText && searchType) {
-      await this.setState({ searchParam });
-      this.callApi();
-    }
+    await this.callApi();
+    this.renderResults();
   }
 
   async callApi() {
     const { searchParam } = this.state;
-    const { search } = this.props;
+    const { search, sendMealRecipesDispatch, sendDrinkRecipesDispatch } = this.props;
     if (search === 'meals') {
       const result = await apiTheMealDB(searchParam);
       if (!result || !result.meals) {
@@ -57,6 +69,7 @@ class SearchBar extends React.Component {
         return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       }
       this.setState({ meals: result.meals });
+      sendMealRecipesDispatch(result.meals);
     }
     if (search === 'drinks') {
       const result = await apiTheCocktailDB(searchParam);
@@ -65,12 +78,22 @@ class SearchBar extends React.Component {
         return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       }
       this.setState({ drinks: result.drinks });
+      sendDrinkRecipesDispatch(result.drinks);
     }
   }
 
   renderResults() {
     const { meals, drinks } = this.state;
-    console.log(meals, drinks);
+    const { history } = this.props;
+    if (meals.length === 1) {
+      const { idMeal } = meals[0];
+      return history.push(`/comidas/${idMeal}`);
+    }
+
+    if (drinks.length === 1) {
+      const { idDrink } = drinks[0];
+      return history.push(`/bebidas/${idDrink}`);
+    }
   }
 
   render() {
@@ -129,8 +152,18 @@ class SearchBar extends React.Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  sendMealRecipesDispatch: (e) => dispatch(sendMealRecipes(e)),
+  sendDrinkRecipesDispatch: (e) => dispatch(sendDrinkRecipes(e)),
+});
+
 SearchBar.propTypes = {
   search: PropTypes.string.isRequired,
+  sendMealRecipesDispatch: PropTypes.func.isRequired,
+  sendDrinkRecipesDispatch: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
-export default SearchBar;
+export default withRouter(connect(null, mapDispatchToProps)(SearchBar));

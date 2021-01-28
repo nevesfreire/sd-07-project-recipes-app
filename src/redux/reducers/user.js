@@ -4,7 +4,7 @@ const LOGIN_INITIAL_STATE = {
   email: '',
 };
 
-const userLogin = (state = LOGIN_INITIAL_STATE, action) => {
+const user = (state = LOGIN_INITIAL_STATE, action) => {
   switch (action.type) {
   case types.LOGIN_INFO:
     return ({
@@ -16,4 +16,4 @@ const userLogin = (state = LOGIN_INITIAL_STATE, action) => {
   }
 };
 
-export default userLogin;
+export default user;
