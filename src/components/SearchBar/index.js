@@ -6,18 +6,21 @@ import { Context } from '../../context/Provider';
 import fetchApi from '../../services/api';
 
 function SearchBar({ history }) {
-  const { api } = useContext(Context);
+  const { api, setResults, setIsFetching } = useContext(Context);
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState('ingredient');
 
   const handleSearch = async (e) => {
     e.preventDefault();
     const data = await fetchApi(search, filter, api);
-    console.log(data);
     if (!data) return;
+    console.log(data);
     if (data.length === 1) {
       if (api === 'meal') history.push(`/comidas/${data[0].idMeal}`);
       else history.push(`/bebidas/${data[0].idDrink}`);
+    } else {
+      setResults(data);
+      setIsFetching(true);
     }
   };
 

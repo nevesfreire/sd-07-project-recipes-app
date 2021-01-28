@@ -1,21 +1,46 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { Context } from '../../context/Provider';
+
+import Card from '../../components/Card';
 import Header from '../../components/Header';
 
 function Recipes({ history, search = false }) {
-  const { setApi } = useContext(Context);
+  const [slicedResults, setSlicedResults] = useState([]);
+  const { setApi, results, isFetching, setIsFetching } = useContext(Context);
 
   useEffect(() => {
     if (history.location.pathname.includes('bebidas')) setApi('drinks');
     else setApi('meal');
   }, [history.location.pathname, setApi]);
 
+  useEffect(() => {
+    if (!isFetching) return;
+    const initial = 0;
+    const end = 12;
+    if (results.length > initial) {
+      setSlicedResults(results.slice(initial, end));
+      setIsFetching(false);
+    } else {
+      // eslint-disable-next-line no-alert
+      window.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
+  }, [isFetching, results, setIsFetching]);
+
   return (
     <>
       <Header history={ history } search={ search } />
-      <p>Recipes</p>
+      {slicedResults.map((res, index) => {
+        const card = {
+          id: res.idMeal || res.idDrink,
+          name: res.strMeal || res.strDrink,
+          img: res.strMealThumb || res.strDrinkThumb,
+        };
+        return (
+          <Card key={ index + 1 } data={ card } index={ index } />
+        );
+      })}
     </>
   );
 }

@@ -27,7 +27,8 @@ const fetchMeal = async (value, type) => {
 
   const response = await fetch(url);
   const { meals } = await response.json();
-  return meals;
+  const empty = [];
+  return meals || empty;
 };
 
 const fetchDrinks = async (value, type) => {
@@ -54,11 +55,11 @@ const fetchDrinks = async (value, type) => {
 
   const response = await fetch(url);
   const { drinks } = await response.json();
-  return drinks;
+  const empty = [];
+  return drinks || empty;
 };
 
 const fetchApi = async (value, type, api) => {
-  console.log(value, type, api);
   if (api === 'meal') return fetchMeal(value, type);
   return fetchDrinks(value, type);
 };
