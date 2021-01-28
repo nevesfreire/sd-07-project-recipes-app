@@ -1,6 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Recipes from './pages/Recipes';
+import { Switch, Route } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -33,7 +32,6 @@ function App() {
         <Route path="/comidas" render={ (props) => <Recipes { ...props } search /> } />
         <Route path="/bebidas/:id/in-progress" component={ Progress } />
         <Route path="/bebidas/:id" component={ Details } />
-        <Route path="/bebidas" render={ (props) => <Recipes { ...props } search /> } />
         <Route path="/perfil" component={ Profile } />
         <Route exact path="/" component={ Login } />
       </Switch>
