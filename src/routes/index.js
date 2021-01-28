@@ -1,13 +1,20 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-// eslint-disable-next-line max-len
-import { TelaDeLogin, TelaPrincipalReceitasBebidas, TelaPrincipalReceitasComidas } from '../pages';
+import {
+  Login,
+  TelaPrincipalReceitasBebidas,
+  TelaPrincipalReceitasComidas,
+  TelaDetalheBebida,
+  TelaDetalheComida,
+} from '../pages';
 
 const Routes = () => (
   <Switch>
-    <Route exact path="/" component={ TelaDeLogin } />
-    <Route path="/bebida" component={ TelaPrincipalReceitasBebidas } />
-    <Route path="/comida" component={ TelaPrincipalReceitasComidas } />
+    <Route exact path="/" component={ Login } />
+    <Route path="/bebidas" component={ TelaPrincipalReceitasBebidas } />
+    <Route path="/comidas" component={ TelaPrincipalReceitasComidas } />
+    <Route path="/bebidas/id-da-receita" component={ TelaDetalheBebida } />
+    <Route path="/comidas/id-da-receita" component={ TelaDetalheComida } />
   </Switch>
 );
 
