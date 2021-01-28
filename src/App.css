@@ -1,5 +1,5 @@
 .main {
-  background: #baf0db;
+  background: #f3c8b7;
   color: #464646;
   display: flex;
   flex-direction: column;
@@ -10,17 +10,27 @@
 }
 
 button {
+  align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
 .footer {
-  background: lightgrey;
+  background: #fcef3b;
   bottom: 0;
   display: flex;
   justify-content: space-around;
   position: fixed;
+  width: 100%;
+}
+
+.header {
+  background: #fcef3b;
+  display: flex;
+  justify-content: space-evenly;
+  position: fixed;
+  top: 0;
   width: 100%;
 }
 

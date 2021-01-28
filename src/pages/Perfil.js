@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 class Perfil extends React.Component {
   render() {
-    const { history } = this.props;
-    const emailLocal = JSON.parse(localStorage.getItem('user'));
+    const { history, email } = this.props;
+    // const emailLocal = JSON.parse(localStorage.getItem('user'));
 
     return (
       <div className="profile">
         <Header pageTitle="Perfil" />
-        <h1>Perfil</h1>
-        <h4 data-testid="profile-email">{emailLocal.email}</h4>
+        <h4 data-testid="profile-email">{email}</h4>
         <button
           type="button"
           data-testid="profile-done-btn"
@@ -40,10 +40,13 @@ class Perfil extends React.Component {
   }
 }
 
-export default Perfil;
+const mapStateToProps = ({ user: { email } }) => ({ email });
 
 Perfil.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+  email: PropTypes.string.isRequired,
 };
+
+export default connect(mapStateToProps)(Perfil);
