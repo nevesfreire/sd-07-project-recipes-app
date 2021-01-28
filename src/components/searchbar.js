@@ -12,7 +12,7 @@ class Searchbar extends Component {
   constructor() {
     super();
     this.state = {
-      busca: '',
+      busca: 'ingredient',
       inputValue: '',
     };
     this.handlechange = this.handlechange.bind(this);
