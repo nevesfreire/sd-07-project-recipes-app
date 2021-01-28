@@ -6,15 +6,12 @@ import '../css/food.css';
 
 class MealRecipes extends Component {
   componentDidMount() {
-    const { requestRecipes, endPoint, updateFetching, isFetching } = this.props;
-    if (isFetching === false) {
-      updateFetching();
-    }
+    const { requestRecipes, endPoint } = this.props;
     requestRecipes(endPoint);
   }
 
   render() {
-    const { getRecipes, isFetching } = this.props;
+    const { getRecipes } = this.props;
     const MEAL_LENGTH = 12;
     // console.log(getRecipes);
     if (getRecipes.meals) {
@@ -49,7 +46,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = ({ recipes }) => ({
   getRecipes: recipes.recipes,
-  isFetching: recipes.isFetching,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MealRecipes);
@@ -58,5 +54,4 @@ MealRecipes.propTypes = {
   endPoint: PropTypes.string.isRequired,
   requestRecipes: PropTypes.func.isRequired,
   getRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
-  isFetching: PropTypes.bool.isRequired,
 };

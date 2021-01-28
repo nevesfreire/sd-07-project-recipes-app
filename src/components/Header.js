@@ -21,7 +21,7 @@ class Header extends Component {
   }
 
   render() {
-    const { history } = this.props;
+    const { history, title } = this.props;
     const { showInputSearch } = this.state;
     // console.log(history);
     return (
@@ -35,7 +35,7 @@ class Header extends Component {
             <img src={ profileIcon } alt="profileIcon" />
           </button>
 
-          <h1 data-testid="page-title">Comidas</h1>
+          <h1 data-testid="page-title">{title}</h1>
           <button
             type="button"
             data-testid="search-top-btn"
@@ -64,6 +64,7 @@ class Header extends Component {
 export default Header;
 
 Header.propTypes = {
+  title: PropTypes.string.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
