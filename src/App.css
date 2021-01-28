@@ -43,8 +43,7 @@ body {
   text-align: center;
 }
 
-@media only screen and ( max-width: 380px ) {
-  
+@media only screen and ( max-width : 380px ) {
   .container-fluid {
     align-items: center;
     border: 1px solid green;
@@ -80,8 +79,7 @@ body {
 
 }
 
-@media only screen and ( max-width: 1120px ) {
-  
+@media only screen and ( max-width : 1120px ) {
   .container {
     height: 100vh;
     max-width: 1000px;
