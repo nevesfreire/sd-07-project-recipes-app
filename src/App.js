@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import './App.css';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { initialize } from './services/localStorage';
 import { Provider } from './context/Provider';
 
 import Login from './pages/Login';
@@ -14,7 +13,6 @@ import Progress from './pages/Progress';
 import Profile from './pages/Profile';
 
 function App() {
-  useEffect(initialize, []);
   return (
     <Provider>
       <Switch>
