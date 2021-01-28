@@ -21,7 +21,13 @@ function MainRecipes() {
     const finalArray = array
       .filter((_someFood, index) => index <= eleven)
       .map((food, index) => (
-        <MainCards thumb={ food.strMealThumb } title={ food.strMeal } key={ index } />
+        <MainCards
+          thumb={ food.strMealThumb }
+          title={ food.strMeal }
+          key={ index }
+          index={ index }
+          id={ food.idMeal }
+        />
       ));
     return finalArray;
   };
