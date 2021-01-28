@@ -4,7 +4,7 @@ const auxFunc = (term, type) => {
     if (type === 'i') {
       return `https://www.themealdb.com/api/json/v1/1/filter.php?${type}=${term}`;
     } if (type === 'f' && term.length > 1) {
-      alert('Sua busca deve conter somente 1 (um) caracter');
+      // alert('Sua busca deve conter somente 1 (um) caracter');
     } else {
       return `https://www.themealdb.com/api/json/v1/1/search.php?${type}=${term}`;
     }
