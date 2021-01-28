@@ -39,6 +39,13 @@ const searchMealsByArea = async (area) => {
   return meals;
 };
 
+const getAllMeals = async () => {
+  const response = await api.get('/search.php?s=');
+  const { meals } = response.data;
+
+  return meals;
+};
+
 const getMealDetailsById = async (id) => {
   const response = await api.get(`/lookup.php?i=${id}`);
   const mealDetails = response.data.meals[0];
@@ -87,6 +94,7 @@ export default {
   searchMealsByIngredient,
   searchMealsByCategory,
   searchMealsByArea,
+  getAllMeals,
   getMealDetailsById,
   getRandomMeal,
   getMealCategories,
