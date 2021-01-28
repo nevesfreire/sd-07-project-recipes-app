@@ -2,12 +2,15 @@ body {
   border: 1px solid green;
   width: 360px;
 }
+
 .button-position {
   position: fixed;
 }
+
 .main-image {
   width: 100%;
 }
+
 .recomendation-image {
 
   border: 1px solid red;
