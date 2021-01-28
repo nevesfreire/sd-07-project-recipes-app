@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import { sendSearchInput } from '../actions';
 import '../css/food.css';
 
 class Header extends Component {
   constructor(props) {
     super(props);
     this.changeDisplayInput = this.changeDisplayInput.bind(this);
+    this.alertFilter = this.alertFilter.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.state = {
       showInputSearch: false,
+      searchInput: '',
+      filterRadioButton: '',
     };
   }
 
@@ -20,9 +26,22 @@ class Header extends Component {
     } else this.setState({ showInputSearch: true });
   }
 
+  handleChange({ target }) {
+    const { name, value } = target;
+    this.setState({ [name]: value });
+  }
+
+  alertFilter() {
+    const {searchInput, filterRadioButton} =  this.state;
+    console.log(searchInput.length);
+    if (filterRadioButton === 'firstLetterName' && searchInput.length > 1) {
+      alert('Sua busca deve conter somente 1 (um) caracter')
+    }
+  }
+
   render() {
-    const { history } = this.props;
-    const { showInputSearch } = this.state;
+    const { history, catchSearchValue } = this.props;
+    const { showInputSearch, searchInput } = this.state;
     console.log(history);
     return (
       <div>
@@ -49,43 +68,50 @@ class Header extends Component {
             <div>
               <input
                 type="radio"
-                id="ingrediente"
-                name="Filter"
-                value="ingrediente"
+                id="ingredient"
+                name="filterRadioButton"
+                value="ingredient"
                 data-testid="ingredient-search-radio"
+                onClick={this.handleChange}
               />
-              <label for="ingrediente">Ingrediente</label>
+              <label for="ingredient">Ingrediente</label>
               <input
                 type="radio"
                 id="foodName"
-                name="Filter"
+                name="filterRadioButton"
                 value="foodName"
                 data-testid="name-search-radio"
+                onClick={this.handleChange}
               />
               <label for="foodName">Nome</label>
               <input
                 type="radio"
                 id="firstLetterName"
-                name="Filter"
+                name="filterRadioButton"
                 value="firstLetterName"
                 data-testid="first-letter-search-radio"
+                onClick={this.handleChange}
               />
               <label for="firstLetterName">Primeira letra</label>
               <button
                 type="button"
                 data-testid="exec-search-btn"
-                // onClick={}
+                onClick={() => {
+                  catchSearchValue(searchInput);
+                  this.alertFilter();
+                }}
               >
                 Buscar
               </button>
             </div>
             <div className="search-food-container">
               <input
-                name="searchFood"
+                name="searchInput"
                 data-testid="search-input"
                 className="search-food-input"
                 placeholder="Buscar Receita"
-                data-testid="search-input"
+                value={searchInput}
+                onChange={this.handleChange}
               />
             </div>
           </section>
@@ -95,7 +121,11 @@ class Header extends Component {
   }
 }
 
-export default Header;
+const mapDispatchToProps = (dispatch) => ({
+  catchSearchValue: (value) => dispatch(sendSearchInput(value))
+})
+
+export default connect(null, mapDispatchToProps)(Header);
 
 Header.propTypes = {
   history: PropTypes.shape({
