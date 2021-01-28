@@ -7,12 +7,12 @@
 
 .footer {
   background-color: #cecece;
+  bottom: 0;
   display: flex;
   justify-content: space-between;
+  padding: 10px 20px;
   position: fixed;
   width: 100%;
-  bottom: 0;
-  padding: 10px 20px;
 }
 
 .meals {
