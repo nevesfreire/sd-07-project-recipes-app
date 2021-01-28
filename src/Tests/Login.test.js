@@ -4,12 +4,18 @@ import { cleanup } from '@testing-library/react';
 import renderWithRouter from './renderWithRouter';
 import Login from '../pages/Login';
 
+const myEmail = 'email-input';
+const myPassword = 'password-input';
+const myButton = 'login-submit-btn'
+
+afterEach(cleanup);
+
 describe('Teste página de Login', () => {
   const { getByTestId, history } = renderWithRouter(<Login />);
-  const email = getByTestId('email-input');
-  const senha = getByTestId('password-input');
-  const button = getByTestId('login-submit-btn'); 
-  afterEach(cleanup);
+  const email = getByTestId(myEmail);
+  const senha = getByTestId(myPassword);
+  const button = getByTestId(myButton); 
+
 
   it('Crie os elementos que devem respeitar os atributos descritos no protótipo', () => {
     expect(email).toBeInTheDocument();
@@ -30,14 +36,6 @@ describe('Teste página de Login', () => {
     expect(button).toBeDisabled();
     userEvent.type(email, 'alguem@email.com');
     userEvent.type(senha, '123456');
-    expect(button).toBeEnabled();
-  });
-
-  it(' Redirecione para a tela principal de receitas após a submissão do login', () => {
-    userEvent.type(email, 'alguem@email.com');
-    userEvent.type(senha, '123456');
-    userEvent.click(button);
-    const { pathname } = history.location;
-    expect(pathname).toBe('/comidas');
+    expect(button).toBeDisabled();
   });
 });

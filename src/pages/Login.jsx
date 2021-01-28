@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import propTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 
-function Login({ history }) {
+function Login() {
+  const history = useHistory();
   const [buttonDisable, setButtonDisable] = useState(false);
   const [userEmail, setUserEmail] = useState('');
 
@@ -15,10 +16,9 @@ function Login({ history }) {
   };
 
   const handleButton = () => {
-    localStorage.setItem('mealsToken', 1);
-    localStorage.setItem('cocktailsToken', 1);
-    localStorage.setItem('user', JSON.stringify({ email: userEmail }));
-    console.log(history);
+    localStorage.mealsToken = JSON.stringify(1);
+    localStorage.cocktailsToken = JSON.stringify(1);
+    localStorage.user = JSON.stringify({ email: userEmail });
     history.push('/comidas');
   };
 
@@ -53,9 +53,5 @@ function Login({ history }) {
     </div>
   );
 }
-
-Login.propTypes = {
-  history: propTypes.arrayOf(Object).isRequired,
-};
 
 export default Login;
