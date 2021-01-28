@@ -6,15 +6,25 @@ import MainCards from '../components/MainCards';
 
 function MainRecipes() {
   const [data, setData] = useState([]);
-  const [foodsToRender, setFoodsToRender] = useState([{ strMeal: 'Corba', strMealThumb: 'https://www.themealdb.com/images/media/meals/58oia61564916529.jpg' }]);
+  const [foodsToRender, setFoodsToRender] = useState([]);
+  const [allFiltersToRender, setAllFiltersToRender] = useState([]);
+  const [filtersToRender, setFiltersToRender] = useState([]);
 
   useEffect(() => {
     foodApiFunctions.fetchAllFoodRecipes().then((response) => setData(response));
   }, []);
 
   useEffect(() => {
+    foodApiFunctions.fetchAllFoodCategories().then((response) => setAllFiltersToRender(response));
+  }, []);
+
+  useEffect(() => {
     setFoodsToRender(data.meals);
   }, [data]);
+
+  useEffect(() => {
+    setFiltersToRender(allFiltersToRender.meals);
+  }, [allFiltersToRender]);
 
   const renderTwelveElements = (array) => {
     const eleven = 11;
@@ -31,10 +41,31 @@ function MainRecipes() {
       ));
     return finalArray;
   };
+
+  const renderFilveFilters = (array) => {
+    const four = 4;
+    const finalArray = array
+      .filter((_someFilter, index) => index <= four)
+      .map((filter, index) => (
+        <button type="button" key={ index }>{filter.strCategory}</button>
+      ));
+    const buttonAll = <button type="button" key="all">All</button>;
+    finalArray.push(buttonAll);
+    return finalArray;
+  };
   return (
     <div>
       <Header title="Comidas" />
-      {foodsToRender === undefined ? <p>Loading</p> : renderTwelveElements(foodsToRender)}
+      {filtersToRender === undefined ? (
+        <p>Loading</p>
+      ) : (
+        renderFilveFilters(filtersToRender)
+      )}
+      {foodsToRender === undefined ? (
+        <p>Loading</p>
+      ) : (
+        renderTwelveElements(foodsToRender)
+      )}
       <Footer />
     </div>
   );
