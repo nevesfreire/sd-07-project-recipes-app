@@ -6,7 +6,6 @@ import ExplorarBebida from '../components/ExplorarBebida';
 class ExplorarBebidasOuComidas extends React.Component {
   render() {
     const { location: { pathname } } = this.props;
-    console.log(pathname);
     return (
       <div>
         {pathname === '/explorar/comidas' && <ExplorarComida />}
