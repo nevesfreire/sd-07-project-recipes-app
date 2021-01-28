@@ -17,7 +17,7 @@ export function fetchCocktailByIngredient(ingredient) {
   return async (dispatch) => {
     dispatch(requestingData());
     const resolve = await fetch(
-      `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`,
+      `https://www.thecocktaildb.com/api/json/v1/1/search.php?i=${ingredient}`,
     );
     const json = await resolve.json();
     return dispatch(addCocktail(json));
@@ -29,6 +29,17 @@ export function fetchCocktailByName(name) {
     dispatch(requestingData());
     const resolve = await fetch(
       `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`,
+    );
+    const json = await resolve.json();
+    return dispatch(addCocktail(json));
+  };
+}
+
+export function fetchDrinkByCategory(category) {
+  return async (dispatch) => {
+    dispatch(requestingData());
+    const resolve = await fetch(
+      `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`,
     );
     const json = await resolve.json();
     return dispatch(addCocktail(json));
