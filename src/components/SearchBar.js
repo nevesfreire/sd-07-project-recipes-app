@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 function SearchBar({ theFetch }) {
   const [searchType, setSearchType] = useState();
@@ -6,7 +7,7 @@ function SearchBar({ theFetch }) {
 
   function handleClick() {
     const um = 1;
-    if (searchInput.length > um) {
+    if (searchInput.length > um && searchType === 'first-letter') {
       alert('Sua busca deve conter somente 1 (um) caracter');
     }
     theFetch(searchInput, searchType);
@@ -15,7 +16,6 @@ function SearchBar({ theFetch }) {
   return (
     <div>
       <input
-        value={ searchInput }
         onChange={ ({ target }) => setSearchInput(target.value) }
         data-testid="search-input"
       />
@@ -58,5 +58,9 @@ function SearchBar({ theFetch }) {
       </button>
     </div>);
 }
+
+SearchBar.propTypes = {
+  theFetch: PropTypes.func.isRequired,
+};
 
 export default SearchBar;
