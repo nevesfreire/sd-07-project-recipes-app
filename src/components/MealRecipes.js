@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchRecipes } from '../actions';
+import { fetchRecipes, changeFetching } from '../actions';
 import '../css/food.css';
 
 class MealRecipes extends Component {
   componentDidMount() {
-    const { requestRecipes, endPoint } = this.props;
+    const { requestRecipes, endPoint, isFetching } = this.props;
+    isFetching();
     requestRecipes(endPoint);
   }
 
@@ -41,6 +42,7 @@ class MealRecipes extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   requestRecipes: (endPoint) => dispatch(fetchRecipes(endPoint)),
+  isFetching: () => dispatch(changeFetching()),
 });
 
 const mapStateToProps = ({ recipes }) => ({
