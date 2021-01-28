@@ -3,7 +3,7 @@ const auxFunc = (term, type, url) => {
     if (type === 'i') {
       return `${url}filter.php?${type}=${term}`;
     } if (type === 'f' && term.length > 1) {
-      alert('Sua busca deve conter somente 1 (um) caracter');
+      // alert('Sua busca deve conter somente 1 (um) caracter');
     } else {
       return `${url}search.php?${type}=${term}`;
     }

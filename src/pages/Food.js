@@ -1,9 +1,13 @@
 import React from 'react';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 function Food() {
   return (
-    <Header title="Comidas" isSearchable />
+    <div>
+      <Header title="Comidas" isSearchable />
+      <Footer />
+    </div>
   );
 }
 export default Food;
