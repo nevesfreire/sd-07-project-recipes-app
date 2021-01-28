@@ -13,7 +13,7 @@ class Login extends Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.verifyEmailName = this.verifyEmailName.bind(this);
+    this.verifyEmailAndPassword = this.verifyEmailAndPassword.bind(this);
   }
 
   handleSubmit() {
@@ -32,7 +32,7 @@ class Login extends Component {
     this.setState({ [name]: value });
   }
 
-  verifyEmailName() {
+  verifyEmailAndPassword() {
     const { email, password } = this.state;
     const minLength = 6;
     const re = /\S+@\S+\.\S+/;
@@ -47,7 +47,7 @@ class Login extends Component {
           <label htmlFor="email">
             Email
             <input
-              placeholder="Email"
+              placeholder="Digite seu email"
               data-testid="email-input"
               value={ email }
               onChange={ this.handleChange }
@@ -57,9 +57,9 @@ class Login extends Component {
           <label htmlFor="password">
             Senha
             <input
-              placeholder="Nome"
+              placeholder="Digite sua senha"
               data-testid="password-input"
-              type="text"
+              type="password"
               value={ password }
               onChange={ this.handleChange }
               name="password"
@@ -69,7 +69,7 @@ class Login extends Component {
         <button
           type="button"
           data-testid="login-submit-btn"
-          disabled={ !this.verifyEmailName() }
+          disabled={ !this.verifyEmailAndPassword() }
           onClick={ this.handleSubmit }
         >
           Entrar
