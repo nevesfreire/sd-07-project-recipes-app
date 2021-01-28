@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useValideEmailAndPassword, useLocalStorage } from '../hooks';
-import { SUBMIT_EMAIL } from '../reducers/userReducer';
+import { SUBMIT_EMAIL } from '../reducers';
 import { CupNodesContext } from '../contexts';
 
 const initialState = { email: '', password: '' };
