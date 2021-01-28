@@ -1,4 +1,4 @@
-import { GET_INGREDIENTS, GET_NAME, GET_FIRST_LETTER } from './actions';
+import { GET_INGREDIENTS, GET_NAME, GET_FIRST_LETTER } from './actionsComidas';
 
 const initialState = {
   recipesByIngredients: [],
@@ -6,7 +6,7 @@ const initialState = {
   recipesWithLetter: [],
 };
 
-function reducer(state = initialState, action) {
+function reducerComidas(state = initialState, action) {
   switch (action.type) {
   case GET_INGREDIENTS:
     return {
@@ -28,4 +28,4 @@ function reducer(state = initialState, action) {
   }
 }
 
-export default reducer;
+export default reducerComidas;
