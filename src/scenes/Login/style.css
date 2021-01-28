@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap') ;
+
+body {
+  background: url('../../images/mountain.jpg') no-repeat center center fixed;
+  background-size: cover;
+  font-family: Roboto , sans-serif;
+}
+
+.main-section {
+  margin: 0 auto;
+  margin-top: 130px;
+  padding: 0;
+}
+
+.modal-content {
+  background-color: #3b4652;
+  box-shadow: 0 0 3px #848484;
+  opacity: 0.95;
+  padding: 0 18px;
+}
+
+.logo-img {
+  margin-bottom: 35px;
+  margin-top: -50px;
+}
+
+.logo-img img {
+  border-radius: 5px;
+  box-shadow: 0 0 2px #3b4652;
+  height: 100px;
+  width: 100px;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-group input {
+  border: 0;
+  border-radius: 5px;
+  font-size: 18px;
+  height: 42px;
+}
+
+button {
+  margin: 5px 0 25px;
+  width: 40%;
+}
+
+.btn {
+  background-color: #27c2a5;
+  border-bottom: 4px solid #219882;
+  border-radius: 5px;
+  color: white;
+  font-size: 19px;
+  font-weight: 500;
+  padding: 7px 14px;
+}
+
+.btn:hover, .btn:focus {
+  background-color: #25a890;
+  border-bottom: 4px solid  #25a890;
+  color: white;
+}
+
+.forgot {
+  padding: 5px 0 25px;
+}
+
+.forgot a {
+  color: #c2fbfe;
+}
