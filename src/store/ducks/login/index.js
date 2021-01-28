@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // Neste arquivo sera definido o Reducer (o que cada acao ira realizar):
 // Exemplo:
 
@@ -22,9 +23,17 @@ const authReducer = (state = INITIAL_STATE, action) => {
   // Cada 'case' traz o tipo da action, conforme definido e o seu retorno.
   case AuthTypes.LOGOUT:
     return { ...state, isLogged: false, currentUser: {} };
+=======
+const INITIAL_STATE = { email: '' };
+
+const userReducer = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
+  case 'EMAIL':
+    return { email: action.email };
+>>>>>>> 9377cce30b0885da3044cf40103827911c71c9f6
   default:
     return state;
   }
 };
 
-export default authReducer;
+export default userReducer;

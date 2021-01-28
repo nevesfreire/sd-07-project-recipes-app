@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import { HeaderS } from '../../components';
 
-class TelaPrincipalReceitasBebidas extends Component {
+class ExplorarComidasLoc extends Component {
   render() {
-    const title = 'Bebidas';
+    const title = 'Explorar Origem';
     return (
       <div>
         <HeaderS title={ title } />
-
       </div>
     );
   }
 }
 
-export default TelaPrincipalReceitasBebidas;
+export default ExplorarComidasLoc;
