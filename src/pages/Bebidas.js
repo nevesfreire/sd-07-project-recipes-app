@@ -1,7 +1,16 @@
 import React from 'react';
+import Header from '../Components/Header';
+import CardsDrinks from '../Components/CardsDrinks';
 
 function Bebidas() {
-  return <p>AQUI É Bebidas</p>;
+  const isTruth = true;
+  return (
+    <div>
+      <Header text="Bebidas" search={ isTruth } />
+      <p>AQUI É Bebidas</p>
+      <CardsDrinks />
+    </div>
+  );
 }
 
 export default Bebidas;

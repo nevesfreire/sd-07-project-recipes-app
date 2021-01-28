@@ -1,7 +1,14 @@
 import React from 'react';
+import Header from '../Components/Header';
 
 function ExplorarComidasArea() {
-  return <p>AQUI É O explorar comidas Area</p>;
+  const isTrue = true;
+  return (
+    <div>
+      <Header text="Explorar Origem" search={ isTrue } />
+      <p>AQUI É Explorar por área</p>
+    </div>
+  );
 }
 
 export default ExplorarComidasArea;
