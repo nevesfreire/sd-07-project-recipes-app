@@ -23,10 +23,16 @@ function Provider({ children }) {
     });
   };
 
-  const handlerClick = async () => {
+  const handlerClick = async ({ target }) => {
+    const { value } = target;
     const { term, type } = fields;
-    const { meals } = await mealsAPI(term, type);
-    setMealsData(meals);
+    if (value === 'Comidas') {
+      const { meals } = await mealsAPI(term, type);
+      setMealsData(meals);
+    } else {
+      const { drinks } = await drinksAPI(term, type);
+      setDrinksData(drinks);
+    }
   };
 
   useEffect(() => {

@@ -1,21 +1,21 @@
-const drinkUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
-const auxFunc = (term, type) => {
+const auxFunc = (term, type, url) => {
   if (term && type) {
     if (type === 'i') {
-      return `https://www.themealdb.com/api/json/v1/1/filter.php?${type}=${term}`;
+      return `${url}filter.php?${type}=${term}`;
     } if (type === 'f' && term.length > 1) {
       alert('Sua busca deve conter somente 1 (um) caracter');
     } else {
-      return `https://www.themealdb.com/api/json/v1/1/search.php?${type}=${term}`;
+      return `${url}search.php?${type}=${term}`;
     }
   }
-  return 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  return `${url}search.php?s=`;
 };
 
 export const mealsAPI = async (term, type) => {
-  const mealUrl = auxFunc(term, type);
+  const mealUrl = 'https://www.themealdb.com/api/json/v1/1/';
+  const URL = auxFunc(term, type, mealUrl);
   try {
-    const response = await fetch(mealUrl);
+    const response = await fetch(URL);
     const dataMeal = await response.json();
     return dataMeal;
   } catch (error) {
@@ -23,9 +23,11 @@ export const mealsAPI = async (term, type) => {
   }
 };
 
-export const drinksAPI = async () => {
+export const drinksAPI = async (term, type) => {
+  const drinkUrl = 'https://www.thecocktaildb.com/api/json/v1/1/';
+  const URL = auxFunc(term, type, drinkUrl);
   try {
-    const response = await fetch(drinkUrl);
+    const response = await fetch(URL);
     const dataDrink = await response.json();
 
     return dataDrink;

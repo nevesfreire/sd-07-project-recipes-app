@@ -1,8 +1,10 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import FoodAppContext from '../context/FoodAppContext';
 
-function SearchBar() {
+function SearchBar({ title }) {
   const { handlerChange, handlerClick } = useContext(FoodAppContext);
+  console.log(title);
   return (
     <div>
       <input
@@ -49,11 +51,16 @@ function SearchBar() {
         type="button"
         data-testid="exec-search-btn"
         onClick={ handlerClick }
+        value={ title }
       >
         Buscar
       </button>
     </div>
   );
 }
+
+SearchBar.propTypes = {
+  title: PropTypes.string.isRequired,
+};
 
 export default SearchBar;
