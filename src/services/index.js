@@ -9,5 +9,6 @@ export {
   getFood,
   foodFilterByCategory,
   getSuggestedFoods,
+  getAllFoodCategories,
 } from './foodApi';
 export { getStorage, setStorage } from './localStorage';

@@ -5,7 +5,7 @@ import {
   drinkFilteredByCategoryAction,
 } from '../redux/actions';
 
-export const getDrinkRecipes = ({ searchInput, searchRadio }) => {
+export const getDrinkRecipes = ({ searchInput = '', searchRadio = 's' }) => {
   let endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?${searchRadio}=${searchInput}`;
   if (searchRadio === 's' || searchRadio === 'f') {
     endpoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?${searchRadio}=${searchInput}`;

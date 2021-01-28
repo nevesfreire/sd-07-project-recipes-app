@@ -9,6 +9,7 @@ import {
   updateFoodIsFetching,
   allCategoriesFoodsAction,
 } from '../redux/actions/foodRecipesAction';
+import { getAllFoodCategories, getFoodRecipes } from '../services';
 
 class Foods extends Component {
   constructor() {
@@ -17,27 +18,23 @@ class Foods extends Component {
     this.redirectToRecipeDetail = this.redirectToRecipeDetail.bind(this);
     this.renderAlertError = this.renderAlertError.bind(this);
     this.renderRecipes = this.renderRecipes.bind(this);
+    this.handleCategories = this.handleCategories.bind(this);
+    this.state = {
+      mealsCategories: [],
+    };
   }
 
   componentDidMount() {
-    const { dispatchInitialCards, dispatchAllCategories } = this.props;
-    const urlForMeals = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-    const urlForAllCategories = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+    const { dispatchFoodRecipes } = this.props;
+    dispatchFoodRecipes({});
+    this.handleCategories();
+  }
 
-    const fetchMeals = async () => {
-      const requestMeals = await fetch(urlForMeals);
-      const JSONRequestMeals = await requestMeals.json();
-      dispatchInitialCards(JSONRequestMeals);
-    };
-    fetchMeals();
-
-    const fetchAllCategories = async () => {
-      const requestAllCategories = await fetch(urlForAllCategories);
-      const JSONRequestAllCAtegories = await requestAllCategories.json();
-      dispatchAllCategories(JSONRequestAllCAtegories);
-    };
-
-    fetchAllCategories();
+  async handleCategories() {
+    const { meals } = await getAllFoodCategories();
+    this.setState({
+      mealsCategories: Object.values(meals),
+    });
   }
 
   handleRecipes() {
@@ -73,13 +70,14 @@ class Foods extends Component {
   }
 
   renderCategories() {
-    const { categories } = this.props;
-    const mealsCategories = categories.meals;
+    const { dispatchFoodRecipes } = this.props;
+    const { mealsCategories } = this.state;
     const MAX_LENGTH = 5;
     const INITIAL_LENGTH = 0;
     if (mealsCategories !== undefined) {
       return (
         <div>
+          <button type="button" onClick={ () => dispatchFoodRecipes({}) }> All </button>
           { mealsCategories.slice(INITIAL_LENGTH, MAX_LENGTH)
             .map((category, index) => (
               <CustomCartegory
@@ -112,6 +110,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  dispatchFoodRecipes: (searchHeader) => dispatch(getFoodRecipes(searchHeader)),
   dispatchAllCategories: (allCategories) => {
     dispatch(allCategoriesFoodsAction(allCategories));
   },
@@ -122,11 +121,9 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Foods.propTypes = {
-  categories: PropTypes.arrayOf(PropTypes.object).isRequired,
+  dispatchFoodRecipes: PropTypes.func.isRequired,
   dispatchUpdateFoodIsFetching: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
-  dispatchInitialCards: PropTypes.func.isRequired,
-  dispatchAllCategories: PropTypes.func.isRequired,
   meals: PropTypes.shape({
     length: PropTypes.number.isRequired,
     slice: PropTypes.func.isRequired,

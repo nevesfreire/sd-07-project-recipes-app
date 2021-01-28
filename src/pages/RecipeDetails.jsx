@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { CustomCardSuggested } from '../components';
 import { getFood, getDrink, getSuggestedFoods, getSuggestedDrinks } from '../services';
 
@@ -44,10 +45,12 @@ export default class RecipeDetails extends Component {
     const MAX_INDEX = 6;
     return (
       suggestedRecipes.slice(INITIAL_INDEX, MAX_INDEX)
-        .map((recipe) => (
+        .map((recipe, index) => (
           <CustomCardSuggested
+            index={ index }
             key={ recipe[`id${sufixeRecipe}`] }
             thumb={ recipe[`str${sufixeRecipe}Thumb`] }
+            title={ recipe[`str${sufixeRecipe}`] }
           />))
     );
   }
@@ -137,9 +140,20 @@ export default class RecipeDetails extends Component {
           allow-fullscreen
           title="video"
         /> }
-        <div data-testid="${index}-recomendation-card">{ this.getSuggestedRecipes() }</div>
+        <div>
+          { this.getSuggestedRecipes() }
+        </div>
         <button type="button" data-testid="start-recipe-btn"> START RECIPE </button>
       </div>
     );
   }
 }
+
+RecipeDetails.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+    }).isRequired,
+    path: PropTypes.string.isRequired,
+  }).isRequired,
+};
