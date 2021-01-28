@@ -24,7 +24,7 @@ function Footer() {
   }
 
   return (
-    <div data-testid="footer" className="Footer">
+    <div data-testid="footer" className="footer">
       <button
         className="ButtonFooter"
         type="button"
@@ -33,7 +33,7 @@ function Footer() {
         src={ DrinkImage }
       >
         <img src={ DrinkImage } alt="drink-img" />
-        bebidas
+        Bebidas
       </button>
       <button
         className="bottonFooter"
@@ -43,7 +43,7 @@ function Footer() {
         src={ ExploreImage }
       >
         <img src={ ExploreImage } alt="explore-img" />
-        explorar
+        Explorar
       </button>
       <button
         className="buttonFooter"
