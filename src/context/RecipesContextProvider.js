@@ -9,7 +9,6 @@ function RecipesContextProvider({ children }) {
   const [firstTwelveRecipes, setFirstTwelveRecipes] = useState([]);
   const twelve = 12;
   const zero = 0;
-  // const five = 5;
   useEffect(() => {
     if (globalRecipes.drinks !== undefined) {
       setIsFetching(false);

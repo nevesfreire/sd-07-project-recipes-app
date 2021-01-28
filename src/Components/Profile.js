@@ -4,16 +4,12 @@ import { Link } from 'react-router-dom';
 function Profile() {
   const [userEmail, setUserEmail] = useState('');
 
-  // const getUserEmail = () => {
-  //   const { email } = JSON.parse(window.localStorage.getItem('user'));
-  //   // console.log(email);
-  //   return email;
-  // };
-
   useEffect(() => {
     const profileEmail = window.localStorage.getItem('user');
-    const { email } = JSON.parse(profileEmail);
-    setUserEmail(email);
+    if (profileEmail) {
+      const { email } = JSON.parse(profileEmail);
+      setUserEmail(email);
+    }
   }, []);
 
   const clearLocalStorage = () => {

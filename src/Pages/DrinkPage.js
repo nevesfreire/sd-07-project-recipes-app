@@ -19,23 +19,12 @@ function DrinkPage() {
   const twelve = 12;
   const zero = 0;
   const five = 5;
-  // useEffect(() => {
-  //   if (globalRecipes.drinks !== undefined) {
-  //     setIsFetching(false);
-  //     if (globalRecipes.drinks !== null && globalRecipes.drinks.length === 1) {
-  //       setIsOnlyOne(true);
-  //     } else if (globalRecipes.drinks !== null) {
-  //       setFirstTwelveRecipes(globalRecipes.drinks.slice(zero, twelve));
-  //     }
-  //   }
-  // }, [globalRecipes]);
 
   useEffect(() => {
     if (!globalRecipes.drinks && !filtered) {
       const fetchDrinks = async () => {
         const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
         const drinks = await response.json();
-        // console.log(drinks);
         setFirstTwelveRecipes(drinks.drinks.slice(zero, twelve));
         setIsFetching(false);
       };

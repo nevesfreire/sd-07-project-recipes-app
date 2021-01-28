@@ -19,16 +19,6 @@ function FoodPage() {
   const twelve = 12;
   const zero = 0;
   const five = 5;
-  // useEffect(() => {
-  //   if (globalRecipes.meals !== undefined) {
-  //     setIsFetching(false);
-  //     if (globalRecipes.meals !== null && globalRecipes.meals.length === 1) {
-  //       setIsOnlyOne(true);
-  //     } else if (globalRecipes.meals !== null) {
-  //       setFirstTwelveRecipes(globalRecipes.meals.slice(zero, twelve));
-  //     }
-  //   }
-  // }, [globalRecipes]);
 
   useEffect(() => {
     if (!globalRecipes.meals && !filtered) {
@@ -48,13 +38,6 @@ function FoodPage() {
       fetchCategories();
     }
   }, [filtered]);
-
-  // const filterByCategory = async (category) => {
-  //   const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
-  //   const filteredMeals = await response.json();
-  //   setFirstTwelveRecipes(filteredMeals.meals.slice(zero, twelve));
-  //   setIsFetching(false);
-  // };
 
   const filterByCategory = async (category) => {
     if (!filtered || filter !== category) {
