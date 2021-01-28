@@ -29,7 +29,6 @@ class PrincipalComidas extends Component {
               alt="imagem da receita"
             />
             <h1 data-testid={ `${index}-card-name` }>{receita.strMeal}</h1>
-            <h3>{`tags: ${receita.strTags}`}</h3>
           </div>
         )));
       }
