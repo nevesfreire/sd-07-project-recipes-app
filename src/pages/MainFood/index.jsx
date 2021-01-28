@@ -1,16 +1,33 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Header, Footer } from '../../components';
+import { RecipesContext } from '../../context';
+import { Header, Footer, RecipeCard } from '../../components';
 
 export default function MainFood({ history }) {
-  const cardsIndex = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-  console.log(cardsIndex);
+  const { setMeals, meals } = useContext(RecipesContext);
+
+  const fetchRandomFoods = async () => {
+    try {
+      const URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+      const foods = await fetch(URL).then(response => response.json());
+      setMeals(foods.meals);
+    }
+    catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchRandomFoods();
+  }, [])
+
   return (
     <div>
       <Header history={ history } title="Comidas" />
       <main>
         {
-          cardsIndex.map(index => <RecipeCard key={index} id={index} />)
+          meals.filter((_, index) => index < 12 )
+            .map((meal, index) => <RecipeCard key={index} id={index} meal={meal} />)
         }
       </main>
       <Footer />

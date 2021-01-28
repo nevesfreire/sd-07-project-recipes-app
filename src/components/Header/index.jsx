@@ -20,10 +20,10 @@ export default function Header({ history, title }) {
       return (
         <button
           type="button"
-          onClick={ handleSearchBar }
+          onClick={handleSearchBar}
         >
           <img
-            src={ searchIcon }
+            src={searchIcon}
             alt="search icon"
             data-testid="search-top-btn"
           />
@@ -33,20 +33,22 @@ export default function Header({ history, title }) {
     return '';
   };
   return (
-    <header className="header">
-      <Link to="/perfil">
-        <img
-          src={ profileIcon }
-          alt="profile icon"
-          data-testid="profile-top-btn"
-        />
-      </Link>
-      <h1 data-testid="page-title">{ title }</h1>
-      <div>
-        { isSearchPresent() }
-      </div>
-      {searchBarVisible && <SearchBar />}
-    </header>
+    <div>
+      <header className="header">
+        <Link to="/perfil">
+          <img
+            src={ profileIcon }
+            alt="profile icon"
+            data-testid="profile-top-btn"
+          />
+        </Link>
+        <h1 data-testid="page-title">{ title }</h1>
+        <div>
+          { isSearchPresent() }
+        </div>
+      </header>
+      { searchBarVisible && <SearchBar /> }
+    </div>
   );
 }
 
