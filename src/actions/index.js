@@ -2,6 +2,12 @@ export const EMAIL = 'EMAIL';
 export const RECEIVED_RECIPES = 'RECEIVED_RECIPES';
 export const ERROR = 'ERROR';
 export const RECEIVED_CATEGORIES = 'RECEIVED_CATEGORIES';
+export const SEARCH_INPUT = 'SEARCH_INPUT';
+
+export const sendSearchInput = (value) => ({
+  type: SEARCH_INPUT,
+  value,
+});
 
 export const sendEmail = (email) => ({
   type: EMAIL,
