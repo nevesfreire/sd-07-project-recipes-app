@@ -15,7 +15,7 @@ class Perfil extends Component {
           <h4 data-testid="profile-email">
             {
               obje
-                ? obje.eamil
+                ? obje.email
                 : <h1>sem email</h1>
             }
           </h4>
