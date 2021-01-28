@@ -17,7 +17,7 @@ function Explore() {
     <div>
       <Header />
       <FlexContainer>
-        <ButtonLarge data-testid="explore-food">Explorar Comidas</ButtonLarge> 
+        <ButtonLarge data-testid="explore-food">Explorar Comidas</ButtonLarge>
         <ButtonLarge data-testid="explore-drinks">Explorar Bebidas</ButtonLarge>
       </FlexContainer>
       <Footer />
