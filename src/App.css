@@ -38,13 +38,13 @@
 }
 
 .footer {
-  display: flex;
   bottom: 0;
+  display: flex;
   justify-content: space-around;
   margin: 12px;
   position: fixed;
-  width: 90%;
   text-align: center;
+  width: 90%;
 }
 
 @keyframes shake {
