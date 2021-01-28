@@ -1,9 +1,9 @@
 import React, { useEffect, useContext, useState } from 'react';
-import PropTypes from 'prop-types';
 import { RecipesContext } from '../../context';
 import { Header, Footer, RecipeCard, Category } from '../../components';
+import './MainFood.css';
 
-export default function MainFood({ history }) {
+export default function MainFood() {
   const {
     setMeals,
     meals,
@@ -39,7 +39,7 @@ export default function MainFood({ history }) {
 
   return (
     <div>
-      <Header history={ history } title="Comidas" />
+      <Header title="Comidas" />
       <main>
         <div>
           {
@@ -49,16 +49,14 @@ export default function MainFood({ history }) {
               ))
           }
         </div>
-        {
-          meals.filter((_, index) => index < twelve)
-            .map((meal, index) => <RecipeCard key={ index } id={ index } meal={ meal } />)
-        }
+        <div className="cards-container">
+          {
+            meals.filter((_, index) => index < twelve)
+              .map((meal, index) => <RecipeCard key={ index } id={ index } meal={ meal } />)
+          }
+        </div>
       </main>
       <Footer />
     </div>
   );
 }
-
-MainFood.propTypes = {
-  history: PropTypes.shape().isRequired,
-};

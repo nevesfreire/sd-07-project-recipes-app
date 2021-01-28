@@ -1,9 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { Header, Footer, RecipeCard, Category } from '../../components';
 import { RecipesContext } from '../../context';
 
-export default function MainDrink({ history }) {
+export default function MainDrink() {
   const {
     setDrinks,
     drinks,
@@ -39,7 +38,7 @@ export default function MainDrink({ history }) {
 
   return (
     <div>
-      <Header history={ history } title="Bebidas" />
+      <Header title="Bebidas" />
       <main>
         <div>
           {
@@ -62,7 +61,3 @@ export default function MainDrink({ history }) {
     </div>
   );
 }
-
-MainDrink.propTypes = {
-  history: PropTypes.shape().isRequired,
-};

@@ -1,16 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Header, Footer } from '../../components';
 
-export default function Profile({ history }) {
+export default function Profile() {
   return (
     <div>
-      <Header history={ history } title="Perfil" />
+      <Header title="Perfil" />
       <Footer />
     </div>
   );
 }
-
-Profile.propTypes = {
-  history: PropTypes.shape().isRequired,
-};

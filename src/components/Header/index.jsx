@@ -1,19 +1,21 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import RecipesContext from '../../context/RecipesContext';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
 import SearchBar from '../SearchBar';
 
-export default function Header({ history, title }) {
+export default function Header({ title }) {
   const { searchBarVisible, setSearchBarVisible } = useContext(RecipesContext);
   const handleSearchBar = () => {
     setSearchBarVisible(!searchBarVisible);
   };
+  const { location } = useHistory();
+  // console.log(historyTest);
 
   const isSearchPresent = () => {
-    const { location: { pathname } } = history;
+    const { pathname } = location;
     if (pathname === '/comidas'
       || pathname === '/bebidas'
       || pathname === '/explorar/comidas/area') {
@@ -53,10 +55,5 @@ export default function Header({ history, title }) {
 }
 
 Header.propTypes = {
-  history: PropTypes.shape({
-    location: PropTypes.shape({
-      pathname: PropTypes.string.isRequired,
-    }),
-  }).isRequired,
   title: PropTypes.string.isRequired,
 };
