@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { getIngredients } from '../../redux/actions';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { resultIngredients } from '../../redux/actions';
 
 class BarraBusca extends Component {
   constructor() {
@@ -10,12 +12,16 @@ class BarraBusca extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange({ target: { name, value } }) {
-    this.setState({ [name]: value });
+  handleChange({ target }) {
+    const { name, value } = target;
+    this.setState({
+      [name]: value,
+    });
   }
 
   render() {
     const { busca } = this.state;
+    const { getIngredient } = this.props;
     return (
       <div>
         <label htmlFor="busca">
@@ -31,33 +37,39 @@ class BarraBusca extends Component {
         <label htmlFor="ingredient">
           Nome
           <input
-            name="select-search"
+            name="select"
             id="ingredient"
             type="radio"
             data-testid="ingredient-search-radio"
+            value="nome"
+            onChange={ this.handleChange }
           />
         </label>
         <label htmlFor="name">
           Ingrediente
           <input
-            name="select-search"
+            name="select"
             type="radio"
             data-testid="name-search-radio"
+            value="ingrediente"
+            onChange={ this.handleChange }
           />
         </label>
         <label htmlFor="letter">
           Primeira letra
           <input
-            name="select-search"
+            name="select"
             type="radio"
             data-testid="first-letter-search-radio"
+            value="letra"
+            onChange={ this.handleChange }
           />
         </label>
         <button
           type="button"
           id="botão"
           data-testid="exec-search-btn"
-          onClick={ getIngredients('chicken_breast') }
+          onClick={ getIngredient(busca) }
         >
           Buscar
         </button>
@@ -66,4 +78,12 @@ class BarraBusca extends Component {
   }
 }
 
-export default BarraBusca;
+const mapDispatchToProps = (dispatch) => ({
+  getIngredient: (ingredient) => dispatch(resultIngredients(ingredient)),
+});
+
+export default connect(null, mapDispatchToProps)(BarraBusca);
+
+BarraBusca.propTypes = {
+  getIngredient: PropTypes.func.isRequired,
+};
