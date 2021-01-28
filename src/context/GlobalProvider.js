@@ -1,28 +1,34 @@
 import React, { useState } from 'react';
-import { initialState } from '../data/dataLogin';
+import PropTypes from 'prop-types';
+import initialState from '../data/dataLogin';
 import GlobalContext from './GlobalContext';
 
 export default function Provider(props) {
-  const [state, setState] = useState(initialState)
-
+  const [state, setState] = useState(initialState);
+  const { children } = props;
   function updateState(key, value) {
-    setState({
-      ...state,
+    setState((prevState) => ({
+      ...prevState,
       [key]: value,
-    });
+    }));
   }
 
   return (
-    <GlobalContext.Provider value={{
+    <GlobalContext.Provider
+      value={ {
         email: state.email,
         statusEmail: state.validatedEmail,
-        statusPassword: state.validatedEmail,
-        setEmail: text => updateState('email', text),
-        setPassword: text => updateState('password', text),
+        statusPassword: state.validatedPassword,
+        setEmail: (text) => updateState('email', text),
         validEmail: () => updateState('validatedEmail', true),
         validPassword: () => updateState('validatedPassword', true),
-    }}>
-      {props.children}
+      } }
+    >
+      { children }
     </GlobalContext.Provider>
   );
 }
+
+Provider.propTypes = {
+  children: PropTypes.shape().isRequired,
+};
