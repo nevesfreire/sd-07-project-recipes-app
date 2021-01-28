@@ -3,16 +3,20 @@ import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
 
 function Provider({ children }) {
-  // const retrieveEmail = () => {
-  // const storageEmail = JSON.parse(localStorage.getItem('user'));
-  // return storageEmail === undefined ? '' : storageEmail.email;
-  // };
-
-  const [userEmail, setUserEmail] = useState('');
+  const [mealRecipeId, setMealRecipeId] = useState('52771');
+  const [drinkRecipeId, setDrinkRecipeId] = useState('178319');
+  const [recipeDetailFood, setRecipeDetailFood] = useState({});
+  const [recipeDetailDrink, setRecipeDetailDrink] = useState({});
 
   const context = {
-    userEmail,
-    setUserEmail,
+    mealRecipeId,
+    drinkRecipeId,
+    recipeDetailFood,
+    recipeDetailDrink,
+    setMealRecipeId,
+    setDrinkRecipeId,
+    setRecipeDetailFood,
+    setRecipeDetailDrink,
   };
 
   return (
