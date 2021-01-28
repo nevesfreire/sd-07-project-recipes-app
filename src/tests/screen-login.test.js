@@ -5,7 +5,7 @@ import { createBrowserHistory } from 'history';
 import userEvent from '@testing-library/user-event';
 
 import App from '../App';
-import Principal from '../components/Principal';
+import Food from '../pages/Food';
 
 const email = 'email-input';
 const senha = 'password-input';
@@ -168,6 +168,6 @@ describe('8 - Redirecione a pessoa usuária para a tela principal', () => {
     userEvent.type('1234567');
     fireEvent.click(button);
 
-    expect(render(<Principal />)).toBe(renderPath('/comidas'));
+    expect(render(<Food />)).toBe(renderPath('/comidas'));
   });
 });

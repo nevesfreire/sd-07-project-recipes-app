@@ -1,0 +1,11 @@
+export { default as Login } from './Login';
+export { default as Food } from './Food';
+export { default as Drinks } from './Drinks';
+export { default as Explore } from './Explore';
+export { default as ExploreFoods } from './ExploreFoods';
+export { default as ExploreDrinks } from './ExploreDrinks';
+export { default as ExploreByIngredients } from './ExploreByIngredients';
+export { default as ExploreByArea } from './ExploreByArea';
+export { default as Profile } from './Profile';
+export { default as DoneRecipes } from './DoneRecipes';
+export { default as FavoriteRecipes } from './FavoriteRecipes';
