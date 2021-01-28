@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap') ;
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +12,56 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.footer {
+  align-items: center;
+  background: #C4C4C4;
+  bottom: 0px;
+  display: flex;
+  height: 58px;
+  justify-content: space-around;
+  left: 0px;
+  position: fixed;
+  top: 467px;
+  width: 100%;
+}
+
+.drinks__btn {
+  background-image: url('./images/drinkIcon.svg');
+  height: 40px;
+  width: 40px;
+}
+
+.explore__btn {
+  background-image: url('./images/exploreIcon.svg');
+  height: 40px;
+  width: 40px;
+}
+
+.food__btn {
+  background-image: url('./images/mealIcon.svg');
+  height: 40px;
+  width: 40px;
+}
+
+.header {
+  align-items: center;
+  background: #c4c4c4;
+  display: flex;
+  flex-direction: row;
+  height: 58px;
+  justify-content: space-around;
+  position: absolute;
+  width: 100%;
+}
+
+.header p {
+  color: black;
+  font-family: Roboto, sans-serif;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 35px;
+  margin-top: 10px;
 }
