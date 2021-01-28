@@ -57,9 +57,9 @@ const renderSearchRecipeComponent = (pathname, toggleSearch, title) => (
 );
 
 // ? Header ({componentConfig})
-export default function Header({ pathname }) {
+export default function Header({ pathname, componentConfig }) {
   const [toggleSearch, setToggleSearch] = useState(false);
-  const { title, profileButton, searchButton } = props;
+  const { title, profileButton, searchButton } = componentConfig;
 
   const render = () => (
     <div className="header">
