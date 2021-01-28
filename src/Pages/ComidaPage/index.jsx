@@ -1,7 +1,11 @@
 import React from 'react';
+import Footer from '../../Components/Footer/Footer';
 
 const ComidaPage = () => (
-  <h1>Pagina de Comida</h1>
+  <div>
+    <h1>Pagina de Comida</h1>
+    <Footer />
+  </div>
 );
 
 export default ComidaPage;
