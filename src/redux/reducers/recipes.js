@@ -28,7 +28,7 @@ const recipes = (state = RECIPES_INITIAL_STATE, action) => {
   case types.DRINK_RECIPES_RESULTS:
     return ({
       ...state,
-      drinkRecipes: [{ ...action.payload }],
+      drinkRecipes: [...action.payload],
     });
   default:
     return state;
