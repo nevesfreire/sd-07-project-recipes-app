@@ -1,0 +1,52 @@
+button:focus {
+  outline: 0 auto -webkit-focus-ring-color;
+  outline-offset: 0;
+}
+
+.recipe-details {
+  max-width: 640px;
+  min-height: 360px;
+}
+
+.recipe-photo {
+  width: 100%;
+}
+
+.recipe-header {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.recipe-title {
+  font-size: 2.5em;
+}
+
+.actions {
+  align-items: center;
+  display: flex;
+}
+
+.action-button {
+  background-color: transparent;
+  border: none;
+  margin-left: 5px;
+}
+
+.recipe-category {
+  color: #757575;
+}
+
+.start-btn {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.start-recipe-btn {
+  background-color: #f80;
+  border: none;
+  border-radius: 20px;
+  height: 40px;
+  width: 200px;
+}
