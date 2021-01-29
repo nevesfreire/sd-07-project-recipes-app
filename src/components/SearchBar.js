@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import apiTheCocktailDB from '../services/apiTheCocktailDB';
 import apiTheMealDB from '../services/apiTheMealDB';
 import { sendDrinkRecipes, sendMealRecipes } from '../redux/actions';
@@ -13,12 +12,9 @@ class SearchBar extends React.Component {
       searchType: '',
       searchText: '',
       searchParam: '',
-      // meals: [],
-      // drinks: [],
     };
     this.handleSearch = this.handleSearch.bind(this);
     this.submitSearch = this.submitSearch.bind(this);
-    // this.redirectRoute = this.redirectRoute.bind(this);
   }
 
   handleSearch({ target: { value, name } }) {
@@ -49,16 +45,6 @@ class SearchBar extends React.Component {
     }
   }
 
-  // submitSearch() {
-  //   const { searchType, searchText } = this.state;
-  //   if (searchType === 'search.php?f=' && searchText.length > 1) {
-  //     // eslint-disable-next-line no-alert
-  //     return alert('Sua busca deve conter somente 1 (um) caracter');
-  //   }
-
-  //   this.callApi();
-  // }
-
   async submitSearch() {
     const { searchParam, searchType, searchText } = this.state;
     const { search, sendMealRecipesDispatch, sendDrinkRecipesDispatch } = this.props;
@@ -84,23 +70,7 @@ class SearchBar extends React.Component {
       // this.setState({ drinks: result.drinks });
       sendDrinkRecipesDispatch(result.drinks);
     }
-
-    // this.redirectRoute();
   }
-
-  // redirectRoute() {
-  //   const { meals, drinks } = this.state;
-  //   const { history } = this.props;
-  //   if (meals.length === 1) {
-  //     const { idMeal } = meals[0];
-  //     return history.push(`/comidas/${idMeal}`);
-  //   }
-
-  //   if (drinks.length === 1) {
-  //     const { idDrink } = drinks[0];
-  //     return history.push(`/bebidas/${idDrink}`);
-  //   }
-  // }
 
   render() {
     return (
@@ -167,9 +137,6 @@ SearchBar.propTypes = {
   search: PropTypes.string.isRequired,
   sendMealRecipesDispatch: PropTypes.func.isRequired,
   sendDrinkRecipesDispatch: PropTypes.func.isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
 };
 
-export default withRouter(connect(null, mapDispatchToProps)(SearchBar));
+export default connect(null, mapDispatchToProps)(SearchBar);
