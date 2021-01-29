@@ -41,3 +41,14 @@ export const getCategoryFoods = () => {
       ),
   );
 };
+
+export const getRecipesFoodsByCategory = (filter) => {
+  const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${filter}`;
+  return fetch(endpoint).then((response) =>
+    response
+      .json()
+      .then((json) =>
+        response.ok ? Promise.resolve(json) : Promise.reject(json),
+      ),
+  );
+};

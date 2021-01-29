@@ -35,3 +35,14 @@ export const getCategoryDrinks = () => {
       ),
   );
 };
+
+export const getRecipesDrinksByCategory = (filter) => {
+  const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${filter}`;
+  return fetch(endpoint).then((response) =>
+    response
+      .json()
+      .then((json) =>
+        response.ok ? Promise.resolve(json) : Promise.reject(json),
+      ),
+  );
+};
