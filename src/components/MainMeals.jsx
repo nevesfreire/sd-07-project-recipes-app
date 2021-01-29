@@ -1,12 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 
 import FoodAppContext from '../context/FoodAppContext';
 import { categoryMealApi, mealsAPI } from '../services';
 import '../styles/recipes.css';
 
 function MainMeals() {
-  const { mealsData, setMealsData, showSearch } = useContext(FoodAppContext);
+  const {
+    mealsData,
+    setMealsData,
+    showSearch,
+    handleClickDetail,
+  } = useContext(FoodAppContext);
   const [mealsCategory, setMealsCategory] = useState([]);
   const [toggle, setToggle] = useState(false);
 
@@ -16,6 +22,11 @@ function MainMeals() {
     const { meals: category } = await categoryMealApi();
     setMealsCategory(category);
   }
+
+  const handleToDetail = (id) => {
+    handleClickDetail(id, 'comidas');
+    history.push(`/comidas/${id}`);
+  };
 
   useEffect(() => {
     fecthCategory();
@@ -71,7 +82,7 @@ function MainMeals() {
               key={ idMeal }
               className="div-meals"
               data-testid={ `${index}-recipe-card` }
-              onClick={ () => history.push(`/comidas/${idMeal}`) }
+              onClick={ () => handleToDetail(idMeal) }
             >
               <img
                 src={ strMealThumb }

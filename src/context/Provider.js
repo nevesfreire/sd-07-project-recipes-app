@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import FoodAppContext from './FoodAppContext';
-import { mealsAPI, drinksAPI } from '../services';
+import { mealsAPI, drinksAPI, detailApi } from '../services';
 
 function Provider({ children }) {
   const [mealsData, setMealsData] = useState([]);
   const [drinksData, setDrinksData] = useState([]);
   const [fields, setFields] = useState({ term: '', type: '' });
+  const [detailRecipe, setDetailRecipe] = useState({});
 
   const getMealsDrinks = async () => {
     const { meals } = await mealsAPI(fields.term, fields.type);
@@ -49,6 +50,12 @@ function Provider({ children }) {
     }
   };
 
+  const handleClickDetail = async (id, pathname) => {
+    const detail = await detailApi(id, pathname);
+
+    setDetailRecipe(detail);
+  };
+
   useEffect(() => {
     getMealsDrinks();
   }, []);
@@ -64,6 +71,8 @@ function Provider({ children }) {
     handlerChange,
     handlerClick,
     handlerData,
+    handleClickDetail,
+    detailRecipe,
   };
 
   return (

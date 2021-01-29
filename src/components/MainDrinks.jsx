@@ -6,7 +6,11 @@ import { categoryDrinkApi, drinksAPI } from '../services';
 import '../styles/recipes.css';
 
 function MainDrinks() {
-  const { drinksData, setDrinksData, showSearch } = useContext(FoodAppContext);
+  const {
+    drinksData,
+    setDrinksData,
+    showSearch,
+    handleClickDetail } = useContext(FoodAppContext);
   const [drinksCategory, setDrinksCategory] = useState([]);
   const [toggle, setToggle] = useState(false);
 
@@ -16,6 +20,11 @@ function MainDrinks() {
     const { drinks: category } = await categoryDrinkApi();
     setDrinksCategory(category);
   }
+
+  const handleToDetail = (id) => {
+    handleClickDetail(id, 'bebidas');
+    history.push(`/bebidas/${id}`);
+  };
 
   useEffect(() => {
     fecthCategory();
@@ -71,7 +80,7 @@ function MainDrinks() {
               key={ idDrink }
               className="div-meals"
               data-testid={ `${index}-recipe-card` }
-              onClick={ () => history.push(`/bebidas/${idDrink}`) }
+              onClick={ () => handleToDetail(idDrink) }
             >
               <img
                 src={ strDrinkThumb }
