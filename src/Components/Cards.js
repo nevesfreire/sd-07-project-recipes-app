@@ -18,7 +18,12 @@ function Cards({ card, context, index }) {
 }
 
 Cards.propTypes = {
-  card: PropTypes.arrayOf(PropTypes.object).isRequired,
+  card: PropTypes.shape({
+    strMeal: PropTypes.string,
+    strDrink: PropTypes.string,
+    strMealThumb: PropTypes.string,
+    strDrinkThumb: PropTypes.string,
+  }).isRequired,
   context: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
 };

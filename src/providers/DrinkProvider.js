@@ -32,6 +32,8 @@ const DrinkProvider = ({ children }) => {
     apiNewData();
   }, []);
 
+  const allButton = async () => setData(await RequestDrinkByName(''));
+
   const categoriesData = async ({ target: { id } }) => {
     if (repeatedButton[id]) {
       setRepeatedButton({ ...repeatedButton, [id]: !repeatedButton[id] });
@@ -96,6 +98,7 @@ const DrinkProvider = ({ children }) => {
     data,
     categories,
     categoriesData,
+    allButton,
   };
 
   return (
