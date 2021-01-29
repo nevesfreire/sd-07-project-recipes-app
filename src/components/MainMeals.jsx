@@ -40,7 +40,7 @@ function MainMeals() {
         >
           All
         </button>
-        {mealsCategory.slice(zero, cinco).map(({ strCategory }, index) => (
+        {mealsCategory && mealsCategory.slice(zero, cinco).map(({ strCategory }, index) => (
           <button
             type="button"
             key={ index }
@@ -61,7 +61,7 @@ function MainMeals() {
         ))}
       </div>
       <section className="section-meals">
-        {mealsData.slice(zero, doze).map(({ idMeal, strMeal, strMealThumb }, index) => (
+        {mealsData && mealsData.slice(zero, doze).map(({ idMeal, strMeal, strMealThumb }, index) => (
           <button
             type="button"
             key={ idMeal }

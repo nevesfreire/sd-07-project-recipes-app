@@ -39,7 +39,7 @@ function MainDrinks() {
         >
           All
         </button>
-        {drinksCategory.slice(zero, cinco).map(({ strCategory }, index) => (
+        {drinksCategory && drinksCategory.slice(zero, cinco).map(({ strCategory }, index) => (
           <button
             type="button"
             className="button-cat"
@@ -61,7 +61,7 @@ function MainDrinks() {
         ))}
       </div>
       <section className="section-meals">
-        {drinksData.slice(zero, doze).map(
+        {drinksData && drinksData.slice(zero, doze).map(
           ({ idDrink, strDrink, strDrinkThumb }, index) => (
             <button
               type="button"
