@@ -46,10 +46,9 @@ class BarraBuscaBebidas extends Component {
 
   render() {
     const { buscaBebida } = this.state;
-    const { toggle } = this.props;
     return (
       <div>
-        {toggle && <fieldset>
+        <fieldset>
           <label htmlFor="busca">
             <input
               type="text"
@@ -101,15 +100,11 @@ class BarraBuscaBebidas extends Component {
           >
             Buscar
           </button>
-        </fieldset>}
+        </fieldset>
       </div>
     );
   }
 }
-
-const mapStateToProps = (state) => ({
-  toggle: state.reducerSearchBar.toggle,
-});
 
 const mapDispatchToProps = (dispatch) => ({
   getIngredientBebida: (ingredient) => dispatch(resultIngredientsBebida(ingredient)),
@@ -117,11 +112,10 @@ const mapDispatchToProps = (dispatch) => ({
   getLetterBebida: (letter) => dispatch(resultLetterBebida(letter)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(BarraBuscaBebidas);
+export default connect(null, mapDispatchToProps)(BarraBuscaBebidas);
 
 BarraBuscaBebidas.propTypes = {
   getIngredientBebida: PropTypes.func.isRequired,
   getNameBebida: PropTypes.func.isRequired,
   getLetterBebida: PropTypes.func.isRequired,
-  toggle: PropTypes.bool.isRequired,
 };

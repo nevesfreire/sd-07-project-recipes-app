@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import userProfile from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
 import '../../App.css';
+import * as action from '../../redux/actionsSearchBar';
 
 class Header extends React.Component {
   render() {
@@ -30,7 +31,7 @@ class Header extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  toggleSearchBar: () => dispatch(toggleSearchBar()),
+  toggleSearchBar: () => dispatch(action.toggleSearchBar()),
 });
 
 Header.propTypes = {
