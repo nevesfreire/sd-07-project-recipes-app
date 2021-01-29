@@ -1,13 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Header } from '../../components';
 
-export default function FavoritesRecipes({ history }) {
+export default function FavoritesRecipes() {
   return (
-    <Header history={ history } title="Receitas Favoritas" />
+    <Header title="Receitas Favoritas" />
   );
 }
-
-FavoritesRecipes.propTypes = {
-  history: PropTypes.shape().isRequired,
-};

@@ -1,0 +1,7 @@
+button:focus {
+  border: 1px solid green;
+}
+
+button:not( :focus ) {
+  border: none;
+}
