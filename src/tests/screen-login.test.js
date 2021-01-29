@@ -147,12 +147,12 @@ describe('7 - Salve o e-mail da pessoa usuária no localStorage na chave user', 
 
     expect(localStorage.getItem('user')).toBe(null);
 
-    userEvent.type(screen.getByTestId(email), emails1);
-    userEvent.type(screen.getByTestId(senha), '1234567');
+    userEvent.type(screen.findByTestId(email), emails1);
+    userEvent.type(screen.findByTestId(senha), '1234567');
 
     localStorage.setItem('user', JSON.stringify({ email: emails2 }));
 
-    expect(JSON.parse(localStorage.getItem('user'))).toBe({ email: 'email@mail.com' });
+    expect(JSON.parse(localStorage.getItem('user'))).toBeContain({ email: emails2 });
   });
 });
 
@@ -161,7 +161,7 @@ describe('8 - Redirecione a pessoa usuária para a tela principal', () => {
     render(<App />);
     beforeEach(() => localStorage.clear());
 
-    expect(button).toBeDisabled();
+    expect(screen.findByTestId(buttons)).toBeDisabled();
     expect(localStorage.getItem('user')).toBe(null);
 
     userEvent.type(emails2);

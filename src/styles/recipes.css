@@ -1,0 +1,52 @@
+.div-category {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: auto;
+}
+
+.div-category button {
+  background-color: #be1003;
+  border: none;
+  color: aliceblue;
+  font-size: 12pt;
+  margin-left: 10px;
+  margin-top: 15px;
+  padding: 5px 10px;
+  width: 15%;
+}
+
+
+.div-meals {
+  border: 1px solid black;
+  border-radius: 10px;
+  border-style: none;
+  box-shadow: 0 3px 30px rgba(0, 0, 0, 0.078);
+  display: flex;
+  flex-direction: column;
+  height: 172px;
+  justify-content: space-around;
+  margin: auto;
+  margin-top: 10px;
+  width: 161px;
+}
+
+.div-meals img {
+  border-radius: 10px 10px 0 0;
+  height: 109px;
+  width: 161px;
+}
+
+.div-meals p {
+  margin: auto;
+}
+
+.section-meals {
+  align-self: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: auto;
+  margin-top: 20px;
+  width: 80%;
+}
