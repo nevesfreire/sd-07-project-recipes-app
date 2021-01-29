@@ -16,34 +16,12 @@ export default function Foods() {
   const numberOfCards = 12;
 
   useEffect(() => {
-    let ignore = false;
-    function fetchFoodList() {
-      fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
-        .then((response) => response.json())
-        .then(({ meals }) => {
-          const filter = () => {
-            const filteredResponse = [];
-            if (meals !== null) {
-              Object.entries(meals).forEach((meal, index) => {
-                if (index < numberOfCards) {
-                  const { strMeal, strMealThumb } = meal[1];
-                  filteredResponse.push({ name: strMeal, image: strMealThumb });
-                }
-              });
-            }
-            return filteredResponse;
-          };
-          if (!ignore) setDataFoods(filter());
-        }, []);
-    }
-
-    fetchFoodList();
-    return () => { ignore = true; };
+    setDataFoods();
   }, [setDataFoods]);
 
   return (
     <Container>
-      {/* <FoodCategories /> */}
+      <FoodCategories />
       {Cards(numberOfCards, dataFoods)}
       <Footer />
     </Container>

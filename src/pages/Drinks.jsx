@@ -6,6 +6,7 @@ import { FoodsDrinks } from './style';
 import DrinkCategories from '../components/categories/DrinkCategories';
 
 const { Container } = FoodsDrinks;
+
 export default function Drinks() {
   const {
     setDataDrinks,
@@ -15,34 +16,12 @@ export default function Drinks() {
   const numberOfCards = 12;
 
   useEffect(() => {
-    let ignore = false;
-    function fetchDrinkList() {
-      fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
-        .then((response) => response.json())
-        .then(({ drinks }) => {
-          const filter = () => {
-            const filteredResponse = [];
-            if (drinks !== null) {
-              Object.entries(drinks).forEach((drink, index) => {
-                if (index < numberOfCards) {
-                  const { strDrink, strDrinkThumb } = drink[1];
-                  filteredResponse.push({ name: strDrink, image: strDrinkThumb });
-                }
-              });
-            }
-            return filteredResponse;
-          };
-          if (!ignore) setDataDrinks(filter());
-        }, []);
-    }
-
-    fetchDrinkList();
-    return () => { ignore = true; };
+    setDataDrinks();
   }, [setDataDrinks]);
 
   return (
     <Container>
-      {/* <DrinkCategories /> */}
+      <DrinkCategories />
       {Cards(numberOfCards, dataDrinks)}
       <Footer />
     </Container>
