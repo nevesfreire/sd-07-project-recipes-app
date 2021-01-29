@@ -31,3 +31,15 @@ export const fetchSearchDrinkLetter = async (inputSearch) => {
   const { drinks } = await fetch(endpoint).then((response) => response.json());
   return drinks;
 };
+
+export const fetchMealSurprise = async () => {
+  const endpoint = 'https://www.themealdb.com/api/json/v1/1/random.php';
+  const { meals } = await fetch(endpoint).then((response) => response.json());
+  return meals;
+};
+
+export const fetchDrinkSurprise = async () => {
+  const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+  const { drinks } = await fetch(endpoint).then((response) => response.json());
+  return drinks;
+};

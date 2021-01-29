@@ -8,6 +8,8 @@ import {
   fetchSearchDrinkIngredient,
   fetchSearchDrinkName,
   fetchSearchDrinkLetter,
+  fetchMealSurprise,
+  fetchDrinkSurprise,
 } from '../services/api';
 
 function Provider({ children }) {
@@ -74,10 +76,6 @@ function Provider({ children }) {
     }
   };
 
-  useEffect(() => {
-    handleUrlChange();
-  }, []);
-
   const handleBuscarButton = async () => {
     const mealIngredient = (url === urlComidas && optionSearch === 'ingredient');
     const mealName = (url === urlComidas && optionSearch === 'name');
@@ -96,6 +94,28 @@ function Provider({ children }) {
     setIsFetching(false);
     setLoadResults(true);
   };
+
+  const getMealSurprise = async () => {
+    setCards(await fetchMealSurprise());
+    setIsFetching(false);
+  };
+
+  const handleMealSurpriseButton = () => {
+    getMealSurprise();
+  };
+
+  const getDrinkSurprise = async () => {
+    setCards(await fetchDrinkSurprise());
+    setIsFetching(false);
+  };
+
+  const handleDrinkSurpriseButton = () => {
+    getDrinkSurprise();
+  };
+
+  useEffect(() => {
+    handleUrlChange();
+  }, []);
 
   return (
     <RecipesContext.Provider
@@ -120,7 +140,11 @@ function Provider({ children }) {
           setCards,
           cards,
           loadResults,
-          handleBuscarButton }
+          handleBuscarButton,
+          handleMealSurpriseButton,
+          handleDrinkSurpriseButton,
+          getMealSurprise,
+          getDrinkSurprise }
       }
     >
       { children }
