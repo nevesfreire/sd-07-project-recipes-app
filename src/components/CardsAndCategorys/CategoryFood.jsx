@@ -1,16 +1,18 @@
 import React, { useContext } from 'react';
 import { useFetchApi } from '../../hooks';
-import { SUBMIT_CATEGORY } from '../../reducers';
+import { SUBMIT_CATEGORY, CLEAR_CATEGORY } from '../../reducers';
 import { CupNodesContext } from '../../contexts';
 
 export default function CategoryFood() {
-  const { dispatchFilter } = useContext(CupNodesContext);
+  const { dispatchFilter, filterDates } = useContext(CupNodesContext);
   const URL = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
   const [loading, { meals }] = useFetchApi(URL);
   const five = 5;
-  const submitCategory = ({ target: { id } }) => {
-    dispatchFilter({ type: SUBMIT_CATEGORY, payload: id });
-  };
+  const submitCategory = ({ target: { id } }) => (
+    filterDates.category.length
+      ? dispatchFilter({ type: CLEAR_CATEGORY })
+      : dispatchFilter({ type: SUBMIT_CATEGORY, payload: id })
+  );
   return (
     <div>
       {
