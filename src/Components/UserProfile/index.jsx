@@ -1,16 +1,14 @@
-import React, { useContext, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import RecipeContext from '../../Context/RecipeContext';
 import '../../App.css';
 
 const UserProfile = () => {
-  const data = useContext(RecipeContext);
-  const value = useState(data);
-  const user = value[0].state;
+  const user = localStorage.getItem('user');
+  const emailUser = JSON.parse(user);
   return (
     <div className="container-int-body">
       <p className="email-user" data-testid="profile-email">
-        {user.user.userEmail}
+        {emailUser.email}
       </p>
       <Link to="/receitas-feitas">
         <button
@@ -18,10 +16,10 @@ const UserProfile = () => {
           className="btn-default"
           data-testid="profile-done-btn"
         >
-          Receitas feitas
+          Receitas Feitas
         </button>
       </Link>
-      <Link to="/receitas-feitas">
+      <Link to="/receitas-favoritas">
         <button
           type="button"
           className="btn-default"
