@@ -43,7 +43,13 @@ export default function MainDrink() {
         <div>
           {
             categories && categories.filter((_, index) => index < five)
-              .map((category, index) => <Category key={ index } category={ category } />)
+              .map((category, index) => (
+                <Category
+                  fetchDrinks={ fetchDrinks }
+                  key={ index }
+                  category={ category }
+                />
+              ))
           }
         </div>
         {

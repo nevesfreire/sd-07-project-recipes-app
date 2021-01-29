@@ -42,7 +42,11 @@ export default function MainFood() {
           {
             categories && categories.filter((_, index) => index < five)
               .map((category, index) => (
-                <Category key={ index } category={ category } />
+                <Category
+                  fetchRandomFoods={ fetchRandomFoods }
+                  key={ index }
+                  category={ category }
+                />
               ))
           }
         </div>
