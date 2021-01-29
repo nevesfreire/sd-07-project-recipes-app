@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function HeaderSearch() {
+  const [textSearch, setTextSearch] = useState('');
+  const [radioValue, setRadioValue] = useState('');
+  console.log(radioValue)
+
   return (
     <section>
       <div>
@@ -10,6 +14,7 @@ function HeaderSearch() {
           id="searchInput"
           placeholder="Buscar Receita"
           data-testid="search-input"
+          onChange={ (event) => setTextSearch(event.target.value) }
         />
       </div>
       <div>
@@ -19,6 +24,7 @@ function HeaderSearch() {
             name="searchFilter"
             id="ingredientSearch"
             data-testid="ingredient-search-radio"
+            onClick={ (event) => setRadioValue(event.target.id) }
           />
           Ingrediente
         </label>
@@ -28,6 +34,7 @@ function HeaderSearch() {
             name="searchFilter"
             id="nameSearch"
             data-testid="name-search-radio"
+            onClick={ (event) => setRadioValue(event.target.id) }
           />
           Nome
         </label>
@@ -37,6 +44,7 @@ function HeaderSearch() {
             name="searchFilter"
             id="firstLetterSearch"
             data-testid="first-letter-search-radio"
+            onClick={ (event) => setRadioValue(event.target.id) }
           />
           Primeira letra
         </label>
