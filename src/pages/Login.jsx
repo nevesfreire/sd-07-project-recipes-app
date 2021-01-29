@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { setStorage } from '../services/localStorage';
+import { setStorage, getStorage } from '../services/localStorage';
 import { CustomLogin } from '../components';
 import { addEmailAction, addPasswordAction } from '../redux/actions';
 
@@ -16,6 +16,7 @@ class Login extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.validaInput = this.validaInput.bind(this);
+    this.setUpLocalStorage = this.setUpLocalStorage.bind(this);
   }
 
   handleSubmit() {
@@ -26,11 +27,24 @@ class Login extends Component {
     dispatchEmail(email);
     dispatchPassword(password);
     setStorage('user', { email });
+    this.setUpLocalStorage();
     history.push('/comidas');
   }
 
   handleInputChange({ target: { name, value } }) {
     this.setState({ [name]: value }, this.validaInput);
+  }
+
+  setUpLocalStorage() {
+    if (!getStorage('doneRecipes')) {
+      setStorage('doneRecipes', []);
+    }
+    if (!getStorage('favoriteRecipes')) {
+      setStorage('favoriteRecipes', []);
+    }
+    if (!getStorage('inProgressRecipes')) {
+      setStorage('inProgressRecipes', { cocktails: {}, meals: {} });
+    }
   }
 
   validaInput() {
