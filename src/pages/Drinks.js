@@ -9,8 +9,8 @@ export default function Drinks() {
       <Header title="Bebidas" />
       {
         category.length
-          ? <DrinkCards number={ 5 } category={ category } />
-          : <RandonDrinkCards number={ 5 } />
+          ? <DrinkCards number={ 12 } category={ category } />
+          : <RandonDrinkCards number={ 12 } />
       }
       <Footer />
     </div>
