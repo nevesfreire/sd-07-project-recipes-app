@@ -9,7 +9,7 @@ import {
   updateDrinkIsFetching,
   allCategoriesDrinksAction,
 } from '../redux/actions';
-import { getDrinkRecipes } from '../services';
+import { getDrinkRecipes, getAllDrinksCategories } from '../services';
 
 class Drinks extends Component {
   constructor() {
@@ -18,31 +18,39 @@ class Drinks extends Component {
     this.redirectToRecipeDetail = this.redirectToRecipeDetail.bind(this);
     this.renderAlertError = this.renderAlertError.bind(this);
     this.renderRecipes = this.renderRecipes.bind(this);
+    this.handleCategories = this.handleCategories.bind(this);
+    this.state = {
+      drinksCategories: [],
+    };
   }
 
   componentDidMount() {
-    const { dispatchInitialCards, dispatchAllCategories } = this.props;
-    const urlDrinks = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
-    const urlAllCategories = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+    const { dispatchDrinksRecipes, currentCategoryDrink } = this.props;
+    if (currentCategoryDrink === 'all') {
+      dispatchDrinksRecipes({});
+    } else {
+      const ingredientsObj = {
+        searchInput: currentCategoryDrink,
+        searchRadio: 'i',
+      };
+      dispatchDrinksRecipes(ingredientsObj);
+    }
+    this.handleCategories();
+  }
 
-    const fetchDrinks = async () => {
-      const requestAllCategories = await fetch(urlDrinks);
-      const JSONRequestAllCAtegories = await requestAllCategories.json();
-      dispatchInitialCards(JSONRequestAllCAtegories);
-    };
-    fetchDrinks();
-
-    const fetchAllCategories = async () => {
-      const requestAllCategories = await fetch(urlAllCategories);
-      const JSONRequestAllCAtegories = await requestAllCategories.json();
-      dispatchAllCategories(JSONRequestAllCAtegories);
-    };
-
-    fetchAllCategories();
+  async handleCategories() {
+    const { drinks } = await getAllDrinksCategories();
+    this.setState({
+      drinksCategories: Object.values(drinks),
+    });
   }
 
   handleRecipes() {
     const { drinks, isFetching } = this.props;
+    const numberToComper = 1;
+    if (drinks.length === numberToComper) {
+      return <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />;
+    }
     if (!drinks.length && !isFetching) return this.renderAlertError();
     if (drinks.length === 1) return this.redirectToRecipeDetail();
     return this.renderRecipes();
@@ -74,13 +82,21 @@ class Drinks extends Component {
   }
 
   renderCategories() {
-    const { categories: { drinks } } = this.props;
+    const { dispatchDrinksRecipes } = this.props;
+    const { drinksCategories } = this.state;
     const MAX_LENGTH = 5;
     const INITIAL_LENGTH = 0;
-    if (drinks !== undefined) {
+    if (drinksCategories !== undefined) {
       return (
         <div>
-          { drinks.slice(INITIAL_LENGTH, MAX_LENGTH)
+          <button
+            data-testid="All-category-filter"
+            type="button"
+            onClick={ () => dispatchDrinksRecipes({}) }
+          >
+            All
+          </button>
+          { drinksCategories.slice(INITIAL_LENGTH, MAX_LENGTH)
             .map((category, index) => (
               <CustomCartegory
                 key={ index }
@@ -94,18 +110,9 @@ class Drinks extends Component {
   }
 
   render() {
-    const { dispatchDrinksRecipes } = this.props;
     return (
       <div>
         <CustomHeader title="Bebidas" />
-        <button
-          type="button"
-          data-testid="All-category-filter"
-          onClick={ () => dispatchDrinksRecipes({}) }
-        >
-          {' '}
-          All
-        </button>
         { this.renderCategories()}
         { this.handleRecipes()}
         <CustomFooter />
@@ -118,6 +125,8 @@ const mapStateToProps = (state) => ({
   isFetching: state.drinkRecipesReducer.isFetching,
   drinks: state.drinkRecipesReducer.drinks,
   categories: state.drinkRecipesReducer.categories,
+  currentCategoryDrink: state.drinkRecipesReducer.currentCategoryDrink,
+
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -132,11 +141,9 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Drinks.propTypes = {
-  categories: PropTypes.arrayOf(PropTypes.object).isRequired,
   dispatchUpdateDrinkIsFetching: PropTypes.func.isRequired,
-  dispatchInitialCards: PropTypes.func.isRequired,
   dispatchDrinksRecipes: PropTypes.func.isRequired,
-  dispatchAllCategories: PropTypes.func.isRequired,
+  currentCategoryDrink: PropTypes.string.isRequired,
   isFetching: PropTypes.bool.isRequired,
   drinks: PropTypes.shape({
     length: PropTypes.number.isRequired,

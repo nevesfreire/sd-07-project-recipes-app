@@ -44,8 +44,22 @@ export const getSuggestedDrinks = async () => {
   }
 };
 
+export const getAllDrinksCategories = async () => {
+  const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+  try {
+    const response = await fetch(endpoint);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+
 export const drinksFilteredByCategory = (category) => {
-  const drinkUrlForFilterByCategory = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category.strCategory}`;
+  let drinkUrlForFilterByCategory = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category.strCategory}`;
+  if (category === '') {
+    drinkUrlForFilterByCategory = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+  }
   return async (dispatch) => {
     dispatch(requestDrinkRecipes());
     try {
@@ -58,8 +72,13 @@ export const drinksFilteredByCategory = (category) => {
   };
 };
 
+<<<<<<< HEAD
 export const randomDrinksApi = async () => {
   const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+=======
+export const getIngredientsDrink = async () => {
+  const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
+>>>>>>> 8bf23c16b3463355f6a504f534d50dbd396a8a49
   try {
     const response = await fetch(endpoint);
     const data = await response.json();
