@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { useValideEmailAndPassword, useLocalStorage } from '../hooks';
 import { SUBMIT_EMAIL } from '../reducers';
 import { CupNodesContext } from '../contexts';
-import Header from '../components/Header';
 
 const initialState = { email: '', password: '' };
 
