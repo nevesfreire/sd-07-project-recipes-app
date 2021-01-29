@@ -1,7 +1,6 @@
 const initialState = {
   email: '',
-  validatedEmail: false,
-  validatedPassword: false,
+  password: '',
 };
 
 export default initialState;

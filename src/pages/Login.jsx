@@ -9,34 +9,24 @@ export default function Login(props) {
     email,
     password,
     setEmail,
-    validEmail,
-    validPassword,
-    statusEmail,
-    statusPassword,
+    setPassword,
   } = context;
 
-  function validateEmail(value) {
-    const isValid = value.match(/^\w+@[a-zA-Z_]+?.[a-zA-Z]{2,3}$/);
-    setEmail(value);
-    if (isValid) {
-      console.log(validEmail());
+  const infoVerifier = () => {
+    const minimumPasswordLength = 6;
+    const validateEmailRegex = /^[\w+.]+@\w+\.\w{2,}(?:\.\w{2})?$/;
+    const testEmail = validateEmailRegex.test(email);
+    const testPassword = password.length > minimumPasswordLength;
+    if (testEmail && testPassword) {
+      return false;
     }
-  }
-
-  function validatePassword(value) {
-    console.log(value);
-    const six = 6;
-    if (value.length > six) validPassword();
-  }
+    return true;
+  };
 
   function loadcocktailsToken() {
     const cocktailsToken = 1;
     if (Storage) {
-      const getcocktailsToken = JSON.parse(
-        localStorage.getItem('cocktailsToken'),
-      );
-      const value = getcocktailsToken === null ? [] : getcocktailsToken;
-      value.push(cocktailsToken);
+      const value = cocktailsToken;
       localStorage.setItem('cocktailsToken', JSON.stringify(value));
     }
   }
@@ -44,9 +34,7 @@ export default function Login(props) {
   function loadmealsToken() {
     const mealsToken = 1;
     if (Storage) {
-      const getMealsToken = JSON.parse(localStorage.getItem('mealsToken'));
-      const value = getMealsToken === null ? [] : getMealsToken;
-      value.push(mealsToken);
+      const value = mealsToken;
       localStorage.setItem('mealsToken', JSON.stringify(value));
     }
   }
@@ -56,9 +44,7 @@ export default function Login(props) {
       email: payload,
     };
     if (Storage) {
-      const getUserSaved = JSON.parse(localStorage.getItem('user'));
-      const value = getUserSaved === null ? [] : getUserSaved;
-      value.push(user);
+      const value = user;
       localStorage.setItem('user', JSON.stringify(value));
     }
   }
@@ -85,7 +71,7 @@ export default function Login(props) {
           placeholder="Digite seu e-mail"
           value={ email }
           data-testid="email-input"
-          onChange={ (event) => validateEmail(event.target.value) }
+          onChange={ (event) => setEmail(event.target.value) }
         />
         <input
           required
@@ -94,13 +80,13 @@ export default function Login(props) {
           placeholder="Digite sua senha"
           value={ password }
           data-testid="password-input"
-          onChange={ (event) => validatePassword(event.target.value) }
+          onChange={ (event) => setPassword(event.target.value) }
         />
         <button
           id="submit-btn"
           type="submit"
           data-testid="login-submit-btn"
-          disabled={ !statusEmail || !statusPassword }
+          disabled={ infoVerifier() }
           onClick={ (event) => {
             handleChange(event);
             history.push('/comidas');
