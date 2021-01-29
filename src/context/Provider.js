@@ -27,12 +27,11 @@ function Provider({ children }) {
   };
 
   const handlerData = async (recipes, match, history, id) => {
-    const details = document.querySelectorAll('.div-meals').length;
-    if (details === 1) {
+    if (!recipes) {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    } else if (recipes.length === 1) {
       const { path } = match;
       history.push(`${path}/${recipes[0][id]}`);
-    } else if (details < 1) {
-      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
   };
 
@@ -41,19 +40,11 @@ function Provider({ children }) {
     const { term, type } = fields;
     if (value === 'Comidas') {
       const { meals } = await mealsAPI(term, type);
-      if (meals === null || meals === undefined) {
-        setMealsData([]);
-      } else {
-        setMealsData(meals);
-      }
+      setMealsData(meals);
       handlerData(meals, match, history, 'idMeal');
     } else if (value === 'Bebidas') {
       const { drinks } = await drinksAPI(term, type);
-      if (drinks === null || drinks === undefined) {
-        setDrinksData([]);
-      } else {
-        setDrinksData(drinks);
-      }
+      setDrinksData(drinks);
       handlerData(drinks, match, history, 'idDrink');
     }
   };

@@ -39,30 +39,33 @@ function MainDrinks() {
         >
           All
         </button>
-        {drinksCategory && drinksCategory.slice(zero, cinco).map(({ strCategory }, index) => (
-          <button
-            type="button"
-            className="button-cat"
-            key={ index }
-            data-testid={ `${strCategory}-category-filter` }
-            hidden={ showSearch ? bools : false }
-            value={ strCategory }
-            onMouseMove={ () => setToggle(false) }
-            onClick={ async ({ target }) => {
-              setToggle(false);
-              const term = toggle ? '' : target.value;
-              const { drinks } = await drinksAPI(term, 'c');
-              setDrinksData(drinks);
-              setToggle(true);
-            } }
-          >
-            { strCategory }
-          </button>
-        ))}
+        {drinksCategory && drinksCategory
+          .slice(zero, cinco)
+          .map(({ strCategory }, index) => (
+            <button
+              type="button"
+              className="button-cat"
+              key={ index }
+              data-testid={ `${strCategory}-category-filter` }
+              hidden={ showSearch ? bools : false }
+              value={ strCategory }
+              onMouseMove={ () => setToggle(false) }
+              onClick={ async ({ target }) => {
+                setToggle(false);
+                const term = toggle ? '' : target.value;
+                const { drinks } = await drinksAPI(term, 'c');
+                setDrinksData(drinks);
+                setToggle(true);
+              } }
+            >
+              { strCategory}
+            </button>
+          ))}
       </div>
       <section className="section-meals">
-        {drinksData && drinksData.slice(zero, doze).map(
-          ({ idDrink, strDrink, strDrinkThumb }, index) => (
+        {drinksData && drinksData
+          .slice(zero, doze)
+          .map(({ idDrink, strDrink, strDrinkThumb }, index) => (
             <button
               type="button"
               key={ idDrink }
@@ -78,11 +81,10 @@ function MainDrinks() {
               <p
                 data-testid={ `${index}-card-name` }
               >
-                { strDrink }
+                {strDrink}
               </p>
             </button>
-          ),
-        )}
+          ))}
       </section>
     </section>
   );

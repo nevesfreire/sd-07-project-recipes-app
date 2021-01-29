@@ -40,47 +40,51 @@ function MainMeals() {
         >
           All
         </button>
-        {mealsCategory && mealsCategory.slice(zero, cinco).map(({ strCategory }, index) => (
-          <button
-            type="button"
-            key={ index }
-            data-testid={ `${strCategory}-category-filter` }
-            hidden={ showSearch ? bools : false }
-            value={ strCategory }
-            onMouseMove={ () => setToggle(false) }
-            onClick={ async ({ target }) => {
-              setToggle(false);
-              const term = toggle ? '' : target.value;
-              const { meals } = await mealsAPI(term, 'c');
-              setMealsData(meals);
-              setToggle(true);
-            } }
-          >
-            { strCategory }
-          </button>
-        ))}
+        {mealsCategory && mealsCategory
+          .slice(zero, cinco)
+          .map(({ strCategory }, index) => (
+            <button
+              type="button"
+              key={ index }
+              data-testid={ `${strCategory}-category-filter` }
+              hidden={ showSearch ? bools : false }
+              value={ strCategory }
+              onMouseMove={ () => setToggle(false) }
+              onClick={ async ({ target }) => {
+                setToggle(false);
+                const term = toggle ? '' : target.value;
+                const { meals } = await mealsAPI(term, 'c');
+                setMealsData(meals);
+                setToggle(true);
+              } }
+            >
+              { strCategory}
+            </button>
+          ))}
       </div>
       <section className="section-meals">
-        {mealsData && mealsData.slice(zero, doze).map(({ idMeal, strMeal, strMealThumb }, index) => (
-          <button
-            type="button"
-            key={ idMeal }
-            className="div-meals"
-            data-testid={ `${index}-recipe-card` }
-            onClick={ () => history.push(`/comidas/${idMeal}`) }
-          >
-            <img
-              src={ strMealThumb }
-              alt="meals"
-              data-testid={ `${index}-card-img` }
-            />
-            <p
-              data-testid={ `${index}-card-name` }
+        {mealsData && mealsData
+          .slice(zero, doze)
+          .map(({ idMeal, strMeal, strMealThumb }, index) => (
+            <button
+              type="button"
+              key={ idMeal }
+              className="div-meals"
+              data-testid={ `${index}-recipe-card` }
+              onClick={ () => history.push(`/comidas/${idMeal}`) }
             >
-              { strMeal }
-            </p>
-          </button>
-        ))}
+              <img
+                src={ strMealThumb }
+                alt="meals"
+                data-testid={ `${index}-card-img` }
+              />
+              <p
+                data-testid={ `${index}-card-name` }
+              >
+                {strMeal}
+              </p>
+            </button>
+          ))}
       </section>
     </section>
   );
