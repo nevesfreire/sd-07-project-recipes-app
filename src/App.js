@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Comidas from './pages/comidas/Comidas';
 import ComidaDetalhes from './pages/comidas/ComidaDetalhes';
 import Bebidas from './pages/bebidas/Bebidas';
+import BebidasDetalhes from './pages/bebidas/BebidasDetalhes';
 import ReceitasFavoritas from './pages/receitas/ReceitasFavoritas';
 import ReceitasFeitas from './pages/receitas/ReceitasFeitas';
 import Perfil from './pages/Perfil';
@@ -18,6 +19,7 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route path="/comidas/:id" component={ ComidaDetalhes } />
+          <Route path="/bebidas/:id" component={ BebidasDetalhes } />
           <Route path="/comidas" component={ Comidas } />
           <Route path="/perfil" component={ Perfil } />
           <Route path="/bebidas" component={ Bebidas } />

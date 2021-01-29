@@ -13,6 +13,7 @@ class BarraBuscaBebidas extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.searchContent = this.searchContent.bind(this);
+    this.findContent = this.findContent.bind(this);
   }
 
   handleChange({ target }) {
@@ -22,26 +23,36 @@ class BarraBuscaBebidas extends Component {
     });
   }
 
-  searchContent() {
+  findContent() {
+    const { resultApiBebida, history } = this.props;
+    if (resultApiBebida === null) {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    } else if (resultApiBebida.length === 1) {
+      history.push(`/bebidas/${resultApiBebida[0].idDrink}`);
+    }
+  }
+
+  async searchContent() {
     const { getIngredientBebida, getNameBebida, getLetterBebida } = this.props;
     const { buscaBebida, select } = this.state;
     switch (select) {
     case 'nomeBebida':
-      getNameBebida(buscaBebida);
+      await getNameBebida(buscaBebida);
       break;
     case 'ingredienteBebida':
-      getIngredientBebida(buscaBebida);
+      await getIngredientBebida(buscaBebida);
       break;
     case 'letraBebida':
       if (buscaBebida.length !== 1) {
         alert('Sua busca deve conter somente 1 (um) caracter');
       } else {
-        getLetterBebida(buscaBebida);
+        await getLetterBebida(buscaBebida);
       }
       break;
     default:
       return null;
     }
+    this.findContent();
   }
 
   render() {
@@ -106,16 +117,24 @@ class BarraBuscaBebidas extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  resultApiBebida: state.reducerBebidas.recipesByNameBebida,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   getIngredientBebida: (ingredient) => dispatch(resultIngredientsBebida(ingredient)),
   getNameBebida: (name) => dispatch(resultNameBebida(name)),
   getLetterBebida: (letter) => dispatch(resultLetterBebida(letter)),
 });
 
-export default connect(null, mapDispatchToProps)(BarraBuscaBebidas);
+export default connect(mapStateToProps, mapDispatchToProps)(BarraBuscaBebidas);
 
 BarraBuscaBebidas.propTypes = {
   getIngredientBebida: PropTypes.func.isRequired,
   getNameBebida: PropTypes.func.isRequired,
   getLetterBebida: PropTypes.func.isRequired,
+  resultApiBebida: PropTypes.arrayOf(PropTypes.object).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };

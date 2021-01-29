@@ -13,10 +13,11 @@ export default class Perfil extends React.Component {
 
   getEmail() {
     const getEmail = JSON.parse(localStorage.getItem('user'));
-    const email = Object.values(getEmail);
-    return (
-      <div>{email}</div>
-    );
+    if (getEmail) {
+      return (
+        <div>{Object.values(getEmail)}</div>
+      );
+    }
   }
 
   logout() {
