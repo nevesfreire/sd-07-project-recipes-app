@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import allActions from '../actions';
-import { useHistory } from 'react-router-dom';
 
 function Cocktails() {
   const state = useSelector(({ mainpage }) => mainpage);
@@ -13,17 +13,12 @@ function Cocktails() {
   const [cardsArray, setCardsArray] = useState([]);
   const [filter, setFilter] = useState('');
   const [isFetching, setIsFetching] = useState(false);
-  const history = useHistory();
 
   useEffect(() => {
     dispatch(allActions.renderSearchIcon());
     dispatch(allActions.changePageTitle('Bebidas'));
     dispatch(allActions.fetchCards(false));
   }, [dispatch]);
-
-  const redirectToDetails = (id) => {
-    history.push(`/bebidas/${id}`);
-  }
 
   useEffect(() => {
     function checkFilter() {
@@ -32,9 +27,9 @@ function Cocktails() {
       } else {
         setCardsArray(drinks);
       }
-    };
+    }
     checkFilter();
-  }, [isLoading, filterOn]);
+  }, [isLoading, filterOn, filteredDrinks, drinks]);
 
   useEffect(() => {
     const fetchFiltered = async () => {
@@ -42,11 +37,11 @@ function Cocktails() {
       const json = await response.json();
       setFilteredDrinks(json.drinks);
       setFilterOn(true);
+    };
+    if (isFetching) {
+      fetchFiltered();
     }
-      if(isFetching) {
-        fetchFiltered();
-      }
-  }, [filter])
+  }, [filter, isFetching]);
 
   const turnFilterOn = (cat) => {
     if (filterOn) {
@@ -55,7 +50,7 @@ function Cocktails() {
       setFilter(cat);
       setIsFetching(true);
     }
-  }
+  };
 
   const renderFilters = (category, index) => {
     const CAT_NUMBER = 5;
@@ -65,7 +60,7 @@ function Cocktails() {
           type="button"
           key={ category.strCategory }
           data-testid={ `${category.strCategory}-category-filter` }
-          onClick={() => turnFilterOn(category.strCategory)}
+          onClick={ () => turnFilterOn(category.strCategory) }
         >
           {category.strCategory}
         </button>
@@ -77,28 +72,29 @@ function Cocktails() {
     const CARDS_NUMBER = 12;
     if (index < CARDS_NUMBER) {
       return (
-        <div
-          data-testid={ `${index}-recipe-card` }
-          key={ `drink-card-${index}` }
-          onClick={() => redirectToDetails(drink.idDrink)}
-        >
-          <img
-            key={ `drink-thumb-${index}` }
-            src={ drink.strDrinkThumb }
-            alt="drink thumb"
-            data-testid={ `${index}-card-img` }
-          />
-          <h2
-            key={ drink.strDrink }
-            data-testid={ `${index}-card-name` }
+        <Link to={ `/bebidas/${drink.idDrink}` }>
+          <div
+            data-testid={ `${index}-recipe-card` }
+            key={ `card-${index}` }
           >
-            {drink.strDrink}
-          </h2>
-        </div>
+            <img
+              key={ `drink-thumb-${index}` }
+              src={ drink.strDrinkThumb }
+              alt="drink thumb"
+              data-testid={ `${index}-card-img` }
+            />
+            <h2
+              key={ drink.strDrink }
+              data-testid={ `${index}-card-name` }
+            >
+              {drink.strDrink}
+            </h2>
+          </div>
+        </Link>
       );
     }
     return null;
-  }
+  };
 
   if (isLoading) {
     return (
@@ -109,9 +105,12 @@ function Cocktails() {
     <div>
       <Header />
       <button
+        type="button"
         data-testid="All-category-filter"
-        onClick={() => setFilterOn(false)}
-      >All</button>
+        onClick={ () => setFilterOn(false) }
+      >
+        All
+      </button>
       {drinkCategories.map((category, index) => renderFilters(category, index))}
       {cardsArray.map((drink, index) => renderCards(drink, index))}
     </div>

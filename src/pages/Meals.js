@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import allActions from '../actions';
-import { useHistory } from 'react-router-dom';
 
 function Meals() {
   const state = useSelector(({ mainpage }) => mainpage);
@@ -13,17 +13,12 @@ function Meals() {
   const [cardsArray, setCardsArray] = useState([]);
   const [filter, setFilter] = useState('');
   const [isFetching, setIsFetching] = useState(false);
-  const history = useHistory();
 
   useEffect(() => {
     dispatch(allActions.renderSearchIcon());
     dispatch(allActions.changePageTitle('Comidas'));
     dispatch(allActions.fetchCards(true));
   }, [dispatch]);
-
-  const redirectToDetails = (id) => {
-    history.push(`/comidas/${id}`);
-  }
 
   useEffect(() => {
     function checkFilter() {
@@ -32,7 +27,7 @@ function Meals() {
       } else {
         setCardsArray(meals);
       }
-    };
+    }
     checkFilter();
   }, [isLoading, filterOn]);
 
@@ -42,11 +37,11 @@ function Meals() {
       const json = await response.json();
       setFilteredMeals(json.meals);
       setFilterOn(true);
+    };
+    if (isFetching) {
+      fetchFiltered();
     }
-      if(isFetching) {
-        fetchFiltered();
-      }
-  }, [filter])
+  }, [filter]);
 
   const turnFilterOn = (cat) => {
     if (filterOn) {
@@ -55,7 +50,7 @@ function Meals() {
       setFilter(cat);
       setIsFetching(true);
     }
-  }
+  };
 
   const renderFilters = (category, index) => {
     const CAT_NUMBER = 5;
@@ -65,7 +60,7 @@ function Meals() {
           type="button"
           key={ category.strCategory }
           data-testid={ `${category.strCategory}-category-filter` }
-          onClick={() => turnFilterOn(category.strCategory)}
+          onClick={ () => turnFilterOn(category.strCategory) }
         >
           {category.strCategory}
         </button>
@@ -77,28 +72,29 @@ function Meals() {
     const CARDS_NUMBER = 12;
     if (index < CARDS_NUMBER) {
       return (
-        <div
-          data-testid={ `${index}-recipe-card` }
-          key={ `meal-card-${index}` }
-          onClick={() => redirectToDetails(meal.idMeal)}
-        >
-          <img
-            key={ `meal-thumb-${index}` }
-            src={ meal.strMealThumb }
-            alt="meal thumb"
-            data-testid={ `${index}-card-img` }
-          />
-          <h2
-            key={ meal.strMeal }
-            data-testid={ `${index}-card-name` }
+        <Link to={ `/comidas/${meal.idMeal}` }>
+          <div
+            data-testid={ `${index}-recipe-card` }
+            key={ `card-${index}` }
           >
-            {meal.strMeal}
-          </h2>
-        </div>
+            <img
+              key={ `meal-thumb-${index}` }
+              src={ meal.strMealThumb }
+              alt="meal thumb"
+              data-testid={ `${index}-card-img` }
+            />
+            <h2
+              key={ meal.strMeal }
+              data-testid={ `${index}-card-name` }
+            >
+              {meal.strMeal}
+            </h2>
+          </div>
+        </Link>
       );
     }
     return null;
-  }
+  };
 
   if (isLoading) {
     return (
@@ -110,9 +106,12 @@ function Meals() {
     <div>
       <Header />
       <button
+        type="button"
         data-testid="All-category-filter"
-        onClick={() => setFilterOn(false)}
-      >All</button>
+        onClick={ () => setFilterOn(false) }
+      >
+        All
+      </button>
       {mealCategories.map((category, index) => renderFilters(category, index))}
       {cardsArray.map((meal, index) => renderCards(meal, index))}
     </div>
