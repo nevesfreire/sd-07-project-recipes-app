@@ -18,7 +18,7 @@ class Footerdetails extends Component {
     const aFazer = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (pa === 'D') {
       let mensagem;
-      if (aFazer.cocktails[id]) {
+      if (!aFazer.cocktails[id]) {
         mensagem = 'Iniciar Receita';
       } else {
         mensagem = 'Continuar Receita';
@@ -36,7 +36,8 @@ class Footerdetails extends Component {
       );
     }
     let mensagem;
-    if (aFazer.meals[id]) {
+    const key = aFazer.meals.entries();
+    if (!key.length) {
       mensagem = 'Iniciar Receita';
     } else {
       mensagem = 'Continuar Receita';

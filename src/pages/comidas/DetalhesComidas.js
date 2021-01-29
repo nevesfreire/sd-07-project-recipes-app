@@ -187,6 +187,7 @@ class DetalhesComidas extends Component {
           <p data-testid="instructions">{receita.strInstructions}</p>
         </div>
         <ReactPlayer
+          data-testid="video"
           url={ receita.strYoutube }
         />
         <div>
@@ -195,7 +196,7 @@ class DetalhesComidas extends Component {
           }
         </div>
         {
-          feito
+          feito.length
             ? null
             : <Footerdetails pa="C" ke="meals" id={ receita.idMeal } hi={ history } />
         }
