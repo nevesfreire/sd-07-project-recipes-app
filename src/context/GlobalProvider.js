@@ -8,8 +8,8 @@ export default function GlobalProvider({ children }) {
   const [state, setState] = useState(geral);
   const {
     initialState: { email, validatedEmail, validatedPassword },
-    initialFoods: { dataFoods },
-    initialDrinks: { dataDrinks },
+    initialFoods: { dataFoods, foodCategories },
+    initialDrinks: { dataDrinks, drinkCategories },
   } = state;
 
   function updateState(key, value) {
@@ -29,13 +29,25 @@ export default function GlobalProvider({ children }) {
     <GlobalContext.Provider
       value={ {
         redirect,
+        foodCategories,
+        setFoodCategories: (value) => {
+          const newInitialFoods = state.initialFoods;
+          newInitialFoods.foodCategories = value;
+          updateState('initialFoods', newInitialFoods);
+        },
+        drinkCategories,
+        setDrinkCategories: (value) => {
+          const newInitialDrinks = state.initialDrinks;
+          newInitialDrinks.drinkCategories = value;
+          updateState('initialDrinks', newInitialDrinks);
+        },
         dataFoods,
-        dataDrinks,
         setDataFoods: (value) => {
           const newInitialFoods = state.initialFoods;
           newInitialFoods.dataFoods = value;
           updateState('initialFoods', newInitialFoods);
         },
+        dataDrinks,
         setDataDrinks: (value) => {
           const newInitialDrinks = state.initialDrinks;
           newInitialDrinks.dataDrinks = value;

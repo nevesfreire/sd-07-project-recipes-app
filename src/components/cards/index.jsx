@@ -1,4 +1,7 @@
 import React from 'react';
+import Styles from './Styles';
+
+const { Content, Name, Image, NameContainer } = Styles;
 
 export default function Cards(number, info) {
   const titleList = info.map((i) => i.name);
@@ -7,20 +10,21 @@ export default function Cards(number, info) {
   const zero = 0;
   for (let index = zero; index < number; index += 1) {
     listOfCards.push(
-      <div
+      <Content
         data-testid={ `${index}-recipe-card` }
         key={ `${index}-recipe-card` }
       >
-        <span data-testid={ `${index}-card-name` }>
-          {titleList[index]}
-        </span>
-        <img
+        <Image
           data-testid={ `${index}-card-img` }
           src={ imageList[index] }
-          width="200px"
           alt={ `Imagem da receita ${titleList[index]}` }
         />
-      </div>,
+        <NameContainer>
+          <Name data-testid={ `${index}-card-name` }>
+            {titleList[index]}
+          </Name>
+        </NameContainer>
+      </Content>,
     );
   }
   return listOfCards;
