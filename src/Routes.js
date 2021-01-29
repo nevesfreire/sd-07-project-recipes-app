@@ -13,6 +13,8 @@ import {
   FoodsOrigin,
   Profile,
 } from './pages';
+import DrinksDetails from './pages/DrinksDetails';
+import FoodsDetails from './pages/FoodsDetails';
 
 function Rotas() {
   return (
@@ -33,6 +35,9 @@ function Rotas() {
       />
       <Route exact path="/explorar/comidas/area" component={ FoodsOrigin } />
       <Route exact path="/perfil" component={ Profile } />
+      <Route path="/comidas/:id" component={ FoodsDetails } />
+      <Route path="/bebidas/:id" component={ DrinksDetails } />
+
       {/* <Route path="/comidas/id:/in-progress" component={  } />
       <Route path="/bebidas/:id/in-progress" component={  } />
       <Route path="/receitas-feitas" component={  } />
