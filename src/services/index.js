@@ -50,7 +50,7 @@ export const categoryMealApi = async () => {
   }
 };
 
-export const categoryDrinkApi = async (term, type) => {
+export const categoryDrinkApi = async () => {
   try {
     const response = await fetch(categoryDrinkUrl);
     const categoryDrink = await response.json();
