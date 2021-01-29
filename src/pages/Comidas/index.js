@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import Footer from '../../components/Footer/index';
 import {
   fetchFoodByName,
@@ -9,10 +9,14 @@ import {
   stopRequired,
 } from '../../redux/actions/foodActions';
 import './styles.css';
+import SearchBar from '../../components/SearchBar';
+import Header from '../../components/Header';
 
 function Comidas(props) {
   const [categories, setCategories] = useState([]);
   const [currentCategory, setCurrentCategory] = useState('');
+  const [isSearchBarVisible, setIsSearchBarVisible] = useState(false);
+  const history = useHistory();
 
   function renderMeals() {
     const INITIAL_RETURN = 0;
@@ -20,10 +24,18 @@ function Comidas(props) {
     const { foods } = props;
     const { meals, isFetching } = foods;
     if (isFetching) return <div>Loading...</div>;
+    if (meals === null) {
+      return alert(
+        'Sinto muito, não encontramos nenhuma receita para esses filtros.',
+      );
+    }
+    if (meals.length === 1) {
+      history.push(`/comidas/${meals[0].idMeal}`);
+    }
     const comida = meals.slice(INITIAL_RETURN, MAX_RETURN);
     return (
       <div className="container-foods">
-        { comida.map((item, index) => (
+        {comida.map((item, index) => (
           <Link
             key={ index }
             className="list-foods"
@@ -35,7 +47,7 @@ function Comidas(props) {
               src={ item.strMealThumb }
               alt={ item.strMeal }
             />
-            <div data-testid={ `${index}-card-name` }>{ item.strMeal }</div>
+            <div data-testid={ `${index}-card-name` }>{item.strMeal}</div>
           </Link>
         ))}
       </div>
@@ -82,7 +94,7 @@ function Comidas(props) {
             value={ category.strCategory }
             onClick={ handleCategories }
           >
-            { category.strCategory }
+            {category.strCategory}
           </button>
         ))}
       </div>
@@ -101,9 +113,14 @@ function Comidas(props) {
 
   return (
     <div>
-      HEADER
-      { renderCategories() }
-      { renderMeals() }
+      <Header
+        title="Comidas"
+        searchButtonExists
+        setIsSearchBarVisible={ setIsSearchBarVisible }
+      />
+      {isSearchBarVisible && <SearchBar foodType="comidas" />}
+      {renderCategories()}
+      {renderMeals()}
       <Footer />
     </div>
   );

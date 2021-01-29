@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import Footer from '../../components/Footer/index';
+import Header from '../../components/Header';
+import SearchBar from '../../components/SearchBar';
 import {
   fetchCocktailByName,
   fetchDrinkByCategory,
@@ -13,6 +15,8 @@ import './styles.css';
 function Bebidas(props) {
   const [categories, setCategories] = useState([]);
   const [currentCategory, setCurrentCategory] = useState('');
+  const [isSearchBarVisible, setIsSearchBarVisible] = useState(false);
+  const history = useHistory();
 
   function renderDrinks() {
     const INITIAL_RETURN = 0;
@@ -20,10 +24,20 @@ function Bebidas(props) {
     const { drinks } = props;
     const { cocktails, isFetching } = drinks;
     if (isFetching) return <div>Loading...</div>;
+    if (cocktails === null) {
+      return alert(
+        'Sinto muito, não encontramos nenhuma receita para esses filtros.',
+      );
+    }
+    if (cocktails.length === 1) {
+      history.push(`/bebidas/${cocktails[0].idDrink}`);
+    }
+
+    console.log(cocktails);
     const cocktail = cocktails.slice(INITIAL_RETURN, MAX_RETURN);
     return (
       <div className="container-drinks">
-        { cocktail.map((item, index) => (
+        {cocktail.map((item, index) => (
           <Link
             key={ index }
             className="list-drinks"
@@ -35,7 +49,7 @@ function Bebidas(props) {
               src={ item.strDrinkThumb }
               alt={ item.strDrink }
             />
-            <div data-testid={ `${index}-card-name` }>{ item.strDrink }</div>
+            <div data-testid={ `${index}-card-name` }>{item.strDrink}</div>
           </Link>
         ))}
       </div>
@@ -82,7 +96,7 @@ function Bebidas(props) {
             value={ category.strCategory }
             onClick={ handleCategories }
           >
-            { category.strCategory }
+            {category.strCategory}
           </button>
         ))}
       </div>
@@ -101,9 +115,14 @@ function Bebidas(props) {
 
   return (
     <div>
-      HEADER
-      { renderCategories() }
-      { renderDrinks() }
+      <Header
+        title="Bebidas"
+        searchButtonExists
+        setIsSearchBarVisible={ setIsSearchBarVisible }
+      />
+      {isSearchBarVisible && <SearchBar foodType="bebidas" />}
+      {renderCategories()}
+      {renderDrinks()}
       <Footer />
     </div>
   );
