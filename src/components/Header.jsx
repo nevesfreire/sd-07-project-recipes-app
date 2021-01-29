@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { profileIcon, searchIcon } from '../images';
+import SearchBar2 from './SearchBar';
 
 // Se for passado profile = false como props, não será renderizado.
 // Se for passado search = false como props, não será renderizado.
@@ -30,7 +31,7 @@ export default function Header({ title, profile, search }) {
         >
           <img src={ searchIcon } alt="icone de perfil" />
         </button>)}
-      {searchBar && (<h3>Aparece a searchBar</h3>) }
+      {searchBar && <SearchBar2 title={ title } /> }
     </div>
   );
 }
