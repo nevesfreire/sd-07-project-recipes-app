@@ -3,13 +3,17 @@ import perfilIcon from '../images/profileIcon.svg';
 import search from '../images/searchIcon.svg';
 import history from '../history/history';
 import RecipesContext from '../context/RecipesContext';
+import requestApi from '../services/functions';
 
 function Header() {
   const { setSearchRender,
     searchRender,
     setFilterSearch,
-    setSearchBtn,
-    getSearchBtn } = useContext(RecipesContext);
+    filterSearch,
+    searchInput,
+    setRecipesFilters,
+
+  } = useContext(RecipesContext);
 
   const perfilRedirect = () => {
     history.push('/perfil');
@@ -22,8 +26,8 @@ function Header() {
     setFilterSearch(target.value);
   };
 
-  const searchButton = (stateButton) => {
-    setSearchBtn(!stateButton);
+  const searchButton = (filter, inputSearch, setFilter) => {
+    requestApi(filter, inputSearch, setFilter);
   };
 
   const checkLocation = history.location.pathname;
@@ -85,7 +89,9 @@ function Header() {
         Primeira Letra
       </label>
       <button
-        onClick={ () => searchButton(getSearchBtn) }
+        onClick={ () => searchButton(filterSearch,
+          searchInput,
+          setRecipesFilters) }
         data-testid="exec-search-btn"
         type="button"
       >
