@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import SearchBar from '../../common/SearchBar';
+import BottomBar from '../../common/BottomBar';
 import { AppContext } from '../../context/AppContext';
 import './style.css';
 
@@ -36,6 +37,7 @@ const Bebidas = () => {
     <>
       <SearchBar />
       <h1>Faça uma pesquisa</h1>
+      <BottomBar />
     </>
   );
 };
