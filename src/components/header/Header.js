@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import userProfile from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
 import '../../App.css';
-import { toggleSearchBar } from '../../redux/actionsSearchBar';
 
 class Header extends React.Component {
   render() {

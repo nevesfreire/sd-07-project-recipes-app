@@ -122,4 +122,5 @@ BarraBuscaComidas.propTypes = {
   getIngredient: PropTypes.func.isRequired,
   getName: PropTypes.func.isRequired,
   getLetter: PropTypes.func.isRequired,
+  toggle: PropTypes.bool.isRequired,
 };
