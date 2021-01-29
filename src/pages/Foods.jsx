@@ -58,7 +58,7 @@ class Foods extends Component {
 
   redirectToRecipeDetail() {
     const { meals } = this.props;
-    return <Redirect to={ `/comidas/${meals[0].idMeal}` } />;
+    return <Redirect to={ `/comidas/:${meals[0].idMeal}` } />;
   }
 
   renderAlertError() {
