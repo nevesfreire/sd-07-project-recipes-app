@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Header from '../../components/Header/index';
 import SearchBarFood from '../../components/SearchBarFood/SearchBarFood';
-import Grid from '../../components/Grid';
+// import Grid from '../../components/Grid';
 import Footer from '../../components/Footer';
 
 function FoodPage() {
@@ -18,7 +18,7 @@ function FoodPage() {
       <SearchBarFood
         searchValue={ data }
       />
-      <Grid page="meals" />
+      {/* <Grid page="meals" /> */}
       <Footer />
     </div>
   );

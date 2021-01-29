@@ -10,7 +10,7 @@ function SearchBarByFood(props) {
   const [radio, setRadio] = useState('');
   const history = useHistory();
   const firstLetter = 'Primeira letra';
-  const maxCard = 12;
+  const maxCard = 16;
   function searchByFood(event) {
     if (event.target.value === 'Ingredientes') {
       setRadio('Ingredientes');
