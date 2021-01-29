@@ -5,7 +5,9 @@ import RecipesContext from './RecipesContext';
 class Provider extends Component {
   constructor(props) {
     super(props);
-    this.state = { };
+    this.state = {
+
+    };
   }
 
   render() {
