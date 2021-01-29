@@ -32,7 +32,7 @@ function Header({ name, button }) {
           </button>
         )
       }
-      { searchBar && <HeaderSearch /> }
+      { searchBar && <HeaderSearch name={ name } /> }
     </header>
   );
 }
