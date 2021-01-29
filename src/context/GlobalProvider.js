@@ -7,15 +7,9 @@ import GlobalContext from './GlobalContext';
 export default function GlobalProvider({ children }) {
   const [state, setState] = useState(geral);
   const {
-<<<<<<< HEAD
-    initialState: { email, validatedEmail, validatedPassword },
-    initialFoods: { dataFoods, foodCategories },
-    initialDrinks: { dataDrinks, drinkCategories },
-=======
     initialState: { email, password },
     initialFoods: { dataFoods },
     initialDrinks: { dataDrinks },
->>>>>>> 3940f197733ef3b9cf3e4b15aa439690368d4d3e
   } = state;
 
   function updateState(key, value) {
