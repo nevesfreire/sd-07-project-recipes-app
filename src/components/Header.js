@@ -7,7 +7,7 @@ import { setToggle } from '../actions/actionSearchToggle';
 
 import ProfileIcon from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
-import HeaderSearch from "./HeaderSearch";
+import SearchBar from './SearchBar';
 
 function Header({ title, toggle, toggleAction }) {
   return (
@@ -31,7 +31,7 @@ function Header({ title, toggle, toggleAction }) {
           <img src={ SearchIcon } alt="search" />
         </button>
       </div>
-      <HeaderSearch title={ "Comidas" } />
+      <SearchBar title={ title } />
     </header>
   );
 }
