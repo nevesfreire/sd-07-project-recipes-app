@@ -6,7 +6,7 @@ afterEach(() => {
   });
 });
 
-describe.skip('47 - Desenvolva a tela de maneira que contenha uma imagem da receita, seu titulo, sua categoria (ou se a bebida é alcoólica ou não) uma lista de ingredientes com suas respectivas quantidade e suas instruções', () => {
+describe('47 - Desenvolva a tela de maneira que contenha uma imagem da receita, seu titulo, sua categoria (ou se a bebida é alcoólica ou não) uma lista de ingredientes com suas respectivas quantidade e suas instruções', () => {
   it('verifica elementos de uma receita de comida', () => {
     cy.visit('http://localhost:3000/comidas/52771/in-progress', {
       onBeforeLoad(win) {
@@ -24,7 +24,7 @@ describe.skip('47 - Desenvolva a tela de maneira que contenha uma imagem da rece
     cy.get('[data-testid="finish-recipe-btn"]');
   });
 
-  it('verifica elementos de uma receita de bebida', () => {
+  it.skip('verifica elementos de uma receita de bebida', () => {
     cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
@@ -42,7 +42,7 @@ describe.skip('47 - Desenvolva a tela de maneira que contenha uma imagem da rece
   });
 });
 
-describe.skip('48 - Desenvolva um checkbox para cada item da lista de ingredientes', () => {
+describe('48 - Desenvolva um checkbox para cada item da lista de ingredientes', () => {
   it('todos os ingredientes de uma receita de comida possuem um checkbox', () => {
     cy.visit('http://localhost:3000/comidas/52771/in-progress', {
       onBeforeLoad(win) {
@@ -55,7 +55,7 @@ describe.skip('48 - Desenvolva um checkbox para cada item da lista de ingredient
       .should('have.length', 8);
   });
 
-  it('todos os ingredientes de uma receita de bebida possuem um checkbox', () => {
+  it.skip('todos os ingredientes de uma receita de bebida possuem um checkbox', () => {
     cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
@@ -68,7 +68,7 @@ describe.skip('48 - Desenvolva um checkbox para cada item da lista de ingredient
   });
 });
 
-describe.skip('49 - Implemente uma lógica que, ao clicar no checkbox de um ingrediente, o nome dele deve ser "riscado" da lista', () => {
+describe('49 - Implemente uma lógica que, ao clicar no checkbox de um ingrediente, o nome dele deve ser "riscado" da lista', () => {
   const getIngredients = () => (
     cy.get('[data-testid*="ingredient-step"]')
       .find('input[type="checkbox"]')
@@ -88,7 +88,7 @@ describe.skip('49 - Implemente uma lógica que, ao clicar no checkbox de um ingr
       .should('have.css', 'text-decoration', 'none solid rgb(0, 0, 0)');
   });
 
-  it('verifica se é possível marcar todos os passos da receita de bebida', () => {
+  it.skip('verifica se é possível marcar todos os passos da receita de bebida', () => {
     cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
@@ -103,7 +103,7 @@ describe.skip('49 - Implemente uma lógica que, ao clicar no checkbox de um ingr
   });
 });
 
-describe.skip('50 - Salve o estado do progresso, que deve ser mantido caso a pessoa atualize a página ou volte para a mesma receita', () => {
+describe('50 - Salve o estado do progresso, que deve ser mantido caso a pessoa atualize a página ou volte para a mesma receita', () => {
   it('salva o progresso de uma receita de comida em andamento', () => {
     cy.visit('http://localhost:3000/comidas/52771/in-progress', {
       onBeforeLoad(win) {
@@ -122,7 +122,7 @@ describe.skip('50 - Salve o estado do progresso, que deve ser mantido caso a pes
       .should('have.attr', 'checked');
   });
 
-  it('salva o progresso de uma receita de bebida em andamento', () => {
+  it.skip('salva o progresso de uma receita de bebida em andamento', () => {
     cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
@@ -407,7 +407,7 @@ describe.skip('51 - Desenvolva a lógica de favoritar e compartilhar, a lógica 
   });
 });
 
-describe.skip('52 - Implemente a solução de maneira que o botão de finalizar receita só pode estar habilitado quando todos os ingredientes estiverem _"checkados"_ (marcados)', () => {
+describe('52 - Implemente a solução de maneira que o botão de finalizar receita só pode estar habilitado quando todos os ingredientes estiverem _"checkados"_ (marcados)', () => {
   it('verifica se botão para finalizar está desabilitado em receitas de comidas', () => {
     cy.visit('http://localhost:3000/comidas/52771/in-progress', {
       onBeforeLoad(win) {
@@ -422,7 +422,7 @@ describe.skip('52 - Implemente a solução de maneira que o botão de finalizar 
     cy.get('[data-testid="finish-recipe-btn"]').should('be.disabled');
   });
 
-  it('verifica se botão para finalizar está desabilitado em receitas de bebidas', () => {
+  it.skip('verifica se botão para finalizar está desabilitado em receitas de bebidas', () => {
     cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
@@ -449,7 +449,7 @@ describe.skip('52 - Implemente a solução de maneira que o botão de finalizar 
     cy.get('[data-testid="finish-recipe-btn"]').should('be.enabled');
   });
 
-  it('verifica se botão para finalizar está habilitado em receitas de bebidas', () => {
+  it.skip('verifica se botão para finalizar está habilitado em receitas de bebidas', () => {
     cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
@@ -463,7 +463,7 @@ describe.skip('52 - Implemente a solução de maneira que o botão de finalizar 
   });
 });
 
-describe.skip('53 - Redirecione a pessoa usuária após clicar no botão "Finalizar receita", para a página de receitas feitas, cuja rota deve ser `/receitas-feitas`', () => {
+describe('53 - Redirecione a pessoa usuária após clicar no botão "Finalizar receita", para a página de receitas feitas, cuja rota deve ser `/receitas-feitas`', () => {
   it('redireciona após concluir uma receita de comida', () => {
     cy.visit('http://localhost:3000/comidas/52771/in-progress', {
       onBeforeLoad(win) {
@@ -478,7 +478,7 @@ describe.skip('53 - Redirecione a pessoa usuária após clicar no botão "Finali
     cy.location().should((loc) => expect(loc.pathname).to.eq('/receitas-feitas'));
   });
 
-  it('redireciona após concluir uma receita de bebida', () => {
+  it.skip('redireciona após concluir uma receita de bebida', () => {
     cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;

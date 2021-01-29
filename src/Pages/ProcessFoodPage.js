@@ -1,9 +1,10 @@
 import React from 'react';
+import ProgressFood from '../Components/ProgressFood';
 
 function ProcessFoodPage() {
   return (
     <div>
-      Process Food
+      <ProgressFood />
     </div>
   );
 }
