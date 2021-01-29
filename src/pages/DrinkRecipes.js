@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import SearchInput from '../components/SearchInput';
 import RecipesContext from '../context/RecipesContext';
 
-function FoodRecipes() {
+function DrinksRecipes() {
   const zero = 0;
   const Twelve = 12;
   const { searchRender, recipesFilters } = useContext(RecipesContext);
@@ -15,17 +15,18 @@ function FoodRecipes() {
     <div>
       <Header />
       { searchRender ? <SearchInput /> : null}
+
       {filterRecipesTwelve.map((recipe, index) => (
         <div data-testid={ `${index}-recipe-card` } key={ index }>
           <p data-testid={ `${index}-card-name` }>
             Nome:
-            {recipe.strMeal}
+            {recipe.strDrink}
           </p>
           <img
             data-testid={ `${index}-card-img` }
             width="200px"
             alt="receitas"
-            src={ recipe.strMealThumb }
+            src={ recipe.strDrinkThumb }
           />
         </div>
       ))}
@@ -33,4 +34,4 @@ function FoodRecipes() {
   );
 }
 
-export default FoodRecipes;
+export default DrinksRecipes;
