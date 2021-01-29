@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 class Profile extends Component {
   render() {
     return (
       <div>
+        <Header />
         <Link to="/explorar/comidas">
           <button
             type="button"
@@ -22,6 +25,7 @@ class Profile extends Component {
             Explorar Bebidas
           </button>
         </Link>
+        <Footer />
       </div>
     );
   }
