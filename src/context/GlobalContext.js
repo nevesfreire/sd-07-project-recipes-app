@@ -1,6 +1,6 @@
 import { createContext } from 'react';
-import initialState from '../data/dataLogin';
+import geral from '../data';
 
-const GlobalContext = createContext(initialState);
+const GlobalContext = createContext(geral);
 
 export default GlobalContext;

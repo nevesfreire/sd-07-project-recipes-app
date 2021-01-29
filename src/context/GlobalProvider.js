@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import initialState from '../data/dataLogin';
+import geral from '../data';
 import GlobalContext from './GlobalContext';
 
 export default function GlobalProvider({ children }) {
-  const [state, setState] = useState(initialState);
+  const [state, setState] = useState(geral);
+  const {
+    initialState: { email, validatedEmail, validatedPassword },
+    initialFoods: { dataFoods },
+    initialDrinks: { dataDrinks },
+  } = state;
 
   function updateState(key, value) {
     setState((prevState) => ({
@@ -24,8 +29,21 @@ export default function GlobalProvider({ children }) {
     <GlobalContext.Provider
       value={ {
         redirect,
-        email: state.email,
-        password: state.password,
+        dataFoods,
+        dataDrinks,
+        setDataFoods: (value) => {
+          const newInitialFoods = state.initialFoods;
+          newInitialFoods.dataFoods = value;
+          updateState('initialFoods', newInitialFoods);
+        },
+        setDataDrinks: (value) => {
+          const newInitialDrinks = state.initialDrinks;
+          newInitialDrinks.dataDrinks = value;
+          updateState('initialDrinks', newInitialDrinks);
+        },
+        email,
+        statusEmail: validatedEmail,
+        statusPassword: validatedPassword,
         setEmail: (text) => updateState('email', text),
         setPassword: (text) => updateState('password', text),
       } }
@@ -36,8 +54,5 @@ export default function GlobalProvider({ children }) {
 }
 
 GlobalProvider.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
   children: PropTypes.node.isRequired,
 };
