@@ -11,6 +11,7 @@ class BarraBuscaComidas extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.searchContent = this.searchContent.bind(this);
+    this.findContent = this.findContent.bind(this);
   }
 
   handleChange({ target }) {
@@ -20,30 +21,41 @@ class BarraBuscaComidas extends Component {
     });
   }
 
-  searchContent() {
+  findContent() {
+    const { resultApi, history } = this.props;
+    if (resultApi === null) {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    } else if (resultApi.length === 1) {
+      history.push(`/comidas/${resultApi[0].idMeal}`);
+    }
+  }
+
+  async searchContent() {
     const { getIngredient, getName, getLetter } = this.props;
     const { busca, select } = this.state;
     switch (select) {
     case 'nome':
-      getName(busca);
+      await getName(busca);
       break;
     case 'ingrediente':
-      getIngredient(busca);
+      await getIngredient(busca);
       break;
     case 'letra':
       if (busca.length !== 1) {
         alert('Sua busca deve conter somente 1 (um) caracter');
       } else {
-        getLetter(busca);
+        await getLetter(busca);
       }
       break;
     default:
       return null;
     }
+    this.findContent();
   }
 
   render() {
     const { busca } = this.state;
+    console.log(this.props);
     return (
       <div>
         <fieldset>
@@ -104,16 +116,24 @@ class BarraBuscaComidas extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  resultApi: state.reducerComidas.recipesByName,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   getIngredient: (ingredient) => dispatch(resultIngredients(ingredient)),
   getName: (name) => dispatch(resultName(name)),
   getLetter: (letter) => dispatch(resultLetter(letter)),
 });
 
-export default connect(null, mapDispatchToProps)(BarraBuscaComidas);
+export default connect(mapStateToProps, mapDispatchToProps)(BarraBuscaComidas);
 
 BarraBuscaComidas.propTypes = {
   getIngredient: PropTypes.func.isRequired,
   getName: PropTypes.func.isRequired,
   getLetter: PropTypes.func.isRequired,
+  resultApi: PropTypes.arrayOf(PropTypes.object).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };
