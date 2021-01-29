@@ -65,14 +65,14 @@ const SearchBarComp = ({ context }) => {
           />
           Primeira letra
         </label>
+        <button
+          data-testid="exec-search-btn"
+          type="button"
+          onClick={ searchWithFilter }
+        >
+          Buscar
+        </button>
       </div>
-      <button
-        data-testid="exec-search-btn"
-        type="button"
-        onClick={ searchWithFilter }
-      >
-        Buscar
-      </button>
     </div>
   );
 };

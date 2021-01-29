@@ -4,13 +4,22 @@ import RecipesContext from './Context/Context';
 import RequestFoodAPI from '../services/foodApi';
 import RequestFoodBayName from '../services/nameFoodApi';
 import RequestFoodByLetter from '../services/firstLetterFoodApi';
+import RequestFoodCategories from '../services/categoriesFood';
 
 const FoodProvider = ({ children }) => {
-  const [tittleHeader, setTittleHeader] = useState('Comidas');
+  const categories = ['Beef', 'Breakfast', 'Chicken', 'Dessert', 'Goat'];
   const [searchBar, setSearchBar] = useState(false);
   const [inputText, setInputText] = useState('');
   const [radioType, setRadioType] = useState('');
   const [data, setData] = useState([]);
+  const [repeatedButton, setRepeatedButton] = useState(
+    { Beef: false,
+      Breakfast: false,
+      Chicken: false,
+      Dessert: false,
+      Goat: false,
+    },
+  );
 
   useEffect(() => {
     async function apiNewData() {
@@ -19,6 +28,15 @@ const FoodProvider = ({ children }) => {
     }
     apiNewData();
   }, []);
+
+  const categoriesData = async ({ target: { id } }) => {
+    if (repeatedButton[id]) {
+      setRepeatedButton({ ...repeatedButton, [id]: !repeatedButton[id] });
+      return setData(await RequestFoodBayName(''));
+    }
+    setRepeatedButton({ ...repeatedButton, [id]: !repeatedButton[id] });
+    return setData(await RequestFoodCategories(id));
+  };
 
   const changeSearchBarState = () => {
     if (searchBar === true) setSearchBar(false);
@@ -65,8 +83,6 @@ const FoodProvider = ({ children }) => {
   };
 
   const context = {
-    tittleHeader,
-    setTittleHeader,
     searchBar,
     changeSearchBarState,
     radioType,
@@ -75,6 +91,8 @@ const FoodProvider = ({ children }) => {
     inputText,
     setInputText,
     data,
+    categories,
+    categoriesData,
   };
 
   return (
