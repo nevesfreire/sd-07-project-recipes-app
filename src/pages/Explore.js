@@ -22,22 +22,24 @@ function Explore() {
   }
 
   return (
-    <FlexContainer>
+    <div>
       <Header />
-      <ButtonLarge
-        data-testid="explore-food"
-        onClick={ (e) => handleClick(e, 'comidas') }
-      >
-        Explorar Comidas
-      </ButtonLarge>
-      <ButtonLarge
-        data-testid="explore-drinks"
-        onClick={ (e) => handleClick(e, 'bebidas') }
-      >
-        Explorar Bebidas
-      </ButtonLarge>
+      <FlexContainer>
+        <ButtonLarge
+          data-testid="explore-food"
+          onClick={ (e) => handleClick(e, 'comidas') }
+        >
+          Explorar Comidas
+        </ButtonLarge>
+        <ButtonLarge
+          data-testid="explore-drinks"
+          onClick={ (e) => handleClick(e, 'bebidas') }
+        >
+          Explorar Bebidas
+        </ButtonLarge>
+      </FlexContainer>
       <Footer />
-    </FlexContainer>
+    </div>
   );
 }
 
