@@ -18,7 +18,7 @@ function FoodPage() {
       <SearchBarFood
         searchValue={ data }
       />
-      <Grid />
+      <Grid page="meals" />
       <Footer />
     </div>
   );

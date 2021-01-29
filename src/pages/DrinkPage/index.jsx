@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Header from '../../components/Header/index';
+import Grid from '../../components/Grid';
 import Footer from '../../components/Footer';
 import SearchBarByDrinks from '../../components/SearchBarDrinks/SearchBarByDrinks';
 
@@ -17,7 +18,7 @@ function DrinkPage() {
       <SearchBarByDrinks
         searchValue={ data }
       />
-
+      <Grid page="drinks" />
       <Footer />
 
     </div>
