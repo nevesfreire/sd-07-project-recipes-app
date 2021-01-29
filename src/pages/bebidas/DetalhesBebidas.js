@@ -99,32 +99,32 @@ class DetalhesBebidas extends Component {
 
   Drinks() {
     const { recomenda } = this.props;
-    if (recomenda.drinks) {
-      return (recomenda.drinks.map((receita, index) => {
+    if (recomenda.meals) {
+      return (recomenda.meals.map((receita, index) => {
         const limit = 6;
         if (index < limit) {
           return (
             <button
               className="cardrec"
-              name={ receita.idDrink }
+              name={ receita.idMeal }
               type="button"
               onClick={ ({ target }) => this.handleClick(target.name) }
               key={ index }
               data-testid={ `${index}-recomendation-card` }
             >
               <img
-                className="cardrec"
                 data-testid={ `${index}-recomendation-img` }
-                name={ receita.idDrink }
-                src={ receita.strDrinkThumb }
+                className="cardrec"
+                name={ receita.idMeal }
+                src={ receita.strMealThumb }
                 alt="imagem da receita"
               />
               <h1
                 data-testid={ `${index}-recomendation-title` }
                 className="cardrec"
-                name={ receita.idDrink }
+                name={ receita.idMeal }
               >
-                {receita.strDrink}
+                {receita.strMeal}
               </h1>
             </button>
           );
