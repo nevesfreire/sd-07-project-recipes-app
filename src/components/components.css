@@ -9,8 +9,8 @@
 
 .cardFood {
   display: flex;
-  flex-flow: row;
   flex-basis: 30%;
+  flex-flow: row;
   height: 172px;
   left: 187px;
   top: 171px;
