@@ -9,7 +9,6 @@ function CardList({ arrayOfCard, typeOfCard, sideScroll, recommendation }) {
   const name = `str${typeOfCard}`;
   const src = `str${typeOfCard}Thumb`;
   const pathType = typeOfCard === 'Meal' ? 'comidas' : 'bebidas';
-  console.log(recommendation, 'recommendation');
 
   return (
     <div
@@ -27,7 +26,7 @@ function CardList({ arrayOfCard, typeOfCard, sideScroll, recommendation }) {
             <a href={ `/${pathType}/${item[id]}` }>
               <img
                 data-testid={ `${index}-card-img` }
-                width="200px"
+                width="160px"
                 src={ item[src] }
                 alt="item"
               />
