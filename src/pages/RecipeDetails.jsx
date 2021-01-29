@@ -22,6 +22,7 @@ export default class RecipeDetails extends Component {
     this.getSuggestedRecipes = this.getSuggestedRecipes.bind(this);
     this.verifyRecipeInProgress = this.verifyRecipeInProgress.bind(this);
     this.handleStartButtonClick = this.handleStartButtonClick.bind(this);
+    this.verifyRecipeIsDone = this.verifyRecipeIsDone.bind(this);
     this.state = {
       recipeId: '',
       isLoading: true,
@@ -32,6 +33,7 @@ export default class RecipeDetails extends Component {
       measureList: [],
       inProgress: false,
       isRedirect: false,
+      isDone: false,
     };
   }
 
@@ -42,6 +44,7 @@ export default class RecipeDetails extends Component {
 
   handleStartButtonClick(recipeId) {
     const { ingredientsList, recipeType } = this.state;
+    this.localStorageSetUp();
     if (recipeType === 'comidas') {
       setStorage('inProgressRecipes', {
         ...getStorage('inProgressRecipes'),
@@ -120,14 +123,31 @@ export default class RecipeDetails extends Component {
     });
   }
 
+  localStorageSetUp() {
+    if (!getStorage('inProgressRecipes')) {
+      setStorage('inProgressRecipes', { cocktails: {}, meals: {} });
+    }
+  }
+
   verifyRecipeInProgress(id) {
     const { recipeType } = this.state;
     const inProgressRecipes = getStorage('inProgressRecipes');
-    if (recipeType === 'comidas' && inProgressRecipes.meals[id]) {
-      this.setState({ inProgress: true });
+    if (inProgressRecipes) {
+      if (recipeType === 'comidas' && (inProgressRecipes.meals[id])) {
+        this.setState({ inProgress: true });
+      }
+      if (recipeType === 'bebidas' && inProgressRecipes.cocktails[id]) {
+        this.setState({ inProgress: true });
+      }
     }
-    if (recipeType === 'bebidas' && inProgressRecipes.cocktails[id]) {
-      this.setState({ inProgress: true });
+  }
+
+  verifyRecipeIsDone(recipeId) {
+    const doneRecipes = getStorage('doneRecipes');
+    if (doneRecipes) {
+      this.setState({
+        isDone: doneRecipes.some(({ id }) => id === recipeId),
+      });
     }
   }
 
@@ -158,6 +178,7 @@ export default class RecipeDetails extends Component {
     }
     this.getIngredientsList();
     this.verifyRecipeInProgress(id);
+    this.verifyRecipeIsDone(id);
   }
 
   renderIngredientsList() {
@@ -184,11 +205,12 @@ export default class RecipeDetails extends Component {
       inProgress,
       recipeId,
       isRedirect,
+      isDone,
     } = this.state;
 
     const { strInstructions } = recipe;
     if (isLoading) return <div> Loading... </div>;
-    if (isRedirect) return <Redirect to={ `/${recipeType}/${recipeId}/in-progress/` } />;
+    if (isRedirect) return <Redirect to={ `/${recipeType}/${recipeId}/in-progress` } />;
     return (
       <div>
         <img
@@ -219,14 +241,16 @@ export default class RecipeDetails extends Component {
           title="video"
         /> }
         { (!isLoading) && this.getSuggestedRecipes() }
-        <button
-          className="footer"
-          type="button"
-          data-testid="start-recipe-btn"
-          onClick={ () => this.handleStartButtonClick(recipeId) }
-        >
-          { (inProgress) ? 'Continuar Receita' : 'Iniciar Receita' }
-        </button>
+        { (!isDone)
+          && (
+            <button
+              className="footer"
+              type="button"
+              data-testid="start-recipe-btn"
+              onClick={ () => this.handleStartButtonClick(recipeId) }
+            >
+              { (inProgress) ? 'Continuar Receita' : 'Iniciar Receita' }
+            </button>)}
       </div>
     );
   }
