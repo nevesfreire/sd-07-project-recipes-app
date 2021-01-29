@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import clipboardCopy from 'clipboard-copy';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ReactPlayer from 'react-player';
@@ -22,15 +21,15 @@ class DetalhesComidas extends Component {
       receita: {},
       favorito: false,
     };
+    const feitas = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (!feitas) {
+      localStorage.setItem('doneRecipes', JSON.stringify([]));
+    }
   }
 
   componentDidMount() {
     const { match: { params } } = this.props;
     const { loadrecipes } = this.props;
-    const feitas = JSON.parse(localStorage.getItem('doneRecipes'));
-    if (!feitas) {
-      localStorage.setItem('doneRecipes', JSON.stringify([]));
-    }
     loadrecipes('comidas');
     this.api(params.id);
     this.componentDidMount2(params.id);

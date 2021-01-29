@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import '../App.css';
 
 class Footerdetails extends Component {
-  componentDidMount() {
+  constructor() {
+    super();
     const aFazer = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (!aFazer) {
       localStorage.setItem(
