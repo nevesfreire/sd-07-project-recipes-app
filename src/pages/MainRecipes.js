@@ -47,9 +47,11 @@ function MainRecipes() {
 
   const filterButton = (category) => {
     if (filtered === false) {
-      const oldArray = [...data.meals];
-      const newArray = oldArray.filter((food) => food.strCategory === category);
-      setFoodsToRender(newArray);
+      // const oldArray = [...data.meals];
+      // const newArray = oldArray.filter((food) => food.strCategory === category);
+      foodApiFunctions
+        .fetchFilterFoodByCategory(category)
+        .then((response) => setFoodsToRender(response.meals));
       setFiltered(true);
     } else {
       setFoodsToRender(data.meals);
@@ -77,7 +79,12 @@ function MainRecipes() {
         </button>
       ));
     const buttonAll = (
-      <button type="button" key="all" onClick={ () => resetFoodsToRender() }>
+      <button
+        type="button"
+        key="all"
+        data-testid="All-category-filter"
+        onClick={ () => resetFoodsToRender() }
+      >
         All
       </button>
     );
