@@ -3,6 +3,7 @@ export const RECEIVED_RECIPES = 'RECEIVED_RECIPES';
 export const ERROR = 'ERROR';
 export const RECEIVED_CATEGORIES = 'RECEIVED_CATEGORIES';
 export const SEARCH_INPUT = 'SEARCH_INPUT';
+export const SET_CATEGORY = 'SET_CATEGORY';
 
 export const sendSearchInput = (value) => ({
   type: SEARCH_INPUT,
@@ -21,6 +22,11 @@ const recievedRecipes = (payload) => ({
 
 const recievedCategories = (payload) => ({
   type: RECEIVED_CATEGORIES,
+  payload,
+});
+
+export const setCategory = (payload) => ({
+  type: SET_CATEGORY,
   payload,
 });
 

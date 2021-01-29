@@ -43,8 +43,8 @@ const mapDispatchToProps = (dispatch) => ({
   requestCategories: (endPoint) => dispatch(fetchCategories(endPoint)),
 });
 
-const mapStateToProps = ({ categories }) => ({
-  getCategories: categories.categories,
+const mapStateToProps = ({ categoriesReducer }) => ({
+  getCategories: categoriesReducer.categories,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DrinksCategoryFilter);

@@ -15,7 +15,15 @@ class MealRecipes extends Component {
     const { getRecipes } = this.props;
     const MEAL_LENGTH = 12;
     if (getRecipes.meals) {
-      const filterArray = getRecipes.meals.filter((_meal, index) => index < MEAL_LENGTH);
+      const { selectedCategory } = this.props;
+      let filterArray = [];
+      console.log(getRecipes.meals);
+      if (selectedCategory) {
+        filterArray = getRecipes.meals
+          .filter((meal) => (meal.strCategory === selectedCategory))
+          .filter((_meal, index) => index < MEAL_LENGTH);
+      } else filterArray = getRecipes.meals.filter((_meal, index) => index < MEAL_LENGTH);
+
       return (
         <div>
           {filterArray.map((meal, index) => (
@@ -48,8 +56,9 @@ const mapDispatchToProps = (dispatch) => ({
   requestRecipes: (endPoint) => dispatch(fetchRecipes(endPoint)),
 });
 
-const mapStateToProps = ({ recipesReducer }) => ({
+const mapStateToProps = ({ recipesReducer, categoriesReducer }) => ({
   getRecipes: recipesReducer.recipes,
+  selectedCategory: categoriesReducer.selectedCategory,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MealRecipes);
@@ -58,4 +67,5 @@ MealRecipes.propTypes = {
   endPoint: PropTypes.string.isRequired,
   requestRecipes: PropTypes.func.isRequired,
   getRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  selectedCategory: PropTypes.string.isRequired,
 };
