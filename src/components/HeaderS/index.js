@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Navbar } from 'react-bootstrap';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
+import SearchBarMeals from '../SearchBarMeals';
+import SearchBarDrinks from '../SearchBarDrinks';
 
 class HeaderS extends React.Component {
   constructor(props) {
@@ -25,8 +27,12 @@ class HeaderS extends React.Component {
 
   renderSearchBar() {
     const { isSearching } = this.state;
-    if (isSearching) {
-      return <h3 data-testid="search-input">Search Bar Component</h3>;
+    const { title } = this.props;
+    if (isSearching && title === 'Comida') {
+      return <SearchBarMeals />;
+    }
+    if (isSearching && title === 'Bebidas') {
+      return <SearchBarDrinks />;
     }
   }
 
