@@ -5,9 +5,12 @@ import geral from '../data';
 import GlobalContext from './GlobalContext';
 
 export default function GlobalProvider({ children }) {
+  const [title, setTitle] = useState('');
+  const [searchButton, setSearchButton] = useState(true);
+  const [searchBar, setSearchBar] = useState(false);
   const [state, setState] = useState(geral);
   const {
-    initialState: { email, validatedEmail, validatedPassword },
+    initialState: { email, password },
     initialFoods: { dataFoods, foodCategories },
     initialDrinks: { dataDrinks, drinkCategories },
   } = state;
@@ -29,6 +32,14 @@ export default function GlobalProvider({ children }) {
     <GlobalContext.Provider
       value={ {
         redirect,
+        title,
+        setTitle,
+        searchButton,
+        setSearchButton,
+        searchBar,
+        setSearchBar,
+        dataFoods,
+        dataDrinks,
 
         foodCategories,
         setFoodCategories: useCallback((value) => {
@@ -93,11 +104,17 @@ export default function GlobalProvider({ children }) {
         }, [state.initialDrinks]),
 
         email,
-        statusEmail: validatedEmail,
-        statusPassword: validatedPassword,
-        setEmail: (text) => updateState('email', text),
-        validEmail: () => updateState('validatedEmail', true),
-        validPassword: () => updateState('validatedPassword', true),
+        password,
+        setEmail: (text) => {
+          const newInitialEmail = state.initialState;
+          newInitialEmail.email = text;
+          updateState('email', newInitialEmail);
+        },
+        setPassword: (text) => {
+          const newInititalPassword = state.initialState;
+          newInititalPassword.password = text;
+          updateState('password', newInititalPassword);
+        },
       } }
     >
       { children }

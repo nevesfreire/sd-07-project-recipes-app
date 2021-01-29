@@ -23,3 +23,15 @@
   position: fixed;
   width: 100%;
 }
+
+.header {
+  align-items: top;
+  background-color: #0fa36b;
+  bottom: 0;
+  justify-content: center;
+  padding-left: 10px;
+}
+
+.profileIcon {
+  color: #073020e5;
+}
