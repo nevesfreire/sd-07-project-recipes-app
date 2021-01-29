@@ -1,11 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import Slider from 'react-slick';
+import { useParams } from 'react-router-dom';
+import proptypes from 'prop-types';
 
+import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-function Recommended({ suggestions }) {
+export default function Recommended({ suggestions }) {
+  const { route } = useParams();
   const settings = {
     dots: true,
     infinite: false,
@@ -18,7 +20,7 @@ function Recommended({ suggestions }) {
   let strImgPath;
   let strTitle;
 
-  if (suggestions[0].strDrink) {
+  if (route === 'comidas') {
     strImgPath = 'strDrinkThumb';
     strTitle = 'strDrink';
   } else {
@@ -43,9 +45,6 @@ function Recommended({ suggestions }) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  meals: state.foodMeals.meals,
-  drinks: state.cocktailsDrinks.cocktails,
-});
-
-export default connect(mapStateToProps)(Recommended);
+Recommended.propTypes = {
+  suggestions: proptypes.arrayOf(proptypes.object).isRequired,
+};

@@ -1,4 +1,4 @@
-const COCKTAIL_INITIAL_STATE = { cocktails: [], isFetching: false };
+const COCKTAIL_INITIAL_STATE = { cocktails: [], isFetching: false, isRequired: false };
 
 function cocktailsDrinks(state = COCKTAIL_INITIAL_STATE, action) {
   switch (action.type) {
@@ -6,6 +6,10 @@ function cocktailsDrinks(state = COCKTAIL_INITIAL_STATE, action) {
     return { ...state, isFetching: true };
   case 'ADD_COCKTAIL':
     return { cocktails: action.cocktails.drinks, isFetching: false };
+  case 'REQUEST_REQUIRED_DRINK':
+    return { ...state, isRequired: true };
+  case 'STOP_REQUIRED_DRINK':
+    return { ...state, isRequired: false };
   default:
     return state;
   }
