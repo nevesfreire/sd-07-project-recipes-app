@@ -7,10 +7,11 @@ import Footer from '../../components/footer/Footer';
 
 class Comidas extends Component {
   render() {
-    const { toggle } = this.props;
+    console.log(this.props);
+    const { toggle, history } = this.props;
     return (
       <div>
-        <Header title="Comidas" />
+        <Header title="Comidas" history={ history } />
         {toggle && <BarraBuscaComidas />}
         <Footer />
       </div>
@@ -26,4 +27,7 @@ export default connect(mapStateToProps)(Comidas);
 
 Comidas.propTypes = {
   toggle: PropTypes.bool.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };
