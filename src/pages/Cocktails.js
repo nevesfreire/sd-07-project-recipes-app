@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import allActions from '../actions';
 
 function Cocktails() {
@@ -113,6 +114,7 @@ function Cocktails() {
       </button>
       {drinkCategories.map((category, index) => renderFilters(category, index))}
       {cardsArray.map((drink, index) => renderCards(drink, index))}
+      <Footer />
     </div>
   );
 }

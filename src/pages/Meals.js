@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import allActions from '../actions';
 
 function Meals() {
@@ -114,6 +115,7 @@ function Meals() {
       </button>
       {mealCategories.map((category, index) => renderFilters(category, index))}
       {cardsArray.map((meal, index) => renderCards(meal, index))}
+      <Footer />
     </div>
   );
 }
