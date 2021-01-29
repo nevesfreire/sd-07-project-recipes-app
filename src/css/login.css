@@ -1,11 +1,11 @@
 .background-image {
-  background-image: url(../images/food.jpg);
+  background-image: url("../images/food.jpg");
   background-size: cover;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 640px;
   max-width: 360px;
+  min-height: 640px;
 }
 
 .input-group {
