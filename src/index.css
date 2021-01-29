@@ -1,6 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap') ;
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 body {
+  padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -80,4 +81,33 @@ code {
 .Container__Category__Btns button {
   padding: 5px;
   margin: 5px;
+}
+
+.Recomeded__Cards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 250px;
+  height: 250px;
+}
+
+
+.Recipe__Recomended {
+  margin: 8px;
+  border: 5px, solid, black;
+}
+
+.Recipes__Start__Btn {
+  position: fixed;
+  width: 95%;
+  height: 76px;
+  bottom: 0;
+  left: 0;
+  background: #6CE34F;
+  margin: 11px;
+  font-family: Roboto, sans-serif;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 35px;
 }
