@@ -4,6 +4,7 @@ export {
   drinksFilteredByCategory,
   getSuggestedDrinks,
   getIngredientsDrink,
+  getAllDrinksCategories,
 } from './drinkApi';
 export {
   getFoodRecipes,
