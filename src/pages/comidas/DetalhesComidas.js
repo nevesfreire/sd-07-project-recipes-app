@@ -111,19 +111,19 @@ class DetalhesComidas extends Component {
               type="button"
               onClick={ ({ target }) => this.handleClick(target.name) }
               key={ index }
-              data-testid={ `${index}-recipe-card` }
+              data-testid={ `${index}-recomendation-card` }
             >
               <img
+                data-testid={ `${index}-recomendation-img` }
                 className="cardrec"
                 name={ receita.idMeal }
-                data-testid={ `${index}-card-img` }
                 src={ receita.strMealThumb }
                 alt="imagem da receita"
               />
               <h1
+                data-testid={ `${index}-recomendation-title` }
                 className="cardrec"
                 name={ receita.idMeal }
-                data-testid={ `${index}-card-name` }
               >
                 {receita.strMeal}
               </h1>
@@ -197,7 +197,7 @@ class DetalhesComidas extends Component {
         {
           feito.length
             ? null
-            : <Footerdetails pa="C" ke="meals" id={ receita.idMeal } hi={ history } />
+            : <Footerdetails pa="C" id={ receita.idMeal } hi={ history } />
         }
       </div>
     );

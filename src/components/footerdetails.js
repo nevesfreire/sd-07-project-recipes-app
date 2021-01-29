@@ -29,15 +29,14 @@ class Footerdetails extends Component {
         mensagem = 'Continuar Receita';
       }
       return (
-        <footer data-testid="footer" className="footer">
-          <button
-            data-testid="start-recipe-btn"
-            type="button"
-            onClick={ () => hi.push(`/bebidas/${id}/in-progress`) }
-          >
-            { mensagem }
-          </button>
-        </footer>
+        <button
+          className="footer"
+          data-testid="start-recipe-btn"
+          type="button"
+          onClick={ () => hi.push(`/bebidas/${id}/in-progress`) }
+        >
+          { mensagem }
+        </button>
       );
     }
     let mensagem;
@@ -47,15 +46,14 @@ class Footerdetails extends Component {
       mensagem = 'Continuar Receita';
     }
     return (
-      <footer data-testid="footer" className="footer">
-        <button
-          data-testid="start-recipe-btn"
-          type="button"
-          onClick={ () => hi.push(`/comidas/${id}/in-progress`) }
-        >
-          { mensagem }
-        </button>
-      </footer>
+      <button
+        className="footer"
+        data-testid="start-recipe-btn"
+        type="button"
+        onClick={ () => hi.push(`/comidas/${id}/in-progress`) }
+      >
+        { mensagem }
+      </button>
     );
   }
 }
