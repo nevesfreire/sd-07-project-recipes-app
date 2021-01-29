@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
+import ReactPlayer from 'react-player';
 
 import Recommended from './Recommended';
 import FoodThumb from '../../components/FoodThumb';
@@ -73,7 +74,13 @@ function ComidasID({
         })}
       </ul>
       <p data-testid="instructions">{ detailed[0].strInstructions }</p>
-      {video && <a data-testid="video" href={ detailed[0].strYoutube }>Assistir Vídeo</a>}
+
+      {video && <ReactPlayer
+        className="video"
+        width="340px"
+        data-testid="video"
+        url={ detailed[0].strYoutube }
+      />}
 
       <Recommended suggestions={ suggestions } />
       <p>

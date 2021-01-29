@@ -30,13 +30,13 @@ export default function Recommended({ suggestions }) {
 
   return (
     <div className="slider">
-      <h2> Multiple items </h2>
+      <h2> Recomendações </h2>
       <Slider { ...settings }>
         {suggestions.map((elem, index) => {
           if (index > five) return null;
           return (
             <div data-testid={ `${index}-recomendation-card` } key={ index }>
-              <img alt="" src={ elem[strImgPath] } />
+              <img className="slide-img" alt="" src={ elem[strImgPath] } />
               <p data-testid={ `${index}-recomendation-title` }>{ elem[strTitle] }</p>
             </div>);
         })}
