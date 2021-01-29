@@ -7,6 +7,7 @@ function SearchBarByDrinks(props) {
   const [drink, setDrink] = useState('');
   const [radio, setRadio] = useState('');
   const firstLetter = 'Primeira letra';
+  const limite = 12;
 
   console.log(`byDrinks${searchValue}`);
   function searchByDrinks(event) {
@@ -18,24 +19,31 @@ function SearchBarByDrinks(props) {
       setRadio(firstLetter);
     }
   }
+  function verifyIsNull(response) {
+    if (response === 'undefined' || response === 'null') {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
+  }
   async function handlerClick() {
     if (radio === 'Ingredientes') {
-      const response = await cocktails.searchCocktailsByIngredient(searchValue);
+      const response = await cocktails.searchCocktailsByIngredient(searchValue, limite);
+      verifyIsNull(response);
       setDrink(response);
     }
     if (radio === 'Nome') {
-      const response = await cocktails.searchCocktailsByName(searchValue);
+      const response = await cocktails.searchCocktailsByName(searchValue, limite);
+      verifyIsNull(response);
       setDrink(response);
     }
     if (radio === firstLetter && searchValue.length === 1) {
-      const response = await cocktails.searchCocktailsByFirstLetter(searchValue);
+      const response = await cocktails.searchCocktailsByFirstLetter(searchValue, limite);
+      verifyIsNull(response);
       setDrink(response);
     }
     if (radio === 'Primeira letra' && searchValue.length !== 1) {
       alert('Sua busca deve conter somente 1 (um) caracter');
     }
   }
-
   return (
     <div>
       <div onChange={ (event) => searchByDrinks(event) }>
@@ -74,9 +82,8 @@ function SearchBarByDrinks(props) {
         </button>
       </div>
       <div>
-        {drink.map((obj)=>{
-          <
-        })}
+        {/* {console.log(drink)} */}
+
       </div>
     </div>
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Header from '../../components/Header/index';
+import Footer from '../../components/Footer';
 import SearchBarByDrinks from '../../components/SearchBarDrinks/SearchBarByDrinks';
 
 function DrinkPage() {
@@ -16,6 +17,8 @@ function DrinkPage() {
       <SearchBarByDrinks
         searchValue={ data }
       />
+
+      <Footer />
 
     </div>
   );

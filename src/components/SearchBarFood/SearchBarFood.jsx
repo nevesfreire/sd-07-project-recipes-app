@@ -16,17 +16,25 @@ function SearchBarByFood(props) {
       setRadio(firstLetter);
     }
   }
+  function verifyIsNull(response) {
+    if (response === 'undefined' || response === 'null') {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
+  }
   async function handlerClick() {
     if (radio === 'Ingredientes') {
       const response = await meals.searchMealsByIngredient(searchValue);
+      verifyIsNull(response);
       setMeal(response);
     }
     if (radio === 'Nome') {
       const response = await meals.searchMealsByName(searchValue);
+      verifyIsNull(response);
       setMeal(response);
     }
     if (radio === firstLetter && searchValue.length === 1) {
       const response = await meals.searchMealsByFirstLetter(searchValue);
+      verifyIsNull(response);
       setMeal(response);
     }
     if (radio === 'Primeira letra' && searchValue.length !== 1) {
@@ -72,7 +80,7 @@ function SearchBarByFood(props) {
         </button>
       </div>
       <div>
-        {console.log(meal)}
+        {/* {console.log(meal)} */}
       </div>
     </div>
 
