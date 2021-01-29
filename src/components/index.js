@@ -1,1 +1,9 @@
-// arquivo para exportar os componentes criados
+export { default as Footer } from './Footer';
+export { default as FormLogin } from './FormLogin';
+export { default as Header } from './Header';
+export { default as Ingredient } from './Ingredient';
+export { default as MainDrinks } from './MainDrinks';
+export { default as MainMeals } from './MainMeals';
+export { default as Searchbar } from './SearchBar';
+export { default as Recomendations } from './Recomendations';
+export { default as Video } from './Video';
