@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import SearchBar from '../../common/SearchBar';
 import { AppContext } from '../../context/AppContext';
+import Header from '../../common/Header';
+import SearchBar from '../../common/SearchBar';
 import './style.css';
 
 const Bebidas = () => {
@@ -34,6 +35,7 @@ const Bebidas = () => {
 
   return (
     <>
+      <Header />
       <SearchBar />
       <h1>Faça uma pesquisa</h1>
     </>

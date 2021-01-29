@@ -77,7 +77,7 @@ export default class TitleHeader extends Component {
       });
       break;
 
-    default:
+    default: this.setState({ h1: 'Explorar Ingredientes' });
       break;
     }
   }
