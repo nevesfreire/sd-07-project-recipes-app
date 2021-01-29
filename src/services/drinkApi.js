@@ -82,6 +82,7 @@ export const randomDrinksApi = async () => {
     return error;
   }
 };
+
 export const getIngredientsDrink = async () => {
   const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
   try {
