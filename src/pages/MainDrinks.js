@@ -10,29 +10,20 @@ function MainDrinks(props) {
   const { match } = props;
   const { url } = match;
   const { setPathName } = useContext(RecipesContext);
-  const [data, setData] = useState([]);
-  const { drinksToRender, setDrinksToRender } = useContext(RecipesContext);
+  const { drinksToRender, setDrinksToRender, drinkData } = useContext(RecipesContext);
   const [allFiltersToRender, setAllFiltersToRender] = useState([]);
   const [filtersToRender, setFiltersToRender] = useState([]);
   const [filtered, setFiltered] = useState(false);
 
   useEffect(() => {
-    drinkApiFunctions.fetchAllDrinkRecipes().then((response) => setData(response));
-  }, []);
-
-  useEffect(() => {
     setPathName(url);
-  }, []);
+  });
 
   useEffect(() => {
     drinkApiFunctions
       .fetchAllDrinkCategories()
       .then((response) => setAllFiltersToRender(response));
   }, []);
-
-  useEffect(() => {
-    setDrinksToRender(data.drinks);
-  }, [data]);
 
   useEffect(() => {
     setFiltersToRender(allFiltersToRender.drinks);
@@ -69,13 +60,13 @@ function MainDrinks(props) {
         .then((response) => setDrinksToRender(response.drinks));
       setFiltered(true);
     } else {
-      setDrinksToRender(data.drinks);
+      setDrinksToRender(drinkData.drinks);
       setFiltered(false);
     }
   };
 
   const resetDrinksToRender = () => {
-    setDrinksToRender(data.drinks);
+    setDrinksToRender(drinkData.drinks);
     setFiltered(false);
   };
 

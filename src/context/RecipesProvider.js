@@ -10,6 +10,24 @@ function RecipesProvider({ children }) {
   const [login, setLogin] = useState({ email: '', password: '' });
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [pathName, setPathName] = useState('');
+  const [foodData, setFoodData] = useState([]);
+  const [drinkData, setDrinkData] = useState([]);
+
+  useEffect(() => {
+    foodApiFunctions.fetchAllFoodRecipes().then((response) => setFoodData(response));
+  }, []);
+
+  useEffect(() => {
+    drinkApiFunctions.fetchAllDrinkRecipes().then((response) => setDrinkData(response));
+  }, []);
+
+  useEffect(() => {
+    setDrinksToRender(drinkData.drinks);
+  }, [drinkData]);
+
+  useEffect(() => {
+    setFoodsToRender(foodData.meals);
+  }, [foodData]);
 
   const toggleSearchBar = () => {
     setShowSearchBar(!showSearchBar);
@@ -65,6 +83,8 @@ function RecipesProvider({ children }) {
     fetchByIngredients,
     fetchByName,
     fetchByFirstLetter,
+    foodData,
+    drinkData,
   };
 
   return (

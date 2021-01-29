@@ -2,7 +2,12 @@ import React, { useState, useContext } from 'react';
 import RecipesContext from '../context/RecipesContext';
 
 function HeaderSearchBar() {
-  const { pathName, fetchByIngredients, fetchByName, fetchByFirstLetter} = useContext(RecipesContext);
+  const {
+    pathName,
+    fetchByIngredients,
+    fetchByName,
+    fetchByFirstLetter,
+  } = useContext(RecipesContext);
   const [radioButtonValue, setRadioButtonValue] = useState('');
   const [inputValue, setInputValue] = useState('');
 
@@ -21,16 +26,16 @@ function HeaderSearchBar() {
       alert('Sua busca deve conter somente 1 (um) caracter');
     } else {
       switch (radioButtonValue) {
-        case "ingrediente":
-          fetchByIngredients(inputValue);
-          break;
-          case "nome":
-            fetchByName(inputValue);
-            break;
-      
-        default:
-          fetchByFirstLetter(inputValue);
-          break;
+      case 'ingrediente':
+        fetchByIngredients(inputValue);
+        break;
+      case 'nome':
+        fetchByName(inputValue);
+        break;
+
+      default:
+        fetchByFirstLetter(inputValue);
+        break;
       }
     }
   };

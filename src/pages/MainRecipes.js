@@ -10,15 +10,10 @@ function MainRecipes(props) {
   const { match } = props;
   const { url } = match;
   const { setPathName } = useContext(RecipesContext);
-  const [data, setData] = useState([]);
-  const { foodsToRender, setFoodsToRender } = useContext(RecipesContext);
+  const { foodsToRender, setFoodsToRender, foodData } = useContext(RecipesContext);
   const [allFiltersToRender, setAllFiltersToRender] = useState([]);
   const [filtersToRender, setFiltersToRender] = useState([]);
   const [filtered, setFiltered] = useState(false);
-
-  useEffect(() => {
-    foodApiFunctions.fetchAllFoodRecipes().then((response) => setData(response));
-  }, []);
 
   useEffect(() => {
     foodApiFunctions
@@ -28,11 +23,7 @@ function MainRecipes(props) {
 
   useEffect(() => {
     setPathName(url);
-  }, []);
-
-  useEffect(() => {
-    setFoodsToRender(data.meals);
-  }, [data]);
+  });
 
   useEffect(() => {
     setFiltersToRender(allFiltersToRender.meals);
@@ -69,13 +60,13 @@ function MainRecipes(props) {
         .then((response) => setFoodsToRender(response.meals));
       setFiltered(true);
     } else {
-      setFoodsToRender(data.meals);
+      setFoodsToRender(foodData.meals);
       setFiltered(false);
     }
   };
 
   const resetFoodsToRender = () => {
-    setFoodsToRender(data.meals);
+    setFoodsToRender(foodData.meals);
     setFiltered(false);
   };
 
