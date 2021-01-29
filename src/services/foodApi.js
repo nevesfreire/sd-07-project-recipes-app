@@ -72,13 +72,19 @@ export const foodFilterByCategory = (category) => {
   };
 };
 
-<<<<<<< HEAD
 export const randomFoodsApi = async () => {
   const endpoint = 'https://www.themealdb.com/api/json/v1/1/random.php';
-=======
+  try {
+    const response = await fetch(endpoint);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+
 export const getIngredientsFood = async () => {
   const endpoint = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
->>>>>>> 8bf23c16b3463355f6a504f534d50dbd396a8a49
   try {
     const response = await fetch(endpoint);
     const data = await response.json();
