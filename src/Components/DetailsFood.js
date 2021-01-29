@@ -50,7 +50,7 @@ function DetailsFood() {
     return (
       <div>
         <img src={ strMealThumb } data-testid="recipe-photo" alt="" />
-        <ButtonsShhareAndFav fav={ fav } setFav={ setFav } />
+        <ButtonsShhareAndFav fav={ fav } setFav={ setFav } recipe={ recipe } />
         <h1 data-testid="recipe-title">{strMeal}</h1>
         <h3 data-testid="recipe-category">{strCategory}</h3>
         <RecipeIngredients recipeIngredients={ recipeIngredients } />

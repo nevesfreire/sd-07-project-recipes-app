@@ -5,9 +5,18 @@ import blackHeart from '../images/blackHeartIcon.svg';
 import whiteHeart from '../images/whiteHeartIcon.svg';
 
 function ButtonsShhareAndFav(props) {
-  const { fav, setFav } = props;
+  const { fav, setFav, recipe } = props;
+
+  // const saveFavorites = () => {
+  //   if () {
+  //     const {idMeal, strArea, strCategory } = recipe;
+
+  //   }
+  // };
+
   return (
     <div>
+      {console.log(recipe)}
       <button data-testid="share-btn" type="button">
         <img src={ share } alt="" />
       </button>
@@ -23,6 +32,7 @@ function ButtonsShhareAndFav(props) {
 }
 
 ButtonsShhareAndFav.propTypes = {
+  recipe: PropTypes.objectOf.isRequired,
   fav: PropTypes.bool.isRequired,
   setFav: PropTypes.func.isRequired,
 };
