@@ -13,6 +13,9 @@ const INITIAL_STATE = {
       cocktails: {},
       meals: {},
     },
+    isFetching: false,
+    data: [],
+    error: '',
   },
 };
 
