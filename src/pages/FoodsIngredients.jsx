@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { CustomFooter, CustomIngredientsFoods } from '../components';
 import CustomHeader from '../components/CustomHeader';
-import { getIngredients } from '../services';
+import { getIngredientsFood } from '../services';
+import { requestIngredientsFoods } from '../redux/actions/foodRecipesAction';
 
-export default class FoodsIngredients extends Component {
+class FoodsIngredients extends Component {
   constructor() {
     super();
     this.renderIngredients = this.renderIngredients.bind(this);
@@ -20,7 +22,7 @@ export default class FoodsIngredients extends Component {
   }
 
   async handleIngredients() {
-    const { meals } = await getIngredients();
+    const { meals } = await getIngredientsFood();
     this.setState({
       meals,
       isLoading: false,
@@ -29,7 +31,8 @@ export default class FoodsIngredients extends Component {
 
   renderIngredients() {
     const { meals } = this.state;
-    const LENGTH = 11;
+    const { dispatchIngredients } = this.props;
+    const LENGTH = 12;
     const INITIAL_LENGTH = 0;
     const MAX_LENGTH = meals.length > LENGTH ? LENGTH : meals.length;
     return (
@@ -39,6 +42,7 @@ export default class FoodsIngredients extends Component {
             key={ meal.idIngredient }
             index={ index }
             meal={ meal }
+            dispatch={ dispatchIngredients }
           />
         ))}
       </div>
@@ -62,12 +66,15 @@ export default class FoodsIngredients extends Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  dispatchIngredients: (Ingredients) => dispatch(requestIngredientsFoods(Ingredients)),
+});
+
 FoodsIngredients.propTypes = {
-  dispatchFoodRecipes: PropTypes.func.isRequired,
-  dispatchUpdateFoodIsFetching: PropTypes.func.isRequired,
-  isFetching: PropTypes.bool.isRequired,
+  dispatchIngredients: PropTypes.func.isRequired,
   meals: PropTypes.shape({
     length: PropTypes.number.isRequired,
     slice: PropTypes.func.isRequired,
   }).isRequired,
 };
+export default connect(null, mapDispatchToProps)(FoodsIngredients);

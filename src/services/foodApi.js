@@ -10,7 +10,6 @@ export const getFoodRecipes = ({ searchInput = '', searchRadio = 's' }) => {
   if (searchRadio === 's' || searchRadio === 'f') {
     endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?${searchRadio}=${searchInput}`;
   }
-
   return async (dispatch) => {
     dispatch(requestFoodRecipes());
     try {
@@ -66,15 +65,14 @@ export const foodFilterByCategory = (category) => {
     try {
       const resquestFilteredByCategory = await fetch(foodUrlForFilterByCategory);
       const JSONresponseFiltered = await resquestFilteredByCategory.json();
-      console.log(JSONresponseFiltered.meals);
-      dispatch(foodFilteredByCategoryAction(JSONresponseFiltered.meals));
+      dispatch(foodFilteredByCategoryAction(JSONresponseFiltered.meals, category));
     } catch (error) {
       dispatch(failedFoodRequest(error));
     }
   };
 };
 
-export const getIngredients = async () => {
+export const getIngredientsFood = async () => {
   const endpoint = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
   try {
     const response = await fetch(endpoint);

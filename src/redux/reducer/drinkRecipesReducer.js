@@ -5,12 +5,14 @@ import {
   UPDATE_DRINK_IS_FETCHING,
   RESQUEST_ALL_CATEGORIES_DRINKS,
   FILTERED_DRINK_BY_CATEGORY,
+  REQUEST_INGREDIENTS_DRINKS,
 } from '../actions';
 
 const INITIAL_STATE = {
   isFetching: true,
   drinks: [],
   categories: [],
+  currentCategoryDrink: 'all',
   error: false,
 };
 
@@ -25,6 +27,7 @@ const drinkRecipesReducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       drinks: (!action.drinkFilteredByCategory) ? [] : action.drinkFilteredByCategory,
+      currentCategoryDrink: action.category.strCategory,
       isFetching: false,
     };
   case REQUEST_DRINK_RECIPES:
@@ -39,6 +42,8 @@ const drinkRecipesReducer = (state = INITIAL_STATE, action) => {
     return { ...state, error: true };
   case UPDATE_DRINK_IS_FETCHING:
     return { ...state, isFetching: true };
+  case REQUEST_INGREDIENTS_DRINKS:
+    return { ...state, currentCategoryDrink: action.ingredients };
   default:
     return state;
   }

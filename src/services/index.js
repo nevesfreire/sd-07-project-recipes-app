@@ -3,6 +3,7 @@ export {
   getDrink,
   drinksFilteredByCategory,
   getSuggestedDrinks,
+  getIngredientsDrink,
 } from './drinkApi';
 export {
   getFoodRecipes,
@@ -10,6 +11,6 @@ export {
   foodFilterByCategory,
   getSuggestedFoods,
   getAllFoodCategories,
-  getIngredients,
+  getIngredientsFood,
 } from './foodApi';
 export { getStorage, setStorage } from './localStorage';
