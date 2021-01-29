@@ -5,7 +5,7 @@ const firstLetter = 'first-letter';
 
 export const fetchDetails = async (id, api) => {
   let url = '';
-  if (api === 'meals') url = `${mealBaseURL}/lookup.php?i=${id}`;
+  if (api === 'meal') url = `${mealBaseURL}/lookup.php?i=${id}`;
   else  url = `${beverageBaseURL}/lookup.php?i=${id}`;
   const response = await fetch(url);
   const data = await response.json();

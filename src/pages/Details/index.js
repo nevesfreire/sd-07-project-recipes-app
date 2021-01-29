@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Context } from '../../context/Provider';
 
+import Carousel from '../../components/Carousel';
+
 import { fetchDetails } from '../../services/api';
 
 function Details({ history, match }) {
-  const { results  } = useContext(Context);
+  const { results } = useContext(Context);
   const [detailData, setDetailData] = useState({
     name: '',
     src: '',
@@ -12,8 +14,8 @@ function Details({ history, match }) {
     instructions: '',
     ingredients: [],
     video: '',
-    tags: [],
     alcoholic: false,
+    
   });
   const { id } = match.params;
   const { pathname } = history.location;
@@ -48,7 +50,7 @@ function Details({ history, match }) {
     };
 
     const fetchData = async () => {
-      const api = pathname.includes('comidas') ? 'meals' : 'drinks';
+      const api = pathname.includes('comidas') ? 'meal' : 'drink';
       const data = await fetchDetails(id, api);
       console.log(data);
 
@@ -59,7 +61,6 @@ function Details({ history, match }) {
         instructions: data.strInstructions,
         video: data.strYoutube || '',
         ingredients: getIngredientsList(data),
-        tags: data.strTags ? data.strTags.trim().split(',') : [],
         alcoholic: data.strAlcoholic !== '' ? true : false,
       });
     };
@@ -73,13 +74,12 @@ function Details({ history, match }) {
         instructions: results[id].strInstructions,
         video: results[id].strYoutube || '',
         ingredients: getIngredientsList(results[id]),
-        tags: results[id].strTags ? results[id].strTags.trim().split(',') : [],
         alcoholic: results[id].strAlcoholic !== '' ? true : false,
       });
     }
   }, [id, pathname, results]);
 
-  const { name, src, category, instructions, video, ingredients, tags, alcoholic } = detailData;
+  const { name, src, category, instructions, video, ingredients, alcoholic } = detailData;
 
   return (
     <article>
@@ -101,15 +101,6 @@ function Details({ history, match }) {
         <p data-testid="instructions">
           {instructions}
         </p>
-        
-        {tags.lenght
-          ? tags.map((tag, index) => (
-            <p data-testid={`${index}-recomendation-card`}>
-              {tag}
-            </p>
-          ))
-          : <p data-testid="0-recomendation-card">{tags}</p>
-        }
         <ul>
           {ingredients.map((ing, index) => (
             <li
@@ -155,6 +146,7 @@ function Details({ history, match }) {
           </li>
         </ul>
       </section>
+      <Carousel history={ history }/>
     </article>
   );
 }
