@@ -7,7 +7,6 @@ const emailInput = 'email-input';
 const passwordInput = 'password-input';
 const loginSubmitBnt = 'login-submit-btn';
 const validEmail = 'email@email.com';
-
 describe('testando pagina de login', () => {
   test('- Tem os data-testids email-input, password-input e login-submit-btn', () => {
     const { getByTestId } = renderWithRouter(<Login />);
@@ -20,45 +19,46 @@ describe('testando pagina de login', () => {
     const { getByTestId } = renderWithRouter(<Login />);
 
     const email = getByTestId(emailInput);
-    fireEvent.type(email, validEmail);
-    expect(email.value).toBe(validEmail);
+    fireEvent.change(email, validEmail);
+    console.log(email.value);
+    expect(email.value).toEqual(validEmail);
   });
   test('- É possível escrever a senha', () => {
     const { getByTestId } = renderWithRouter(<Login />);
 
     const password = getByTestId(passwordInput);
-    fireEvent.type(password, '123321');
+    fireEvent.change(password, '123321');
     expect(password.value).toBe('123321');
   });
   test('- O botão deve estar desativado se o email for inválido', () => {
     const { getByTestId } = renderWithRouter(<Login />);
 
     const email = getByTestId(emailInput);
-    fireEvent.type(email, 'email@email');
+    fireEvent.change(email, 'email@email');
     const password = getByTestId(passwordInput);
-    fireEvent.type(password, '1234567');
+    fireEvent.change(password, '1234567');
     const loginButton = getByTestId(loginSubmitBnt);
-    expect(loginButton.disable).toBe(true);
+    expect(loginButton.disabled).toBe(true);
   });
   test('- O botão deve estar desativado se a senha tiver 6 caracteres ou menos', () => {
     const { getByTestId } = renderWithRouter(<Login />);
 
     const email = getByTestId(emailInput);
-    fireEvent.type(email, validEmail);
+    fireEvent.change(email, validEmail);
     const loginButton = getByTestId(loginSubmitBnt);
     const password = getByTestId(passwordInput);
-    fireEvent.type(password, '123456');
-    expect(loginButton.disable).toBe(true);
+    fireEvent.change(password, '123456');
+    expect(loginButton.disabled).toBe(true);
   });
   test('- O botão deve estar ativado se o email e a senha forem válidos', () => {
     const { getByTestId } = renderWithRouter(<Login />);
 
     const email = getByTestId(emailInput);
-    fireEvent.type(email, validEmail);
+    fireEvent.change(email, validEmail);
     const loginButton = getByTestId(loginSubmitBnt);
     const password = getByTestId(passwordInput);
-    fireEvent.type(password, '1234567');
-    expect(loginButton.disable).toBe(false);
+    fireEvent.change(password, '1234567');
+    expect(loginButton.disabled).toBe(false);
   });
   test('- Após submissão, mealsToken e cocktailsToken devem estar salvos em localStorage',
     () => {
@@ -66,10 +66,10 @@ describe('testando pagina de login', () => {
 
       localStorage.clear();
       const email = getByTestId(emailInput);
-      fireEvent.type(email, validEmail);
+      fireEvent.change(email, validEmail);
       const loginButton = getByTestId(loginSubmitBnt);
       const password = getByTestId(passwordInput);
-      fireEvent.type(password, '1234567');
+      fireEvent.change(password, '1234567');
       fireEvent.click(loginButton);
       expect(localStorage.getItem('mealsToken')).to.eq('1');
       expect(localStorage.getItem('cocktailsToken')).to.eq('1');
@@ -79,10 +79,10 @@ describe('testando pagina de login', () => {
 
     localStorage.clear();
     const email = getByTestId(emailInput);
-    fireEvent.type(email, validEmail);
+    fireEvent.change(email, validEmail);
     const loginButton = getByTestId(loginSubmitBnt);
     const password = getByTestId(passwordInput);
-    fireEvent.type(password, '1234567');
+    fireEvent.change(password, '1234567');
     fireEvent.click(loginButton);
     expect(JSON.parse(localStorage.getItem('user'))).to.deep.eq({
       email: 'email@mail.com',
@@ -93,10 +93,10 @@ describe('testando pagina de login', () => {
 
     localStorage.clear();
     const email = getByTestId(emailInput);
-    fireEvent.type(email, validEmail);
+    fireEvent.change(email, validEmail);
     const loginButton = getByTestId(loginSubmitBnt);
     const password = getByTestId(passwordInput);
-    fireEvent.type(password, '1234567');
+    fireEvent.change(password, '1234567');
     fireEvent.click(loginButton);
     expect(history.location.pathname).toBe('/comidas');
   });

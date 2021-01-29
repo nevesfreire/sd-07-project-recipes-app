@@ -1,8 +1,8 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Provider from './context/Provider';
-import { Login } from './pages';
-import { BottomMenu, Header } from './components';
+import { Login, MainPage } from './pages';
+// import { BottomMenu, Header } from './components';
 
 function App() {
   return (
@@ -10,6 +10,7 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={ Login } />
+          <Route exact path="/comidas" component={ MainPage } />
           {/* <Redirect to="/404" /> */}
         </Switch>
       </BrowserRouter>
