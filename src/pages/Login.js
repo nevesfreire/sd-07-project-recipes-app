@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useValideEmailAndPassword, useLocalStorage } from '../hooks';
-import { SUBMIT_EMAIL } from '../reducers/userReducer';
+import { SUBMIT_EMAIL } from '../reducers';
 import { CupNodesContext } from '../contexts';
 
 const initialState = { email: '', password: '' };
@@ -31,46 +31,43 @@ export default function Login({ history: { push } }) {
 
   return (
     <div>
-      <h3>Login</h3>
-      <div>
-        <label htmlFor="email-input">
-          Email:
-          <input
-            data-testid="email-input"
-            type="email"
-            onChange={ changeState }
-          />
-        </label>
-        <label htmlFor="password-input">
-          Senha:
-          <input
-            data-testid="password-input"
-            type="password"
-            onChange={ changeState }
-          />
-        </label>
-        {
-          valid
-            ? (
-              <button
-                type="submit"
-                data-testid="login-submit-btn"
-                onClick={ submitUser }
-              >
-                Entrar
-              </button>
-            )
-            : (
-              <button
-                type="submit"
-                data-testid="login-submit-btn"
-                disabled
-              >
-                Entrar
-              </button>
-            )
-        }
-      </div>
+      <label htmlFor="email-input">
+        Email:
+        <input
+          data-testid="email-input"
+          type="email"
+          onChange={ changeState }
+        />
+      </label>
+      <label htmlFor="password-input">
+        Senha:
+        <input
+          data-testid="password-input"
+          type="password"
+          onChange={ changeState }
+        />
+      </label>
+      {
+        valid
+          ? (
+            <button
+              type="submit"
+              data-testid="login-submit-btn"
+              onClick={ submitUser }
+            >
+              Entrar
+            </button>
+          )
+          : (
+            <button
+              type="submit"
+              data-testid="login-submit-btn"
+              disabled
+            >
+              Entrar
+            </button>
+          )
+      }
     </div>
   );
 }

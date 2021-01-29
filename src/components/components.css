@@ -6,3 +6,13 @@
   position: fixed;
   width: 100%;
 }
+
+.cardFood {
+  display: flex;
+  flex-basis: 30%;
+  flex-flow: row;
+  height: 172px;
+  left: 187px;
+  top: 171px;
+  width: 161px;
+}
