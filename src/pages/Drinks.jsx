@@ -9,6 +9,7 @@ import {
   updateDrinkIsFetching,
   allCategoriesDrinksAction,
 } from '../redux/actions';
+import { getDrinkRecipes } from '../services';
 
 class Drinks extends Component {
   constructor() {
@@ -93,9 +94,18 @@ class Drinks extends Component {
   }
 
   render() {
+    const { dispatchDrinksRecipes } = this.props;
     return (
       <div>
         <CustomHeader title="Bebidas" />
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ () => dispatchDrinksRecipes({}) }
+        >
+          {' '}
+          All
+        </button>
         { this.renderCategories()}
         { this.handleRecipes()}
         <CustomFooter />
@@ -111,6 +121,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  dispatchDrinksRecipes: (searchHeader) => dispatch(getDrinkRecipes(searchHeader)),
   dispatchAllCategories: (allCategories) => {
     dispatch(allCategoriesDrinksAction(allCategories));
   },
@@ -124,6 +135,7 @@ Drinks.propTypes = {
   categories: PropTypes.arrayOf(PropTypes.object).isRequired,
   dispatchUpdateDrinkIsFetching: PropTypes.func.isRequired,
   dispatchInitialCards: PropTypes.func.isRequired,
+  dispatchDrinksRecipes: PropTypes.func.isRequired,
   dispatchAllCategories: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
   drinks: PropTypes.shape({

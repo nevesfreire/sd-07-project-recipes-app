@@ -9,9 +9,10 @@ export const updateDrinkIsFetching = () => ({
   type: UPDATE_DRINK_IS_FETCHING,
 });
 
-export const drinkFilteredByCategoryAction = (drinkFilteredByCategory) => ({
+export const drinkFilteredByCategoryAction = (drinkFilteredByCategory, category) => ({
   type: FILTERED_DRINK_BY_CATEGORY,
   drinkFilteredByCategory,
+  category,
 });
 
 export const allCategoriesDrinksAction = (categories) => ({
