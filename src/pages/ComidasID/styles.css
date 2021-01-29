@@ -9,5 +9,13 @@
 
 .slider {
   height: auto;
-  width: 100vmax;
+  width: 100%;
+}
+
+.slide-img {
+  width: 180px;
+}
+
+.recipe-thumbnail {
+  width: 100%;
 }
