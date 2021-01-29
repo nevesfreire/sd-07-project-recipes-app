@@ -6,7 +6,7 @@ export default class CustomExploreFoods extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { randomId: 0 };
+    this.state = { id: 0 };
   }
 
   async componentDidMount() {
@@ -16,11 +16,11 @@ export default class CustomExploreFoods extends Component {
   }
 
   fetchFoodsRandom(value) {
-    this.setState({ randomId: value });
+    this.setState({ id: value });
   }
 
   render() {
-    const { randomId } = this.state;
+    const { id } = this.state;
 
     return (
       <div>
@@ -34,7 +34,7 @@ export default class CustomExploreFoods extends Component {
             Por Local de Origem
           </button>
         </Link>
-        <Link to={ `/comidas/${randomId}` } data-testid="explore-surprise">
+        <Link to={ `/comidas/${id}` } data-testid="explore-surprise">
           <button type="button">
             Me Surpreenda!
           </button>

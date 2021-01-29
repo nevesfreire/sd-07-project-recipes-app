@@ -5,7 +5,7 @@ import { randomDrinksApi } from '../services';
 export default class CustomExploreDrinks extends Component {
   constructor(props) {
     super(props);
-    this.state = { randomId: 0 };
+    this.state = { id: 0 };
   }
 
   async componentDidMount() {
@@ -14,11 +14,11 @@ export default class CustomExploreDrinks extends Component {
   }
 
   fetchDrinksRandom(value) {
-    this.setState({ randomId: value });
+    this.setState({ id: value });
   }
 
   render() {
-    const { randomId } = this.state;
+    const { id } = this.state;
     return (
       <div>
         <Link to="/explorar/bebidas/ingredientes" data-testid="explore-by-ingredient">
@@ -26,7 +26,7 @@ export default class CustomExploreDrinks extends Component {
             Por Ingredientes
           </button>
         </Link>
-        <Link to={ `/bebidas/${randomId}` } data-testid="explore-surprise">
+        <Link to={ `/bebidas/${id}` } data-testid="explore-surprise">
           <button type="button">
             Me Surpreenda!
           </button>
