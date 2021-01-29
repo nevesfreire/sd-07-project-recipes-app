@@ -4,17 +4,18 @@ import renderWithRouter from './renderWithRouter';
 import Login from '../components/Login';
 
 describe('Component Login', () => {
+  const emailInput = screen.getByTestId('email-input');
+  const passwordInput = screen.getByTestId('password-input');
+
   test('if there is an email field', () => {
     renderWithRouter(<Login />);
 
-    const emailInput = screen.getByTestId('email-input');
     expect(emailInput).toBeInTheDocument();
   });
 
   test('if there is an password field', () => {
     renderWithRouter(<Login />);
 
-    const passwordInput = screen.getByTestId('password-input');
     expect(passwordInput).toBeInTheDocument();
   });
 
@@ -35,8 +36,23 @@ describe('Component Login', () => {
     expect(disabledEnterButton).toHaveAttribute('disabled');
 
     fireEvent.change(emailInput, { target: { value: 'example@email.com' } });
-    fireEvent.change(passwordInput, { target: { value: '123456' } });
+    fireEvent.change(passwordInput, { target: { value: '1234567' } });
 
     expect(disabledEnterButton).not.toHaveAttribute('disabled');
+  });
+
+  test('whether the button redirects to the food page', () => {
+    const { history } = renderWithRouter(<Login />);
+
+    fireEvent.change(emailInput, { target: { value: 'example@email.com' } });
+    fireEvent.change(passwordInput, { target: { value: '1234567' } });
+
+    const enterButton = screen.getByTestId('login-submit-btn');
+
+    fireEvent.click(enterButton);
+
+    const { pathname } = history.location;
+
+    expect(pathname).toBe('/comidas');
   });
 });

@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import CoffeAndCodeContext from '../context/CoffeeAndCodeContext';
+import { saveState } from '../services/localStorage';
 
 function Login() {
   const {
@@ -19,8 +21,14 @@ function Login() {
 
   const isPassword = ({ target: { value } }) => {
     const minimumLength = 6;
-    if (value.length >= minimumLength) setPassword(value);
+    if (value.length > minimumLength) setPassword(value);
     else setPassword('');
+  };
+
+  const submit = () => {
+    saveState('mealsToken', 1);
+    saveState('cocktailsToken', 1);
+    saveState('user', { email });
   };
 
   return (
@@ -42,13 +50,16 @@ function Login() {
           onChange={ isPassword }
           data-testid="password-input"
         />
-        <button
-          data-testid="login-submit-btn"
-          type="button"
-          disabled={ !email || !password }
-        >
-          Enter
-        </button>
+        <Link to="/comidas">
+          <button
+            data-testid="login-submit-btn"
+            type="button"
+            disabled={ !email || !password }
+            onClick={ submit }
+          >
+            Enter
+          </button>
+        </Link>
       </section>
     </div>
   );
