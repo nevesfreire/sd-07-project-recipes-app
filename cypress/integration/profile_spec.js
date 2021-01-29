@@ -29,7 +29,7 @@ describe('Profile screen', () => {
     });
   });
 
-  describe.only('83 - Implemente a solução de maneira que o e-mail da pessoa usuária deve estar visível', () => {
+  describe('83 - Implemente a solução de maneira que o e-mail da pessoa usuária deve estar visível', () => {
     it('O e-mail armazenado em localStorage está visível', () => {
       cy.get('[data-testid="profile-email"]').contains('email@mail.com');
     });

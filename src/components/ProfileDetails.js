@@ -1,23 +1,46 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 class ProfileDetails extends Component {
   render() {
+    const { history } = this.props;
     const user = JSON.parse(localStorage.getItem('user'));
     console.log(user.email);
     return (
-      <div>
-        <div data-testid="profile-email">
+      <div className="profile-container">
+        <div className="text-center" data-testid="profile-email">
           {user.email}
         </div>
-        <div>
-          <button type="button" data-testid="profile-done-btn">
+        <div className="button-container">
+          <button
+            type="button"
+            className="btn btn-secondary"
+            data-testid="profile-done-btn"
+            onClick={ () => {
+              history.push('/receitas-feitas');
+            } }
+          >
             Receitas Feitas
           </button>
-          <button type="button" data-testid="profile-favorite-btn">
+          <button
+            type="button"
+            className="btn btn-secondary"
+            data-testid="profile-favorite-btn"
+            onClick={ () => {
+              history.push('/receitas-favoritas');
+            } }
+          >
             Receitas Favoritas
           </button>
-          <button type="button" data-testid="profile-logout-btn">
+          <button
+            type="button"
+            className="btn btn-secondary"
+            data-testid="profile-logout-btn"
+            onClick={ () => {
+              localStorage.clear();
+              history.push('/');
+            } }
+          >
             Sair
           </button>
         </div>
@@ -28,8 +51,8 @@ class ProfileDetails extends Component {
 
 export default ProfileDetails;
 
-// Profile.propTypes = {
-//   history: PropTypes.shape({
-//     push: PropTypes.func,
-//   }).isRequired,
-// };
+ProfileDetails.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
