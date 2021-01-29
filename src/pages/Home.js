@@ -9,7 +9,7 @@ export default function Home() {
       <Header title="Comidas" />
       {
         category.length
-          ? <Cards number={ 5 } category={ category } />
+          ? <Cards number={ 5 } category={ category } food={ false } />
           : <RandonCards number={ 5 } food={ false } />
       }
       <Footer />
