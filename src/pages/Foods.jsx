@@ -1,11 +1,22 @@
 import React, { useContext, useEffect } from 'react';
+import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Cards from '../components/cards';
 import GlobalContext from '../context/GlobalContext';
 
 export default function Foods() {
-  const { setDataFoods, dataFoods } = useContext(GlobalContext);
+  const {
+    setDataFoods,
+    dataFoods,
+    setTitle,
+    setSearchButton,
+  } = useContext(GlobalContext);
   const numberOfCards = 12;
+
+  useEffect(() => {
+    setTitle('Comidas');
+    setSearchButton(true);
+  }, [setTitle, setSearchButton]);
 
   useEffect(() => {
     fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
@@ -29,6 +40,7 @@ export default function Foods() {
 
   return (
     <div>
+      <Header />
       {Cards(numberOfCards, dataFoods)}
       <Footer />
     </div>
