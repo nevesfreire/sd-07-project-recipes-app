@@ -3,6 +3,7 @@ import propTypes from 'prop-types';
 import RequestDrinkAPI from '../services/drinkApi';
 import RequestDrinkByName from '../services/nameDrinkApi';
 import RequestDrinkByLetter from '../services/firstLetterDrinkApi';
+import RequestDrinkCategories from '../services/categoriesDrink';
 
 export const DrinkContext = createContext();
 
@@ -16,13 +17,27 @@ const DrinkProvider = ({ children }) => {
   const [inputText, setInputText] = useState('');
   const [radioType, setRadioType] = useState('');
   const [data, setData] = useState([]);
+  const [categoriesButtom, setCategoriesButtom] = useState([]);
 
   useEffect(() => {
     async function apiNewData() {
       const newData = await RequestDrinkByName('');
       setData(newData);
     }
+    async function requestCategories() {
+      const temp = [];
+      const maxLengthButtom = 5;
+      const excludeRestOfArry = 10;
+      const results = await RequestDrinkCategories();
+      await results.forEach((obj) => {
+        const { strCategory } = obj;
+        temp.push(strCategory);
+      });
+      temp.splice(maxLengthButtom, excludeRestOfArry);
+      await setCategoriesButtom(temp);
+    }
     apiNewData();
+    requestCategories();
   }, []);
 
   const changeSearchBarState = () => {
@@ -73,6 +88,7 @@ const DrinkProvider = ({ children }) => {
     inputText,
     setInputText,
     data,
+    categoriesButtom,
   };
 
   return (

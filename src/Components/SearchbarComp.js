@@ -8,7 +8,7 @@ const SearchBarComp = ({ context }) => {
   const history = useHistory();
   const whichContext = context === 'Comidas' ? RecipesContext : DrinkContext;
   const whichId = context === 'Comidas' ? 'idMeal' : 'idDrink';
-  const { searchWithFilter, setInputText, setRadioType, data } = useContext(
+  const { searchWithFilter, setInputText, setRadioType, data, categoriesButtom } = useContext(
     whichContext,
   );
 
@@ -65,14 +65,14 @@ const SearchBarComp = ({ context }) => {
           />
           Primeira letra
         </label>
+        <button
+          data-testid="exec-search-btn"
+          type="button"
+          onClick={ searchWithFilter }
+        >
+          Buscar
+        </button>
       </div>
-      <button
-        data-testid="exec-search-btn"
-        type="button"
-        onClick={ searchWithFilter }
-      >
-        Buscar
-      </button>
     </div>
   );
 };

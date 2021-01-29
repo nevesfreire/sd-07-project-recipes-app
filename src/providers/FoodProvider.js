@@ -4,6 +4,7 @@ import RecipesContext from './Context/Context';
 import RequestFoodAPI from '../services/foodApi';
 import RequestFoodBayName from '../services/nameFoodApi';
 import RequestFoodByLetter from '../services/firstLetterFoodApi';
+import RequestFoodCategories from '../services/categoriesFood';
 
 const FoodProvider = ({ children }) => {
   const [tittleHeader, setTittleHeader] = useState('Comidas');
@@ -11,13 +12,27 @@ const FoodProvider = ({ children }) => {
   const [inputText, setInputText] = useState('');
   const [radioType, setRadioType] = useState('');
   const [data, setData] = useState([]);
+  const [categoriesButtom, setCategoriesButtom] = useState([]);
 
   useEffect(() => {
     async function apiNewData() {
       const newData = await RequestFoodBayName('');
       setData(newData);
     }
+    async function requestCategories() {
+      const temp = [];
+      const maxLengthButtom = 5;
+      const excludeRestOfArry = 10;
+      const results = await RequestFoodCategories();
+      await results.forEach((obj) => {
+        const { strCategory } = obj;
+        temp.push(strCategory);
+      });
+      temp.splice(maxLengthButtom, excludeRestOfArry);
+      await setCategoriesButtom(temp);
+    }
     apiNewData();
+    requestCategories();
   }, []);
 
   const changeSearchBarState = () => {
@@ -75,6 +90,7 @@ const FoodProvider = ({ children }) => {
     inputText,
     setInputText,
     data,
+    categoriesButtom,
   };
 
   return (
