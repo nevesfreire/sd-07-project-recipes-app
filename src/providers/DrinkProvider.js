@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, useEffect } from 'react';
 import propTypes from 'prop-types';
 import RequestDrinkAPI from '../services/drinkApi';
 import RequestDrinkByName from '../services/nameDrinkApi';
@@ -7,8 +7,8 @@ import RequestDrinkByLetter from '../services/firstLetterDrinkApi';
 export const DrinkContext = createContext();
 
 const alertMessage = () => {
-  const massage = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
-  alert(massage);
+  const message = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
+  alert(message);
 };
 
 const DrinkProvider = ({ children }) => {
@@ -16,6 +16,14 @@ const DrinkProvider = ({ children }) => {
   const [inputText, setInputText] = useState('');
   const [radioType, setRadioType] = useState('');
   const [data, setData] = useState([]);
+
+  useEffect(() => {
+    async function apiNewData() {
+      const newData = await RequestDrinkByName('');
+      setData(newData);
+    }
+    apiNewData();
+  }, []);
 
   const changeSearchBarState = () => {
     if (searchBar === true) setSearchBar(false);
@@ -25,30 +33,21 @@ const DrinkProvider = ({ children }) => {
   const searchWithFilter = () => {
     async function requestByIngredient() {
       const results = await RequestDrinkAPI(inputText);
+      if (!results) return alertMessage();
       setData(results);
-      await console.log(results);
-      if (!results) {
-        alertMessage();
-      }
     }
 
     async function requestByName() {
       const results = await RequestDrinkByName(inputText);
+      if (!results) return alertMessage();
       setData(results);
-      if (!results) {
-        alertMessage();
-      }
     }
 
     async function requestByLetter() {
       const results = await RequestDrinkByLetter(inputText);
+      if (!results) return alertMessage();
       setData(results);
-      if (!results) {
-        alertMessage();
-      }
     }
-
-    // const teste = () => { customAlert('Sua busca deve conter somente 1 (um) caracter'); };
 
     if (radioType === 'Ingrediente') {
       requestByIngredient();
