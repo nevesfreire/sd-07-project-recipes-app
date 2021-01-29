@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import RecipesContext from './RecipesContext';
 import {
   fetchSearchMealIngredient,
@@ -10,6 +11,8 @@ import {
   fetchSearchDrinkLetter,
   fetchMealSurprise,
   fetchDrinkSurprise,
+  fetchMealsIngredients,
+  fetchDrinksIngredients,
 } from '../services/api';
 
 function Provider({ children }) {
@@ -22,6 +25,8 @@ function Provider({ children }) {
   const [optionSearch, setOptionSearch] = useState('');
   const [inputSearch, setInputSearch] = useState('');
   const [loadResults, setLoadResults] = useState(false);
+
+  const history = useHistory();
 
   const handleEntrarButton = () => {
     localStorage.clear();
@@ -102,6 +107,7 @@ function Provider({ children }) {
 
   const handleMealSurpriseButton = () => {
     getMealSurprise();
+    history.push(`/comidas/${cards[0].idMeal}`);
   };
 
   const getDrinkSurprise = async () => {
@@ -111,7 +117,36 @@ function Provider({ children }) {
 
   const handleDrinkSurpriseButton = () => {
     getDrinkSurprise();
+    history.push(`/bebidas/${cards[0].idDrink}`);
   };
+
+  useEffect(() => {
+    getMealSurprise();
+    getDrinkSurprise();
+  }, []);
+
+  const getMealsIngredients = async () => {
+    setCards(await fetchMealsIngredients());
+    setIsFetching(false);
+  };
+
+  const handleMealIngredientButton = () => {
+    getMealsIngredients();
+  };
+
+  const getDrinksIngredients = async () => {
+    setCards(await fetchDrinksIngredients());
+    setIsFetching(false);
+  };
+
+  const handleDrinksIngredientsButton = () => {
+    getDrinksIngredients();
+  };
+
+  useEffect(async() => {
+    await getMealsIngredients();
+    // await getDrinksIngredients();
+  });
 
   useEffect(() => {
     handleUrlChange();
@@ -143,8 +178,10 @@ function Provider({ children }) {
           handleBuscarButton,
           handleMealSurpriseButton,
           handleDrinkSurpriseButton,
-          getMealSurprise,
-          getDrinkSurprise }
+          handleMealIngredientButton,
+          handleDrinksIngredientsButton,
+          getMealsIngredients,
+          getDrinksIngredients }
       }
     >
       { children }

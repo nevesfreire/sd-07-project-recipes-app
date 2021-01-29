@@ -43,3 +43,15 @@ export const fetchDrinkSurprise = async () => {
   const { drinks } = await fetch(endpoint).then((response) => response.json());
   return drinks;
 };
+
+export const fetchMealsIngredients = async () => {
+  const endpoint = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+  const { meals } = await fetch(endpoint).then((response) => response.json());
+  return meals;
+};
+
+export const fetchDrinksIngredients = async () => {
+  const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
+  const { drinks } = await fetch(endpoint).then((response) => response.json());
+  return drinks;
+};

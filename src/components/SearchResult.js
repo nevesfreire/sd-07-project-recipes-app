@@ -24,6 +24,7 @@ function SearchResult() {
 
   const zero = 0;
   const doze = 12;
+
   // ParaComidas:
 
   if (url === 'http://localhost:3000/comidas') {

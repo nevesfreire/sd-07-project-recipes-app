@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
@@ -7,21 +7,18 @@ import RecipesContext from '../context/RecipesContext';
 
 export default function Explorar() {
   const {
-    cards,
     handleMealSurpriseButton,
-    isFetching,
-    getMealSurprise,
+    handleMealIngredientButton,
   } = useContext(RecipesContext);
-
-  useEffect(() => {
-    getMealSurprise();
-  }, []);
 
   return (
     <div>
       <Header />
       <Link to="/explorar/comidas/ingredientes">
-        <Card data-testid="explore-by-ingredient">
+        <Card
+          data-testid="explore-by-ingredient"
+          onClick={ handleMealIngredientButton }
+        >
           <Card.Title>Por Ingredientes</Card.Title>
         </Card>
       </Link>
@@ -32,16 +29,13 @@ export default function Explorar() {
         </Card>
       </Link>
 
-      {!isFetching && cards.map((card, index) => (
-        <Link key={ index } to={ `/comidas/${card.idMeal}` }>
-          <Card
-            data-testid="explore-surprise"
-            onClick={ handleMealSurpriseButton }
-          >
-            <Card.Title>Me Surpreenda!</Card.Title>
-          </Card>
-        </Link>
-      ))}
+      <Card
+        data-testid="explore-surprise"
+        onClick={ handleMealSurpriseButton }
+      >
+        <Card.Title>Me Surpreenda!</Card.Title>
+      </Card>
+
       <Footer />
     </div>
   );
