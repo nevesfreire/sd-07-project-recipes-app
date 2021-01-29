@@ -7,18 +7,23 @@ import RecipesContext from '../context/RecipesContext';
 
 function DetailsFood() {
   const {
-    setDone,
-    setDoing,
-    setIdParams } = useContext(RecipesContext);
-  const [recipe, setRecipe] = useState({});
+    setIdParams,
+    recipe,
+    setRecipe,
+    recipeIngredients,
+    setRecipeIngredients,
+  } = useContext(RecipesContext);
   const [loading, setLoading] = useState(true);
   const [fav, setFav] = useState(false);
-  const [recipeIngredients, setRecipeIngredients] = useState([]);
   const { id } = useParams();
   const zero = 0;
   const nine = 9;
   const fortyNine = 49;
   const twenty = 20;
+  useEffect(() => {
+    setIdParams(id);
+  }, []);
+
   useEffect(() => {
     const fetchRecipe = async () => {
       const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
@@ -34,18 +39,6 @@ function DetailsFood() {
       setRecipeIngredients(allingredients);
     };
     fetchRecipe();
-    const recipeDone = JSON.parse(window.localStorage.getItem('doneRecipes'));
-    if (recipeDone) {
-      const findRecipeDone = recipeDone.find(({ id: recipeId }) => recipeId === id);
-      if (findRecipeDone) setDone(true);
-    }
-    const recipeDoing = JSON.parse(window.localStorage.getItem('inProgressRecipes'));
-    if (recipeDoing) {
-      const { meals } = recipeDoing;
-      const findRecipeDoing = meals.find(({ id: recipeId }) => recipeId === id);
-      if (findRecipeDoing) setDoing(true);
-    }
-    setIdParams(id);
   }, [id]);
 
   if (!loading) {

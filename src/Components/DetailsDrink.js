@@ -7,13 +7,15 @@ import RecipesContext from '../context/RecipesContext';
 
 function DetailsDrink() {
   const {
-    setDone,
-    setDoing,
-    setIdParams } = useContext(RecipesContext);
-  const [recipe, setRecipe] = useState({});
+    setIdParams,
+    recipe,
+    setRecipe,
+    recipeIngredients,
+    setRecipeIngredients,
+  } = useContext(RecipesContext);
   const [loading, setLoading] = useState(true);
   const [fav, setFav] = useState(false);
-  const [recipeIngredients, setRecipeIngredients] = useState([]);
+  // const [recipeIngredients, setRecipeIngredients] = useState([]);
   const { id } = useParams();
   const zero = 0;
   const fifteen = 15;
@@ -37,17 +39,6 @@ function DetailsDrink() {
       setRecipeIngredients(allingredients);
     };
     fetchRecipe();
-    const recipeDone = JSON.parse(window.localStorage.getItem('doneRecipes'));
-    if (recipeDone) {
-      const findRecipeDone = recipeDone.find(({ id: recipeId }) => recipeId === id);
-      if (findRecipeDone) setDone(true);
-    }
-    const recipeDoing = JSON.parse(window.localStorage.getItem('inProgressRecipes'));
-    if (recipeDoing) {
-      const { meals } = recipeDoing;
-      const findRecipeDoing = meals.find(({ id: recipeId }) => recipeId === id);
-      if (findRecipeDoing) setDoing(true);
-    }
     setIdParams(id);
   }, [id]);
 

@@ -3,10 +3,12 @@ import React, { useState, useEffect } from 'react';
 import RecipesContext from './RecipesContext';
 
 function RecipesContextProvider({ children }) {
+  const [recipe, setRecipe] = useState({});
   const [globalRecipes, setGlobalRecipes] = useState({});
   const [isFetching, setIsFetching] = useState(true);
   const [isOnlyOne, setIsOnlyOne] = useState(false);
   const [firstTwelveRecipes, setFirstTwelveRecipes] = useState([]);
+  const [recipeIngredients, setRecipeIngredients] = useState([]);
   const [idParams, setIdParams] = useState('');
   const [done, setDone] = useState(false);
   const [doing, setDoing] = useState(false);
@@ -47,6 +49,10 @@ function RecipesContextProvider({ children }) {
         isOnlyOne,
         firstTwelveRecipes,
         setFirstTwelveRecipes,
+        recipe,
+        setRecipe,
+        recipeIngredients,
+        setRecipeIngredients,
       } }
     >
       {children}
