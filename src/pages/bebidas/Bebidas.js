@@ -1,16 +1,29 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Header from '../../components/header/Header';
 import BarraBuscaBebidas from '../../components/searchbar/BarraBuscaBebidas';
 import Footer from '../../components/footer/Footer';
 
-export default class Bebidas extends React.Component {
+class Bebidas extends React.Component {
   render() {
+    const { toggle } = this.props;
     return (
       <div>
         <Header title="Bebidas" />
-        <BarraBuscaBebidas />
+        {toggle && <BarraBuscaBebidas />}
         <Footer />
       </div>
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  toggle: state.reducerSearchBar.toggle,
+});
+
+export default connect(mapStateToProps)(Bebidas);
+
+Bebidas.propTypes = {
+  toggle: PropTypes.bool.isRequired,
+};
