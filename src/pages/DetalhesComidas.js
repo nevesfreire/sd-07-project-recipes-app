@@ -6,11 +6,12 @@ import { apiFoods } from '../services/Services';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
+const copy = require('clipboard-copy');
+
 function DetalhesComidas({ match: { params: { id } }, history }) {
   const [detailMeal, setDetailMeal] = useState([]);
+  const [copyLink, setCopyLink] = useState(false);
   const { fetchDrinks, drinks } = useContext(RecipesContext);
-
-  // const [recomendedDrinks, setRecomendedDrinks] = useState([]);
 
   useEffect(() => {
     const fetchDetailMeal = async () => {
@@ -72,6 +73,11 @@ function DetalhesComidas({ match: { params: { id } }, history }) {
     history.push(`/comidas/${id}/in-progress`);
   }
 
+  function handleClick() {
+    setCopyLink(true);
+    copy(`http://localhost:3000${history.location.pathname}`);
+  }
+
   return (
     <div>
       <img
@@ -85,12 +91,14 @@ function DetalhesComidas({ match: { params: { id } }, history }) {
       <button
         data-testid="share-btn"
         type="button"
+        onClick={ handleClick }
       >
         <img
           src={ shareIcon }
           alt="share"
         />
       </button>
+      {copyLink && <p>Link copiado!</p>}
       <button
         data-testid="favorite-btn"
         type="button"

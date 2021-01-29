@@ -6,8 +6,11 @@ import { apiDrinks } from '../services/Services';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
+const copy = require('clipboard-copy');
+
 function DetalhesBebidas({ match: { params: { id } }, history }) {
   const [detailDrink, setDetailDrink] = useState([]);
+  const [copyLink, setCopyLink] = useState(false);
   const { fetchFoods, foods } = useContext(RecipesContext);
   useEffect(() => {
     const fetchDetailDrink = async () => {
@@ -68,6 +71,11 @@ function DetalhesBebidas({ match: { params: { id } }, history }) {
     history.push(`/bebidas/${id}/in-progress`);
   }
 
+  function handleClick() {
+    setCopyLink(true);
+    copy(`http://localhost:3000${history.location.pathname}`);
+  }
+
   return (
     <div>
       <img
@@ -78,9 +86,14 @@ function DetalhesBebidas({ match: { params: { id } }, history }) {
       />
       <h4 data-testid="recipe-title">{ strDrink }</h4>
       <h5 data-testid="recipe-category">{ strAlcoholic }</h5>
-      <button type="button" src={ shareIcon }>
+      <button
+        onClick={ handleClick }
+        type="button"
+        src={ shareIcon }
+      >
         <img data-testid="share-btn" src={ shareIcon } alt="share" />
       </button>
+      {copyLink && <p>Link copiado!</p>}
       <button type="button" src={ whiteHeartIcon }>
         <img data-testid="favorite-btn" src={ whiteHeartIcon } alt="share" />
       </button>
