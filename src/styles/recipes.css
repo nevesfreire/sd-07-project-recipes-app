@@ -21,7 +21,7 @@
   border: 1px solid black;
   border-radius: 10px;
   border-style: none;
-  box-shadow: 0px 4px 4px rgba(58, 56, 56, 0.25);
+  box-shadow: 0px 4px 4px dimgray;
   display: flex;
   flex-direction: column;
   height: 172px;
@@ -32,7 +32,7 @@
 }
 
 .div-meals img {
-  border-radius: 10px 10px 0px 0px;
+  border-radius: 10px;
   height: 109px;
   width: 159px;
 }
