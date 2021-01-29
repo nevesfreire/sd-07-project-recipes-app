@@ -1,7 +1,7 @@
 const detailRecipes = {
   id: '',
   drinkDetails: [],
-  detailsRecipe: []
-}
+  detailsRecipe: [],
+};
 
 export default detailRecipes;

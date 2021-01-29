@@ -2,7 +2,7 @@
 // import { useFetch } from '../hooks/useFetch';
 // import GlobalContext from '../context/GlobalContext';
 
-//criar data/detailRecipes.js ok
+// criar data/detailRecipes.js ok
 // const detailRecipes = {
 //   id: '',
 //   drinkDetails: [],
@@ -11,30 +11,29 @@
 
 // importar detailsRecipe em /data/index - pendente (ver com Bruno)
 
-//GlobalProvider - pendente ver estrutura das desestruturações com Bruno
-//inserir novas funções em GlobalProvader
+// GlobalProvider - pendente ver estrutura das desestruturações com Bruno
+// inserir novas funções em GlobalProvader
 // setDrinkDetails: (value) => updateState('drinkDetails', value)
 // setDetailsRecipe: (value) => updateState('detailsRecipe', value)
 
 // export default function FoodDetails() {
 //   const context = useContext(GlobalContext);
-    //desestruturar context 
-    //com id-da-receita,
-    // e as fns que vão manipular o estado global de drinkDetails e detailsRecipe 
-    // inserir a const com id-da-receita dentros dos endpoints
-  // const endpointFood = `https://www.themealdb.com/api/json/v1/1/lookup.php?i={$id-da-receita}`
-  // const endpointDrink = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i={$id-da-receita}`;
-  // const responseFood = useFetch(endpointFood);
-  // const responseDrink = useFetch(endpointDrink);
+// desestruturar context
+// com id-da-receita,
+// e as fns que vão manipular o estado global de drinkDetails e detailsRecipe
+// inserir a const com id-da-receita dentros dos endpoints
+// const endpointFood = `https://www.themealdb.com/api/json/v1/1/lookup.php?i={$id-da-receita}`
+// const endpointDrink = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i={$id-da-receita}`;
+// const responseFood = useFetch(endpointFood);
+// const responseDrink = useFetch(endpointDrink);
 
-  // useEffect(() => {
-  //   setDrinkDetails(responseDrink);
-  // }, [responseDrink]);
+// useEffect(() => {
+//   setDrinkDetails(responseDrink);
+// }, [responseDrink]);
 
-  // useEffect(() => {
-  //   setDetailsRecipe(responseFood);
-  // }, [responseFood]);
-
+// useEffect(() => {
+//   setDetailsRecipe(responseFood);
+// }, [responseFood]);
 
 //   return (
 //     <div>
@@ -60,7 +59,7 @@
 //       <ul>
 //         Ingredients
 //         {/* data-testid={ `${index}-ingredient-name-and-measure` } */}
-//         <li>  
+//         <li>
 //           valor de retorno da fn
 //         </li>
 //         <li>

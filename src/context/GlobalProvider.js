@@ -25,11 +25,9 @@ export default function GlobalProvider({ children }) {
       value={ {
         redirect,
         email: state.email,
-        statusEmail: state.validatedEmail,
-        statusPassword: state.validatedPassword,
+        password: state.password,
         setEmail: (text) => updateState('email', text),
-        validEmail: () => updateState('validatedEmail', true),
-        validPassword: () => updateState('validatedPassword', true),
+        setPassword: (text) => updateState('password', text),
       } }
     >
       { children }
