@@ -1,5 +1,5 @@
 .background-image {
-  background-image: url("../images/food.jpg");
+  background-image: url('../images/food.jpg');
   background-size: cover;
   display: flex;
   flex-direction: column;
