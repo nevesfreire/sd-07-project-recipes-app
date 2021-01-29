@@ -1,9 +1,10 @@
 import React from 'react';
 
+import RecipeDetails from '../../components/RecipeDetails';
+
 function DetailFoodPage() {
   return (
-    <div />
-
+    <RecipeDetails page="meal" />
   );
 }
 

@@ -52,7 +52,7 @@ const searchCocktailsByCategory = async (category, limit) => {
 
 const getCocktailDetailsById = async (id) => {
   const response = await api(`/lookup.php?i=${id}`);
-  const drinkDetails = response.data.drinks[0];
+  const drinkDetails = response.drinks[0];
 
   return drinkDetails;
 };
@@ -68,7 +68,7 @@ const getCocktails = async (limit) => {
 
 const getRandomCocktail = async () => {
   const response = await api('/random.php');
-  const randomDrink = response.data.drinks[0];
+  const randomDrink = response.drinks[0];
 
   return randomDrink;
 };
