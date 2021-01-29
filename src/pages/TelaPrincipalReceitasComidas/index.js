@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Alert } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import CardC from '../../components/Card/CardC';
@@ -9,7 +8,7 @@ import { HeaderS } from '../../components';
 class TelaPrincipalReceitasComidas extends Component {
   renderMeals(meals) {
     if (meals.length === 1) {
-      const { idMeal } = meals;
+      const { idMeal } = meals[0];
       return <Redirect to={ `/comidas/${idMeal}` } />;
     }
     return (
@@ -20,9 +19,10 @@ class TelaPrincipalReceitasComidas extends Component {
             return (
               <div
                 className="col-6 justify-content-md-center"
+                data-testid={ `${index}-recipe-card` }
                 key={ item.strMeals }
               >
-                <CardC card={ item } />
+                <CardC card={ item } indexMeal={ index } />
               </div>
             );
           }
@@ -35,22 +35,20 @@ class TelaPrincipalReceitasComidas extends Component {
   renderAlert(meals) {
     if (!meals) {
       return (
-        <Alert variant="danger">
-          Sinto muito, não encontramos nenhuma receita para esses filtros.
-        </Alert>
+        alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
       );
     }
   }
 
   render() {
-    const title = 'Comida';
+    const title = 'Comidas';
     const { mealsStore } = this.props;
     return (
       <div>
         <HeaderS title={ title } />
         {mealsStore
           ? this.renderMeals(mealsStore)
-          : this.renderAlert(mealsStore)}
+          : null}
       </div>
     );
   }

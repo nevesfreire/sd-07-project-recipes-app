@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Button, Navbar, Alert } from 'react-bootstrap';
+import { Form, Button, Navbar } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
@@ -26,7 +26,7 @@ class SearchBarDrinks extends React.Component {
     });
   }
 
-  searchBtnClick() {
+  async searchBtnClick() {
     const { searchInput, searchRadio } = this.state;
     const {
       getByIngredientsDrinksD,
@@ -34,17 +34,29 @@ class SearchBarDrinks extends React.Component {
       getByLetterDrinksD,
     } = this.props;
     if (searchRadio === 'ingredient') {
-      return getByIngredientsDrinksD(searchInput);
+      await getByIngredientsDrinksD(searchInput);
+      return this.emptyDrink();
     }
     if (searchRadio === 'name') {
-      return getByNameDrinksD(searchInput);
+      await getByNameDrinksD(searchInput);
+      return this.emptyDrink();
     }
     if (searchInput.length > 1) {
       return this.setState({ alertLetter: true });
     }
     if (searchRadio === 'firstLetter') {
-      getByLetterDrinksD(searchInput);
+      await getByLetterDrinksD(searchInput);
+      this.emptyDrink();
       return this.setState({ alertLetter: false });
+    }
+  }
+
+  emptyDrink() {
+    const { drinksStore } = this.props;
+    if (!drinksStore) {
+      return alert(
+        'Sinto muito, não encontramos nenhuma receita para esses filtros.',
+      );
     }
   }
 
@@ -55,9 +67,7 @@ class SearchBarDrinks extends React.Component {
         <Form>
           <Form.Group controlId="exampleForm.ControlInput1">
             {alertLetter ? (
-              <Alert variant="danger">
-                Sua busca deve conter somente 1 (um) caracter
-              </Alert>
+              alert('Sua busca deve conter somente 1 (um) caracter')
             ) : null}
             <Form.Label>Buscar</Form.Label>
             <Form.Control
@@ -122,4 +132,8 @@ const mapDispatchToProps = (dispatch) => ({
   getByLetterDrinksD: (letter) => dispatch(getByLetterDrinks(letter)),
 });
 
-export default connect(null, mapDispatchToProps)(SearchBarDrinks);
+const mapStateToProps = (state) => ({
+  drinksStore: state.receitasDeBebidas.drinks.drinks,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBarDrinks);
