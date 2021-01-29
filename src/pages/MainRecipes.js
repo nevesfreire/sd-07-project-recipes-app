@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Redirect } from 'react-router-dom';
 import * as foodApiFunctions from '../services/foodApiFunctions';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -38,6 +39,12 @@ function MainRecipes(props) {
   }, [allFiltersToRender]);
 
   const renderTwelveElements = (array) => {
+    if (array === null) {
+      return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
+    if (array.length === 1) {
+      return <Redirect to={ `/comidas/${array[0].idMeal}` } />;
+    }
     const eleven = 11;
     const finalArray = array
       .filter((_someFood, index) => index <= eleven)

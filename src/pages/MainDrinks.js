@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Redirect } from 'react-router-dom';
 import * as drinkApiFunctions from '../services/drinkApiFunctions';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -38,6 +39,12 @@ function MainDrinks(props) {
   }, [allFiltersToRender]);
 
   const renderTwelveElements = (array) => {
+    if (array === null) {
+      return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
+    if (array.length === 1) {
+      return <Redirect to={ `/bebidas/${array[0].idDrink}` } />;
+    }
     const eleven = 11;
     const finalArray = array
       .filter((_someDrink, index) => index <= eleven)
