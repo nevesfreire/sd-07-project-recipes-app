@@ -8,13 +8,13 @@ class ProfileDetails extends Component {
     console.log(user.email);
     return (
       <div className="profile-container">
-        <div className="text-center" data-testid="profile-email">
+        <div className="text-center profile-email" data-testid="profile-email">
           {user.email}
         </div>
         <div className="button-container">
           <button
             type="button"
-            className="btn btn-secondary"
+            className="btn btn-secondary btn-lg"
             data-testid="profile-done-btn"
             onClick={ () => {
               history.push('/receitas-feitas');
@@ -24,7 +24,7 @@ class ProfileDetails extends Component {
           </button>
           <button
             type="button"
-            className="btn btn-secondary"
+            className="btn btn-secondary btn-lg"
             data-testid="profile-favorite-btn"
             onClick={ () => {
               history.push('/receitas-favoritas');
@@ -34,7 +34,7 @@ class ProfileDetails extends Component {
           </button>
           <button
             type="button"
-            className="btn btn-secondary"
+            className="btn btn-secondary btn-lg"
             data-testid="profile-logout-btn"
             onClick={ () => {
               localStorage.clear();

@@ -11,3 +11,8 @@
 .profile-container {
     max-width: 360px;
 }
+
+.profile-email {
+  font-size: 22px;
+  font-weight: 800;
+}
