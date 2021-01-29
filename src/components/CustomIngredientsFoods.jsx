@@ -3,15 +3,19 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 export default function CustomCardIngredientsFood({ index, meal }) {
-  const { strMeal, strMealThumb, idMeal } = meal;
+  const { strIngredient } = meal;
   return (
     <div>
-      <Link to={ `/explorar/comidas/ingredientes/${idMeal}` }>
+      <Link to="/comidas">
         <p data-testid={ `${index}-ingredient-card` }>
           { `Ingredientes ${index}` }
         </p>
-        <img data-testid={ `${index}-card-img` } src={ strMealThumb } alt="" />
-        <p data-testid={ `${index}-card-name` }>{ strMeal }</p>
+        <img
+          data-testid={ `${index}-card-img` }
+          src={ `https://www.themealdb.com/images/ingredients/${strIngredient}.png` }
+          alt="Ingredientes"
+        />
+        <p data-testid={ `${index}-card-name` }>{ strIngredient }</p>
       </Link>
     </div>
   );
@@ -20,8 +24,8 @@ export default function CustomCardIngredientsFood({ index, meal }) {
 CustomCardIngredientsFood.propTypes = {
   index: PropTypes.number.isRequired,
   meal: PropTypes.shape({
-    strMeal: PropTypes.string.isRequired,
+    strIngredient: PropTypes.string.isRequired,
     strMealThumb: PropTypes.string.isRequired,
-    idMeal: PropTypes.number.isRequired,
+    idIngredient: PropTypes.number.isRequired,
   }).isRequired,
 };

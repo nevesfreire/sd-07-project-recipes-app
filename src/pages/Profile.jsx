@@ -12,6 +12,7 @@ class Profile extends Component {
   }
 
   getEmailStorage() {
+    if (getStorage('user') === null) return 'Usuario não logado';
     const { email } = getStorage('user');
     return email;
   }
