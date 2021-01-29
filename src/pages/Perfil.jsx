@@ -2,9 +2,9 @@ import React from 'react';
 import Header from '../components/Header';
 
 function Perfil() {
-  return(
+  return (
     <div>
-      <Header name={ "Perfil" } button={ false }/>
+      <Header name="Perfil" button={ false } />
     </div>
   );
 }

@@ -5,14 +5,10 @@ import HeaderSearch from './HeaderSearch';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
-function Header({name, button}) {
+function Header({ name, button }) {
   const [searchBar, setSearchBar] = useState(false);
 
-  const { pathname } = window.location;
-  let title = pathname.split('/');
-  title = title[title.length - 1];
-
-  return(
+  return (
     <header>
       <Link to="/perfil">
         <img
@@ -22,16 +18,20 @@ function Header({name, button}) {
         />
       </Link>
       <h1 data-testid="page-title">{ name }</h1>
-      {button && <button
-        type="button"
-        onClick={ () => setSearchBar(() => searchBar ? false : true) }
-      >
-        <img
-          src={ searchIcon }
-          alt="search icon"
-          data-testid="search-top-btn"
-        />
-      </button>}
+      {
+        button && (
+          <button
+            type="button"
+            onClick={ () => setSearchBar(!searchBar) }
+          >
+            <img
+              src={ searchIcon }
+              alt="search icon"
+              data-testid="search-top-btn"
+            />
+          </button>
+        )
+      }
       { searchBar && <HeaderSearch />}
     </header>
   );
