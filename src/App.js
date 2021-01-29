@@ -3,6 +3,8 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Provider from './context/Provider';
 import { Login, MainPage } from './pages';
 // import { BottomMenu, Header } from './components';
+// import { Footer } from './components';
+
 
 function App() {
   return (
