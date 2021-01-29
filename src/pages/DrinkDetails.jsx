@@ -1,5 +1,7 @@
 import React from 'react';
 
 export default function DrinkDetails() {
-  return <div />;
+  return (
+    <h1>Detalhes Bebida</h1>
+  );
 }

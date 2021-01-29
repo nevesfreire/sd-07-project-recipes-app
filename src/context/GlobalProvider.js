@@ -6,6 +6,9 @@ import GlobalContext from './GlobalContext';
 
 export default function GlobalProvider({ children }) {
   const [state, setState] = useState(initialState);
+  const [title, setTitle] = useState('');
+  const [searchButton, setSearchButton] = useState(true);
+  const [searchBar, setSearchBar] = useState(false);
 
   function updateState(key, value) {
     setState((prevState) => ({
@@ -30,6 +33,12 @@ export default function GlobalProvider({ children }) {
         setEmail: (text) => updateState('email', text),
         validEmail: () => updateState('validatedEmail', true),
         validPassword: () => updateState('validatedPassword', true),
+        title,
+        setTitle,
+        searchButton,
+        setSearchButton,
+        searchBar,
+        setSearchBar,
       } }
     >
       { children }
