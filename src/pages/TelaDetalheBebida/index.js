@@ -11,7 +11,7 @@ class TelaDetalheBebida extends Component {
         <h3 data-testid="recipe-title">product-title-from-props</h3>
         <img data-testid="share-btn" alt="share-btn" src={ shareIcon } />
         <img data-testid="favorite-btn" alt="favorite-btn" src={ whiteHeartIcon } />
-        <h4 data-testid="recipe-category">recipe-category-from-props</h3>
+        <h4 data-testid="recipe-category">recipe-category-from-props</h4>
         <div>
           <h4>Ingredients</h4>
           <ul>
@@ -24,6 +24,8 @@ class TelaDetalheBebida extends Component {
           <h4>Instructions</h4>
           <p data-testid="instructions">recipe-instructions-from-props</p>
         </div>
+        <RecomendationCard data-testid="${index}-recomendation-card" />
+        <Button data-testid="start-recipe-btn" />
       </>
     );
   }

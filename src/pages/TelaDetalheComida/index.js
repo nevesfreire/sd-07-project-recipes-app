@@ -1,11 +1,33 @@
 import React, { Component } from 'react';
+import shareIcon from '../../images/shareIcon.svg';
+import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 
 class TelaDetalheComida extends Component {
   render() {
+    const { product } = this.props; // Props card will send this information
     return (
-      <div>
-        <h1>Hello boy!</h1>
-      </div>
+      <>
+        <img data-testid="recipe-photo" alt="comida" src="product-image-from-props" />
+        <h3 data-testid="recipe-title">product-title-from-props</h3>
+        <img data-testid="share-btn" alt="share-btn" src={ shareIcon } />
+        <img data-testid="favorite-btn" alt="favorite-btn" src={ whiteHeartIcon } />
+        <h4 data-testid="recipe-category">recipe-category-from-props</h4>
+        <div>
+          <h4>Ingredients</h4>
+          <ul>
+            {ingredients.map((ingredient) => {
+              <li data-testid="${ingredient.index}-ingredient-name-and-measure">Ingredient name and measure from props</li>
+            })}
+          </ul>
+        </div>
+        <div>
+          <h4>Instructions</h4>
+          <p data-testid="instructions">recipe-instructions-from-props</p>
+        </div>
+        <div data-testid="video">{ "video from props" }</div>
+        <RecomendationCard data-testid="${index}-recomendation-card" />
+        <Button data-testid="start-recipe-btn" />
+      </>
     );
   }
 }
