@@ -16,9 +16,13 @@ class Footerdetails extends Component {
   render() {
     const { hi, id, pa } = this.props;
     const aFazer = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const keysMeals = Object.keys(aFazer.meals);
+    const keysCocktails = Object.keys(aFazer.cocktails);
+    const filtroMeals = keysMeals.filter((key) => key === id);
+    const filtroCocktails = keysCocktails.filter((key) => key === id);
     if (pa === 'D') {
       let mensagem;
-      if (!aFazer.cocktails[id]) {
+      if (!filtroCocktails.length) {
         mensagem = 'Iniciar Receita';
       } else {
         mensagem = 'Continuar Receita';
@@ -28,7 +32,7 @@ class Footerdetails extends Component {
           <button
             data-testid="start-recipe-btn"
             type="button"
-            onClick={ hi.push(`/bebidas/${id}/in-progress`) }
+            onClick={ () => hi.push(`/bebidas/${id}/in-progress`) }
           >
             { mensagem }
           </button>
@@ -36,8 +40,7 @@ class Footerdetails extends Component {
       );
     }
     let mensagem;
-    const key = aFazer.meals.entries();
-    if (!key.length) {
+    if (!filtroMeals.length) {
       mensagem = 'Iniciar Receita';
     } else {
       mensagem = 'Continuar Receita';
@@ -47,7 +50,7 @@ class Footerdetails extends Component {
         <button
           data-testid="start-recipe-btn"
           type="button"
-          onClick={ hi.push(`/comidas/${id}/in-progress`) }
+          onClick={ () => hi.push(`/comidas/${id}/in-progress`) }
         >
           { mensagem }
         </button>
