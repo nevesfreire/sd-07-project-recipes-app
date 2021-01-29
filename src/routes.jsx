@@ -1,37 +1,57 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import ComidaPage from './Pages/ComidaPage';
+import DrinkPage from './Pages/DrinkPage';
 import LoginPage from './Pages/LoginPage';
-import ExplorarPage from './Pages/ExplorarPage/index';
-import ExplorarComida from './Pages/ExplorarPage/ExplorarComida';
-import ExplorarBebidas from './Pages/ExplorarPage/ExplorarBebidas';
-import ExpFoodIngre from './Pages/ExplorarPage/ExpFoodIngre';
-import ExpDrinksIngre from './Pages/ExplorarPage/ExpDrinksIngre';
-import ExpFoodLocal from './Pages/ExplorarPage/ExpFoodLocal';
-import Perfil from './Pages/PerfilPage/Perfil';
-import Bebidas from './Pages/Bebidas/Bebidas';
+import HomePage from './Pages/HomePage';
+import ExplorarPage from './Pages/ExplorarPage';
+import PerfilPage from './Pages/PerfilPage';
+import ComidaDetailPage from './Pages/FoodDetailPage';
+import BebidaDetailPage from './Pages/DrinkDetailPage';
+import ProgressComidaPage from './Pages/ProgressFoodPage';
+import ProgressBebidaPage from './Pages/ProgressBebidasPage';
+import ExplorarComidas from './Pages/ExploreFoodPage';
+import ExplorarBebidas from './Pages/ExploreDrinkPage';
+import ComidasIngredientes from './Pages/FoodIngredientsPage';
+import BebidasIngredientes from './Pages/DrinksIngredientsPage';
+import ComidaArea from './Pages/FoodAreaPage';
+import ReceitaFeitas from './Pages/ RecipesMadePage';
+import ReceitaFavorita from './Pages/RecipesFavoritesPage';
 
 const Routes = () => (
   <BrowserRouter>
     <Switch>
       <Route exact path="/" component={ LoginPage } />
-      <Route exact path="/comidas" component={ ComidaPage } />
+      <Route exact path="/comidas" component={ HomePage } />
+      <Route exact path="/bebidas" component={ DrinkPage } />
       <Route exact path="/explorar" component={ ExplorarPage } />
-      <Route exact path="/explorar/comidas" component={ ExplorarComida } />
+      <Route exact path="/perfil" component={ PerfilPage } />
+      <Route exact path="/comidas/:id-receita" component={ ComidaDetailPage } />
+      <Route exact path="/bebidas/:id-receita" component={ BebidaDetailPage } />
+      <Route
+        exact
+        path="/comidas/:id-receita/in-progress"
+        component={ ProgressComidaPage }
+      />
+      <Route
+        exact
+        path="/bebidas/:id-receita/in-progress"
+        component={ ProgressBebidaPage }
+      />
+      <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
       <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
-      <Route exact path="/bebidas" component={ Bebidas } />
-      <Route exact path="/explorar/comidas/ingredientes" component={ ExpFoodIngre } />
-      <Route exact path="/explorar/bebidas/ingredientes" component={ ExpDrinksIngre } />
-      <Route exact path="/explorar/comidas/area" component={ ExpFoodLocal } />
-      <Route exact path="/perfil" component={ Perfil } />
-      {/* TODO PAGES */}
-      {/* <Route exact path="/comidas" component={  } />
-      <Route exact path="/comidas/:id-receita" component={  } />
-      <Route exact path="/bebidas/:id-receita" component={  } />
-      <Route exact path="/comidas/:id-receita/in-progress" component={  } />
-      <Route exact path="/bebidas/:id-receita/in-progress" component={  } />
-      <Route exact path="/receitas-feitas" component={  } />
-      <Route exact path="/receitas-favoritas" component={  } /> */}
+      <Route
+        exact
+        path="/explorar/comidas/ingredientes"
+        component={ ComidasIngredientes }
+      />
+      <Route
+        exact
+        path="/explorar/bebidas/ingredientes"
+        component={ BebidasIngredientes }
+      />
+      <Route exact path="/explorar/comidas/area" component={ ComidaArea } />
+      <Route exact path="/receitas-feitas" component={ ReceitaFeitas } />
+      <Route exact path="/receitas-favoritas" component={ ReceitaFavorita } />
     </Switch>
   </BrowserRouter>
 );

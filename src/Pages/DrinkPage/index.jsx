@@ -3,13 +3,13 @@ import Header from '../../Components/Header';
 import Footer from '../../Components/Footer/Footer';
 import '../../App.css';
 
-const Explorar = () => (
+const Bebida = () => (
   <div className="container-over">
     <div className="container-int">
-      <Header title="Explorar" />
+      <Header title="Bebidas" />
       <Footer />
     </div>
   </div>
 );
 
-export default Explorar;
+export default Bebida;
