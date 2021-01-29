@@ -41,8 +41,8 @@ export default function GlobalProvider({ children }) {
           newInitialDrinks.dataDrinks = value;
           updateState('initialDrinks', newInitialDrinks);
         },
-        email: state.initialState.email,
-        password: state.initialState.password,
+        email,
+        password,
         setEmail: (text) => {
           const newInitialEmail = state.initialState;
           newInitialEmail.email = text;
