@@ -62,4 +62,27 @@ const searchGeneral = async ({ text, option }) => {
   return data;
 };
 
-export { getCategories, searchGeneral };
+const getFoods = async () => {
+  const endPoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s='
+  let response = {}
+  try {
+    response = await fetch(endPoint)
+    return response.json();
+  } catch(error) {
+    return error.response
+  }
+}
+
+const getDrinks = async () => {
+  const endPoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s='
+  let response = {}
+  try {
+    response = await fetch(endPoint)
+    return response.json();
+  } catch(error) {
+    return error.response
+  }
+
+}
+
+export { getCategories, searchGeneral, getFoods, getDrinks };

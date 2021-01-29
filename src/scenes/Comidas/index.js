@@ -7,6 +7,7 @@ import './style.css';
 const Comidas = () => {
   const history = useHistory();
   const { mealsData } = useContext(AppContext);
+  console.log(mealsData);
 
   if (mealsData.meals) {
     const zero = 0;
