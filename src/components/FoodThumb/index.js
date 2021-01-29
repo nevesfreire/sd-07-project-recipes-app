@@ -21,6 +21,7 @@ export default function FoodThumb({ detailed, route }) {
   return (
     <div>
       <img
+        className="recipe-thumbnail"
         data-testid="recipe-photo"
         alt=""
         src={ detailed[0][detailedImg] }
