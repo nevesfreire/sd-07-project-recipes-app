@@ -1,0 +1,28 @@
+.container-div {
+  background-color: #42bcde;
+  display: flex;
+  justify-content: flex-start;
+  padding: 0.5rem 1.5rem 0.5rem 1rem;
+  width: 360px;
+}
+
+.element-header {
+  align-self: stretch;
+  display: inline-flex;
+  margin: 0;
+}
+
+.center {
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+.button {
+  background-color: #42bcde;
+  border: none;
+  text-decoration: none;
+}
+
+.button:focus {
+  outline: none;
+}

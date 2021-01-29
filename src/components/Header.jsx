@@ -6,6 +6,8 @@ import imageSearch from '../images/searchIcon.svg';
 
 import { titleHeaderNames, useTitleContext } from '../context/TitleContext';
 
+import './Header.css';
+
 function Header() {
   const { setHeaderName } = useTitleContext();
 
@@ -19,7 +21,6 @@ function Header() {
   }
 
   const checkDetails = checkIsNumber(parseInt(path.split('/')[2], 10));
-  console.log(checkDetails);
 
   const renderTitlePage = path.split('/').join('').split('-').join('');
 
@@ -27,7 +28,7 @@ function Header() {
     <Link to="/perfil">
       <button
         type="button"
-        className="profile"
+        className="element-header button"
         onClick={ () => setHeaderName(titleHeaderNames[0].perfil) }
       >
         <img
@@ -40,7 +41,7 @@ function Header() {
   );
 
   const elementSearch = (
-    <div className="search">
+    <div className="element-header">
       <img
         data-testid="search-top-btn"
         src={ imageSearch }
@@ -53,7 +54,12 @@ function Header() {
   let titleNamePage;
   if (lengthPath !== undefined) {
     titleNamePage = (
-      <h1 data-testid="page-title">{titleHeaderNames[0][renderTitlePage].title}</h1>
+      <h1
+        className="element-header center"
+        data-testid="page-title"
+      >
+        {titleHeaderNames[0][renderTitlePage].title}
+      </h1>
     );
   }
 
@@ -76,7 +82,7 @@ function Header() {
     );
   }
   return (
-    <div id="headerNotLoaded">{renderHeader()}</div>
+    <div className="container-div" id="headerNotLoaded">{renderHeader()}</div>
   );
 }
 
