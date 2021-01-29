@@ -46,7 +46,7 @@ const CategoryList = (props) => {
   };
 
   const mealsCategoriesDoc = () => (
-    <div>
+    <div className="category-filter">
       {mealsCategory.map(({ strCategory }) => (
         <button
           name={ strCategory }
@@ -73,7 +73,7 @@ const CategoryList = (props) => {
   );
 
   const cocktailsCategoriesDoc = () => (
-    <div>
+    <div className="category-filter">
       {cocktailsCategory.map(({ strCategory }) => (
         <button
           name={ strCategory }

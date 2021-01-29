@@ -56,6 +56,11 @@ body {
   cursor: pointer;
 }
 
+.main-screen-container {
+  display: block;
+  margin-bottom: 200px;
+}
+
 @media only screen and ( max-width : 380px ) {
 
   .btn-default {

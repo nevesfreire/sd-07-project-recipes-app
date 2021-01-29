@@ -58,9 +58,9 @@ const MainScreen = (props) => {
   );
 
   return (
-    <div>
-      {page === 'comidas' ? mealsDoc() : cockTailsDoc()}
+    <div className="main-screen-container">
       <CategoryList page={ page } />
+      {page === 'comidas' ? mealsDoc() : cockTailsDoc()}
     </div>
   );
 };
