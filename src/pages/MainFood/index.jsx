@@ -4,10 +4,7 @@ import { Header, Footer, RecipeCard, Category } from '../../components';
 import './MainFood.css';
 
 export default function MainFood() {
-  const {
-    setMeals,
-    meals,
-  } = useContext(RecipesContext);
+  const { setMeals, meals } = useContext(RecipesContext);
   const twelve = 12;
   const five = 5;
   const [categories, setCategories] = useState([]);

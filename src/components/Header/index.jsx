@@ -12,7 +12,6 @@ export default function Header({ title }) {
     setSearchBarVisible(!searchBarVisible);
   };
   const { location } = useHistory();
-  // console.log(historyTest);
 
   const isSearchPresent = () => {
     const { pathname } = location;
