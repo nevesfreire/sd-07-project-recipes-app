@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from '../providers/Context/Context';
 import { DrinkContext } from '../providers/DrinkProvider';
-import Cards from './Cards';
 
 const SearchBarComp = ({ context }) => {
   const history = useHistory();
@@ -19,17 +18,6 @@ const SearchBarComp = ({ context }) => {
     }
   }, [data, history, whichId, context]);
 
-  const renderCards = () => {
-    const maximo = 12;
-    const tweelveCards = data.filter((card, index) => index < maximo);
-    return tweelveCards.map((card, index) => (
-      <Cards key={ index } index={ index } context={ context } card={ card } />
-    ));
-  };
-
-  const inputSearch = () => searchWithFilter();
-
-  const valid = 0;
   return (
     <div>
       <input
@@ -73,9 +61,7 @@ const SearchBarComp = ({ context }) => {
             name="elementsForSearch"
             value="Primeira letra"
             data-testid="first-letter-search-radio"
-            onClick={ () => {
-              setRadioType('firtLetter');
-            } }
+            onClick={ () => setRadioType('firtLetter') }
           />
           Primeira letra
         </label>
@@ -83,13 +69,10 @@ const SearchBarComp = ({ context }) => {
       <button
         data-testid="exec-search-btn"
         type="button"
-        onClick={ () => {
-          inputSearch();
-        } }
+        onClick={ searchWithFilter }
       >
         Buscar
       </button>
-      {data && data.length > valid && renderCards()}
     </div>
   );
 };

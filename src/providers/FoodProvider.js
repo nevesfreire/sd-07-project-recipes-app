@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import RecipesContext from './Context/Context';
 import RequestFoodAPI from '../services/foodApi';
@@ -12,43 +12,42 @@ const FoodProvider = ({ children }) => {
   const [radioType, setRadioType] = useState('');
   const [data, setData] = useState([]);
 
+  useEffect(() => {
+    async function apiNewData() {
+      const newData = await RequestFoodBayName('');
+      setData(newData);
+    }
+    apiNewData();
+  }, []);
+
   const changeSearchBarState = () => {
     if (searchBar === true) setSearchBar(false);
     if (searchBar === false) setSearchBar(true);
   };
 
   const alertMessage = () => {
-    const massage = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
-    alert(massage);
+    const message = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
+    alert(message);
   };
 
   const searchWithFilter = () => {
     async function requestByIngredient() {
       const results = await RequestFoodAPI(inputText);
+      if (!results) return alertMessage();
       setData(results);
-      if (!results) {
-        alertMessage();
-      }
     }
 
     async function requestByName() {
       const results = await RequestFoodBayName(inputText);
+      if (!results) return alertMessage();
       setData(results);
-      if (!results) {
-        alertMessage();
-      }
     }
 
     async function requestByLetter() {
       const results = await RequestFoodByLetter(inputText);
+      if (!results) return alertMessage();
       setData(results);
-      console.log('requestByLetter', results);
-      if (!results) {
-        alertMessage();
-      }
     }
-
-    // const teste = () => { customAlert('Sua busca deve conter somente 1 (um) caracter'); };
 
     if (radioType === 'Ingrediente') {
       requestByIngredient();
