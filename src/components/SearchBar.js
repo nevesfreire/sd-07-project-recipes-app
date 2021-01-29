@@ -19,6 +19,7 @@ class SearchBar extends React.Component {
     this.handleSearch = this.handleSearch.bind(this);
     this.callApi = this.callApi.bind(this);
     this.submitSearch = this.submitSearch.bind(this);
+    this.redirectRoute = this.redirectRoute.bind(this);
   }
 
   handleSearch({ target: { value, name } }) {
@@ -49,14 +50,14 @@ class SearchBar extends React.Component {
     }
   }
 
-  async submitSearch() {
+  submitSearch() {
     const { searchType, searchText } = this.state;
     if (searchType === 'search.php?f=' && searchText.length > 1) {
       // eslint-disable-next-line no-alert
       return alert('Sua busca deve conter somente 1 (um) caracter');
     }
-    await this.callApi();
-    this.renderResults();
+
+    this.callApi();
   }
 
   async callApi() {
@@ -80,9 +81,11 @@ class SearchBar extends React.Component {
       this.setState({ drinks: result.drinks });
       sendDrinkRecipesDispatch(result.drinks);
     }
+
+    this.redirectRoute();
   }
 
-  renderResults() {
+  redirectRoute() {
     const { meals, drinks } = this.state;
     const { history } = this.props;
     if (meals.length === 1) {
