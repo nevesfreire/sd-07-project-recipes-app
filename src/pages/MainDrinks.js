@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import * as drinkApiFunctions from '../services/drinkApiFunctions';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -7,8 +8,8 @@ import MainDrinkCards from '../components/MainDrinkCards';
 import RecipesContext from '../context/RecipesContext';
 
 function MainDrinks(props) {
-  const { match } = props;
-  const { url } = match;
+  const { location } = props;
+  const { pathname } = location;
   const { setPathName } = useContext(RecipesContext);
   const { drinksToRender, setDrinksToRender, drinkData } = useContext(RecipesContext);
   const [allFiltersToRender, setAllFiltersToRender] = useState([]);
@@ -16,7 +17,7 @@ function MainDrinks(props) {
   const [filtered, setFiltered] = useState(false);
 
   useEffect(() => {
-    setPathName(url);
+    setPathName(pathname);
   });
 
   useEffect(() => {
@@ -115,5 +116,14 @@ function MainDrinks(props) {
     </div>
   );
 }
+
+MainDrinks.propTypes = {
+  location: PropTypes.shape({
+    hash: PropTypes.string,
+    pathname: PropTypes.string,
+    search: PropTypes.string,
+    state: PropTypes.bool,
+  }).isRequired,
+};
 
 export default MainDrinks;

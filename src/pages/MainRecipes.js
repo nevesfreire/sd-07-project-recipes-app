@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import * as foodApiFunctions from '../services/foodApiFunctions';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -7,8 +8,8 @@ import MainCards from '../components/MainCards';
 import RecipesContext from '../context/RecipesContext';
 
 function MainRecipes(props) {
-  const { match } = props;
-  const { url } = match;
+  const { location } = props;
+  const { pathname } = location;
   const { setPathName } = useContext(RecipesContext);
   const { foodsToRender, setFoodsToRender, foodData } = useContext(RecipesContext);
   const [allFiltersToRender, setAllFiltersToRender] = useState([]);
@@ -22,7 +23,7 @@ function MainRecipes(props) {
   }, []);
 
   useEffect(() => {
-    setPathName(url);
+    setPathName(pathname);
   });
 
   useEffect(() => {
@@ -115,5 +116,14 @@ function MainRecipes(props) {
     </div>
   );
 }
+
+MainRecipes.propTypes = {
+  location: PropTypes.shape({
+    hash: PropTypes.string,
+    pathname: PropTypes.string,
+    search: PropTypes.string,
+    state: PropTypes.bool,
+  }).isRequired,
+};
 
 export default MainRecipes;
