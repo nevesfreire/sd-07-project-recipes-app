@@ -9,9 +9,10 @@ export const updateFoodIsFetching = () => ({
   type: UPDATE_FOOD_IS_FETCHING,
 });
 
-export const foodFilteredByCategoryAction = (foodFilteredByCategory) => ({
+export const foodFilteredByCategoryAction = (foodFilteredByCategory, category) => ({
   type: FILTERED_FOOD_BY_CATEGORY,
   foodFilteredByCategory,
+  category,
 });
 
 export const allCategoriesFoodsAction = (categories) => ({

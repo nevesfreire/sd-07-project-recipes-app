@@ -11,6 +11,7 @@ const INITIAL_STATE = {
   isFetching: true,
   meals: [],
   categories: [],
+  currentCategoryFood: 'all',
   error: false,
 };
 
@@ -25,6 +26,7 @@ const foodRecipesReducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       meals: (!action.foodFilteredByCategory) ? [] : action.foodFilteredByCategory,
+      currentCategoryFood: action.category.strCategory,
       isFetching: false,
     };
   case REQUEST_FOOD_RECIPES:
@@ -34,6 +36,7 @@ const foodRecipesReducer = (state = INITIAL_STATE, action) => {
       ...state,
       meals: (!action.payload.meals) ? [] : action.payload.meals,
       isFetching: false,
+      currentCategoryFood: 'all',
     };
   case REQUEST_FOOD_FAILED:
     return { ...state, error: true, isFetching: false };
