@@ -1,3 +1,4 @@
+
 export const getCurrenceRecipesFoodsIngredients = (filter) => {
   const ingredients = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${filter}`;
   return fetch(ingredients)
@@ -24,3 +25,5 @@ export const getCurrenceRecipesFoodsFirstLetter = (filter) => {
         .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json)))
     ));
 };
+
+

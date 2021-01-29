@@ -4,6 +4,7 @@ import RecipesContext from './RecipesContext';
 import history from '../history/history';
 
 function Provider({ children }) {
+
   const messageAlert = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
   const zero = 0;
   const showAlertNotFound = () => alert(messageAlert);
@@ -12,6 +13,10 @@ function Provider({ children }) {
   const [recipesFilters, setRecipesFilters] = useState([]);
   const [searchInput, setSearchInput] = useState('');
   const [getSearchBtn, setSearchBtn] = useState(false);
+  const [mealRecipeId, setMealRecipeId] = useState('52771');
+  const [drinkRecipeId, setDrinkRecipeId] = useState('178319');
+  const [recipeDetailFood, setRecipeDetailFood] = useState({});
+  const [recipeDetailDrink, setRecipeDetailDrink] = useState({});
 
   const checkRecipe = () => {
     if (recipesFilters === null) {
@@ -39,7 +44,12 @@ function Provider({ children }) {
     }
   }, [recipesFilters]);
 
-  const context = {
+
+ const context = {
+    mealRecipeId,
+    drinkRecipeId,
+    recipeDetailFood,
+    recipeDetailDrink,
     filterSearch,
     searchRender,
     searchInput,
@@ -50,6 +60,11 @@ function Provider({ children }) {
     setSearchInput,
     setFilterSearch,
     setSearchRender,
+    setMealRecipeId,
+    setDrinkRecipeId,
+    setRecipeDetailFood,
+    setRecipeDetailDrink,
+
   };
 
   return (
