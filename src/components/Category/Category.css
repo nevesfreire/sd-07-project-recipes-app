@@ -1,7 +1,3 @@
-button {
-  border: none;
-}
-
 button:focus {
   border: 1px solid green;
 }

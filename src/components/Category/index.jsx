@@ -34,6 +34,7 @@ export default function Category({ category, fetchRandomFoods, fetchDrinks }) {
 
   return (
     <button
+      style={ { outline: 'none' } }
       type="button"
       data-testid={ `${category.strCategory}-category-filter` }
       onClick={ () => filterOnClick(category.strCategory) }
