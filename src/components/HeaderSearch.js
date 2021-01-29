@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { fetchMealsByIngredient } from '../actions/meals';
 
-function HeaderSearch({ toggle }) {
+function HeaderSearch({
+  toggle,
+  title,
+  searchMealsByIngredient,
+  meals,
+}) {
   const [word, setWord] = useState('');
   const [options, setOptions] = useState('');
 
@@ -14,10 +20,20 @@ function HeaderSearch({ toggle }) {
 
   const handlerSubmit = (event) => {
     event.preventDefault();
+    if (title === 'Comidas') {
+      if (options === 'ingredient') {
+        searchMealsByIngredient(word);
+      }
+    }
+    if (title === 'Bebidas') {
+
+    }
   };
 
+  console.log(meals)
+
   return (
-    <div style={ `display: ${toggle ? 'inline' : 'none'}` }>
+    <div style={ { display: toggle ? 'inline' : 'none' } }>
       <label htmlFor="busca">
         <input
           id="busca"
@@ -25,6 +41,7 @@ function HeaderSearch({ toggle }) {
           value={ word }
           data-testid="search-input"
           onChange={ changeInputs }
+          maxLength={ options === 'first-letter' ? '1' : '100' }
         />
       </label>
       <div>
@@ -75,10 +92,16 @@ function HeaderSearch({ toggle }) {
 
 HeaderSearch.propTypes = {
   toggle: PropTypes.bool.isRequired,
+  title: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = ({ searchToggleReducer }) => ({
+const mapStateToProps = ({ searchToggleReducer, meals }) => ({
   toggle: searchToggleReducer,
+  meals: meals.meals,
 });
 
-export default connect(mapStateToProps)(HeaderSearch);
+const mapDispatchToProps = (dispatch) => ({
+  searchMealsByIngredient: (ingredient) => dispatch(fetchMealsByIngredient(ingredient)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderSearch);
