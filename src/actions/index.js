@@ -1,13 +1,15 @@
-import { SEARCH_TOGGLE } from './actionSearchToggle';
+export {
+  REQUEST_COCKTAILS,
+  REQUEST_COCKTAILS_SUCCESS,
+  REQUEST_COCKTAILS_FAILURE,
+} from './cocktails';
 
-const USER_EMAIL = 'USER_EMAIL';
+export {
+  REQUEST_MEALS,
+  REQUEST_MEALS_SUCCESS,
+  REQUEST_MEALS_FAILURE,
+} from './meals';
 
-export default {
-  SEARCH_TOGGLE,
-  USER_EMAIL,
-};
+export { SEARCH_TOGGLE } from './actionSearchToggle';
 
-export const getEmail = (email) => ({
-  type: USER_EMAIL,
-  email,
-});
+export { USER_EMAIL, getEmail } from './userEmail';

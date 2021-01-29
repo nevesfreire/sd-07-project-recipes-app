@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
-
+import meals from './meals';
+import cocktails from './cocktails';
+import login from './login';
 import searchToggleReducer from './searchToggleReducer';
-import loginReducer from './login';
 
 const rootReducer = combineReducers({
-  loginReducer,
-  searchToggleReducer,
+  login, meals, cocktails, searchToggleReducer,
 });
 
 export default rootReducer;
