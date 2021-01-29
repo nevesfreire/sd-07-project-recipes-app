@@ -5,3 +5,6 @@ export { default as CustomCardDrink } from './CustomCardDrink';
 export { default as CustomFooter } from './CustomFooter';
 export { default as CustomCartegory } from './CustomCartegory';
 export { default as CustomCardSuggested } from './CustomCardSuggested';
+export { default as CustomDetailsButton } from './CustomDetailsButton';
+export { default as CustomDetailsIngredients } from './CustomDetailsIngredients';
+export { default as CustomButtonShare } from './CustomButtonShare';

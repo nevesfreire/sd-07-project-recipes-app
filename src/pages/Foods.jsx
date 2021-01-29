@@ -49,7 +49,7 @@ class Foods extends Component {
     const { meals, isFetching } = this.props;
     const numberToComper = 1;
     if (meals.length === numberToComper) {
-      return <Redirect to={ `/comidas/:${meals[0].idMeal}` } />;
+      return <Redirect to={ `/comidas/${meals[0].idMeal}` } />;
     }
     if (!meals.length && !isFetching) return this.renderAlertError();
     if (meals.length === 1) return this.redirectToRecipeDetail();

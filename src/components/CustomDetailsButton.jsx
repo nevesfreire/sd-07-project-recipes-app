@@ -1,16 +1,26 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { setStorage, getStorage } from '../services';
 
-export class CustomDetailsButton extends Component {
+export default class CustomDetailsButton extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      isRedirect: true,
+      isRedirect: false,
+      inProgress: false,
     };
   }
 
-  handleStartButtonClick(recipeId) {
-    const { ingredientsList, recipeType } = this.state;
+  componentDidMount() {
+    this.verifyRecipeInProgress();
+  }
+
+  handleStartButtonClick() {
+    const { recipeType, recipeId } = this.props;
+    const { ingredientsList } = this.state;
+    this.getIngredientsList();
     this.localStorageSetUp();
     if (recipeType === 'comidas') {
       setStorage('inProgressRecipes', {
@@ -33,15 +43,51 @@ export class CustomDetailsButton extends Component {
     this.setState({ isRedirect: true });
   }
 
+  getIngredientsList() {
+    const { recipeType, recipe } = this.props;
+    const INITIAL_INDEX = 1;
+    const INDEX_FOOD = 20;
+    const INDEX_DRINK = 15;
+    const MAX_INDEX = (recipeType === 'comidas') ? INDEX_FOOD : INDEX_DRINK;
+    const ingredientsList = [];
+    for (let index = INITIAL_INDEX; index < MAX_INDEX; index += 1) {
+      ingredientsList
+        .push(recipe[`strIngredient${index}`]);
+    }
+    this.setState({
+      ingredientsList,
+    });
+  }
+
+  localStorageSetUp() {
+    if (!getStorage('inProgressRecipes')) {
+      setStorage('inProgressRecipes', { cocktails: {}, meals: {} });
+    }
+  }
+
+  verifyRecipeInProgress() {
+    const { recipeType, recipeId } = this.props;
+    const inProgressRecipes = getStorage('inProgressRecipes');
+    if (inProgressRecipes) {
+      if (recipeType === 'comidas' && (inProgressRecipes.meals[recipeId])) {
+        this.setState({ inProgress: true });
+      }
+      if (recipeType === 'bebidas' && inProgressRecipes.cocktails[recipeId]) {
+        this.setState({ inProgress: true });
+      }
+    }
+  }
+
   render() {
-    const { isRedirect } = this.state;
-    if (isRedirect)
+    const { recipeType, recipeId } = this.props;
+    const { isRedirect, inProgress } = this.state;
+    if (isRedirect) return <Redirect to={ `/${recipeType}/${recipeId}/in-progress` } />;
     return (
       <button
         className="footer"
         type="button"
         data-testid="start-recipe-btn"
-        onClick={ () => this.handleStartButtonClick(recipeId) }
+        onClick={ () => this.handleStartButtonClick() }
       >
         { (inProgress) ? 'Continuar Receita' : 'Iniciar Receita' }
       </button>
@@ -49,4 +95,8 @@ export class CustomDetailsButton extends Component {
   }
 }
 
-export default CustomDetailsButton;
+CustomDetailsButton.propTypes = {
+  recipeType: PropTypes.string.isRequired,
+  recipeId: PropTypes.number.isRequired,
+  recipe: PropTypes.arrayOf(PropTypes.string).isRequired,
+};

@@ -36,11 +36,11 @@ class Login extends Component {
   }
 
   setUpLocalStorage() {
-    if (!getStorage('doneRecipes ')) {
+    if (!getStorage('doneRecipes')) {
       setStorage('doneRecipes', []);
     }
-    if (!getStorage('favoriteRecipes ')) {
-      setStorage('favoriteRecipes ', []);
+    if (!getStorage('favoriteRecipes')) {
+      setStorage('favoriteRecipes', []);
     }
     if (!getStorage('inProgressRecipes')) {
       setStorage('inProgressRecipes', { cocktails: {}, meals: {} });
