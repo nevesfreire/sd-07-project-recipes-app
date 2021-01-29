@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { resultIngredients, resultName, resultLetter, resultID } from '../../redux/actionsComidas';
+import {
+  resultIngredients,
+  resultName,
+  resultLetter,
+  resultID } from '../../redux/actionsComidas';
 
 class BarraBuscaComidas extends Component {
   constructor() {
@@ -134,6 +138,7 @@ BarraBuscaComidas.propTypes = {
   getName: PropTypes.func.isRequired,
   getLetter: PropTypes.func.isRequired,
   resultApi: PropTypes.arrayOf(PropTypes.object).isRequired,
+  getByID: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,

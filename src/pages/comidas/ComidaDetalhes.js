@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 
 class ComidaDetalhes extends React.Component {
   render() {
-    const { recipeById } = this.props;
-    console.log(recipeById);
+    // const { recipeById } = this.props;
+    // console.log(recipeById);
     return (
       <div className="ComidaDetalhes">
         {/* <img data-testid="recipe-photo" src="" /> */}
