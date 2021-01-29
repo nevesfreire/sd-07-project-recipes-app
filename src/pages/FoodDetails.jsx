@@ -1,10 +1,3 @@
-import React from 'react';
-
-export default function FoodDetails() {
-  return (
-    <h1>Detalhes Comida</h1>
-  );
-}
 // import React, { useContext, useEffect } from 'react';
 // import { useFetch } from '../hooks/useFetch';
 // import GlobalContext from '../context/GlobalContext';

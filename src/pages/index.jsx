@@ -12,5 +12,3 @@ export { default as IngredientsFood } from './IngredientsFood';
 export { default as Login } from './Login';
 export { default as MadeRecipes } from './MadeRecipes';
 export { default as Profile } from './Profile';
-export { default as FoodProcess } from './FoodProcess';
-export { default as DrinkProcess } from './DrinkProcess';

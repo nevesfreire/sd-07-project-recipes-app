@@ -1,19 +1,12 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import Footer from '../components/Footer';
-import Header from '../components/Header';
 import GlobalContext from '../context/GlobalContext';
 
 export default function Explore() {
-  const { redirect, setTitle, setSearchButton } = useContext(GlobalContext);
-
-  useEffect(() => {
-    setTitle('Explorar');
-    setSearchButton(false);
-  }, [setTitle, setSearchButton]);
-
+  const { redirect } = useContext(GlobalContext);
   return (
     <div>
-      <Header />
+      <h1>Explorar</h1>
       <button
         type="button"
         data-testid="explore-food"

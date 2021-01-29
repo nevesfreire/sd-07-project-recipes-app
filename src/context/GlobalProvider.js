@@ -5,9 +5,6 @@ import geral from '../data';
 import GlobalContext from './GlobalContext';
 
 export default function GlobalProvider({ children }) {
-  const [title, setTitle] = useState('');
-  const [searchButton, setSearchButton] = useState(true);
-  const [searchBar, setSearchBar] = useState(false);
   const [state, setState] = useState(geral);
   const {
     initialState: { email, password },
@@ -32,12 +29,6 @@ export default function GlobalProvider({ children }) {
     <GlobalContext.Provider
       value={ {
         redirect,
-        title,
-        setTitle,
-        searchButton,
-        setSearchButton,
-        searchBar,
-        setSearchBar,
         dataFoods,
         dataDrinks,
         setDataFoods: (value) => {
