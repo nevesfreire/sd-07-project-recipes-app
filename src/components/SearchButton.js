@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-// import { Link } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import searchIcon from '../images/searchIcon.svg';
 

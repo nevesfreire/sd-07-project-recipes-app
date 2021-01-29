@@ -1,63 +1,77 @@
 import React, { useContext } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
+import SearchResult from './SearchResult';
 
 function SearchBar() {
   const {
     searching,
+    setOptionSearch,
+    setInputSearch,
+    handleBuscarButton,
   } = useContext(RecipesContext);
 
   if (searching) {
     return (
-      <Form>
-        <Form.Group controlId="formBasicEmail">
+      <div>
+        <Form>
+          <Form.Group controlId="inputSearch">
+            <Form.Control
+              type="text"
+              data-testid="search-input"
+              placeholder="Buscar Receita"
+              name="search"
+              onChange={ (e) => setInputSearch(e.target.value) }
+            />
+          </Form.Group>
+          <Form.Group controlId="formBasicCheckbox">
+            <div key="inline-radio" className="mb-3">
+              <Form.Check
+                inline
+                name="radio"
+                label="Ingrediente"
+                data-testid="ingredient-search-radio"
+                type="radio"
+                id="inline-radio-ingrediente"
+                value="ingredient"
+                onChange={ (e) => setOptionSearch(e.target.value) }
+              />
+              <Form.Check
+                inline
+                name="radio"
+                label="Nome"
+                data-testid="name-search-radio"
+                type="radio"
+                id="inline-radio-nome"
+                value="name"
+                onChange={ (e) => setOptionSearch(e.target.value) }
+              />
+              <Form.Check
+                inline
+                name="radio"
+                label="Primeira letra"
+                data-testid="first-letter-search-radio"
+                type="radio"
+                id="inline-radio-primeira-letra"
+                value="letter"
+                onChange={ (e) => setOptionSearch(e.target.value) }
+              />
+            </div>
+          </Form.Group>
 
-          <Form.Control
-            type="text"
-            data-testid="search-input"
-            placeholder="Buscar Receita"
-            name="search"
-            // onChange={ (e) => setEmail(e.target.value) }
-          />
-        </Form.Group>
-
-        <div key="inline-radio" className="mb-3">
-          <Form.Check
-            inline
-            label="Ingrediente"
-            data-testid="ingredient-search-radio"
-            type="radio"
-            id="inline-radio-ingrediente"
-          />
-          <Form.Check
-            inline
-            label="Nome"
-            data-testid="name-search-radio"
-            type="radio"
-            id="inline-radio-nome"
-          />
-          <Form.Check
-            inline
-            label="Primeira letra"
-            data-testid="first-letter-search-radio"
-            type="radio"
-            id="inline-radio-primeira-letra"
-          />
-        </div>
-
-        <Link to="/">
           <Button
             type="button"
             data-testid="exec-search-btn"
-            // disabled={ isDisabled() }
-            // onClick={ handleEntrarButton }
+            onClick={ handleBuscarButton }
             variant="secondary"
           >
             Buscar
           </Button>
-        </Link>
-      </Form>
+        </Form>
+
+        <SearchResult />
+
+      </div>
     );
   }
   return null;
