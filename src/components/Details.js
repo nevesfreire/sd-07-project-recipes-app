@@ -9,13 +9,20 @@ import {
 } from '../services/API';
 import CardList from './CardList';
 
+const copy = require('clipboard-copy');
+
 function Details({ itemId, mealType }) {
+  console.log(JSON.stringify(itemId), 'itemId');
   const quinze = 15;
   const zero = 0;
+  const tresMil = 3000;
+  const history = useHistory();
+
   const [details, setDetails] = useState([]);
   const [recommendation, setRecommendation] = useState([]);
-  const history = useHistory();
-  const [showMessage, setShowMessage] = useState("hidden");
+  const [showMessage, setShowMessage] = useState('hidden');
+  const [beginBtn, setBeginBtn] = useState('Iniciar');
+  const [hideBtn, setHideBtn] = useState('');
 
   useEffect(() => {
     const getRecommendation = async () => {
@@ -31,6 +38,29 @@ function Details({ itemId, mealType }) {
   }, [mealType]);
 
   useEffect(() => {
+    // localStorage.setItem('doneRecipes', JSON.stringify([{ id: '52977' }]));
+    const checkForCompletion = () => {
+      const list = JSON.parse(localStorage.getItem('doneRecipes'));
+      if (list !== null && list.filter((item) => item.id === itemId).length > zero) {
+        setHideBtn('hidden');
+      }
+    };
+
+    const checkForProgress = async () => {
+      const list = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      if (list !== null) {
+        let keys = [];
+        if (mealType === 'Meal') { keys = Object.keys(list.meals); } else {
+          keys = Object.keys(list.cocktails);
+        }
+        if (keys.includes(itemId)) setBeginBtn('Continuar Receita');
+      }
+    };
+    checkForCompletion();
+    checkForProgress();
+  }, [itemId, mealType, recommendation]);
+
+  useEffect(() => {
     const getDetails = async () => {
       let fromFetch = [];
       if (mealType === 'Drink') fromFetch = await fetchDrinkDetailsById(itemId);
@@ -42,14 +72,29 @@ function Details({ itemId, mealType }) {
   }, [itemId, mealType, recommendation]);
 
   const forwardToInProgress = () => {
+    let progressList = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (progressList === null) {
+      progressList = {
+        cocktails: {},
+        meals: {},
+      };
+    }
     if (mealType === 'Meal') {
-      history.push(`/comidas/${itemId}/in-progress`)
+      progressList.meals[itemId] = [];
+    } else {
+      progressList.cocktails[itemId] = [];
+    }
+    localStorage.setItem('inProgressRecipes', JSON.stringify(progressList));
+
+    if (mealType === 'Meal') {
+      history.push(`/comidas/${itemId}/in-progress`);
     }
     if (mealType === 'Drink') {
-      history.push(`/bebidas/${itemId}/in-progress`)
+      history.push(`/bebidas/${itemId}/in-progress`);
     }
   };
 
+  
   const loadIngredients = () => {
     const ingredientsList = [];
     for (let i = 1; i <= quinze; i += 1) {
@@ -64,12 +109,12 @@ function Details({ itemId, mealType }) {
       <ul>
         {ingredientsList.map((item, index) => (
           <li
-            key={`ìngredient${index}`}
-            data-testid={`${index}-ingredient-name-and-measure`}
+            key={ `ìngredient${index}` }
+            data-testid={ `${index}-ingredient-name-and-measure` }
           >
             <img
               width="30px"
-              src={`https://www.themealdb.com/images/ingredients/${item.ingredient}.png`}
+              src={ `https://www.themealdb.com/images/ingredients/${item.ingredient}.png` }
               alt="ingredient"
             />
             {item.measure}
@@ -83,93 +128,94 @@ function Details({ itemId, mealType }) {
     );
   };
 
-  const showDetails = () => {
-    console.log(details);
-    return (
-      <div className="details">
-        <img
-          alt="Meal Thumbnail"
-          width="100%"
-          data-testid="recipe-photo"
-          src={details[`str${mealType}Thumb`]}
-          tagName="img" // sei lá se é isso
-        />
-        <h3 data-testid="recipe-title">{details[`str${mealType}`]}</h3>
-        <button
-          type="button"
-          data-testid="share-btn"
-          onClick={() => copyLink()}
-        >Compartilhar</button>
-        <button
-          type="button"
-          data-testid="favorite-btn"
-          onClick={() => addToFavorites()}
-        >Favoritar</button>
-        <h5 hidden={showMessage}>"Link copiado!"</h5>
-        <h5 width="90%" data-testid="recipe-category">
-          {
-            mealType === 'Meal'
-              ? details.strCategory
-              : details.strAlcoholic
-          }
-        </h5>
-        { loadIngredients()}
-        <p width="90%" data-testid="instructions">{details.strInstructions}</p>
-        {mealType === 'Meal'
-          && (<a data-testid="video" href={details.strYoutube}>Video</a>)}
-        <CardList
-          arrayOfCard={recommendation}
-          typeOfCard={mealType === 'Meal' ? 'Drink' : 'Meal'}
-          sideScroll=" sideScroll"
-          recommendation
-        />
-        <button
-          className="button-begin"
-          type="button"
-          width="100%"
-          data-testid="start-recipe-btn"
-          onClick={() => forwardToInProgress()}
-        >
-          Iniciar
-        </button>
-      </div >
-    );
+  const copyLink = () => {
+    const url = window.location.href;
+    copy(url);
+    setShowMessage('');
+    setTimeout(() => { setShowMessage('hidden'); }, tresMil);
   };
 
   const addToFavorites = () => {
     const data = {
       id: itemId,
-      type: mealType === "Meal" ? "comida" : "bebida",
-      area: mealType === "Meal" ? details.strArea : "",
+      type: mealType === 'Meal' ? 'comida' : 'bebida',
+      area: mealType === 'Meal' ? details.strArea : '',
       category: details.strCategory,
-      alcoholicOrNot: mealType === "Drinks" ? details.strAlcoholic : "",
+      alcoholicOrNot: mealType === 'Drinks' ? details.strAlcoholic : '',
       name: `str${mealType}`,
       image: `str${mealType}Thumb`,
-    }
+    };
 
-    let favList = JSON.parse(localStorage.getItem('favoriteRecipes'))
+    let favList = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
     if (favList) {
-      if (favList.filter(item => item.id === itemId).length > zero) {
-        console.log(favList, 'aqui')
-        favList = favList.filter(item => item.id !== itemId)
-        localStorage.setItem('favoriteRecipes', JSON.stringify(favList))
+      if (favList.filter((item) => item.id === itemId).length > zero) {
+        favList = favList.filter((item) => item.id !== itemId);
+        localStorage.setItem('favoriteRecipes', JSON.stringify(favList));
       } else {
-        console.log('entrou aqui')
-        localStorage.setItem('favoriteRecipes', JSON.stringify([...favList, data]))
+        localStorage.setItem('favoriteRecipes', JSON.stringify([...favList, data]));
       }
     } else {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([data]))
+      localStorage.setItem('favoriteRecipes', JSON.stringify([data]));
     }
-  }
+  };
 
-  const copyLink = () => {
-    const url = window.location.href;
-    const copy = require('clipboard-copy')
-    copy(url)
-    setShowMessage("")
-    setTimeout(function () { setShowMessage("hidden") }, 3000);
-  }
+  const showDetails = () => (
+    <div className="details">
+      <img
+        alt="Meal Thumbnail"
+        width="100%"
+        data-testid="recipe-photo"
+        src={ details[`str${mealType}Thumb`] }
+        tagName="img" // sei lá se é isso
+      />
+      <h3 data-testid="recipe-title">{details[`str${mealType}`]}</h3>
+      <button
+        type="button"
+        data-testid="share-btn"
+        onClick={ () => copyLink() }
+      >
+        Compartilhar
+      </button>
+      <button
+        src="../images/whiteHeartIcon.svg"
+        type="button"
+        data-testid="favorite-btn"
+        onClick={ () => addToFavorites() }
+      >
+        Favoritar
+      </button>
+      <h5 hidden={ showMessage }>Link copiado!</h5>
+      <h5 width="90%" data-testid="recipe-category">
+        {
+          mealType === 'Meal'
+            ? details.strCategory
+            : details.strAlcoholic
+        }
+      </h5>
+      { loadIngredients()}
+      <p width="90%" data-testid="instructions">{details.strInstructions}</p>
+      {mealType === 'Meal'
+        && (<a data-testid="video" href={ details.strYoutube }>Video</a>)}
+      <CardList
+        arrayOfCard={ recommendation }
+        typeOfCard={ mealType === 'Meal' ? 'Drink' : 'Meal' }
+        sideScroll=" sideScroll"
+        recommendation
+      />
+      <button
+        className="button-begin"
+        type="button"
+        width="100%"
+        data-testid="start-recipe-btn"
+        onClick={ () => forwardToInProgress() }
+        hidden={ hideBtn }
+      >
+        {beginBtn}
+      </button>
+    </div>
+  );
+
   return (
     <div>
       {showDetails()}
