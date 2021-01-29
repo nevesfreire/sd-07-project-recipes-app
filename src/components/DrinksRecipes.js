@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { fetchRecipes } from '../actions';
 import '../css/food.css';
 
@@ -21,14 +22,19 @@ class DrinksRecipes extends Component {
       return (
         <div>
           {filterArray.map((drink, index) => (
-            <div key={ drink.strDrink } data-testid={ `${index}-recipe-card` }>
-              <img
-                src={ drink.strDrinkThumb }
-                alt={ drink.strDrink }
-                data-testid={ `${index}-card-img` }
-              />
-              <h1 data-testid={ `${index}-card-name` }>{ drink.strDrink }</h1>
-            </div>
+            <Link
+              to={ `/bebidas/${drink.idDrink}` }
+              key={ drink.strDrink }
+            >
+              <div data-testid={ `${index}-recipe-card` }>
+                <img
+                  src={ drink.strDrinkThumb }
+                  alt={ drink.strDrink }
+                  data-testid={ `${index}-card-img` }
+                />
+                <h1 data-testid={ `${index}-card-name` }>{ drink.strDrink }</h1>
+              </div>
+            </Link>
           ))}
         </div>
       );

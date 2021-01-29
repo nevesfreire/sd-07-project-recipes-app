@@ -3,9 +3,10 @@ import '../css/food.css';
 
 class DrinkDetails extends Component {
   render() {
+    // const { params } = this.props.match;
     return (
       <div>
-        Drink Details
+        <h1>Drink Details</h1>
       </div>
     );
   }
