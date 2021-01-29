@@ -26,7 +26,7 @@ function RecipesProvider({ children }) {
 }
 
 RecipesProvider.propTypes = {
-  children: PropTypes.func.isRequired,
+  children: PropTypes.oneOfType([PropTypes.object]).isRequired,
 };
 
 export default RecipesProvider;
