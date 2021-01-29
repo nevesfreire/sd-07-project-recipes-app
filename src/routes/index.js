@@ -13,9 +13,11 @@ import {
   ReceitasFeitas,
   ReceitasFavoritas,
 } from '../pages';
+import Login from '../pages/TelaDeLogin';
 
 const Routes = () => (
   <Switch>
+    <Route exact path="/" component={ Login } />
     <Route exact path="/bebidas" component={ TelaPrincipalReceitasBebidas } />
     <Route exact path="/comidas" component={ TelaPrincipalReceitasComidas } />
     <Route exact path="/explorar" component={ Explorar } />
