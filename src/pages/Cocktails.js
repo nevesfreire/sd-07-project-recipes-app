@@ -47,6 +47,8 @@ function Cocktails() {
   const turnFilterOn = (cat) => {
     if (filterOn) {
       setFilterOn(false);
+      setFilter(cat);
+      setIsFetching(true);
     } else {
       setFilter(cat);
       setIsFetching(true);

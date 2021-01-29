@@ -25,12 +25,13 @@ function Meals() {
     function checkFilter() {
       if (filterOn) {
         setCardsArray(filteredMeals);
+        console.log(filteredMeals);
       } else {
         setCardsArray(meals);
       }
     }
     checkFilter();
-  }, [isLoading, filterOn]);
+  }, [isLoading, filterOn, filteredMeals, meals]);
 
   useEffect(() => {
     const fetchFiltered = async () => {
@@ -42,11 +43,13 @@ function Meals() {
     if (isFetching) {
       fetchFiltered();
     }
-  }, [filter]);
+  }, [filter, isFetching]);
 
   const turnFilterOn = (cat) => {
     if (filterOn) {
       setFilterOn(false);
+      setFilter(cat);
+      setIsFetching(true);
     } else {
       setFilter(cat);
       setIsFetching(true);
@@ -77,19 +80,24 @@ function Meals() {
           <div
             data-testid={ `${index}-recipe-card` }
             key={ `card-${index}` }
+            // className="card" style="width: 18rem;"
           >
             <img
+              // className="card-img-top"
               key={ `meal-thumb-${index}` }
               src={ meal.strMealThumb }
               alt="meal thumb"
               data-testid={ `${index}-card-img` }
             />
-            <h2
-              key={ meal.strMeal }
-              data-testid={ `${index}-card-name` }
-            >
-              {meal.strMeal}
-            </h2>
+            <div key={ `card-body-${index}` }>
+              <h2
+                // className="card-title"
+                key={ meal.strMeal }
+                data-testid={ `${index}-card-name` }
+              >
+                {meal.strMeal}
+              </h2>
+            </div>
           </div>
         </Link>
       );
