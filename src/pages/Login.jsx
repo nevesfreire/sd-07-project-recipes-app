@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { setStorage } from '../services/localStorage';
+import { setStorage, getStorage } from '../services/localStorage';
 import { CustomLogin } from '../components';
 import { addEmailAction, addPasswordAction } from '../redux/actions';
 
@@ -26,6 +26,9 @@ class Login extends Component {
     dispatchEmail(email);
     dispatchPassword(password);
     setStorage('user', { email });
+    if (!getStorage('inProgressRecipes')) {
+      setStorage('inProgressRecipes', { cocktails: {}, meals: {} });
+    }
     history.push('/comidas');
   }
 

@@ -1,7 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Carousel } from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
 import { CustomCardSuggested } from '../components';
-import { getFood, getDrink, getSuggestedFoods, getSuggestedDrinks } from '../services';
+import {
+  getFood,
+  getDrink,
+  getSuggestedFoods,
+  getSuggestedDrinks,
+  setStorage,
+  getStorage,
+} from '../services';
 
 export default class RecipeDetails extends Component {
   constructor(props) {
@@ -11,11 +20,18 @@ export default class RecipeDetails extends Component {
     this.getYoutubeEmbedUrl = this.getYoutubeEmbedUrl.bind(this);
     this.getIngredientsList = this.getIngredientsList.bind(this);
     this.getSuggestedRecipes = this.getSuggestedRecipes.bind(this);
+    this.verifyRecipeInProgress = this.verifyRecipeInProgress.bind(this);
+    this.handleStartButtonClick = this.handleStartButtonClick.bind(this);
     this.state = {
+      recipeId: '',
       isLoading: true,
       recipe: {},
       suggestedRecipes: [],
       recipeType: '',
+      ingredientsList: [],
+      measureList: [],
+      inProgress: false,
+      isRedirect: false,
     };
   }
 
@@ -24,10 +40,50 @@ export default class RecipeDetails extends Component {
     this.fetchRecipe(id, path);
   }
 
-  getTypeOfRecipe(path) {
-    const regExp = /(\w+)/;
-    const match = path.match(regExp);
-    return match[0];
+  handleStartButtonClick(recipeId) {
+    const { ingredientsList, recipeType } = this.state;
+    if (recipeType === 'comidas') {
+      setStorage('inProgressRecipes', {
+        ...getStorage('inProgressRecipes'),
+        meals: {
+          ...getStorage('inProgressRecipes').meals,
+          [recipeId]: ingredientsList,
+        },
+      });
+    }
+    if (recipeType === 'bebidas') {
+      setStorage('inProgressRecipes', {
+        ...getStorage('inProgressRecipes'),
+        cocktails: {
+          ...getStorage('inProgressRecipes').cocktails,
+          [recipeId]: ingredientsList,
+        },
+      });
+    }
+    this.setState({ isRedirect: true });
+  }
+
+  getSuggestedRecipes() {
+    const { suggestedRecipes, recipeType } = this.state;
+    if (!suggestedRecipes) return <div> Sem Sugestões </div>;
+    const sufixeRecipe = (recipeType === 'comidas') ? 'Drink' : 'Meal';
+    const INITIAL_INDEX = 0;
+    const MAX_INDEX = 6;
+    return (
+      <Carousel>
+        {
+          suggestedRecipes.slice(INITIAL_INDEX, MAX_INDEX)
+            .map((recipe, index) => (
+              <Carousel.Item key={ index }>
+                <CustomCardSuggested
+                  index={ index }
+                  thumb={ recipe[`str${sufixeRecipe}Thumb`] }
+                  title={ recipe[`str${sufixeRecipe}`] }
+                />
+              </Carousel.Item>))
+        }
+      </Carousel>
+    );
   }
 
   getYoutubeEmbedUrl() {
@@ -38,21 +94,10 @@ export default class RecipeDetails extends Component {
     return `https://www.youtube.com/embed/${match[2]}`;
   }
 
-  getSuggestedRecipes() {
-    const { suggestedRecipes, recipeType } = this.state;
-    const sufixeRecipe = (recipeType === 'comidas') ? 'Drink' : 'Meal';
-    const INITIAL_INDEX = 0;
-    const MAX_INDEX = 6;
-    return (
-      suggestedRecipes.slice(INITIAL_INDEX, MAX_INDEX)
-        .map((recipe, index) => (
-          <CustomCardSuggested
-            index={ index }
-            key={ recipe[`id${sufixeRecipe}`] }
-            thumb={ recipe[`str${sufixeRecipe}Thumb`] }
-            title={ recipe[`str${sufixeRecipe}`] }
-          />))
-    );
+  getTypeOfRecipe(path) {
+    const regExp = /(\w+)/;
+    const match = path.match(regExp);
+    return match[0];
   }
 
   getIngredientsList() {
@@ -61,23 +106,29 @@ export default class RecipeDetails extends Component {
     const INDEX_FOOD = 20;
     const INDEX_DRINK = 15;
     const MAX_INDEX = (recipeType === 'comidas') ? INDEX_FOOD : INDEX_DRINK;
-    const ingredientsAndMeasureList = [];
+    const ingredientsList = [];
+    const measureList = [];
     for (let index = INITIAL_INDEX; index < MAX_INDEX; index += 1) {
-      ingredientsAndMeasureList
-        .push([recipe[`strIngredient${index}`], recipe[`strMeasure${index}`]]);
+      ingredientsList
+        .push(recipe[`strIngredient${index}`]);
+      measureList
+        .push(recipe[`strMeasure${index}`]);
     }
-    return (
-      ingredientsAndMeasureList
-        .filter((ingredient) => ingredient[0] !== '' && ingredient[0] !== null)
-        .map((ingredient, index) => (
-          <li
-            key={ index }
-            data-testid={ `${index}-ingredient-name-and-measure` }
-          >
-            { `${(ingredient[1]) ? (ingredient[1]) : ''} ${ingredient[0]}` }
-          </li>
-        ))
-    );
+    this.setState({
+      ingredientsList,
+      measureList,
+    });
+  }
+
+  verifyRecipeInProgress(id) {
+    const { recipeType } = this.state;
+    const inProgressRecipes = getStorage('inProgressRecipes');
+    if (recipeType === 'comidas' && inProgressRecipes.meals[id]) {
+      this.setState({ inProgress: true });
+    }
+    if (recipeType === 'bebidas' && inProgressRecipes.cocktails[id]) {
+      this.setState({ inProgress: true });
+    }
   }
 
   async fetchRecipe(id, path) {
@@ -87,6 +138,7 @@ export default class RecipeDetails extends Component {
       const { meals } = await getFood(id);
       const { drinks } = await getSuggestedDrinks();
       this.setState({
+        recipeId: id,
         isLoading: false,
         recipe: meals[0],
         suggestedRecipes: drinks,
@@ -97,20 +149,46 @@ export default class RecipeDetails extends Component {
       const { drinks } = await getDrink(id);
       const { meals } = await getSuggestedFoods();
       this.setState({
+        recipeId: id,
         isLoading: false,
         recipe: drinks[0],
         suggestedRecipes: meals,
         recipeType,
       });
     }
+    this.getIngredientsList();
+    this.verifyRecipeInProgress(id);
+  }
+
+  renderIngredientsList() {
+    const { ingredientsList, measureList } = this.state;
+    return (
+      ingredientsList
+        .filter((ingredient) => ingredient !== '' && ingredient !== null)
+        .map((ingredient, index) => (
+          <li
+            key={ index }
+            data-testid={ `${index}-ingredient-name-and-measure` }
+          >
+            { `${(measureList[index]) ? (measureList[index]) : ''} ${ingredient}` }
+          </li>
+        ))
+    );
   }
 
   render() {
-    const { isLoading, recipe, recipeType } = this.state;
     const {
-      strInstructions,
-    } = recipe;
+      isLoading,
+      recipe,
+      recipeType,
+      inProgress,
+      recipeId,
+      isRedirect,
+    } = this.state;
+
+    const { strInstructions } = recipe;
     if (isLoading) return <div> Loading... </div>;
+    if (isRedirect) return <Redirect to={ `/${recipeType}/${recipeId}/in-progress/` } />;
     return (
       <div>
         <img
@@ -130,7 +208,7 @@ export default class RecipeDetails extends Component {
         </h3>
         <p data-testid="instructions">{ strInstructions }</p>
         <ul>
-          { (!isLoading) && this.getIngredientsList() }
+          { (!isLoading) && this.renderIngredientsList() }
         </ul>
         { (recipeType === 'comidas') && <iframe
           data-testid="video"
@@ -140,10 +218,15 @@ export default class RecipeDetails extends Component {
           allow-fullscreen
           title="video"
         /> }
-        <div>
-          { this.getSuggestedRecipes() }
-        </div>
-        <button type="button" data-testid="start-recipe-btn"> START RECIPE </button>
+        { (!isLoading) && this.getSuggestedRecipes() }
+        <button
+          className="footer"
+          type="button"
+          data-testid="start-recipe-btn"
+          onClick={ () => this.handleStartButtonClick(recipeId) }
+        >
+          { (inProgress) ? 'Continuar Receita' : 'Iniciar Receita' }
+        </button>
       </div>
     );
   }
