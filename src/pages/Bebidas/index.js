@@ -112,11 +112,11 @@ function Bebidas(props) {
 
   useEffect(() => {
     const { fetchDrink, drinks, notRequired } = props;
-
+    if (drinks.isRequired) {
       notRequired();
-
+    } else {
       fetchDrink('');
-
+    }
     fetchCategories();
   }, []);
 

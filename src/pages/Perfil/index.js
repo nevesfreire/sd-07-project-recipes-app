@@ -1,10 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Footer from '../../components/Footer';
+import Header from '../../components/Header';
 
 export default function Perfil() {
   const user = JSON.parse(localStorage.getItem('user'));
   return (
     <div>
+      <Header title="Perfil" />
       <h3 data-testid="profile-email">{user.email}</h3>
       <Link to="/receitas-feitas" data-testid="profile-done-btn">
         Receitas Feitas
@@ -19,6 +22,7 @@ export default function Perfil() {
       >
         Sair
       </Link>
+      <Footer />
     </div>
   );
 }
