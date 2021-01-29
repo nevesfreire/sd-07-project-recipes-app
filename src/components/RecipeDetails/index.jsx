@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import YouTube from 'react-youtube';
 
 import './style.css';
 
+import Context from '../../Context';
 import Meals from '../../services/meals-api';
 import Drinks from '../../services/cocktails-api';
+import Recommendation from '../Recommendation';
 
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
-
-const thirdItem = 2;
 
 const filterFoodKeys = (food) => {
   const objKeys = Object.keys(food);
@@ -39,6 +39,7 @@ const getYouTubeVideoId = (url) => {
 
 const RecipeDetails = ({ page }) => {
   const { id } = useParams();
+  const { handleClickStartRecipe, verifyInProgress } = useContext(Context);
   const [meal, setMeal] = useState({});
   const [drink, setDrink] = useState({});
   const [meals, setMeals] = useState([]);
@@ -46,6 +47,14 @@ const RecipeDetails = ({ page }) => {
   const [ingredients, setIngredients] = useState([]);
   const [measures, setMeasures] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
+  const [inProgress, setInProgress] = useState(false);
+
+  useEffect(() => {
+    const isInProgress = verifyInProgress(id, page);
+    if (isInProgress) {
+      setInProgress(true);
+    }
+  }, [verifyInProgress, id, page]);
 
   useEffect(() => {
     const limitToShow = 6;
@@ -129,36 +138,15 @@ const RecipeDetails = ({ page }) => {
           opts={ { height: '240', width: '360' } }
         />
 
-        <h2>Recomendadas</h2>
-        <div className="recommended-container">
-          {
-            drinks.map(({ idDrink, strDrinkThumb, strDrink }, index) => (
-              <Link
-                to={ `/bebidas/${idDrink}` }
-                key={ idDrink }
-                data-testid={ `${index}-recomendation-card` }
-              >
-                <img
-                  style={ index >= thirdItem ? { display: 'none' } : {} }
-                  className="recipe-img"
-                  width="150"
-                  src={ strDrinkThumb }
-                  alt="drink"
-                  data-testid={ `${index}-card-img` }
-                />
-                <h2
-                  style={ index >= thirdItem ? { display: 'none' } : {} }
-                  data-testid={ `${index}-recomendation-title` }
-                >
-                  {strDrink}
-                </h2>
-              </Link>
-            ))
-          }
-        </div>
+        <Recommendation page={ page } recommendations={ drinks } />
 
-        <button className="start-button" type="button" data-testid="start-recipe-btn">
-          Iniciar Receita
+        <button
+          className="start-button"
+          type="button"
+          data-testid="start-recipe-btn"
+          onClick={ () => handleClickStartRecipe(id, ingredients, page) }
+        >
+          { inProgress ? 'Continuar Receita' : 'Iniciar Receita' }
         </button>
       </div>
     );
@@ -201,37 +189,17 @@ const RecipeDetails = ({ page }) => {
       <h2>Instructions</h2>
       <p data-testid="instructions">{strInstructions}</p>
 
-      <h2>Recomendadas</h2>
-      <div className="recommended-container">
-        {
-          meals.map(({ idMeal, strMealThumb, strMeal }, index) => (
-            <Link
-              to={ `/comidas/${idMeal}` }
-              key={ idMeal }
-              data-testid={ `${index}-recomendation-card` }
-            >
-              <img
-                style={ index >= thirdItem ? { display: 'none' } : {} }
-                className="recipe-img"
-                width="150"
-                src={ strMealThumb }
-                alt="meal"
-                data-testid={ `${index}-card-img` }
-              />
-              <h2
-                style={ index >= thirdItem ? { display: 'none' } : {} }
-                data-testid={ `${index}-recomendation-title` }
-              >
-                {strMeal}
-              </h2>
-            </Link>
-          ))
-        }
-      </div>
+      <Recommendation page={ page } recommendations={ meals } />
 
-      <button className="start-button" type="button" data-testid="start-recipe-btn">
-        Iniciar Receita
+      <button
+        className="start-button"
+        type="button"
+        data-testid="start-recipe-btn"
+        onClick={ () => handleClickStartRecipe(id, ingredients, page) }
+      >
+        { inProgress ? 'Continuar Receita' : 'Iniciar Receita' }
       </button>
+
     </div>
   );
 };

@@ -16,6 +16,26 @@ function RecipesProvider({ children }) {
   const [drinksCategoryList, setDrinksCategoryList] = useState([]);
   const [currentFilterDrinksCategory, setCurrentFilterDrinksCategory] = useState('All');
 
+  const [inProgressRecipes, setInProgressRecipes] = useState({});
+  const [updatingLocalStorage, setUpdatingLocalStorage] = useState(true);
+
+  useEffect(() => {
+    const inProgressRecipesString = localStorage.getItem('inProgressRecipes');
+    const inProgressRecipesObj = JSON.parse(inProgressRecipesString);
+
+    if (inProgressRecipesObj) {
+      setInProgressRecipes(inProgressRecipesObj);
+      setUpdatingLocalStorage(false);
+    }
+    setUpdatingLocalStorage(false);
+  }, []);
+
+  useEffect(() => {
+    if (!updatingLocalStorage) {
+      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+    }
+  }, [inProgressRecipes, updatingLocalStorage]);
+
   useEffect(() => {
     setMealsFilteredData(mealsData);
   }, [mealsData]);
@@ -60,7 +80,32 @@ function RecipesProvider({ children }) {
     setCurrentFilterDrinksCategory('All');
   };
 
+  const verifyInProgress = (id, page) => {
+    const key = page === 'meal' ? 'meals' : 'cocktails';
+
+    if (inProgressRecipes[key]) {
+      const isInProgress = inProgressRecipes[key][id];
+      if (isInProgress) return true;
+    }
+    return false;
+  };
+
+  const handleClickStartRecipe = (id, ingredients, page) => {
+    const key = page === 'meal' ? 'meals' : 'cocktails';
+
+    const isInProgress = verifyInProgress(id, page);
+
+    if (!isInProgress) {
+      setInProgressRecipes((state) => ({
+        ...state,
+        [key]: { ...state[key], [id]: ingredients },
+      }));
+    }
+  };
+
   const states = {
+    verifyInProgress,
+    handleClickStartRecipe,
     email: '',
     meal: {
       mealsData,
