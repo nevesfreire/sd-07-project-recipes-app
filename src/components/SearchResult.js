@@ -22,6 +22,8 @@ function SearchResult() {
     return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   }
 
+  const zero = 0;
+  const doze = 12;
   // ParaComidas:
 
   if (url === 'http://localhost:3000/comidas') {
@@ -29,20 +31,20 @@ function SearchResult() {
       return <Redirect to={ `/comidas/${cards[0].idMeal}` } />;
     }
     return (
-      !isFetching && cards.map((meal) => (
+      !isFetching && cards.slice(zero, doze).map((meal, index) => (
         <Card
-          key={ meal.idMeal }
+          key={ index }
           style={ { width: '18rem' } }
-          data-testid={ `${meal.idMeal}-ingredient-card` }
+          data-testid={ `${index}-recipe-card` }
         >
           <Card.Img
             variant="top"
             src={ `${meal.strMealThumb}` }
-            data-testid={ `${meal.idMeal}-card-img` }
+            data-testid={ `${index}-card-img` }
           />
           <Card.Body>
             <Card.Title
-              data-testid={ `${meal.idMeal}-card-name` }
+              data-testid={ `${index}-card-name` }
             >
               { `${meal.strMeal}` }
             </Card.Title>
@@ -59,20 +61,20 @@ function SearchResult() {
       return <Redirect to={ `/bebidas/${cards[0].idDrink}` } />;
     }
     return (
-      !isFetching && cards.map((drink) => (
+      !isFetching && cards.slice(zero, doze).map((drink, index) => (
         <Card
-          key={ drink.idDrink }
+          key={ index }
           style={ { width: '18rem' } }
-          data-testid={ `${drink.idDrink}-ingredient-card` }
+          data-testid={ `${index}-recipe-card` }
         >
           <Card.Img
             variant="top"
             src={ `${drink.strDrinkThumb}` }
-            data-testid={ `${drink.idDrink}-card-img` }
+            data-testid={ `${index}-card-img` }
           />
           <Card.Body>
             <Card.Title
-              data-testid={ `${drink.idDrink}-card-name` }
+              data-testid={ `${index}-card-name` }
             >
               { `${drink.strDrink}` }
             </Card.Title>
