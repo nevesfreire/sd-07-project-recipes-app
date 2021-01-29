@@ -1,15 +1,15 @@
 .footer {
   align-items: center;
   align-self: auto;
-  bottom: 0;
   background-color: #c4c4c4;
+  bottom: 0;
   display: flex;
   flex-direction: row;
   height: 10%;
   justify-content: space-between;
-  position: fixed;
   padding-left: 10px;
   padding-right: 10px;
+  position: fixed;
   width: 100%;
 }
 
