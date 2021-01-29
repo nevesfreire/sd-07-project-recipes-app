@@ -11,8 +11,13 @@ export default function CardsFoodFiltred({ category, number }) {
       ? (<span>loading...</span>)
       : (
         meals.filter((_, index) => index < number)
-          .map(({ strMeal, strMealThumb }, i) => (
-            <Card title={ strMeal } img={ strMealThumb } key={ i } />
+          .map(({ strMeal, strMealThumb, idMeal }, i) => (
+            <Card
+              id={ idMeal }
+              title={ strMeal }
+              img={ strMealThumb }
+              key={ i }
+            />
           ))
       )
   );

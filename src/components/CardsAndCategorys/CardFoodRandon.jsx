@@ -12,7 +12,11 @@ export default function CardFoodRandon() {
         loading
           ? (<span>loading...</span>)
           : (
-            <Card title={ meals[0].strMeal } img={ meals[0].strMealThumb } />
+            <Card
+              title={ meals[0].strMeal }
+              img={ meals[0].strMealThumb }
+              id={ meals[0].idMeal }
+            />
           )
       }
     </div>
