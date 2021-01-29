@@ -36,7 +36,7 @@ const foodRecipesReducer = (state = INITIAL_STATE, action) => {
       ...state,
       meals: (!action.payload.meals) ? [] : action.payload.meals,
       isFetching: false,
-      currentCategory: 'all',
+      currentCategoryFood: 'all',
     };
   case REQUEST_FOOD_FAILED:
     return { ...state, error: true, isFetching: false };
