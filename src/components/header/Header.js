@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import userProfile from '../../images/profileIcon.svg';
@@ -8,15 +7,28 @@ import '../../App.css';
 import * as action from '../../redux/actionsSearchBar';
 
 class Header extends React.Component {
+  constructor(props) {
+    super(props);
+    this.redirectPerfil = this.redirectPerfil.bind(this);
+  }
+
+  redirectPerfil() {
+    console.log(this.props);
+    const { history } = this.props;
+    history.push('/perfil');
+  }
+
   render() {
     const { title, toggleSearchBar } = this.props;
     return (
       <div className="header-content">
-        <div>
-          <Link to="/perfil">
-            <img data-testid="profile-top-btn" src={ userProfile } alt="profile icon" />
-          </Link>
-        </div>
+        <button
+          type="button"
+          data-testid="profile-top-btn"
+          onClick={ this.redirectPerfil }
+        >
+          <img src={ userProfile } alt="profile icon" />
+        </button>
         <div data-testid="page-title">{title}</div>
         <button type="button" onClick={ toggleSearchBar }>
           <img
@@ -37,6 +49,9 @@ const mapDispatchToProps = (dispatch) => ({
 Header.propTypes = {
   title: PropTypes.string.isRequired,
   toggleSearchBar: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(Header);
