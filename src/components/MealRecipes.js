@@ -16,7 +16,7 @@ class MealRecipes extends Component {
     const MEAL_LENGTH = 12;
     if (getRecipes.meals) {
       if (getRecipes.meals.length === 1) {
-        return (<Redirect to={`/comidas/${getRecipes.meals[0].idMeal}`} />)
+        return (<Redirect to={ `/comidas/${getRecipes.meals[0].idMeal}` } />);
       }
     }
     if (getRecipes.meals === null) {
@@ -31,13 +31,13 @@ class MealRecipes extends Component {
       return (
         <div>
           {filterArray.map((meal, index) => (
-            <div key={meal.strMeal} data-testid={`${index}-recipe-card`}>
+            <div key={ meal.strMeal } data-testid={ `${index}-recipe-card` }>
               <img
-                src={meal.strMealThumb}
-                alt={meal.strMeal}
-                data-testid={`${index}-card-img`}
+                src={ meal.strMealThumb }
+                alt={ meal.strMeal }
+                data-testid={ `${index}-card-img` }
               />
-              <h1 data-testid={`${index}-card-name`}>{meal.strMeal}</h1>
+              <h1 data-testid={ `${index}-card-name` }>{ meal.strMeal }</h1>
             </div>
           ))}
         </div>
