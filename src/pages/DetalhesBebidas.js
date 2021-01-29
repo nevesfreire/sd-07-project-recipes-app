@@ -5,8 +5,6 @@ import RecipesContext from '../context/recipesContext';
 import { apiDrinks } from '../services/Services';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 
 function DetalhesBebidas({ match: { params: { id } }, history }) {
   const [detailDrink, setDetailDrink] = useState([]);

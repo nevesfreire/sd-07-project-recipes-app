@@ -5,8 +5,6 @@ import RecipesContext from '../context/recipesContext';
 import { apiFoods } from '../services/Services';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 
 function DetalhesComidas({ match: { params: { id } }, history }) {
   const [detailMeal, setDetailMeal] = useState([]);
