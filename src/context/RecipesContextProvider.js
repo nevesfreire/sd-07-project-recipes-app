@@ -7,8 +7,12 @@ function RecipesContextProvider({ children }) {
   const [isFetching, setIsFetching] = useState(true);
   const [isOnlyOne, setIsOnlyOne] = useState(false);
   const [firstTwelveRecipes, setFirstTwelveRecipes] = useState([]);
+  const [idParams, setIdParams] = useState('');
+  const [done, setDone] = useState(false);
+  const [doing, setDoing] = useState(false);
   const twelve = 12;
   const zero = 0;
+
   useEffect(() => {
     if (globalRecipes.drinks !== undefined) {
       setIsFetching(false);
@@ -30,6 +34,12 @@ function RecipesContextProvider({ children }) {
   return (
     <RecipesContext.Provider
       value={ {
+        idParams,
+        setIdParams,
+        doing,
+        done,
+        setDoing,
+        setDone,
         isFetching,
         setIsFetching,
         globalRecipes,
