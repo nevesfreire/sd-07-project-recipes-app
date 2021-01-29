@@ -8,11 +8,11 @@ function SearchBar({ theFetch }) {
   const [searchInput, setSearchInput] = useState();
   console.log(recipes);
 
-  function alertEmpty() {
-    if (!recipes.meals) {
-      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-    }
-  }
+  // function alertEmpty() {
+  //   if (!recipes.meals) {
+  //     alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  //   }
+  // }
 
   function handleClick() {
     const um = 1;
@@ -20,7 +20,9 @@ function SearchBar({ theFetch }) {
       alert('Sua busca deve conter somente 1 (um) caracter');
     }
     theFetch(searchInput, searchType);
-    alertEmpty();
+    if (!recipes.meals) {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
   }
 
   return (

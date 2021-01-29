@@ -4,6 +4,7 @@ import Card from '../components/Card';
 import Header from '../components/Header';
 import useFetch from '../hooks/useFetch';
 import RecipeContext from '../Context/Context';
+import FooterMenu from '../components/FooterMenu';
 
 function FoodRecipes() {
   const { foodFetch } = useFetch();
@@ -27,6 +28,7 @@ function FoodRecipes() {
       {recipes.meals && recipes.meals.length === um
         ? <Redirect to={ `/comidas/${recipes.meals[0].idMeal}` } />
         : handleRoutes()}
+      <FooterMenu />
     </div>
   );
 }
