@@ -52,17 +52,13 @@ class Header extends Component {
     const { searchBar } = this.state;
     return (
       <div>
-        <header>
-          <Link to="/perfil" replace>
-            <button
-              type="button"
-            >
-              <img
-                alt="profile icon"
-                data-testid="profile-top-btn"
-                src={ profileIcon }
-              />
-            </button>
+        <header className="header">
+          <Link to="/perfil">
+            <img
+              alt="profile icon"
+              data-testid="profile-top-btn"
+              src={ profileIcon }
+            />
           </Link>
           <h1 data-testid="page-title">
             { pageTitle }
