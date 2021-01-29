@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Header from '../../../../components/Header';
 import Footer from '../../../../components/Footer';
 import {
   fetchCocktailByIngredient,
@@ -59,7 +60,9 @@ function ExplorarBebidasIngredientes(props) {
 
   return (
     <div>
-      HEADER
+      <Header
+        title="Explorar Bebidas"
+      />
       { renderDrinks() }
       <Footer />
     </div>

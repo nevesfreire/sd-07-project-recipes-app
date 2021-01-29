@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Footer from '../../../../components/Footer';
+import Header from '../../../../components/Header';
+import SearchBar from '../../../../components/SearchBar';
 import {
   fetchFoodByName,
   fetchFoodByArea,
@@ -13,6 +15,7 @@ import './styles.css';
 function ExplorarAreaComidas(props) {
   const [areas, setAreas] = useState([]);
   const [currentArea, setCurrentArea] = useState('All');
+  const [isSearchBarVisible, setIsSearchBarVisible] = useState(false);
 
   async function fetchArea() {
     const results = await fetch(
@@ -94,7 +97,12 @@ function ExplorarAreaComidas(props) {
 
   return (
     <div>
-      HEADER
+      <Header
+        title="Explorar Origem"
+        searchButtonExists
+        setIsSearchBarVisible={ setIsSearchBarVisible }
+      />
+      {isSearchBarVisible && <SearchBar foodType="bebidas" />}
       { renderOptions() }
       { renderMeals() }
       <Footer />

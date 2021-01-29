@@ -131,6 +131,7 @@ function Bebidas(props) {
 Bebidas.propTypes = {
   drinks: PropTypes.shape({
     cocktails: PropTypes.shape({
+      length: PropTypes.number,
       slice: PropTypes.func,
     }),
     isFetching: PropTypes.bool,

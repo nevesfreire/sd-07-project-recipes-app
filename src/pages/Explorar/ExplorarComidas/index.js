@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Header from '../../../components/Header';
+import Footer from '../../../components/Footer';
 
 function ExplorarComidas() {
   const [id, setId] = useState();
@@ -18,6 +20,9 @@ function ExplorarComidas() {
 
   return (
     <div>
+      <Header
+        title="Explorar Comidas"
+      />
       <Link
         to="/explorar/comidas/ingredientes"
         data-testid="explore-by-ingredient"
@@ -35,6 +40,7 @@ function ExplorarComidas() {
       >
         Me Surpreenda!
       </Link>
+      <Footer />
     </div>
   );
 }
