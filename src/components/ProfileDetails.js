@@ -5,7 +5,7 @@ class ProfileDetails extends Component {
   render() {
     const { history } = this.props;
     const user = JSON.parse(localStorage.getItem('user')
-    || '{"email": "email@email.com"}');
+    || '{"email": "You are currently not logged in"}');
     return (
       <div className="profile-container">
         <div className="text-center profile-email" data-testid="profile-email">
