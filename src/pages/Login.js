@@ -54,24 +54,30 @@ class Login extends Component {
             </div>
           </div>
           <div className="login-container">
-            Login to your MasterCode Account
-            <input
-              type="email"
-              name="email"
-              className="form-control"
-              placeholder="Digite seu e-mail"
-              data-testid="email-input"
-              onChange={ this.handleChange }
-            />
-            <input
-              type="password"
-              name="password"
-              className="form-control"
-              placeholder="Digite sua senha"
-              data-testid="password-input"
-              onChange={ this.handleChange }
-            />
-            <div>
+            <div className="form-group">
+              Login to your MasterCode Account
+            </div>
+            <div className="form-group">
+              <input
+                type="email"
+                name="email"
+                className="form-control"
+                placeholder="Digite seu e-mail"
+                data-testid="email-input"
+                onChange={ this.handleChange }
+              />
+            </div>
+            <div className="form-group">
+              <input
+                type="password"
+                name="password"
+                className="form-control"
+                placeholder="Digite sua senha"
+                data-testid="password-input"
+                onChange={ this.handleChange }
+              />
+            </div>
+            <div className="form-group">
               <button
                 type="button"
                 className="btn btn-success btn-md btn-block"
