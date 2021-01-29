@@ -51,6 +51,18 @@
   width: 50vw;
 }
 
+.card img {
+  width: 49vw;
+}
+
+.cardrec {
+  height: 20vh;
+}
+
+.cardrec img {
+  height: 10vh;
+}
+
 @keyframes shake {
 
   0% {

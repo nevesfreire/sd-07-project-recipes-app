@@ -5,11 +5,10 @@ function setReceitas(local) {
   });
 }
 
-function despachoReceitas(object, value) {
+function despachoReceitas(object) {
   return ({
     type: 'LOADRECIPES',
     object,
-    value,
   });
 }
 
@@ -28,7 +27,7 @@ function loadRecipes(local) {
     }
     const response = await fetch(url);
     const responsejeson = await response.json();
-    dispatch(despachoReceitas(responsejeson, local));
+    dispatch(despachoReceitas(responsejeson));
   };
 }
 

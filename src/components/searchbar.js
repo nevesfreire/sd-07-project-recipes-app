@@ -26,19 +26,31 @@ class Searchbar extends Component {
   }
 
   async handleClick() {
-    const { local, setreceitas } = this.props;
+    const { match, setreceitas } = this.props;
     const { busca, inputValue } = this.state;
     let object = {};
     switch (busca) {
     case 'ingredient':
-      object = await fetchFoodIngredient(inputValue, local);
+      if (match.path[1] === 'c') {
+        object = await fetchFoodIngredient(inputValue, 'comidas');
+      } else {
+        object = await fetchFoodIngredient(inputValue, 'bebidas');
+      }
       break;
     case 'name':
-      object = await fetchFoodName(inputValue, local);
+      if (match.path[1] === 'c') {
+        object = await fetchFoodName(inputValue, 'comidas');
+      } else {
+        object = await fetchFoodName(inputValue, 'bebidas');
+      }
       break;
     case 'first-letter':
       if (inputValue.length === 1) {
-        object = await fetchFoodLetter(inputValue, local);
+        if (match.path[1] === 'c') {
+          object = await fetchFoodLetter(inputValue, 'comidas');
+        } else {
+          object = await fetchFoodLetter(inputValue, 'bebidas');
+        }
       } else {
         alert('Sua busca deve conter somente 1 (um) caracter');
       }
@@ -114,13 +126,9 @@ const mapDispatchToProps = (dispatch) => ({
   setreceitas: (object) => dispatch(setReceitas(object)),
 });
 
-const mapStateToProps = (state) => ({
-  local: state.fastFood.tipo,
-});
-
 Searchbar.propTypes = {
-  local: PropTypes.string.isRequired,
+  match: PropTypes.objectOf().isRequired,
   setreceitas: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Searchbar);
+export default connect(null, mapDispatchToProps)(Searchbar);

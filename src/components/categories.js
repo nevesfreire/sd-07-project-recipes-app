@@ -5,10 +5,9 @@ import { loadCategories, setFilterRecipes, loadRecipes } from '../redux/action';
 import { fetchFoodCategory } from '../services';
 
 class Categories extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
-      controlAPI: props.tipo,
       categoriaAtual: 'All',
     };
 
@@ -16,21 +15,34 @@ class Categories extends Component {
   }
 
   componentDidMount() {
-    const { loadcategories, tipo } = this.props;
-    loadcategories(tipo);
+    const { loadcategories, match } = this.props;
+    if (match.path[1] === 'c') {
+      loadcategories('comidas');
+    } else {
+      loadcategories('bebidas');
+    }
   }
 
   async handleClick(valor) {
-    const { tipo, setfilterrecipes, loadrecipes } = this.props;
+    const { match, setfilterrecipes, loadrecipes } = this.props;
     const { categoriaAtual } = this.state;
     if (categoriaAtual !== valor && valor !== 'All') {
       this.setState({
         categoriaAtual: valor,
       });
-      const filterCategory = await fetchFoodCategory(valor, tipo);
+      let filterCategory;
+      if (match.path[1] === 'c') {
+        filterCategory = await fetchFoodCategory(valor, 'comidas');
+      } else {
+        filterCategory = await fetchFoodCategory(valor, 'bebidas');
+      }
       setfilterrecipes(filterCategory);
     } else {
-      loadrecipes(tipo);
+      if (match.path[1] === 'c') {
+        loadrecipes('comidas');
+      } else {
+        loadrecipes('bebidas');
+      }
       this.setState({
         categoriaAtual: 'All',
       });
@@ -38,14 +50,7 @@ class Categories extends Component {
   }
 
   render() {
-    const { categorias, tipo, loadcategories } = this.props;
-    const { controlAPI } = this.state;
-    if (controlAPI !== tipo) {
-      this.setState({
-        controlAPI: tipo,
-      });
-      loadcategories(tipo);
-    }
+    const { categorias } = this.props;
     return (
       <div>
         <button
@@ -83,7 +88,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Categories.propTypes = {
-  tipo: PropTypes.string.isRequired,
+  match: PropTypes.objectOf().isRequired,
   categorias: PropTypes.arrayOf().isRequired,
   loadcategories: PropTypes.func.isRequired,
   setfilterrecipes: PropTypes.func.isRequired,
