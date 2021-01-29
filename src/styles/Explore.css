@@ -20,3 +20,7 @@
 .explore-btn:hover {
   text-decoration: none;
 }
+
+.explore-btn + .explore-btn {
+  margin-bottom: 1rem;
+}
