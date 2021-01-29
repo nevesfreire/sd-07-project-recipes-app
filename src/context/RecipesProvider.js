@@ -1,19 +1,70 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
+import * as drinkApiFunctions from '../services/drinkApiFunctions';
+import * as foodApiFunctions from '../services/foodApiFunctions';
 
 function RecipesProvider({ children }) {
+  const [foodsToRender, setFoodsToRender] = useState([]);
+  const [drinksToRender, setDrinksToRender] = useState([]);
   const [login, setLogin] = useState({ email: '', password: '' });
   const [showSearchBar, setShowSearchBar] = useState(false);
+  const [pathName, setPathName] = useState('');
 
   const toggleSearchBar = () => {
     setShowSearchBar(!showSearchBar);
   };
+
+  const fetchByIngredients = (value) => {
+    if (pathName === '/comidas') {
+      foodApiFunctions
+        .fetchFoodByIngredient(value)
+        .then((response) => setFoodsToRender(response.meals));
+    } else {
+      drinkApiFunctions
+        .fetchDrinkByIngredient(value)
+        .then((response) => setDrinksToRender(response.drinks));
+    }
+  };
+
+  const fetchByName = (value) => {
+    if (pathName === '/comidas') {
+      foodApiFunctions
+        .fetchFoodByName(value)
+        .then((response) => setFoodsToRender(response.meals));
+    } else {
+      drinkApiFunctions
+        .fetchDrinkByName(value)
+        .then((response) => setDrinksToRender(response.drinks));
+    }
+  };
+
+  const fetchByFirstLetter = (value) => {
+    if (pathName === '/comidas') {
+      foodApiFunctions
+        .fetchFoodByFirstLetter(value)
+        .then((response) => setFoodsToRender(response.meals));
+    } else {
+      drinkApiFunctions
+        .fetchDrinkByFirstLetter(value)
+        .then((response) => setDrinksToRender(response.drinks));
+    }
+  };
+
   const context = {
     login,
     setLogin,
     showSearchBar,
     toggleSearchBar,
+    pathName,
+    setPathName,
+    foodsToRender,
+    setFoodsToRender,
+    drinksToRender,
+    setDrinksToRender,
+    fetchByIngredients,
+    fetchByName,
+    fetchByFirstLetter,
   };
 
   return (

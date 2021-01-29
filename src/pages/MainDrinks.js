@@ -1,18 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import * as drinkApiFunctions from '../services/drinkApiFunctions';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import MainDrinkCards from '../components/MainDrinkCards';
+import RecipesContext from '../context/RecipesContext';
 
-function MainDrinks() {
+function MainDrinks(props) {
+  const { match } = props;
+  const { url } = match;
+  const { setPathName } = useContext(RecipesContext);
   const [data, setData] = useState([]);
-  const [drinksToRender, setDrinksToRender] = useState([]);
+  const { drinksToRender, setDrinksToRender } = useContext(RecipesContext);
   const [allFiltersToRender, setAllFiltersToRender] = useState([]);
   const [filtersToRender, setFiltersToRender] = useState([]);
   const [filtered, setFiltered] = useState(false);
 
   useEffect(() => {
     drinkApiFunctions.fetchAllDrinkRecipes().then((response) => setData(response));
+  }, []);
+
+  useEffect(() => {
+    setPathName(url);
   }, []);
 
   useEffect(() => {

@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import * as foodApiFunctions from '../services/foodApiFunctions';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import MainCards from '../components/MainCards';
+import RecipesContext from '../context/RecipesContext';
 
-function MainRecipes() {
+function MainRecipes(props) {
+  const { match } = props;
+  const { url } = match;
+  const { setPathName } = useContext(RecipesContext);
   const [data, setData] = useState([]);
-  const [foodsToRender, setFoodsToRender] = useState([]);
+  const { foodsToRender, setFoodsToRender } = useContext(RecipesContext);
   const [allFiltersToRender, setAllFiltersToRender] = useState([]);
   const [filtersToRender, setFiltersToRender] = useState([]);
   const [filtered, setFiltered] = useState(false);
@@ -19,6 +23,10 @@ function MainRecipes() {
     foodApiFunctions
       .fetchAllFoodCategories()
       .then((response) => setAllFiltersToRender(response));
+  }, []);
+
+  useEffect(() => {
+    setPathName(url);
   }, []);
 
   useEffect(() => {
