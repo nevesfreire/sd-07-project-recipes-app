@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import geral from '../data';
@@ -8,8 +8,8 @@ export default function GlobalProvider({ children }) {
   const [state, setState] = useState(geral);
   const {
     initialState: { email, password },
-    initialFoods: { dataFoods },
-    initialDrinks: { dataDrinks },
+    initialFoods: { dataFoods, foodCategories },
+    initialDrinks: { dataDrinks, drinkCategories },
   } = state;
 
   function updateState(key, value) {
@@ -30,41 +30,45 @@ export default function GlobalProvider({ children }) {
       value={ {
         redirect,
         foodCategories,
-        setFoodCategories: (value) => {
+        setFoodCategories: useCallback((value) => {
           const newInitialFoods = state.initialFoods;
           newInitialFoods.foodCategories = value;
           updateState('initialFoods', newInitialFoods);
-        },
+        }, [state.initialFoods]),
         drinkCategories,
-        setDrinkCategories: (value) => {
+
+        setDrinkCategories: useCallback((value) => {
           const newInitialDrinks = state.initialDrinks;
           newInitialDrinks.drinkCategories = value;
           updateState('initialDrinks', newInitialDrinks);
-        },
+        }, [state.initialDrinks]),
         dataFoods,
-        setDataFoods: (value) => {
+
+        setDataFoods: useCallback((value) => {
           const newInitialFoods = state.initialFoods;
           newInitialFoods.dataFoods = value;
           updateState('initialFoods', newInitialFoods);
-        },
+        }, [state.initialFoods]),
         dataDrinks,
-        setDataDrinks: (value) => {
+
+        setDataDrinks: useCallback((value) => {
           const newInitialDrinks = state.initialDrinks;
           newInitialDrinks.dataDrinks = value;
           updateState('initialDrinks', newInitialDrinks);
-        },
+        }, [state.initialDrinks]),
+
         email,
         password,
-        setEmail: (text) => {
+        setEmail: useCallback((text) => {
           const newInitialEmail = state.initialState;
           newInitialEmail.email = text;
           updateState('email', newInitialEmail);
-        },
-        setPassword: (text) => {
+        }, [state.initialState]),
+        setPassword: useCallback((text) => {
           const newInititalPassword = state.initialState;
           newInititalPassword.password = text;
           updateState('password', newInititalPassword);
-        },
+        }, [state.initialState]),
       } }
     >
       { children }

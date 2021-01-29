@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useCallback } from 'react';
 import Buttons from '../buttons';
 import GlobalContext from '../../context/GlobalContext';
 import Styles from './Styles';
@@ -12,31 +12,29 @@ export default function DrinkCategories() {
     drinkCategories,
   } = useContext(GlobalContext);
 
-  useEffect(() => {
-    let ignore = false;
-    function fetchDrinkCategories() {
-      fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list')
-        .then((response) => response.json())
-        .then(({ drinks }) => {
-          const filter = () => {
-            const filteredResponse = [];
-            if (drinks !== null) {
-              Object.entries(drinks).forEach((drink, index) => {
-                if (index < numberOfCategories) {
-                  const { strCategory } = drink[1];
-                  filteredResponse.push(strCategory);
-                }
-              });
-            }
-            return filteredResponse;
-          };
-          if (!ignore) setDrinkCategories(filter());
-        });
-    }
-
-    fetchDrinkCategories();
-    return () => { ignore = true; };
+  const fetchDrinkCategories = useCallback(() => {
+    fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list')
+      .then((response) => response.json())
+      .then(({ drinks }) => {
+        const filter = () => {
+          const filteredResponse = [];
+          if (drinks !== null) {
+            Object.entries(drinks).forEach((drink, index) => {
+              if (index < numberOfCategories) {
+                const { strCategory } = drink[1];
+                filteredResponse.push(strCategory);
+              }
+            });
+          }
+          return filteredResponse;
+        };
+        setDrinkCategories(filter());
+      });
   }, [setDrinkCategories]);
+
+  useEffect(() => {
+    fetchDrinkCategories();
+  }, [fetchDrinkCategories]);
 
   return (
     <BtnBar>

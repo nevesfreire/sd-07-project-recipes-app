@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useCallback } from 'react';
 import Footer from '../components/Footer';
 import Cards from '../components/cards';
 import GlobalContext from '../context/GlobalContext';
@@ -15,35 +15,33 @@ export default function Foods() {
 
   const numberOfCards = 12;
 
-  useEffect(() => {
-    let ignore = false;
-    function fetchFoodList() {
-      fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
-        .then((response) => response.json())
-        .then(({ meals }) => {
-          const filter = () => {
-            const filteredResponse = [];
-            if (meals !== null) {
-              Object.entries(meals).forEach((meal, index) => {
-                if (index < numberOfCards) {
-                  const { strMeal, strMealThumb } = meal[1];
-                  filteredResponse.push({ name: strMeal, image: strMealThumb });
-                }
-              });
-            }
-            return filteredResponse;
-          };
-          if (!ignore) setDataFoods(filter());
-        }, []);
-    }
-
-    fetchFoodList();
-    return () => { ignore = true; };
+  const fetchFoodList = useCallback(() => {
+    fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
+      .then((response) => response.json())
+      .then(({ meals }) => {
+        const filter = () => {
+          const filteredResponse = [];
+          if (meals !== null) {
+            Object.entries(meals).forEach((meal, index) => {
+              if (index < numberOfCards) {
+                const { strMeal, strMealThumb } = meal[1];
+                filteredResponse.push({ name: strMeal, image: strMealThumb });
+              }
+            });
+          }
+          return filteredResponse;
+        };
+        setDataFoods(filter());
+      }, []);
   }, [setDataFoods]);
+
+  useEffect(() => {
+    fetchFoodList();
+  }, [fetchFoodList]);
 
   return (
     <Container>
-      {/* <FoodCategories /> */}
+      <FoodCategories />
       {Cards(numberOfCards, dataFoods)}
       <Footer />
     </Container>
