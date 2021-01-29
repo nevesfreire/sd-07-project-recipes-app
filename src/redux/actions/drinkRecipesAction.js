@@ -4,6 +4,7 @@ export const LIST_DRINK_RECIPES = 'LIST_DRINK_RECIPES';
 export const UPDATE_DRINK_IS_FETCHING = 'UPDATE_DRINK_IS_FETCHING';
 export const RESQUEST_ALL_CATEGORIES_DRINKS = 'RESQUEST_ALL_CATEGORIES_DRINKS';
 export const FILTERED_DRINK_BY_CATEGORY = 'FILTERED_DRINK_BY_CATEGORY';
+export const REQUEST_INGREDIENTS_DRINKS = 'REQUEST_INGREDIENTS_DRINKS';
 
 export const updateDrinkIsFetching = () => ({
   type: UPDATE_DRINK_IS_FETCHING,
@@ -32,4 +33,9 @@ export const failedDrinkRequest = (error) => ({
 export const listDrinkRecipes = (recipes) => ({
   type: LIST_DRINK_RECIPES,
   payload: recipes,
+});
+
+export const requestIngredientsDrinks = (ingredients) => ({
+  type: REQUEST_INGREDIENTS_DRINKS,
+  ingredients,
 });

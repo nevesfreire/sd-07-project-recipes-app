@@ -7,6 +7,8 @@ export { default as CustomCartegory } from './CustomCartegory';
 export { default as CustomCardSuggested } from './CustomCardSuggested';
 export { default as CustomExploreFoods } from './CustomExploreFoods';
 export { default as CustomExploreDrinks } from './CustomExploreDrinks';
+export { default as CustomIngredientsFoods } from './CustomIngredientsFoods';
+export { default as CustomIngredientsDrinks } from './CustomIngredientsDrinks';
 export { default as CustomDetailsButton } from './CustomDetailsButton';
 export { default as CustomDetailsIngredients } from './CustomDetailsIngredients';
 export { default as CustomButtonShare } from './CustomButtonShare';

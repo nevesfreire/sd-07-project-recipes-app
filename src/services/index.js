@@ -4,6 +4,8 @@ export {
   drinksFilteredByCategory,
   getSuggestedDrinks,
   randomDrinksApi,
+  getIngredientsDrink,
+  getAllDrinksCategories,
 } from './drinkApi';
 export {
   getFoodRecipes,
@@ -12,5 +14,6 @@ export {
   getSuggestedFoods,
   getAllFoodCategories,
   randomFoodsApi,
+  getIngredientsFood,
 } from './foodApi';
 export { getStorage, setStorage } from './localStorage';

@@ -5,6 +5,7 @@ import {
   UPDATE_FOOD_IS_FETCHING,
   RESQUEST_ALL_CATEGORIES_MEALS,
   FILTERED_FOOD_BY_CATEGORY,
+  REQUEST_INGREDIENTS_FOODS,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -13,6 +14,7 @@ const INITIAL_STATE = {
   categories: [],
   currentCategoryFood: 'all',
   error: false,
+  ingredients: '',
 };
 
 const foodRecipesReducer = (state = INITIAL_STATE, action) => {
@@ -44,6 +46,8 @@ const foodRecipesReducer = (state = INITIAL_STATE, action) => {
     return { ...state, isFetching: true };
   default:
     return state;
+  case REQUEST_INGREDIENTS_FOODS:
+    return { ...state, currentCategoryFood: action.ingredients };
   }
 };
 
