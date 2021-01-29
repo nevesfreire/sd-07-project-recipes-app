@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import Header from '../components/Header';
+import Category from '../components/Category';
 import SearchInput from '../components/SearchInput';
 import RecipesContext from '../context/RecipesContext';
 
@@ -14,8 +15,8 @@ function DrinksRecipes() {
   return (
     <div>
       <Header />
+      <Category />
       { searchRender ? <SearchInput /> : null}
-
       {filterRecipesTwelve.map((recipe, index) => (
         <div data-testid={ `${index}-recipe-card` } key={ index }>
           <p data-testid={ `${index}-card-name` }>

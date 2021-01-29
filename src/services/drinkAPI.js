@@ -24,3 +24,14 @@ export const getCurrenceRecipesDrinksFirstLetter = (filter) => {
         .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json)))
     ));
 };
+
+export const getCategoryDrinks = () => {
+  const categoryEndPoint = `https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list`;
+  return fetch(categoryEndPoint).then((response) =>
+    response
+      .json()
+      .then((json) =>
+        response.ok ? Promise.resolve(json) : Promise.reject(json),
+      ),
+  );
+};
