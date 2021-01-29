@@ -34,7 +34,6 @@ export default function Category({ category, fetchRandomFoods, fetchDrinks }) {
 
   return (
     <button
-      className={ isClicked ? 'clicked' : 'noClicked' }
       type="button"
       data-testid={ `${category.strCategory}-category-filter` }
       onClick={ () => filterOnClick(category.strCategory) }

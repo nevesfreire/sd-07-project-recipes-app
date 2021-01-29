@@ -38,6 +38,13 @@ export default function MainFood() {
     <div>
       <Header title="Comidas" />
       <main>
+        <button
+          type="button"
+          onClick={ fetchRandomFoods }
+          data-testid="All-category-filter"
+        >
+          ALL
+        </button>
         <div>
           {
             categories && categories.filter((_, index) => index < five)

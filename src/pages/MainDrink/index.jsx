@@ -41,6 +41,13 @@ export default function MainDrink() {
       <Header title="Bebidas" />
       <main>
         <div>
+          <button
+            type="button"
+            onClick={ fetchDrinks }
+            data-testid="All-category-filter"
+          >
+            ALL
+          </button>
           {
             categories && categories.filter((_, index) => index < five)
               .map((category, index) => (

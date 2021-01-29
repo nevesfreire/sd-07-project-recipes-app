@@ -1,11 +1,12 @@
-.clicked {
-  border: 1px solid green;
-}
-
-.noClicked {
+button {
   border: none;
 }
 
 button:focus {
+  border: 1px solid green;
   outline: none !important;
+}
+
+button:not(:focus) {
+  border: none;
 }
