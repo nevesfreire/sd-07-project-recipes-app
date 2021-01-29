@@ -7,6 +7,7 @@ import Bebidas from './pages/bebidas/Bebidas';
 import ReceitasFavoritas from './pages/receitas/ReceitasFavoritas';
 import ReceitasFeitas from './pages/receitas/ReceitasFeitas';
 import Perfil from './pages/Perfil';
+import Explorar from './pages/Explorar';
 import store from './redux/store';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -22,6 +23,7 @@ function App() {
           <Route path="/bebidas" component={ Bebidas } />
           <Route path="/receitas-favoritas" component={ ReceitasFavoritas } />
           <Route path="/receitas-feitas" component={ ReceitasFeitas } />
+          <Route path="/explorar" component={ Explorar } />
         </Switch>
       </BrowserRouter>
     </Provider>
