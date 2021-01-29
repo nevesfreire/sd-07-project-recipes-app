@@ -9,6 +9,7 @@ export default function GlobalProvider({ children }) {
   const [searchButton, setSearchButton] = useState(true);
   const [searchBar, setSearchBar] = useState(false);
   const [state, setState] = useState(geral);
+  const [renderButtonExplore, setRenderButtonExplore] = useState('comidas');
   const {
     initialState: { email, password },
     initialFoods: { dataFoods },
@@ -62,6 +63,8 @@ export default function GlobalProvider({ children }) {
           newInititalPassword.password = text;
           updateState('password', newInititalPassword);
         },
+        renderButtonExplore,
+        setRenderButtonExplore,
       } }
     >
       { children }
