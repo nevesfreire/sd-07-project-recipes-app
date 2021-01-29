@@ -4,6 +4,7 @@ import copy from 'clipboard-copy';
 import RecipesContext from '../context/RecipesContext';
 import { fetchAPI, handleIngredients,
   SIX, TWENTY_ONE, THIRTY_SIX, FIFTY_ONE } from '../services/helpers';
+import '../style/recipeDetail.css';
 
 function DrinkDetails() {
   const [recommendation, setRecommendation] = useState(['']);
@@ -87,8 +88,14 @@ function DrinkDetails() {
             ))
         }
       </div>
-      <Link to={ `/bebidas/${drinkRecipeId}/in-progress` }>
-        <button type="button" data-testid="start-recipe-btn">Start Recipe</button>
+      <Link to={ `/comidas/${drinkRecipeId}/in-progress` }>
+        <button
+          id="fixedbutton"
+          type="button"
+          data-testid="start-recipe-btn"
+        >
+          Start Recipe
+        </button>
       </Link>
     </div>
   );
