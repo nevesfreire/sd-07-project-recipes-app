@@ -7,7 +7,7 @@ import GlobalContext from './GlobalContext';
 export default function GlobalProvider({ children }) {
   const [state, setState] = useState(geral);
   const {
-    initialState: { email, validatedEmail, validatedPassword },
+    initialState: { email, password },
     initialFoods: { dataFoods },
     initialDrinks: { dataDrinks },
   } = state;
@@ -41,11 +41,18 @@ export default function GlobalProvider({ children }) {
           newInitialDrinks.dataDrinks = value;
           updateState('initialDrinks', newInitialDrinks);
         },
-        email,
-        statusEmail: validatedEmail,
-        statusPassword: validatedPassword,
-        setEmail: (text) => updateState('email', text),
-        setPassword: (text) => updateState('password', text),
+        email: state.initialState.email,
+        password: state.initialState.password,
+        setEmail: (text) => {
+          const newInitialEmail = state.initialState;
+          newInitialEmail.email = text;
+          updateState('email', newInitialEmail);
+        },
+        setPassword: (text) => {
+          const newInititalPassword = state.initialState;
+          newInititalPassword.password = text;
+          updateState('password', newInititalPassword);
+        },
       } }
     >
       { children }
