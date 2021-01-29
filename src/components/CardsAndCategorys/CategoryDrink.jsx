@@ -18,17 +18,27 @@ export default function CategoryDrink() {
       {
         loading
           ? (<h3>loading...</h3>)
-          : drinks.filter((_, index) => index < five).map(({ strCategory }, i) => (
-            <button
-              id={ strCategory }
-              key={ `btc-fil-${i}` }
-              type="button"
-              onClick={ submitCategory }
-              data-testid={ `${strCategory}-category-filter` }
-            >
-              {strCategory}
-            </button>
-          ))
+          : (
+            <div>
+              <button
+                type="button"
+                onClick={ submitCategory }
+              >
+                All
+              </button>
+              {drinks.filter((_, index) => index < five).map(({ strCategory }, i) => (
+                <button
+                  id={ strCategory }
+                  key={ `btc-fil-${i}` }
+                  type="button"
+                  onClick={ submitCategory }
+                  data-testid={ `${strCategory}-category-filter` }
+                >
+                  {strCategory}
+                </button>
+              ))}
+            </div>
+          )
       }
     </div>
   );
