@@ -8,3 +8,4 @@ export { default as CustomCardSuggested } from './CustomCardSuggested';
 export { default as CustomDetailsButton } from './CustomDetailsButton';
 export { default as CustomDetailsIngredients } from './CustomDetailsIngredients';
 export { default as CustomButtonShare } from './CustomButtonShare';
+export { default as CustomButtonFavorite } from './CustomButtonFavorite';

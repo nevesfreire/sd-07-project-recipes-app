@@ -6,6 +6,7 @@ import {
   CustomDetailsButton,
   CustomDetailsIngredients,
   CustomButtonShare,
+  CustomButtonFavorite,
 } from '../components';
 import {
   getFood,
@@ -139,7 +140,10 @@ export default class RecipeDetails extends Component {
           { (recipeType === 'comidas') ? recipe.strMeal : recipe.strDrink }
         </h2>
         <CustomButtonShare url={ url } />
-        <button type="button" data-testid="favorite-btn"> FAVORITE </button>
+        <CustomButtonFavorite
+          recipeType={ recipeType }
+          recipe={ recipe }
+        />
         <h3 data-testid="recipe-category">
           { (recipeType === 'comidas') ? recipe.strCategory : recipe.strAlcoholic }
         </h3>
