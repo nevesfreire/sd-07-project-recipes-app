@@ -3,6 +3,36 @@ export default function reducer(state, action) {
   case 'SET_USER':
     localStorage.setItem('user', JSON.stringify({ email: action.userEmail }));
     return { ...state, user: { userEmail: action.userEmail } };
+
+  case 'SET_MEALS':
+    return { ...state, mealsData: action.data };
+
+  case 'SET_COCKTAILS':
+    return { ...state, cocktailsData: action.data };
+
+  case 'SET_CATEGORIES_MEALS':
+    return { ...state, mealsCategory: action.data };
+
+  case 'SET_CATEGORIES_COCKTAILS':
+    return { ...state, cocktailsCategory: action.data };
+
+  case 'SET_FILTER_CATEGORY_DRINKS':
+    return {
+      ...state,
+      search: {
+        ...state.search,
+        categoryFilterDrinks: action.categoryName,
+      },
+    };
+
+  case 'SET_FILTER_CATEGORY_MEALS':
+    return {
+      ...state,
+      search: {
+        ...state.search,
+        categoryFilterMeals: action.categoryName,
+      },
+    };
   default:
     throw new Error();
   }

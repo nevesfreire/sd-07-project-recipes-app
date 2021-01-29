@@ -3,7 +3,7 @@ import Header from '../../Components/Header';
 import '../../App.css';
 import UserProfile from '../../Components/UserProfile';
 import LogoutButton from '../../Components/Logout';
-import Footer from '../../Components/Footer/Footer';
+import Footer from '../../Components/Footer';
 
 const Perfil = () => (
   <div className="container-over">
