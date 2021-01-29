@@ -13,13 +13,12 @@ class SearchBar extends React.Component {
       searchType: '',
       searchText: '',
       searchParam: '',
-      meals: [],
-      drinks: [],
+      // meals: [],
+      // drinks: [],
     };
     this.handleSearch = this.handleSearch.bind(this);
-    this.callApi = this.callApi.bind(this);
     this.submitSearch = this.submitSearch.bind(this);
-    this.redirectRoute = this.redirectRoute.bind(this);
+    // this.redirectRoute = this.redirectRoute.bind(this);
   }
 
   handleSearch({ target: { value, name } }) {
@@ -50,26 +49,30 @@ class SearchBar extends React.Component {
     }
   }
 
-  submitSearch() {
-    const { searchType, searchText } = this.state;
+  // submitSearch() {
+  //   const { searchType, searchText } = this.state;
+  //   if (searchType === 'search.php?f=' && searchText.length > 1) {
+  //     // eslint-disable-next-line no-alert
+  //     return alert('Sua busca deve conter somente 1 (um) caracter');
+  //   }
+
+  //   this.callApi();
+  // }
+
+  async submitSearch() {
+    const { searchParam, searchType, searchText } = this.state;
+    const { search, sendMealRecipesDispatch, sendDrinkRecipesDispatch } = this.props;
     if (searchType === 'search.php?f=' && searchText.length > 1) {
       // eslint-disable-next-line no-alert
       return alert('Sua busca deve conter somente 1 (um) caracter');
     }
-
-    this.callApi();
-  }
-
-  async callApi() {
-    const { searchParam } = this.state;
-    const { search, sendMealRecipesDispatch, sendDrinkRecipesDispatch } = this.props;
     if (search === 'meals') {
       const result = await apiTheMealDB(searchParam);
       if (!result || !result.meals) {
         // eslint-disable-next-line no-alert
         return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       }
-      this.setState({ meals: result.meals });
+      // this.setState({ meals: result.meals });
       sendMealRecipesDispatch(result.meals);
     }
     if (search === 'drinks') {
@@ -78,26 +81,26 @@ class SearchBar extends React.Component {
         // eslint-disable-next-line no-alert
         return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       }
-      this.setState({ drinks: result.drinks });
+      // this.setState({ drinks: result.drinks });
       sendDrinkRecipesDispatch(result.drinks);
     }
 
-    this.redirectRoute();
+    // this.redirectRoute();
   }
 
-  redirectRoute() {
-    const { meals, drinks } = this.state;
-    const { history } = this.props;
-    if (meals.length === 1) {
-      const { idMeal } = meals[0];
-      return history.push(`/comidas/${idMeal}`);
-    }
+  // redirectRoute() {
+  //   const { meals, drinks } = this.state;
+  //   const { history } = this.props;
+  //   if (meals.length === 1) {
+  //     const { idMeal } = meals[0];
+  //     return history.push(`/comidas/${idMeal}`);
+  //   }
 
-    if (drinks.length === 1) {
-      const { idDrink } = drinks[0];
-      return history.push(`/bebidas/${idDrink}`);
-    }
-  }
+  //   if (drinks.length === 1) {
+  //     const { idDrink } = drinks[0];
+  //     return history.push(`/bebidas/${idDrink}`);
+  //   }
+  // }
 
   render() {
     return (
