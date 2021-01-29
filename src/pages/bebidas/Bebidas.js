@@ -7,11 +7,11 @@ import Footer from '../../components/footer/Footer';
 
 class Bebidas extends React.Component {
   render() {
-    const { toggle } = this.props;
+    const { toggle, history } = this.props;
     return (
       <div>
         <Header title="Bebidas" />
-        {toggle && <BarraBuscaBebidas />}
+        {toggle && <BarraBuscaBebidas history={ history } />}
         <Footer />
       </div>
     );
@@ -26,4 +26,7 @@ export default connect(mapStateToProps)(Bebidas);
 
 Bebidas.propTypes = {
   toggle: PropTypes.bool.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };

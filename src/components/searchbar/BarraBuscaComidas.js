@@ -55,7 +55,6 @@ class BarraBuscaComidas extends Component {
 
   render() {
     const { busca } = this.state;
-    console.log(this.props);
     return (
       <div>
         <fieldset>
