@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-expressions */
-/* eslint-disable max-lines-per-function */
-/* eslint-disable max-len */
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -60,16 +57,8 @@ const renderSearchRecipeComponent = (pathname, toggleSearch, title) => (
 export default function Header({ componentConfig, pathname }) {
   const [toggleSearch, setToggleSearch] = useState(false);
   const { title, profileButton, searchButton } = componentConfig;
-
   const render = () => (
     <div className="header">
-      <div className="header_content">
-        {renderProfileTopBtn()}
-        {renderPageTitle()}
-        {renderSearchBtn()}
-        {renderSearchRecipeComponent()}
-      </div>
-
       <div className="header-buttons">
         {renderProfileTopBtn(profileButton)}
         {renderPageTitle(title)}

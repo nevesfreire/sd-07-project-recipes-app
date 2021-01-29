@@ -219,19 +219,7 @@ function RecipeInProgress(props) {
   };
 
   const renderRecipeInProgress = () => {
-    // const ingredientsUnsaved = ingredientsItem
-    // .filter((unsaved, index) => unsaved !== parseSavedIngredients[type][id][index]);
-
     const { img, title, category, instruction } = recipeDetail;
-    // console.log('ingredientes=', ingredientsItem);
-    // console.log('medidas=', mesuresItem);
-    // console.log('objeto desconstruido', recipeDetail);
-    // console.log(listState);
-    // console.log(checkedClass);
-    // console.log(parseSavedIngredients[type][id]);
-    // console.log(ingredientsUnsaved);
-    // console.log(ingredientMesureJoined);
-    // console.log(withLocalStorage);
     console.log(favoriteResponseModified);
     return (
       <div>
