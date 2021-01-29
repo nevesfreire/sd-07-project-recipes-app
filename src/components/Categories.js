@@ -1,16 +1,72 @@
-import React, { useContext } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Context from '../Context/Context';
 import useFetch from '../hooks/useFetch';
 
 function Categories({ list, type }) {
-  const { setSelectedCategory } = useContext(Context);
-  const { selectedCategory } = useFetch();
+  const { selectedCategory, randomFoodFetch, randomDrinkFetch } = useFetch();
+  const [filtered, setFiltered] = useState(false);
+  const [previousCategory, setPreviousCategory] = useState('initial');
+
+  function allFilter() {
+    if (type === 'drinks') {
+      randomDrinkFetch();
+      setFiltered(false);
+    }
+    if (type === 'meals') {
+      randomFoodFetch();
+      setFiltered(false);
+    }
+    return null;
+  }
+
+  function lowerComplex(category, typeOfRecipe, event) {
+    const { value } = event.target;
+    const { strCategory } = category;
+    if (filtered === true && typeOfRecipe === 'meals' && value === previousCategory) {
+      randomFoodFetch();
+      setFiltered(!filtered);
+    }
+    if (filtered === true && typeOfRecipe === 'drinks' && value === previousCategory) {
+      randomDrinkFetch();
+      setFiltered(!filtered);
+    }
+    if (filtered === true && typeOfRecipe === 'meals' && value !== previousCategory) {
+      selectedCategory(strCategory, typeOfRecipe);
+      setFiltered(!filtered);
+    }
+  }
+
+  function handleClick(category, typeOfRecipe, event) {
+    const { value } = event.target;
+    const { strCategory } = category;
+    if (filtered === false && value !== previousCategory) {
+      selectedCategory(strCategory, typeOfRecipe);
+      setFiltered(!filtered);
+      setPreviousCategory(value);
+    }
+    lowerComplex(category, typeOfRecipe, event);
+    if (filtered === true && typeOfRecipe === 'drinks' && value !== previousCategory) {
+      selectedCategory(strCategory, typeOfRecipe);
+      setFiltered(!filtered);
+    }
+    if (filtered === false && value === previousCategory) {
+      selectedCategory(strCategory, typeOfRecipe);
+      setFiltered(!filtered);
+    }
+  }
   return (
     <div>
+      <button
+        type="button"
+        onClick={ () => allFilter() }
+        data-testid="All-category-filter"
+      >
+        All
+
+      </button>
       {list.map((category) => (
         <button
-          onClick={ () => selectedCategory(category.strCategory, type) }
+          onClick={ (event) => handleClick(category, type, event) }
           value={ category.strCategory }
           type="button"
           key={ category.strCategory }

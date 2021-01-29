@@ -20,6 +20,8 @@ function DrinksRecipes() {
       name={ drink.strDrink }
       thumb={ drink.strDrinkThumb }
       index={ index }
+      type="bebidas"
+      id={ drink.idDrink }
     />));
   }
 
@@ -32,7 +34,7 @@ function DrinksRecipes() {
     <div>
       <Header title="Bebidas" explore funcFetch={ drinkFetch } />
       <Categories list={ categoriesDrinks } type="drinks" />
-      {recipes.drinks && recipes.drinks.length === um
+      {recipes.drinks && !recipes.type && recipes.drinks.length === um
         ? <Redirect to={ `/bebidas/${recipes.drinks[0].idDrink}` } />
         : handleRoutes()}
       <FooterMenu />

@@ -84,7 +84,7 @@ function useFetch() {
       const results = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
         .then((response) => response.json())
         .then((list) => list.meals.slice(zero, doze));
-      const newArray = { meals: [...results] };
+      const newArray = { meals: [...results], type: 'categories' };
       return setRecipes(newArray);
     }
     if (type === 'drinks') {
@@ -92,7 +92,7 @@ function useFetch() {
       const results = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`)
         .then((response) => response.json())
         .then((list) => list.drinks.slice(zero, doze));
-      const newArray = { drinks: [...results] };
+      const newArray = { drinks: [...results], type: 'categories' };
       return setRecipes(newArray);
     }
   }

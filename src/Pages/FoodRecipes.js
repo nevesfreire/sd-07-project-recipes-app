@@ -21,6 +21,8 @@ function FoodRecipes() {
       name={ meal.strMeal }
       thumb={ meal.strMealThumb }
       index={ index }
+      type="comidas"
+      id={ meal.idMeal }
     />));
   }
 
@@ -33,7 +35,7 @@ function FoodRecipes() {
     <div>
       <Header title="Comidas" explore funcFetch={ foodFetch } />
       <Categories list={ categoriesFood } type="meals" />
-      {recipes.meals && recipes.meals.length === um
+      {recipes.meals && !recipes.type && recipes.meals.length === um
         ? <Redirect to={ `/comidas/${recipes.meals[0].idMeal}` } />
         : handleRoutes()}
       <FooterMenu />
