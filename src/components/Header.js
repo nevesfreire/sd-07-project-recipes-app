@@ -6,6 +6,7 @@ import profileIcon from '../images/profileIcon.svg';
 function Header() {
   const {
     titleByUrl,
+    handleUrlChange,
   } = useContext(RecipesContext);
 
   return (
@@ -13,6 +14,7 @@ function Header() {
       <Link to="/perfil">
         <button
           type="button"
+          onClick={ handleUrlChange() }
         >
           <img
             data-testid="profile-top-btn"
