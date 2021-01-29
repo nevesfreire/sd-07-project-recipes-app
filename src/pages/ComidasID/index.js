@@ -2,23 +2,22 @@ import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
-import { Carousel } from 'react-responsive-carousel';
 
+import Recommended from './Recommended';
 import FoodThumb from '../../components/FoodThumb';
 import { fetchFoodById } from '../../redux/actions/foodActions';
 import { fetchCocktailByName } from '../../redux/actions/drinkActions';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import './styles.css';
 
 function ComidasID({ meals, drinks, fetchFoodId, fetchCocktails }) {
-  const { id } = useParams();
+  const { route, id } = useParams();
 
   useEffect(() => {
     fetchFoodId(id);
     fetchCocktails('');
   }, []);
 
-  if (!meals[0]) return (<p>Carregando...</p>);
+  if (!meals[0] || !drinks[0]) return (<p>Carregando...</p>);
 
   return (
     <div>
@@ -45,26 +44,7 @@ function ComidasID({ meals, drinks, fetchFoodId, fetchCocktails }) {
       <p data-testid="instructions">{ meals[0].strInstructions }</p>
       <a data-testid="video" href={ meals[0].strYoutube }>Assistir Vídeo</a>
 
-      {drinks[0] && <Carousel>
-        <div>
-          <img alt="" src={ drinks[0].strDrinkThumb } className="recommended-img" />
-          <p className="legend">{ drinks[0].strDrink }</p>
-          <img alt="" src={ drinks[1].strDrinkThumb } className="recommended-img" />
-          <p className="legend">{drinks[1].strDrink}</p>
-        </div>
-        <div>
-          <img alt="" src={ drinks[2].strDrinkThumb } className="recommended-img" />
-          <p className="legend">{ drinks[2].strDrink }</p>
-          <img alt="" src={ drinks[3].strDrinkThumb } className="recommended-img" />
-          <p className="legend">{drinks[3].strDrink}</p>
-        </div>
-        <div>
-          <img alt="" src={ drinks[4].strDrinkThumb } className="recommended-img" />
-          <p className="legend">{ drinks[4].strDrink }</p>
-          <img alt="" src={ drinks[5].strDrinkThumb } className="recommended-img" />
-          <p className="legend">{drinks[5].strDrink}</p>
-        </div>
-      </Carousel>}
+      <Recommended suggestions= { drinks } />
       <p>
         <Link
           to={ `/comidas/${id}/in-progress` }

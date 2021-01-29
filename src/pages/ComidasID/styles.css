@@ -6,3 +6,8 @@
 .recommended-img {
   width: 100px;
 }
+
+.slider {
+  height: auto;
+  width: 100vmax;
+}
