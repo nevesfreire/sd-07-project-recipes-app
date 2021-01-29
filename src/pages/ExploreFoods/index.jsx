@@ -1,16 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Header, Footer } from '../../components';
 
-export default function ExploreFoods({ history }) {
+export default function ExploreFoods() {
   return (
     <div>
-      <Header history={ history } title="Explorar Comidas" />
+      <Header title="Explorar Comidas" />
       <Footer />
     </div>
   );
 }
-
-ExploreFoods.propTypes = {
-  history: PropTypes.shape().isRequired,
-};

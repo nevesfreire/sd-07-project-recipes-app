@@ -8,16 +8,19 @@ function Provider({ children }) {
   const [searchBarVisible, setSearchBarVisible] = useState(false);
   const [inputValues, setInputValues] = useState({ radio: 'Nome', input: '' });
   const [meals, setMeals] = useState([]);
+  const [drinks, setDrinks] = useState([]);
 
   const contextValue = {
     login,
     disabled,
     meals,
+    drinks,
     searchBarVisible,
     inputValues,
     setLogin,
     setDisabled,
     setMeals,
+    setDrinks,
     setSearchBarVisible,
     setInputValues,
   };
