@@ -7,74 +7,78 @@ export default class TitleHeader extends Component {
     this.state = {
       h1: '',
     };
-    this.ajustingStatesWithH1 = this.ajustingStatesWithH1.bind(this);
+    this.ajustingStateH1 = this.ajustingStateH1.bind(this);
   }
 
   componentDidMount() {
-    this.ajustingStatesWithH1();
+    this.ajustingStateH1();
   }
 
-  ajustingStatesWithH1() {
+  ajustingStateH1() {
     const { pathname } = this.props;
-    if (pathname === '/bebidas') {
-      this.setState({
-        h1: 'Bebidas',
-      });
-    }
-    if (pathname === '/comidas') {
-      this.setState({
-        h1: 'Comidas',
-      });
-    }
-    if (pathname === '/explorar') {
+    switch (pathname) {
+    case '/explorar':
       this.setState({
         h1: 'Explorar',
       });
-    }
-    if (pathname === '/explorar/comidas') {
+      break;
+
+    case '/comidas':
+      this.setState({
+        h1: 'Comidas',
+      });
+      break;
+
+    case '/bebidas':
+      this.setState({
+        h1: 'Bebidas',
+      });
+      break;
+
+    case '/explorar/comidas':
       this.setState({
         h1: 'Explorar Comidas',
       });
-    }
-    if (pathname === '/explorar/bebidas') {
+      break;
+
+    case '/explorar/bebidas':
       this.setState({
         h1: 'Explorar Bebidas',
       });
-    }
-    if (pathname === '/explorar/comidas/ingredientes') {
+      break;
+
+    case '/explorar/comidas/ingredientes' || '/explorar/bebidas/ingredientes':
       this.setState({
         h1: 'Explorar Ingredientes',
       });
-    }
-    if (pathname === '/explorar/bebidas/ingredientes') {
-      this.setState({
-        h1: 'Explorar Ingredientes',
-      });
-    }
-    if (pathname === '/explorar/comidas/area') {
+      break;
+
+    case '/explorar/comidas/area' || '/explorar/bebidas/area':
       this.setState({
         h1: 'Explorar Origem',
       });
-    }
-    if (pathname === '/explorar/bebidas/area') {
-      this.setState({
-        h1: 'Explorar Origem',
-      });
-    }
-    if (pathname === '/perfil') {
+      break;
+
+    case '/perfil':
       this.setState({
         h1: 'Perfil',
       });
-    }
-    if (pathname === '/receitas-feitas') {
+      break;
+
+    case '/receitas-feitas':
       this.setState({
         h1: 'Receitas Feitas',
       });
-    }
-    if (pathname === '/receitas-favoritas') {
+      break;
+
+    case '/receitas-favoritas':
       this.setState({
         h1: 'Receitas Favoritas',
       });
+      break;
+
+    default:
+      break;
     }
   }
 
