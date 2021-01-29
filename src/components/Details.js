@@ -74,18 +74,12 @@ function Details({ itemId, mealType }) {
   const forwardToInProgress = () => {
     let progressList = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (progressList === null) {
-      progressList = {
-        cocktails: {},
-        meals: {},
-      };
+      progressList = { cocktails: {}, meals: {} };
     }
-    if (mealType === 'Meal') {
-      progressList.meals[itemId] = [];
-    } else {
-      progressList.cocktails[itemId] = [];
-    }
-    localStorage.setItem('inProgressRecipes', JSON.stringify(progressList));
+    if (mealType === 'Meal') progressList.meals[itemId] = [];
+    else progressList.cocktails[itemId] = [];
 
+    localStorage.setItem('inProgressRecipes', JSON.stringify(progressList));
     if (mealType === 'Meal') {
       history.push(`/comidas/${itemId}/in-progress`);
     }
@@ -94,7 +88,6 @@ function Details({ itemId, mealType }) {
     }
   };
 
-  
   const loadIngredients = () => {
     const ingredientsList = [];
     for (let i = 1; i <= quinze; i += 1) {
@@ -117,11 +110,7 @@ function Details({ itemId, mealType }) {
               src={ `https://www.themealdb.com/images/ingredients/${item.ingredient}.png` }
               alt="ingredient"
             />
-            {item.measure}
-            {' '}
-            -
-            {' '}
-            {item.ingredient}
+            {`${item.measure} - ${item.ingredient}`}
           </li>
         ))}
       </ul>
@@ -145,9 +134,7 @@ function Details({ itemId, mealType }) {
       name: `str${mealType}`,
       image: `str${mealType}Thumb`,
     };
-
     let favList = JSON.parse(localStorage.getItem('favoriteRecipes'));
-
     if (favList) {
       if (favList.filter((item) => item.id === itemId).length > zero) {
         favList = favList.filter((item) => item.id !== itemId);
