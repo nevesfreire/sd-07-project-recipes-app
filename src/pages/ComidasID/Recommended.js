@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import proptypes from 'prop-types';
+import propTypes from 'prop-types';
 
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -46,5 +46,5 @@ export default function Recommended({ suggestions }) {
 }
 
 Recommended.propTypes = {
-  suggestions: proptypes.arrayOf(proptypes.object).isRequired,
+  suggestions: propTypes.arrayOf(propTypes.object).isRequired,
 };

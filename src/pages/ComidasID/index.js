@@ -78,7 +78,7 @@ function ComidasID({
       <Recommended suggestions={ suggestions } />
       <p>
         <Link
-          to={ `/comidas/${id}/in-progress` }
+          to={ `/${route}/${id}/in-progress` }
           className="start-recipe-btn"
           data-testid="start-recipe-btn"
         >

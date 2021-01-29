@@ -42,6 +42,6 @@ export default function FoodThumb({ detailed, route }) {
 }
 
 FoodThumb.propTypes = {
-  detailed: proptypes.arrayOf(proptypes.object).isRequired,
+  detailed: propTypes.arrayOf(propTypes.object).isRequired,
   route: propTypes.string.isRequired,
 };
