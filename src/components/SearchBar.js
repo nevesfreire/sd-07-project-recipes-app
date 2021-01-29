@@ -20,9 +20,9 @@ function SearchBar({ theFetch }) {
       alert('Sua busca deve conter somente 1 (um) caracter');
     }
     theFetch(searchInput, searchType);
-    if (!recipes.meals) {
-      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-    }
+    // if (!recipes.meals) {
+    //   alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    // }
   }
 
   return (
