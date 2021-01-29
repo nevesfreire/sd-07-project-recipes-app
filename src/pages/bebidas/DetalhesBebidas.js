@@ -29,7 +29,7 @@ class DetalhesBebidas extends Component {
   componentDidMount() {
     const { match: { params } } = this.props;
     const { loadrecipes } = this.props;
-    loadrecipes('bebidas');
+    loadrecipes('comidas');
     this.api(params.id);
     this.componentDidMount2(params.id);
   }
@@ -64,9 +64,9 @@ class DetalhesBebidas extends Component {
     const store = JSON.parse(localStorage.getItem('favoriteRecipes'));
     const receitafavoritada = {
       id: receita.idDrink,
-      type: 'comida',
+      type: 'bebida',
       area: '',
-      category: '',
+      category: receita.strCategory,
       alcoholicOrNot: receita.strAlcoholic,
       name: receita.strDrink,
       image: receita.strDrinkThumb,
@@ -124,7 +124,7 @@ class DetalhesBebidas extends Component {
                 className="cardrec"
                 name={ receita.idDrink }
               >
-                {receita.strMeal}
+                {receita.strDrink}
               </h1>
             </button>
           );

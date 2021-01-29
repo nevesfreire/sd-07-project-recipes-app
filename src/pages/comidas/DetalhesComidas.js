@@ -30,7 +30,7 @@ class DetalhesComidas extends Component {
   componentDidMount() {
     const { match: { params } } = this.props;
     const { loadrecipes } = this.props;
-    loadrecipes('comidas');
+    loadrecipes('bebidas');
     this.api(params.id);
     this.componentDidMount2(params.id);
   }
@@ -100,32 +100,32 @@ class DetalhesComidas extends Component {
 
   Meals() {
     const { recomenda } = this.props;
-    if (recomenda.meals) {
-      return (recomenda.meals.map((receita, index) => {
+    if (recomenda.drinks) {
+      return (recomenda.drinks.map((receita, index) => {
         const limit = 6;
         if (index < limit) {
           return (
             <button
               className="cardrec"
-              name={ receita.idMeal }
+              name={ receita.idDrink }
               type="button"
               onClick={ ({ target }) => this.handleClick(target.name) }
               key={ index }
               data-testid={ `${index}-recomendation-card` }
             >
               <img
-                data-testid={ `${index}-recomendation-img` }
                 className="cardrec"
-                name={ receita.idMeal }
-                src={ receita.strMealThumb }
+                data-testid={ `${index}-recomendation-img` }
+                name={ receita.idDrink }
+                src={ receita.strDrinkThumb }
                 alt="imagem da receita"
               />
               <h1
                 data-testid={ `${index}-recomendation-title` }
                 className="cardrec"
-                name={ receita.idMeal }
+                name={ receita.idDrink }
               >
-                {receita.strMeal}
+                {receita.strDrink}
               </h1>
             </button>
           );
