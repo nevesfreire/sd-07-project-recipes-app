@@ -11,6 +11,7 @@ const INITIAL_STATE = {
   isFetching: true,
   drinks: [],
   categories: [],
+  currentCategoryDrink: 'all',
   error: false,
 };
 
@@ -25,6 +26,7 @@ const drinkRecipesReducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       drinks: (!action.drinkFilteredByCategory) ? [] : action.drinkFilteredByCategory,
+      currentCategoryDrink: action.category.strCategory,
       isFetching: false,
     };
   case REQUEST_DRINK_RECIPES:

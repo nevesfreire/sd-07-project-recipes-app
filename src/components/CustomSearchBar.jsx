@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getFoodRecipes } from '../services/foodApi';
-import getDrinkRecipes from '../services/drinkApi';
+import { getDrinkRecipes } from '../services/drinkApi';
 import { updateFoodIsFetching } from '../redux/actions';
 
 class CustomSearchBar extends Component {
