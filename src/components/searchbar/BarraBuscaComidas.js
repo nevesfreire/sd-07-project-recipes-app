@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { resultIngredients, resultName, resultLetter } from '../../redux/actionsComidas';
+import { resultIngredients, resultName, resultLetter, resultID } from '../../redux/actionsComidas';
 
 class BarraBuscaComidas extends Component {
   constructor() {
@@ -22,10 +22,11 @@ class BarraBuscaComidas extends Component {
   }
 
   findContent() {
-    const { resultApi, history } = this.props;
+    const { resultApi, history, getByID } = this.props;
     if (resultApi === null) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     } else if (resultApi.length === 1) {
+      getByID(resultApi[0].idMeal);
       history.push(`/comidas/${resultApi[0].idMeal}`);
     }
   }
@@ -41,10 +42,10 @@ class BarraBuscaComidas extends Component {
       await getIngredient(busca);
       break;
     case 'letra':
-      if (busca.length !== 1) {
-        alert('Sua busca deve conter somente 1 (um) caracter');
-      } else {
+      if (busca.length === 1) {
         await getLetter(busca);
+      } else {
+        alert('Sua busca deve conter somente 1 (um) caracter');
       }
       break;
     default:
@@ -55,7 +56,6 @@ class BarraBuscaComidas extends Component {
 
   render() {
     const { busca } = this.state;
-    console.log(this.props);
     return (
       <div>
         <fieldset>
@@ -124,6 +124,7 @@ const mapDispatchToProps = (dispatch) => ({
   getIngredient: (ingredient) => dispatch(resultIngredients(ingredient)),
   getName: (name) => dispatch(resultName(name)),
   getLetter: (letter) => dispatch(resultLetter(letter)),
+  getByID: (id) => dispatch(resultID(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BarraBuscaComidas);
