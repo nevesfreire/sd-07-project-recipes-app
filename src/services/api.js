@@ -3,6 +3,15 @@ const beverageBaseURL = 'https://www.thecocktaildb.com/api/json/v1/1';
 const alertMessage = 'Sua busca deve conter somente 1 (um) caracter';
 const firstLetter = 'first-letter';
 
+export const fetchDetails = async (id, api) => {
+  let url = '';
+  if (api === 'meals') url = `${mealBaseURL}/lookup.php?i=${id}`;
+  else  url = `${beverageBaseURL}/lookup.php?i=${id}`;
+  const response = await fetch(url);
+  const data = await response.json();
+  return Object.values(data)[0][0];
+};
+
 const fetchMeal = async (value, type) => {
   let url = '';
   switch (type) {
@@ -59,9 +68,7 @@ const fetchDrinks = async (value, type) => {
   return drinks || empty;
 };
 
-const fetchApi = async (value, type, api) => {
+export const fetchApi = async (value, type, api) => {
   if (api === 'meal') return fetchMeal(value, type);
   return fetchDrinks(value, type);
 };
-
-export default fetchApi;
