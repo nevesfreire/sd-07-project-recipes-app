@@ -4,7 +4,6 @@ import RecipesContext from './RecipesContext';
 import history from '../history/history';
 
 function Provider({ children }) {
-
   const messageAlert = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
   const zero = 0;
   const showAlertNotFound = () => alert(messageAlert);
@@ -44,8 +43,7 @@ function Provider({ children }) {
     }
   }, [recipesFilters]);
 
-
- const context = {
+  const context = {
     mealRecipeId,
     drinkRecipeId,
     recipeDetailFood,

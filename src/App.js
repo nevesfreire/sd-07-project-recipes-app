@@ -12,12 +12,12 @@ function App() {
   return (
     <Provider>
       <BrowserRouter>
-        <Route exact path="/" component={Login} />
-        <Route path="/comidas" component={FoodRecipes} />
-        <Route path="/bebidas" component={DrinkRecipes} />
-        <Route path="/comidas/:id" component={FoodDetails} />
-        <Route path="/bebidas/:id" component={DrinkDetails} />
-        <Route exact path="/perfil" component={Profile} />
+        <Route exact path="/" component={ Login } />
+        <Route path="/comidas" component={ FoodRecipes } />
+        <Route path="/bebidas" component={ DrinkRecipes } />
+        <Route path="/comidas/:id" component={ FoodDetails } />
+        <Route path="/bebidas/:id" component={ DrinkDetails } />
+        <Route exact path="/perfil" component={ Profile } />
       </BrowserRouter>
     </Provider>
   );
