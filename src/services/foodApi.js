@@ -71,3 +71,14 @@ export const foodFilterByCategory = (category) => {
     }
   };
 };
+
+export const getIngredientsFood = async () => {
+  const endpoint = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+  try {
+    const response = await fetch(endpoint);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
