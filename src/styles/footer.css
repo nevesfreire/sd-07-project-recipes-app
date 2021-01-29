@@ -2,7 +2,7 @@
   align-items: center;
   align-self: auto;
   bottom: 0;
-  background-color: #c4c4c4;;
+  background-color: #c4c4c4;
   display: flex;
   flex-direction: row;
   height: 10%;
@@ -11,6 +11,11 @@
   padding-left: 10px;
   padding-right: 10px;
   width: 100%;
+}
+
+.footer button {
+  background-color: #c4c4c4;
+  border-style: none;
 }
 
 .rocksGlass {

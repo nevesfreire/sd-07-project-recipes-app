@@ -6,12 +6,12 @@
 }
 
 .div-category button {
-  background-color: #be1003;
   border: none;
+  background-color: #be1003;
   color: #f0f8ff;
   font-size: 12pt;
-  margin-top: 15px;
   margin-left: 10px;
+  margin-top: 15px;
   padding: 5px, 10px, 5px, 10px;
   width: 15%;
 }
@@ -21,17 +21,18 @@
   border: 1px solid black;
   border-radius: 10px;
   box-shadow: 0px 4px 4px rgba(58, 56, 56, 0.25);
+  border-style: none;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   height: 172px;
+  justify-content: space-around;
   margin: auto;
   margin-top: 10px;
   width: 161px;
 }
 
 .div-meals img {
-  border-radius: 10px;
+  border-radius: 10px 10px 0px 0px;
   height: 109px;
   width: 159px;
 }

@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import FoodAppContext from '../context/FoodAppContext';
 import { categoryDrinkApi, drinksAPI } from '../services';
@@ -7,7 +8,9 @@ import '../styles/recipes.css';
 function MainDrinks() {
   const { drinksData, setDrinksData, showSearch } = useContext(FoodAppContext);
   const [drinksCategory, setDrinksCategory] = useState([]);
-  // const [toggle, setToggle] = useState(false);
+  const [toggle, setToggle] = useState(false);
+
+  const history = useHistory();
 
   async function fecthCategory() {
     const { drinks: category } = await categoryDrinkApi();
@@ -39,14 +42,18 @@ function MainDrinks() {
         {drinksCategory.slice(zero, cinco).map(({ strCategory }, index) => (
           <button
             type="button"
+            className="button-cat"
             key={ index }
             data-testid={ `${strCategory}-category-filter` }
             hidden={ showSearch ? bools : false }
             value={ strCategory }
+            onMouseMove={ () => setToggle(false) }
             onClick={ async ({ target }) => {
-              const term = target.value;
+              setToggle(false);
+              const term = toggle ? '' : target.value;
               const { drinks } = await drinksAPI(term, 'c');
               setDrinksData(drinks);
+              setToggle(true);
             } }
           >
             { strCategory }
@@ -56,10 +63,12 @@ function MainDrinks() {
       <section className="section-meals">
         {drinksData.slice(zero, doze).map(
           ({ idDrink, strDrink, strDrinkThumb }, index) => (
-            <div
+            <button
+              type="button"
               key={ idDrink }
               className="div-meals"
               data-testid={ `${index}-recipe-card` }
+              onClick={ () => history.push(`/bebidas/${idDrink}`) }
             >
               <img
                 src={ strDrinkThumb }
@@ -71,7 +80,7 @@ function MainDrinks() {
               >
                 { strDrink }
               </p>
-            </div>
+            </button>
           ),
         )}
       </section>

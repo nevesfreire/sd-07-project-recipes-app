@@ -17,8 +17,8 @@
 }
 
 .form-login button {
-  background-color: #be1003;
   border: none;
+  background-color: #be1003;
   color: aliceblue;
   display: flex;
   font-size: 15pt;

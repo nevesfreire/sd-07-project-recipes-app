@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+
+import FoodAppContext from '../context/FoodAppContext';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
@@ -8,11 +10,14 @@ import '../styles/footer.css';
 function Footer() {
   const history = useHistory();
 
+  const { setShowSearch } = useContext(FoodAppContext);
+
   function handleClickDrinks() {
     history.push('/bebidas');
   }
 
   function handleClickExplore() {
+    setShowSearch(false);
     history.push('/explorar');
   }
 
