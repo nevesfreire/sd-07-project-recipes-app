@@ -1,15 +1,13 @@
 import React from 'react';
 import Header from '../../components/header/Header';
 
-class ReceitasFeitas extends React.Component {
+export default class Receitas extends React.Component {
   render() {
     return (
       <div>
         <Header />
-        TelaReceitasFeitas
+        Receitas
       </div>
     );
   }
 }
-
-export default ReceitasFeitas;
