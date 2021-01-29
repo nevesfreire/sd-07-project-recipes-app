@@ -5,7 +5,7 @@ const Context = createContext();
 
 function Provider({ children }) {
   const [isFetching, setIsFetching] = useState(false);
-  const [api, setApi] = useState('meal');
+  const [api, setApi] = useState('');
   const [results, setResults] = useState([]);
   const context = {
     api,

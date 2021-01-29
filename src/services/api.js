@@ -15,6 +15,15 @@ const fetchMeal = async (value, type) => {
   case firstLetter:
     url = `${mealBaseURL}/search.php?f=${value}`;
     break;
+  case 'categories':
+    url = `${mealBaseURL}/filter.php?c=${value}`;
+    break;
+  case 'firstFetch':
+    url = `${mealBaseURL}/search.php?s=`;
+    break;
+  case 'categoriesList':
+    url = `${mealBaseURL}/list.php?c=list`;
+    break;
   default:
     break;
   }
@@ -42,6 +51,15 @@ const fetchDrinks = async (value, type) => {
     break;
   case firstLetter:
     url = `${beverageBaseURL}/search.php?f=${value}`;
+    break;
+  case 'categories':
+    url = `${beverageBaseURL}/filter.php?c=${value}`;
+    break;
+  case 'firstFetch':
+    url = `${beverageBaseURL}/search.php?s=`;
+    break;
+  case 'categoriesList':
+    url = `${beverageBaseURL}/list.php?c=list`;
     break;
   default:
     break;
