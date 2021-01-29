@@ -8,7 +8,7 @@ export default function CustomCardIngredientsFood({ index, meal }) {
     <div>
       <Link to={ `/explorar/comidas/ingredientes/${idMeal}` }>
         <p data-testid={ `${index}-ingredient-card` }>
-          { `receita ${index}` }
+          { `Ingredientes ${index}` }
         </p>
         <img data-testid={ `${index}-card-img` } src={ strMealThumb } alt="" />
         <p data-testid={ `${index}-card-name` }>{ strMeal }</p>
