@@ -138,7 +138,7 @@ export default class RecipeDetails extends Component {
         >
           { (recipeType === 'comidas') ? recipe.strMeal : recipe.strDrink }
         </h2>
-        <CustomButtonShare type="button" data-testid="share-btn" url={ url } />
+        <CustomButtonShare url={ url } />
         <button type="button" data-testid="favorite-btn"> FAVORITE </button>
         <h3 data-testid="recipe-category">
           { (recipeType === 'comidas') ? recipe.strCategory : recipe.strAlcoholic }

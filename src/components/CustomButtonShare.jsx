@@ -7,18 +7,23 @@ export default class CustomButtonShare extends Component {
   constructor(props) {
     super(props);
     this.handleButtonClick = this.handleButtonClick.bind(this);
+    this.state = {
+      isShared: false,
+    };
   }
 
   handleButtonClick() {
     const { url } = this.props;
     copy(`http://localhost:3000${url}`);
-    alert('Link copiado!');
+    this.setState({ isShared: true });
   }
 
   render() {
+    const { isShared } = this.state;
     return (
       <div>
-        <button type="button" onClick={ this.handleButtonClick }>
+        { (isShared) && <p>Link copiado!</p> }
+        <button type="button" data-testid="share-btn" onClick={ this.handleButtonClick }>
           <img src={ shareIcon } alt="" />
         </button>
       </div>
