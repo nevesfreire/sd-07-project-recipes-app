@@ -46,14 +46,12 @@ export const getSuggestedDrinks = async () => {
 
 export const drinksFilteredByCategory = (category) => {
   const drinkUrlForFilterByCategory = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category.strCategory}`;
-
   return async (dispatch) => {
     dispatch(requestDrinkRecipes());
     try {
       const resquestFilteredByCategory = await fetch(drinkUrlForFilterByCategory);
       const JSONresponseFiltered = await resquestFilteredByCategory.json();
-      console.log(JSONresponseFiltered.drinks);
-      dispatch(drinkFilteredByCategoryAction(JSONresponseFiltered.drinks));
+      dispatch(drinkFilteredByCategoryAction(JSONresponseFiltered.drinks, category));
     } catch (error) {
       dispatch(failedDrinkRequest(error));
     }
