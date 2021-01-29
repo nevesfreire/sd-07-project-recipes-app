@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { searchByFirstLetter } from '../services/API';
 
 function App() {
   const [api, setApi] = useState({});
   console.log(api);
 
   const testFunc = async () => {
-    const data = await searchByFirstLetter('654');
+    const data = await ('654');
     setApi(data);
   };
 
@@ -15,7 +14,7 @@ function App() {
     testFunc();
   }, []);
 
-  if (api === {}) return setApi(searchByFirstLetter('654'));
+  if (api === {}) return setApi(('654'));
   if (api !== {}) return <h1>cheio</h1>;
 
   return (

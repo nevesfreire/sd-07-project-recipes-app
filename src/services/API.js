@@ -1,9 +1,3 @@
-// TheMealDB API
-
-// categorias: https://www.themealdb.com/api/json/v1/1/list.php?c=list
-// areas: https://www.themealdb.com/api/json/v1/1/list.php?a=list
-// ingredientes: https://www.themealdb.com/api/json/v1/1/list.php?i=list
-
 const getCategories = async () => {
   const categories = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list')
     .then((data) => data.json());
@@ -11,22 +5,61 @@ const getCategories = async () => {
 };
 
 const searchByIngredient = async (ingredient) => {
-  const data = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`)
-    .then((dataJson) => dataJson.json());
+  const path = window.location.pathname;
+  let url = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
+  if (path === '/bebidas') url = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
+
+  console.log('rodando searchByIngredient');
+  const data = await fetch(`${url}${ingredient}`)
+    .then((dataJson) => dataJson.json())
+    .catch((err) => console.log(err));
   return data;
 };
 
 const searchByName = async (name) => {
-  const data = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`)
+  const path = window.location.pathname;
+  let url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  if (path === '/bebidas') url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+
+  console.log('rodando searchByName');
+  const data = await fetch(`${url}${name}`)
     .then((dataJson) => dataJson.json());
   return data;
 };
 
 const searchByFirstLetter = async (letter) => {
-  if (letter.length > 1) return alert('Sua busca deve conter somente 1 (um) caracter');
-  const data = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${letter}`)
+  const path = window.location.pathname;
+  let url = 'https://www.themealdb.com/api/json/v1/1/search.php?f=';
+  if (path === '/bebidas') url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=';
+
+  console.log('rodando searchByFirstLetter');
+  if (letter.length > 1) {
+    alert('Sua busca deve conter somente 1 (um) caracter');
+    return { meals: null };
+  }
+  const data = await fetch(`${url}${letter}`)
     .then((dataJson) => dataJson.json());
   return data;
 };
 
-export { getCategories, searchByIngredient, searchByName, searchByFirstLetter };
+const searchGeneral = async ({ text, option }) => {
+  let data = { meals: null };
+  if (option === 'primeira letra') data = await searchByFirstLetter(text);
+  if (option === 'ingrediente') data = await searchByIngredient(text);
+  if (option === 'nome') data = await searchByName(text);
+
+  const path = window.location.pathname;
+  const alertMessage = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
+  if (path === '/comidas' && !data.meals) alert(alertMessage);
+  console.log(data);
+  if (path === '/bebidas' && !data) {
+    alert(alertMessage);
+    return { drinks: null };
+  }
+  if (path === '/bebidas' && !data.drinks) {
+    alert(alertMessage);
+  }
+  return data;
+};
+
+export { getCategories, searchGeneral };
