@@ -1,12 +1,15 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-export default class ComidaDetalhes extends React.Component {
+class ComidaDetalhes extends React.Component {
   render() {
+    // const { recipeById } = this.props;
+    // console.log(recipeById);
     return (
       <div className="ComidaDetalhes">
         {/* <img data-testid="recipe-photo" src="" /> */}
 
-        <h1 data-testid="recipe-title"> titulo</h1>
+        <h1 data-testid="recipe-title">Title</h1>
 
         <button
           type="button"
@@ -39,3 +42,9 @@ export default class ComidaDetalhes extends React.Component {
       </div>);
   }
 }
+
+const mapStateToProps = (state) => ({
+  recipeById: state.reducerComidas.recipeById,
+});
+
+export default connect(mapStateToProps)(ComidaDetalhes);

@@ -24,7 +24,6 @@ export default class Perfil extends React.Component {
     const { history } = this.props;
     localStorage.clear();
     history.push('/');
-    console.log('logout');
   }
 
   redirectDone() {
