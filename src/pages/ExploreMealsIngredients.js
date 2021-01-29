@@ -1,47 +1,56 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import allActions from '../actions';
+import {mealIngredients} from '../services/mealAPI';
 
 function ExploreMealsIngredients() {
   const dispatch = useDispatch();
+  const state = useSelector(({ mainpage }) => mainpage);
+  const { isLoading, ingredients } = state;
 
   useEffect(() => {
     dispatch(allActions.changePageTitle('Explorar Ingredientes'));
+    dispatch(allActions.getIngredients(mealIngredients));
   }, [dispatch]);
-
-
-  https://www.themealdb.com/api/json/v1/1/list.php?i=list
-  const index = 0;
-  return (
-    <div>
-      <Header />
-      <Link to={ `/comidas` }>
+  
+  const renderIngredients = (ingredient, index) => {
+    const MAX_NUMBER = 12;
+    if (index < MAX_NUMBER) {
+      return (
+        <Link to={ `/comidas` } key={ `link-${index}` }>
           <div
             data-testid={ `${index}-ingredient-card` }
-            // key={ `card-${index}` }
-            // className="card" style="width: 18rem;"
+            key={ `card-${index}` }
           >
             <img
-              // className="card-img-top"
-              // key={ `meal-thumb-${index}` }
-              src=""
+              key={ `ingredient-thumb-${index}` }
+              src={`https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}-Small.png`}
               alt="ingredient thumb"
               data-testid={ `${index}-card-img` }
             />
-            <div key={ `card-body-${index}` }>
-              <h2
-                // className="card-title"
-                // key={ ingredient.strMeal }
-                data-testid={ `${index}-card-name` }
-              >
-                Ingrediente
-              </h2>
-            </div>
+            <h2
+              key={ ingredient.strIngredient }
+              data-testid={ `${index}-card-name` }
+            >
+              {ingredient.strIngredient}
+            </h2>
           </div>
         </Link>
+      );
+    }
+    return null;
+  };
+
+  if (isLoading) {
+    return (<h1>Loading...</h1>)
+  }
+  return (
+    <div>
+      <Header />
+      {ingredients.map((ingredient, index) => renderIngredients(ingredient, index))}
       <Footer />
     </div>
   );

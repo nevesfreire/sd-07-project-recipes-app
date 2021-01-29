@@ -5,6 +5,7 @@ import {
   REQUEST_FAIL,
   MEAL_CATEGORIES_REQUEST,
   DRINK_CATEGORIES_REQUEST,
+  GET_INGREDIENTS_SUCCESS,
 } from '../actions/mainpage';
 
 const INITIAL_STATE = {
@@ -13,6 +14,7 @@ const INITIAL_STATE = {
   isLoading: false,
   mealCategories: [],
   drinkCategories: [],
+  ingredients: [],
 };
 
 function mainpage(state = INITIAL_STATE, action) {
@@ -29,6 +31,8 @@ function mainpage(state = INITIAL_STATE, action) {
     return { ...state, drinkCategories: action.categories, isLoading: false };
   case REQUEST_FAIL:
     return { ...state, meals: action.meals, isLoading: false };
+  case GET_INGREDIENTS_SUCCESS:
+    return { ...state, ingredients: action.ingredients, isLoading: false };
   default:
     return state;
   }

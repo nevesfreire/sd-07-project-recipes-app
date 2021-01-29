@@ -7,6 +7,7 @@ import {
 
 import {
   fetchCards,
+  getIngredients,
 } from './mainpage';
 
 export default {
@@ -15,4 +16,5 @@ export default {
   showBar,
   hideBar,
   fetchCards,
+  getIngredients,
 };

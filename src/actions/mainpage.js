@@ -20,6 +20,10 @@ export const drinkCategoriesRequest = (categories) => ({
 export const REQUEST_FAIL = 'REQUEST_FAIL';
 export const requestFail = (error) => ({ type: REQUEST_FAIL, error });
 
+export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
+export const getIngredientsSuccess = (ingredients) => (
+  { type: GET_INGREDIENTS_SUCCESS, ingredients });
+
 export function fetchCards(isMeal) {
   return async (dispatch) => {
     if (isMeal) {
@@ -47,4 +51,12 @@ export function fetchCards(isMeal) {
       dispatch(requestFail(error));
     }
   };
+}
+
+export function getIngredients(api) {
+  return async (dispatch) => {
+    dispatch(requestStarted());
+    const ingredients = await api();
+    dispatch(getIngredientsSuccess(ingredients.meals));
+  }
 }
