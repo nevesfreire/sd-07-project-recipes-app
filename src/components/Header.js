@@ -28,19 +28,35 @@ class Header extends Component {
 
   handleEndPoint() {
     const { searchInput, filterRadioButton } = this.state;
-    // const { requestRecipes } = this.props
-    if (filterRadioButton === 'ingredient') {
-      this.setState({
-        endPoint: `https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchInput}`,
-      });
-    } else if (filterRadioButton === 'foodName') {
-      this.setState({
-        endPoint: `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchInput}`,
-      });
-    } else if (filterRadioButton === 'firstLetterName') {
-      this.setState({
-        endPoint: `https://www.themealdb.com/api/json/v1/1/search.php?f=${searchInput}`,
-      });
+    const { title } = this.props;
+    if (title === 'Comidas') {
+      if (filterRadioButton === 'ingredient') {
+        this.setState({
+          endPoint: `https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchInput}`,
+        });
+      } else if (filterRadioButton === 'foodName') {
+        this.setState({
+          endPoint: `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchInput}`,
+        });
+      } else if (filterRadioButton === 'firstLetterName') {
+        this.setState({
+          endPoint: `https://www.themealdb.com/api/json/v1/1/search.php?f=${searchInput}`,
+        });
+      }
+    } else if (title === 'Bebidas') {
+      if (filterRadioButton === 'ingredient') {
+        this.setState({
+          endPoint: `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchInput}`,
+        });
+      } else if (filterRadioButton === 'foodName') {
+        this.setState({
+          endPoint: `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchInput}`,
+        });
+      } else if (filterRadioButton === 'firstLetterName') {
+        this.setState({
+          endPoint: `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${searchInput}`,
+        });
+      }
     }
   }
 
@@ -125,7 +141,6 @@ class Header extends Component {
                 onClick={ () => {
                   catchSearchValue(searchInput);
                   this.alertFilter();
-                  // this.handleEndPoint();
                   requestRecipes(endPoint);
                 } }
               >
