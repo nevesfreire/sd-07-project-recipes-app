@@ -6,7 +6,7 @@ import { SUBMIT_SEARCH } from '../reducers';
 export default function SearchBar2({ title }) {
   const { dispatchFilter } = useContext(CupNodesContext);
 
-  const initialState = { text: '', option: '', title };
+  const initialState = { text: '', option: '', title: title.toLowerCase() };
   const [state, setState] = useState(initialState);
 
   const handleChange = ({ target: { value, id: key } }) => {

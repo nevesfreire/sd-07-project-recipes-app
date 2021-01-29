@@ -4,7 +4,10 @@ import CupNodesContext from './CupNodesContext';
 import { userReducer, filterReducer } from '../reducers';
 
 const initialStateUser = { user: { email: '' } };
-const initialStateFilter = { search: { text: '', option: '', title: '' } };
+const initialStateFilter = {
+  search: { text: '', option: '', title: '' },
+  category: '',
+};
 
 export default function Provider({ children }) {
   const [userDates, dispatchUser] = useReducer(userReducer, initialStateUser);
