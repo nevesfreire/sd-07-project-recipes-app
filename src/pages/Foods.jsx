@@ -20,18 +20,17 @@ class Foods extends Component {
     this.renderRecipes = this.renderRecipes.bind(this);
     this.handleCategories = this.handleCategories.bind(this);
     this.state = {
-      isLoading: false,
-      foodCategories: [],
+      mealsCategories: [],
     };
   }
 
   componentDidMount() {
-    const { dispatchFoodRecipes, currentCategory } = this.props;
-    if (currentCategory === 'all') {
+    const { dispatchFoodRecipes, currentCategoryFood } = this.props;
+    if (currentCategoryFood === 'all') {
       dispatchFoodRecipes({});
     } else {
       const ingredientsObj = {
-        searchInput: currentCategory,
+        searchInput: currentCategoryFood,
         searchRadio: 'i',
       };
       dispatchFoodRecipes(ingredientsObj);
@@ -42,12 +41,16 @@ class Foods extends Component {
   async handleCategories() {
     const { meals } = await getAllFoodCategories();
     this.setState({
-      foodCategories: Object.values(meals),
+      mealsCategories: Object.values(meals),
     });
   }
 
   handleRecipes() {
     const { meals, isFetching } = this.props;
+    const numberToComper = 1;
+    if (meals.length === numberToComper) {
+      return <Redirect to={ `/comidas/:${meals[0].idMeal}` } />;
+    }
     if (!meals.length && !isFetching) return this.renderAlertError();
     if (meals.length === 1) return this.redirectToRecipeDetail();
     return this.renderRecipes();
@@ -79,12 +82,20 @@ class Foods extends Component {
   }
 
   renderCategories() {
-    const mealsCategories = this.state.foodCategories;
+    const { dispatchFoodRecipes } = this.props;
+    const { mealsCategories } = this.state;
     const MAX_LENGTH = 5;
     const INITIAL_LENGTH = 0;
     if (mealsCategories !== undefined) {
       return (
         <div>
+          <button
+            data-testid="All-category-filter"
+            type="button"
+            onClick={ () => dispatchFoodRecipes({}) }
+          >
+            All
+          </button>
           { mealsCategories.slice(INITIAL_LENGTH, MAX_LENGTH)
             .map((category, index) => (
               <CustomCartegory
@@ -99,18 +110,9 @@ class Foods extends Component {
   }
 
   render() {
-    const { dispatchFoodRecipes } = this.props;
     return (
       <div>
         <CustomHeader title="Comidas" />
-        <button
-          type="button"
-          data-testid="All-category-filter"
-          onClick={ () => dispatchFoodRecipes({}) }
-        >
-          {' '}
-          All
-        </button>
         { this.renderCategories()}
         { this.handleRecipes()}
         <CustomFooter />
@@ -122,7 +124,7 @@ const mapStateToProps = (state) => ({
   isFetching: state.foodRecipesReducer.isFetching,
   meals: state.foodRecipesReducer.meals,
   categories: state.foodRecipesReducer.categories,
-  currentCategory: state.foodRecipesReducer.currentCategory,
+  currentCategoryFood: state.foodRecipesReducer.currentCategoryFood,
 });
 const mapDispatchToProps = (dispatch) => ({
   dispatchFoodRecipes: (searchHeader) => dispatch(getFoodRecipes(searchHeader)),
@@ -135,11 +137,10 @@ const mapDispatchToProps = (dispatch) => ({
   dispatchUpdateFoodIsFetching: () => dispatch(updateFoodIsFetching()),
 });
 Foods.propTypes = {
-  categories: PropTypes.arrayOf(PropTypes.object).isRequired,
+  dispatchFoodRecipes: PropTypes.func.isRequired,
+  currentCategoryFood: PropTypes.string.isRequired,
   dispatchUpdateFoodIsFetching: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
-  dispatchInitialCards: PropTypes.func.isRequired,
-  dispatchAllCategories: PropTypes.func.isRequired,
   meals: PropTypes.shape({
     length: PropTypes.number.isRequired,
     slice: PropTypes.func.isRequired,

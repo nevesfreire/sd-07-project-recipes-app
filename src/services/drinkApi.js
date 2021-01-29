@@ -21,6 +21,7 @@ export const getDrinkRecipes = ({ searchInput = '', searchRadio = 's' }) => {
     }
   };
 };
+
 export const getDrink = async (recipeId) => {
   const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${recipeId}`;
   try {
@@ -31,6 +32,7 @@ export const getDrink = async (recipeId) => {
     return error;
   }
 };
+
 export const getSuggestedDrinks = async () => {
   const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
   try {
@@ -41,6 +43,7 @@ export const getSuggestedDrinks = async () => {
     return error;
   }
 };
+
 export const drinksFilteredByCategory = (category) => {
   const drinkUrlForFilterByCategory = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category.strCategory}`;
   return async (dispatch) => {

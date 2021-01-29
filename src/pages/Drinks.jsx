@@ -135,6 +135,7 @@ Drinks.propTypes = {
   categories: PropTypes.arrayOf(PropTypes.object).isRequired,
   dispatchUpdateDrinkIsFetching: PropTypes.func.isRequired,
   dispatchInitialCards: PropTypes.func.isRequired,
+  dispatchDrinksRecipes: PropTypes.func.isRequired,
   dispatchAllCategories: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
   drinks: PropTypes.shape({

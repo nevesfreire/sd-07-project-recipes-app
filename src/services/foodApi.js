@@ -21,6 +21,7 @@ export const getFoodRecipes = ({ searchInput = '', searchRadio = 's' }) => {
     }
   };
 };
+
 export const getFood = async (recipeId) => {
   const endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipeId}`;
   try {
@@ -31,6 +32,7 @@ export const getFood = async (recipeId) => {
     return error;
   }
 };
+
 export const getSuggestedFoods = async () => {
   const endpoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   try {
@@ -41,6 +43,7 @@ export const getSuggestedFoods = async () => {
     return error;
   }
 };
+
 export const getAllFoodCategories = async () => {
   const endpoint = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
   try {
@@ -51,6 +54,7 @@ export const getAllFoodCategories = async () => {
     return error;
   }
 };
+
 export const foodFilterByCategory = (category) => {
   let foodUrlForFilterByCategory = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category.strCategory}`;
   if (category === '') {

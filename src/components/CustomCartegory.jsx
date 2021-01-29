@@ -60,6 +60,10 @@ CustomCartegory.propTypes = {
     strCategory: PropTypes.string.isRequired,
   }).isRequired,
   title: PropTypes.string.isRequired,
+  currentCategoryFood: PropTypes.string.isRequired,
+  currentCategoryDrink: PropTypes.string.isRequired,
   dispatchFoodFilteredByCategory: PropTypes.func.isRequired,
   dispatchDrinkFilteredByCategory: PropTypes.func.isRequired,
+  dispatchFoodRecipes: PropTypes.func.isRequired,
+  dispatchDrinksRecipes: PropTypes.func.isRequired,
 };
