@@ -5,7 +5,7 @@ import { DrinkContext } from '../../providers/DrinkProvider';
 import Cards from '../../Components/Cards';
 
 const Drink = () => {
-  const { data, categories, categoriesData } = useContext(DrinkContext);
+  const { data, categories, categoriesData, allButton } = useContext(DrinkContext);
 
   const renderCards = () => {
     const maxLength = 12;
@@ -28,6 +28,14 @@ const Drink = () => {
         >
           {categoryName}
         </button>)) }
+      <button
+        data-testid="All-category-filter"
+        type="button"
+        onClick={ allButton }
+      >
+        All
+
+      </button>
       {renderCards()}
       <Footer />
     </div>

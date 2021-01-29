@@ -29,6 +29,8 @@ const FoodProvider = ({ children }) => {
     apiNewData();
   }, []);
 
+  const allButton = async () => setData(await RequestFoodBayName(''));
+
   const categoriesData = async ({ target: { id } }) => {
     if (repeatedButton[id]) {
       setRepeatedButton({ ...repeatedButton, [id]: !repeatedButton[id] });
@@ -93,6 +95,7 @@ const FoodProvider = ({ children }) => {
     data,
     categories,
     categoriesData,
+    allButton,
   };
 
   return (
