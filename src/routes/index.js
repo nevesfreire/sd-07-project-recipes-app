@@ -4,6 +4,7 @@ import Comidas from '../pages/Comidas';
 import Bebidas from '../pages/Bebidas';
 import Login from '../pages/Login';
 import Explorar from '../pages/Explorar';
+import Perfil from '../pages/Perfil';
 import ExplorarBebidas from '../pages/Explorar/ExplorarBebidas';
 import ExplorarComidas from '../pages/Explorar/ExplorarComidas';
 import ExplorarComidasIngredientes from '../pages/Explorar/ExplorarComidas/Ingredientes';
@@ -32,6 +33,7 @@ function Routes() {
           path="/explorar/bebidas/ingredientes"
           component={ ExplorarBebidasIngredientes }
         />
+        <Route exact path="/perfil" component={ Perfil } />
         <Route component={ Notfound } />
         {/*
         <Route exact path="/comidas/:id-da-receita" component={ ComidasID } />
@@ -46,7 +48,6 @@ function Routes() {
           path="/bebidas/:id-da-receita/in-progress"
           component={ BebidasIDProgress }
         />
-        <Route exact path="/perfil" component={ Perfil } />
         <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
         <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } /> */}
       </Switch>
