@@ -1,11 +1,11 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-function PerfilProfile() {
+function Profile() {
   const history = useHistory();
   const email = JSON.parse(localStorage.getItem('user'));
 
-  const handleMadeRecipes = () => {
+  const doneRecipes = () => {
     history.push('/receitas-feitas');
   };
 
@@ -25,7 +25,7 @@ function PerfilProfile() {
       </div>
       <button
         type="button"
-        onClick={ handleMadeRecipes }
+        onClick={ doneRecipes }
         data-testid="profile-done-btn"
       >
         Receitas Feitas
@@ -48,4 +48,4 @@ function PerfilProfile() {
   );
 }
 
-export default PerfilProfile;
+export default Profile;
