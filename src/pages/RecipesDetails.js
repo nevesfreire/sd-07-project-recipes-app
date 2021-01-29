@@ -1,26 +1,15 @@
 import React, { useContext, useEffect } from 'react';
 import RecipesContext from '../context/RecipesContext';
-import { fetchFoodDetailById } from '../services/foodApiFunctions';
 import './recipedetails.css';
 
 function RecipesDetails() {
   const {
     foodDetail,
-    setFoodDetail,
   } = useContext(RecipesContext);
-
-  const fetchDetails = async () => {
-    const details = await fetchFoodDetailById(52771);
-    setFoodDetail(details.meals[0]);
-  };
-
-  useEffect(() => {
-    fetchDetails();
-  }, []);
 
   return (
     <div>
-      {console.log(foodDetail.idMeal)}
+      {console.log('Console do Food Detail', foodDetail.idMeal)}
       <img
         data-testid="recipe-photo"
         alt="Imagem da comida"

@@ -3,6 +3,7 @@ import './App.css';
 import { Route, BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import RecipesProvider from './context/RecipesProvider';
+import RecipesContext from './context/RecipesContext';
 import Login from './pages/Login';
 import MainRecipes from './pages/MainRecipes';
 import MainDrinks from './pages/MainDrinks';
