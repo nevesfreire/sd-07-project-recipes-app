@@ -1,9 +1,35 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import Footer from '../components/Footer';
+import Cards from '../components/cards';
+import GlobalContext from '../context/GlobalContext';
 
 export default function Drinks() {
+  const { setDataDrinks, dataDrinks } = useContext(GlobalContext);
+  const numberOfCards = 12;
+
+  useEffect(() => {
+    fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
+      .then((resp) => resp.json())
+      .then(({ drinks }) => {
+        const filter = () => {
+          const filteredResponse = [];
+          if (drinks !== null) {
+            Object.entries(drinks).forEach((drink, index) => {
+              if (index < numberOfCards) {
+                const { strDrink, strDrinkThumb } = drink[1];
+                filteredResponse.push({ name: strDrink, image: strDrinkThumb });
+              }
+            });
+          }
+          return filteredResponse;
+        };
+        setDataDrinks(filter());
+      }, []);
+  });
+
   return (
     <div>
+      {Cards(numberOfCards, dataDrinks)}
       <Footer />
     </div>
   );
