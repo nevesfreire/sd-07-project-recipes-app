@@ -1,4 +1,5 @@
 import React from 'react';
+import Card from './Card';
 import { useFetchApi } from '../../hooks';
 import '../components.css';
 
@@ -11,10 +12,7 @@ export default function CardDrinkRandon() {
         loading
           ? (<span>loading...</span>)
           : (
-            <div className="CardFood">
-              <h3>{drinks[0].strDrink}</h3>
-              <img src={ drinks[0].strDrinkThumb } alt="foto" />
-            </div>
+            <Card title={ drinks[0].strDrink } img={ drinks[0].strDrinkThumb } />
           )
       }
     </div>
