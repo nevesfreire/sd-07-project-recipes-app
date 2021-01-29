@@ -19,13 +19,18 @@ export default function Drinks() {
   const numberOfCards = 12;
 
   useEffect(() => {
+    setTitle('Bebidas');
+    setSearchButton(true);
+  }, [setTitle, setSearchButton]);
+
+  useEffect(() => {
     setDataDrinks();
   }, [setDataDrinks]);
 
   return (
     <Container>
-      <DrinkCategories />
       <Header />
+      <DrinkCategories />
       {Cards(numberOfCards, dataDrinks)}
       <Footer />
     </Container>

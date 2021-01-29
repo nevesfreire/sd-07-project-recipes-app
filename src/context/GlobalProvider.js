@@ -38,8 +38,6 @@ export default function GlobalProvider({ children }) {
         setSearchButton,
         searchBar,
         setSearchBar,
-        dataFoods,
-        dataDrinks,
 
         foodCategories,
         setFoodCategories: useCallback((value) => {

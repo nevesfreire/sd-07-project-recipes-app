@@ -19,13 +19,18 @@ export default function Foods() {
   const numberOfCards = 12;
 
   useEffect(() => {
+    setTitle('Comidas');
+    setSearchButton(true);
+  }, [setTitle, setSearchButton]);
+
+  useEffect(() => {
     setDataFoods();
   }, [setDataFoods]);
 
   return (
     <Container>
-      <FoodCategories />
       <Header />
+      <FoodCategories />
       {Cards(numberOfCards, dataFoods)}
       <Footer />
     </Container>
