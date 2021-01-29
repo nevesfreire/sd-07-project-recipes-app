@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
+import CardDrinks from '../CardDrinks/CardDrinks';
 import cocktails from '../../services/cocktails-api';
 
 function SearchBarByDrinks(props) {
   const { searchValue } = props;
   const [drink, setDrink] = useState('');
   const [radio, setRadio] = useState('');
+  const history = useHistory();
   const firstLetter = 'Primeira letra';
   const limite = 12;
 
-  console.log(`byDrinks${searchValue}`);
   function searchByDrinks(event) {
     if (event.target.value === 'Ingredientes') {
       setRadio('Ingredientes');
@@ -24,20 +26,30 @@ function SearchBarByDrinks(props) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
   }
+  function verifyIsEqual1(response) {
+    if (response.length === 1) {
+      const id = Object.entries(response)[0][1].idDrink;
+      console.log(id);
+      return history.push(`/bebidas/${id}`);
+    }
+  }
   async function handlerClick() {
     if (radio === 'Ingredientes') {
       const response = await cocktails.searchCocktailsByIngredient(searchValue, limite);
       verifyIsNull(response);
+      verifyIsEqual1(response);
       setDrink(response);
     }
     if (radio === 'Nome') {
       const response = await cocktails.searchCocktailsByName(searchValue, limite);
       verifyIsNull(response);
+      verifyIsEqual1(response);
       setDrink(response);
     }
     if (radio === firstLetter && searchValue.length === 1) {
       const response = await cocktails.searchCocktailsByFirstLetter(searchValue, limite);
       verifyIsNull(response);
+      verifyIsEqual1(response);
       setDrink(response);
     }
     if (radio === 'Primeira letra' && searchValue.length !== 1) {
@@ -82,7 +94,15 @@ function SearchBarByDrinks(props) {
         </button>
       </div>
       <div>
-        {/* {console.log(drink)} */}
+        { Object.entries(drink).map((item, index) => (
+
+          <CardDrinks
+            data-testid={ `${index}-recipe-card` }
+            key={ index }
+            index={ index }
+            item={ item[1] }
+          />
+        ))}
 
       </div>
     </div>

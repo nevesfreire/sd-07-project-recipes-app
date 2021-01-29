@@ -15,47 +15,27 @@ const limitResult = (array, limit) => {
 };
 
 const searchMealsByName = async (name, limit) => {
-<<<<<<< HEAD
-  const response = await api.get(`/search.php?s=${name}`);
-  const { meals } = response.data;
-  console.log(meals);
-  if (meals === null) return 'null';
-=======
   const response = await api(`/search.php?s=${name}`);
   const { meals } = response;
-
->>>>>>> main-group-31
+  if (meals === null) return 'null';
   if (limit) return limitResult(meals, limit);
 
   return meals;
 };
 
 const searchMealsByFirstLetter = async (letter, limit) => {
-<<<<<<< HEAD
-  const response = await api.get(`/search.php?f=${letter}`);
-  const { meals } = response.data;
-  if (meals === undefined) return 'undefined';
-=======
   const response = await api(`/search.php?f=${letter}`);
   const { meals } = response;
-
->>>>>>> main-group-31
+  if (meals === null) return 'null';
   if (limit) return limitResult(meals, limit);
 
   return meals;
 };
 
 const searchMealsByIngredient = async (ingredient, limit) => {
-<<<<<<< HEAD
-  const response = await api.get(`/filter.php?i=${ingredient}`);
-  const { meals } = response.data;
-  console.log(meals);
-  if (meals === null) return 'null';
-=======
   const response = await api(`/filter.php?i=${ingredient}`);
   const { meals } = response;
-
->>>>>>> main-group-31
+  if (meals === null) return 'null';
   if (limit) return limitResult(meals, limit);
 
   return meals;

@@ -22,6 +22,7 @@ function Header(props) {
     setInputSearch(text);
   }
   useEffect(() => {
+    console.log('rodei');
     onSearchChange(inputSearch);
   });
   return (
