@@ -55,14 +55,14 @@ class Login extends Component {
           </div>
           <div className="login-container">
             <div className="form-group">
-              Login to your MasterCode Account
+              Login to your account:
             </div>
             <div className="form-group">
               <input
                 type="email"
                 name="email"
                 className="form-control"
-                placeholder="Digite seu e-mail"
+                placeholder="E-mail"
                 data-testid="email-input"
                 onChange={ this.handleChange }
               />
@@ -72,7 +72,7 @@ class Login extends Component {
                 type="password"
                 name="password"
                 className="form-control"
-                placeholder="Digite sua senha"
+                placeholder="Password"
                 data-testid="password-input"
                 onChange={ this.handleChange }
               />

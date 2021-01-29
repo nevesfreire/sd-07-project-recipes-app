@@ -17,11 +17,9 @@
 
 .login-container {
   background-color: white;
-  border: 1px solid black;
   color: rgb(67, 64, 57);
   display: flex;
   flex-direction: column;
-  /* max-width: 360px; */
   padding: 2em;
 }
 
@@ -32,13 +30,11 @@
 
 .title-container {
   background: rgb(242, 103, 62);
-  border: 1px solid black;
   border-bottom: none;
   color: white;
   display: flex;
   font-size: 26px;
   font-weight: 800;
   justify-content: space-around;
-  /* max-width: 360px; */
   padding: 0.5em;
 }
