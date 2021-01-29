@@ -43,7 +43,7 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="body-container">
+      <div className="background-image">
         <div className="input-group">
           <div className="title-container">
             <div>
