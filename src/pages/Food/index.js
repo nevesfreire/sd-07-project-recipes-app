@@ -5,7 +5,7 @@ import FoodContext from '../../providers/Context/Context';
 import Cards from '../../Components/Cards';
 
 const Food = () => {
-  const { data, categoriesButtom } = useContext(FoodContext);
+  const { data, categories, categoriesData } = useContext(FoodContext);
 
   const renderCards = () => {
     const maxLength = 12;
@@ -18,11 +18,13 @@ const Food = () => {
   return (
     <div>
       <Header test="page-title">Comidas</Header>
-      { categoriesButtom.map((categoryName) => (
+      { categories.map((categoryName) => (
         <button
+          id={ categoryName }
           data-testid={ `${categoryName}-category-filter` }
           key={ categoryName }
           type="button"
+          onClick={ categoriesData }
         >
           {categoryName}
         </button>)) }

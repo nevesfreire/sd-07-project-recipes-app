@@ -7,38 +7,44 @@ import RequestDrinkCategories from '../services/categoriesDrink';
 
 export const DrinkContext = createContext();
 
-const alertMessage = () => {
-  const message = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
-  alert(message);
-};
-
 const DrinkProvider = ({ children }) => {
+  const categories = [
+    'Ordinary Drink', 'Cocktail', 'Milk / Float / Shake', 'Other/Unknown', 'Cocoa',
+  ];
   const [searchBar, setSearchBar] = useState(false);
   const [inputText, setInputText] = useState('');
   const [radioType, setRadioType] = useState('');
   const [data, setData] = useState([]);
-  const [categoriesButtom, setCategoriesButtom] = useState([]);
+  const [repeatedButton, setRepeatedButton] = useState(
+    { 'Ordinary Drink': false,
+      Cocktail: false,
+      'Milk / Float / Shake': false,
+      'Other/Unknown': false,
+      Cocoa: false,
+    },
+  );
 
   useEffect(() => {
     async function apiNewData() {
       const newData = await RequestDrinkByName('');
       setData(newData);
     }
-    async function requestCategories() {
-      const temp = [];
-      const maxLengthButtom = 5;
-      const excludeRestOfArry = 10;
-      const results = await RequestDrinkCategories();
-      await results.forEach((obj) => {
-        const { strCategory } = obj;
-        temp.push(strCategory);
-      });
-      temp.splice(maxLengthButtom, excludeRestOfArry);
-      await setCategoriesButtom(temp);
-    }
     apiNewData();
-    requestCategories();
   }, []);
+
+  const categoriesData = async ({ target: { id } }) => {
+    if (repeatedButton[id]) {
+      setRepeatedButton({ ...repeatedButton, [id]: !repeatedButton[id] });
+      return setData(await RequestDrinkByName(''));
+    }
+    setRepeatedButton({ ...repeatedButton, [id]: !repeatedButton[id] });
+    return setData(await RequestDrinkCategories(id));
+  };
+
+  const alertMessage = () => {
+    const message = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
+    alert(message);
+  };
 
   const changeSearchBarState = () => {
     if (searchBar === true) setSearchBar(false);
@@ -88,7 +94,8 @@ const DrinkProvider = ({ children }) => {
     inputText,
     setInputText,
     data,
-    categoriesButtom,
+    categories,
+    categoriesData,
   };
 
   return (

@@ -7,33 +7,36 @@ import RequestFoodByLetter from '../services/firstLetterFoodApi';
 import RequestFoodCategories from '../services/categoriesFood';
 
 const FoodProvider = ({ children }) => {
-  const [tittleHeader, setTittleHeader] = useState('Comidas');
+  const categories = ['Beef', 'Breakfast', 'Chicken', 'Dessert', 'Goat'];
   const [searchBar, setSearchBar] = useState(false);
   const [inputText, setInputText] = useState('');
   const [radioType, setRadioType] = useState('');
   const [data, setData] = useState([]);
-  const [categoriesButtom, setCategoriesButtom] = useState([]);
+  const [repeatedButton, setRepeatedButton] = useState(
+    { Beef: false,
+      Breakfast: false,
+      Chicken: false,
+      Dessert: false,
+      Goat: false,
+    },
+  );
 
   useEffect(() => {
     async function apiNewData() {
       const newData = await RequestFoodBayName('');
       setData(newData);
     }
-    async function requestCategories() {
-      const temp = [];
-      const maxLengthButtom = 5;
-      const excludeRestOfArry = 10;
-      const results = await RequestFoodCategories();
-      await results.forEach((obj) => {
-        const { strCategory } = obj;
-        temp.push(strCategory);
-      });
-      temp.splice(maxLengthButtom, excludeRestOfArry);
-      await setCategoriesButtom(temp);
-    }
     apiNewData();
-    requestCategories();
   }, []);
+
+  const categoriesData = async ({ target: { id } }) => {
+    if (repeatedButton[id]) {
+      setRepeatedButton({ ...repeatedButton, [id]: !repeatedButton[id] });
+      return setData(await RequestFoodBayName(''));
+    }
+    setRepeatedButton({ ...repeatedButton, [id]: !repeatedButton[id] });
+    return setData(await RequestFoodCategories(id));
+  };
 
   const changeSearchBarState = () => {
     if (searchBar === true) setSearchBar(false);
@@ -80,8 +83,6 @@ const FoodProvider = ({ children }) => {
   };
 
   const context = {
-    tittleHeader,
-    setTittleHeader,
     searchBar,
     changeSearchBarState,
     radioType,
@@ -90,7 +91,8 @@ const FoodProvider = ({ children }) => {
     inputText,
     setInputText,
     data,
-    categoriesButtom,
+    categories,
+    categoriesData,
   };
 
   return (
