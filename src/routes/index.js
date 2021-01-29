@@ -13,8 +13,8 @@ const Routes = () => (
     <Route exact path="/" component={ Login } />
     <Route path="/bebidas" component={ TelaPrincipalReceitasBebidas } />
     <Route path="/comidas" component={ TelaPrincipalReceitasComidas } />
-    <Route path="/bebidas/id-da-receita" component={ TelaDetalheBebida } />
-    <Route path={ `/comidas/${idDaReceita}` } component={ TelaDetalheComida } />
+    <Route path="/bebidas/:id" component={ TelaDetalheBebida } />
+    <Route path="/comidas/:id" component={ TelaDetalheComida } />
   </Switch>
 );
 
