@@ -15,7 +15,6 @@ class Drinks extends Component {
         <DrinksCategoryFilter endPoint="https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list" />
         <DrinksRecipes endPoint="https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" />
         <Footer history={ history } />
-
       </div>
     );
   }
