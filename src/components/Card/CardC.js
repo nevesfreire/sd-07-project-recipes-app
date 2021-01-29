@@ -1,5 +1,6 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
+import PropTypes from 'prop-types';
 
 class CardC extends React.Component {
   render() {
@@ -31,5 +32,9 @@ class CardC extends React.Component {
     );
   }
 }
+
+CardC.propTypes = {
+  card: PropTypes.objectOf(PropTypes.string).isRequired,
+};
 
 export default CardC;
