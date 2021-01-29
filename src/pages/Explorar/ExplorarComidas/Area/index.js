@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Footer from '../../../../components/Footer';
 import {
+  fetchFoodByName,
   fetchFoodByArea,
   requestRequired,
 } from '../../../../redux/actions/foodActions';
@@ -11,16 +12,13 @@ import './styles.css';
 
 function ExplorarAreaComidas(props) {
   const [areas, setAreas] = useState([]);
-  const [currentArea, setCurrentArea] = useState('Canadian');
+  const [currentArea, setCurrentArea] = useState('All');
 
   async function fetchArea() {
-    const INITIAL_RETURN = 0;
-    const MAX_RETURN = 12;
     const results = await fetch(
       'https://www.themealdb.com/api/json/v1/1/list.php?a=list',
     ).then((response) => response.json());
-    const result = results.meals.slice(INITIAL_RETURN, MAX_RETURN);
-    setAreas(result);
+    setAreas(results.meals);
   }
 
   function handleChangeSelected({ target }) {
@@ -35,10 +33,16 @@ function ExplorarAreaComidas(props) {
         <select
           name="area"
           value={ currentArea }
+          data-testid="explore-by-area-dropdown"
           onChange={ handleChangeSelected }
         >
+          <option data-testid="All-option" value="All">All</option>
           { areas.map((area, index) => (
-            <option key={ index } value={ area.strArea }>
+            <option
+              key={ index }
+              value={ area.strArea }
+              data-testid={ `${area.strArea}-option` }
+            >
               { area.strArea }
             </option>
           ))}
@@ -76,8 +80,12 @@ function ExplorarAreaComidas(props) {
   }
 
   useEffect(() => {
-    const { fetchFoodArea } = props;
-    fetchFoodArea(currentArea);
+    const { fetchFoodArea, foodName } = props;
+    if (currentArea === 'All') {
+      foodName('');
+    } else {
+      fetchFoodArea(currentArea);
+    }
   }, [currentArea]);
 
   useEffect(() => {
@@ -95,6 +103,7 @@ function ExplorarAreaComidas(props) {
 }
 
 ExplorarAreaComidas.propTypes = {
+  foodName: PropTypes.func.isRequired,
   fetchFoodArea: PropTypes.func.isRequired,
   foods: PropTypes.shape({
     isFetching: PropTypes.bool.isRequired,
@@ -109,6 +118,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  foodName: (food) => dispatch(fetchFoodByName(food)),
   fetchFoodArea: (food) => dispatch(fetchFoodByArea(food)),
   request: (food) => dispatch(requestRequired(food)),
 });

@@ -110,13 +110,15 @@ function Bebidas(props) {
 }
 
 Bebidas.propTypes = {
+  drinks: PropTypes.shape({
+    cocktails: PropTypes.shape({
+      slice: PropTypes.func,
+    }),
+    isFetching: PropTypes.bool,
+    isRequired: PropTypes.bool,
+  }).isRequired,
   fetchDrink: PropTypes.func.isRequired,
   fetchDrinkCategory: PropTypes.func.isRequired,
-  drinks: PropTypes.shape({
-    isFetching: PropTypes.bool.isRequired,
-    isRequired: PropTypes.bool.isRequired,
-    cocktails: PropTypes.arrayOf(PropTypes.object).isRequired,
-  }).isRequired,
   notRequired: PropTypes.func.isRequired,
 };
 

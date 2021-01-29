@@ -9,6 +9,7 @@ import ExplorarComidas from '../pages/Explorar/ExplorarComidas';
 import ExplorarComidasIngredientes from '../pages/Explorar/ExplorarComidas/Ingredientes';
 import ExplorarAreaComidas from '../pages/Explorar/ExplorarComidas/Area';
 import ExplorarBebidasIngredientes from '../pages/Explorar/ExplorarBebidas/Ingredientes';
+import Notfound from '../components/Notfound';
 
 function Routes() {
   return (
@@ -31,6 +32,7 @@ function Routes() {
           path="/explorar/bebidas/ingredientes"
           component={ ExplorarBebidasIngredientes }
         />
+        <Route component={ Notfound } />
         {/*
         <Route exact path="/comidas/:id-da-receita" component={ ComidasID } />
         <Route exact path="/bebidas/:id-da-receita" component={ BebidasID } />

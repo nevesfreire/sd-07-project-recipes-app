@@ -29,7 +29,7 @@ function ExplorarBebidasIngredientes(props) {
     fetchDrinksIngredient(result);
   }
 
-  function renderMeals() {
+  function renderDrinks() {
     if (!ingredients) return (<div>Loading...</div>);
     return (
       <div className="container-foods">
@@ -39,12 +39,14 @@ function ExplorarBebidasIngredientes(props) {
             onClick={ handleIngredient }
             to="/bebidas"
             className="list-foods"
+            data-testid={ `${index}-ingredient-card` }
           >
             <img
-              src={ `https://www.thecocktaildb.com/images/ingredients/${item.strIngredient1}-Medium.png` }
+              data-testid={ `${index}-card-img` }
+              src={ `https://www.thecocktaildb.com/images/ingredients/${item.strIngredient1}-Small.png` }
               alt={ item.strIngredient1 }
             />
-            <div>{ item.strIngredient1 }</div>
+            <div data-testid={ `${index}-card-name` }>{ item.strIngredient1 }</div>
           </Link>
         ))}
       </div>
@@ -58,7 +60,7 @@ function ExplorarBebidasIngredientes(props) {
   return (
     <div>
       HEADER
-      { renderMeals() }
+      { renderDrinks() }
       <Footer />
     </div>
   );

@@ -38,12 +38,14 @@ function ExplorarComidasIngredientes(props) {
             onClick={ handleIngredient }
             to="/comidas"
             className="list-foods"
+            data-testid={ `${index}-ingredient-card` }
           >
             <img
-              src={ `https://www.themealdb.com/images/ingredients/${item.strIngredient}.png` }
+              data-testid={ `${index}-card-img` }
+              src={ `https://www.themealdb.com/images/ingredients/${item.strIngredient}-Small.png` }
               alt={ item.strIngredient }
             />
-            <div>{ item.strIngredient }</div>
+            <div data-testid={ `${index}-card-name` }>{ item.strIngredient }</div>
           </Link>
         ))}
       </div>
