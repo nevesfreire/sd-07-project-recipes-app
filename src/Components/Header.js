@@ -7,29 +7,27 @@ import searchIcon from '../images/searchIcon.svg';
 import SearchBarComp from './SearchbarComp';
 
 const Header = ({ children }) => {
-  const {
-    searchBar,
-    changeSearchBarState,
-  } = useContext(RecipesContext);
+  const { searchBar, changeSearchBarState } = useContext(RecipesContext);
 
   return (
     <header>
       <Link to="/perfil">
-        <button
-          type="button"
-        >
+        <button type="button">
           <img src={ ImgPerfil } data-testid="profile-top-btn" alt="SVG Perfil" />
         </button>
       </Link>
-      <h2 data-testid="page-title">{ children }</h2>
-      { (children === 'Comidas' || children === 'Bebidas') && (
+      <h2 data-testid="page-title">{children}</h2>
+      {(children === 'Comidas' || children === 'Bebidas') && (
         <button
           type="button"
-          onClick={ () => { changeSearchBarState(); } }
+          onClick={ () => {
+            changeSearchBarState();
+          } }
         >
           <img data-testid="search-top-btn" src={ searchIcon } alt="SVG Search" />
-        </button>) }
-      { searchBar && <SearchBarComp /> }
+        </button>
+      )}
+      {searchBar && <SearchBarComp context={ children } />}
     </header>
   );
 };

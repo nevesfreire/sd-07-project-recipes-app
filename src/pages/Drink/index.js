@@ -5,7 +5,6 @@ import Footer from '../../Components/Footer';
 const Drink = () => (
   <div>
     <Header>Bebidas</Header>
-    Dink PG
     <Footer />
   </div>
 );

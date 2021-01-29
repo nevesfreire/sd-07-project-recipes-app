@@ -3,11 +3,14 @@ import Routes from './routes';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import FoodProvider from './providers/FoodProvider';
+import DrinkProvider from './providers/DrinkProvider';
 
 function App() {
   return (
     <FoodProvider>
-      <Routes />
+      <DrinkProvider>
+        <Routes />
+      </DrinkProvider>
     </FoodProvider>
   );
 }

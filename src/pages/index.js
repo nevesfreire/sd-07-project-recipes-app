@@ -6,4 +6,4 @@ import Login from './Login';
 import DrinkDetails from './DrinkDetails';
 import FoodDetails from './FoodDetails';
 
-export { Explore, Food, FoodDetails, Drink, DrinkDetails, Perfil, Login };
+export { Explore, Food, Drink, Perfil, Login, DrinkDetails, FoodDetails };

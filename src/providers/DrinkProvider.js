@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, createContext } from 'react';
 import propTypes from 'prop-types';
-import RecipesContext from './Context/Context';
-import RequestFoodAPI from '../services/foodApi';
-import RequestFoodBayName from '../services/nameFoodApi';
-import RequestFoodByLetter from '../services/firstLetterFoodApi';
+import RequestDrinkAPI from '../services/drinkApi';
+import RequestDrinkByName from '../services/nameDrinkApi';
+import RequestDrinkByLetter from '../services/firstLetterDrinkApi';
 
-const FoodProvider = ({ children }) => {
-  const [tittleHeader, setTittleHeader] = useState('Comidas');
+export const DrinkContext = createContext();
+
+const alertMessage = () => {
+  const massage = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
+  alert(massage);
+};
+
+const DrinkProvider = ({ children }) => {
   const [searchBar, setSearchBar] = useState(false);
   const [inputText, setInputText] = useState('');
   const [radioType, setRadioType] = useState('');
@@ -17,22 +22,18 @@ const FoodProvider = ({ children }) => {
     if (searchBar === false) setSearchBar(true);
   };
 
-  const alertMessage = () => {
-    const massage = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
-    alert(massage);
-  };
-
   const searchWithFilter = () => {
     async function requestByIngredient() {
-      const results = await RequestFoodAPI(inputText);
+      const results = await RequestDrinkAPI(inputText);
       setData(results);
+      await console.log(results);
       if (!results) {
         alertMessage();
       }
     }
 
     async function requestByName() {
-      const results = await RequestFoodBayName(inputText);
+      const results = await RequestDrinkByName(inputText);
       setData(results);
       if (!results) {
         alertMessage();
@@ -40,9 +41,8 @@ const FoodProvider = ({ children }) => {
     }
 
     async function requestByLetter() {
-      const results = await RequestFoodByLetter(inputText);
+      const results = await RequestDrinkByLetter(inputText);
       setData(results);
-      console.log('requestByLetter', results);
       if (!results) {
         alertMessage();
       }
@@ -66,8 +66,6 @@ const FoodProvider = ({ children }) => {
   };
 
   const context = {
-    tittleHeader,
-    setTittleHeader,
     searchBar,
     changeSearchBarState,
     radioType,
@@ -79,14 +77,12 @@ const FoodProvider = ({ children }) => {
   };
 
   return (
-    <RecipesContext.Provider value={ context }>
-      {children}
-    </RecipesContext.Provider>
+    <DrinkContext.Provider value={ context }>{children}</DrinkContext.Provider>
   );
 };
 
-FoodProvider.propTypes = {
+DrinkProvider.propTypes = {
   children: propTypes.node.isRequired,
 };
 
-export default FoodProvider;
+export default DrinkProvider;

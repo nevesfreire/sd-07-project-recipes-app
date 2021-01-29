@@ -1,9 +1,12 @@
 import React from 'react';
 
-const Food = () => (
-  <div>
-    Food PG
-  </div>
-);
+const FoodDetails = () => {
+  const comida = 'food';
+  return (
+    <div>
+      <h2>{comida}</h2>
+    </div>
+  );
+};
 
-export default Food;
+export default FoodDetails;
