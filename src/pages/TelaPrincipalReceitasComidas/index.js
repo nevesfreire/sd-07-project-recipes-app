@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Alert } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import CardC from '../../components/Card/CardC';
@@ -13,13 +14,32 @@ class TelaPrincipalReceitasComidas extends Component {
     }
     return (
       <div className="row">
-        {meals.map((item) => (
-          <div className="col-6 justify-content-md-center" key={ item.strMeals }>
-            <CardC card={ item } />
-          </div>
-        ))}
+        {meals.map((item, index) => {
+          const twelve = 12;
+          if (index < twelve) {
+            return (
+              <div
+                className="col-6 justify-content-md-center"
+                key={ item.strMeals }
+              >
+                <CardC card={ item } />
+              </div>
+            );
+          }
+          return null;
+        })}
       </div>
     );
+  }
+
+  renderAlert(meals) {
+    if (!meals) {
+      return (
+        <Alert variant="danger">
+          Sinto muito, não encontramos nenhuma receita para esses filtros.
+        </Alert>
+      );
+    }
   }
 
   render() {
@@ -28,7 +48,9 @@ class TelaPrincipalReceitasComidas extends Component {
     return (
       <div>
         <HeaderS title={ title } />
-        {mealsStore ? this.renderMeals(mealsStore) : null}
+        {mealsStore
+          ? this.renderMeals(mealsStore)
+          : this.renderAlert(mealsStore)}
       </div>
     );
   }
