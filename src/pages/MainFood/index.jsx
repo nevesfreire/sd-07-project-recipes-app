@@ -52,7 +52,9 @@ export default function MainFood() {
         <div className="cards-container">
           {
             meals.filter((_, index) => index < twelve)
-              .map((meal, index) => <RecipeCard key={ index } id={ index } meal={ meal } />)
+              .map((meal, index) => (
+                <RecipeCard key={ index } id={ index } meal={ meal } />
+              ))
           }
         </div>
       </main>
