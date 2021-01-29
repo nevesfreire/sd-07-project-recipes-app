@@ -8,6 +8,7 @@ import SearchBar from '../../components/SearchBar';
 import {
   fetchCocktailByName,
   fetchDrinkByCategory,
+  stopRequired,
 } from '../../redux/actions/drinkActions';
 import './styles.css';
 
@@ -103,8 +104,12 @@ function Bebidas(props) {
   }
 
   useEffect(() => {
-    const { fetchDrink } = props;
-    fetchDrink('');
+    const { fetchDrink, drinks, notRequired } = props;
+    if (drinks.isRequired) {
+      notRequired();
+    } else {
+      fetchDrink('');
+    }
     fetchCategories();
   }, []);
 
@@ -124,12 +129,17 @@ function Bebidas(props) {
 }
 
 Bebidas.propTypes = {
+  drinks: PropTypes.shape({
+    cocktails: PropTypes.shape({
+      length: PropTypes.number,
+      slice: PropTypes.func,
+    }),
+    isFetching: PropTypes.bool,
+    isRequired: PropTypes.bool,
+  }).isRequired,
   fetchDrink: PropTypes.func.isRequired,
   fetchDrinkCategory: PropTypes.func.isRequired,
-  drinks: PropTypes.shape({
-    isFetching: PropTypes.bool.isRequired,
-    cocktails: PropTypes.arrayOf(PropTypes.object).isRequired,
-  }).isRequired,
+  notRequired: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -139,6 +149,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   fetchDrink: (drink) => dispatch(fetchCocktailByName(drink)),
   fetchDrinkCategory: (drink) => dispatch(fetchDrinkByCategory(drink)),
+  notRequired: () => dispatch(stopRequired()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Bebidas);

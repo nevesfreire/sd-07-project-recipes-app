@@ -2,6 +2,10 @@ export const addCocktail = (cocktails) => ({ type: 'ADD_COCKTAIL', cocktails });
 
 export const requestingData = () => ({ type: 'REQUEST_COCKTAIL' });
 
+export const requestRequired = () => ({ type: 'REQUEST_REQUIRED_DRINK' });
+
+export const stopRequired = () => ({ type: 'STOP_REQUIRED_DRINK' });
+
 export function fetchCocktailById(id) {
   return async (dispatch) => {
     dispatch(requestingData());

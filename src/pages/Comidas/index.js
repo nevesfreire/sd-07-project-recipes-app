@@ -6,6 +6,7 @@ import Footer from '../../components/Footer/index';
 import {
   fetchFoodByName,
   fetchFoodByCategory,
+  stopRequired,
 } from '../../redux/actions/foodActions';
 import './styles.css';
 import SearchBar from '../../components/SearchBar';
@@ -101,8 +102,12 @@ function Comidas(props) {
   }
 
   useEffect(() => {
-    const { fetchFood } = props;
-    fetchFood('');
+    const { fetchFood, foods, notRequired } = props;
+    if (foods.isRequired) {
+      notRequired();
+    } else {
+      fetchFood('');
+    }
     fetchCategories();
   }, []);
 
@@ -126,8 +131,10 @@ Comidas.propTypes = {
   fetchFoodCategory: PropTypes.func.isRequired,
   foods: PropTypes.shape({
     isFetching: PropTypes.bool.isRequired,
+    isRequired: PropTypes.bool,
     meals: PropTypes.arrayOf(PropTypes.object).isRequired,
   }).isRequired,
+  notRequired: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -137,6 +144,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   fetchFood: (food) => dispatch(fetchFoodByName(food)),
   fetchFoodCategory: (food) => dispatch(fetchFoodByCategory(food)),
+  notRequired: () => dispatch(stopRequired()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Comidas);
