@@ -8,7 +8,7 @@ function FoodPage() {
   return (
     <div>
       <Header title="Comidas" />
-      <Grid />
+      <Grid page="meals" />
       <Footer />
     </div>
   );

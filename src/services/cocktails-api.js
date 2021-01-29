@@ -1,8 +1,11 @@
-import axios from 'axios';
+const api = async (endpoint) => {
+  const BASE_URL = 'https://www.thecocktaildb.com/api/json/v1/1';
 
-const api = axios.create({
-  baseURL: 'https://www.thecocktaildb.com/api/json/v1/1',
-});
+  const response = await fetch(`${BASE_URL}${endpoint}`);
+  const responseJSON = await response.json();
+
+  return responseJSON;
+};
 
 const limitResult = (array, limit) => {
   const startPositionToShow = 0;
@@ -12,8 +15,8 @@ const limitResult = (array, limit) => {
 };
 
 const searchCocktailsByName = async (name, limit) => {
-  const response = await api.get(`/search.php?s=${name}`);
-  const { drinks } = response.data;
+  const response = await api(`/search.php?s=${name}`);
+  const { drinks } = response;
 
   if (limit) return limitResult(drinks, limit);
 
@@ -21,8 +24,8 @@ const searchCocktailsByName = async (name, limit) => {
 };
 
 const searchCocktailsByFirstLetter = async (letter, limit) => {
-  const response = await api.get(`/search.php?f=${letter}`);
-  const { drinks } = response.data;
+  const response = await api(`/search.php?f=${letter}`);
+  const { drinks } = response;
 
   if (limit) return limitResult(drinks, limit);
 
@@ -30,8 +33,8 @@ const searchCocktailsByFirstLetter = async (letter, limit) => {
 };
 
 const searchCocktailsByIngredient = async (ingredient, limit) => {
-  const response = await api.get(`/filter.php?i=${ingredient}`);
-  const { drinks } = response.data;
+  const response = await api(`/filter.php?i=${ingredient}`);
+  const { drinks } = response;
 
   if (limit) return limitResult(drinks, limit);
 
@@ -39,8 +42,8 @@ const searchCocktailsByIngredient = async (ingredient, limit) => {
 };
 
 const searchCocktailsByCategory = async (category, limit) => {
-  const response = await api.get(`/filter.php?c=${category}`);
-  const { drinks } = response.data;
+  const response = await api(`/filter.php?c=${category}`);
+  const { drinks } = response;
 
   if (limit) return limitResult(drinks, limit);
 
@@ -48,15 +51,15 @@ const searchCocktailsByCategory = async (category, limit) => {
 };
 
 const getCocktailDetailsById = async (id) => {
-  const response = await api.get(`/lookup.php?i=${id}`);
+  const response = await api(`/lookup.php?i=${id}`);
   const drinkDetails = response.data.drinks[0];
 
   return drinkDetails;
 };
 
 const getCocktails = async (limit) => {
-  const response = await api.get('/search.php?s=');
-  const { drinks } = response.data;
+  const response = await api('/search.php?s=');
+  const { drinks } = response;
 
   if (limit) return limitResult(drinks, limit);
 
@@ -64,15 +67,15 @@ const getCocktails = async (limit) => {
 };
 
 const getRandomCocktail = async () => {
-  const response = await api.get('/random.php');
+  const response = await api('/random.php');
   const randomDrink = response.data.drinks[0];
 
   return randomDrink;
 };
 
 const getCocktailCategoryList = async (limit) => {
-  const response = await api.get('list.php?c=list');
-  const { drinks: drinkCategories } = response.data;
+  const response = await api('/list.php?c=list');
+  const { drinks: drinkCategories } = response;
 
   if (limit) return limitResult(drinkCategories, limit);
 
@@ -80,8 +83,8 @@ const getCocktailCategoryList = async (limit) => {
 };
 
 const getCocktailIngredientList = async (limit) => {
-  const response = await api.get('list.php?i=list');
-  const { drinks: drinkIngredients } = response.data;
+  const response = await api('/list.php?i=list');
+  const { drinks: drinkIngredients } = response;
 
   if (limit) return limitResult(drinkIngredients, limit);
 

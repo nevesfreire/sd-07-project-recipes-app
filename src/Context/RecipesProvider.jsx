@@ -3,44 +3,83 @@ import PropTypes from 'prop-types';
 
 import RecipesContext from './index';
 import Meals from '../services/meals-api';
+import Drinks from '../services/cocktails-api';
 
 function RecipesProvider({ children }) {
-  const [data, setData] = useState([]);
-  const [filteredData, setFilteredData] = useState([]);
-  const [categoryList, setCategoryList] = useState([]);
-  const [currentFilterCategory, setCurrentFilterCategory] = useState('All');
+  const [mealsData, setMealsData] = useState([]);
+  const [mealsFilteredData, setMealsFilteredData] = useState([]);
+  const [mealsCategoryList, setMealsCategoryList] = useState([]);
+  const [currentFilterMealsCategory, setCurrentFilterMealsCategory] = useState('All');
+
+  const [drinksData, setDrinksData] = useState([]);
+  const [drinksFilteredData, setDrinksFilteredData] = useState([]);
+  const [drinksCategoryList, setDrinksCategoryList] = useState([]);
+  const [currentFilterDrinksCategory, setCurrentFilterDrinksCategory] = useState('All');
 
   useEffect(() => {
-    setFilteredData(data);
-  }, [data]);
+    setMealsFilteredData(mealsData);
+  }, [mealsData]);
 
-  const handleClickCategory = async (category) => {
+  useEffect(() => {
+    setDrinksFilteredData(drinksData);
+  }, [drinksData]);
+
+  const handleClickCategoryMeals = async (category) => {
     const mealsAmountToShow = 12;
 
     if (category === 'All') {
-      setFilteredData(data);
-      return setCurrentFilterCategory('All');
+      setMealsFilteredData(mealsData);
+      return setCurrentFilterMealsCategory('All');
     }
 
-    if (currentFilterCategory !== category) {
+    if (currentFilterMealsCategory !== category) {
       const meals = await Meals.searchMealsByCategory(category, mealsAmountToShow);
-      setFilteredData(meals);
-      return setCurrentFilterCategory(category);
+      setMealsFilteredData(meals);
+      return setCurrentFilterMealsCategory(category);
     }
 
-    setFilteredData(data);
-    setCurrentFilterCategory('All');
+    setMealsFilteredData(mealsData);
+    setCurrentFilterMealsCategory('All');
+  };
+
+  const handleClickCategoryDrinks = async (category) => {
+    const mealsAmountToShow = 12;
+
+    if (category === 'All') {
+      setDrinksFilteredData(drinksData);
+      return setCurrentFilterDrinksCategory('All');
+    }
+
+    if (currentFilterDrinksCategory !== category) {
+      const drinks = await Drinks.searchCocktailsByCategory(category, mealsAmountToShow);
+      setDrinksFilteredData(drinks);
+      return setCurrentFilterDrinksCategory(category);
+    }
+
+    setDrinksFilteredData(drinksData);
+    setCurrentFilterDrinksCategory('All');
   };
 
   const states = {
     email: '',
-    data,
-    setData,
-    categoryList,
-    setCategoryList,
-    filteredData,
-    setFilteredData,
-    handleClickCategory,
+    meal: {
+      mealsData,
+      setMealsData,
+      mealsCategoryList,
+      setMealsCategoryList,
+      mealsFilteredData,
+      setMealsFilteredData,
+      handleClickCategoryMeals,
+    },
+    drink: {
+      drinksData,
+      setDrinksData,
+      drinksCategoryList,
+      setDrinksCategoryList,
+      drinksFilteredData,
+      setDrinksFilteredData,
+      handleClickCategoryDrinks,
+    },
   };
 
   return (
