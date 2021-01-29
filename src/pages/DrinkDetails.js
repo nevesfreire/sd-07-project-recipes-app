@@ -88,9 +88,9 @@ function DrinkDetails() {
             ))
         }
       </div>
-      <Link to={ `/comidas/${drinkRecipeId}/in-progress` }>
+      <Link to={ `/bebidas/${drinkRecipeId}/in-progress` }>
         <button
-          id="fixedbutton"
+          className="fixedbutton"
           type="button"
           data-testid="start-recipe-btn"
         >

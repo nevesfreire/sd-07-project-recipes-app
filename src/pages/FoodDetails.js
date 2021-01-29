@@ -90,7 +90,7 @@ function FoodDetails() {
       </div>
       <Link to={ `/comidas/${mealRecipeId}/in-progress` }>
         <button
-          id="fixedbutton"
+          className="fixedbutton"
           type="button"
           data-testid="start-recipe-btn"
         >
