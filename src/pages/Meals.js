@@ -7,7 +7,12 @@ import allActions from '../actions';
 
 function Meals() {
   const state = useSelector(({ mainpage }) => mainpage);
-  const { meals, isLoading, mealCategories } = state;
+  const {
+    meals,
+    isLoading,
+    mealCategories,
+    selectedIngredient,
+    mealsByIngredients } = state;
   const dispatch = useDispatch();
   const [filterOn, setFilterOn] = useState(false);
   const [filteredMeals, setFilteredMeals] = useState([]);
@@ -26,6 +31,8 @@ function Meals() {
       if (filterOn) {
         setCardsArray(filteredMeals);
         console.log(filteredMeals);
+      } else if (selectedIngredient !== '') {
+        setCardsArray(mealsByIngredients);
       } else {
         setCardsArray(meals);
       }
