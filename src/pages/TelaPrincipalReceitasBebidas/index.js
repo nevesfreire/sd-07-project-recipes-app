@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { Alert } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-import { HeaderS } from '../../components';
-import CardC from '../../components/Card/CardC';
+import { HeaderS, CardC, Footer } from '../../components';
 
 class TelaPrincipalReceitasBebidas extends Component {
   renderDrinks(drinks) {
@@ -53,6 +52,7 @@ class TelaPrincipalReceitasBebidas extends Component {
       <div>
         <HeaderS title={ title } />
         {drinksStore ? this.renderDrinks(drinksStore) : null}
+        <Footer />
       </div>
     );
   }

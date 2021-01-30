@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { Alert } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-import CardC from '../../components/Card/CardC';
-import { HeaderS } from '../../components';
+import { HeaderS, CardC, Footer } from '../../components';
 
 class TelaPrincipalReceitasComidas extends Component {
   renderMeals(meals) {
@@ -51,6 +50,7 @@ class TelaPrincipalReceitasComidas extends Component {
         {mealsStore
           ? this.renderMeals(mealsStore)
           : this.renderAlert(mealsStore)}
+        <Footer />
       </div>
     );
   }
