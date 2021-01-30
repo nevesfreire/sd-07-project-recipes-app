@@ -1,19 +1,25 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import SeachBar from '../SearchBar';
 import '../../App.css';
 import profileicon from '../../images/profileIcon.svg';
 import searchicon from '../../images/searchIcon.svg';
 
 const userName = 'User';
 const Header = (props) => {
+  const [showSearch, setShowSearch] = React.useState(false);
+  const toggleSearch = () => setShowSearch(!showSearch);
+
   const { title } = props;
   const history = useHistory();
   const { location } = history;
 
   const isHeader = () => (
     <div className="search">
-      <img src={ searchicon } alt="serchIcon" data-testid="search-top-btn" />
+      <button type="button" onClick={ toggleSearch }>
+        <img src={ searchicon } alt="serchIcon" data-testid="search-top-btn" />
+      </button>
     </div>
   );
 
@@ -36,6 +42,7 @@ const Header = (props) => {
       {location.pathname === '/comidas'
       || location.pathname === '/bebidas'
       || location.pathname === '/explorar/comidas/area' ? isHeader() : null}
+      { showSearch ? <SeachBar name={ title } /> : null }
     </div>
   );
 };

@@ -28,8 +28,41 @@ export const fetchCategoriesMeals = async () => {
   const resolve = await fetch(URL);
 
   const resolveJson = await resolve.json();
-
   const limitArray = resolveJson.meals.slice(sizeInit, sizeEnd);
-
   return limitArray;
+};
+
+export const getAPIFoodIngredients = async (
+  ingredient,
+  initArr = start,
+  endArr = end,
+) => {
+  const resolveJson = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
+  const ingredientJSON = await resolveJson.json();
+  const ingredientsData = await ingredientJSON.meals.slice(initArr, endArr);
+  return ingredientsData;
+};
+
+export const getAPIFoodName = async (
+  name,
+  initArr = start,
+  endArr = end,
+) => {
+  const resolve = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`);
+  // console.log(resolve.meals);
+
+  const nameJSON = await resolve.json();
+  const nameData = await nameJSON.meals.slice(initArr, endArr);
+  return nameData;
+};
+
+export const getAPIFoodFilterFirstLetter = async (
+  firstLetter,
+  initArr = start,
+  endArr = end,
+) => {
+  const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${firstLetter}`);
+  const firstLetterJSON = await response.json();
+  const firstLetterData = firstLetterJSON.meals.slice(initArr, endArr);
+  return firstLetterData;
 };
