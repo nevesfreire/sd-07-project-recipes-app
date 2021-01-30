@@ -1,6 +1,7 @@
 export const GET_INGREDIENTS = 'GET_INGREDIENTS';
 export const GET_NAME = 'GET_NAME';
 export const GET_FIRST_LETTER = 'GET_FIRST_LETTER';
+export const GET_BY_ID = 'GET_BY_ID';
 
 export const getIngredients = (recipesByIngredients) => ({
   type: GET_INGREDIENTS,
@@ -48,4 +49,20 @@ async function fetchLetter(letter) {
 export const resultLetter = (letter) => async (dispatch) => {
   const recipes = await fetchLetter(letter);
   dispatch(getLetter(recipes.meals));
+};
+
+export const getByID = (recipeById) => ({
+  type: GET_BY_ID,
+  recipeById,
+});
+
+async function fetchByID(id) {
+  const responseAPI = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+  const recipeByID = await responseAPI.json();
+  return recipeByID;
+}
+
+export const resultID = (id) => async (dispatch) => {
+  const recipe = await fetchByID(id);
+  dispatch(getByID(recipe.meals[0]));
 };
