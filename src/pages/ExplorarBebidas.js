@@ -1,36 +1,19 @@
-import React, { useContext } from 'react';
-import { Card } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import RecipesContext from '../context/RecipesContext';
+import DrinkSurpriseButton from '../components/ExplorarComponents/DrinkSurpriseButton';
+import DrinkIngredientsButton
+  from '../components/ExplorarComponents/DrinkIngredientsButton';
 
-export default function ExplorarBebidas() {
-  const {
-    handleDrinkSurpriseButton,
-    handleDrinksIngredientsButton,
-  } = useContext(RecipesContext);
-
+function ExplorarBebidas() {
   return (
     <div>
       <Header />
-      <Link to="/explorar/bebidas/ingredientes">
-        <Card
-          data-testid="explore-by-ingredient"
-          onClick={ handleDrinksIngredientsButton }
-        >
-          <Card.Title>Por Ingredientes</Card.Title>
-        </Card>
-      </Link>
-
-      <Card
-        data-testid="explore-surprise"
-        onClick={ handleDrinkSurpriseButton }
-      >
-        <Card.Title>Me Surpreenda!</Card.Title>
-      </Card>
-
+      <DrinkIngredientsButton />
+      <DrinkSurpriseButton />
       <Footer />
     </div>
   );
 }
+
+export default ExplorarBebidas;

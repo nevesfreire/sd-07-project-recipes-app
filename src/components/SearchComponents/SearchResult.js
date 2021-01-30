@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Card } from 'react-bootstrap';
-import { Redirect } from 'react-router-dom';
-import RecipesContext from '../context/RecipesContext';
+import { Redirect, useHistory } from 'react-router-dom';
+import RecipesContext from '../../context/RecipesContext';
 
 function SearchResult() {
   const {
@@ -9,8 +9,9 @@ function SearchResult() {
     cards,
     inputSearch,
     optionSearch,
-    url,
   } = useContext(RecipesContext);
+
+  const history = useHistory();
 
   if (optionSearch === 'letter' && inputSearch.length > 1) {
     return (
@@ -27,7 +28,7 @@ function SearchResult() {
 
   // ParaComidas:
 
-  if (url === 'http://localhost:3000/comidas') {
+  if (history.location.pathname === '/comidas') {
     if (!isFetching && cards.length === 1) {
       return <Redirect to={ `/comidas/${cards[0].idMeal}` } />;
     }
@@ -57,7 +58,7 @@ function SearchResult() {
 
   // Para Bebidas:
 
-  if (url === 'http://localhost:3000/bebidas') {
+  if (history.location.pathname === '/bebidas') {
     if (!isFetching && cards.length === 1) {
       return <Redirect to={ `/bebidas/${cards[0].idDrink}` } />;
     }

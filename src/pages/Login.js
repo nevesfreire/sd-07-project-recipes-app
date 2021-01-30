@@ -1,16 +1,25 @@
 import { Button, Form } from 'react-bootstrap';
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 
 function Login() {
   const {
     setEmail,
     setSenha,
-    handleEntrarButton,
     email,
     senha,
   } = useContext(RecipesContext);
+
+  const history = useHistory();
+
+  const handleEnter = () => {
+    localStorage.clear();
+    localStorage.setItem('mealsToken', JSON.stringify(1));
+    localStorage.setItem('cocktailsToken', JSON.stringify(1));
+    localStorage.setItem('user', JSON.stringify({ email }));
+    history.push('/comidas');
+  };
 
   const isDisabled = () => {
     const regexEmail = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
@@ -22,7 +31,6 @@ function Login() {
   };
 
   return (
-
     <Form>
       <Form.Group controlId="formBasicEmail">
 
@@ -45,17 +53,16 @@ function Login() {
         />
       </Form.Group>
 
-      <Link to="/comidas">
-        <Button
-          type="button"
-          data-testid="login-submit-btn"
-          disabled={ isDisabled() }
-          onClick={ handleEntrarButton }
-          variant="success"
-        >
-          Entrar
-        </Button>
-      </Link>
+      <Button
+        type="button"
+        data-testid="login-submit-btn"
+        disabled={ isDisabled() }
+        onClick={ handleEnter }
+        variant="success"
+      >
+        Entrar
+      </Button>
+
     </Form>
 
   );
