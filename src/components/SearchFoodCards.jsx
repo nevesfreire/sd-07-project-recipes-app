@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { CategoryFood } from './CardsAndCategorys';
 import { useFetchApi } from '../hooks';
 import { UperCaseFirstLetter, factoryCard } from '../Services';
 
@@ -21,9 +22,14 @@ export default function SearchFoodCards({ number, search }) {
   const URL = filterURL(search);
   const [loading, { meals }] = useFetchApi(URL);
   return (
-    loading
-      ? (<span>loading...</span>)
-      : (factoryCard(meals, number, false))
+    <div>
+      <CategoryFood />
+      {
+        loading
+          ? (<span>loading...</span>)
+          : (factoryCard(meals, number, false))
+      }
+    </div>
   );
 }
 

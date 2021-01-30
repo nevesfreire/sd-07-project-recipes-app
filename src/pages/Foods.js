@@ -5,9 +5,9 @@ import {
 import { CupNodesContext } from '../contexts';
 
 const whatchCards = (category, search) => {
-  if (!search.text.length && category.length) {
+  if (!search.text && !!category) {
     return (<FoodCards number={ 12 } category={ category } />);
-  } if (search.text.length) {
+  } if (search.text) {
     return (<SearchFoodCards search={ search } number={ 5 } />);
   }
   return (<RandonFoodCards number={ 12 } />);
