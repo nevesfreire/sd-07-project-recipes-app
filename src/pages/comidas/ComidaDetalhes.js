@@ -54,6 +54,8 @@ class ComidaDetalhes extends React.Component {
         <iframe
           src={ recipe.strYoutube }
           title="video"
+          frameBorder="0"
+          allowFullScreen
         />
         {/* <video data-testid="video">
           <source
