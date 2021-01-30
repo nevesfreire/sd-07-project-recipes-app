@@ -4,7 +4,7 @@ const end = 12;
 export const fetchAllRecipes = async (
   searcher = '',
   category = '',
-  type = 's',
+  type,
 ) => {
   const URL_BASE = type === 'i'
     ? 'https://www.themealdb.com/api/json/v1/1/filter.php?'
