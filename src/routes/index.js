@@ -5,13 +5,13 @@ import Bebidas from '../pages/Bebidas';
 import ComidasID from '../pages/ComidasID';
 import Login from '../pages/Login';
 import Explorar from '../pages/Explorar';
+import Perfil from '../pages/Perfil';
 import ExplorarBebidas from '../pages/Explorar/ExplorarBebidas';
 import ExplorarComidas from '../pages/Explorar/ExplorarComidas';
 import ExplorarComidasIngredientes from '../pages/Explorar/ExplorarComidas/Ingredientes';
 import ExplorarAreaComidas from '../pages/Explorar/ExplorarComidas/Area';
 import ExplorarBebidasIngredientes from '../pages/Explorar/ExplorarBebidas/Ingredientes';
 import Notfound from '../components/Notfound';
-import Perfil from '../pages/Perfil';
 
 function Routes() {
   return (
@@ -34,8 +34,8 @@ function Routes() {
           path="/explorar/bebidas/ingredientes"
           component={ ExplorarBebidasIngredientes }
         />
-        <Route exact path="/:route/:id" component={ ComidasID } />
         <Route exact path="/perfil" component={ Perfil } />
+        <Route exact path="/:route/:id" component={ ComidasID } />
         <Route component={ Notfound } />
         {/*
         <Route exact path="/bebidas/:id-da-receita" component={ BebidasID } />

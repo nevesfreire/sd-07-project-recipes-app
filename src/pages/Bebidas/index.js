@@ -24,6 +24,13 @@ function Bebidas(props) {
     const { drinks } = props;
     const { cocktails, isFetching } = drinks;
     if (isFetching) return <div>Loading...</div>;
+    if (cocktails === undefined) {
+      return (
+        <p>
+          wtf
+        </p>
+      );
+    }
     if (cocktails === null) {
       return alert(
         'Sinto muito, não encontramos nenhuma receita para esses filtros.',
