@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import SearchBar from '../components/SearchBar';
 import SearchButton from '../components/SearchButton';
 
 export default function Bebidas() {
@@ -52,6 +53,7 @@ export default function Bebidas() {
     <div>
       <Header />
       <SearchButton />
+      <SearchBar />
       <button
         type="button"
         data-testid="All-category-filter"
