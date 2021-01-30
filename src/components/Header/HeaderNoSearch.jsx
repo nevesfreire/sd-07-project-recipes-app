@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import profile from '../../images/profileIcon.svg';
 
+import './style.css';
+
 function HeaderNoSearch(props) {
   const { title } = props;
   const [search, setSearch] = useState(false);
@@ -16,7 +18,7 @@ function HeaderNoSearch(props) {
   }
 
   return (
-    <div>
+    <div className="header">
 
       <button
         type="button"
