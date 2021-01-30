@@ -1,6 +1,8 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Home, Login } from '../pages';
+import Explore from '../pages/RecipeExplore';
+import ExploreMore from '../pages/RecipeExploreMore';
 
 export default function Routes() {
   return (
@@ -8,6 +10,9 @@ export default function Routes() {
       <Route exact path="/receitas" component={ Home } />
       <Route exact path="/comidas" component={ Home } />
       <Route exact path="/" component={ Login } />
+      <Route exact path="/explorar" component={ Explore } />
+      <Route exact path="/explorar/comidas" component={ ExploreMore } />
+      <Route exact path="/explorar/bebidas" component={ ExploreMore } />
     </Switch>
   );
 }
