@@ -38,7 +38,18 @@ async function fetchFoodCategory(categoria, tipo) {
   return responsejeson;
 }
 
+async function fetchFoodId(id, tipo) {
+  let url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+  if (tipo === 'comidas') {
+    url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+  }
+  const response = await fetch(url);
+  const responsejeson = await response.json();
+  return responsejeson;
+}
+
 export {
+  fetchFoodId,
   fetchFoodIngredient,
   fetchFoodName,
   fetchFoodLetter,

@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Header from '../../components/header';
 import { loadRecipes } from '../../redux/action';
+import Header from '../../components/header';
 import Footer from '../../components/footer';
 
 class PrincipalComidas extends Component {
   constructor() {
     super();
     this.handleClick = this.handleClick.bind(this);
+    this.Meals = this.Meals.bind(this);
   }
 
   componentDidMount() {
-    const { setlocal } = this.props;
-    setlocal('comidas');
+    const { loadrecipes } = this.props;
+    loadrecipes('comidas');
   }
 
   handleClick(valor) {
@@ -68,10 +69,10 @@ class PrincipalComidas extends Component {
   }
 
   render() {
-    const { history } = this.props;
+    const { history, match } = this.props;
     return (
       <div>
-        <Header title="Comidas" searchOn="on" history={ history } />
+        <Header title="Comidas" searchOn="on" history={ history } match={ match } />
         {
           this.Meals()
         }
@@ -83,8 +84,9 @@ class PrincipalComidas extends Component {
 
 PrincipalComidas.propTypes = {
   history: PropTypes.objectOf({ push: PropTypes.func.isRequired }).isRequired,
-  setlocal: PropTypes.func.isRequired,
+  match: PropTypes.objectOf().isRequired,
   receitas: PropTypes.objectOf().isRequired,
+  loadrecipes: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -92,7 +94,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setlocal: (tipo) => dispatch(loadRecipes(tipo)),
+  loadrecipes: (e) => dispatch(loadRecipes(e)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PrincipalComidas);
