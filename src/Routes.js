@@ -16,6 +16,7 @@ import ExploreFoodByRegion from './Pages/ExploreFoodByRegion';
 import ProfilePage from './Pages/ProfilePage';
 import RecipesFavPage from './Pages/RecipesFavPage';
 import RecipesMadePage from './Pages/RecipesMadePage';
+import NotFound from './Components/NotFound';
 
 function Routes() {
   return (
@@ -61,6 +62,9 @@ function Routes() {
       </Route>
       <Route path="/explorar/bebidas/ingredientes">
         <ExploreDrinkByIngredients />
+      </Route>
+      <Route exact path="/explorar/bebidas/area">
+        <NotFound />
       </Route>
       <Route path="/explorar/bebidas">
         <ExploreDrinkPage />

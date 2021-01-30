@@ -57,42 +57,39 @@ function Card(props) {
     );
   }
   return (
-    <div key={ index } data-testid={ `${index}-recipe-card` }>
-      {isFood
-        ? (
-          <div>
-            <Link to={ `/comidas/${item.idMeal}` }>
-              <img
-                src={ item.strMealThumb }
-                data-testid={ `${index}-card-img` }
-                alt="Meal"
-              />
-              <h2
-                data-testid={ `${index}-card-name` }
-              >
-                {item.strMeal}
-              </h2>
-            </Link>
+    isFood
+      ? (
+        <Link to={ `/comidas/${item.idMeal}` }>
+          <div key={ index } data-testid={ `${index}-recipe-card` }>
+            <img
+              src={ item.strMealThumb }
+              data-testid={ `${index}-card-img` }
+              alt="Meal"
+            />
+            <h2
+              data-testid={ `${index}-card-name` }
+            >
+              {item.strMeal}
+            </h2>
           </div>
-        )
-        : (
-          <div>
-            {console.log(item)}
-            <Link to={ `/bebidas/${item.idDrink}` }>
-              <img
-                src={ item.strDrinkThumb }
-                data-testid={ `${index}-card-img` }
-                alt="Drink"
-              />
-              <h2
-                data-testid={ `${index}-card-name` }
-              >
-                {item.strDrink}
-              </h2>
-            </Link>
+        </Link>
+      )
+      : (
+        <Link to={ `/bebidas/${item.idDrink}` }>
+          <div key={ index } data-testid={ `${index}-recipe-card` }>
+            <img
+              src={ item.strDrinkThumb }
+              data-testid={ `${index}-card-img` }
+              alt="Drink"
+            />
+            <h2
+              data-testid={ `${index}-card-name` }
+            >
+              {item.strDrink}
+            </h2>
           </div>
-        )}
-    </div>
+        </Link>
+      )
   );
 }
 
