@@ -28,6 +28,7 @@ export default function DrinkDetails(props) {
     recipesDone,
     recipesInProgress,
     searchTerm,
+    setTitle,
     setRecipeAlc,
     setRecipeArea,
     setRecipeCategory,

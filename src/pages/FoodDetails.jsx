@@ -1,9 +1,8 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useEffect, useCallback} from 'react';
 import GlobalContext from '../context/GlobalContext';
-// import likeIcon from '../images/whiteHeartIcon.svg';
-// import fullLikeIcon from '../images/blackHeartIcon.svg';
+import likeIcon from '../images/whiteHeartIcon.svg';
+import fullLikeIcon from '../images/blackHeartIcon.svg';
 import ShareButton from '../components/ShareButton';
-import teste from '../images/teste.jpg';
 
 export default function FoodDetails(props) {
   const context = useContext(GlobalContext);
@@ -28,6 +27,7 @@ export default function FoodDetails(props) {
     recipesDone,
     recipesInProgress,
     searchTerm,
+    setTitle,
     setRecipeAlc,
     setRecipeArea,
     setRecipeCategory,
@@ -65,17 +65,62 @@ export default function FoodDetails(props) {
     return true;
   };
 
+  const ingredientsMount = (jsonRecipe) => {
+    const initialIndex = 0;
+    const halfIndex = 2; // importante para pegar o valor das quantidades
+    const ingredients = Object.entries(jsonRecipe.meals[0])
+    // console.log(ingredients); array 2 chave e valor do retorno da API
+      .filter((item) => item[0].includes('Ingredient') || item[0].includes('Measure'))
+      // console.log(ingredients); trazendo igrediente + quantidade
+      // está trazendo algumas linhas de array vazio
+      .filter((amount) => amount[1] !== null && amount[1] !== ' ' && amount[1] !== '')
+      // console.log(ingredients) todos arrays sem vazios
+        .map((ar2) => ar2[1]);
+      // console.log(ingredients)
+    const ingredientsMeasures = [];
+    for (let i = initialIndex; i < ingredients.length / halfIndex; i += 1) {
+      ingredientsMeasures
+        .push(`${ingredients[i]} - ${ingredients[i + ingredients.length / halfIndex]}`);
+    }
+    // console.log(ingredientsMeasures) // concatenação de igredientes e quantidades
+    setRecipeIngredients(ingredientsMeasures);
+  };
+
+  const fetchRecipe = async () => {
+    // hard code
+    const url = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=52772';
+    // const path = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+    const getRecipe = await fetch(url);
+    // console.log(getRecipe);
+    const result = await getRecipe.json();
+    // console.log(result)
+    setRecipeId(result.meals[0].idMeal);
+    setRecipeTitle(result.meals[0].strMeal);
+    setRecipeCategory(result.meals[0].strCategory);
+    setRecipeImage(result.meals[0].strMealThumb);
+    setRecipeInstructions(result.meals[0].strInstructions);
+    setRecipeArea(result.meals[0].strArea);
+    setRecipeVideo(result.meals[0].strYoutube);
+    setRecipeAlc(result.meals[0].strDrinkAlternate);
+    setRecipeTags(result.meals[0].strTags);
+    ingredientsMount(result);
+  };
+  
+  
+  useEffect(() => {
+    setTitle('Food Details');
+    fetchRecipe();
+    // fetchRecommendations();
+    // setButtonTitle();
+    // setLikeImage();
+  }, [setTitle, fetchRecipe]);
+
+  // console.log(recipeIngredients[0]) chegando undefinido
+
   return (
     <div>
-      {/* hard code id receita 178319*/}
-      <img 
-      src="teste" 
-      alt="teste" data-testid="recipe-photo" />
-      {/* <img src={recipeImage} alt={recipeTitle} data-testid="recipe-photo" /> */}
-      {/* hard code */}
-      <h1 data-testid="recipe-title">titulo hard code</h1>
-      {/* <p data-testid="recipe-title">{recipeTitle}</p> */}
-
+      <img src={recipeImage} alt={recipeTitle} data-testid="recipe-photo" />
+      <p data-testid="recipe-title">{recipeTitle}</p>
       <div>
         {/* dentro do btn fazer onClick={handleImage} */}
         <button type="button"> 
@@ -88,19 +133,19 @@ export default function FoodDetails(props) {
         <span data-testid="recipe-category">{recipeCategory}</span>
       </p>
       {/* hard code */}
-      <ul>
+      {/* <ul>
         <li data-testid='0-ingredient-name-and-measure'>Açucar</li>
         <li data-testid='1-ingredient-name-and-measure'>Açucar</li>
         <li data-testid='2-ingredient-name-and-measure'>Açucar</li>
         <li data-testid='3-ingredient-name-and-measure'>Açucar</li>
-      </ul>
-      {/* <ul>
-        {recipeIngredients.map((item, index) => (
+      </ul> */}
+      <ul>
+        {(recipeIngredients.map((item, index) => (
           <li key={index} data-testid={`${index}-ingredient-name-and-measure`}>
             {item}
           </li>
-        ))}
-      </ul> */}
+        )))}
+      </ul>
       <h3 data-testid="instructions">{recipeInstructions}</h3>
       <iframe src={recipeVideo} title={recipeTitle} data-testid="video" />
       <h3>Recommendations:</h3>
@@ -188,8 +233,7 @@ export default function FoodDetails(props) {
           type="button"
           data-testid="start-recipe-btn"
         >
-          btnTitle
-          {/* {btnTitle} */}
+          {btnTitle}
         </button>
       )}
     </div>

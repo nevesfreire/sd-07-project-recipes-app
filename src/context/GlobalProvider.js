@@ -31,70 +31,78 @@ export default function GlobalProvider({ children }) {
     },
   } = state;
 
+  function updateState(key, value) {
+    setState((prevState) => ({
+      ...prevState,
+      [key]: value,
+    }));
+    console.log(state);
+  }
+
   const setRecipeId = (value) => {
-    const newRecipeID = state.recipe;
-    newRecipeID.recipeId = value;
-    updateState('recipe', newRecipeID);
+    const newRecipeID = state.detailRecipes;
+    newRecipeID.detailsRecipe.recipeId = value;
+    updateState('detailRecipes', newRecipeID);
   }
 
   const setRecipeTitle = (value) => {
-    const newRecipeTitle = state.recipe;
-    newRecipeTitle.recipeTitle = value;
-    updateState('recipe', newRecipeTitle);
+    const newRecipeTitle = state.detailRecipes;
+    newRecipeTitle.detailsRecipe.recipeTitle = value;
+    updateState('detailRecipes', newRecipeTitle);
   }
 
   const setRecipeImage = (value) => {
-    const newRecipeImage = state.recipe;
-    newRecipeImage.recipeImage = value;
-    updateState('recipe', newRecipeImage);
+    const newRecipeImage = state.detailRecipes;
+    newRecipeImage.detailsRecipe.recipeImage = value;
+    updateState('detailRecipes', newRecipeImage);
   }
 
   const setRecipeArea = (value) => {
-    const newRecipeArea = state.recipe;
-    newRecipeArea.recipeArea = value;
-    updateState('recipe', newRecipeArea);
+    const newRecipeArea = state.detailRecipes;
+    newRecipeArea.detailsRecipe.recipeArea = value;
+    updateState('detailRecipes', newRecipeArea);
   }
 
   const setRecipeAlc = (value) => {
-    const newRecipeAlc = state.recipe;
-    newRecipeAlc.recipeAlc = value;
-    updateState('recipe', newRecipeAlc);
+    const newRecipeAlc = state.detailRecipes;
+    newRecipeAlc.detailsRecipe.recipeAlc = value;
+    updateState('detailRecipes', newRecipeAlc);
   }
 
   const setRecipeCategory = (value) => {
-    const newRecipeCategory = state.recipe;
-    newRecipeCategory.recipeCategory = value;
-    updateState('recipe', newRecipeCategory);
+    const newRecipeCategory = state.detailRecipes;
+    newRecipeCategory.detailsRecipe.recipeCategory = value;
+    updateState('detailRecipes', newRecipeCategory);
   }
 
   const setRecipeIngredients = (value) => {
-    const newRecipeIngredients = state.recipe;
-    newRecipeIngredients.recipeIngredients = value;
-    updateState('recipe', newRecipeIngredients);
+    const newRecipeIngredients = state.detailRecipes;
+    newRecipeIngredients.detailsRecipe.recipeIngredients = value;
+    updateState('detailRecipes', newRecipeIngredients);
   }
 
   const setRecipeInstructions = (value) => {
-    const newRecipeInstructions = state.recipe;
-    newRecipeInstructions.recipeInstructions = value;
-    updateState('recipe', newRecipeInstructions);
+    const newRecipeInstructions = state.detailRecipes;
+    newRecipeInstructions.detailsRecipe.recipeInstructions = value;
+    updateState('detailRecipes', newRecipeInstructions);
   }
 
   const setRecipeVideo = (value) => {
-    const newReciperecipeVideo = state.recipe;
-    newReciperecipeVideo.recipeVideo = value;
-    updateState('recipe', newReciperecipeVideo);
+    const newReciperecipeVideo = state.detailRecipes;
+    newReciperecipeVideo.detailsRecipe.recipeVideo = value;
+    updateState('detailRecipes', newReciperecipeVideo);
   }
 
   const setRecipeRecommendations = (value) => {
-    const newRecipeRecommendations = state.recipe;
-    newRecipeRecommendations.recipeRecommendations = value;
-    updateState('recipe', newRecipeRecommendations);
+    const newRecipeRecommendations = state.detailRecipes;
+    newRecipeRecommendations.detailsRecipe.recipeRecommendations = value;
+    updateState('detailRecipes', newRecipeRecommendations);
   }
 
   const setRecipeTags = (value) => {
-    const newRecipeTags = state.recipe;
-    newRecipeTags.recipeTags = value;
-    updateState('recipe', newRecipeTags);
+    const newRecipeTags = state.detailRecipes;
+    newRecipeTags.detailsRecipe.recipeTags = value;
+    updateState('detailRecipes', newRecipeTags);
   }
 
   const recipeObject = {
@@ -126,14 +134,8 @@ export default function GlobalProvider({ children }) {
     setRecipesDone,
     recipesInProgress,
     setRecipesInProgress,
+    setTitle,
   };
-
-  function updateState(key, value) {
-    setState((prevState) => ({
-      ...prevState,
-      [key]: value,
-    }));
-  }
 
   const history = useHistory();
 
