@@ -44,6 +44,9 @@ function Routes() {
       <Route path="/bebidas">
         <DrinkPage />
       </Route>
+      <Route path="/explorar/comidas/ingredientes/:ingredient">
+        <FoodPage />
+      </Route>
       <Route path="/explorar/comidas/ingredientes">
         <ExploreFoodByIngredients />
       </Route>
@@ -52,6 +55,9 @@ function Routes() {
       </Route>
       <Route path="/explorar/comidas">
         <ExploreFoodPage />
+      </Route>
+      <Route path="/explorar/bebidas/ingredientes/:ingredient">
+        <DrinkPage />
       </Route>
       <Route path="/explorar/bebidas/ingredientes">
         <ExploreDrinkByIngredients />

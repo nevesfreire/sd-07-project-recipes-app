@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import Header from '../Components/Header';
 import Card from '../Components/Card';
 import Footer from '../Components/Footer';
@@ -16,12 +17,23 @@ function FoodPage() {
   const [filtered, setFiltered] = useState(false);
   const [filter, setFilter] = useState('');
   const [fiveCategories, setFiveCategories] = useState([]);
+  const { ingredient } = useParams();
   const twelve = 12;
   const zero = 0;
   const five = 5;
 
   useEffect(() => {
-    if (!globalRecipes.meals && !filtered) {
+    if (ingredient) {
+      const fetchFoodByIngredient = async () => {
+        const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
+        const foods = await response.json();
+        if (foods.meals) {
+          setFirstTwelveRecipes(foods.meals.slice(zero, twelve));
+          setIsFetching(false);
+        }
+      };
+      fetchFoodByIngredient();
+    } else if (!globalRecipes.meals && !filtered) {
       const fetchFood = async () => {
         const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
         const foods = await response.json();
@@ -86,7 +98,7 @@ function FoodPage() {
         ? (
           firstTwelveRecipes.map(
             (recipe, index) => (
-              <Card key={ index } recipe={ recipe } index={ index } isFood />
+              <Card key={ index } item={ recipe } index={ index } isFood />
             ),
           )
         )

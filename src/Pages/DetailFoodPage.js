@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from 'react';
 import DetailsFood from '../Components/DetailsFood';
 import ButtonDetails from '../Components/ButtonDetails';

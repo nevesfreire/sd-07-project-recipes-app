@@ -4,41 +4,92 @@ import { Link } from 'react-router-dom';
 
 function Card(props) {
   const {
-    recipe,
+    item,
     index,
     isFood,
+    isFoodIngredient,
+    isDrinkIngredient,
   } = props;
+
+  if (isFoodIngredient) {
+    return (
+      <div key={ index } data-testid={ `${index}-ingredient-card` }>
+        <div>
+          <Link
+            to={ `/explorar/comidas/ingredientes/${item.strIngredient}` }
+          >
+            <img
+              src={ `https://www.themealdb.com/images/ingredients/${item.strIngredient}-small.png` }
+              data-testid={ `${index}-card-img` }
+              alt="Ingredient"
+            />
+            <h2
+              data-testid={ `${index}-card-name` }
+            >
+              {item.strIngredient}
+            </h2>
+          </Link>
+        </div>
+      </div>
+    );
+  }
+  if (isDrinkIngredient) {
+    return (
+      <div key={ index } data-testid={ `${index}-ingredient-card` }>
+        <div>
+          <Link
+            to={
+              `/explorar/bebidas/ingredientes/${item.strIngredient1.replace(
+                / /g, '_',
+              )}`
+            }
+          >
+            <img
+              src={ `https://www.thecocktaildb.com/images/ingredients/${item.strIngredient1}-small.png` }
+              data-testid={ `${index}-card-img` }
+              alt="Ingredient"
+            />
+            <h2
+              data-testid={ `${index}-card-name` }
+            >
+              {item.strIngredient1}
+            </h2>
+          </Link>
+        </div>
+      </div>
+    );
+  }
   return (
     <div key={ index } data-testid={ `${index}-recipe-card` }>
       {isFood
         ? (
           <div>
-            <Link to={ `/comidas/${recipe.idMeal}` }>
+            <Link to={ `/comidas/${item.idMeal}` }>
               <img
-                src={ recipe.strMealThumb }
+                src={ item.strMealThumb }
                 data-testid={ `${index}-card-img` }
                 alt="Meal"
               />
               <h2
                 data-testid={ `${index}-card-name` }
               >
-                {recipe.strMeal}
+                {item.strMeal}
               </h2>
             </Link>
           </div>
         )
         : (
           <div>
-            <Link to={ `/bebidas/${recipe.idDrink}` }>
+            <Link to={ `/bebidas/${item.idDrink}` }>
               <img
-                src={ recipe.strDrinkThumb }
+                src={ item.strDrinkThumb }
                 data-testid={ `${index}-card-img` }
                 alt="Drink"
               />
               <h2
                 data-testid={ `${index}-card-name` }
               >
-                {recipe.strDrink}
+                {item.strDrink}
               </h2>
             </Link>
           </div>
@@ -50,13 +101,17 @@ function Card(props) {
 Card.propTypes = {
   index: PropTypes.number.isRequired,
   isFood: PropTypes.bool.isRequired,
-  recipe: PropTypes.shape({
+  isFoodIngredient: PropTypes.bool.isRequired,
+  isDrinkIngredient: PropTypes.bool.isRequired,
+  item: PropTypes.shape({
     idMeal: PropTypes.string.isRequired,
     idDrink: PropTypes.string.isRequired,
     strDrink: PropTypes.string.isRequired,
     strDrinkThumb: PropTypes.string.isRequired,
     strMeal: PropTypes.string.isRequired,
     strMealThumb: PropTypes.string.isRequired,
+    strIngredient: PropTypes.string.isRequired,
+    strIngredient1: PropTypes.string.isRequired,
   }).isRequired,
 };
 

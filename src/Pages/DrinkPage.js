@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import Header from '../Components/Header';
 import Card from '../Components/Card';
 import Footer from '../Components/Footer';
@@ -17,12 +17,23 @@ function DrinkPage() {
   const [filtered, setFiltered] = useState(false);
   const [filter, setFilter] = useState('');
   const [fiveCategories, setFiveCategories] = useState([]);
+  const { ingredient } = useParams();
   const twelve = 12;
   const zero = 0;
   const five = 5;
 
   useEffect(() => {
-    if (!globalRecipes.drinks && !filtered) {
+    if (ingredient) {
+      const fetchDrinksByIngredient = async () => {
+        const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`);
+        const drinks = await response.json();
+        if (drinks.drinks) {
+          setFirstTwelveRecipes(drinks.drinks.slice(zero, twelve));
+          setIsFetching(false);
+        }
+      };
+      fetchDrinksByIngredient();
+    } else if (!globalRecipes.drinks && !filtered) {
       const fetchDrinks = async () => {
         const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
         const drinks = await response.json();
@@ -87,7 +98,7 @@ function DrinkPage() {
         ? (
           firstTwelveRecipes.map(
             (recipe, index) => (
-              <Card key={ index } recipe={ recipe } index={ index } />
+              <Card key={ index } item={ recipe } index={ index } />
             ),
           )
         )
