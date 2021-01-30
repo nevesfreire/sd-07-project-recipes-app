@@ -8,6 +8,9 @@ import {
 import {
   fetchCards,
   getIngredients,
+  saveIngredient,
+  getMealsByIngredient,
+  getDrinksByIngredient,
 } from './mainpage';
 
 export default {
@@ -17,4 +20,7 @@ export default {
   hideBar,
   fetchCards,
   getIngredients,
+  saveIngredient,
+  getMealsByIngredient,
+  getDrinksByIngredient,
 };

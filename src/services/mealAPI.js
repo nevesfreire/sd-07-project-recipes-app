@@ -11,3 +11,10 @@ export const mealIngredients = () => {
     .then((response) => response.json())
     .then((json) => json);
 };
+
+export const mealByIngredient = (ingredient) => {
+  const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
+  return fetch(endpoint)
+    .then((response) => response.json())
+    .then((json) => json);
+};

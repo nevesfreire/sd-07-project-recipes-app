@@ -6,6 +6,9 @@ import {
   MEAL_CATEGORIES_REQUEST,
   DRINK_CATEGORIES_REQUEST,
   GET_INGREDIENTS_SUCCESS,
+  SAVE_INGREDIENT,
+  GET_MEALS_BY_INGREDIENT,
+  GET_DRINKS_BY_INGREDIENT,
 } from '../actions/mainpage';
 
 const INITIAL_STATE = {
@@ -15,6 +18,10 @@ const INITIAL_STATE = {
   mealCategories: [],
   drinkCategories: [],
   ingredients: [],
+  selectedIngredient: '',
+  ingredientIsSelected: false,
+  mealsByIngredients: [],
+  drinksByIngredients: [],
 };
 
 function mainpage(state = INITIAL_STATE, action) {
@@ -33,6 +40,15 @@ function mainpage(state = INITIAL_STATE, action) {
     return { ...state, meals: action.meals, isLoading: false };
   case GET_INGREDIENTS_SUCCESS:
     return { ...state, ingredients: action.ingredients, isLoading: false };
+  case SAVE_INGREDIENT:
+    return {
+      ...state,
+      selectedIngredient: action.ingredient,
+      ingredientIsSelected: true };
+  case GET_MEALS_BY_INGREDIENT:
+    return { ...state, mealsByIngredients: action.meals, isLoading: false };
+  case GET_DRINKS_BY_INGREDIENT:
+    return { ...state, drinksByIngredients: action.drinks, isLoading: false };
   default:
     return state;
   }
