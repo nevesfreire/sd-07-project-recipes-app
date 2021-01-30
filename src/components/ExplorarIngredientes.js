@@ -5,7 +5,6 @@ function ExplorarIngredientes() {
     <div>
       ExplorarIngredientes
     </div>
-
   );
 }
 

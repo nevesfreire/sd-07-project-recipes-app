@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../components/header/Header';
-import Footer from '../components/footer/Footer';
 
 export default class Perfil extends React.Component {
   constructor() {
@@ -64,7 +63,6 @@ export default class Perfil extends React.Component {
         >
           Sair
         </button>
-        <Footer />
       </div>
     );
   }
