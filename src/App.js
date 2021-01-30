@@ -13,6 +13,8 @@ import Explorar from './pages/Explorar';
 import store from './redux/store';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ProgressoComida from './pages/comidas/ProgressoComida';
+import ProgressoBebidas from './pages/bebidas/ProgressoBebidas';
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
         <Switch>
           <Route path="/comidas/:id" component={ ComidaDetalhes } />
           <Route path="/bebidas/:id" component={ BebidasDetalhes } />
+          <Route path="/comidas/:id/in-progress" component={ ProgressoComida } />
+          <Route path="/bebidas/:id/in-progress" component={ ProgressoBebidas } />
           <Route path="/comidas" component={ Comidas } />
           <Route path="/perfil" component={ Perfil } />
           <Route path="/bebidas" component={ Bebidas } />

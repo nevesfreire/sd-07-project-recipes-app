@@ -2,11 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default class BebidasDetalhes extends React.Component {
+  constructor() {
+    super();
+    this.iniciarReceita = this.iniciarReceita.bind(this);
+  }
+
   componentDidMount() {
     const { match: { params } } = this.props;
     const { id } = params;
     const result = fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
     console.log(result);
+  }
+
+  iniciarReceita() {
+    const { match: { params } } = this.props;
+    const { id } = params;
+    const { history } = this.props;
+    history.push(`/bebidas/${id}/in-progress`);
   }
 
   render() {
@@ -42,6 +54,7 @@ export default class BebidasDetalhes extends React.Component {
           type="button"
           data-testid="start-recipe-btn"
           className="iniciar-receita-fixo"
+          onClick={ this.iniciarReceita }
         >
           Iniciar receita
         </button>
@@ -52,5 +65,8 @@ export default class BebidasDetalhes extends React.Component {
 BebidasDetalhes.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.string,
+  }).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
   }).isRequired,
 };
