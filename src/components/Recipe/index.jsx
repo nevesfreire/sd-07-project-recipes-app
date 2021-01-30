@@ -61,7 +61,7 @@ const Recipe = ({ recipe, commonProps }) => {
             />
           </button>
         </div>
-        { copied && 'Link copiado!'}
+        { copied && 'Link copiado!' }
 
         <h2>Ingredients</h2>
         <div>

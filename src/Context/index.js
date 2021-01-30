@@ -25,6 +25,10 @@ const RecipesContext = createContext({
     setDrinksFilteredData: () => {},
     handleClickCategoryDrinks: () => {},
   },
+  isSearchBarActive: false,
+  setIsSearchBarActive: () => {},
+  searchData: '',
+  setSearchData: () => {},
 });
 
 export default RecipesContext;

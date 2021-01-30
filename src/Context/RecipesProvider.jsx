@@ -20,6 +20,9 @@ function RecipesProvider({ children }) {
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
   const [updatingLocalStorage, setUpdatingLocalStorage] = useState(true);
 
+  const [searchData, setSearchData] = useState('');
+  const [isSearchBarActive, setIsSearchBarActive] = useState(false);
+
   useEffect(() => {
     const inProgressRecipesString = localStorage.getItem('inProgressRecipes');
     const inProgressRecipesObj = JSON.parse(inProgressRecipesString);
@@ -188,6 +191,10 @@ function RecipesProvider({ children }) {
       setDrinksFilteredData,
       handleClickCategoryDrinks,
     },
+    isSearchBarActive,
+    setIsSearchBarActive,
+    searchData,
+    setSearchData,
   };
 
   return (

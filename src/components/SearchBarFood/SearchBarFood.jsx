@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import meals from '../../services/meals-api';
 import CardMeals from '../CardMeals/CardMeals';
 
-function SearchBarByFood(props) {
-  const { searchValue } = props;
+import Context from '../../Context';
+
+function SearchBarByFood() {
+  const { searchData } = useContext(Context);
   const [meal, setMeal] = useState('');
   const [radio, setRadio] = useState('');
   const history = useHistory();
@@ -34,24 +35,24 @@ function SearchBarByFood(props) {
 
   async function handlerClick() {
     if (radio === 'Ingredientes') {
-      const response = await meals.searchMealsByIngredient(searchValue, maxCard);
+      const response = await meals.searchMealsByIngredient(searchData, maxCard);
       verifyIsNull(response);
       verifyIsEqual1(response);
       setMeal(response);
     }
     if (radio === 'Nome') {
-      const response = await meals.searchMealsByName(searchValue, maxCard);
+      const response = await meals.searchMealsByName(searchData, maxCard);
       verifyIsNull(response);
       verifyIsEqual1(response);
       setMeal(response);
     }
-    if (radio === firstLetter && searchValue.length === 1) {
-      const response = await meals.searchMealsByFirstLetter(searchValue, maxCard);
+    if (radio === firstLetter && searchData.length === 1) {
+      const response = await meals.searchMealsByFirstLetter(searchData, maxCard);
       verifyIsNull(response);
       verifyIsEqual1(response);
       setMeal(response);
     }
-    if (radio === 'Primeira letra' && searchValue.length !== 1) {
+    if (radio === 'Primeira letra' && searchData.length !== 1) {
       alert('Sua busca deve conter somente 1 (um) caracter');
     }
   }
@@ -108,10 +109,5 @@ function SearchBarByFood(props) {
 
   );
 }
-SearchBarByFood.propTypes = {
-  searchValue: PropTypes.string.isRequired,
-};
+
 export default SearchBarByFood;
-// {isFetching && meal.map((item, index) => (
-//   <CardMeals key={ index } item={ item } />
-// ))}

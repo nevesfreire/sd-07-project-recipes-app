@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import CardDrinks from '../CardDrinks/CardDrinks';
 import cocktails from '../../services/cocktails-api';
 
-function SearchBarByDrinks(props) {
-  const { searchValue } = props;
+import Context from '../../Context';
+
+function SearchBarByDrinks() {
+  const { searchData } = useContext(Context);
   const [drink, setDrink] = useState('');
   const [radio, setRadio] = useState('');
   const history = useHistory();
@@ -34,24 +35,24 @@ function SearchBarByDrinks(props) {
   }
   async function handlerClick() {
     if (radio === 'Ingredientes') {
-      const response = await cocktails.searchCocktailsByIngredient(searchValue, limite);
+      const response = await cocktails.searchCocktailsByIngredient(searchData, limite);
       verifyIsNull(response);
       verifyIsEqual1(response);
       setDrink(response);
     }
     if (radio === 'Nome') {
-      const response = await cocktails.searchCocktailsByName(searchValue, limite);
+      const response = await cocktails.searchCocktailsByName(searchData, limite);
       verifyIsNull(response);
       verifyIsEqual1(response);
       setDrink(response);
     }
-    if (radio === firstLetter && searchValue.length === 1) {
-      const response = await cocktails.searchCocktailsByFirstLetter(searchValue, limite);
+    if (radio === firstLetter && searchData.length === 1) {
+      const response = await cocktails.searchCocktailsByFirstLetter(searchData, limite);
       verifyIsNull(response);
       verifyIsEqual1(response);
       setDrink(response);
     }
-    if (radio === 'Primeira letra' && searchValue.length !== 1) {
+    if (radio === 'Primeira letra' && searchData.length !== 1) {
       alert('Sua busca deve conter somente 1 (um) caracter');
     }
   }
@@ -108,7 +109,5 @@ function SearchBarByDrinks(props) {
 
   );
 }
-SearchBarByDrinks.propTypes = {
-  searchValue: PropTypes.string.isRequired,
-};
+
 export default SearchBarByDrinks;

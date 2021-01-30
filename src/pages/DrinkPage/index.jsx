@@ -1,25 +1,20 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+
 import Header from '../../components/Header/index';
 import Grid from '../../components/Grid';
 import Footer from '../../components/Footer';
 import SearchBarByDrinks from '../../components/SearchBarDrinks/SearchBarByDrinks';
 
+import Context from '../../Context';
+
 function DrinkPage() {
-  const [data, setData] = useState('');
-  const [isSearchBarActive, setIsSearchBarActive] = useState(false);
-  function setValueSearch(value) {
-    setData(value);
-  }
+  const { isSearchBarActive } = useContext(Context);
+
   return (
     <div>
-      <Header
-        title="Bebidas"
-        onSearchChange={ setValueSearch }
-        setIsSearchBarActive={ setIsSearchBarActive }
-      />
-      <SearchBarByDrinks
-        searchValue={ data }
-      />
+      <Header title="Bebidas" />
+
+      <SearchBarByDrinks />
       {
         !isSearchBarActive && <Grid page="drinks" />
       }
