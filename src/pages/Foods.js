@@ -1,17 +1,24 @@
 import React, { useContext } from 'react';
-import { Header, Footer, RandonFoodCards, FoodCards } from '../components';
+import {
+  Header, Footer, RandonFoodCards, FoodCards, SearchFoodCards,
+} from '../components';
 import { CupNodesContext } from '../contexts';
 
+const whatchCards = (category, search) => {
+  if (!search.text.length && category.length) {
+    return (<FoodCards number={ 12 } category={ category } />);
+  } if (search.text.length) {
+    return (<SearchFoodCards search={ search } number={ 5 } />);
+  }
+  return (<RandonFoodCards number={ 12 } />);
+};
+
 export default function Foods() {
-  const { filterDates: { category } } = useContext(CupNodesContext);
+  const { filterDates: { category, search } } = useContext(CupNodesContext);
   return (
     <div>
       <Header title="Comidas" />
-      {
-        category.length
-          ? <FoodCards number={ 5 } category={ category } />
-          : <RandonFoodCards number={ 5 } food={ false } />
-      }
+      {whatchCards(category, search)}
       <Footer />
     </div>
   );

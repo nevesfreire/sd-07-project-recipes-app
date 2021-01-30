@@ -1,12 +1,14 @@
 import React, { useContext } from 'react';
-import { Header, Footer, RandonDrinkCards, DrinkCards, SearchCards } from '../components';
+import {
+  Header, Footer, RandonDrinkCards, DrinkCards, SearchDrinkCards,
+} from '../components';
 import { CupNodesContext } from '../contexts';
 
 const whatchCards = (category, search) => {
   if (!search.text.length && category.length) {
     return (<DrinkCards number={ 12 } category={ category } />);
   } if (search.text.length) {
-    return (<SearchCards search={ search } number={ 5 } />);
+    return (<SearchDrinkCards search={ search } number={ 5 } />);
   }
   return (<RandonDrinkCards number={ 12 } />);
 };
