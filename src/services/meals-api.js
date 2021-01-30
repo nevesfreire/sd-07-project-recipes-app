@@ -17,7 +17,7 @@ const limitResult = (array, limit) => {
 const searchMealsByName = async (name, limit) => {
   const response = await api(`/search.php?s=${name}`);
   const { meals } = response;
-
+  if (meals === null) return 'null';
   if (limit) return limitResult(meals, limit);
 
   return meals;
@@ -26,7 +26,7 @@ const searchMealsByName = async (name, limit) => {
 const searchMealsByFirstLetter = async (letter, limit) => {
   const response = await api(`/search.php?f=${letter}`);
   const { meals } = response;
-
+  if (meals === null) return 'null';
   if (limit) return limitResult(meals, limit);
 
   return meals;
@@ -35,7 +35,7 @@ const searchMealsByFirstLetter = async (letter, limit) => {
 const searchMealsByIngredient = async (ingredient, limit) => {
   const response = await api(`/filter.php?i=${ingredient}`);
   const { meals } = response;
-
+  if (meals === null) return 'null';
   if (limit) return limitResult(meals, limit);
 
   return meals;

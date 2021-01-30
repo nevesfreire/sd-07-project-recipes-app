@@ -1,9 +1,10 @@
 import React from 'react';
 
+import RecipeDetails from '../../components/RecipeDetails';
+
 function DetailDrinkPage() {
   return (
-    <div />
-
+    <RecipeDetails page="drink" />
   );
 }
 
