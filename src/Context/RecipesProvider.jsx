@@ -2,15 +2,9 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import RecipesContext from './index';
+import useLocalStorage from './Hooks/useLocalStorage';
 import Meals from '../services/meals-api';
 import Drinks from '../services/cocktails-api';
-
-const getLocalStorageItem = (item) => {
-  const itemString = localStorage.getItem(item);
-  const itemObj = JSON.parse(itemString);
-
-  return itemObj;
-};
 
 function RecipesProvider({ children }) {
   const [mealsData, setMealsData] = useState([]);
@@ -23,41 +17,24 @@ function RecipesProvider({ children }) {
   const [drinksCategoryList, setDrinksCategoryList] = useState([]);
   const [currentFilterDrinksCategory, setCurrentFilterDrinksCategory] = useState('All');
 
-  const [inProgressRecipes, setInProgressRecipes] = useState({});
-  const [favoriteRecipes, setFavoriteRecipes] = useState([]);
-  const [doneRecipes, setDoneRecipes] = useState([]);
+  const [
+    inProgressRecipes,
+    setInProgressRecipes,
+    favoriteRecipes,
+    setFavoriteRecipes,
+    doneRecipes,
+  ] = useLocalStorage();
+
   const [filteredDoneRecipes, setFilteredDoneRecipes] = useState([]);
-  const [updatingLocalStorage, setUpdatingLocalStorage] = useState(true);
+  const [filteredFavoriteRecipes, setFilteredFavoriteRecipes] = useState([]);
 
   const [searchData, setSearchData] = useState('');
   const [isSearchBarActive, setIsSearchBarActive] = useState(false);
 
-  useEffect(() => {
-    const inProgressItems = getLocalStorageItem('inProgressRecipes');
-    if (inProgressItems) setInProgressRecipes(inProgressItems);
-
-    const favoriteItems = getLocalStorageItem('favoriteRecipes');
-    if (favoriteItems) setFavoriteRecipes(favoriteItems);
-
-    const doneItems = getLocalStorageItem('doneRecipes');
-    if (doneItems) setDoneRecipes(doneItems);
-
-    setUpdatingLocalStorage(false);
-  }, []);
-
-  useEffect(() => {
-    if (!updatingLocalStorage) {
-      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
-      localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
-      localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
-    }
-  }, [inProgressRecipes, favoriteRecipes, doneRecipes, updatingLocalStorage]);
-
   useEffect(() => { setMealsFilteredData(mealsData); }, [mealsData]);
-
   useEffect(() => { setDrinksFilteredData(drinksData); }, [drinksData]);
-
   useEffect(() => { setFilteredDoneRecipes(doneRecipes); }, [doneRecipes]);
+  useEffect(() => { setFilteredFavoriteRecipes(favoriteRecipes); }, [favoriteRecipes]);
 
   const checkFavorite = (id) => {
     const foundRecipe = favoriteRecipes.find((recipe) => recipe.id === id);
@@ -122,7 +99,7 @@ function RecipesProvider({ children }) {
 
       const newFavorite = {
         id: idMeal,
-        type: type === 'meal' ? 'comida' : 'bebida',
+        type: 'comida',
         area: strArea,
         category: strCategory,
         alcoholicOrNot: '',
@@ -144,7 +121,7 @@ function RecipesProvider({ children }) {
 
     const newFavorite = {
       id: idDrink,
-      type: type === 'meal' ? 'comida' : 'bebida',
+      type: 'bebida',
       area: '',
       category: strCategory,
       alcoholicOrNot: strAlcoholic,
@@ -173,7 +150,18 @@ function RecipesProvider({ children }) {
     setFilteredDoneRecipes(newFilteredRecipes);
   };
 
+  const handleClickFilterFavoriteRecipes = (filter) => {
+    if (!filter) return setFilteredFavoriteRecipes(favoriteRecipes);
+
+    const newFilteredRecipes = filteredFavoriteRecipes
+      .filter(({ type }) => type === filter);
+
+    setFilteredFavoriteRecipes(newFilteredRecipes);
+  };
+
   const states = {
+    filteredFavoriteRecipes,
+    handleClickFilterFavoriteRecipes,
     filteredDoneRecipes,
     handleClickFilterRecipesMade,
     checkFavorite,
