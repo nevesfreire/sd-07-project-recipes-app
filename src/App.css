@@ -5,9 +5,12 @@
   padding: 0;
 }
 
+body{
+  background: #f7faff;
+}
+
 .meals {
   align-items: center;
-  background: #ecf2fd;
   color: #464646;
   flex-direction: column;
   font-family: sans-serif;

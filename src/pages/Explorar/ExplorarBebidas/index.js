@@ -18,18 +18,24 @@ function ExplorarBebidas() {
   }, []);
 
   return (
-    <div>
+    <div className="explore">
       <Header title="Explorar Bebidas" />
-      <Link
-        to="/explorar/bebidas/ingredientes"
-        data-testid="explore-by-ingredient"
-      >
-        Por Ingredientes
-      </Link>
-      <br />
-      <Link to={ `/bebidas/${id}` } data-testid="explore-surprise">
-        Me Surpreenda!
-      </Link>
+      <div className="links-wrapper">
+        <Link
+          to="/explorar/bebidas/ingredientes"
+          data-testid="explore-by-ingredient"
+          className="form-button"
+        >
+          Por Ingredientes
+        </Link>
+        <Link
+          to={ `/bebidas/${id}` }
+          data-testid="explore-surprise"
+          className="form-button"
+        >
+          Me Surpreenda!
+        </Link>
+      </div>
       <Footer />
     </div>
   );

@@ -19,27 +19,33 @@ function ExplorarComidas() {
   }, []);
 
   return (
-    <div>
-      <Header
-        title="Explorar Comidas"
-      />
-      <Link
-        to="/explorar/comidas/ingredientes"
-        data-testid="explore-by-ingredient"
-      >
-        Por Ingredientes
-      </Link>
-      <br />
-      <Link to="/explorar/comidas/area" data-testid="explore-by-area">
-        Por Local de Origem
-      </Link>
-      <br />
-      <Link
-        to={ `/comidas/${id}` }
-        data-testid="explore-surprise"
-      >
-        Me Surpreenda!
-      </Link>
+    <div className="explore">
+      <Header title="Explorar Comidas" />
+      <div className="links-wrapper">
+        <Link
+          to="/explorar/comidas/ingredientes"
+          data-testid="explore-by-ingredient"
+          className="form-button"
+        >
+          Por Ingredientes
+        </Link>
+
+        <Link
+          to="/explorar/comidas/area"
+          data-testid="explore-by-area"
+          className="form-button"
+        >
+          Por Local de Origem
+        </Link>
+
+        <Link
+          to={ `/comidas/${id}` }
+          data-testid="explore-surprise"
+          className="form-button"
+        >
+          Me Surpreenda!
+        </Link>
+      </div>
       <Footer />
     </div>
   );

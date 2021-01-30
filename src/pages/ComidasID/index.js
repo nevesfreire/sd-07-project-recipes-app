@@ -54,7 +54,7 @@ function ComidasID({
 
   return (
     <div>
-      <FoodThumb detailed={ detailed } route={ route } />
+      <FoodThumb detailed={ detailed } route={ route } id={ id } />
       <ul>
         Ingredientes:
         {Object.keys(detailed[0]).map((key, index) => {

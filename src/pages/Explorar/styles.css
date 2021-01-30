@@ -1,0 +1,12 @@
+.links-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.explore .form-button {
+  text-decoration: none;
+  padding: 16px 22px;
+  font-size: 20px;
+}
