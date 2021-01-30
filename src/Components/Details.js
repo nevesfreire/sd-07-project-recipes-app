@@ -10,6 +10,7 @@ import './Details.css';
 const Details = ({ type, recipe, recommend, ingredientes, id, medidas }) => {
   const { addFavorite, removeFavorite } = useContext(StorageContext);
   const [favorited, setFavorite] = useState(false);
+  const [copied, setCopied] = useState(false);
   const verifyLocalFav = localStorage.getItem('favoriteRecipes');
 
   const iconFavorite = favorited ? blackHeartIcon : whiteHeartIcon;
@@ -21,7 +22,6 @@ const Details = ({ type, recipe, recommend, ingredientes, id, medidas }) => {
   useEffect(() => {
     if (verifyLocalFav) {
       const searchFav = JSON.parse(verifyLocalFav).some(({ id: favId }) => favId === id);
-      console.log('rodei:', searchFav);
       setFavorite(searchFav);
     }
   }, []);
@@ -34,9 +34,14 @@ const Details = ({ type, recipe, recommend, ingredientes, id, medidas }) => {
     removeFavorite(id);
     return setFavorite(!favorited);
   };
-  console.log(recipe);
-  console.log(medidas);
-  console.log(ingredientes);
+
+  const handleCopy = () => {
+    const timeToFade = 2000;
+    setCopied(!copied);
+    navigator.clipboard.writeText(`http://localhost:3000/${type}s/${id}`);
+    setTimeout(() => setCopied(false), timeToFade);
+  };
+
   return (
     <div>
       <img
@@ -46,7 +51,8 @@ const Details = ({ type, recipe, recommend, ingredientes, id, medidas }) => {
         width="400"
       />
       <h2 data-testid="recipe-title">{recipe[name]}</h2>
-      <button type="button">
+      { copied && <p className="copy-feedback">Link copiado!</p>}
+      <button type="button" onClick={ handleCopy }>
         <img src={ ShareIcon } data-testid="share-btn" alt="thumbShare" />
       </button>
       <button type="button" onClick={ handleFavorite }>
