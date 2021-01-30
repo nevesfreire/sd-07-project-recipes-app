@@ -134,14 +134,14 @@ export default function GlobalProvider({ children }) {
           newInititalPassword.password = text;
           updateState('password', newInititalPassword);
         },
-      
+
         styles,
         setStyle: useCallback((elem, key, value) => {
           const newStyles = state.styledComponents;
           newStyles.styles[elem][key] = value;
           updateState('styledComponents', newStyles);
         }, [state.styledComponents]),
-     
+
         randomRecipeDetail,
         renderButtonExplore,
         setRenderButtonExplore,
