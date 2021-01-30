@@ -5,6 +5,7 @@ import { resultIngredientsBebida,
   resultNameBebida,
   resultLetterBebida,
   resultIDBebida } from '../../redux/actionsBebidas';
+import toggleCardDrink from '../../redux/reducerSearchBar';
 
 class BarraBuscaBebidas extends Component {
   constructor() {
@@ -25,12 +26,16 @@ class BarraBuscaBebidas extends Component {
   }
 
   findContent() {
-    const { resultApiBebida, history, getByIDBebida } = this.props;
+    const { resultApiBebida, history, getByIDBebida, toggleDrink } = this.props;
     if (resultApiBebida === null) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      toggleDrink(false);
     } else if (resultApiBebida.length === 1) {
+      toggleDrink(false);
       getByIDBebida(resultApiBebida[0].idDrink);
       history.push(`/bebidas/${resultApiBebida[0].idDrink}`);
+    } else {
+      toggleDrink(false);
     }
   }
 
@@ -128,6 +133,7 @@ const mapDispatchToProps = (dispatch) => ({
   getNameBebida: (name) => dispatch(resultNameBebida(name)),
   getLetterBebida: (letter) => dispatch(resultLetterBebida(letter)),
   getByIDBebida: (id) => dispatch(resultIDBebida(id)),
+  toggleDrink: (toggleToDrink) => dispatch(toggleCardDrink(toggleToDrink)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BarraBuscaBebidas);
@@ -141,4 +147,5 @@ BarraBuscaBebidas.propTypes = {
     push: PropTypes.func,
   }).isRequired,
   getByIDBebida: PropTypes.func.isRequired,
+  toggleDrink: PropTypes.func.isRequired,
 };
