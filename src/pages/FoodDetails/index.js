@@ -16,10 +16,14 @@ const FoodDetails = ({ match: { params: { id } } }) => {
   }, [id]);
 
   const initialCut = 9;
+  const initialMeasureCut = 29;
   const endCut = 20;
   const ingredientes = currentRecipe && Object.values(currentRecipe)
     .splice(initialCut, endCut)
     .filter((item) => item);
+  const medidas = currentRecipe && Object.values(currentRecipe)
+    .splice(initialMeasureCut, endCut)
+    .filter((item) => item !== ' ');
 
   return (
     <div>
@@ -29,6 +33,7 @@ const FoodDetails = ({ match: { params: { id } } }) => {
         recipe={ currentRecipe }
         recommend={ recommend }
         ingredientes={ ingredientes }
+        medidas={ medidas }
       />
     </div>
   );

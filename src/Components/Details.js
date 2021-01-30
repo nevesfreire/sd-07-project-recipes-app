@@ -5,8 +5,9 @@ import { StorageContext } from '../providers/AllProviders';
 import ShareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import './Details.css';
 
-const Details = ({ type, recipe, recommend, ingredientes, id }) => {
+const Details = ({ type, recipe, recommend, ingredientes, id, medidas }) => {
   const { addFavorite, removeFavorite } = useContext(StorageContext);
   const [favorited, setFavorite] = useState(false);
   const verifyLocalFav = localStorage.getItem('favoriteRecipes');
@@ -33,7 +34,9 @@ const Details = ({ type, recipe, recommend, ingredientes, id }) => {
     removeFavorite(id);
     return setFavorite(!favorited);
   };
-
+  console.log(recipe);
+  console.log(medidas);
+  console.log(ingredientes);
   return (
     <div>
       <img
@@ -53,6 +56,10 @@ const Details = ({ type, recipe, recommend, ingredientes, id }) => {
       {ingredientes.map((ingrediente, index) => (
         <p key={ ingrediente } data-testid={ `${index}-ingredient-name-and-measure` }>
           {ingrediente}
+        </p>))}
+      {medidas.map((medida, index) => (
+        <p key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
+          {medida}
         </p>))}
       <p data-testid="instructions">{recipe.strInstructions}</p>
       {type === 'comida' && <iframe
@@ -83,7 +90,7 @@ const Details = ({ type, recipe, recommend, ingredientes, id }) => {
       <button
         data-testid="start-recipe-btn"
         type="button"
-        style={ { display: 'none' } }
+        className="start-recipe"
       >
         comecar receita
       </button>
@@ -106,6 +113,7 @@ Details.propTypes = {
   }).isRequired,
   recommend: PropTypes.arrayOf(PropTypes.object).isRequired,
   ingredientes: PropTypes.arrayOf(PropTypes.string).isRequired,
+  medidas: PropTypes.arrayOf(PropTypes.string).isRequired,
   type: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
 };
