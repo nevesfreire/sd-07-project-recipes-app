@@ -12,14 +12,11 @@ function DetailFoodPage() {
   useEffect(() => {
     const recipeDone = JSON.parse(window.localStorage.getItem('doneRecipes'));
     if (recipeDone) {
-      const { meals } = recipeDone;
-      if (meals[0]) {
-        const findRecipeDoing = Object.keys(meals)
-          .find((recipeId) => recipeId === idParams);
-        if (findRecipeDoing) {
-          setDone(true);
-          setDoing(false);
-        }
+      const findRecipeDone = recipeDone.find(({ id }) => id === idParams);
+      if (findRecipeDone) {
+        setDone(true);
+        setDoing(false);
+        return true;
       }
     }
     const recipeDoing = JSON.parse(window.localStorage.getItem('inProgressRecipes'));
