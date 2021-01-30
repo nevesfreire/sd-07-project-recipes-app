@@ -29,7 +29,6 @@ function SearchBarByDrinks(props) {
   function verifyIsEqual1(response) {
     if (response.length === 1) {
       const id = Object.entries(response)[0][1].idDrink;
-      console.log(id);
       return history.push(`/bebidas/${id}`);
     }
   }

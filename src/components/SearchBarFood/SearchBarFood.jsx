@@ -28,7 +28,6 @@ function SearchBarByFood(props) {
   function verifyIsEqual1(response) {
     if (response.length === 1) {
       const id = Object.entries(response)[0][1].idMeal;
-      console.log(id);
       return history.push(`/comidas/${id}`);
     }
   }
