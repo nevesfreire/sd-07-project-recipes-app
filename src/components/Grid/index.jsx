@@ -27,16 +27,31 @@ const Grid = ({ page }) => {
   } = useContext(Context).drink;
 
   useEffect(() => {
-    const mealsAmountToShow = 12;
+    const amountToShow = 12;
 
-    if (page === 'meals') {
-      Meals.getMeals(mealsAmountToShow)
+    const urlParams = new URLSearchParams(window.location.search);
+    const ing = urlParams.get('ing');
+
+    if (page === 'meals' && ing) {
+      Meals.searchMealsByIngredient(ing, amountToShow)
         .then((res) => setMealsData(res))
         .catch((err) => console.log(err));
     }
 
-    if (page === 'drinks') {
-      Drinks.getCocktails(mealsAmountToShow)
+    if (page === 'drinks' && ing) {
+      Drinks.searchCocktailsByIngredient(ing, amountToShow)
+        .then((res) => setDrinksData(res))
+        .catch((err) => console.log(err));
+    }
+
+    if (page === 'meals' && !ing) {
+      Meals.getMeals(amountToShow)
+        .then((res) => setMealsData(res))
+        .catch((err) => console.log(err));
+    }
+
+    if (page === 'drinks' && !ing) {
+      Drinks.getCocktails(amountToShow)
         .then((res) => setDrinksData(res))
         .catch((err) => console.log(err));
     }

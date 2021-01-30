@@ -5,36 +5,36 @@ import PropTypes from 'prop-types';
 import Meals from '../../services/meals-api';
 import Drinks from '../../services/cocktails-api';
 
-const ExploreFoodButtons = ({ area }) => {
+const ExploreFoodButtons = ({ meal }) => {
   const [randomFoodId, setRandomFoodId] = useState('');
 
   useEffect(() => {
-    if (area) {
+    if (meal) {
       Meals.getRandomMeal()
         .then(({ idMeal }) => setRandomFoodId(idMeal))
         .catch((err) => console.log(err));
     }
 
-    if (!area) {
+    if (!meal) {
       Drinks.getRandomCocktail()
         .then(({ idDrink }) => setRandomFoodId(idDrink))
         .catch((err) => console.log(err));
     }
-  }, [area]);
+  }, [meal]);
 
   return (
     <div>
       <Link
-        to={ area ? '/explorar/comidas/ingredientes' : '/explorar/bebidas/ingredientes' }
+        to={ meal ? '/explorar/comidas/ingredientes' : '/explorar/bebidas/ingredientes' }
         data-testid="explore-by-ingredient"
       >
         Por Ingredientes
       </Link>
 
       {
-        area && (
+        meal && (
           <Link
-            to={ area ? '/explorar/comidas/area' : '/explorar/bebidas/area' }
+            to={ meal ? '/explorar/comidas/area' : '/explorar/bebidas/area' }
             data-testid="explore-by-area"
           >
             Por Local de Origem
@@ -43,7 +43,7 @@ const ExploreFoodButtons = ({ area }) => {
       }
 
       <Link
-        to={ area ? `/comidas/${randomFoodId}` : `/bebidas/${randomFoodId}` }
+        to={ meal ? `/comidas/${randomFoodId}` : `/bebidas/${randomFoodId}` }
         data-testid="explore-surprise"
       >
         Me Surpreenda!
@@ -52,6 +52,6 @@ const ExploreFoodButtons = ({ area }) => {
   );
 };
 
-ExploreFoodButtons.propTypes = { area: PropTypes.string.isRequired };
+ExploreFoodButtons.propTypes = { meal: PropTypes.bool.isRequired };
 
 export default ExploreFoodButtons;

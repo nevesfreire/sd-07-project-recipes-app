@@ -8,7 +8,7 @@ function ExploreFoodPage() {
   return (
     <div>
       <HeaderNoSearch title="Explorar Comidas" />
-      <ExploreFoodButtons area />
+      <ExploreFoodButtons meal />
       <Footer />
     </div>
   );
