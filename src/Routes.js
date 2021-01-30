@@ -16,6 +16,7 @@ import ExploreFoodByRegion from './Pages/ExploreFoodByRegion';
 import ProfilePage from './Pages/ProfilePage';
 import RecipesFavPage from './Pages/RecipesFavPage';
 import RecipesMadePage from './Pages/RecipesMadePage';
+import NotFound from './Components/NotFound';
 
 function Routes() {
   return (
@@ -44,6 +45,9 @@ function Routes() {
       <Route path="/bebidas">
         <DrinkPage />
       </Route>
+      <Route path="/explorar/comidas/ingredientes/:ingredient">
+        <FoodPage />
+      </Route>
       <Route path="/explorar/comidas/ingredientes">
         <ExploreFoodByIngredients />
       </Route>
@@ -53,8 +57,14 @@ function Routes() {
       <Route path="/explorar/comidas">
         <ExploreFoodPage />
       </Route>
+      <Route path="/explorar/bebidas/ingredientes/:ingredient">
+        <DrinkPage />
+      </Route>
       <Route path="/explorar/bebidas/ingredientes">
         <ExploreDrinkByIngredients />
+      </Route>
+      <Route exact path="/explorar/bebidas/area">
+        <NotFound />
       </Route>
       <Route path="/explorar/bebidas">
         <ExploreDrinkPage />
