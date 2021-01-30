@@ -93,8 +93,9 @@ function RecipesProvider({ children }) {
 
       const alreadyFavorite = checkFavorite(idMeal);
       if (alreadyFavorite) {
-        const filteredFavoriteRecipes = favoriteRecipes.filter(({ id }) => id !== idMeal);
-        return setFavoriteRecipes(filteredFavoriteRecipes);
+        const newFilteredFavoriteRecipes = favoriteRecipes
+          .filter(({ id }) => id !== idMeal);
+        return setFavoriteRecipes(newFilteredFavoriteRecipes);
       }
 
       const newFavorite = {
@@ -115,8 +116,9 @@ function RecipesProvider({ children }) {
     const alreadyFavorite = checkFavorite(idDrink);
 
     if (alreadyFavorite) {
-      const filteredFavoriteRecipes = favoriteRecipes.filter(({ id }) => id !== idDrink);
-      return setFavoriteRecipes(filteredFavoriteRecipes);
+      const newFilteredFavoriteRecipes = favoriteRecipes
+        .filter(({ id }) => id !== idDrink);
+      return setFavoriteRecipes(newFilteredFavoriteRecipes);
     }
 
     const newFavorite = {
