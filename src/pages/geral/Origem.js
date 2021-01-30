@@ -5,10 +5,10 @@ import Footer from '../../components/footer';
 
 class Origem extends Component {
   render() {
-    const { history } = this.props;
+    const { history, match } = this.props;
     return (
       <div>
-        <Header title="Explorar Origem" searchOn="on" history={ history } />
+        <Header title="Explorar Origem" searchOn="on" history={ history } match={ match } />
         <Footer history={ history } />
       </div>
     );
@@ -17,6 +17,7 @@ class Origem extends Component {
 
 Origem.propTypes = {
   history: PropTypes.objectOf({ push: PropTypes.func.isRequired }).isRequired,
+  match: PropTypes.objectOf().isRequired,
 };
 
 export default Origem;
