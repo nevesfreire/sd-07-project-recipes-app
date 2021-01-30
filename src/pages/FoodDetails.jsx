@@ -6,11 +6,13 @@ import ShareButton from '../components/ShareButton';
 
 export default function FoodDetails(props) {
   const context = useContext(GlobalContext);
+  // console.log(context);
   const [btnTitle, setBtnTitle] = useState('Iniciar Receita');
   const [btnImg, setBtnImg] = useState('');
   const [recommendations1, setRecommendations1] = useState([]);
   const [recommendations2, setRecommendations2] = useState([]);
   const { recipeObject } = context;
+  // console.log(recipeObject);
 
   const {
     recipeAlc,
@@ -51,9 +53,10 @@ export default function FoodDetails(props) {
   } = props;
   const { params } = match;
   const { id } = params;
-  const carouselActiveIndex = 0;
+  const carouselActiveIndex = 0; //controle de recomendações
+  const carouselActiveIndex1 = 1;
   const carouselPartition = 3;
-
+  
   const buttonMount = () => {
     if (localStorage.getItem('doneRecipes') !== null) {
       const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
@@ -65,7 +68,7 @@ export default function FoodDetails(props) {
     return true;
   };
 
-  const ingredientsMount = (jsonRecipe) => {
+  const ingredientsMount = useCallback((jsonRecipe) => {
     const initialIndex = 0;
     const halfIndex = 2; // importante para pegar o valor das quantidades
     const ingredients = Object.entries(jsonRecipe.meals[0])
@@ -84,13 +87,13 @@ export default function FoodDetails(props) {
     }
     // console.log(ingredientsMeasures) // concatenação de igredientes e quantidades
     setRecipeIngredients(ingredientsMeasures);
-  };
+  }, [setRecipeIngredients]);
 
-  const fetchRecipe = async () => {
+  const fetchRecipe = useCallback(async () => {
     // hard code
-    const url = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=52772';
+    const path = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=52771';
     // const path = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
-    const getRecipe = await fetch(url);
+   const getRecipe = await fetch(path);
     // console.log(getRecipe);
     const result = await getRecipe.json();
     // console.log(result)
@@ -104,18 +107,113 @@ export default function FoodDetails(props) {
     setRecipeAlc(result.meals[0].strDrinkAlternate);
     setRecipeTags(result.meals[0].strTags);
     ingredientsMount(result);
-  };
-  
+  }, [
+    setRecipeId,
+    setRecipeTitle,
+    setRecipeCategory,
+    setRecipeImage,
+    setRecipeInstructions,
+    setRecipeArea,
+    setRecipeVideo,
+    setRecipeAlc,
+    setRecipeTags,
+    ingredientsMount,
+  ]);
+
+  const fetchRecommendations = useCallback(async () => {
+    // hard code
+    const path = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=178319';
+    // const path = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+    const response = await fetch(path);
+    // console.log(getDrink);
+    const result = await response.json();
+    const maximumRecommendations1 = 3;
+    const maximumRecommendations2 = 6;
+    const getRecommendations1 = result.drinks.filter(
+      (recommendation, index) => (index < maximumRecommendations1 && recommendation),
+    );
+    // console.log(getRecommendations1);
+    const getRecommendations2 = result.drinks.filter(
+      (recommendation, index) => (
+        index >= maximumRecommendations1
+        && index < maximumRecommendations2
+        && recommendation
+      ),
+    );
+    setRecommendations1(getRecommendations1);
+    setRecommendations2(getRecommendations2);
+  }, [setRecommendations1, setRecommendations2]);
+    // console.log(result);
+//     drinks: Array(1)
+// 0:
+// dateModified: null
+// idDrink: "178319"
+// strAlcoholic: "Alcoholic"
+// strCategory: "Cocktail"
+// strCreativeCommonsConfirmed: "No"
+// strDrink: "Aquamarine"
+// strDrinkAlternate: null
+// strDrinkDE: null
+// strDrinkES: null
+// strDrinkFR: null
+// strDrinkThumb: "https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg"
+// strDrinkZH-HANS: null
+// strDrinkZH-HANT: null
+// strGlass: "Martini Glass"
+// strIBA: null
+// strImageAttribution: null
+// strImageSource: null
+// strIngredient1: "Hpnotiq"
+// strIngredient2: "Pineapple Juice"
+// strIngredient3: "Banana Liqueur"
+// strIngredient4: ""
+// strIngredient5: ""
+// strIngredient6: ""
+// strIngredient7: ""
+// strIngredient8: null
+// strIngredient9: null
+// strIngredient10: null
+// strIngredient11: null
+// strIngredient12: null
+// strIngredient13: null
+// strIngredient14: null
+// strIngredient15: null
+// strInstructions: "Shake well in a shaker with ice.
+// ↵Strain in a martini glass."
+// strInstructionsDE: null
+// strInstructionsES: null
+// strInstructionsFR: null
+// strInstructionsZH-HANS: null
+// strInstructionsZH-HANT: null
+// strMeasure1: "2 oz"
+// strMeasure2: "1 oz"
+// strMeasure3: "1 oz"
+// strMeasure4: ""
+// strMeasure5: ""
+// strMeasure6: ""
+// strMeasure7: ""
+// strMeasure8: null
+// strMeasure9: null
+// strMeasure10: null
+// strMeasure11: null
+// strMeasure12: null
+// strMeasure13: null
+// strMeasure14: null
+// strMeasure15: null
+// strTags: null
+// strVideo: null
+// __proto__: Object
+
+  useEffect(() => {
+    fetchRecipe()
+    fetchRecommendations()
+  },[]);
   
   useEffect(() => {
     setTitle('Food Details');
-    fetchRecipe();
-    // fetchRecommendations();
-    // setButtonTitle();
-    // setLikeImage();
-  }, [setTitle, fetchRecipe]);
+  }, [setTitle]);
 
-  // console.log(recipeIngredients[0]) chegando undefinido
+  // console.log(recipeIngredients[0]) chegando indefinido
 
   return (
     <div>
@@ -133,33 +231,26 @@ export default function FoodDetails(props) {
         <span data-testid="recipe-category">{recipeCategory}</span>
       </p>
       {/* hard code */}
-      {/* <ul>
+      <ul>
         <li data-testid='0-ingredient-name-and-measure'>Açucar</li>
         <li data-testid='1-ingredient-name-and-measure'>Açucar</li>
         <li data-testid='2-ingredient-name-and-measure'>Açucar</li>
         <li data-testid='3-ingredient-name-and-measure'>Açucar</li>
-      </ul> */}
-      <ul>
+      </ul>
+      {/* <ul>
         {(recipeIngredients.map((item, index) => (
           <li key={index} data-testid={`${index}-ingredient-name-and-measure`}>
             {item}
           </li>
         )))}
-      </ul>
+      </ul> */}
       <h3 data-testid="instructions">{recipeInstructions}</h3>
       <iframe src={recipeVideo} title={recipeTitle} data-testid="video" />
       <h3>Recommendations:</h3>
       <div>
         <div>
           <div>
-            {/* hard code */}
-            <div data-testid='0-recomendation-card'>
-              <h5 data-testid='0-recomendation-title'>Titulo 1</h5>
-            </div>
-            <div data-testid='1-recomendation-card'>
-            <h5 data-testid='1-recomendation-title'>Titulo 2</h5>
-            </div>
-            {/* {recommendations1.map((item, index) => {
+            {recommendations1.map((item, index) => {
               if (index === carouselActiveIndex) {
                 return (
                   <div
@@ -186,7 +277,7 @@ export default function FoodDetails(props) {
                   </h5>
                 </div>
               );
-            })} */}
+            })}
           </div>
         </div>
         <div>

@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useEffect, useCallback} from 'react';
 import GlobalContext from '../context/GlobalContext';
 import likeIcon from '../images/whiteHeartIcon.svg';
 import fullLikeIcon from '../images/blackHeartIcon.svg';
@@ -53,6 +53,7 @@ export default function DrinkDetails(props) {
   const { params } = match;
   const { id } = params;
   const carouselActiveIndex = 0;
+  const carouselActiveIndex1 = 1;
   const carouselPartition = 3;
 
   const buttonMount = () => {
@@ -100,16 +101,79 @@ export default function DrinkDetails(props) {
     }
   };
 
+  const ingredientsMount = useCallback((value) => {
+    const initialIndex = 0;
+    const halfIndex = 2;
+    const ingredients = Object.entries(value.drinks[0])
+    // console.log(ingredients) // array 2 chave e valor do retorno da API
+    .filter((item) => item[0].includes('Ingredient') || item[0].includes('Measure'))
+    .filter((amount) => amount[1] !== null && amount[1] !== ' ' && amount[1] !== '')
+    // console.log(ingredients) 1 array para cada igrediente e respectiva medida
+    .map((ar2) => ar2[1]); //concatenna cada elemento com posição 2
+    // console.log(ingredients);
+    const ingredientsMeasures = [];
+    for (let i = initialIndex; i < ingredients.length / halfIndex; i += 1) {
+      ingredientsMeasures.push(
+        `${ingredients[i]} - ${ingredients[i + ingredients.length / halfIndex]}`
+      );
+    }
+    setRecipeIngredients(ingredientsMeasures);
+  }, [setRecipeIngredients])
+
+  const fetchDrinks = useCallback(async () => {
+    const path = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=178319";
+    // const path = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+    const response = await fetch(path);
+    const result = await response.json();
+    setRecipeTitle(result.drinks[0].strDrink);
+    setRecipeCategory(result.drinks[0].strCategory);
+    setRecipeAlc(result.drinks[0].strAlcoholic);
+    setRecipeInstructions(result.drinks[0].strInstructions);
+    setRecipeImage(result.drinks[0].strDrinkThumb);
+    ingredientsMount(result);
+  }, [
+    setRecipeTitle,
+    setRecipeCategory,
+    setRecipeAlc,
+    setRecipeInstructions,
+    setRecipeImage,
+    ingredientsMount,
+  ]);
+
+  const fetchRecommendations = useCallback(async () => {
+    // hard code
+    const path = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=178319';
+    // const path = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+    const response = await fetch(path);
+    // console.log(getDrink);
+    const result = await response.json();
+    const maximumRecommendations1 = 3;
+    const maximumRecommendations2 = 6;
+    const getRecommendations1 = result.drinks.filter(
+      (recommendation, index) => (index < maximumRecommendations1 && recommendation),
+    );
+    // console.log(getRecommendations1);
+    const getRecommendations2 = result.drinks.filter(
+      (recommendation, index) => (
+        index >= maximumRecommendations1
+        && index < maximumRecommendations2
+        && recommendation
+      ),
+    );
+    setRecommendations1(getRecommendations1);
+    setRecommendations2(getRecommendations2);
+  }, [setRecommendations1, setRecommendations2]);
+
+  useEffect(() => {
+    fetchDrinks();
+    fetchRecommendations();
+  }, []);
+
   return (
     <div>
-      {/* hard code id receita 178319*/}
-      <img 
-      src="teste" 
-      alt="teste" data-testid="recipe-photo" />
-      {/* <img src={recipeImage} alt={recipeTitle} data-testid="recipe-photo" /> */}
-      {/* hard code */}
+      <img src={recipeImage} alt={recipeTitle} data-testid="recipe-photo" />
       <h1 data-testid="recipe-title">titulo hard code</h1>
-      {/* <p data-testid="recipe-title">{recipeTitle}</p> */}
+      <p data-testid="recipe-title">{recipeTitle}</p>
 
       <div>
         {/* dentro do btn fazer onClick={handleImage} */}
@@ -149,7 +213,7 @@ export default function DrinkDetails(props) {
             <div data-testid='1-recomendation-card'>
             <h5 data-testid='1-recomendation-title'>Titulo 2</h5>
             </div>
-            {/* {recommendations1.map((item, index) => {
+            {recommendations1.map((item, index) => {
               if (index === carouselActiveIndex) {
                 return (
                   <div
@@ -176,7 +240,7 @@ export default function DrinkDetails(props) {
                   </h5>
                 </div>
               );
-            })} */}
+            })}
           </div>
         </div>
         <div>
@@ -223,8 +287,8 @@ export default function DrinkDetails(props) {
           type="button"
           data-testid="start-recipe-btn"
         >
-          btnTitle
-          {/* { btnTitle } */}
+          
+          { btnTitle }
         </button>
       )}
     </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import geral from '../data';
@@ -31,19 +31,26 @@ export default function GlobalProvider({ children }) {
     },
   } = state;
 
-  function updateState(key, value) {
+  const updateState = useCallback((key, value) => {
     setState((prevState) => ({
       ...prevState,
       [key]: value,
     }));
-    console.log(state);
-  }
+    console.log(state)
+  }, [state])
+  // function updateState(key, value) {
+  //   setState((prevState) => ({
+  //     ...prevState,
+  //     [key]: value,
+  //   }));
+  //   console.log(state)
+  // }
 
-  const setRecipeId = (value) => {
+  const setRecipeId = useCallback((value) => {
     const newRecipeID = state.detailRecipes;
     newRecipeID.detailsRecipe.recipeId = value;
     updateState('detailRecipes', newRecipeID);
-  }
+  }, [state.detailRecipes, updateState])
 
   const setRecipeTitle = (value) => {
     const newRecipeTitle = state.detailRecipes;
