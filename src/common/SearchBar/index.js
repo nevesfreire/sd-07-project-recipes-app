@@ -24,6 +24,7 @@ const SearchBar = () => {
       <input
         type="text"
         data-testid="search-input"
+        placeholder="Buscar Receita"
         value={ searchBarData.text }
         onChange={ ({ target }) => setSearchBarData({
           ...searchBarData,
