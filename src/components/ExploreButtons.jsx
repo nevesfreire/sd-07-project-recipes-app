@@ -2,7 +2,12 @@ import React, { useContext, useEffect } from 'react';
 import GlobalContext from '../context/GlobalContext';
 
 export default function ExploreButtons() {
-  const { renderButtonExplore, redirect, callRandomRecipe, idRandom } = useContext(GlobalContext);
+  const {
+    renderButtonExplore,
+    redirect,
+    callRandomRecipe,
+    idRandom,
+  } = useContext(GlobalContext);
 
   useEffect(() => {
     callRandomRecipe();
