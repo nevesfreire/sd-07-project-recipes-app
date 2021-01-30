@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import CoffeAndCodeContext from '../context/CoffeeAndCodeContext';
 import {
   requestApiFoodFilterIngredient,
   requestApiFoodFilterName,
@@ -14,45 +16,77 @@ import {
 function HeaderSearch({ name }) {
   const [textSearch, setTextSearch] = useState('');
   const [radioValue, setRadioValue] = useState('');
+  const [click, setClick] = useState(false);
+
+  const {
+    setCardDrink,
+    setCardFood,
+    cardDrink,
+    cardFood,
+  } = useContext(CoffeAndCodeContext);
 
   const searchFood = () => {
-    if (radioValue === 'ingredientSearch' && textSearch !== '')
+    if (radioValue === 'ingredientSearch' && textSearch !== '') {
       return requestApiFoodFilterIngredient(textSearch);
-    if (radioValue === 'nameSearch' && textSearch !== '')
+    }
+    if (radioValue === 'nameSearch' && textSearch !== '') {
       return requestApiFoodFilterName(textSearch);
-    if (radioValue === 'firstLetterSearch' && textSearch.length === 1)
+    }
+    if (radioValue === 'firstLetterSearch' && textSearch.length === 1) {
       return requestApiFoodFilterFirstLetter(textSearch);
-    if (radioValue === 'firstLetterSearch')
+    }
+    if (radioValue === 'firstLetterSearch') {
       alert('Sua busca deve conter somente 1 (um) caracter');
+    }
   };
 
   const searchDrink = () => {
-    if (radioValue === 'ingredientSearch' && textSearch !== '')
+    if (radioValue === 'ingredientSearch' && textSearch !== '') {
       return requestApiDrinkFilterIngredient(textSearch);
-    if (radioValue === 'nameSearch' && textSearch !== '')
+    }
+    if (radioValue === 'nameSearch' && textSearch !== '') {
       return requestApiDrinkFilterName(textSearch);
-    if (radioValue === 'firstLetterSearch' && textSearch.length === 1)
+    }
+    if (radioValue === 'firstLetterSearch' && textSearch.length === 1) {
       return requestApiDrinkFilterFirstLetter(textSearch);
-    if (radioValue === 'firstLetterSearch')
+    }
+    if (radioValue === 'firstLetterSearch') {
       alert('Sua busca deve conter somente 1 (um) caracter');
-  }
+    }
+  };
 
-  const printError = () => (
-    alert(
-      `Sinto muito, não encontramos nenhuma receita para esses filtros.`
-    )
-  );
+  const printError = () => {
+    setClick(false);
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  };
 
   const searchOnClick = async () => {
+    setClick(true);
     if (name === 'Comidas') {
       const answerApi = await searchFood();
-      answerApi ? setCardFood(answerApi) : printError()
+      if (answerApi) setCardFood(answerApi);
+      else printError();
+      // answerApi ? setCardFood(answerApi) : printError();
     }
     if (name === 'Bebidas') {
       const answerApi = await searchDrink();
-      answerApi ? setCardDrink(answerApi) : printError()
+      if (answerApi) setCardDrink(answerApi);
+      else printError();
+      // answerApi ? setCardDrink(answerApi) : printError();
     }
   };
+
+  useEffect(() => {
+    if (click) {
+      setClick(false);
+      if (cardFood.length === 1) {
+        return <Redirect to={ `/comidas/${cardFood[0].idMeal}` } />;
+      }
+      if (cardDrink.length === 1) {
+        return <Redirect to={ `/bebidas/${cardDrink[0].idDrink}` } />;
+      }
+    }
+  }, [cardDrink, cardFood]);
 
   return (
     <section>

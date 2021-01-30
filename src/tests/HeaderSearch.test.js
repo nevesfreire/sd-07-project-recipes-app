@@ -12,7 +12,7 @@ describe('Component HeaderSearch', () => {
   });
   test('if there are three radios button', () => {
     renderWithRouter(<HeaderSearch />);
-    
+
     const ingredientSearch = screen.getByTestId('ingredient-search-radio');
     expect(ingredientSearch).toBeInTheDocument();
 
@@ -22,8 +22,9 @@ describe('Component HeaderSearch', () => {
     const firstLetterSearch = screen.getByTestId('first-letter-search-radio');
     expect(firstLetterSearch).toBeInTheDocument();
 
+    const maxLength = 3;
     const allRadios = screen.getAllByRole('radio');
-    expect(allRadios.length).toBe(3);
+    expect(allRadios.length).toBe(maxLength);
   });
 
   test('if there is an search button', () => {
