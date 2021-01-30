@@ -2,13 +2,13 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import SearchBar from '../../common/SearchBar';
 import { AppContext } from '../../context/AppContext';
+
+import CategoryButton from '../../common/CategoryButton';
 import './style.css';
 
 const Comidas = () => {
   const history = useHistory();
-  const { mealsData } = useContext(AppContext);
-  console.log(mealsData);
-
+  const { mealsData, mealsCategories } = useContext(AppContext);
   if (mealsData.meals) {
     const zero = 0;
     const doze = 12;
@@ -20,6 +20,12 @@ const Comidas = () => {
     return (
       <div>
         <SearchBar />
+        {mealsCategories.map((item, index) => (
+          <CategoryButton
+            key={index}
+            categoryName={item.strCategory}
+            categoryType='meals'
+            />))}
         {mealsData.meals.slice(zero, doze).map((e, i) => (
           <div
             className="mealContainer"
