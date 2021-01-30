@@ -1,6 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class BebidasDetalhes extends React.Component {
+  componentDidMount() {
+    const { match: { params } } = this.props;
+    const { id } = params;
+    const result = fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+    console.log(result);
+  }
+
   render() {
     return (
       <div>
@@ -39,3 +47,9 @@ export default class BebidasDetalhes extends React.Component {
       </div>);
   }
 }
+
+BebidasDetalhes.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.string,
+  }).isRequired,
+};
