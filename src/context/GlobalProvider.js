@@ -13,6 +13,7 @@ export default function GlobalProvider({ children }) {
     initialState: { email, password },
     initialFoods: { dataFoods, foodCategories },
     initialDrinks: { dataDrinks, drinkCategories },
+    styledComponents: { styles },
   } = state;
 
   function updateState(key, value) {
@@ -113,6 +114,13 @@ export default function GlobalProvider({ children }) {
           newInititalPassword.password = text;
           updateState('password', newInititalPassword);
         },
+
+        styles,
+        setStyle: useCallback((elem, key, value) => {
+          const newStyles = state.styledComponents;
+          newStyles.styles[elem][key] = value;
+          updateState('styledComponents', newStyles);
+        }, [state.styledComponents]),
       } }
     >
       { children }

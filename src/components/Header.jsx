@@ -4,15 +4,24 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchHeader from './SearchHeader';
 import GlobalContext from '../context/GlobalContext';
+import { HeaderStyle } from './style';
 
 function Header() {
   const {
+    styles: { colorTheme: { main } },
     title,
     searchButton,
     searchBar,
     setSearchBar,
   } = useContext(GlobalContext);
-  console.log(searchButton);
+
+  const {
+    Container,
+    InfoDisplay,
+    Btn,
+    SearchContainer,
+    SearchIcon,
+  } = HeaderStyle;
 
   const handleClick = () => {
     if (searchBar) {
@@ -23,26 +32,33 @@ function Header() {
   };
 
   const handlerSearchBtn = () => (
-    <button type="button" onClick={ () => handleClick() }>
-      <img src={ searchIcon } data-testid="search-top-btn" alt="Search Icon" />
-    </button>
+    <Btn
+      type="button"
+      onClick={ () => handleClick() }
+    >
+      <SearchIcon src={ searchIcon } data-testid="search-top-btn" alt="Search Icon" />
+    </Btn>
   );
 
   return (
-    <header className="header">
-      <Link to="/perfil">
-        <img
-          src={ profileIcon }
-          data-testid="profile-top-btn"
-          alt="Profile Icon"
-        />
-      </Link>
+    <Container bgColor={ main }>
+      <InfoDisplay>
+        <Link to="/perfil">
+          <img
+            src={ profileIcon }
+            data-testid="profile-top-btn"
+            alt="Profile Icon"
+          />
+        </Link>
 
-      <h1 data-testid="page-title">{title}</h1>
-      {searchButton && handlerSearchBtn()}
+        <h1 data-testid="page-title">{title}</h1>
+      </InfoDisplay>
 
-      {searchBar && <SearchHeader />}
-    </header>
+      <SearchContainer>
+        {searchButton && handlerSearchBtn()}
+        {searchBar && <SearchHeader />}
+      </SearchContainer>
+    </Container>
   );
 }
 

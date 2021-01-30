@@ -7,9 +7,9 @@ const Styles = {
   border-radius: 0.5rem;
   box-shadow: 0 2px 3px rgba(178,179,182,1);
   display: flex;
-  margin: 0.2rem;
-  padding: 1rem;
-  width: 80vw;
+  margin: 1vh;
+  padding: 1vh;
+  width: 85vw;
 `,
   NameContainer: styled.div`
   display: flex;

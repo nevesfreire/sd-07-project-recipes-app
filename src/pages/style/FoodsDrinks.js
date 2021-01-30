@@ -6,6 +6,7 @@ const Styles = {
   background-color: rgba(223,225,230,1);
   display: flex;
   flex-direction: column;
+  padding-bottom: 13vh;
 `,
 };
 

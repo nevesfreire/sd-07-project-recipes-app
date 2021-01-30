@@ -1,18 +1,34 @@
 import React from 'react';
+import { SearchHeaderStyle } from './style';
+
+const {
+  Container,
+  SearchBar,
+  RadioBtnsContainer,
+  SearchBtn,
+} = SearchHeaderStyle;
 
 function SearchHeader() {
   return (
     <form>
-      <div>
-        <input
+      <Container>
+        <SearchBar
           name="input"
           placeholder="Buscar receita"
           type="text"
           data-testid="search-input"
           // onChange={}
         />
-      </div>
-      <div>
+        <div>
+          <SearchBtn
+            type="button"
+            data-testid="exec-search-btn"
+          >
+            Buscar
+          </SearchBtn>
+        </div>
+      </Container>
+      <RadioBtnsContainer>
         <label htmlFor="ingredients">
           <input
             name="input"
@@ -45,15 +61,7 @@ function SearchHeader() {
           />
           Primeira letra
         </label>
-      </div>
-      <div>
-        <button
-          type="button"
-          data-testid="exec-search-btn"
-        >
-          Buscar
-        </button>
-      </div>
+      </RadioBtnsContainer>
     </form>
   );
 }
