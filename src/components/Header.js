@@ -6,8 +6,8 @@ import SearchIconButton from './SearchComponents/SearchIconButton';
 
 function Header() {
   const {
-    title,
     setTitle,
+    title,
   } = useContext(RecipesContext);
 
   const history = useHistory();
@@ -16,40 +16,42 @@ function Header() {
     history.push('/perfil');
   };
 
-  const handleTitle = () => {
-    switch (history.location.pathname) {
-    case '/comidas':
-      return 'Comidas';
-    case '/bebidas':
-      return 'Bebidas';
-    case '/explorar':
-      return 'Explorar';
-    case '/explorar/comidas':
-      return 'Explorar Comidas';
-    case '/explorar/bebidas':
-      return 'Explorar Bebidas';
-    case '/explorar/comidas/ingredientes':
-      return 'Explorar Ingredientes';
-    case '/explorar/bebidas/ingredientes':
-      return 'Explorar Ingredientes';
-    case '/explorar/comidas/area':
-      return 'Explorar Origem';
-    case '/perfil':
-      return 'Perfil';
-    case '/receitas-feitas':
-      return 'Receitas Feitas';
-    case '/receitas-favoritas':
-      return 'Receitas Favoritas';
-    default:
-      return '';
-    }
-  };
+  const { pathname } = history.location;
 
   useEffect(() => {
-    setTitle(handleTitle());
-  }, []);
+    switch (pathname) {
+    case '/':
+      return setTitle('Login');
+    case '/comidas':
+      return setTitle('Comidas');
+    case '/bebidas':
+      return setTitle('Bebidas');
+    case '/explorar':
+      return setTitle('Explorar');
+    case '/explorar/comidas':
+      return setTitle('Explorar Comidas');
+    case '/explorar/bebidas':
+      return setTitle('Explorar Bebidas');
+    case '/explorar/comidas/ingredientes':
+      return setTitle('Explorar Ingredientes');
+    case '/explorar/bebidas/ingredientes':
+      return setTitle('Explorar Ingredientes');
+    case '/explorar/comidas/area':
+      return setTitle('Explorar Origem');
+    case '/perfil':
+      return setTitle('Perfil');
+    case '/receitas-feitas':
+      return setTitle('Receitas Feitas');
+    case '/receitas-favoritas':
+      return setTitle('Receitas Favoritas');
+    default:
+      return setTitle('');
+    }
+  }, [pathname, setTitle]);
 
-  if (title === 'Comidas' || title === 'Bebidas' || title === 'Explorar Origem') {
+  if (title === 'Comidas'
+    || title === 'Bebidas'
+    || title === 'Explorar Origem') {
     return (
       <header>
         <button

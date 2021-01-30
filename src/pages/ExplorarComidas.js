@@ -1,7 +1,7 @@
 import React from 'react';
 import MealIngredientsButton from
   '../components/ExplorarComponents/MealIngredientsButton';
-import MealOrigemButton from '../components/ExplorarComponents/MealOrigemButton';
+import MealOriginButton from '../components/ExplorarComponents/MealOriginButton';
 import MealSurpriseButton from '../components/ExplorarComponents/MealSurpriseButton';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -11,7 +11,7 @@ export default function ExplorarComidas() {
     <div>
       <Header />
       <MealIngredientsButton />
-      <MealOrigemButton />
+      <MealOriginButton />
       <MealSurpriseButton />
       <Footer />
     </div>

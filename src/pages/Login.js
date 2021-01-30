@@ -31,40 +31,42 @@ function Login() {
   };
 
   return (
-    <Form>
-      <Form.Group controlId="formBasicEmail">
+    <div>
+      <h2>Login</h2>
+      <Form>
+        <Form.Group controlId="formBasicEmail">
 
-        <Form.Control
-          type="email"
-          data-testid="email-input"
-          placeholder="Email"
-          name="email"
-          onChange={ (e) => setEmail(e.target.value) }
-        />
-      </Form.Group>
+          <Form.Control
+            type="email"
+            data-testid="email-input"
+            placeholder="Email"
+            name="email"
+            onChange={ (e) => setEmail(e.target.value) }
+          />
+        </Form.Group>
 
-      <Form.Group controlId="formBasicPassword">
-        <Form.Control
-          type="password"
-          data-testid="password-input"
-          placeholder="Senha"
-          name="senha"
-          onChange={ (e) => setSenha(e.target.value) }
-        />
-      </Form.Group>
+        <Form.Group controlId="formBasicPassword">
+          <Form.Control
+            type="password"
+            data-testid="password-input"
+            placeholder="Senha"
+            name="senha"
+            onChange={ (e) => setSenha(e.target.value) }
+          />
+        </Form.Group>
 
-      <Button
-        type="button"
-        data-testid="login-submit-btn"
-        disabled={ isDisabled() }
-        onClick={ handleEnter }
-        variant="success"
-      >
-        Entrar
-      </Button>
+        <Button
+          type="button"
+          data-testid="login-submit-btn"
+          disabled={ isDisabled() }
+          onClick={ handleEnter }
+          variant="success"
+        >
+          Entrar
+        </Button>
 
-    </Form>
-
+      </Form>
+    </div>
   );
 }
 

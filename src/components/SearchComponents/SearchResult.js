@@ -6,7 +6,7 @@ import RecipesContext from '../../context/RecipesContext';
 function SearchResult() {
   const {
     isFetching,
-    cards,
+    searchCards,
     inputSearch,
     optionSearch,
   } = useContext(RecipesContext);
@@ -19,7 +19,7 @@ function SearchResult() {
     );
   }
 
-  if (!isFetching && !cards) {
+  if (!isFetching && !searchCards) {
     return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   }
 
@@ -29,11 +29,11 @@ function SearchResult() {
   // ParaComidas:
 
   if (history.location.pathname === '/comidas') {
-    if (!isFetching && cards.length === 1) {
-      return <Redirect to={ `/comidas/${cards[0].idMeal}` } />;
+    if (!isFetching && searchCards.length === 1) {
+      return <Redirect to={ `/comidas/${searchCards[0].idMeal}` } />;
     }
     return (
-      !isFetching && cards.slice(zero, doze).map((meal, index) => (
+      !isFetching && searchCards.slice(zero, doze).map((meal, index) => (
         <Card
           key={ index }
           style={ { width: '18rem' } }
@@ -59,11 +59,11 @@ function SearchResult() {
   // Para Bebidas:
 
   if (history.location.pathname === '/bebidas') {
-    if (!isFetching && cards.length === 1) {
-      return <Redirect to={ `/bebidas/${cards[0].idDrink}` } />;
+    if (!isFetching && searchCards.length === 1) {
+      return <Redirect to={ `/bebidas/${searchCards[0].idDrink}` } />;
     }
     return (
-      !isFetching && cards.slice(zero, doze).map((drink, index) => (
+      !isFetching && searchCards.slice(zero, doze).map((drink, index) => (
         <Card
           key={ index }
           style={ { width: '18rem' } }

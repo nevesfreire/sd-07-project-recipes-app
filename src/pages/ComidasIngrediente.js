@@ -3,44 +3,53 @@ import { Card } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
-import { fetchMealsIngredients, fetchSearchMealIngredient } from '../services/api';
+import { fetchMealsIngredients } from '../services/api';
 
 export default function ComidasIngrediente() {
   const {
     isFetching,
+    setIsFetching,
     cards,
     setCards,
-    setIsFetching,
-    setMealIngredient,
     mealIngredient,
+    setMealIngredient,
+    chosenMealIngrEndpoint,
+    setChosenMealIngrEndpoint,
+    setSearchCards,
   } = useContext(RecipesContext);
 
   const history = useHistory();
 
-  const getMealsIngredients = async () => {
-    setCards(await fetchMealsIngredients());
-    setIsFetching(false);
-  };
-
   useEffect(() => {
+    const getMealsIngredients = async () => {
+      setCards(await fetchMealsIngredients());
+      setIsFetching(false);
+    };
     getMealsIngredients();
-  }, []);
+  }, [setCards, setIsFetching]);
 
   console.log(cards);
 
   const zero = 0;
   const doze = 12;
 
-  const handleMealIngrCard = async () => {
-    // const result = await fetchSearchMealIngredient(mealIngredient);
-    // console.log(mealIngredient);
-    // console.log(result);
-    history.push(`/comidas/${mealIngredient}`);
+  const handleClick = (e) => {
+    setCards([]);
+    setMealIngredient(e);
+    setChosenMealIngrEndpoint(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${mealIngredient}`);
+    history.push('/comidas');
   };
 
-  // useEffect(() => {
-  //   handleMealIngrCard();
-  // });
+  useEffect(() => {
+    const getFetchChosenIngredient = async () => {
+      const { meals } = await fetch(
+        chosenMealIngrEndpoint,
+      ).then((response) => response.json());
+      setSearchCards(meals);
+      console.log(meals);
+    };
+    getFetchChosenIngredient();
+  }, [chosenMealIngrEndpoint, mealIngredient, setChosenMealIngrEndpoint, setSearchCards]);
 
   if (isFetching) return <h5>Carregando...</h5>;
   return (
@@ -52,7 +61,7 @@ export default function ComidasIngrediente() {
           style={ { width: '18rem' } }
           data-testid={ `${index}-ingredient-card` }
           value={ `${meal.strIngredient}` }
-          onClick={ handleMealIngrCard }
+          onClick={ (e) => handleClick(e.target.value) }
         >
           <Card.Img
             variant="top"
