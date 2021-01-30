@@ -1,5 +1,4 @@
 const INITIAL_STATE = {
-  tipo: 'comidas',
   receitas: {},
   categorias: [],
 };
@@ -9,7 +8,6 @@ function fastFood(state = INITIAL_STATE, action) {
   case 'LOADRECIPES':
     return {
       ...state,
-      tipo: action.value,
       receitas: {
         ...action.object,
         redirect: true,

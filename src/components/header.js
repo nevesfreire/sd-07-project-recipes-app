@@ -30,7 +30,7 @@ class Header extends Component {
   }
 
   render() {
-    const { title, searchOn, history } = this.props;
+    const { title, searchOn, history, match } = this.props;
     const { estilo } = this.state;
     if (searchOn === 'on') {
       return (
@@ -50,7 +50,11 @@ class Header extends Component {
             src={ searchIcon }
             alt="Buscar"
           />
-          { estilo === 'visible' ? <Searchbar /> : <Categories /> }
+          {
+            estilo === 'visible'
+              ? <Searchbar match={ match } />
+              : <Categories match={ match } />
+          }
         </header>
       );
     }
@@ -70,6 +74,7 @@ class Header extends Component {
 }
 
 Header.propTypes = {
+  match: PropTypes.objectOf().isRequired,
   title: PropTypes.string.isRequired,
   searchOn: PropTypes.string.isRequired,
   history: PropTypes.objectOf({ push: PropTypes.func.isRequired }).isRequired,

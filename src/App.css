@@ -51,6 +51,16 @@
   width: 50vw;
 }
 
+.card img {
+  width: 49vw;
+}
+
+.scroller {
+  display: flex;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+}
+
 @keyframes shake {
 
   0% {
