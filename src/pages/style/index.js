@@ -1,2 +1,2 @@
 export { default as FoodsDrinks } from './FoodsDrinks';
-export const nada = 'nada';
+export { default as LoginStyle } from './Login';
