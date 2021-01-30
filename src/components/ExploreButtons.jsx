@@ -1,8 +1,13 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import GlobalContext from '../context/GlobalContext';
 
 export default function ExploreButtons() {
-  const { renderButtonExplore, redirect } = useContext(GlobalContext);
+  const { renderButtonExplore, redirect, callRandomRecipe, idRandom } = useContext(GlobalContext);
+
+  useEffect(() => {
+    callRandomRecipe();
+  }, [callRandomRecipe]);
+
   return (
     <div>
       <button
@@ -24,7 +29,7 @@ export default function ExploreButtons() {
       <button
         type="button"
         data-testid="explore-surprise"
-        onClick={ () => redirect(`/${renderButtonExplore}/:id`) }
+        onClick={ () => redirect(`/${renderButtonExplore}/${idRandom}`) }
       >
         Me Surpreenda!
       </button>
