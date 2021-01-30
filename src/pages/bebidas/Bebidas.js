@@ -16,13 +16,13 @@ class Bebidas extends React.Component {
           const DOZE = 12;
           if (index < DOZE) {
             return (
-              <div data-testid={ `${index}-recipe-card` } key={ drink.idMeal }>
+              <div data-testid={ `${index}-recipe-card` } key={ drink.idDrink }>
                 <img
-                  src={ drink.strMealThumb }
+                  src={ drink.strDrinkThumb }
                   alt="recipe pic"
                   data-testid={ `${index}-card-img` }
                 />
-                <h4 data-testid={ `${index}-card-name` }>{drink.strMeal}</h4>
+                <h4 data-testid={ `${index}-card-name` }>{drink.strDrink}</h4>
               </div>
             );
           }
@@ -37,7 +37,7 @@ class Bebidas extends React.Component {
 const mapStateToProps = (state) => ({
   toggle: state.reducerSearchBar.toggle,
   resultApi: state.reducerBebidas.recipesByNameBebida,
-  toggleFood: state.reducerSearchBar.toggleDrink,
+  toggleDrink: state.reducerSearchBar.toggleDrink,
 });
 
 export default connect(mapStateToProps)(Bebidas);

@@ -27,6 +27,11 @@
   width: 100%;
 }
 
+.iniciar-receita-fixo {
+  bottom: 0;
+  position: fixed;
+}
+
 .rocksGlass {
   animation: shake 1s infinite ease;
   max-height: 80vh;
