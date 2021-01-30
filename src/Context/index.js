@@ -1,6 +1,8 @@
 import { createContext } from 'react';
 
 const RecipesContext = createContext({
+  checkFavorite: () => {},
+  handleClickFavorite: () => {},
   verifyInProgress: () => {},
   inProgress: false,
   setInProgressRecipes: () => {},
@@ -23,6 +25,10 @@ const RecipesContext = createContext({
     setDrinksFilteredData: () => {},
     handleClickCategoryDrinks: () => {},
   },
+  isSearchBarActive: false,
+  setIsSearchBarActive: () => {},
+  searchData: '',
+  setSearchData: () => {},
 });
 
 export default RecipesContext;

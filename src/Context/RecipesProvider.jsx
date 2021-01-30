@@ -17,7 +17,11 @@ function RecipesProvider({ children }) {
   const [currentFilterDrinksCategory, setCurrentFilterDrinksCategory] = useState('All');
 
   const [inProgressRecipes, setInProgressRecipes] = useState({});
+  const [favoriteRecipes, setFavoriteRecipes] = useState([]);
   const [updatingLocalStorage, setUpdatingLocalStorage] = useState(true);
+
+  const [searchData, setSearchData] = useState('');
+  const [isSearchBarActive, setIsSearchBarActive] = useState(false);
 
   useEffect(() => {
     const inProgressRecipesString = localStorage.getItem('inProgressRecipes');
@@ -25,7 +29,13 @@ function RecipesProvider({ children }) {
 
     if (inProgressRecipesObj) {
       setInProgressRecipes(inProgressRecipesObj);
-      setUpdatingLocalStorage(false);
+    }
+
+    const favoriteRecipesString = localStorage.getItem('favoriteRecipes');
+    const favoriteRecipesObj = JSON.parse(favoriteRecipesString);
+
+    if (favoriteRecipesObj) {
+      setFavoriteRecipes(favoriteRecipesObj);
     }
     setUpdatingLocalStorage(false);
   }, []);
@@ -33,8 +43,9 @@ function RecipesProvider({ children }) {
   useEffect(() => {
     if (!updatingLocalStorage) {
       localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
     }
-  }, [inProgressRecipes, updatingLocalStorage]);
+  }, [inProgressRecipes, favoriteRecipes, updatingLocalStorage]);
 
   useEffect(() => {
     setMealsFilteredData(mealsData);
@@ -90,6 +101,59 @@ function RecipesProvider({ children }) {
     return false;
   };
 
+  const checkFavorite = (id) => {
+    const foundRecipe = favoriteRecipes.find((recipe) => recipe.id === id);
+
+    if (foundRecipe) return true;
+    return false;
+  };
+
+  const handleClickFavorite = (recipe, type) => {
+    if (type === 'meal') {
+      const { idMeal, strArea, strCategory, strMeal, strMealThumb } = recipe;
+
+      const alreadyFavorite = checkFavorite(idMeal);
+
+      if (alreadyFavorite) {
+        const filteredFavoriteRecipes = favoriteRecipes.filter(({ id }) => id !== idMeal);
+        return setFavoriteRecipes(filteredFavoriteRecipes);
+      }
+
+      const newFavorite = {
+        id: idMeal,
+        type: type === 'meal' ? 'comida' : 'bebida',
+        area: strArea,
+        category: strCategory,
+        alcoholicOrNot: '',
+        name: strMeal,
+        image: strMealThumb,
+      };
+
+      return setFavoriteRecipes((state) => [...state, newFavorite]);
+    }
+
+    const { idDrink, strCategory, strAlcoholic, strDrink, strDrinkThumb } = recipe;
+
+    const alreadyFavorite = checkFavorite(idDrink);
+
+    if (alreadyFavorite) {
+      const filteredFavoriteRecipes = favoriteRecipes.filter(({ id }) => id !== idDrink);
+      return setFavoriteRecipes(filteredFavoriteRecipes);
+    }
+
+    const newFavorite = {
+      id: idDrink,
+      type: type === 'meal' ? 'comida' : 'bebida',
+      area: '',
+      category: strCategory,
+      alcoholicOrNot: strAlcoholic,
+      name: strDrink,
+      image: strDrinkThumb,
+    };
+
+    setFavoriteRecipes((state) => [...state, newFavorite]);
+  };
+
   const handleClickStartRecipe = (id, ingredients, page) => {
     const key = page === 'meal' ? 'meals' : 'cocktails';
 
@@ -104,6 +168,8 @@ function RecipesProvider({ children }) {
   };
 
   const states = {
+    checkFavorite,
+    handleClickFavorite,
     verifyInProgress,
     handleClickStartRecipe,
     email: '',
@@ -125,6 +191,10 @@ function RecipesProvider({ children }) {
       setDrinksFilteredData,
       handleClickCategoryDrinks,
     },
+    isSearchBarActive,
+    setIsSearchBarActive,
+    searchData,
+    setSearchData,
   };
 
   return (

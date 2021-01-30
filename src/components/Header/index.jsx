@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import profile from '../../images/profileIcon.svg';
 import searchbar from '../../images/searchIcon.svg';
 
-function Header(props) {
-  const { title, onSearchChange, setIsSearchBarActive } = props;
+import Context from '../../Context';
+
+function Header({ title }) {
   const [search, setSearch] = useState(false);
   const [inputSearch, setInputSearch] = useState('');
+
+  const { setSearchData, setIsSearchBarActive } = useContext(Context);
 
   function input() {
     if (!search) {
@@ -24,7 +27,7 @@ function Header(props) {
     setInputSearch(text);
   }
   useEffect(() => {
-    onSearchChange(inputSearch);
+    setSearchData(inputSearch);
   });
   return (
     <div>
@@ -56,10 +59,6 @@ function Header(props) {
 
   );
 }
-Header.propTypes = {
-  title: PropTypes.string.isRequired,
-  onSearchChange: PropTypes.func.isRequired,
-  setIsSearchBarActive: PropTypes.func.isRequired,
-};
+Header.propTypes = { title: PropTypes.string.isRequired };
 
 export default Header;

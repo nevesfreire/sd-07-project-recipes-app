@@ -1,17 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import YouTube from 'react-youtube';
 
 import './style.css';
 
 import Context from '../../Context';
 import Meals from '../../services/meals-api';
 import Drinks from '../../services/cocktails-api';
-import Recommendation from '../Recommendation';
-
-import shareIcon from '../../images/shareIcon.svg';
-import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import Recipe from '../Recipe';
 
 const filterFoodKeys = (food) => {
   const objKeys = Object.keys(food);
@@ -28,26 +24,20 @@ const filterFoodKeys = (food) => {
   return [ingredientsObjFiltered, measuresObjFiltered];
 };
 
-const getYouTubeVideoId = (url) => {
-  if (!url) return 'MAiyzmLhIEw';
-
-  const start = url.split('').findIndex((char) => char === '=');
-  const videoId = url.slice(start + 1);
-
-  return videoId;
-};
-
 const RecipeDetails = ({ page }) => {
   const { id } = useParams();
-  const { handleClickStartRecipe, verifyInProgress } = useContext(Context);
+  const { verifyInProgress, checkFavorite } = useContext(Context);
+
   const [meal, setMeal] = useState({});
   const [drink, setDrink] = useState({});
   const [meals, setMeals] = useState([]);
   const [drinks, setDrinks] = useState([]);
   const [ingredients, setIngredients] = useState([]);
   const [measures, setMeasures] = useState([]);
+
   const [isFetching, setIsFetching] = useState(true);
   const [inProgress, setInProgress] = useState(false);
+  const [favorite, setFavorite] = useState(false);
 
   useEffect(() => {
     const isInProgress = verifyInProgress(id, page);
@@ -55,6 +45,15 @@ const RecipeDetails = ({ page }) => {
       setInProgress(true);
     }
   }, [verifyInProgress, id, page]);
+
+  useEffect(() => {
+    const isFavorite = checkFavorite(id);
+    if (isFavorite) {
+      setFavorite(true);
+    } else {
+      setFavorite(false);
+    }
+  }, [id, checkFavorite]);
 
   useEffect(() => {
     const limitToShow = 6;
@@ -96,111 +95,22 @@ const RecipeDetails = ({ page }) => {
     return <h1>Loading details...</h1>;
   }
 
-  if (page === 'meal') {
-    const { strMealThumb, strMeal, strCategory, strInstructions, strYoutube } = meal;
-
-    return (
-      <div>
-        <img src={ strMealThumb } width="150" alt="meal" data-testid="recipe-photo" />
-        <h1 data-testid="recipe-title">{strMeal}</h1>
-        <h3 data-testid="recipe-category">{strCategory}</h3>
-
-        <div>
-          <button type="button" data-testid="share-btn">
-            <img src={ shareIcon } alt="share icon" />
-          </button>
-
-          <button type="button" data-testid="favorite-btn">
-            <img src={ whiteHeartIcon } alt="favorite icon" />
-          </button>
-        </div>
-
-        <h2>Ingredients</h2>
-        <div>
-          {
-            ingredients.map((ing, index) => (
-              <p
-                key={ `${ing}-${index}` }
-                data-testid={ `${index}-ingredient-name-and-measure` }
-              >
-                {`-${ing} - ${measures[index]}`}
-              </p>
-            ))
-          }
-        </div>
-
-        <h2>Instructions</h2>
-        <p data-testid="instructions">{strInstructions}</p>
-
-        <h2 data-testid="video">Video</h2>
-        <YouTube
-          videoId={ getYouTubeVideoId(strYoutube) }
-          opts={ { height: '240', width: '360' } }
-        />
-
-        <Recommendation page={ page } recommendations={ drinks } />
-
-        <button
-          className="start-button"
-          type="button"
-          data-testid="start-recipe-btn"
-          onClick={ () => handleClickStartRecipe(id, ingredients, page) }
-        >
-          { inProgress ? 'Continuar Receita' : 'Iniciar Receita' }
-        </button>
-      </div>
-    );
-  }
-
-  const { strDrinkThumb, strDrink, strCategory, strInstructions, strAlcoholic } = drink;
+  const commonProps = {
+    page,
+    favorite,
+    ingredients,
+    meals,
+    drinks,
+    measures,
+    inProgress,
+    id,
+  };
 
   return (
-    <div>
-      <img src={ strDrinkThumb } width="150" alt="meal" data-testid="recipe-photo" />
-      <h1 data-testid="recipe-title">{strDrink}</h1>
-      <h3 data-testid="recipe-category">
-        {strAlcoholic === 'Alcoholic' ? 'Alcoholic' : strCategory}
-      </h3>
-
-      <div>
-        <button type="button" data-testid="share-btn">
-          <img src={ shareIcon } alt="share icon" />
-        </button>
-
-        <button type="button" data-testid="favorite-btn">
-          <img src={ whiteHeartIcon } alt="favorite icon" />
-        </button>
-      </div>
-
-      <h2>Ingredients</h2>
-      <div>
-        {
-          ingredients.map((ing, index) => (
-            <p
-              key={ `${ing}-${index}` }
-              data-testid={ `${index}-ingredient-name-and-measure` }
-            >
-              {`-${ing} - ${measures[index]}`}
-            </p>
-          ))
-        }
-      </div>
-
-      <h2>Instructions</h2>
-      <p data-testid="instructions">{strInstructions}</p>
-
-      <Recommendation page={ page } recommendations={ meals } />
-
-      <button
-        className="start-button"
-        type="button"
-        data-testid="start-recipe-btn"
-        onClick={ () => handleClickStartRecipe(id, ingredients, page) }
-      >
-        { inProgress ? 'Continuar Receita' : 'Iniciar Receita' }
-      </button>
-
-    </div>
+    <Recipe
+      recipe={ page === 'meal' ? meal : drink }
+      commonProps={ commonProps }
+    />
   );
 };
 
