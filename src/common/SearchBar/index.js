@@ -20,7 +20,7 @@ const SearchBar = () => {
   };
 
   return (
-    <form data-testid="search-top-btn">
+    <form>
       <input
         type="text"
         data-testid="search-input"

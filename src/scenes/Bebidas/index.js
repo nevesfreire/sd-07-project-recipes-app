@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AppContext } from '../../context/AppContext';
 import Header from '../../common/Header';
-import SearchBar from '../../common/SearchBar';
+// import SearchBar from '../../common/SearchBar';
 import './style.css';
 
 const Bebidas = () => {
@@ -19,7 +19,7 @@ const Bebidas = () => {
     }
     return (
       <div>
-        <SearchBar />
+        {/* <SearchBar /> */}
         {drinksData.drinks.slice(zero, doze).map((e, i) => (
           <div
             className="drinkContainer"
@@ -36,7 +36,7 @@ const Bebidas = () => {
   return (
     <>
       <Header />
-      <SearchBar />
+      {/* <SearchBar /> */}
       <h1>Faça uma pesquisa</h1>
     </>
   );
