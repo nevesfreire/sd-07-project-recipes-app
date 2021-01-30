@@ -1,48 +1,49 @@
-import React, { useContext } from 'react';
-import RecipesContext from '../../providers/Context/Context';
-import ShareIcon from '../../images/shareIcon.svg';
-import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import RequestFoodById from '../../services/foodByIdApi';
+import RequestDrinkByName from '../../services/nameDrinkApi';
+import Details from '../../Components/Details';
 
 const FoodDetails = ({ match: { params: { id } } }) => {
-  const { data } = useContext(RecipesContext);
-  const inicial = 9;
-  const ingrtedientsIndex = 20;
-  const currentRecipe = data.find(({ idMeal }) => idMeal === id);
+  const [currentRecipe, setCurrentRecipe] = useState({});
+  const [recommend, setRecommend] = useState(false);
+
+  useEffect(() => {
+    const fetchRecipe = async () => setCurrentRecipe(...await RequestFoodById(id));
+    const fetchRecommd = async () => {
+      const finalAPI = await RequestDrinkByName('');
+      const maxLength = 6;
+      setRecommend(finalAPI.filter((recipe, index) => index < maxLength));
+    };
+    fetchRecipe();
+    fetchRecommd();
+  }, [id]);
+  console.log(currentRecipe);
+  const initialCut = 9;
+  const endCut = 20;
+  console.log(currentRecipe);
   const ingredientes = currentRecipe && Object.values(currentRecipe)
-    .splice(inicial, ingrtedientsIndex)
+    .splice(initialCut, endCut)
     .filter((item) => item);
-  // if (!ingredientes) { return (<span className="loading">Loading...</span>); }
+
   return (
     <div>
-      { ingredientes && (
-        <div>
-          <img src={ currentRecipe.strMealThumb } alt="Thumb Food" />
-          <h2 data-testid="recipe-title">{currentRecipe.strMeal}</h2>
-          <button type="button">
-            <img src={ ShareIcon } data-testid="share-btn" alt="thumbShare" />
-          </button>
-          <button type="button">
-            <img src={ whiteHeartIcon } data-testid="favorite-btn" alt="thumbFavorite" />
-          </button>
-          <h3 data-testid="recipe-category">{currentRecipe.strCategory}</h3>
-          {ingredientes.map((ingrediente, index) => (
-            <p key={ ingrediente } data-testid={ `${index}-ingredient-name-and-measure` }>
-              {ingrediente}
-            </p>))}
-          <p data-testid="instructions">{currentRecipe.strInstructions}</p>
-          <iframe
-            title="recipe"
-            width="560"
-            height="315"
-            src={ currentRecipe.strYoutube.replace('watch?v=', 'embed/') }
-            frameBorder="0"
-            allowFullScreen
-          />
-          {/* <button type="button" data-testid={ `${index}-recomendation-card` }>comecar receita</button> */}
-        </div>
-      )}
+      { recommend && <Details
+        type="Comidas"
+        recipe={ currentRecipe }
+        recommend={ recommend }
+        ingredientes={ ingredientes }
+      />}
     </div>
   );
 };
 
 export default FoodDetails;
+
+FoodDetails.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
+};
