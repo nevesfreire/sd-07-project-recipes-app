@@ -1,10 +1,14 @@
 import {
-  GET_INGREDIENTS_DRINK, GET_NAME_DRINK, GET_FIRST_LETTER_DRINK } from './actionsBebidas';
+  GET_INGREDIENTS_DRINK,
+  GET_NAME_DRINK,
+  GET_FIRST_LETTER_DRINK,
+  GET_BY_ID_DRINK } from './actionsBebidas';
 
 const initialState = {
   recipesByIngredientsBebida: [],
   recipesByNameBebida: [],
   recipesWithLetterBebida: [],
+  recipeByIDBebida: [],
 };
 
 function reducerBebidas(state = initialState, action) {
@@ -23,6 +27,11 @@ function reducerBebidas(state = initialState, action) {
     return {
       ...state,
       recipesWithLetterBebida: action.recipesWithLetterBebida,
+    };
+  case GET_BY_ID_DRINK:
+    return {
+      ...state,
+      recipeByIdBebida: action.recipeByIdBebida,
     };
   default:
     return state;
