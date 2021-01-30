@@ -50,7 +50,7 @@ function Provider({ children }) {
     }
   };
 
-  const handleClickDetail = async (id, pathname) => {
+  const handleClickDetail = async ([_vazia, pathname, id]) => {
     const detail = await detailApi(id, pathname);
 
     setDetailRecipe(detail);

@@ -24,7 +24,6 @@ function MainMeals() {
   }
 
   const handleToDetail = (id) => {
-    handleClickDetail(id, 'comidas');
     history.push(`/comidas/${id}`);
   };
 
