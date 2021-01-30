@@ -223,7 +223,7 @@ export default function DrinkDetails(props) {
           data-testid="start-recipe-btn"
         >
           btnTitle
-          {/* {btnTitle} */}
+          {/* { btnTitle } */}
         </button>
       )}
     </div>
