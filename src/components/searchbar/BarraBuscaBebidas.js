@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { resultIngredientsBebida,
   resultNameBebida,
-  resultLetterBebida } from '../../redux/actionsBebidas';
+  resultLetterBebida,
+  resultIDBebida } from '../../redux/actionsBebidas';
 
 class BarraBuscaBebidas extends Component {
   constructor() {
@@ -24,10 +25,11 @@ class BarraBuscaBebidas extends Component {
   }
 
   findContent() {
-    const { resultApiBebida, history } = this.props;
+    const { resultApiBebida, history, getByIDBebida } = this.props;
     if (resultApiBebida === null) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     } else if (resultApiBebida.length === 1) {
+      getByIDBebida(resultApiBebida[0].idDrink);
       history.push(`/bebidas/${resultApiBebida[0].idDrink}`);
     }
   }
@@ -125,6 +127,7 @@ const mapDispatchToProps = (dispatch) => ({
   getIngredientBebida: (ingredient) => dispatch(resultIngredientsBebida(ingredient)),
   getNameBebida: (name) => dispatch(resultNameBebida(name)),
   getLetterBebida: (letter) => dispatch(resultLetterBebida(letter)),
+  getByIDBebida: (id) => dispatch(resultIDBebida(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BarraBuscaBebidas);
@@ -137,4 +140,5 @@ BarraBuscaBebidas.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
+  getByIDBebida: PropTypes.func.isRequired,
 };

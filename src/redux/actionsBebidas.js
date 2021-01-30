@@ -1,6 +1,7 @@
 export const GET_INGREDIENTS_DRINK = 'GET_INGREDIENTS_DRINK';
 export const GET_NAME_DRINK = 'GET_NAME_DRINK';
 export const GET_FIRST_LETTER_DRINK = 'GET_FIRST_LETTER_DRINK';
+export const GET_BY_ID_DRINK = 'GET_BY_ID_DRINK';
 
 export const getIngredientsBebida = (recipesByIngredientsBebida) => ({
   type: GET_INGREDIENTS_DRINK,
@@ -48,4 +49,20 @@ async function fetchLetterBebida(letterBebida) {
 export const resultLetterBebida = (letterBebida) => async (dispatch) => {
   const recipes = await fetchLetterBebida(letterBebida);
   dispatch(getLetterBebida(recipes.drinks));
+};
+
+export const getByIDBebida = (recipeByIdBebida) => ({
+  type: GET_BY_ID_DRINK,
+  recipeByIdBebida,
+});
+
+async function fetchByIDBebida(id) {
+  const responseAPI = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+  const recipeByID = await responseAPI.json();
+  return recipeByID;
+}
+
+export const resultIDBebida = (id) => async (dispatch) => {
+  const recipe = await fetchByIDBebida(id);
+  dispatch(getByIDBebida(recipe.drinks[0]));
 };

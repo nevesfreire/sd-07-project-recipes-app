@@ -1,10 +1,15 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class ComidaDetalhes extends React.Component {
+  componentDidMount() {
+    const { match: { params } } = this.props;
+    const { id } = params;
+    const result = fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+    console.log(result);
+  }
+
   render() {
-    // const { recipeById } = this.props;
-    // console.log(recipeById);
     return (
       <div className="ComidaDetalhes">
         {/* <img data-testid="recipe-photo" src="" /> */}
@@ -43,8 +48,10 @@ class ComidaDetalhes extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  recipeById: state.reducerComidas.recipeById,
-});
+export default ComidaDetalhes;
 
-export default connect(mapStateToProps)(ComidaDetalhes);
+ComidaDetalhes.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.string,
+  }).isRequired,
+};

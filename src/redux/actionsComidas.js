@@ -64,5 +64,5 @@ async function fetchByID(id) {
 
 export const resultID = (id) => async (dispatch) => {
   const recipe = await fetchByID(id);
-  dispatch(getByID(recipe.meals));
+  dispatch(getByID(recipe.meals[0]));
 };
