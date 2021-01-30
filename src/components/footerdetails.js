@@ -17,13 +17,33 @@ class Footerdetails extends Component {
   render() {
     const { hi, id, pa } = this.props;
     const aFazer = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const keysMeals = Object.keys(aFazer.meals);
-    const keysCocktails = Object.keys(aFazer.cocktails);
-    const filtroMeals = keysMeals.filter((key) => key === id);
-    const filtroCocktails = keysCocktails.filter((key) => key === id);
-    if (pa === 'D') {
+    if (aFazer.cocktails) {
+      const keysCocktails = Object.keys(aFazer.cocktails);
+      const filtroCocktails = keysCocktails.filter((key) => key === id);
+      if (pa === 'D') {
+        let mensagem;
+        if (!filtroCocktails.length) {
+          mensagem = 'Iniciar Receita';
+        } else {
+          mensagem = 'Continuar Receita';
+        }
+        return (
+          <button
+            className="footer"
+            data-testid="start-recipe-btn"
+            type="button"
+            onClick={ () => hi.push(`/bebidas/${id}/in-progress`) }
+          >
+            { mensagem }
+          </button>
+        );
+      }
+    }
+    if (aFazer.meals) {
+      const keysMeals = Object.keys(aFazer.meals);
+      const filtroMeals = keysMeals.filter((key) => key === id);
       let mensagem;
-      if (!filtroCocktails.length) {
+      if (!filtroMeals.length) {
         mensagem = 'Iniciar Receita';
       } else {
         mensagem = 'Continuar Receita';
@@ -33,28 +53,12 @@ class Footerdetails extends Component {
           className="footer"
           data-testid="start-recipe-btn"
           type="button"
-          onClick={ () => hi.push(`/bebidas/${id}/in-progress`) }
+          onClick={ () => hi.push(`/comidas/${id}/in-progress`) }
         >
           { mensagem }
         </button>
       );
     }
-    let mensagem;
-    if (!filtroMeals.length) {
-      mensagem = 'Iniciar Receita';
-    } else {
-      mensagem = 'Continuar Receita';
-    }
-    return (
-      <button
-        className="footer"
-        data-testid="start-recipe-btn"
-        type="button"
-        onClick={ () => hi.push(`/comidas/${id}/in-progress`) }
-      >
-        { mensagem }
-      </button>
-    );
   }
 }
 

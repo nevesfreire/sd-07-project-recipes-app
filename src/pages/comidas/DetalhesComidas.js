@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import clipboardCopy from 'clipboard-copy';
 import ReactPlayer from 'react-player';
 import Footerdetails from '../../components/footerdetails';
 import { fetchFoodId } from '../../services';
@@ -16,10 +17,12 @@ class DetalhesComidas extends Component {
     this.favorit = this.favorit.bind(this);
     this.Meals = this.Meals.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.copy = this.copy.bind(this);
     this.componentDidMount2 = this.componentDidMount2.bind(this);
     this.state = {
       receita: {},
       favorito: false,
+      mensagem: null,
     };
     const feitas = JSON.parse(localStorage.getItem('doneRecipes'));
     if (!feitas) {
@@ -105,29 +108,28 @@ class DetalhesComidas extends Component {
         const limit = 6;
         if (index < limit) {
           return (
-            <button
-              className="cardrec"
-              name={ receita.idDrink }
-              type="button"
-              onClick={ ({ target }) => this.handleClick(target.name) }
-              key={ index }
-              data-testid={ `${index}-recomendation-card` }
-            >
-              <img
-                className="cardrec"
-                data-testid={ `${index}-recomendation-img` }
+            <div className="card">
+              <button
                 name={ receita.idDrink }
-                src={ receita.strDrinkThumb }
-                alt="imagem da receita"
-              />
+                type="button"
+                onClick={ ({ target }) => this.handleClick(target.name) }
+                key={ index }
+                data-testid={ `${index}-recomendation-card` }
+              >
+                <img
+                  data-testid={ `${index}-recomendation-img` }
+                  name={ receita.idDrink }
+                  src={ receita.strDrinkThumb }
+                  alt="imagem da receita"
+                />
+              </button>
               <h1
                 data-testid={ `${index}-recomendation-title` }
-                className="cardrec"
                 name={ receita.idDrink }
               >
                 {receita.strDrink}
               </h1>
-            </button>
+            </div>
           );
         }
         return null;
@@ -135,9 +137,16 @@ class DetalhesComidas extends Component {
     }
   }
 
+  copy() {
+    const time = 3000;
+    clipboardCopy(window.location.href);
+    this.setState({ mensagem: 'Link copiado!' });
+    setInterval(() => this.setState({ mensagem: null }), time);
+  }
+
   render() {
     const { history } = this.props;
-    const { receita, favorito } = this.state;
+    const { receita, favorito, mensagem } = this.state;
     const feitas = JSON.parse(localStorage.getItem('doneRecipes'));
     const feito = feitas.filter((elemento) => receita.idMeal === elemento.id);
     const keys = Object.entries(receita);
@@ -156,7 +165,9 @@ class DetalhesComidas extends Component {
           data-testid="share-btn"
           src={ shareIcon }
           alt="compartilhar"
+          onClick={ () => this.copy() }
         />
+        {mensagem}
         <input
           type="image"
           data-testid="favorite-btn"
@@ -168,7 +179,7 @@ class DetalhesComidas extends Component {
         <div>
           {
             ingredientes.map((ingrediente, index) => {
-              if (ingrediente[1] !== '') {
+              if (ingrediente[1] !== '' && ingrediente[1] !== null) {
                 return (
                   <h4
                     key={ `${index}-ingredient-name-and-measure` }
@@ -189,7 +200,7 @@ class DetalhesComidas extends Component {
           data-testid="video"
           url={ receita.strYoutube }
         />
-        <div>
+        <div className="carousel scroller">
           {
             this.Meals()
           }
