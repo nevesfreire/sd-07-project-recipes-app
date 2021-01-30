@@ -5,15 +5,17 @@ import profile from '../../images/profileIcon.svg';
 import searchbar from '../../images/searchIcon.svg';
 
 function Header(props) {
-  const { title, onSearchChange } = props;
+  const { title, onSearchChange, setIsSearchBarActive } = props;
   const [search, setSearch] = useState(false);
   const [inputSearch, setInputSearch] = useState('');
 
   function input() {
     if (!search) {
       setSearch(true);
+      setIsSearchBarActive(true);
     } else {
       setSearch(false);
+      setIsSearchBarActive(false);
     }
   }
 
@@ -22,7 +24,6 @@ function Header(props) {
     setInputSearch(text);
   }
   useEffect(() => {
-    console.log('rodei');
     onSearchChange(inputSearch);
   });
   return (
@@ -58,6 +59,7 @@ function Header(props) {
 Header.propTypes = {
   title: PropTypes.string.isRequired,
   onSearchChange: PropTypes.func.isRequired,
+  setIsSearchBarActive: PropTypes.func.isRequired,
 };
 
 export default Header;

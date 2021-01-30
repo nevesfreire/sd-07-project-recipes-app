@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import Header from '../../components/Header/index';
 import SearchBarFood from '../../components/SearchBarFood/SearchBarFood';
-// import Grid from '../../components/Grid';
+import Grid from '../../components/Grid';
 import Footer from '../../components/Footer';
 
 function FoodPage() {
   const [data, setData] = useState('');
+  const [isSearchBarActive, setIsSearchBarActive] = useState(false);
   function setValueSearch(value) {
     setData(value);
   }
@@ -14,11 +15,14 @@ function FoodPage() {
       <Header
         title="Comidas"
         onSearchChange={ setValueSearch }
+        setIsSearchBarActive={ setIsSearchBarActive }
       />
       <SearchBarFood
         searchValue={ data }
       />
-      {/* <Grid page="meals" /> */}
+      {
+        !isSearchBarActive && <Grid page="meals" />
+      }
       <Footer />
     </div>
   );
