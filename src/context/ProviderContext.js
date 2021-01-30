@@ -4,12 +4,17 @@ import RecipeContext from './RecipeContext';
 
 function ProviderContext({ children }) {
   const [showBtn, setShowBtn] = useState(false);
+  const [data, setData] = useState({ food: [], drink: [] });
+
   const searchClick = () => (
     showBtn === true ? setShowBtn(false) : setShowBtn(true)
   );
+
   const contextValue = {
     showBtn,
     searchClick,
+    data,
+    setData,
   };
 
   return (
