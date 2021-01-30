@@ -8,12 +8,125 @@ export default function GlobalProvider({ children }) {
   const [title, setTitle] = useState('');
   const [searchButton, setSearchButton] = useState(true);
   const [searchBar, setSearchBar] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [recipesDone, setRecipesDone] = useState([]);
+  const [recipesInProgress, setRecipesInProgress] = useState([]);
   const [state, setState] = useState(geral);
   const {
     initialState: { email, password },
     initialFoods: { dataFoods },
     initialDrinks: { dataDrinks },
+    detailRecipes: {
+        recipeId,
+        recipeTitle,
+        recipeImage,
+        recipeArea,
+        recipeAlc,
+        recipeCategory,
+        recipeIngredients,
+        recipeInstructions,
+        recipeVideo,
+        recipeRecommendations,
+        recipeTags,
+    },
   } = state;
+
+  const setRecipeId = (value) => {
+    const newRecipeID = state.recipe;
+    newRecipeID.recipeId = value;
+    updateState('recipe', newRecipeID);
+  }
+
+  const setRecipeTitle = (value) => {
+    const newRecipeTitle = state.recipe;
+    newRecipeTitle.recipeTitle = value;
+    updateState('recipe', newRecipeTitle);
+  }
+
+  const setRecipeImage = (value) => {
+    const newRecipeImage = state.recipe;
+    newRecipeImage.recipeImage = value;
+    updateState('recipe', newRecipeImage);
+  }
+
+  const setRecipeArea = (value) => {
+    const newRecipeArea = state.recipe;
+    newRecipeArea.recipeArea = value;
+    updateState('recipe', newRecipeArea);
+  }
+
+  const setRecipeAlc = (value) => {
+    const newRecipeAlc = state.recipe;
+    newRecipeAlc.recipeAlc = value;
+    updateState('recipe', newRecipeAlc);
+  }
+
+  const setRecipeCategory = (value) => {
+    const newRecipeCategory = state.recipe;
+    newRecipeCategory.recipeCategory = value;
+    updateState('recipe', newRecipeCategory);
+  }
+
+  const setRecipeIngredients = (value) => {
+    const newRecipeIngredients = state.recipe;
+    newRecipeIngredients.recipeIngredients = value;
+    updateState('recipe', newRecipeIngredients);
+  }
+
+  const setRecipeInstructions = (value) => {
+    const newRecipeInstructions = state.recipe;
+    newRecipeInstructions.recipeInstructions = value;
+    updateState('recipe', newRecipeInstructions);
+  }
+
+  const setRecipeVideo = (value) => {
+    const newReciperecipeVideo = state.recipe;
+    newReciperecipeVideo.recipeVideo = value;
+    updateState('recipe', newReciperecipeVideo);
+  }
+
+  const setRecipeRecommendations = (value) => {
+    const newRecipeRecommendations = state.recipe;
+    newRecipeRecommendations.recipeRecommendations = value;
+    updateState('recipe', newRecipeRecommendations);
+  }
+
+  const setRecipeTags = (value) => {
+    const newRecipeTags = state.recipe;
+    newRecipeTags.recipeTags = value;
+    updateState('recipe', newRecipeTags);
+  }
+
+  const recipeObject = {
+    recipeId,
+    setRecipeId,
+    recipeTitle,
+    setRecipeTitle,
+    recipeImage,
+    setRecipeImage,
+    recipeArea,
+    setRecipeArea,
+    recipeAlc,
+    setRecipeAlc,
+    recipeCategory,
+    setRecipeCategory,
+    recipeIngredients,
+    setRecipeIngredients,
+    recipeInstructions,
+    setRecipeInstructions,
+    recipeVideo,
+    setRecipeVideo,
+    recipeRecommendations,
+    setRecipeRecommendations,
+    recipeTags,
+    setRecipeTags,
+    searchTerm,
+    setSearchTerm,
+    recipesDone,
+    setRecipesDone,
+    recipesInProgress,
+    setRecipesInProgress,
+  };
 
   function updateState(key, value) {
     setState((prevState) => ({
@@ -40,6 +153,7 @@ export default function GlobalProvider({ children }) {
         setSearchBar,
         dataFoods,
         dataDrinks,
+        recipeObject,
         setDataFoods: (value) => {
           const newInitialFoods = state.initialFoods;
           newInitialFoods.dataFoods = value;
