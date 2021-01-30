@@ -6,6 +6,7 @@ import {
   resultName,
   resultLetter,
   resultID } from '../../redux/actionsComidas';
+import toggleCardFood from '../../redux/reducerSearchBar';
 
 class BarraBuscaComidas extends Component {
   constructor() {
@@ -26,12 +27,16 @@ class BarraBuscaComidas extends Component {
   }
 
   findContent() {
-    const { resultApi, history, getByID } = this.props;
+    const { resultApi, history, getByID, toggleFood } = this.props;
     if (resultApi === null) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      toggleFood(false);
     } else if (resultApi.length === 1) {
+      toggleFood(false);
       getByID(resultApi[0].idMeal);
       history.push(`/comidas/${resultApi[0].idMeal}`);
+    } else {
+      toggleFood(true);
     }
   }
 
@@ -129,6 +134,7 @@ const mapDispatchToProps = (dispatch) => ({
   getName: (name) => dispatch(resultName(name)),
   getLetter: (letter) => dispatch(resultLetter(letter)),
   getByID: (id) => dispatch(resultID(id)),
+  toggleFood: (toggleToFood) => dispatch(toggleCardFood(toggleToFood)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BarraBuscaComidas);
@@ -142,4 +148,5 @@ BarraBuscaComidas.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
+  toggleFood: PropTypes.func.isRequired,
 };
