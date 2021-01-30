@@ -143,10 +143,11 @@ function Details({ itemId, mealType }) {
       type: mealType === 'Meal' ? 'comida' : 'bebida',
       area: mealType === 'Meal' ? details.strArea : '',
       category: details.strCategory,
-      alcoholicOrNot: mealType === 'Drinks' ? details.strAlcoholic : '',
-      name: `str${mealType}`,
-      image: `str${mealType}Thumb`,
+      alcoholicOrNot: mealType === 'Drink' ? details.strAlcoholic : '',
+      name: details[`str${mealType}`],
+      image: details[`str${mealType}Thumb`],
     };
+
     let favList = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (favList) {
       if (favList.filter((item) => item.id === itemId).length > zero) {
