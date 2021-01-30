@@ -1,9 +1,9 @@
-button.start-recipe {
+.start-recipe {
   bottom: 0;
   display: none;
   position: fixed;
 }
 
-p.copy-feedback {
+.copy-feedback {
   color: green;
 }
