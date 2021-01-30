@@ -4,10 +4,12 @@ const end = 12;
 export const fetchAllCocktails = async (
   searcher = '',
   category = '',
-  initArr = start,
-  endArr = end,
+  type = 's',
 ) => {
-  const URL_ALL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searcher}`;
+  const URL_BASE = type === 'i'
+    ? 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?'
+    : 'https://www.thecocktaildb.com/api/json/v1/1/search.php?';
+  const URL_ALL = `${URL_BASE}${type}=${searcher}`;
   const URL_CATEGORY = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
 
   const URL = category === '' ? URL_ALL : URL_CATEGORY;
@@ -15,7 +17,11 @@ export const fetchAllCocktails = async (
 
   const resolveJson = await resolve.json();
 
-  const limitArray = resolveJson.drinks.slice(initArr, endArr);
+  if (!resolveJson.drinks) {
+    return [];
+  }
+
+  const limitArray = resolveJson.drinks.slice(start, end);
 
   return limitArray;
 };
