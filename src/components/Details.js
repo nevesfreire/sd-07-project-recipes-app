@@ -7,6 +7,8 @@ import {
   fetchGlobalMeal,
   fetchGlobalDrink,
 } from '../services/API';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import CardList from './CardList';
 
 const copy = require('clipboard-copy');
@@ -23,6 +25,9 @@ function Details({ itemId, mealType }) {
   const [showMessage, setShowMessage] = useState('hidden');
   const [beginBtn, setBeginBtn] = useState('Iniciar');
   const [hideBtn, setHideBtn] = useState('');
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const { strInstructions } = details;
 
   useEffect(() => {
     const getRecommendation = async () => {
@@ -56,6 +61,14 @@ function Details({ itemId, mealType }) {
         if (keys.includes(itemId)) setBeginBtn('Continuar Receita');
       }
     };
+
+    const checkFavorites = () => {
+      const list = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      if (list !== null && list.filter((item) => item.id === itemId).length > zero) {
+        setIsFavorite(true);
+      }
+    };
+    checkFavorites();
     checkForCompletion();
     checkForProgress();
   }, [itemId, mealType, recommendation]);
@@ -139,15 +152,18 @@ function Details({ itemId, mealType }) {
       if (favList.filter((item) => item.id === itemId).length > zero) {
         favList = favList.filter((item) => item.id !== itemId);
         localStorage.setItem('favoriteRecipes', JSON.stringify(favList));
+        setIsFavorite(false);
       } else {
+        setIsFavorite(true);
         localStorage.setItem('favoriteRecipes', JSON.stringify([...favList, data]));
       }
     } else {
+      setIsFavorite(true);
       localStorage.setItem('favoriteRecipes', JSON.stringify([data]));
     }
   };
 
-  const showDetails = () => (
+  return (
     <div className="details">
       <img
         alt="Meal Thumbnail"
@@ -164,14 +180,17 @@ function Details({ itemId, mealType }) {
       >
         Compartilhar
       </button>
-      <button
-        src="../images/whiteHeartIcon.svg"
+      <a
         type="button"
         data-testid="favorite-btn"
         onClick={ () => addToFavorites() }
+        src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
       >
+        <img
+          src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+        />
         Favoritar
-      </button>
+      </a>
       <h5 hidden={ showMessage }>Link copiado!</h5>
       <h5 width="90%" data-testid="recipe-category">
         {
@@ -181,9 +200,15 @@ function Details({ itemId, mealType }) {
         }
       </h5>
       { loadIngredients()}
-      <p width="90%" data-testid="instructions">{details.strInstructions}</p>
+      <p width="90%" data-testid="instructions">{strInstructions}</p>
       {mealType === 'Meal'
-        && (<a data-testid="video" href={ details.strYoutube }>Video</a>)}
+        && (<iframe
+          data-testid="video"
+          width="420"
+          height="315"
+          src={ details.strYoutube }
+          width="80%"
+        />)}
       <CardList
         arrayOfCard={ recommendation }
         typeOfCard={ mealType === 'Meal' ? 'Drink' : 'Meal' }
@@ -200,12 +225,6 @@ function Details({ itemId, mealType }) {
       >
         {beginBtn}
       </button>
-    </div>
-  );
-
-  return (
-    <div>
-      {showDetails()}
     </div>
   );
 }
