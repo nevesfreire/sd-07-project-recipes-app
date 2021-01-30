@@ -5,10 +5,13 @@ import Header from '../../components/Header';
 
 export default function Perfil() {
   const user = JSON.parse(localStorage.getItem('user'));
+  // if(user === null){
+  //   user = "email nao cadastrado"
+  // }
   return (
     <div>
       <Header title="Perfil" />
-      <h3 data-testid="profile-email">{user.email}</h3>
+      <h3 data-testid="profile-email">{user !== null ? user.email : 'email'}</h3>
       <Link to="/receitas-feitas" data-testid="profile-done-btn">
         Receitas Feitas
       </Link>
