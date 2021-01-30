@@ -24,7 +24,6 @@ function DrinkPage() {
         !isSearchBarActive && <Grid page="drinks" />
       }
       <Footer />
-
     </div>
   );
 }
