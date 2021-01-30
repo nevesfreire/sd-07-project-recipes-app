@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { AppContext } from '../../../context/AppContext';
-import SearchBar from '../../SearchBar';
 import searchIcon from '../../../images/searchIcon.svg';
+import '../style.css';
 
 export default function SearchButton(props) {
   const { pathname } = props;
@@ -28,10 +28,10 @@ export default function SearchButton(props) {
           id="search-icon"
           type="image"
           alt="search-image"
+          className="search-button"
           data-testid="search-top-btn"
           onClick={ () => hedleChange() }
         />}
-      { searchInput && <SearchBar /> }
     </div>
   );
 }

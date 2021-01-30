@@ -1,25 +1,25 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import { AppContext } from '../../context/AppContext';
 import TitleHeader from './components/TitleHeader';
 import ProfileButton from './components/ProfileButton';
 import SearchButton from './components/SearchButton';
+import SearchBar from '../SearchBar';
+import './style.css';
 
 export default function Header() {
   const { pathname } = useHistory().location;
+  const { inputStatus } = useContext(AppContext);
+  const { searchInput } = inputStatus;
 
   return (
     <div>
-      <div>
-        <TitleHeader pathname={ pathname } />
-      </div>
-
-      <div>
+      <header className="header">
         <ProfileButton />
-      </div>
-
-      <div>
+        <TitleHeader pathname={ pathname } />
         <SearchButton pathname={ pathname } />
-      </div>
+      </header>
+      { searchInput && <SearchBar /> }
     </div>
   );
 }
