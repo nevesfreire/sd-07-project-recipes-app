@@ -1,4 +1,4 @@
-const fetchDrinkByIngredient = async (ingredient) => {
+export const fetchDrinkByIngredient = async (ingredient) => {
   const request = await fetch(
     `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`,
   );
@@ -6,7 +6,7 @@ const fetchDrinkByIngredient = async (ingredient) => {
   return response;
 };
 
-const fetchDrinkByName = async (name) => {
+export const fetchDrinkByName = async (name) => {
   const request = await fetch(
     `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`,
   );
@@ -14,7 +14,7 @@ const fetchDrinkByName = async (name) => {
   return response;
 };
 
-const fetchDrinkByFirstLetter = async (letter) => {
+export const fetchDrinkByFirstLetter = async (letter) => {
   const request = await fetch(
     `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${letter}`,
   );
@@ -22,7 +22,7 @@ const fetchDrinkByFirstLetter = async (letter) => {
   return response;
 };
 
-const fetchAllDrinkRecipes = async () => {
+export const fetchAllDrinkRecipes = async () => {
   const request = await fetch(
     'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
   );
@@ -30,7 +30,7 @@ const fetchAllDrinkRecipes = async () => {
   return response;
 };
 
-const fetchAllDrinkCategories = async () => {
+export const fetchAllDrinkCategories = async () => {
   const request = await fetch(
     'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list',
   );
@@ -38,7 +38,7 @@ const fetchAllDrinkCategories = async () => {
   return response;
 };
 
-const fetchFilterDrinkByCategory = async (category) => {
+export const fetchFilterDrinkByCategory = async (category) => {
   const request = await fetch(
     `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`,
   );
@@ -46,7 +46,7 @@ const fetchFilterDrinkByCategory = async (category) => {
   return response;
 };
 
-const fetchDrinkDetailById = async (id) => {
+export const fetchDrinkDetailById = async (id) => {
   const request = await fetch(
     `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`,
   );
@@ -54,7 +54,7 @@ const fetchDrinkDetailById = async (id) => {
   return response;
 };
 
-const fetchRandomDrinkRecipes = async () => {
+export const fetchRandomDrinkRecipes = async () => {
   const request = await fetch(
     'https://www.thecocktaildb.com/api/json/v1/1/random.php.',
   );
@@ -62,13 +62,13 @@ const fetchRandomDrinkRecipes = async () => {
   return response;
 };
 
-export {
-  fetchDrinkByIngredient,
-  fetchDrinkByName,
-  fetchDrinkByFirstLetter,
-  fetchAllDrinkRecipes,
-  fetchAllDrinkCategories,
-  fetchFilterDrinkByCategory,
-  fetchDrinkDetailById,
-  fetchRandomDrinkRecipes,
-};
+// export {
+//   fetchDrinkByIngredient,
+//   fetchDrinkByName,
+//   fetchDrinkByFirstLetter,
+//   fetchAllDrinkRecipes,
+//   fetchAllDrinkCategories,
+//   fetchFilterDrinkByCategory,
+//   fetchDrinkDetailById,
+//   fetchRandomDrinkRecipes,
+// };

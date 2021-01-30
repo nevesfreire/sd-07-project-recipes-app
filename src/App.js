@@ -3,7 +3,6 @@ import './App.css';
 import { Route, BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import RecipesProvider from './context/RecipesProvider';
-import RecipesContext from './context/RecipesContext';
 import Login from './pages/Login';
 import MainRecipes from './pages/MainRecipes';
 import MainDrinks from './pages/MainDrinks';
@@ -27,8 +26,16 @@ function App() {
           <Route exact path="/" component={ Login } />
           <Route exact path="/comidas" component={ MainRecipes } />
           <Route exact path="/bebidas" component={ MainDrinks } />
-          <Route exact path="/comidas/52771" component={ RecipesDetails } />
-          <Route exact path="/bebidas/178319" component={ DrinksDetails } />
+          <Route
+            exact
+            path="/comidas/:id"
+            render={ (props) => <RecipesDetails { ...props } /> }
+          />
+          <Route
+            exact
+            path="/bebidas/:id"
+            render={ (props) => <DrinksDetails { ...props } /> }
+          />
           <Route exact path="/comidas/{id-da-receita}/in-progress" />
           <Route exact path="/bebidas/{id-da-receita}/in-progress" />
           <Route exact path="/explorar" component={ Explorer } />
