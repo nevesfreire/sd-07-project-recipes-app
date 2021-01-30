@@ -8,7 +8,12 @@ class Origem extends Component {
     const { history, match } = this.props;
     return (
       <div>
-        <Header title="Explorar Origem" searchOn="on" history={ history } match={ match } />
+        <Header
+          title="Explorar Origem"
+          searchOn="on"
+          history={ history }
+          match={ match }
+        />
         <Footer history={ history } />
       </div>
     );
