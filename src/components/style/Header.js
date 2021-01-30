@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const HeaderStyle = {
   Container: styled.header`
     align-items: center;
-    background-color: ${(p) => p.bgColor};
+    background-color: #0fa36b;
     display: flex;
     flex-direction: column;
     height: auto;

@@ -136,11 +136,6 @@ export default function GlobalProvider({ children }) {
         },
 
         styles,
-        setStyle: useCallback((elem, key, value) => {
-          const newStyles = state.styledComponents;
-          newStyles.styles[elem][key] = value;
-          updateState('styledComponents', newStyles);
-        }, [state.styledComponents]),
 
         randomRecipeDetail,
         renderButtonExplore,

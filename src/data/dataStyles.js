@@ -10,8 +10,8 @@ const styledComponents = {
         spoon: '#f2f2f2',
         text: '#c83737',
       },
-      borderRadius: 0,
-      animation: false,
+      borderRadius: '50%',
+      animation: true,
     },
   },
 };

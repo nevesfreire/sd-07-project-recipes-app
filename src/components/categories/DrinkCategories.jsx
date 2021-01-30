@@ -37,7 +37,7 @@ export default function DrinkCategories() {
   }, [fetchDrinkCategories]);
 
   return (
-    <BtnBar>
+    <BtnBar id="drinks">
       {Buttons(numberOfCategories, drinkCategories)}
     </BtnBar>
   );

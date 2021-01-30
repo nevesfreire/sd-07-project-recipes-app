@@ -8,7 +8,6 @@ import { HeaderStyle } from './style';
 
 function Header() {
   const {
-    styles: { colorTheme: { main } },
     title,
     searchButton,
     searchBar,
@@ -41,7 +40,7 @@ function Header() {
   );
 
   return (
-    <Container bgColor={ main }>
+    <Container>
       <InfoDisplay>
         <Link to="/perfil">
           <img

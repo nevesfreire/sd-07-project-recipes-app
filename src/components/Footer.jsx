@@ -1,6 +1,5 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import mealIcon from '../images/mealIcon.svg';
-import GlobalContext from '../context/GlobalContext';
 import exploreIcon from '../images/exploreIcon.svg';
 import drinkIcon from '../images/drinkIcon.svg';
 import { FooterStyle } from './style';
@@ -8,9 +7,8 @@ import { FooterStyle } from './style';
 const { Container } = FooterStyle;
 
 export default function Footer() {
-  const { styles: { colorTheme: { main } } } = useContext(GlobalContext);
   return (
-    <Container data-testid="footer" bgColor={ main }>
+    <Container data-testid="footer">
       <a href="/comidas">
         <img
           src={ mealIcon }

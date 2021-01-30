@@ -37,7 +37,7 @@ export default function FoodCategories() {
   }, [fetchFoodCategories]);
 
   return (
-    <BtnBar>
+    <BtnBar id="foods">
       {Buttons(numberOfCategories, foodCategories)}
     </BtnBar>
   );

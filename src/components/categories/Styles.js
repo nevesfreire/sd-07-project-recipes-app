@@ -1,10 +1,16 @@
+// créditos das fotos:
+// drinks: Chuttersnap - https://unsplash.com/@chuttersnap
+// foods: Asiya Kiev - https://unsplash.com/@saileyas
 import styled from 'styled-components';
 
 const Styles = {
   BtnBar: styled.div`
   align-items: center;
-  background-color: rgba(76,76,76,1);
-  box-shadow: 0 1px 4px rgba(0,0,0,0.46);
+  background-image: 
+  url('/categoryImage/${({ id }) => id}.jpg');
+  background-size: 100%;
+  background-attachment: fixed;
+  box-shadow:inset 0 0 0 2000px rgba(255, 0, 150, 0.2);
   display: flex;
   flex-wrap: wrap;
   overflow: scroll;

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import GlobalContext from '../context/GlobalContext';
 import { LoginStyle } from './style';
@@ -21,13 +21,7 @@ export default function Login(props) {
     password,
     setEmail,
     setPassword,
-    setStyle,
   } = context;
-
-  useEffect(() => {
-    setStyle('logo', 'borderRadius', '50%');
-    setStyle('logo', 'animation', 'true');
-  }, [setStyle]);
 
   const infoVerifier = () => {
     const minimumPasswordLength = 6;
