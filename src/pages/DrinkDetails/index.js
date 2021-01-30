@@ -1,22 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import RequestDrinkById from '../../services/drinkByIdApi';
-import RequestFoodByName from '../../services/nameFoodApi';
 import Details from '../../Components/Details';
+import RequestDrinkById from '../../services/drinkByIdApi';
+import FoodProvider from '../../providers/Context/Context';
 
 const DrinkDetails = ({ match: { params: { id } } }) => {
   const [currentRecipe, setCurrentRecipe] = useState({});
-  const [recommend, setRecommend] = useState([]);
+  const { data } = useContext(FoodProvider);
+  const maxLength = 6;
+  const recommend = data.filter((recipe, index) => index < maxLength);
 
   useEffect(() => {
     const fetchRecipe = async () => setCurrentRecipe(...await RequestDrinkById(id));
-    const fetchRecommd = async () => {
-      const finalAPI = await RequestFoodByName('');
-      const maxLength = 6;
-      setRecommend(finalAPI.filter((recipe, index) => index < maxLength));
-    };
     fetchRecipe();
-    fetchRecommd();
   }, [id]);
 
   const startIndex = 21;
@@ -27,12 +23,13 @@ const DrinkDetails = ({ match: { params: { id } } }) => {
 
   return (
     <div>
-      { recommend && <Details
-        type="Bebidas"
+      <Details
+        id={ id }
+        type="bebida"
         recipe={ currentRecipe }
         recommend={ recommend }
         ingredientes={ ingredientes }
-      />}
+      />
     </div>
   );
 };
