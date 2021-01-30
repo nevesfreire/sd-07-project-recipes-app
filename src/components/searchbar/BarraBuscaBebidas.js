@@ -5,7 +5,7 @@ import { resultIngredientsBebida,
   resultNameBebida,
   resultLetterBebida,
   resultIDBebida } from '../../redux/actionsBebidas';
-import toggleCardDrink from '../../redux/reducerSearchBar';
+import { toggleCardDrink } from '../../redux/actionsSearchBar';
 
 class BarraBuscaBebidas extends Component {
   constructor() {
@@ -35,7 +35,7 @@ class BarraBuscaBebidas extends Component {
       getByIDBebida(resultApiBebida[0].idDrink);
       history.push(`/bebidas/${resultApiBebida[0].idDrink}`);
     } else {
-      toggleDrink(false);
+      toggleDrink(true);
     }
   }
 

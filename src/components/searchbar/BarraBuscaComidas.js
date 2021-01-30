@@ -6,7 +6,7 @@ import {
   resultName,
   resultLetter,
   resultID } from '../../redux/actionsComidas';
-import toggleCardFood from '../../redux/reducerSearchBar';
+import { toggleCardFood } from '../../redux/actionsSearchBar';
 
 class BarraBuscaComidas extends Component {
   constructor() {

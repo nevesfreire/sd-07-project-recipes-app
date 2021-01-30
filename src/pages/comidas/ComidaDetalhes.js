@@ -51,18 +51,7 @@ class ComidaDetalhes extends React.Component {
         <p data-testid="recipe-category">{recipe.strCategory}</p>
         <p data-testid=""/* "${index}-ingredient-name-and-measure" */>Ingredientes</p>
         <p data-testid="instructions">{recipe.strInstructions}</p>
-        <iframe
-          src={ recipe.strYoutube }
-          title="video"
-          frameBorder="0"
-          allowFullScreen
-        />
-        {/* <video data-testid="video">
-          <source
-            src={ recipe.strYoutube }
-            type="video"
-          />
-        </video> */}
+        <a data-testid="video" href={ recipe.strYoutube }>Veja o vídeo</a>
         {/* <div data-testid="${index}-recomendation-card"> recomendadas</div> */}
         <button
           type="button"
