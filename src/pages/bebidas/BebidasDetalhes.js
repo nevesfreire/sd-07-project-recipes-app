@@ -41,6 +41,7 @@ export default class BebidasDetalhes extends React.Component {
         <button
           type="button"
           data-testid="start-recipe-btn"
+          className="iniciar-receita-fixo"
         >
           Iniciar receita
         </button>

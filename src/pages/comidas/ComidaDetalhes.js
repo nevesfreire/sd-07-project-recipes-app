@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const MAX_INGREDIENTS = 20;
+
 class ComidaDetalhes extends React.Component {
   constructor() {
     super();
@@ -8,6 +10,8 @@ class ComidaDetalhes extends React.Component {
       recipe: {},
     };
     this.fetchData = this.fetchData.bind(this);
+    this.renderIngredients = this.renderIngredients.bind(this);
+    this.renderIngredient = this.renderIngredient.bind(this);
   }
 
   componentDidMount() {
@@ -22,6 +26,26 @@ class ComidaDetalhes extends React.Component {
     this.setState({
       recipe: recipe.meals[0],
     });
+  }
+
+  renderIngredient(index) {
+    const { recipe } = this.state;
+    const ingredient = recipe[`strIngredient${index + 1}`];
+    const measure = recipe[`strMeasure${index + 1}`];
+    if (!ingredient || !measure) {
+      return;
+    }
+    const description = `${measure} of ${ingredient}`;
+    return (
+      <li data-testid={ `${index}-ingredient-name-and-measure` }>
+        {description}
+      </li>
+    );
+  }
+
+  renderIngredients() {
+    return [...Array(MAX_INGREDIENTS)]
+      .map((_, index) => this.renderIngredient(index));
   }
 
   render() {
@@ -49,13 +73,14 @@ class ComidaDetalhes extends React.Component {
           Favoritar
         </button>
         <p data-testid="recipe-category">{recipe.strCategory}</p>
-        <p data-testid=""/* "${index}-ingredient-name-and-measure" */>Ingredientes</p>
+        <ul>{this.renderIngredients()}</ul>
         <p data-testid="instructions">{recipe.strInstructions}</p>
         <a data-testid="video" href={ recipe.strYoutube }>Veja o vídeo</a>
         {/* <div data-testid="${index}-recomendation-card"> recomendadas</div> */}
         <button
           type="button"
           data-testid="start-recipe-btn"
+          className="iniciar-receita-fixo"
         >
           Iniciar receita
         </button>
