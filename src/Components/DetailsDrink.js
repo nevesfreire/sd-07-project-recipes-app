@@ -15,7 +15,6 @@ function DetailsDrink() {
   } = useContext(RecipesContext);
   const [loading, setLoading] = useState(true);
   const [fav, setFav] = useState(false);
-  // const [recipeIngredients, setRecipeIngredients] = useState([]);
   const { id } = useParams();
   const zero = 0;
   const fifteen = 15;

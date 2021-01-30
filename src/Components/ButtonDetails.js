@@ -5,7 +5,6 @@ import RecipesContext from '../context/RecipesContext';
 
 function ButtonDetails(props) {
   const [isDoing, setIsDoing] = useState(false);
-  // const [isDone, setIsDone] = useState(false);
   const {
     idParams,
     done,

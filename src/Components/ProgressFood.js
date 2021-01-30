@@ -47,15 +47,6 @@ function ProgressFood() {
       ));
       const allingredients = ingredients.slice(zero, pos);
       setRecipeIngredients(allingredients);
-      // const storageIngredients = JSON.parse(
-      //   window.localStorage.getItem('inProgressRecipes'),
-      // );
-      // if (storageIngredients) {
-      //   const { meals } = storageIngredients;
-      //   if (meals[id]) {
-      //     setRecipeIngredients(meals[id]);
-      //   }
-      // }
     };
     fetchRecipe();
   }, [id]);
