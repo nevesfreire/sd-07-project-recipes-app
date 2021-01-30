@@ -8,7 +8,7 @@ const whatchCards = (category, search) => {
   if (!search.text && !!category) {
     return (<FoodCards number={ 12 } category={ category } />);
   } if (search.text) {
-    return (<SearchFoodCards search={ search } number={ 5 } />);
+    return (<SearchFoodCards search={ search } number={ 12 } />);
   }
   return (<RandonFoodCards number={ 12 } />);
 };
