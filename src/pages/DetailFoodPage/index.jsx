@@ -1,11 +1,10 @@
 import React from 'react';
 
+import RecipeDetails from '../../components/RecipeDetails';
+
 function DetailFoodPage() {
   return (
-    <div>
-      detalhes
-    </div>
-
+    <RecipeDetails page="meal" />
   );
 }
 

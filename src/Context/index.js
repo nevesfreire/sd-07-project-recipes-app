@@ -1,6 +1,9 @@
 import { createContext } from 'react';
 
 const RecipesContext = createContext({
+  verifyInProgress: () => {},
+  inProgress: false,
+  setInProgressRecipes: () => {},
   email: '',
   meal: {
     mealsData: [],
