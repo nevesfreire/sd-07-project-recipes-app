@@ -2,41 +2,30 @@ import React, { useContext, useState } from 'react';
 import RecipeContext from '../../Context/RecipeContext';
 
 const Searcher = () => {
-  const initState = {
-    findText: '',
-    findBy: '',
-  };
-
   const { dispatch } = useContext(RecipeContext);
-
-  const [searcher, setSearcher] = useState(initState);
-
-  const handleSearch = ({ target }) => {
-    const { name, value } = target;
-
-    setSearcher({ ...searcher, [name]: value });
-  };
+  const [textFind, setTextFind] = useState('');
+  const [typeFind, setTypeFind] = useState('');
 
   const setFilterParams = () => {
-    if (searcher.findBy === 'f' && searcher.findText.length > 1) {
+    if (typeFind === 'f' && textFind.length > 1) {
       // eslint-disable-next-line no-alert
       alert('Sua busca deve conter somente 1 (um) caracter');
     } else {
       dispatch({
         type: 'SEARCH_FILTER',
-        value: searcher.findText,
-        typeSearch: searcher.findBy,
+        value: textFind,
+        typeSearch: typeFind,
       });
     }
   };
 
   return (
-    <div>
+    <div className="search-container">
       <input
         type="text"
         name="findText"
-        value={ searcher.findText }
-        onChange={ handleSearch }
+        value={ textFind }
+        onChange={ (e) => setTextFind(e.target.value) }
         data-testid="search-input"
       />
       <label htmlFor="s">
@@ -46,7 +35,7 @@ const Searcher = () => {
           name="findBy"
           id="s"
           value="s"
-          onClick={ handleSearch }
+          onClick={ () => setTypeFind('s') }
           data-testid="name-search-radio"
         />
       </label>
@@ -57,7 +46,7 @@ const Searcher = () => {
           name="findBy"
           id="f"
           value="f"
-          onClick={ handleSearch }
+          onClick={ () => setTypeFind('f') }
           data-testid="first-letter-search-radio"
         />
       </label>
@@ -68,7 +57,7 @@ const Searcher = () => {
           name="findBy"
           id="i"
           value="i"
-          onClick={ handleSearch }
+          onClick={ () => setTypeFind('i') }
           data-testid="ingredient-search-radio"
         />
       </label>
