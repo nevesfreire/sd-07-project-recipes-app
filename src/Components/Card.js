@@ -13,10 +13,10 @@ function Card(props) {
 
   if (isFoodIngredient) {
     return (
-      <div key={ index } data-testid={ `${index}-ingredient-card` }>
-        <Link
-          to={ `/explorar/comidas/ingredientes/${item.strIngredient}` }
-        >
+      <Link
+        to={ `/explorar/comidas/ingredientes/${item.strIngredient}` }
+      >
+        <div key={ index } data-testid={ `${index}-ingredient-card` }>
           <img
             src={ `https://www.themealdb.com/images/ingredients/${item.strIngredient}-Small.png` }
             data-testid={ `${index}-card-img` }
@@ -27,20 +27,21 @@ function Card(props) {
           >
             {item.strIngredient}
           </h2>
-        </Link>
-      </div>
+        </div>
+      </Link>
     );
   }
   if (isDrinkIngredient) {
+    const nameIngredient = item.strIngredient1.replace(
+      / /g, '_',
+    );
     return (
-      <div key={ index } data-testid={ `${index}-ingredient-card` }>
-        <Link
-          to={
-            `/explorar/bebidas/ingredientes/${item.strIngredient1.replace(
-              / /g, '_',
-            )}`
-          }
-        >
+      <Link
+        to={
+          `/explorar/bebidas/ingredientes/${nameIngredient}`
+        }
+      >
+        <div key={ index } data-testid={ `${index}-ingredient-card` }>
           <img
             src={ `https://www.thecocktaildb.com/images/ingredients/${item.strIngredient1}-Small.png` }
             data-testid={ `${index}-card-img` }
@@ -51,8 +52,8 @@ function Card(props) {
           >
             {item.strIngredient1}
           </h2>
-        </Link>
-      </div>
+        </div>
+      </Link>
     );
   }
   return (
@@ -76,6 +77,7 @@ function Card(props) {
         )
         : (
           <div>
+            {console.log(item)}
             <Link to={ `/bebidas/${item.idDrink}` }>
               <img
                 src={ item.strDrinkThumb }

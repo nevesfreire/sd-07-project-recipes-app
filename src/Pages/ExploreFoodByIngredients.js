@@ -17,7 +17,7 @@ function ExploreFoodByIngredients() {
       setIsFetching(false);
     };
     fetchIngredients();
-  }, [firstTwelveIngredients]);
+  }, []);
   return (
     <div>
       <Header title="Explorar Ingredientes" />

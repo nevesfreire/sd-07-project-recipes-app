@@ -27,10 +27,10 @@ function DrinkPage() {
       const fetchDrinksByIngredient = async () => {
         const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`);
         const drinks = await response.json();
-        if (drinks.drinks) {
-          setFirstTwelveRecipes(drinks.drinks.slice(zero, twelve));
-          setIsFetching(false);
-        }
+        // if (drinks.drinks) {
+        setFirstTwelveRecipes(drinks.drinks.slice(zero, twelve));
+        setIsFetching(false);
+        // }
       };
       fetchDrinksByIngredient();
     } else if (!globalRecipes.drinks && !filtered) {
