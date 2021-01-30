@@ -1,6 +1,8 @@
 import { createContext } from 'react';
 
 const RecipesContext = createContext({
+  filteredDoneRecipes: [],
+  handleClickFilterRecipesMade: () => {},
   checkFavorite: () => {},
   handleClickFavorite: () => {},
   verifyInProgress: () => {},
