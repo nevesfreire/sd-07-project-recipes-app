@@ -8,7 +8,7 @@ function App() {
     <Provider>
       <BrowserRouter>
         <Switch>
-          <SearchBar />
+          <Route exact path="/" component={ SearchBar } /> 
           {/* <Route exact path="/" component={ Login } /> */}
           {/* <Redirect to="/404" /> */}
         </Switch>

@@ -1,30 +1,60 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
 
-class Provider extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { };
-  }
+const RecipesProvider = ({ children }) => {
+  const [recipesInput, setRecipesInput] = useState('');
+  const [recipesRadio, setRecipesRatio] = useState('Ingrediente');
+  const [data, setData] = useState();
 
-  render() {
-    const contextValue = {
-      ...this.state,
-    };
+  const handleRecipesInput = (event) => {
+    setRecipesInput(event.target.value);
+  };
 
-    const { children } = this.props;
+  const handleRadioChange = (event) => {
+    setRecipesRatio(event.target.value);
+  };
 
-    return (
-      <RecipesContext.Provider value={ contextValue }>
-        {children}
-      </RecipesContext.Provider>
-    );
-  }
-}
+  let URL = '';
 
-Provider.propTypes = {
-  children: PropTypes.node.isRequired,
+  const handleClick = () => {
+    switch(recipesRadio) {
+    case 'Ingrediente':
+      URL = `https://www.themealdb.com/api/json/v1/1/filter.php?i={${recipesInput}}`;
+      console.log(URL);
+      break;
+    case 'Nome':
+      URL = `https://www.themealdb.com/api/json/v1/1/search.php?s={${recipesInput}}`;
+      console.log(URL);
+      break;
+    case 'Primeira letra':
+      URL = `https://www.themealdb.com/api/json/v1/1/search.php?f={${recipesInput}}`;
+      console.log(URL);
+      break;
+    default:
+      console.log('Nada');
+    }
+  };
+
+  useEffect(() => { setData(fetch(URL).then((r) => r.json())); }, []);
+
+  const context = {
+    recipesInput,
+    data,
+    handleRadioChange,
+    handleRecipesInput,
+    handleClick,
+  };
+
+  return (
+    <RecipesContext.Provider value={ context }>
+      { children }
+    </RecipesContext.Provider>
+  );
 };
 
-export default Provider;
+export default RecipesProvider;
+
+RecipesProvider.propTypes = {
+  children: PropTypes.element.isRequired,
+};
