@@ -5,6 +5,13 @@ import RecipesContext from './index';
 import Meals from '../services/meals-api';
 import Drinks from '../services/cocktails-api';
 
+const getLocalStorageItem = (item) => {
+  const itemString = localStorage.getItem(item);
+  const itemObj = JSON.parse(itemString);
+
+  return itemObj;
+};
+
 function RecipesProvider({ children }) {
   const [mealsData, setMealsData] = useState([]);
   const [mealsFilteredData, setMealsFilteredData] = useState([]);
@@ -18,25 +25,22 @@ function RecipesProvider({ children }) {
 
   const [inProgressRecipes, setInProgressRecipes] = useState({});
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
+  const [doneRecipes, setDoneRecipes] = useState([]);
   const [updatingLocalStorage, setUpdatingLocalStorage] = useState(true);
 
   const [searchData, setSearchData] = useState('');
   const [isSearchBarActive, setIsSearchBarActive] = useState(false);
 
   useEffect(() => {
-    const inProgressRecipesString = localStorage.getItem('inProgressRecipes');
-    const inProgressRecipesObj = JSON.parse(inProgressRecipesString);
+    const inProgressItems = getLocalStorageItem('inProgressRecipes');
+    if (inProgressItems) setInProgressRecipes(inProgressItems);
 
-    if (inProgressRecipesObj) {
-      setInProgressRecipes(inProgressRecipesObj);
-    }
+    const favoriteItems = getLocalStorageItem('favoriteRecipes');
+    if (favoriteItems) setFavoriteRecipes(favoriteItems);
 
-    const favoriteRecipesString = localStorage.getItem('favoriteRecipes');
-    const favoriteRecipesObj = JSON.parse(favoriteRecipesString);
+    const doneItems = getLocalStorageItem('doneRecipes');
+    if (doneItems) setDoneRecipes(doneItems);
 
-    if (favoriteRecipesObj) {
-      setFavoriteRecipes(favoriteRecipesObj);
-    }
     setUpdatingLocalStorage(false);
   }, []);
 
@@ -44,8 +48,9 @@ function RecipesProvider({ children }) {
     if (!updatingLocalStorage) {
       localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
       localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+      localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
     }
-  }, [inProgressRecipes, favoriteRecipes, updatingLocalStorage]);
+  }, [inProgressRecipes, favoriteRecipes, doneRecipes, updatingLocalStorage]);
 
   useEffect(() => {
     setMealsFilteredData(mealsData);
@@ -54,6 +59,13 @@ function RecipesProvider({ children }) {
   useEffect(() => {
     setDrinksFilteredData(drinksData);
   }, [drinksData]);
+
+  const checkFavorite = (id) => {
+    const foundRecipe = favoriteRecipes.find((recipe) => recipe.id === id);
+
+    if (foundRecipe) return true;
+    return false;
+  };
 
   const handleClickCategoryMeals = async (category) => {
     const mealsAmountToShow = 12;
@@ -98,13 +110,6 @@ function RecipesProvider({ children }) {
       const isInProgress = inProgressRecipes[key][id];
       if (isInProgress) return true;
     }
-    return false;
-  };
-
-  const checkFavorite = (id) => {
-    const foundRecipe = favoriteRecipes.find((recipe) => recipe.id === id);
-
-    if (foundRecipe) return true;
     return false;
   };
 
@@ -168,6 +173,7 @@ function RecipesProvider({ children }) {
   };
 
   const states = {
+    doneRecipes,
     checkFavorite,
     handleClickFavorite,
     verifyInProgress,
@@ -206,10 +212,4 @@ function RecipesProvider({ children }) {
 
 export default RecipesProvider;
 
-RecipesProvider.propTypes = {
-  children: PropTypes.element,
-};
-
-RecipesProvider.defaultProps = {
-  children: PropTypes.element,
-};
+RecipesProvider.propTypes = { children: PropTypes.element.isRequired };

@@ -1,40 +1,18 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
 
 import './style.css';
 
+import Context from '../../Context';
 import shareIcon from '../../images/shareIcon.svg';
 
-const doneRecipes = [
-  {
-    id: '52771',
-    type: 'comida',
-    area: 'Italian',
-    category: 'Vegetarian',
-    alcoholicOrNot: '',
-    name: 'Spicy Arrabiata Penne',
-    image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-    doneDate: '23/06/2020',
-    tags: ['Pasta', 'Curry'],
-  },
-  {
-    id: '178319',
-    type: 'bebida',
-    area: '',
-    category: 'Cocktail',
-    alcoholicOrNot: 'Alcoholic',
-    name: 'Aquamarine',
-    image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-    doneDate: '23/06/2020',
-    tags: [],
-  },
-];
-
 const RecipesMade = () => {
+  const { doneRecipes } = useContext(Context);
   const [copied, setCopied] = useState(false);
 
-  const handleClickShare = () => {
-    copy(window.location.href)
+  const handleClickShare = (id) => {
+    copy(`${window.location.origin}/comidas/${id}`)
       .then(() => setCopied(true))
       .catch((err) => console.log(err));
   };
@@ -42,9 +20,9 @@ const RecipesMade = () => {
   return (
     <div>
       <div>
-        <button type="button">All</button>
-        <button type="button">Food</button>
-        <button type="button">Drinks</button>
+        <button type="button" data-testid="filter-by-all-btn">All</button>
+        <button type="button" data-testid="filter-by-food-btn">Food</button>
+        <button type="button" data-testid="filter-by-drink-btn">Drinks</button>
       </div>
 
       <div>
@@ -53,7 +31,14 @@ const RecipesMade = () => {
             id, type, area, category, alcoholicOrNot, name, image, doneDate, tags,
           }, index) => (
             <article className="recipe-made-card" key={ id }>
-              <img src={ image } width="200" alt="done recipe" />
+              <Link to={ type === 'comida' ? `/comidas/${id}` : `/bebidas/${id}` }>
+                <img
+                  src={ image }
+                  width="200"
+                  alt="done recipe"
+                  data-testid={ `${index}-horizontal-image` }
+                />
+              </Link>
 
               <main>
                 {
@@ -69,22 +54,28 @@ const RecipesMade = () => {
                     )
                 }
 
-                <button
-                  type="button"
-                  data-testid={ `${index}-horizontal-share-btn` }
-                  onClick={ handleClickShare }
-                >
-                  <img src={ shareIcon } alt="share icon" />
+                <button type="button" onClick={ () => handleClickShare(id) }>
+                  <img
+                    src={ shareIcon }
+                    alt="share icon"
+                    data-testid={ `${index}-horizontal-share-btn` }
+                  />
                 </button>
                 { copied && 'Link copiado!' }
 
                 <h1 data-testid={ `${index}-horizontal-name` }>{name}</h1>
 
-                <p>{doneDate}</p>
+                <p data-testid={ `${index}-horizontal-done-date` }>{doneDate}</p>
 
                 {
-                  tags.map((tag, i) => ( 
-                    <button key={ `${i}-tag` } type="button">{tag}</button>
+                  tags.map((tag, i) => (
+                    <button
+                      key={ `${i}-tag` }
+                      type="button"
+                      data-testid={ `${index}-${tag}-horizontal-tag` }
+                    >
+                      {tag}
+                    </button>
                   ))
                 }
               </main>

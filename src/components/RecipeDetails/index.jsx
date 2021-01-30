@@ -112,7 +112,6 @@ const RecipeDetails = ({ page }) => {
       commonProps={ commonProps }
     />
   );
-  
 };
 
 RecipeDetails.propTypes = { page: PropTypes.string.isRequired };
