@@ -14,7 +14,7 @@ function Header() {
     searchBar,
     setSearchBar,
   } = useContext(GlobalContext);
-
+  
   const {
     Container,
     InfoDisplay,
