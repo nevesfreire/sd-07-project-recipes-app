@@ -8,7 +8,7 @@ import Context from '../../Context';
 import shareIcon from '../../images/shareIcon.svg';
 
 const RecipesMade = () => {
-  const { doneRecipes } = useContext(Context);
+  const { filteredDoneRecipes, handleClickFilterRecipesMade } = useContext(Context);
   const [copied, setCopied] = useState(false);
 
   const handleClickShare = (id) => {
@@ -20,14 +20,32 @@ const RecipesMade = () => {
   return (
     <div>
       <div>
-        <button type="button" data-testid="filter-by-all-btn">All</button>
-        <button type="button" data-testid="filter-by-food-btn">Food</button>
-        <button type="button" data-testid="filter-by-drink-btn">Drinks</button>
+        <button
+          type="button"
+          data-testid="filter-by-all-btn"
+          onClick={ () => handleClickFilterRecipesMade() }
+        >
+          All
+        </button>
+        <button
+          type="button"
+          data-testid="filter-by-food-btn"
+          onClick={ () => handleClickFilterRecipesMade('comida') }
+        >
+          Food
+        </button>
+        <button
+          type="button"
+          data-testid="filter-by-drink-btn"
+          onClick={ () => handleClickFilterRecipesMade('bebida') }
+        >
+          Drinks
+        </button>
       </div>
 
       <div>
         {
-          doneRecipes.map(({
+          filteredDoneRecipes.map(({
             id, type, area, category, alcoholicOrNot, name, image, doneDate, tags,
           }, index) => (
             <article className="recipe-made-card" key={ id }>
@@ -63,7 +81,9 @@ const RecipesMade = () => {
                 </button>
                 { copied && 'Link copiado!' }
 
-                <h1 data-testid={ `${index}-horizontal-name` }>{name}</h1>
+                <Link to={ type === 'comida' ? `/comidas/${id}` : `/bebidas/${id}` }>
+                  <h1 data-testid={ `${index}-horizontal-name` }>{name}</h1>
+                </Link>
 
                 <p data-testid={ `${index}-horizontal-done-date` }>{doneDate}</p>
 

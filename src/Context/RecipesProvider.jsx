@@ -26,6 +26,7 @@ function RecipesProvider({ children }) {
   const [inProgressRecipes, setInProgressRecipes] = useState({});
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
   const [doneRecipes, setDoneRecipes] = useState([]);
+  const [filteredDoneRecipes, setFilteredDoneRecipes] = useState([]);
   const [updatingLocalStorage, setUpdatingLocalStorage] = useState(true);
 
   const [searchData, setSearchData] = useState('');
@@ -52,13 +53,11 @@ function RecipesProvider({ children }) {
     }
   }, [inProgressRecipes, favoriteRecipes, doneRecipes, updatingLocalStorage]);
 
-  useEffect(() => {
-    setMealsFilteredData(mealsData);
-  }, [mealsData]);
+  useEffect(() => { setMealsFilteredData(mealsData); }, [mealsData]);
 
-  useEffect(() => {
-    setDrinksFilteredData(drinksData);
-  }, [drinksData]);
+  useEffect(() => { setDrinksFilteredData(drinksData); }, [drinksData]);
+
+  useEffect(() => { setFilteredDoneRecipes(doneRecipes); }, [doneRecipes]);
 
   const checkFavorite = (id) => {
     const foundRecipe = favoriteRecipes.find((recipe) => recipe.id === id);
@@ -80,7 +79,6 @@ function RecipesProvider({ children }) {
       setMealsFilteredData(meals);
       return setCurrentFilterMealsCategory(category);
     }
-
     setMealsFilteredData(mealsData);
     setCurrentFilterMealsCategory('All');
   };
@@ -98,7 +96,6 @@ function RecipesProvider({ children }) {
       setDrinksFilteredData(drinks);
       return setCurrentFilterDrinksCategory(category);
     }
-
     setDrinksFilteredData(drinksData);
     setCurrentFilterDrinksCategory('All');
   };
@@ -118,7 +115,6 @@ function RecipesProvider({ children }) {
       const { idMeal, strArea, strCategory, strMeal, strMealThumb } = recipe;
 
       const alreadyFavorite = checkFavorite(idMeal);
-
       if (alreadyFavorite) {
         const filteredFavoriteRecipes = favoriteRecipes.filter(({ id }) => id !== idMeal);
         return setFavoriteRecipes(filteredFavoriteRecipes);
@@ -163,17 +159,23 @@ function RecipesProvider({ children }) {
     const key = page === 'meal' ? 'meals' : 'cocktails';
 
     const isInProgress = verifyInProgress(id, page);
-
     if (!isInProgress) {
       setInProgressRecipes((state) => ({
-        ...state,
-        [key]: { ...state[key], [id]: ingredients },
+        ...state, [key]: { ...state[key], [id]: ingredients },
       }));
     }
   };
 
+  const handleClickFilterRecipesMade = (filter) => {
+    if (!filter) return setFilteredDoneRecipes(doneRecipes);
+
+    const newFilteredRecipes = filteredDoneRecipes.filter(({ type }) => type === filter);
+    setFilteredDoneRecipes(newFilteredRecipes);
+  };
+
   const states = {
-    doneRecipes,
+    filteredDoneRecipes,
+    handleClickFilterRecipesMade,
     checkFavorite,
     handleClickFavorite,
     verifyInProgress,
