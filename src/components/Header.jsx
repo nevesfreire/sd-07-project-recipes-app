@@ -12,7 +12,6 @@ function Header() {
     searchBar,
     setSearchBar,
   } = useContext(GlobalContext);
-  console.log(searchButton);
 
   const handleClick = () => {
     if (searchBar) {

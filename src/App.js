@@ -8,8 +8,9 @@ import './App.css';
 
 function App() {
   return (
-    <GlobalProvider>
-      <BrowserRouter>
+
+    <BrowserRouter>
+      <GlobalProvider>
         <Switch>
           <Route exact path="/" component={ Login } />
           <Route exact path="/comidas" component={ Foods } />
@@ -28,8 +29,9 @@ function App() {
           <Route path="/comidas/:id/in-progress" component={ FoodProcess } />
           <Route path="/bebidas/:id/in-progress" component={ DrinkProcess } />
         </Switch>
-      </BrowserRouter>
-    </GlobalProvider>
+      </GlobalProvider>
+    </BrowserRouter>
+
   );
 }
 
