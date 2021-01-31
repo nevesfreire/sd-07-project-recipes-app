@@ -8,7 +8,6 @@ function BebidasDetalhes() {
   const getIdFromUrl = () => {
     let id = window.location.href;
     id = id.split('/').pop();
-    console.log(typeof (id));
     setItemId(id);
   };
 

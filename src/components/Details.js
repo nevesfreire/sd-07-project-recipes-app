@@ -10,11 +10,12 @@ import {
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import CardList from './CardList';
+import checksUnited from './checksUnited';
+import checkFavorites from './checkFavorites';
 
 const copy = require('clipboard-copy');
 
 function Details({ itemId, mealType }) {
-  console.log(JSON.stringify(itemId), 'itemId');
   const quinze = 15;
   const zero = 0;
   const tresMil = 3000;
@@ -43,34 +44,8 @@ function Details({ itemId, mealType }) {
   }, [mealType]);
 
   useEffect(() => {
-    // localStorage.setItem('doneRecipes', JSON.stringify([{ id: '52977' }]));
-    const checkForCompletion = () => {
-      const list = JSON.parse(localStorage.getItem('doneRecipes'));
-      if (list !== null && list.filter((item) => item.id === itemId).length > zero) {
-        setHideBtn('hidden');
-      }
-    };
-
-    const checkForProgress = async () => {
-      const list = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      if (list !== null) {
-        let keys = [];
-        if (mealType === 'Meal') { keys = Object.keys(list.meals); } else {
-          keys = Object.keys(list.cocktails);
-        }
-        if (keys.includes(itemId)) setBeginBtn('Continuar Receita');
-      }
-    };
-
-    const checkFavorites = () => {
-      const list = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      if (list !== null && list.filter((item) => item.id === itemId).length > zero) {
-        setIsFavorite(true);
-      }
-    };
-    checkFavorites();
-    checkForCompletion();
-    checkForProgress();
+    checksUnited(itemId, mealType, details, setHideBtn, setBeginBtn, setIsFavorite);
+    checkFavorites(itemId, setIsFavorite);
   }, [itemId, mealType, recommendation]);
 
   useEffect(() => {
@@ -164,14 +139,14 @@ function Details({ itemId, mealType }) {
     }
   };
 
-  return (
+  const showDetails = () => (
     <div className="details">
       <img
         alt="Meal Thumbnail"
         width="100%"
         data-testid="recipe-photo"
         src={ details[`str${mealType}Thumb`] }
-        tagName="img" // sei lá se é isso
+        tagName="img"
       />
       <h3 data-testid="recipe-title">{details[`str${mealType}`]}</h3>
       <button
@@ -181,17 +156,19 @@ function Details({ itemId, mealType }) {
       >
         Compartilhar
       </button>
-      <a
+      <button
         type="button"
         data-testid="favorite-btn"
         onClick={ () => addToFavorites() }
         src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+        tabIndex="0"
       >
         <img
           src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+          alt="heartIcon"
         />
         Favoritar
-      </a>
+      </button>
       <h5 hidden={ showMessage }>Link copiado!</h5>
       <h5 width="90%" data-testid="recipe-category">
         {
@@ -204,9 +181,8 @@ function Details({ itemId, mealType }) {
       <p width="90%" data-testid="instructions">{strInstructions}</p>
       {mealType === 'Meal'
         && (<iframe
+          title="video"
           data-testid="video"
-          width="420"
-          height="315"
           src={ details.strYoutube }
           width="80%"
         />)}
@@ -226,6 +202,12 @@ function Details({ itemId, mealType }) {
       >
         {beginBtn}
       </button>
+    </div>
+  );
+
+  return (
+    <div>
+      {showDetails()}
     </div>
   );
 }
