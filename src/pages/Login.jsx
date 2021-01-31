@@ -73,9 +73,9 @@ export default function Login(props) {
 
   return (
     <LoginContainer>
-      <LogoContainer>
+      {/* <LogoContainer>
         <Logo />
-      </LogoContainer>
+      </LogoContainer> */}
       <Form>
         <Input
           required
