@@ -1,14 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import RecipeContext from '../../Context/RecipeContext';
 import Footer from '../Footer';
 
 const ExploreDrinkIngredients = () => {
   const [drinkIngredientsCategory, setDrinkIngredientsCategory] = useState();
 
+  const { dispatch } = useContext(RecipeContext);
+
   const callApi = async () => {
     const zero = 0;
     const doze = 12;
-    const fetching = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
+    const fetching = await fetch(
+      'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list',
+    );
     const json = await fetching.json();
     const results = await json.drinks;
     setDrinkIngredientsCategory(results.slice(zero, doze));
@@ -21,12 +26,13 @@ const ExploreDrinkIngredients = () => {
   const renderCards = () => (
     <div>
       {drinkIngredientsCategory.map((ingredient, i) => (
-        <div
-          data-testid={ `${i}-ingredient-card` }
-          key={ i }
-        >
+        <div data-testid={ `${i}-ingredient-card` } key={ i }>
           <Link
-            // onClick={ () =>  }
+            onClick={ () => dispatch({
+              type: 'SEARCH_INGREDIENT',
+              value: ingredient.strIngredient1,
+              typeSearch: 'i',
+            }) }
             to="/bebidas"
             key={ i }
           >

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import CardFood from '../CardFood';
 
 const requestApi = async (url) => {
   const api = await fetch(url);
@@ -51,21 +51,15 @@ function ExplorerFoodArea() {
       <div>
         {foodArea.length >= 1 && foodArea
           .filter((_, i) => i < doze)
-          .map((food, index) => (
-            <div key={ index }>
-              <Link
-                data-testid={ `${index}-recipe-card` }
-                key={ index }
-                to={ `/comidas/${food.idMeal}` }
-              >
-                <img
-                  data-testid={ `${index}-card-img` }
-                  src={ food.strMealThumb }
-                  alt={ food.strMeal }
-                />
-                <p data-testid={ `${index}-card-name` }>{food.strMeal}</p>
-              </Link>
-            </div>
+          .map(({ strMealThumb, strMeal, idMeal }, index) => (
+            <CardFood
+              idFood={ idMeal }
+              page="comidas"
+              key={ strMeal }
+              index={ index }
+              foodName={ strMeal }
+              thumb={ strMealThumb }
+            />
           ))}
       </div>
     </div>

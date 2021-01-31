@@ -46,6 +46,20 @@ export default function reducer(state, action) {
         searchingFilter: true,
         searchParam: action.value,
         searchType: action.typeSearch,
+        categoryFilterDrinks: '',
+        categoryFilterMeals: '',
+      },
+    };
+
+  case 'SEARCH_INGREDIENT':
+    return {
+      ...state,
+      search: {
+        ...state.search,
+        searchParam: action.value,
+        searchType: action.typeSearch,
+        categoryFilterDrinks: '',
+        categoryFilterMeals: '',
       },
     };
   default:
