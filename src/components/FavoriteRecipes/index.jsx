@@ -19,6 +19,7 @@ const FavoriteRecipes = () => {
       .then(() => setCopied(true))
       .catch((err) => console.log(err));
   };
+
   return (
     <div>
       <div>
