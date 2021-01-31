@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../../App.css';
 
 const UserProfile = () => {
-  const user = localStorage.getItem('user');
-  const emailUser = JSON.parse(user);
+  const [emailUser, setEmailUser] = useState({});
+
+  useEffect(() => {
+    const userRecover = localStorage.getItem('user');
+    const user = userRecover === null ? '{ "email": "not user" }' : userRecover;
+    setEmailUser(JSON.parse(user));
+  }, []);
+
   return (
     <div className="container-int-body">
       <p className="email-user" data-testid="profile-email">
