@@ -92,18 +92,18 @@ const FavoriteRecipes = () => {
                   type="button"
                   onClick={ type === 'comida'
                     ? () => handleClickFavorite({
-                      idMeal: id,
-                      strArea: area,
-                      strCategory: category,
-                      strMeal: name,
-                      strMealThumb: image,
+                      id,
+                      area,
+                      category,
+                      name,
+                      image,
                     }, 'meal')
                     : () => handleClickFavorite({
-                      idDrink: id,
-                      strCategory: category,
-                      strAlcoholic: alcoholicOrNot,
-                      strDrink: name,
-                      strDrinkThumb: image,
+                      id,
+                      category,
+                      alcoholicOrNot,
+                      name,
+                      image,
                     }, 'drink') }
                 >
                   <img

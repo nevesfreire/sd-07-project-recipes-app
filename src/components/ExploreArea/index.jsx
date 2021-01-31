@@ -10,7 +10,7 @@ const ExploreArea = () => {
   const { setMealsData, mealsFilteredData } = useContext(Context).meal;
 
   const [areaList, setAreaList] = useState([]);
-  const [area, setArea] = useState([]);
+  const [area, setArea] = useState('');
 
   useEffect(() => {
     const amountToShow = 12;
