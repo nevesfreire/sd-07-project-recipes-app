@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
-import PropTypes from 'prop-types';
 import Carousel from 'react-bootstrap/Carousel';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { StorageContext } from '../providers/AllProviders';
 import ShareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -14,10 +15,10 @@ const Details = ({ type, recipe, recommend, ingredientes, id, medidas }) => {
   const verifyLocalFav = localStorage.getItem('favoriteRecipes');
 
   const iconFavorite = favorited ? blackHeartIcon : whiteHeartIcon;
-  const image = type === 'comida' ? 'strMealThumb' : 'strDrinkThumb';
   const name = type === 'comida' ? 'strMeal' : 'strDrink';
-  const rcmdImg = type === 'comida' ? 'strDrinkThumb' : 'strMealThumb';
-  const rcmdTitle = type === 'comida' ? 'strDrink' : 'strMeal';
+  const rcmdName = type === 'comida' ? 'strDrink' : 'strMeal';
+  const image = `${name}Thumb`;
+  const rcmdImg = `${rcmdName}Thumb`;
 
   useEffect(() => {
     if (verifyLocalFav) {
@@ -29,16 +30,17 @@ const Details = ({ type, recipe, recommend, ingredientes, id, medidas }) => {
   const handleFavorite = () => {
     if (!favorited) {
       addFavorite(recipe, name, id, type);
-      return setFavorite(!favorited);
+      return setFavorite(true);
     }
     removeFavorite(id);
-    return setFavorite(!favorited);
+    return setFavorite(false);
   };
 
   const handleCopy = () => {
     const timeToFade = 2000;
-    setCopied(!copied);
+
     navigator.clipboard.writeText(`http://localhost:3000/${type}s/${id}`);
+    setCopied(true);
     setTimeout(() => setCopied(false), timeToFade);
   };
 
@@ -79,28 +81,31 @@ const Details = ({ type, recipe, recommend, ingredientes, id, medidas }) => {
       />}
       <Carousel>
         { recommend.map((card, index) => (
-          <Carousel.Item key={ card[rcmdTitle] }>
+          <Carousel.Item key={ card[rcmdName] }>
             <div data-testid={ `${index}-recomendation-card` }>
               <img src={ card[rcmdImg] } alt="Recommended thumb" width="70" />
-              <p data-testid={ `${index}-recomendation-title` }>{ card[rcmdTitle] }</p>
+              <p data-testid={ `${index}-recomendation-title` }>{ card[rcmdName] }</p>
             </div>
             { !index && (
               <div data-testid="1-recomendation-title">
                 <img src={ recommend[1][rcmdImg] } alt="Recommended thumb" width="70" />
-                <p data-testid="1-recomendation-title">{ recommend[1][rcmdTitle] }</p>
+                <p data-testid="1-recomendation-title">{ recommend[1][rcmdName] }</p>
               </div>
             )}
           </Carousel.Item>
         ))}
       </Carousel>
-      <button
-        data-testid="start-recipe-btn"
-        type="button"
-        className="start-recipe"
-      >
-        comecar receita
-      </button>
-    </div>);
+      <Link to={ `/${type}s/${id}/in-progress` }>
+        <button
+          data-testid="start-recipe-btn"
+          type="button"
+          className="start-recipe"
+        >
+          Iniciar receita
+        </button>
+      </Link>
+    </div>
+  );
 };
 
 export default Details;
