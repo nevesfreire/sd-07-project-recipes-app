@@ -11,7 +11,9 @@ const ExploreFoodIngredients = () => {
   const callApi = async () => {
     const zero = 0;
     const doze = 12;
-    const fetching = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
+    const fetching = await fetch(
+      'https://www.themealdb.com/api/json/v1/1/list.php?i=list',
+    );
     const json = await fetching.json();
     const results = await json.meals;
     setFoodIngredientsCategory(results.slice(zero, doze));
@@ -24,11 +26,9 @@ const ExploreFoodIngredients = () => {
   const renderCards = () => (
     <div>
       {foodIngredientsCategory.map((ingredient, i) => (
-        <div
-          data-testid={ `${i}-ingredient-card` }
-          key={ i }
-        >
+        <div key={ i }>
           <Link
+            data-testid={ `${i}-ingredient-card` }
             onClick={ () => dispatch({
               type: 'SEARCH_INGREDIENT',
               value: ingredient.strIngredient,
