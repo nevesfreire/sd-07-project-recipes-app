@@ -26,8 +26,9 @@ const ExploreDrinkIngredients = () => {
   const renderCards = () => (
     <div>
       {drinkIngredientsCategory.map((ingredient, i) => (
-        <div data-testid={ `${i}-ingredient-card` } key={ i }>
+        <div key={ i }>
           <Link
+            data-testid={ `${i}-ingredient-card` }
             onClick={ () => dispatch({
               type: 'SEARCH_INGREDIENT',
               value: ingredient.strIngredient1,
