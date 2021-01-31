@@ -1,31 +1,29 @@
 import React, { useContext } from 'react';
-import Styles from './Styles';
+import './Styles.css';
 import GlobalContext from '../../context/GlobalContext';
 
 export default function Logo() {
-  const {
-    SvgContainer,
-    Background,
-    Spoon,
-    Text,
-    Animated,
-  } = Styles;
-
   const { styles: { logo: {
     width, colors, borderRadius, animation,
   } } } = useContext(GlobalContext);
 
+  const animationClass = animation && 'animated';
+
   return (
-    <SvgContainer
+    <svg
       width={ width }
-      borderRadius={ borderRadius }
+      style={ { borderRadius } }
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 44.056 44.056"
     >
-      <Background color={ colors.background } d="M0 0h44.056v44.056H0z" />
-      <Animated animation={ animation }>
-        <Spoon
-          color={ colors.spoon }
+      <path
+        className="background"
+        color={ colors.background }
+        d="M0 0h44.056v44.056H0z"
+      />
+      <g className={ animationClass }>
+        <path
+          className="spoon"
           d={ `
         M22.028 1.879c-8.613 0-16.022 10.652-16.022 20.945 0 7.272 3.735 12.755 8.94
       15.48 1.237.73 2.554 1.36 3.843
@@ -34,7 +32,11 @@ export default function Logo() {
       8.939-15.48 0-10.293-7.174-20.945-16.022-20.945z
       ` }
         />
-        <Text color={ colors.text } fontWeight="400" fontFamily="sans-serif">
+        <g
+          className="text"
+          fontWeight="400"
+          fontFamily="sans-serif"
+        >
           <text
             x="55.731"
             y="131.337"
@@ -53,8 +55,8 @@ export default function Logo() {
           >
             <tspan x="69.344" y="121.224" fontStyle="italic">etc</tspan>
           </text>
-        </Text>
-      </Animated>
-    </SvgContainer>
+        </g>
+      </g>
+    </svg>
   );
 }

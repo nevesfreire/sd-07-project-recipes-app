@@ -1,9 +1,7 @@
 import React, { useEffect, useContext, useCallback } from 'react';
 import Buttons from '../buttons';
 import GlobalContext from '../../context/GlobalContext';
-import Styles from './Styles';
-
-const { BtnBar } = Styles;
+import './Styles.css';
 
 export default function FoodCategories() {
   const numberOfCategories = 5;
@@ -37,8 +35,8 @@ export default function FoodCategories() {
   }, [fetchFoodCategories]);
 
   return (
-    <BtnBar id="foods">
+    <div className="foods-categories" id="foods">
       {Buttons(numberOfCategories, foodCategories)}
-    </BtnBar>
+    </div>
   );
 }

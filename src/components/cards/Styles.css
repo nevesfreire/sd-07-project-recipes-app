@@ -1,7 +1,4 @@
-import styled from 'styled-components';
-
-const Styles = {
-  Content: styled.div`
+.cards-container {
   align-items: center;
   background-color: white;
   border-radius: 0.5rem;
@@ -10,19 +7,19 @@ const Styles = {
   margin: 1vh;
   padding: 1vh;
   width: 85vw;
-`,
-  NameContainer: styled.div`
+}
+
+.cards-name-container {
   display: flex;
   justify-content: center;
   width: 100%;
-`,
-  Name: styled.span`
+}
+
+.cards-name {
   font-size: 2em;
-`,
-  Image: styled.img`
+}
+
+.cards-img {
   border-radius: 1rem;
   width: 40%;
-`,
-};
-
-export default Styles;
+}

@@ -3,10 +3,8 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Cards from '../components/cards';
 import GlobalContext from '../context/GlobalContext';
-import { FoodsDrinks } from './style';
+import './style/FoodsDrinks.css';
 import DrinkCategories from '../components/categories/DrinkCategories';
-
-const { Container } = FoodsDrinks;
 
 export default function Drinks() {
   const {
@@ -28,11 +26,11 @@ export default function Drinks() {
   }, [setDataDrinks]);
 
   return (
-    <Container>
+    <section className="foods-drinks-container">
       <Header />
       <DrinkCategories />
       {Cards(numberOfCards, dataDrinks)}
       <Footer />
-    </Container>
+    </section>
   );
 }

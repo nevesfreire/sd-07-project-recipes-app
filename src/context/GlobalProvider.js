@@ -136,6 +136,11 @@ export default function GlobalProvider({ children }) {
         },
 
         styles,
+        setStyle: useCallback((elem, key, value) => {
+          const newKey = state[elem];
+          newKey[key] = value;
+          updateState(elem, newKey);
+        }, [state]),
 
         randomRecipeDetail,
         renderButtonExplore,
