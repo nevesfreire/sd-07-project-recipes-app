@@ -11,8 +11,8 @@
 .header-info-display {
   align-items: center;
   display: flex;
-  justify-content: space-around;
   height: 8vh;
+  justify-content: space-around;
   width: 60%;
 }
 

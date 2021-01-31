@@ -1,6 +1,6 @@
 .svg-container {
-  width: 100%;
   border-radius: 50%;
+  width: 100%;
 }
 
 .background {
@@ -21,10 +21,6 @@
 
 @keyframes appearEffect {
   0% {
-    -webkit-transform: translateY(5px);
-    -moz-transform: translateY(5px);
-    -ms-transform: translateY(5px);
-    -o-transform: translateY(5px);
     transform: translateY(5px);
   }
 }
