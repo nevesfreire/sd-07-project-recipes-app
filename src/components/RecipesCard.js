@@ -12,12 +12,21 @@ class RecipesCard extends React.Component {
         {
           index < maxNumber && search === 'meals' ? (
             <div data-testid={ `${index}-recipe-card` }>
-              <Card style={ { width: '10rem' } }>
-                <Card.Img variant="top" src={ strMealThumb } alt={ strMeal } data-testid={ `${index}-card-img` } />
+              <Card
+                style={ { width: '10rem' } }
+                bg="warning"
+                text="dark"
+              >
+                <Card.Img
+                  variant="top"
+                  src={ strMealThumb }
+                  alt={ strMeal }
+                  data-testid={ `${index}-card-img` }
+                />
                 <Card.Body>
-                  <Card.Title data-testid={ `${index}-card-name` }>
+                  <Card.Text data-testid={ `${index}-card-name` }>
                     {strMeal}
-                  </Card.Title>
+                  </Card.Text>
                 </Card.Body>
               </Card>
             </div>

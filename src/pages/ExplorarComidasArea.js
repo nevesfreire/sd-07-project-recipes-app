@@ -1,6 +1,5 @@
 import React from 'react';
-import Container from 'react-bootstrap/Container';
-import { Row, Col } from 'react-bootstrap';
+import { Container, Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -32,7 +31,9 @@ class ExplorarComidasArea extends React.Component {
     const allAreas = [];
     list.forEach(async (area) => {
       const result = await apiTheMealDB(`filter.php?a=${area}`);
-      if (result.meals !== null) allAreas.push(result.meals[0]);
+      if (result.meals !== null) {
+        result.meals.forEach((item) => allAreas.push(item));
+      }
     });
     this.setState({ all: allAreas });
   }
@@ -68,35 +69,49 @@ class ExplorarComidasArea extends React.Component {
     const { list, recipes } = this.state;
     return (
       <div>
-        <Container>
-          <Header shouldRenderSearchIcon="yes" search="meals" pageTitle="Explorar Origem" />
+        <Container fluid>
+          <Col>
+            <Row>
+              <Header
+                shouldRenderSearchIcon="yes"
+                search="meals"
+                pageTitle="Explorar Origem"
+
+              />
+            </Row>
+          </Col>
           {list ? (
             <div>
-              <select data-testid="explore-by-area-dropdown" onChange={ this.filterByArea }>
-                {list.map((category) => (
-                  <option
-                    data-testid={ `${category}-option` }
-                    key={ category }
-                    value={ category }
+              <Row>
+                <Col>
+                  <select
+                    data-testid="explore-by-area-dropdown"
+                    onChange={ this.filterByArea }
                   >
-                    {category}
-                  </option>
-                ))}
-              </select>
+                    {list.map((category) => (
+                      <option
+                        data-testid={ `${category}-option` }
+                        key={ category }
+                        value={ category }
+                      >
+                        {category}
+                      </option>
+                    ))}
+                  </select>
+                </Col>
+              </Row>
             </div>) : <p>Loading...</p>}
           { recipes && (
-            <Container>
-              <Row>
-                {recipes.map((item, index) => (
-                  <Link to={ `/comidas/${item.idMeal}` } key={ index }>
-                    <RecipesCards
-                      recipe={ item }
-                      search="meals"
-                      index={ index }
-                    />
-                  </Link>))}
-              </Row>
-            </Container>
+            <Row>
+              {recipes.map((item, index) => (
+                <Link to={ `/comidas/${item.idMeal}` } key={ index }>
+                  <RecipesCards
+                    recipe={ item }
+                    search="meals"
+                    index={ index }
+                  />
+                </Link>))}
+            </Row>
           )}
           <Footer />
         </Container>
