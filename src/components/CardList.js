@@ -9,7 +9,6 @@ function CardList({ arrayOfCard, typeOfCard, sideScroll, recommendation }) {
   const name = `str${typeOfCard}`;
   const src = `str${typeOfCard}Thumb`;
   const pathType = typeOfCard === 'Meal' ? 'comidas' : 'bebidas';
-  console.log(recommendation, 'recommendation');
 
   return (
     <div
