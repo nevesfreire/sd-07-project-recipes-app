@@ -34,6 +34,9 @@ function Routes() {
           component={ ExploreFoodByIngredients }
         />
         <Route path="/explorar/comidas/area" component={ ExploreFoodByArea } />
+        <Route path="/explorar/bebidas/area">
+          <h1>Not Found</h1>
+        </Route>
         <Route path="/explorar/comidas" component={ ExploreFoodPage } />
         <Route
           path="/explorar/bebidas/ingredientes"
