@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import {
-  Header, Footer, RandonFoodCards, FoodCards, SearchFoodCards,
+  Header, Footer, RandonFoodCards, FoodCards, SearchFoodCards, CategoryFood,
 } from '../components';
 import { CupNodesContext } from '../contexts';
 
@@ -18,6 +18,7 @@ export default function Foods() {
   return (
     <div>
       <Header title="Comidas" />
+      <CategoryFood />
       {whatchCards(category, search)}
       <Footer />
     </div>

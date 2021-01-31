@@ -1,37 +1,33 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { profileIcon, searchIcon } from '../images';
-import SearchBar2 from './SearchBar';
+import SearchBar from './SearchBar';
+import Button from './Button';
 
-// Se for passado profile = false como props, não será renderizado.
-// Se for passado search = false como props, não será renderizado.
-// O titulo da header é passado via props com a chave title.
 export default function Header({ title, profile, search }) {
+  const { push } = useHistory();
   const [searchBar, setSearchBar] = useState(false);
   return (
     <div>
-      {profile && (
-        <Link
-          to="/perfil"
-          data-testid="profile-top-btn"
-        >
-          <img
-            src={ profileIcon }
-            alt="icone de perfil"
+      <nav className="header navbar navbar-expand-lg navbar-light bg-light">
+        {profile && (
+          <Button
+            testid="profile-top-btn"
+            icon={ profileIcon }
+            func={ () => { push('/perfil'); } }
           />
-        </Link>
-      )}
-      <h1 data-testid="page-title">{title}</h1>
-      {search && (
-        <button
-          type="button"
-          data-testid="search-top-btn"
-          onClick={ () => { setSearchBar(!searchBar); } }
-        >
-          <img src={ searchIcon } alt="icone de perfil" />
-        </button>)}
-      {searchBar && <SearchBar2 title={ title } /> }
+        )}
+        <h1 data-testid="page-title">{title}</h1>
+        {search && (
+          <Button
+            testid="search-top-btn"
+            icon={ searchIcon }
+            func={ () => { setSearchBar(!searchBar); } }
+          />
+        )}
+      </nav>
+      {searchBar && <SearchBar title={ title } /> }
     </div>
   );
 }

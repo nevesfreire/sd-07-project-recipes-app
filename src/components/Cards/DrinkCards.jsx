@@ -1,30 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useFetchApi } from '../hooks';
-import { CategoryDrink } from './CardsAndCategorys';
-import { factoryCard } from '../Services';
+import { useFetchApi } from '../../hooks';
+import LoadingCard from './LoadingCard';
+import { factoryCard } from '../../Services';
 
-export default function Cards({ category, number }) {
+export default function DrinkCards({ category, number }) {
   const URL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
   const [loading, { drinks }] = useFetchApi(URL);
 
   return (
-    <div>
-      <CategoryDrink />
+    <div className="cards">
       {
         loading
-          ? (<span>loading...</span>)
+          ? (<LoadingCard />)
           : factoryCard(drinks, number, true)
       }
     </div>
   );
 }
 
-Cards.defaultProps = {
+DrinkCards.defaultProps = {
   number: 12,
 };
 
-Cards.propTypes = {
+DrinkCards.propTypes = {
   category: PropTypes.string.isRequired,
   number: PropTypes.number,
 };

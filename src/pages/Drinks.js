@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import {
-  Header, Footer, RandonDrinkCards, DrinkCards, SearchDrinkCards,
+  Header, Footer, RandonDrinkCards, DrinkCards, SearchDrinkCards, CategoryDrink,
 } from '../components';
 import { CupNodesContext } from '../contexts';
 
@@ -18,6 +18,7 @@ export default function Drinks() {
   return (
     <div>
       <Header title="Bebidas" />
+      <CategoryDrink />
       {whatchCards(category, search)}
       <Footer />
     </div>

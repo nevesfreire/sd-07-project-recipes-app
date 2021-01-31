@@ -7,12 +7,24 @@
   width: 100%;
 }
 
-.cardFood {
+.header {
+  top: 0;
+  height: 60px;
+  width: 100%;
+}
+
+.categorys {
+  display: inline-block;
+  height: 60px;
+}
+
+.card {
+  align-items: center;
+  width: 10rem;
+}
+
+.cards {
   display: flex;
-  flex-basis: 30%;
-  flex-flow: row;
-  height: 172px;
-  left: 187px;
-  top: 171px;
-  width: 161px;
+  flex-wrap: wrap;
+  width: 100%;
 }

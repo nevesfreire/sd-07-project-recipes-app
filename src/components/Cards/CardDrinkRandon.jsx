@@ -1,5 +1,6 @@
 import React from 'react';
 import Card from './Card';
+import LoadingCard from './LoadingCard';
 import { useFetchApi } from '../../hooks';
 import '../components.css';
 
@@ -10,7 +11,7 @@ export default function CardDrinkRandon() {
     <div>
       {
         loading
-          ? (<span>loading...</span>)
+          ? (<LoadingCard />)
           : (
             <Card
               title={ drinks[0].strDrink }

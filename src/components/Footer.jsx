@@ -1,40 +1,30 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 import './components.css';
+import Button from './Button';
 
 function Footer() {
+  const { push } = useHistory();
   return (
-    <div data-testid="footer" className="footer">
-      <Link to="/bebidas">
-        <button type="button">
-          <img
-            src={ drinkIcon }
-            alt="icone bebidas"
-            data-testid="drinks-bottom-btn"
-          />
-        </button>
-      </Link>
-      <Link to="/explorar">
-        <button type="button">
-          <img
-            src={ exploreIcon }
-            alt="icone explorar"
-            data-testid="explore-bottom-btn"
-          />
-        </button>
-      </Link>
-      <Link to="/comidas">
-        <button type="button">
-          <img
-            src={ mealIcon }
-            alt="icone comidas"
-            data-testid="food-bottom-btn"
-          />
-        </button>
-      </Link>
+    <div data-testid="footer" className="footer ">
+      <Button
+        testid="drinks-bottom-btn"
+        icon={ drinkIcon }
+        func={ () => { push('/bebidas'); } }
+      />
+      <Button
+        testid="explore-bottom-btn"
+        icon={ exploreIcon }
+        func={ () => { push('/explorar'); } }
+      />
+      <Button
+        testid="food-bottom-btn"
+        icon={ mealIcon }
+        func={ () => { push('/comidas'); } }
+      />
     </div>
   );
 }

@@ -2,8 +2,9 @@ import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { CupNodesContext } from '../contexts';
 import { SUBMIT_SEARCH } from '../reducers';
+import Button from './Button';
 
-export default function SearchBar2({ title }) {
+export default function SearchBar({ title }) {
   const { dispatchFilter } = useContext(CupNodesContext);
 
   const initialState = { text: '', option: '', title: title.toLowerCase() };
@@ -59,18 +60,16 @@ export default function SearchBar2({ title }) {
           />
         </label>
       </div>
-      <button
-        type="button"
-        onClick={ onSubmitFilters }
-        data-testid="exec=search-btn"
-      >
-        Buscar...
-      </button>
+      <Button
+        testid="exec=search-btn"
+        text="Buscar..."
+        func={ onSubmitFilters }
+      />
     </div>
 
   );
 }
 
-SearchBar2.propTypes = {
+SearchBar.propTypes = {
   title: PropTypes.string.isRequired,
 };

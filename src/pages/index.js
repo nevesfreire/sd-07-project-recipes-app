@@ -1,3 +1,9 @@
 export { default as Foods } from './Foods';
 export { default as Drinks } from './Drinks';
 export { default as Login } from './Login';
+export { default as Explore } from './Explore';
+export { default as FoodExplore } from './FoodExplore';
+export { default as DrinkExplore } from './DrinkExplore';
+export { default as IngredientsExploreFood } from './IngredientsExploreFood';
+export { default as IngredientsExploreDrink } from './IngredientsExploreDrink';
+export { default as AreaExploreFood } from './AreaExploreFood';

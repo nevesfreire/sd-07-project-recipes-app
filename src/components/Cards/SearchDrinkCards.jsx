@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { CategoryDrink } from './CardsAndCategorys';
-import { useFetchApi } from '../hooks';
-import { UperCaseFirstLetter, factoryCard } from '../Services';
+import LoadingCard from './LoadingCard';
+import { useFetchApi } from '../../hooks';
+import { UperCaseFirstLetter, factoryCard } from '../../Services';
 
 function filterURL({ option, text }) {
   const newText = text.toLowerCase().split(' ', '_');
@@ -22,11 +22,10 @@ export default function SearchDrinkCards({ number, search }) {
   const URL = filterURL(search);
   const [loading, { drinks }] = useFetchApi(URL);
   return (
-    <div>
-      <CategoryDrink />
+    <div className="cards">
       {
         loading
-          ? (<span>loading...</span>)
+          ? (<LoadingCard />)
           : (factoryCard(drinks, number, true))
       }
     </div>
