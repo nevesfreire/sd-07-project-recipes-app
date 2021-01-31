@@ -4,30 +4,46 @@ import { connect } from 'react-redux';
 import Header from '../../components/header/Header';
 import BarraBuscaBebidas from '../../components/searchbar/BarraBuscaBebidas';
 import Footer from '../../components/footer/Footer';
+import { resultRandomDrink } from '../../redux/actionsBebidas';
 
 class Bebidas extends React.Component {
+  constructor() {
+    super();
+    this.showCards = this.showCards.bind(this);
+  }
+
+  componentDidMount() {
+    const { fetchRandomDrink } = this.props;
+    fetchRandomDrink();
+  }
+
+  showCards(cards) {
+    return cards.map((drink, index) => {
+      const DOZE = 12;
+      if (index < DOZE) {
+        return (
+          <div data-testid={ `${index}-recipe-card` } key={ drink.idDrink }>
+            <img
+              src={ drink.strDrinkThumb }
+              alt="recipe pic"
+              data-testid={ `${index}-card-img` }
+              width="50%"
+            />
+            <h4 data-testid={ `${index}-card-name` }>{drink.strDrink}</h4>
+          </div>
+        );
+      }
+      return null; // referência: Brenda Lima;
+    });
+  }
+
   render() {
-    const { toggle, history, toggleDrink, resultApi } = this.props;
+    const { toggle, history, toggleDrink, resultDrink, resultApiByName } = this.props;
     return (
       <div>
         <Header title="Bebidas" />
         {toggle && <BarraBuscaBebidas history={ history } />}
-        {toggleDrink && resultApi.map((drink, index) => {
-          const DOZE = 12;
-          if (index < DOZE) {
-            return (
-              <div data-testid={ `${index}-recipe-card` } key={ drink.idDrink }>
-                <img
-                  src={ drink.stDrinkThumb }
-                  alt="recipe pic"
-                  data-testid={ `${index}-card-img` }
-                />
-                <h4 data-testid={ `${index}-card-name` }>{drink.strDrink}</h4>
-              </div>
-            );
-          }
-          return null; // referência: Brenda Lima;
-        })}
+        {toggleDrink ? this.showCards(resultApiByName) : this.showCards(resultDrink)}
         <Footer />
       </div>
     );
@@ -36,17 +52,24 @@ class Bebidas extends React.Component {
 
 const mapStateToProps = (state) => ({
   toggle: state.reducerSearchBar.toggle,
-  resultApi: state.reducerBebidas.recipesByNameBebida,
   toggleDrink: state.reducerSearchBar.toggleDrink,
+  resultDrink: state.reducerBebidas.recipesByRadomBebida,
+  resultApiByName: state.reducerBebidas.recipesByNameBebida,
 });
 
-export default connect(mapStateToProps)(Bebidas);
+const mapDispatchToProps = (dispatch) => ({
+  fetchRandomDrink: () => dispatch(resultRandomDrink()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Bebidas);
 
 Bebidas.propTypes = {
   toggle: PropTypes.bool.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
-  resultApi: PropTypes.arrayOf(PropTypes.object).isRequired,
   toggleDrink: PropTypes.bool.isRequired,
+  resultDrink: PropTypes.arrayOf(PropTypes.object).isRequired,
+  fetchRandomDrink: PropTypes.func.isRequired,
+  resultApiByName: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
