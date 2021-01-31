@@ -15,16 +15,16 @@ class Checkcomp extends Component {
     const { ind, ing, tip, id, call } = this.props;
     const { state } = this;
     const inProgresso = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const array = inProgresso[tip][id];
+    const arrayPro = inProgresso[tip][id];
     if (state[ind] === false) {
       this.setState({ [ind]: true });
-      array.push(ing);
-      call(array);
+      arrayPro.push(ing);
+      call(arrayPro);
       localStorage.setItem(
         'inProgressRecipes',
         JSON.stringify({
           ...inProgresso,
-          [tip]: { ...inProgresso[tip], [id]: array },
+          [tip]: { ...inProgresso[tip], [id]: arrayPro },
         }),
       );
     }
