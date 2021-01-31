@@ -1,17 +1,12 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import GlobalContext from '../context/GlobalContext';
-<<<<<<< HEAD
-=======
-import Logo from '../components/logo/Logo';
->>>>>>> f8e85995fd53af4499bbc035c0595f3e72f4a622
 import './style/Login.css';
 
 export default function Login(props) {
   const { history } = props;
   const context = useContext(GlobalContext);
   const {
-    styles: { loginBG },
     email,
     password,
     setEmail,
@@ -67,19 +62,7 @@ export default function Login(props) {
   }
 
   return (
-<<<<<<< HEAD
     <div className="login-container">
-=======
-    <div
-      className="login-container"
-      style={ { backgroundImage: loginBG } }
-    >
-
-      <div className="logo-container">
-        <Logo />
-      </div>
-
->>>>>>> f8e85995fd53af4499bbc035c0595f3e72f4a622
       <form className="login-form">
         <input
           className="login-input-email"
