@@ -1,12 +1,12 @@
 import React from 'react';
 import Header from '../../Components/Header';
 import Footer from '../../Components/Footer';
-import PerfilProfile from '../../Components/PerfilProfile';
+import Profile from '../../Components/Profile';
 
 const Perfil = () => (
   <div>
     <Header>Perfil</Header>
-    <PerfilProfile />
+    <Profile />
     <Footer />
   </div>
 );
