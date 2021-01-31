@@ -1,6 +1,17 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import GlobalContext from '../context/GlobalContext';
+import { LoginStyle } from './style';
+import Logo from '../components/Logo';
+
+const {
+  LoginContainer,
+  LogoContainer,
+  Form,
+  Input,
+  Btn,
+  PassContainer,
+} = LoginStyle;
 
 export default function Login(props) {
   const { history } = props;
@@ -61,9 +72,12 @@ export default function Login(props) {
   }
 
   return (
-    <div>
-      <form className="form">
-        <input
+    <LoginContainer>
+      <LogoContainer>
+        <Logo />
+      </LogoContainer>
+      <Form>
+        <Input
           required
           id="email"
           type="email"
@@ -73,29 +87,31 @@ export default function Login(props) {
           data-testid="email-input"
           onChange={ (event) => setEmail(event.target.value) }
         />
-        <input
-          required
-          id="password"
-          type="password"
-          placeholder="Digite sua senha"
-          value={ password }
-          data-testid="password-input"
-          onChange={ (event) => setPassword(event.target.value) }
-        />
-        <button
-          id="submit-btn"
-          type="submit"
-          data-testid="login-submit-btn"
-          disabled={ infoVerifier() }
-          onClick={ (event) => {
-            handleChange(event);
-            history.push('/comidas');
-          } }
-        >
-          Entrar
-        </button>
-      </form>
-    </div>
+        <PassContainer>
+          <Input
+            required
+            id="password"
+            type="password"
+            placeholder="Digite sua senha"
+            value={ password }
+            data-testid="password-input"
+            onChange={ (event) => setPassword(event.target.value) }
+          />
+          <Btn
+            id="submit-btn"
+            type="submit"
+            data-testid="login-submit-btn"
+            disabled={ infoVerifier() }
+            onClick={ (event) => {
+              handleChange(event);
+              history.push('/comidas');
+            } }
+          >
+            Entrar
+          </Btn>
+        </PassContainer>
+      </Form>
+    </LoginContainer>
   );
 }
 
