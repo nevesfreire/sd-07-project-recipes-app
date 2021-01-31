@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import {
   Login,
   Foods,
+  Profile,
   Drinks,
   Explore,
   FoodExplore,
@@ -33,6 +34,7 @@ export default function Routes() {
           component={ IngredientsExploreDrink }
         />
         <Route exact path="/explorar/comidas/area" component={ AreaExploreFood } />
+        <Route exact path="/perfil" component={ Profile } />
       </Switch>
     </BrowserRouter>
   );

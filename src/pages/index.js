@@ -7,3 +7,4 @@ export { default as DrinkExplore } from './DrinkExplore';
 export { default as IngredientsExploreFood } from './IngredientsExploreFood';
 export { default as IngredientsExploreDrink } from './IngredientsExploreDrink';
 export { default as AreaExploreFood } from './AreaExploreFood';
+export { default as Profile } from './Profile';
