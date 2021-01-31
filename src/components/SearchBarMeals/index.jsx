@@ -136,4 +136,8 @@ const mapStateToProps = (state) => ({
   mealsStore: state.receitasDeComidas.meals.meals,
 });
 
+SearchBarMeals.propTypes = {
+  mealsStore: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBarMeals);
