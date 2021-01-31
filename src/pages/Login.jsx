@@ -1,17 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import GlobalContext from '../context/GlobalContext';
-import { LoginStyle } from './style';
-import Logo from '../components/logo/Logo';
-
-const {
-  LoginContainer,
-  LogoContainer,
-  Form,
-  Input,
-  Btn,
-  PassContainer,
-} = LoginStyle;
+import './style/Login.css';
 
 export default function Login(props) {
   const { history } = props;
@@ -72,14 +62,10 @@ export default function Login(props) {
   }
 
   return (
-    <LoginContainer>
-
-      <LogoContainer>
-        <Logo />
-      </LogoContainer>
-
-      <Form>
-        <Input
+    <div className="login-container">
+      <form className="login-form">
+        <input
+          className="login-input-email"
           required
           id="email"
           type="email"
@@ -89,8 +75,9 @@ export default function Login(props) {
           data-testid="email-input"
           onChange={ (event) => setEmail(event.target.value) }
         />
-        <PassContainer>
-          <Input
+        <div className="login-pass-container">
+          <input
+            className="login-input-pass"
             required
             id="password"
             type="password"
@@ -99,7 +86,8 @@ export default function Login(props) {
             data-testid="password-input"
             onChange={ (event) => setPassword(event.target.value) }
           />
-          <Btn
+          <button
+            className="login-btn"
             id="submit-btn"
             type="submit"
             data-testid="login-submit-btn"
@@ -110,10 +98,10 @@ export default function Login(props) {
             } }
           >
             Entrar
-          </Btn>
-        </PassContainer>
-      </Form>
-    </LoginContainer>
+          </button>
+        </div>
+      </form>
+    </div>
   );
 }
 

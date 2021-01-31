@@ -1,7 +1,5 @@
 import React from 'react';
-import Styles from './Styles';
-
-const { Btn } = Styles;
+import './Styles.css';
 
 export default function Buttons(number, info) {
   const listOfButtons = [];
@@ -9,12 +7,14 @@ export default function Buttons(number, info) {
   for (let index = zero; index < number; index += 1) {
     if (info[index] !== undefined) {
       listOfButtons.push(
-        <Btn
+        <button
+          className="get-btn"
+          type="button"
           data-testid={ `${info[index]}-category-filter` }
           key={ `${info[index]}-category-filter` }
         >
           {info[index]}
-        </Btn>,
+        </button>,
       );
     }
   }

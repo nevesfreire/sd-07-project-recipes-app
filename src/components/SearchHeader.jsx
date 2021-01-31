@@ -1,18 +1,12 @@
 import React from 'react';
-import { SearchHeaderStyle } from './style';
-
-const {
-  Container,
-  SearchBar,
-  RadioBtnsContainer,
-  SearchBtn,
-} = SearchHeaderStyle;
+import './style/SearchHeader.css';
 
 function SearchHeader() {
   return (
     <form>
-      <Container>
-        <SearchBar
+      <div className="search-header-container">
+        <input
+          className="search-header-search-bar"
           name="input"
           placeholder="Buscar receita"
           type="text"
@@ -20,15 +14,16 @@ function SearchHeader() {
           // onChange={}
         />
         <div>
-          <SearchBtn
+          <button
+            className="search-header-search-btn"
             type="button"
             data-testid="exec-search-btn"
           >
             Buscar
-          </SearchBtn>
+          </button>
         </div>
-      </Container>
-      <RadioBtnsContainer>
+      </div>
+      <div className="search-header-radio-btn-container">
         <label htmlFor="ingredients">
           <input
             name="input"
@@ -61,7 +56,7 @@ function SearchHeader() {
           />
           Primeira letra
         </label>
-      </RadioBtnsContainer>
+      </div>
     </form>
   );
 }
