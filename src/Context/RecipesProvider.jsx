@@ -23,6 +23,7 @@ function RecipesProvider({ children }) {
     favoriteRecipes,
     setFavoriteRecipes,
     doneRecipes,
+    user,
   ] = useLocalStorage();
 
   const [filteredDoneRecipes, setFilteredDoneRecipes] = useState([]);
@@ -170,7 +171,8 @@ function RecipesProvider({ children }) {
     handleClickFavorite,
     verifyInProgress,
     handleClickStartRecipe,
-    email: '',
+    // email: '',
+    user,
     meal: {
       mealsData,
       setMealsData,
