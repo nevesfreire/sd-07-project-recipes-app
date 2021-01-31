@@ -38,7 +38,7 @@ function Comidas(props) {
         {comida.map((item, index) => (
           <Link
             key={ index }
-            className="list-foods"
+            className="list-drinks"
             to={ `/comidas/${item.idMeal}` }
             data-testid={ `${index}-recipe-card` }
           >
