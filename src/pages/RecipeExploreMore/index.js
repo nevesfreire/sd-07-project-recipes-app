@@ -1,9 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { getRandom } from '../../services/recipeAPI';
 
 function ExploreMore() {
   const location = useLocation();
   const currentPath = location.pathname;
+
+  const [randomDrinkId, setRandomDrinkId] = useState('');
+  const [randomMealId, setRandomMealId] = useState('');
+
+  useEffect(() => {
+    getRandom('bebidas')
+      .then((response) => setRandomDrinkId(response[0].id));
+
+    getRandom('comidas')
+      .then((response) => setRandomMealId(response[0].id));
+  }, []);
 
   if (currentPath.includes('bebidas')) {
     return (
@@ -14,9 +26,11 @@ function ExploreMore() {
             Por Ingredientes
           </button>
         </Link>
-        <button type="button" data-testid="explore-surprise">
-          Me Surpreenda!
-        </button>
+        <Link to={ `/bebidas/${randomDrinkId}` }>
+          <button type="button" data-testid="explore-surprise">
+            Me Surpreenda!
+          </button>
+        </Link>
       </div>
     );
   } if (currentPath.includes('comidas')) {
@@ -33,10 +47,11 @@ function ExploreMore() {
             Por Local de Origem
           </button>
         </Link>
-
-        <button type="button" data-testid="explore-surprise">
-          Me Surpreenda!
-        </button>
+        <Link to={ `/comidas/${randomMealId}` }>
+          <button type="button" data-testid="explore-surprise">
+            Me Surpreenda!
+          </button>
+        </Link>
       </div>
     );
   }
