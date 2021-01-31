@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import CardList from '../components/CardList';
@@ -25,8 +24,6 @@ function Comidas() {
   const noFindRecipe = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
   const magicNumberZero = 0;
-
-  const history = useHistory();
 
   const getGlobalMealData = async () => {
     const data = await fetchGlobalMeal();
