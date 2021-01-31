@@ -1,7 +1,9 @@
 import React, { useContext } from 'react';
 import { useFetchApi } from '../../hooks';
+import { LoadingCard } from '../Cards';
 import { SUBMIT_CATEGORY, CLEAR_CATEGORY } from '../../reducers';
 import { CupNodesContext } from '../../contexts';
+import Button from '../Button';
 
 export default function CategoryDrink() {
   const { dispatchFilter, filterDates } = useContext(CupNodesContext);
@@ -17,25 +19,23 @@ export default function CategoryDrink() {
     <div>
       {
         loading
-          ? (<h3>loading...</h3>)
+          ? (<LoadingCard />)
           : (
-            <div>
-              <button
-                type="button"
-                onClick={ submitCategory }
-              >
-                All
-              </button>
+            <div className="btn-group" role="group" aria-label="Basic example">
+              <Button
+                classBootstrap="btn btn-secondary"
+                text="All"
+                func={ submitCategory }
+              />
               {drinks.filter((_, index) => index < five).map(({ strCategory }, i) => (
-                <button
+                <Button
                   id={ strCategory }
                   key={ `btc-fil-${i}` }
-                  type="button"
-                  onClick={ submitCategory }
-                  data-testid={ `${strCategory}-category-filter` }
-                >
-                  {strCategory}
-                </button>
+                  testid={ `${strCategory}-category-filter` }
+                  classBootstrap="btn btn-secondary"
+                  text={ strCategory }
+                  func={ submitCategory }
+                />
               ))}
             </div>
           )

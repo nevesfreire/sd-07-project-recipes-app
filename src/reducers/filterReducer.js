@@ -7,7 +7,7 @@ function filterReducer(state, action) {
   case SUBMIT_SEARCH:
     return { ...state, search: action.payload };
   case SUBMIT_CATEGORY:
-    return { ...state, category: action.payload };
+    return { ...state, search: '', category: action.payload };
   case CLEAR_CATEGORY:
     return { ...state, category: '' };
   default:

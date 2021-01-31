@@ -5,7 +5,8 @@ export default function useFetchApi(URL) {
 
   useEffect(() => {
     (async () => {
-      const response = await fetch(URL).then((element) => element.json());
+      const response = await fetch(URL).then((element) => element.json())
+        .catch((error) => error);
       setResult({ loading: false, results: response });
       return response;
     })();

@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { CardFoodRandon, CategoryFood } from './CardsAndCategorys';
+import CardFoodRandon from './CardFoodRandon';
 
 export default function RandonFoodCards({ number }) {
   return (
-    <div>
-      <CategoryFood />
+    <div className="cards">
       {Array.from(
         { length: [number] }, (a, i) => <CardFoodRandon key={ `food${i}` } />,
       )}
