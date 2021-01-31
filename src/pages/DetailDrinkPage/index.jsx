@@ -4,7 +4,7 @@ import RecipeDetails from '../../components/RecipeDetails';
 
 function DetailDrinkPage() {
   return (
-    <RecipeDetails page="drink" />
+    <RecipeDetails />
   );
 }
 

@@ -39,7 +39,9 @@ function RecipesProvider({ children }) {
   const checkFavorite = (id) => {
     const foundRecipe = favoriteRecipes.find((recipe) => recipe.id === id);
 
-    if (foundRecipe) return true;
+    if (foundRecipe) {
+      return true;
+    }
     return false;
   };
 
@@ -77,8 +79,8 @@ function RecipesProvider({ children }) {
     setCurrentFilterDrinksCategory('All');
   };
 
-  const verifyInProgress = (id, page) => {
-    const key = page === 'meal' ? 'meals' : 'cocktails';
+  const verifyInProgress = (id, isMeal) => {
+    const key = isMeal ? 'meals' : 'cocktails';
 
     if (inProgressRecipes[key]) {
       const isInProgress = inProgressRecipes[key][id];
@@ -87,50 +89,35 @@ function RecipesProvider({ children }) {
     return false;
   };
 
-  const handleClickFavorite = (recipe, type) => {
-    if (type === 'meal') {
-      const { idMeal, strArea, strCategory, strMeal, strMealThumb } = recipe;
+  const handleClickFavorite = (recipe, isMeal) => {
+    if (isMeal) {
+      const { id, area, category, name, image } = recipe;
 
-      const alreadyFavorite = checkFavorite(idMeal);
+      const alreadyFavorite = checkFavorite(id);
+
       if (alreadyFavorite) {
-        const newFilteredFavoriteRecipes = favoriteRecipes
-          .filter(({ id }) => id !== idMeal);
+        const newFilteredFavoriteRecipes = favoriteRecipes.filter((rec) => rec.id !== id);
         return setFavoriteRecipes(newFilteredFavoriteRecipes);
       }
-
       const newFavorite = {
-        id: idMeal,
-        type: 'comida',
-        area: strArea,
-        category: strCategory,
-        alcoholicOrNot: '',
-        name: strMeal,
-        image: strMealThumb,
+        id, area, category, name, image, alcoholicOrNot: '', type: 'comida',
       };
 
       return setFavoriteRecipes((state) => [...state, newFavorite]);
     }
 
-    const { idDrink, strCategory, strAlcoholic, strDrink, strDrinkThumb } = recipe;
+    const { id, category, alcoholic, name, image } = recipe;
 
-    const alreadyFavorite = checkFavorite(idDrink);
+    const alreadyFavorite = checkFavorite(id);
 
     if (alreadyFavorite) {
-      const newFilteredFavoriteRecipes = favoriteRecipes
-        .filter(({ id }) => id !== idDrink);
+      const newFilteredFavoriteRecipes = favoriteRecipes.filter((rec) => rec.id !== id);
       return setFavoriteRecipes(newFilteredFavoriteRecipes);
     }
 
     const newFavorite = {
-      id: idDrink,
-      type: 'bebida',
-      area: '',
-      category: strCategory,
-      alcoholicOrNot: strAlcoholic,
-      name: strDrink,
-      image: strDrinkThumb,
+      id, category, alcoholicOrNot: alcoholic, name, image, area: '', type: 'bebida',
     };
-
     setFavoriteRecipes((state) => [...state, newFavorite]);
   };
 

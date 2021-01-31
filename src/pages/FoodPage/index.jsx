@@ -15,7 +15,7 @@ function FoodPage() {
 
       <SearchBarFood />
       {
-        !isSearchBarActive && <Grid meals />
+        !isSearchBarActive && <Grid isMeal />
       }
       <Footer />
     </div>

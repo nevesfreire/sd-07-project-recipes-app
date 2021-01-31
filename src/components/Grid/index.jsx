@@ -7,8 +7,8 @@ import './style.css';
 import Context from '../../Context';
 import useLoadApiData from '../../Hooks/useLoadApiData';
 
-const Grid = ({ meals }) => {
-  useLoadApiData(meals);
+const Grid = ({ isMeal }) => {
+  useLoadApiData(isMeal);
 
   const {
     mealsData, mealsCategoryList, mealsFilteredData, handleClickCategoryMeals,
@@ -19,7 +19,7 @@ const Grid = ({ meals }) => {
   } = useContext(Context).drink;
 
   const loadingData = () => {
-    if (meals) return mealsData.length || mealsCategoryList.length;
+    if (isMeal) return mealsData.length || mealsCategoryList.length;
     return drinksData.length || drinksCategoryList.length;
   };
 
@@ -33,12 +33,16 @@ const Grid = ({ meals }) => {
         <button
           type="button"
           data-testid="All-category-filter"
-          onClick={ () => handleClickCategoryMeals('All') }
+          onClick={ () => (
+            isMeal
+              ? handleClickCategoryMeals('All')
+              : handleClickCategoryDrinks('All')
+          ) }
         >
           All
         </button>
         {
-          meals
+          isMeal
             ? (
               mealsCategoryList.map(({ strCategory }) => (
                 <button
@@ -67,7 +71,7 @@ const Grid = ({ meals }) => {
       </div>
       <div className="grid-list">
         {
-          meals ? (
+          isMeal ? (
             mealsFilteredData.map(({ idMeal, strMeal, strMealThumb }, index) => (
               <Link
                 to={ `/comidas/${idMeal}` }
@@ -112,6 +116,8 @@ const Grid = ({ meals }) => {
   );
 };
 
-Grid.propTypes = { meals: PropTypes.bool.isRequired };
+Grid.defaultProps = { isMeal: false };
+
+Grid.propTypes = { isMeal: PropTypes.bool };
 
 export default Grid;

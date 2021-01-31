@@ -44,6 +44,7 @@ const RecipesMade = () => {
       </div>
 
       <div>
+        { copied && 'Link copiado!' }
         {
           filteredDoneRecipes.map(({
             id, type, area, category, alcoholicOrNot, name, image, doneDate, tags,
@@ -79,7 +80,6 @@ const RecipesMade = () => {
                     data-testid={ `${index}-horizontal-share-btn` }
                   />
                 </button>
-                { copied && 'Link copiado!' }
 
                 <Link to={ type === 'comida' ? `/comidas/${id}` : `/bebidas/${id}` }>
                   <h1 data-testid={ `${index}-horizontal-name` }>{name}</h1>

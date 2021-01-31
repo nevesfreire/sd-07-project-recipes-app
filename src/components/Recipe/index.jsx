@@ -20,11 +20,14 @@ const getYouTubeVideoId = (url) => {
   return videoId;
 };
 
-const Recipe = ({ recipe, commonProps }) => {
+const Recipe = ({
+  id, area, image, name, category, instructions, youtube, alcoholic, meal, commonProps,
+}) => {
   const navigate = useHistory();
   const { handleClickStartRecipe, handleClickFavorite } = useContext(Context);
-
   const [copied, setCopied] = useState(false);
+
+  const { favorite, ingredients, measures, inProgress, meals, drinks } = commonProps;
 
   const handleClickShare = () => {
     copy(window.location.href)
@@ -32,85 +35,23 @@ const Recipe = ({ recipe, commonProps }) => {
       .catch((err) => console.log(err));
   };
 
-  const {
-    page, favorite, ingredients, measures, inProgress, meals, drinks, id,
-  } = commonProps;
-
-  if (page === 'meal') {
-    const { strMealThumb, strMeal, strCategory, strInstructions, strYoutube } = recipe;
-
-    return (
-      <div>
-        <img src={ strMealThumb } width="150" alt="meal" data-testid="recipe-photo" />
-        <h1 data-testid="recipe-title">{strMeal}</h1>
-        <h3 data-testid="recipe-category">{strCategory}</h3>
-
-        <div>
-          <button type="button" data-testid="share-btn" onClick={ handleClickShare }>
-            <img src={ shareIcon } alt="share icon" />
-          </button>
-
-          <button
-            type="button"
-            onClick={ () => handleClickFavorite(recipe, page) }
-          >
-            <img
-              src={ favorite ? blackHeartIcon : whiteHeartIcon }
-              alt="favorite icon"
-              data-testid="favorite-btn"
-            />
-          </button>
-        </div>
-        { copied && 'Link copiado!' }
-
-        <h2>Ingredients</h2>
-        <div>
-          {
-            ingredients.map((ing, index) => (
-              <p
-                key={ `${ing}-${index}` }
-                data-testid={ `${index}-ingredient-name-and-measure` }
-              >
-                {`-${ing} - ${measures[index]}`}
-              </p>
-            ))
-          }
-        </div>
-
-        <h2>Instructions</h2>
-        <p data-testid="instructions">{strInstructions}</p>
-
-        <h2 data-testid="video">Video</h2>
-        <YouTube
-          videoId={ getYouTubeVideoId(strYoutube) }
-          opts={ { height: '240', width: '360' } }
-        />
-
-        <Recommendation page={ page } recommendations={ drinks } />
-
-        <button
-          className="start-button"
-          type="button"
-          data-testid="start-recipe-btn"
-          onClick={ () => {
-            handleClickStartRecipe(id, ingredients, page);
-            navigate.push(`/comidas/${id}/in-progress`);
-          } }
-        >
-          {inProgress ? 'Continuar Receita' : 'Iniciar Receita'}
-        </button>
-      </div>
-    );
-  }
-
-  const { strDrinkThumb, strDrink, strCategory, strInstructions, strAlcoholic } = recipe;
+  const onClickFavorite = () => {
+    if (meal) {
+      const recipe = { id, area, category, name, image };
+      return handleClickFavorite(recipe, meal);
+    }
+    const recipe = { id, category, alcoholic, name, image };
+    handleClickFavorite(recipe);
+  };
 
   return (
     <div>
-      <img src={ strDrinkThumb } width="150" alt="meal" data-testid="recipe-photo" />
-      <h1 data-testid="recipe-title">{strDrink}</h1>
+      { copied && 'Link copiado!' }
+
+      <img src={ image } width="150" alt="meal" data-testid="recipe-photo" />
+      <h1 data-testid="recipe-title">{name}</h1>
       <h3 data-testid="recipe-category">
-        {strAlcoholic === 'Alcoholic' ? 'Alcoholic' : strCategory}
+        {meal ? category : alcoholic}
       </h3>
 
       <div>
@@ -120,7 +61,7 @@ const Recipe = ({ recipe, commonProps }) => {
 
         <button
           type="button"
-          onClick={ () => handleClickFavorite(recipe, page) }
+          onClick={ onClickFavorite }
         >
           <img
             src={ favorite ? blackHeartIcon : whiteHeartIcon }
@@ -129,7 +70,6 @@ const Recipe = ({ recipe, commonProps }) => {
           />
         </button>
       </div>
-      { copied && 'Link copiado!' }
 
       <h2>Ingredients</h2>
       <div>
@@ -146,37 +86,56 @@ const Recipe = ({ recipe, commonProps }) => {
       </div>
 
       <h2>Instructions</h2>
-      <p data-testid="instructions">{strInstructions}</p>
+      <p data-testid="instructions">{instructions}</p>
 
-      <Recommendation page={ page } recommendations={ meals } />
+      <h2 data-testid="video">Video</h2>
+      <YouTube
+        videoId={ getYouTubeVideoId(youtube) }
+        opts={ { height: '240', width: '360' } }
+      />
+
+      <Recommendation
+        page={ meal ? 'meal' : 'drink' }
+        recommendations={ meal ? drinks : meals }
+      />
 
       <button
         className="start-button"
         type="button"
         data-testid="start-recipe-btn"
         onClick={ () => {
-          handleClickStartRecipe(id, ingredients, page);
-          navigate.push(`/bebidas/${id}/in-progress`);
+          handleClickStartRecipe(id, ingredients, meal ? 'meal' : 'drink');
+          return meal
+            ? navigate.push(`/comidas/${id}/in-progress`)
+            : navigate.push(`/bebidas/${id}/in-progress`);
         } }
       >
-        { inProgress ? 'Continuar Receita' : 'Iniciar Receita' }
+        {inProgress ? 'Continuar Receita' : 'Iniciar Receita'}
       </button>
-
     </div>
   );
 };
 
+// Recipe.defaultProps = { alcoholic: null };
+
 Recipe.propTypes = {
-  recipe: PropTypes.objectOf(PropTypes.string).isRequired,
+  id: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  area: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired,
+  instructions: PropTypes.string.isRequired,
+  youtube: PropTypes.string.isRequired,
+  alcoholic: PropTypes.string.isRequired,
+  meal: PropTypes.bool.isRequired,
   commonProps: PropTypes.shape({
-    page: PropTypes.string.isRequired,
+    isMeal: PropTypes.bool.isRequired,
     favorite: PropTypes.bool.isRequired,
     ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
     measures: PropTypes.arrayOf(PropTypes.string).isRequired,
     inProgress: PropTypes.bool.isRequired,
     meals: PropTypes.arrayOf(PropTypes.object).isRequired,
     drinks: PropTypes.arrayOf(PropTypes.object).isRequired,
-    id: PropTypes.string.isRequired,
   }).isRequired,
 };
 

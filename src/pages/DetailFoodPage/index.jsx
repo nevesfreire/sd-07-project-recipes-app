@@ -4,7 +4,7 @@ import RecipeDetails from '../../components/RecipeDetails';
 
 function DetailFoodPage() {
   return (
-    <RecipeDetails page="meal" />
+    <RecipeDetails isMeal />
   );
 }
 
