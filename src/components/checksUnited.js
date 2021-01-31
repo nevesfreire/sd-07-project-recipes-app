@@ -8,13 +8,11 @@ function checksUnited(itemId, setHideBtn, setIsFavorite) {
   };
 
   const checkFavorites = () => {
-    const zero = 0;
-
     const list = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (list !== null && list.filter((item) => item.id === itemId).length > zero) {
       setIsFavorite(true);
     }
-  }
+  };
 
   checkFavorites();
   checkForCompletion();

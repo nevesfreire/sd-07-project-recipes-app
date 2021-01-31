@@ -11,7 +11,6 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import CardList from './CardList';
 import checksUnited from './checksUnited';
-import checkFavorites from './checkFavorites';
 
 const copy = require('clipboard-copy');
 
@@ -44,7 +43,6 @@ function Details({ itemId, mealType }) {
   }, [mealType]);
 
   useEffect(() => {
-
     const checkForProgress = async () => {
       const list = JSON.parse(localStorage.getItem('inProgressRecipes'));
       if (list !== null) {
@@ -55,9 +53,8 @@ function Details({ itemId, mealType }) {
         if (keys.includes(itemId)) setBeginBtn('Continuar Receita');
       }
     };
-    checkForProgress()
+    checkForProgress();
     checksUnited(itemId, setHideBtn, setIsFavorite);
-    // checkFavorites(itemId, setIsFavorite);
   }, [itemId, mealType, recommendation, details]);
 
   useEffect(() => {
@@ -67,10 +64,8 @@ function Details({ itemId, mealType }) {
       if (mealType === 'Meal') fromFetch = await fetchFoodDetailsById(itemId);
       if (fromFetch) setDetails(fromFetch[0]);
     };
-
     getDetails();
   }, [itemId, mealType, recommendation]);
-
   const forwardToInProgress = () => {
     let progressList = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (progressList === null) {
@@ -87,7 +82,6 @@ function Details({ itemId, mealType }) {
       history.push(`/bebidas/${itemId}/in-progress`);
     }
   };
-
   const loadIngredients = () => {
     const ingredientsList = [];
     for (let i = 1; i <= quinze; i += 1) {
@@ -116,14 +110,12 @@ function Details({ itemId, mealType }) {
       </ul>
     );
   };
-
   const copyLink = () => {
     const url = window.location.href;
     copy(url);
     setShowMessage('');
     setTimeout(() => { setShowMessage('hidden'); }, tresMil);
   };
-
   const addToFavorites = () => {
     const data = {
       id: itemId,
@@ -134,7 +126,6 @@ function Details({ itemId, mealType }) {
       name: details[`str${mealType}`],
       image: details[`str${mealType}Thumb`],
     };
-
     let favList = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (favList) {
       if (favList.filter((item) => item.id === itemId).length > zero) {
@@ -150,7 +141,6 @@ function Details({ itemId, mealType }) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([data]));
     }
   };
-
   const showDetails = () => (
     <div className="details">
       <img
@@ -216,7 +206,6 @@ function Details({ itemId, mealType }) {
       </button>
     </div>
   );
-
   return (
     <div>
       {showDetails()}
