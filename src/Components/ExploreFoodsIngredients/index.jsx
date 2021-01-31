@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import RecipeContext from '../../Context/RecipeContext';
 import Footer from '../Footer';
 
 const ExploreFoodIngredients = () => {
   const [foodIngredientsCategory, setFoodIngredientsCategory] = useState();
-  const [foodRecipes, setFoodRecipes] = useState();
+
+  const { dispatch } = useContext(RecipeContext);
 
   const callApi = async () => {
     const zero = 0;
@@ -12,13 +14,7 @@ const ExploreFoodIngredients = () => {
     const fetching = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
     const json = await fetching.json();
     const results = await json.meals;
-    await setFoodIngredientsCategory(results.slice(zero, doze));
-  };
-
-  const filterFood = async (url) => {
-    const newRequest = await fetch(url);
-    const newJson = await newRequest.json();
-    await setFoodRecipes(...foodRecipes, newJson.meals);
+    setFoodIngredientsCategory(results.slice(zero, doze));
   };
 
   useEffect(() => {
@@ -33,7 +29,11 @@ const ExploreFoodIngredients = () => {
           key={ i }
         >
           <Link
-            onClick={ () => filterFood(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient.strIngredient}`) }
+            onClick={ () => dispatch({
+              type: 'SEARCH_INGREDIENT',
+              value: ingredient.strIngredient,
+              typeSearch: 'i',
+            }) }
             to="/comidas"
             key={ i }
           >
