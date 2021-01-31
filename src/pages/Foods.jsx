@@ -1,10 +1,11 @@
 import React from 'react';
 
 import Footer from '../components/Footer';
+// import RecipesContext from '../context/RecipesContext';
 
 function Foods() {
-  const headerExist = document.querySelector('#headerNotLoaded');
-  if (headerExist !== null) window.location.reload();
+  // const { foodsOrDrinksList } = useContext(RecipesContext);
+
   return (
     <div>
       <span>Comidas</span>
