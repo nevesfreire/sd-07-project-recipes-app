@@ -7,16 +7,19 @@ const Provider = ({ children }) => {
   const [filters, setFilters] = useState([]);
   const [activeFilter, setActiveFilter] = useState('');
   const [isMeal, setIsMeal] = useState(false);
+  const [details, setDetails] = useState({});
 
   const context = {
     data,
     filters,
     activeFilter,
+    details,
     isMeal,
     setData,
     setFilters,
     setIsMeal,
     setActiveFilter,
+    setDetails,
   };
 
   return (

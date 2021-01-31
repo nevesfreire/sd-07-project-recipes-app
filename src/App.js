@@ -1,13 +1,35 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Provider from './provider';
-import { MainPage, RecipeDetails, Explore, ExploreBy } from './pages';
+import {
+  MainPage,
+  RecipeDetails,
+  Explore,
+  ExploreBy,
+  ExploreByIngredient,
+  ExploreByArea,
+} from './pages';
 
 function App() {
   return (
     <Provider>
       <BrowserRouter>
         <Switch>
+          <Route
+            exact
+            path="/explorar/comidas/area"
+            render={ (props) => (<ExploreByArea { ...props } />) }
+          />
+          <Route
+            exact
+            path="/explorar/bebidas/ingredientes"
+            render={ (props) => (<ExploreByIngredient { ...props } />) }
+          />
+          <Route
+            exact
+            path="/explorar/comidas/ingredientes"
+            render={ (props) => (<ExploreByIngredient { ...props } />) }
+          />
           <Route
             exact
             path="/explorar/bebidas"

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Footer, Header } from '../../components';
 import './style.css';
 
-function Explorer() {
+function Explore() {
   return (
     <div>
       <Header />
@@ -24,4 +24,4 @@ function Explorer() {
   );
 }
 
-export default Explorer;
+export default Explore;

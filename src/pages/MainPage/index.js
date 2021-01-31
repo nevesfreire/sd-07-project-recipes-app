@@ -9,8 +9,6 @@ function MainPage(props) {
   const { location } = props;
   const { pathname } = location;
 
-  // const recipeType = (pathname === '/comidas') ? 'meal' : 'cocktail';
-
   const {
     data,
     filters,
