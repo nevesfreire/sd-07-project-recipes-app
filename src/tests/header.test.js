@@ -1,6 +1,17 @@
 import React from 'react';
 import renderWithRouter from '../components/renderWithRouter';
-import { Bebidas, Comidas, Explorar, InProgress, Login, ReceitaBebida, ReceitaComida } from '../pages';
+import {
+  Bebidas,
+  Comidas,
+  Explorar,
+  InProgress,
+  Login,
+  ReceitaBebida,
+  ReceitaComida,
+} from '../pages';
+
+const urlProfileIcon = 'http://localhost/profileIcon.svg';
+const urlSearchIcon = 'http://localhost/searchIcon.svg';
 
 describe('9 - Implemente os elementos do header na tela principal de receitas, '
 + 'respeitando os atributos descritos no protótipo', () => {
@@ -22,15 +33,15 @@ describe('10 - Implemente um ícone para a tela de perfil, um título e um'
   + ' corretos na tela de principal de receitas de comidas', () => {
     const { getAllByRole } = renderWithRouter(<Comidas />);
     const image = getAllByRole('img');
-    expect(image[0].src).toBe('http://localhost/profileIcon.svg');
-    expect(image[1].src).toBe('http://localhost/searchIcon.svg');
+    expect(image[0].src).toBe(urlProfileIcon);
+    expect(image[1].src).toBe(urlSearchIcon);
   });
   test('O header tem os ícones corretos na tela de principal de receitas '
   + 'de bebidas', () => {
     const { getAllByRole } = renderWithRouter(<Bebidas />);
     const image = getAllByRole('img');
-    expect(image[0].src).toBe('http://localhost/profileIcon.svg');
-    expect(image[1].src).toBe('http://localhost/searchIcon.svg');
+    expect(image[0].src).toBe(urlProfileIcon);
+    expect(image[1].src).toBe(urlSearchIcon);
   });
   test('Não tem header na tela de detalhes de uma receita de comida', () => {
     const { container } = renderWithRouter(<ReceitaComida />);
@@ -51,22 +62,22 @@ describe('10 - Implemente um ícone para a tela de perfil, um título e um'
   test('O header tem os ícones corretos na tela de explorar', () => {
     const { getAllByRole } = renderWithRouter(<Explorar />);
     const image = getAllByRole('img');
-    expect(image[0].src).toBe('http://localhost/profileIcon.svg');
-    expect(image[1].src).toBe('http://localhost/searchIcon.svg');
+    expect(image[0].src).toBe(urlProfileIcon);
+    expect(image[1].src).toBe(urlSearchIcon);
   });
   test('O header tem os ícones corretos na tela de explorar comidas', () => {
     const { getAllByRole, history } = renderWithRouter(<Explorar />);
     history.push('/explorar/comidas');
     const image = getAllByRole('img');
-    expect(image[0].src).toBe('http://localhost/profileIcon.svg');
-    expect(image[1].src).toBe('http://localhost/searchIcon.svg');
+    expect(image[0].src).toBe(urlProfileIcon);
+    expect(image[1].src).toBe(urlSearchIcon);
   });
   test('O header tem os ícones corretos na tela de explorar bebidas', () => {
     const { getAllByRole, history } = renderWithRouter(<Explorar />);
     history.push('/explorar/bebidas');
     const image = getAllByRole('img');
-    expect(image[0].src).toBe('http://localhost/profileIcon.svg');
-    expect(image[1].src).toBe('http://localhost/searchIcon.svg');
+    expect(image[0].src).toBe(urlProfileIcon);
+    expect(image[1].src).toBe(urlSearchIcon);
   });
   test('O header tem os ícones corretos na tela de '
   + 'explorar comidas por ingrediente', () => {
