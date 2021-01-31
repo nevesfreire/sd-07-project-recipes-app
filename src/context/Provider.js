@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
 
 const RecipesProvider = ({ children }) => {
   const [recipesInput, setRecipesInput] = useState('');
-  const [recipesRadio, setRecipesRatio] = useState('Ingrediente');
+  const [recipesRadio, setRecipesRatio] = useState('');
   const [data, setData] = useState();
 
   const handleRecipesInput = (event) => {
@@ -17,33 +17,73 @@ const RecipesProvider = ({ children }) => {
 
   let URL = '';
 
-  const handleClick = () => {
-    switch(recipesRadio) {
+  const handleClickFood = () => {
+    console.log('Food');
+    switch (recipesRadio) {
     case 'Ingrediente':
-      URL = `https://www.themealdb.com/api/json/v1/1/filter.php?i={${recipesInput}}`;
-      console.log(URL);
+      URL = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${recipesInput}`;
+      fetch(URL)
+        .then((r) => r.json())
+        .then((r) => console.log(r));
       break;
     case 'Nome':
-      URL = `https://www.themealdb.com/api/json/v1/1/search.php?s={${recipesInput}}`;
-      console.log(URL);
+      URL = `https://www.themealdb.com/api/json/v1/1/search.php?s=${recipesInput}`;
+      fetch(URL)
+        .then((r) => r.json())
+        .then((r) => console.log(r));
       break;
     case 'Primeira letra':
-      URL = `https://www.themealdb.com/api/json/v1/1/search.php?f={${recipesInput}}`;
-      console.log(URL);
+      if (recipesInput.length === 1) {
+        URL = `https://www.themealdb.com/api/json/v1/1/search.php?f=${recipesInput}`;
+        fetch(URL)
+          .then((r) => r.json())
+          .then((r) => console.log(r));
+      } else {
+        alert('Sua busca deve conter somente 1 (um) caracter');
+      }
       break;
     default:
-      console.log('Nada');
+      break;
     }
   };
 
-  useEffect(() => { setData(fetch(URL).then((r) => r.json())); }, []);
+  const handleClickDrink = () => {
+    console.log('Drink');
+    switch (recipesRadio) {
+    case 'Ingrediente':
+      URL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${recipesInput}`;
+      fetch(URL)
+        .then((r) => r.json())
+        .then((r) => console.log(r));
+      break;
+    case 'Nome':
+      URL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${recipesInput}`;
+      fetch(URL)
+        .then((r) => r.json())
+        .then((r) => console.log(r));
+      break;
+    case 'Primeira letra':
+      if (recipesInput.length === 1) {
+        URL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${recipesInput}`;
+        fetch(URL)
+          .then((r) => r.json())
+          .then((r) => console.log(r));
+      } else {
+        alert('Sua busca deve conter somente 1 (um) caracter');
+      }
+      break;
+    default:
+      break;
+    }
+  };
 
   const context = {
     recipesInput,
     data,
     handleRadioChange,
     handleRecipesInput,
-    handleClick,
+    handleClickFood,
+    handleClickDrink,
   };
 
   return (

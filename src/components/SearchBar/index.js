@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 import RecipesContext from '../../context/RecipesContext';
 
 const SearchBar = () => {
@@ -6,9 +7,21 @@ const SearchBar = () => {
     recipesInput,
     handleRadioChange,
     handleRecipesInput,
-    handleClick,
-    data } = useContext(RecipesContext);
-    console.log(data);
+    handleClickFood,
+    handleClickDrink } = useContext(RecipesContext);
+
+  const LocationDisplay = useLocation().pathname;
+
+  let funcFood = false;
+  let funcDrink = false;
+
+  if (LocationDisplay === '/comidas') {
+    funcFood = true;
+  }
+  if (LocationDisplay === '/bebidas') {
+    funcDrink = true;
+  }
+
   return (
     <div>
       <input
@@ -24,9 +37,7 @@ const SearchBar = () => {
           data-testid="ingredient-search-radio"
           type="radio"
           value="Ingrediente"
-          data-testid="ingredient-search-radio"
           name="search"
-          checked
         />
         Ingrediente
         <input
@@ -47,7 +58,7 @@ const SearchBar = () => {
       <button
         type="button"
         data-testid="exec-search-btn"
-        onClick={ handleClick }
+        onClick={ funcFood && handleClickFood || funcDrink && handleClickDrink }
       >
         Buscar
       </button>
