@@ -44,8 +44,20 @@ function Details({ itemId, mealType }) {
   }, [mealType]);
 
   useEffect(() => {
-    checksUnited(itemId, mealType, details, setHideBtn, setBeginBtn, setIsFavorite);
-    checkFavorites(itemId, setIsFavorite);
+
+    const checkForProgress = async () => {
+      const list = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      if (list !== null) {
+        let keys = [];
+        if (mealType === 'Meal') { keys = Object.keys(list.meals); } else {
+          keys = Object.keys(list.cocktails);
+        }
+        if (keys.includes(itemId)) setBeginBtn('Continuar Receita');
+      }
+    };
+    checkForProgress()
+    checksUnited(itemId, setHideBtn, setIsFavorite);
+    // checkFavorites(itemId, setIsFavorite);
   }, [itemId, mealType, recommendation, details]);
 
   useEffect(() => {

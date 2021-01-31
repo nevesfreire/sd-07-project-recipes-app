@@ -1,4 +1,4 @@
-function checksUnited(itemId, mealType, setHideBtn, setBeginBtn) {
+function checksUnited(itemId, setHideBtn, setIsFavorite) {
   const zero = 0;
   const checkForCompletion = () => {
     const list = JSON.parse(localStorage.getItem('doneRecipes'));
@@ -7,20 +7,17 @@ function checksUnited(itemId, mealType, setHideBtn, setBeginBtn) {
     }
   };
 
-  const checkForProgress = async () => {
-    const list = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (list !== null) {
-      let keys = [];
-      if (mealType === 'Meal') { keys = Object.keys(list.meals); } else {
-        keys = Object.keys(list.cocktails);
-      }
-      if (keys.includes(itemId)) setBeginBtn('Continuar Receita');
-    }
-  };
+  const checkFavorites = () => {
+    const zero = 0;
 
-  // checkFavorites();
+    const list = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (list !== null && list.filter((item) => item.id === itemId).length > zero) {
+      setIsFavorite(true);
+    }
+  }
+
+  checkFavorites();
   checkForCompletion();
-  checkForProgress();
 }
 
 export default checksUnited;
