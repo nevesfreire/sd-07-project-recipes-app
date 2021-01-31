@@ -28,10 +28,6 @@ function Comidas() {
 
   const history = useHistory();
 
-  const redirectToDetails = () => {
-    if (dataToRender.length === 1) history.push(`/comidas/${dataToRender[0].idMeal}`);
-  };
-
   const getGlobalMealData = async () => {
     const data = await fetchGlobalMeal();
     setGlobalMeal(data);
@@ -108,13 +104,12 @@ function Comidas() {
         setValueToFetch={ setValueToFetch }
         getEndPointAndFetch={ getEndPointAndFetch }
       />
-      { !redirectToDetails()
-      && <CategoryBar
+      <CategoryBar
         arrayOfCategories={ mealCategories }
         typeOfCategory="Meal"
         setCategory={ setCategory }
         category={ category }
-      />}
+      />
       <CardList
         arrayOfCard={ dataToRender }
         typeOfCard="Meal"
