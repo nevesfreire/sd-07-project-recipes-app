@@ -7,19 +7,23 @@ const Explorer = () => {
   const [sortedFood, setSortedFood] = useState([]);
   const [sortedDrink, setSortedDrink] = useState([]);
 
-  const callApi = async () => {
+  const callApiFood = async () => {
     const food = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
     const jsonFood = await food.json();
     const sortedFoodId = await jsonFood.meals[0];
-    setSortedFood(sortedFoodId);
+    return sortedFoodId;
+  };
+
+  const callApiDrink = async () => {
     const drink = await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php');
     const jsonDrink = await drink.json();
     const sortedDrinksId = await jsonDrink.drinks[0];
-    setSortedDrink(sortedDrinksId);
+    return sortedDrinksId;
   };
 
   useEffect(() => {
-    callApi();
+    callApiFood().then((r) => setSortedFood(r));
+    callApiDrink().then((r) => setSortedDrink(r));
   }, []);
 
   const redirect = () => {
@@ -64,7 +68,7 @@ const Explorer = () => {
             Por Ingredientes
           </Link>
           <Link
-            to={ `/bebidas/${sortedDrink.IdDrink}` }
+            to={ `/bebidas/${sortedDrink.idDrink}` }
             data-testid="explore-surprise"
           >
             <img src="/" alt="Me surpreenda" />
