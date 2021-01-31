@@ -97,14 +97,14 @@ const FavoriteRecipes = () => {
                       category,
                       name,
                       image,
-                    }, 'meal')
+                    }, true)
                     : () => handleClickFavorite({
                       id,
                       category,
                       alcoholicOrNot,
                       name,
                       image,
-                    }, 'drink') }
+                    }, false) }
                 >
                   <img
                     src={ blackHeartIcon }
