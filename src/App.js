@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Provider from './context/Provider';
-import { Login, MainPage, Profile } from './pages';
+import { Login, MainPage, Profile, RecipeDetails } from './pages';
 // import { BottomMenu, Header } from './components';
 // import { Footer } from './components';
 
@@ -10,9 +10,10 @@ function App() {
     <Provider>
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" component={ Login } />
-          <Route exact path="/comidas" component={ MainPage } />
+          <Route path="/:category/:idReceita" component={ RecipeDetails } />
+          <Route path="/comidas" component={ MainPage } />
           <Route path="/perfil" component={ Profile } />
+          <Route exact path="/" component={ Login } />
           {/* <Redirect to="/404" /> */}
         </Switch>
       </BrowserRouter>
