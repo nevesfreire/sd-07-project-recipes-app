@@ -2,11 +2,9 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import GlobalContext from '../context/GlobalContext';
 import { LoginStyle } from './style';
-import Logo from '../components/Logo';
 
 const {
   LoginContainer,
-  LogoContainer,
   Form,
   Input,
   Btn,
