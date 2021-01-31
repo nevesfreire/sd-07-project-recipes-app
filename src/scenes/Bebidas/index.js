@@ -16,6 +16,8 @@ const Bebidas = () => {
   };
 
   if (filteredDrinks.drinks) {
+    console.log('na tela de bebida');
+    console.log(filteredDrinks.drinks);
     const zero = 0;
     const doze = 12;
     if (filteredDrinks.drinks.length === 1) {

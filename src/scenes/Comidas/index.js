@@ -10,51 +10,16 @@ import './style.css';
 const Comidas = () => {
   const history = useHistory();
   const { mealsCategories, filteredMeals } = useContext(AppContext);
-  const { meals } = filteredMeals;
 
   const goToDetails = (idMeal) => {
     history.push(`/comidas/${idMeal}`);
   };
 
-  if (meals) {
-    const firstItem = 0;
+  if (filteredMeals.meals) {
     const zero = 0;
     const doze = 12;
-    if (meals.length === 1) {
-      return (
-        <div>
-          <SearchBar />
-          <CategoryButton
-            categoryName="All"
-            categoryType="all-meals"
-          />
-          {/* {mealsCategories.map((item, index) => (
-            <CategoryButton
-              key={ index }
-              categoryName={ item.strCategory }
-              categoryType="meals"
-            />))} */}
-          <div
-            className="mealContainer"
-            key={ meals[firstItem].idMeal }
-            data-testid={ `${firstItem}-card-name` }
-          >
-            <img
-              data-testid={ `${firstItem}-card-img` }
-              src={ meals[firstItem].strMealThumb }
-              alt="meail"
-            />
-            <h1>
-              <NavigationButton
-                testId={ `${firstItem}-recipe-card` }
-                goToDetails={ goToDetails }
-                itemName={ meals[firstItem].strMeal }
-                idMeal={ meals[firstItem].idMeal }
-              />
-            </h1>
-          </div>
-        </div>
-      );
+    if (filteredMeals.meals.length === 1) {
+      goToDetails(filteredMeals.meals[0].idMeal);
     }
     return (
       <div>

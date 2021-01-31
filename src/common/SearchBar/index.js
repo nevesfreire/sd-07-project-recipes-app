@@ -22,6 +22,7 @@ const SearchBar = () => {
   return (
     <form data-testid="search-top-btn">
       <input
+        disabled={ false }
         type="text"
         data-testid="search-input"
         value={ searchBarData.text }

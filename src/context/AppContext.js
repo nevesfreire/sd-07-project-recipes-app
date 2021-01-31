@@ -111,6 +111,7 @@ const AppProvider = ({ children }) => {
     setFilteredMeals,
     filteredDrinks: !filteredDrinks.drinks ? drinksData : filteredDrinks,
     setFilteredDrinks,
+    chosenMealCategory,
   };
 
   return (
