@@ -173,7 +173,7 @@ describe('37 - Implemente os cards de recomendação, onde serão 6 cards, mas m
       },
     });
 
-    cy.get('[data-testid*="recomendation-card"]').should('have.length', 6);
+    cy.get('[data-testid*="recomendation-card"]').should('have.length', 6);/* por que meu Deus? */
 
     cy.get('[data-testid="0-recomendation-card"]').should('exist').and('visible');
     cy.get('[data-testid="0-recomendation-title"]').contains('GG');
