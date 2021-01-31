@@ -26,7 +26,6 @@ function CardsFood() {
       {
         cardDrink.slice(firstCard, cardAmount)
           .map((currentObject, index) => {
-            console.log(currentObject)
             const {
               idDrink,
               strDrink,
@@ -56,6 +55,8 @@ function CardsFood() {
       }
       <button
         type="button"
+        onClick={ () => setCardAmount(cardAmount + maxCardAmount) }
+        disabled={ cardDrink.length > cardAmount ? false : true }
       >
         See More
       </button>

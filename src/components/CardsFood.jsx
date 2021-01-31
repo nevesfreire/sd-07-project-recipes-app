@@ -55,6 +55,8 @@ function CardsFood() {
       }
       <button
         type="button"
+        onClick={ () => setCardAmount(cardAmount + maxCardAmount) }
+        disabled={ cardFood.length >  cardAmount ? false : true }
       >
         See More
       </button>
