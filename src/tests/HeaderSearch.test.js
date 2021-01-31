@@ -1,10 +1,7 @@
 import React from 'react';
-import { screen, fireEvent } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { screen } from '@testing-library/react';
 import renderWithRouter from './renderWithRouter';
 import HeaderSearch from '../components/HeaderSearch';
-import Comidas from '../pages/Comidas';
-
 
 describe('Component HeaderSearch', () => {
   test('if there is an search field', () => {
