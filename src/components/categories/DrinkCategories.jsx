@@ -35,7 +35,11 @@ export default function DrinkCategories() {
   }, [fetchDrinkCategories]);
 
   return (
+<<<<<<< HEAD
     <div className="drinks-categories">
+=======
+    <div className="drinks-categories" id="drinks">
+>>>>>>> f8e85995fd53af4499bbc035c0595f3e72f4a622
       {Buttons(numberOfCategories, drinkCategories)}
     </div>
   );

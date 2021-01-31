@@ -134,6 +134,16 @@ export default function GlobalProvider({ children }) {
           updateState('password', newInititalPassword);
         },
 
+<<<<<<< HEAD
+=======
+        styles,
+        setStyle: useCallback((elem, key, value) => {
+          const newKey = state[elem];
+          newKey[key] = value;
+          updateState(elem, newKey);
+        }, [state]),
+
+>>>>>>> f8e85995fd53af4499bbc035c0595f3e72f4a622
         randomRecipeDetail,
         renderButtonExplore,
         setRenderButtonExplore,

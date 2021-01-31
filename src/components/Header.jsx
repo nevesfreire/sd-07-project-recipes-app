@@ -28,7 +28,16 @@ function Header() {
       type="button"
       onClick={ () => handleClick() }
     >
+<<<<<<< HEAD
       <img className="header-search-icon" src={ searchIcon } data-testid="search-top-btn" alt="Search Icon" />
+=======
+      <img
+        className="header-search-icon"
+        src={ searchIcon }
+        data-testid="search-top-btn"
+        alt="Search Icon"
+      />
+>>>>>>> f8e85995fd53af4499bbc035c0595f3e72f4a622
     </button>
   );
 

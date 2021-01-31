@@ -1,5 +1,6 @@
 .login-container {
   align-items: center;
+<<<<<<< HEAD
   background-image: 
     linear-gradient(
     -135deg,
@@ -9,6 +10,9 @@
     url('/bgImage/8.jpg');
   background-size: cover;
   background-position: center;
+=======
+  background-size: cover;
+>>>>>>> f8e85995fd53af4499bbc035c0595f3e72f4a622
   display: flex;
   flex-direction: column;
   height: 100vh;

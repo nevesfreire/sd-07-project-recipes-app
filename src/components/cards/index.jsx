@@ -20,9 +20,15 @@ export default function Cards(number, info) {
           alt={ `Imagem da receita ${titleList[index]}` }
         />
         <div className="cards-name-container">
+<<<<<<< HEAD
           <div className="cards-name" data-testid={ `${index}-card-name` }>
             {titleList[index]}
           </div>
+=======
+          <span className="cards-name" data-testid={ `${index}-card-name` }>
+            {titleList[index]}
+          </span>
+>>>>>>> f8e85995fd53af4499bbc035c0595f3e72f4a622
         </div>
       </div>,
     );

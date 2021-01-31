@@ -35,7 +35,11 @@ export default function FoodCategories() {
   }, [fetchFoodCategories]);
 
   return (
+<<<<<<< HEAD
     <div className="foods-categories">
+=======
+    <div className="foods-categories" id="foods">
+>>>>>>> f8e85995fd53af4499bbc035c0595f3e72f4a622
       {Buttons(numberOfCategories, foodCategories)}
     </div>
   );
