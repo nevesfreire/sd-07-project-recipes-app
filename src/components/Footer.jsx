@@ -12,44 +12,39 @@ function Footer() {
 
   const { setShowSearch } = useContext(FoodAppContext);
 
-  function handleClickDrinks() {
-    history.push('/bebidas');
-  }
-
-  function handleClickExplore() {
+  const handleClick = ({ target }) => {
     setShowSearch(false);
-    history.push('/explorar');
-  }
-
-  function handleClickMeals() {
-    history.push('/comidas');
-  }
+    history.push(target.name);
+  };
 
   return (
     <div className="footer" data-testid="footer">
       <button
         type="button"
+        name="/bebidas"
         data-testid="drinks-bottom-btn"
-        onClick={ handleClickDrinks }
+        onClick={ handleClick }
         src={ drinkIcon }
       >
-        <img className="rocksGlass" src={ drinkIcon } alt="drink" />
+        <img className="rocksGlass" name="/bebidas" src={ drinkIcon } alt="drink" />
       </button>
       <button
         type="button"
+        name="/explorar"
         data-testid="explore-bottom-btn"
-        onClick={ handleClickExplore }
+        onClick={ handleClick }
         src={ exploreIcon }
       >
-        <img className="rocksGlass" src={ exploreIcon } alt="explore" />
+        <img className="rocksGlass" name="/explorar" src={ exploreIcon } alt="explore" />
       </button>
       <button
         type="submit"
+        name="/comidas"
         data-testid="food-bottom-btn"
-        onClick={ handleClickMeals }
+        onClick={ handleClick }
         src={ mealIcon }
       >
-        <img className="rocksGlass" src={ mealIcon } alt="meal" />
+        <img className="rocksGlass" name="/comidas" src={ mealIcon } alt="meal" />
       </button>
     </div>
   );

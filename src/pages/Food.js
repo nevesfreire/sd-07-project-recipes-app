@@ -1,14 +1,14 @@
 import React from 'react';
 
-import Header from '../components/Header';
-import MainMeals from '../components/MainMeals';
-import Footer from '../components/Footer';
+import { Header, MainRecipes, Category, Footer } from '../components/index';
+import '../styles/recipes.css';
 
-function Food({ ...props }) {
+function Food() {
   return (
     <div>
-      <Header title="Comidas" isSearchable props={ props } />
-      <MainMeals />
+      <Header title="Comidas" isSearchable />
+      <Category />
+      <MainRecipes />
       <Footer />
     </div>
   );

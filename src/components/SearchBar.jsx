@@ -1,9 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import FoodAppContext from '../context/FoodAppContext';
 
-function SearchBar({ title, props }) {
-  const { handlerChange, handlerClick } = useContext(FoodAppContext);
+import useSearch from '../hooks/useSearch';
+
+function SearchBar({ title }) {
+  const [handlerChange, handlerClick] = useSearch();
+  const history = useHistory();
   return (
     <div>
       <input
@@ -49,7 +52,7 @@ function SearchBar({ title, props }) {
       <button
         type="button"
         data-testid="exec-search-btn"
-        onClick={ (e) => handlerClick(e, props) }
+        onClick={ (e) => handlerClick(e, history) }
         value={ title }
       >
         Buscar
@@ -59,7 +62,6 @@ function SearchBar({ title, props }) {
 }
 
 SearchBar.propTypes = {
-  props: PropTypes.shape({}).isRequired,
   title: PropTypes.string.isRequired,
 };
 

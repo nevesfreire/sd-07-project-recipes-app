@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Ingredient, Recomendations, Video } from './index';
 import shareIcon from '../images/shareIcon.svg';
 import favoriteIcon from '../images/blackHeartIcon.svg';
