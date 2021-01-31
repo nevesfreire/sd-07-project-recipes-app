@@ -5,8 +5,8 @@
   flex-direction: column;
   font-family: sans-serif;
   justify-content: center;
-  margin-top:57px;
   margin-bottom: 40px;
+  margin-top: 57px;
 }
 
 button {
