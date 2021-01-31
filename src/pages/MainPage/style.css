@@ -6,6 +6,13 @@
 
 .main-page-content {
   display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.main-page-cards {
+  display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
