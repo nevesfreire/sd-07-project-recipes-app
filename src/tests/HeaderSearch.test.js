@@ -1,7 +1,10 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { screen, fireEvent } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import renderWithRouter from './renderWithRouter';
 import HeaderSearch from '../components/HeaderSearch';
+import Comidas from '../pages/Comidas';
+
 
 describe('Component HeaderSearch', () => {
   test('if there is an search field', () => {
@@ -10,6 +13,7 @@ describe('Component HeaderSearch', () => {
     const searchInput = screen.getByTestId('search-input');
     expect(searchInput).toBeInTheDocument();
   });
+
   test('if there are three radios button', () => {
     renderWithRouter(<HeaderSearch />);
 
