@@ -2,21 +2,33 @@
   align-items: center;
   display: flex;
   flex-flow: row wrap;
+  justify-content: center;
   padding: 30px;
 }
 
 .list-drinks {
   background-color: white;
   border: 1px solid rgba(0, 0, 0, 0.125);
-  border-radius: 3px;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  color: #3d465a;
   display: flex;
   flex-direction: column;
-  height: 350px;
+  font-size: 20px;
   margin: 5px;
   text-align: center;
+  text-decoration: none;
+  transition: .3s;
   width: 300px;
+}
+.list-drinks:hover{
+  background-color:#DEE8FF;
 }
 
 .list-drinks img {
   width: 100%;
+}
+
+.df-name{
+  margin: 8px;
 }

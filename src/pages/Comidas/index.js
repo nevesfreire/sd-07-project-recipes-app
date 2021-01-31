@@ -47,7 +47,7 @@ function Comidas(props) {
               src={ item.strMealThumb }
               alt={ item.strMeal }
             />
-            <div data-testid={ `${index}-card-name` }>{item.strMeal}</div>
+            <div data-testid={ `${index}-card-name` } className="df-name">{item.strMeal}</div>
           </Link>
         ))}
       </div>
@@ -77,12 +77,13 @@ function Comidas(props) {
   function renderCategories() {
     if (!categories) return <div>Loading Categories</div>;
     return (
-      <div>
+      <div className="tags-wrapper">
         <button
           type="button"
           data-testid="All-category-filter"
           value=""
           onClick={ handleCategories }
+          className="button-category"
         >
           All
         </button>
@@ -93,6 +94,7 @@ function Comidas(props) {
             type="button"
             value={ category.strCategory }
             onClick={ handleCategories }
+            className="button-category"
           >
             {category.strCategory}
           </button>

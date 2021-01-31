@@ -22,6 +22,7 @@ export default function Header({
           src={ searchIcon }
           // to="/profile"
           type="button"
+          className="b-search"
           onClick={ () => {
             setstate(!state);
             setIsSearchBarVisible(!state);

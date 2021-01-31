@@ -1,7 +1,16 @@
 .header {
   align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
   display: flex;
   justify-content: space-around;
   padding: 14px 0;
   background-color: white;
+}
+
+.b-search{
+  background-color: #DEE8FF;
+  border-radius: 50px;
+  height: 24px;
+  width: 24px;
+  border: none;
 }
