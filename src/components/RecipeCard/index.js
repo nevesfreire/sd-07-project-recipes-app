@@ -1,31 +1,31 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
 
 import StyledCard from './styles';
 
-const RecipeCard = ({ cardInfo: { strThumb, name, index } }) => (
-  <StyledCard data-testid={ `${index}-recipe-card` }>
-    <StyledCard.Img
-      variant="top"
-      src={ strThumb }
-      data-testid={ `${index}-card-img` }
-    />
-    <StyledCard.Body>
-      <StyledCard.Title
-        data-testid={ `${index}-card-name` }
-      >
-        {name}
-      </StyledCard.Title>
-    </StyledCard.Body>
-  </StyledCard>
-);
+const RecipeCard = (props) => {
+  const [cardInfoState, setCardInfoState] = useState(props);
 
-RecipeCard.propTypes = {
-  cardInfo: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    strThumb: PropTypes.string.isRequired,
-    index: PropTypes.string.isRequired,
-  }).isRequired,
+  useEffect(() => {
+    setCardInfoState(props);
+  }, [props]);
+
+  const { strThumb, name, index } = cardInfoState.cardInfo;
+  return (
+    <StyledCard data-testid={ `${index}-recipe-card` }>
+      <StyledCard.Img
+        variant="top"
+        src={ strThumb }
+        data-testid={ `${index}-card-img` }
+      />
+      <StyledCard.Body>
+        <StyledCard.Title
+          data-testid={ `${index}-card-name` }
+        >
+          {name}
+        </StyledCard.Title>
+      </StyledCard.Body>
+    </StyledCard>
+  );
 };
 
 export default RecipeCard;

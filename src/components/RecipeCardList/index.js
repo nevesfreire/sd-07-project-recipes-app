@@ -1,23 +1,27 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import RecipeCard from '../RecipeCard';
 
 import StyledCardDeck from './styles';
 
-const RecipeCardList = ({ recipeList }) => (
-  <StyledCardDeck>
-    { recipeList.map(({ id, name, strThumb }, index) => (
-      <RecipeCard key={ id } cardInfo={ { name, strThumb, index } } />
-    ))}
-  </StyledCardDeck>
-);
+const RecipeCardList = (props) => {
+  const [recipeListState, setRecipeListState] = useState(props);
+  const { pathname } = useLocation();
 
-RecipeCardList.propTypes = {
-  recipeList: PropTypes.arrayOf({
-    name: PropTypes.string.isRequired,
-    strThumb: PropTypes.string.isRequired,
-    index: PropTypes.string.isRequired,
-  }).isRequired,
+  useEffect(() => {
+    setRecipeListState(props);
+  }, [props]);
+
+  const { recipeList } = recipeListState;
+  return (
+    <StyledCardDeck>
+      { recipeList.map(({ id, name, strThumb }, index) => (
+        <Link to={ `${pathname}/${id}` } key={ id }>
+          <RecipeCard key={ id } cardInfo={ { name, strThumb, index } } />
+        </Link>
+      ))}
+    </StyledCardDeck>
+  );
 };
 
 export default RecipeCardList;

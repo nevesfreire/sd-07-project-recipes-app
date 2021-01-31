@@ -16,6 +16,8 @@ const INITIAL_STATE = {
     isFetching: false,
     data: [],
     error: '',
+    categories: [],
+    filterByCategory: '',
   },
 };
 

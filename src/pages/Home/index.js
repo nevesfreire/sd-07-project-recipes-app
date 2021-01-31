@@ -1,21 +1,28 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { fetchRecipes } from '../../store/ducks/recipes';
-import { RecipeCardList } from '../../components';
+import { fetchRecipes, fetchRecipesByCategory } from '../../store/ducks/recipes';
+import { RecipeCardList, RecipeCategoryFilter } from '../../components';
 
 const Home = () => {
   const recipes = useSelector((state) => state.recipes.data);
   const isLoading = useSelector((state) => state.recipes.isFetching);
+  const filterByCategory = useSelector((state) => state.recipes.filterByCategory);
   const { pathname } = useLocation();
   const dispatch = useDispatch();
   const START_INDEX = 0;
   const END_INDEX = 12; // 12 cards - 12 not included
 
   useEffect(() => {
-    const getRecipes = async (type) => dispatch(await fetchRecipes(type));
-    getRecipes(pathname);
-  }, [dispatch, pathname]);
+    const getRecipes = async (type, category) => {
+      if (category) {
+        dispatch(await fetchRecipesByCategory(type, category));
+      } else {
+        dispatch(await fetchRecipes(type));
+      }
+    };
+    getRecipes(pathname, filterByCategory);
+  }, [dispatch, pathname, filterByCategory]);
 
   return (
     <>
@@ -23,6 +30,7 @@ const Home = () => {
         {`PAGE HOME - open by ${pathname}`}
       </h1>
       {isLoading ? 'Loading...' : ''}
+      <RecipeCategoryFilter />
       { recipes
         && <RecipeCardList recipeList={ recipes.slice(START_INDEX, END_INDEX) } /> }
     </>

@@ -5,7 +5,7 @@ const INITIAL_STATE = initialState.recipes;
 
 const recipes = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case recipesTypes.REQUEST_RECIPES:
+  case recipesTypes.REQUEST:
     return {
       ...state,
       isFetching: true,
@@ -18,12 +18,31 @@ const recipes = (state = INITIAL_STATE, action) => {
       data: [...action.payload],
       error: '',
     };
-  case recipesTypes.FAILED_REQUEST_RECIPES:
+  case recipesTypes.GET_CATEGORIES:
+  {
+    // put only 5 categories and map to strings
+    const START_INDEX = 0;
+    const END_INDEX = 5;
+    return {
+      ...state,
+      isFetching: false,
+      categories: [...action.payload.slice(START_INDEX, END_INDEX)
+        .map(({ strCategory }) => strCategory)],
+      error: '',
+    };
+  }
+  case recipesTypes.FAILED_REQUEST:
     return {
       ...state,
       isFetching: false,
       data: [],
       error: action.payload,
+    };
+
+  case recipesTypes.SET_FILTER_BY_CATEGORY:
+    return {
+      ...state,
+      filterByCategory: action.payload,
     };
   default:
     return state;

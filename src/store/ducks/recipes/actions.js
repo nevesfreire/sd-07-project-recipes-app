@@ -4,10 +4,18 @@ export function getRecipes(recipes) {
   return { type: recipesTypes.GET_RECIPES, payload: recipes };
 }
 
-export function requestRecipes() {
-  return { type: recipesTypes.REQUEST_RECIPES };
+export function getCategories(categories) {
+  return { type: recipesTypes.GET_CATEGORIES, payload: categories };
 }
 
-export function failedRequestRecipes(error) {
-  return { type: recipesTypes.FAILED_REQUEST_RECIPES, payload: error };
+export function request() {
+  return { type: recipesTypes.REQUEST };
+}
+
+export function failedRequest(error) {
+  return { type: recipesTypes.FAILED_REQUEST, payload: error };
+}
+
+export function setFilterByCategory(categoryFilter) {
+  return { type: recipesTypes.SET_FILTER_BY_CATEGORY, payload: categoryFilter };
 }
