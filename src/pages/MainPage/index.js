@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import context from '../../context';
-import { Card, Filters } from '../../components';
+import { Card, Filters, Footer, Header } from '../../components';
 import RequestData from '../../services/RequestAPI';
 import './style.css';
 
@@ -89,15 +89,19 @@ function MainPage(props) {
   }
 
   return (
-    <div className="main-page-container">
-      <div className="main-page-content">
-        {
-          printFilters()
-        }
-        {
-          printRecipes()
-        }
+    <div>
+      <Header />
+      <div className="main-page-container">
+        <div className="main-page-content">
+          {
+            printFilters()
+          }
+          {
+            printRecipes()
+          }
+        </div>
       </div>
+      <Footer />
     </div>
   );
 }
