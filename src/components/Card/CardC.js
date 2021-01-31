@@ -49,6 +49,8 @@ class CardC extends React.Component {
 
 CardC.propTypes = {
   card: PropTypes.objectOf(PropTypes.string).isRequired,
+  indexMeal: PropTypes.string.isRequired,
+  indexDrink: PropTypes.string.isRequired,
 };
 
 export default CardC;

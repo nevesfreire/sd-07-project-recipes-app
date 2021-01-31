@@ -124,6 +124,7 @@ SearchBarDrinks.propTypes = {
   getByIngredientsDrinksD: PropTypes.func.isRequired,
   getByNameDrinksD: PropTypes.func.isRequired,
   getByLetterDrinksD: PropTypes.func.isRequired,
+  drinksStore: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
