@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Card } from 'react-bootstrap';
 
 class RecipesCard extends React.Component {
   render() {
@@ -11,13 +12,14 @@ class RecipesCard extends React.Component {
         {
           index < maxNumber && search === 'meals' ? (
             <div data-testid={ `${index}-recipe-card` }>
-              <img
-                style={ { width: 30 } }
-                src={ strMealThumb }
-                alt={ strMeal }
-                data-testid={ `${index}-card-img` }
-              />
-              <p data-testid={ `${index}-card-name` }>{strMeal}</p>
+              <Card style={ { width: '10rem' } }>
+                <Card.Img variant="top" src={ strMealThumb } alt={ strMeal } data-testid={ `${index}-card-img` } />
+                <Card.Body>
+                  <Card.Title data-testid={ `${index}-card-name` }>
+                    {strMeal}
+                  </Card.Title>
+                </Card.Body>
+              </Card>
             </div>
           ) : null
         }
