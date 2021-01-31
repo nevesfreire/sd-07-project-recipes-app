@@ -46,7 +46,7 @@ function Details({ itemId, mealType }) {
   useEffect(() => {
     checksUnited(itemId, mealType, details, setHideBtn, setBeginBtn, setIsFavorite);
     checkFavorites(itemId, setIsFavorite);
-  }, [itemId, mealType, recommendation]);
+  }, [itemId, mealType, recommendation, details]);
 
   useEffect(() => {
     const getDetails = async () => {
