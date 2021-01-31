@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import GlobalContext from '../context/GlobalContext';
 import './style/Login.css';
+import Logo from '../components/logo/Logo';
 
 export default function Login(props) {
   const { history } = props;
@@ -63,6 +64,9 @@ export default function Login(props) {
 
   return (
     <div className="login-container">
+      <div className="logo-container">
+        <Logo />
+      </div>
       <form className="login-form">
         <input
           className="login-input-email"

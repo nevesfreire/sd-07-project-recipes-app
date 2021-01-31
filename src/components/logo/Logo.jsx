@@ -7,7 +7,7 @@ export default function Logo() {
     width, colors, borderRadius, animation,
   } } } = useContext(GlobalContext);
 
-  const animationClass = animation && 'animated';
+  const animationClass = animation ? 'animated' : '';
 
   return (
     <svg
@@ -17,13 +17,12 @@ export default function Logo() {
       viewBox="0 0 44.056 44.056"
     >
       <path
-        className="background"
-        color={ colors.background }
+        style={ { fill: colors.background } }
         d="M0 0h44.056v44.056H0z"
       />
       <g className={ animationClass }>
         <path
-          className="spoon"
+          style={ { fill: colors.spoon } }
           d={ `
         M22.028 1.879c-8.613 0-16.022 10.652-16.022 20.945 0 7.272 3.735 12.755 8.94
       15.48 1.237.73 2.554 1.36 3.843
@@ -33,7 +32,7 @@ export default function Logo() {
       ` }
         />
         <g
-          className="text"
+          style={ { fill: colors.text } }
           fontWeight="400"
           fontFamily="sans-serif"
         >
