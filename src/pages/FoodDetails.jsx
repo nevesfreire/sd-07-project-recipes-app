@@ -1,4 +1,5 @@
 import React, {useContext, useState, useEffect, useCallback} from 'react';
+import PropTypes from 'prop-types';
 import GlobalContext from '../context/GlobalContext';
 import likeIcon from '../images/whiteHeartIcon.svg';
 import fullLikeIcon from '../images/blackHeartIcon.svg';
@@ -6,45 +7,41 @@ import ShareButton from '../components/ShareButton';
 
 export default function FoodDetails(props) {
   const context = useContext(GlobalContext);
-  // console.log(context);
   const [btnTitle, setBtnTitle] = useState('Iniciar Receita');
   const [btnImg, setBtnImg] = useState('');
   const [recommendations1, setRecommendations1] = useState([]);
   const [recommendations2, setRecommendations2] = useState([]);
-  const { recipeObject } = context;
-  // console.log(recipeObject);
 
   const {
-    recipeAlc,
-    recipeArea,
-    recipeCategory,
-    recipeId,
-    recipeImage,
-    recipeIngredients,
-    recipeInstructions,
-    recipeRecommendations,
-    recipeTags,
-    recipeTitle,
-    recipeVideo,
-    recipesDone,
-    recipesInProgress,
-    searchTerm,
-    setTitle,
-    setRecipeAlc,
-    setRecipeArea,
-    setRecipeCategory,
-    setRecipeId,
-    setRecipeImage,
-    setRecipeIngredients,
-    setRecipeInstructions,
-    setRecipeRecommendations,
-    setRecipeTags,
+    getRecipeTitle,
     setRecipeTitle,
+    getRecipeImage,
+    setRecipeImage,
+    getRecipeArea,
+    setRecipeArea,
+    getRecipeAlc,
+    setRecipeAlc,
+    getRecipeCategory,
+    setRecipeCategory,
+    getRecipeIngredients,
+    setRecipeIngredients,
+    getRecipeInstructions,
+    setRecipeInstructions,
+    getRecipeVideo,
     setRecipeVideo,
-    setRecipesDone,
-    setRecipesInProgress,
+    getRecipeRecommendations,
+    setRecipeRecommendations,
+    getRecipeTags,
+    setRecipeTags,
+    searchTerm,
     setSearchTerm,
-  } = recipeObject;
+    recipesDone,
+    setRecipesDone,
+    recipesInProgress,
+    setRecipesInProgress,
+    setTitle
+  } = context;
+
   const {
     match,
     history: {
@@ -56,6 +53,71 @@ export default function FoodDetails(props) {
   const carouselActiveIndex = 0; //controle de recomendações
   const carouselActiveIndex1 = 1;
   const carouselPartition = 3;
+
+  function returnAlcoholOrNot(value) {
+    if (value === null) {
+      return "no"
+    }
+    return "yes"
+  }
+
+  const saveFavoriteRecipe = () => {
+    if (localStorage.getItem('favoriteRecipes') === null) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    }
+    const favoriteRecipes = {
+      id,
+      type: 'comida',
+      area: getRecipeArea,
+      category: getRecipeCategory,
+      alcoholicOrNot: returnAlcoholOrNot(getRecipeAlc),
+      name: getRecipeTitle,
+      image: getRecipeImage,
+    };
+    const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    recipes.push(favoriteRecipes);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(recipes));
+  };
+
+  const unLikeRecipe = () => {
+    const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const unSave = recipes.filter((item) => item.id !== id);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(unSave));
+  };
+
+  const handleImage = () => {
+    if (btnImg === likeIcon) {
+      setBtnImg(fullLikeIcon);
+      saveFavoriteRecipe();
+    } else {
+      setBtnImg(likeIcon);
+      unLikeRecipe();
+    }
+  };
+
+  const handleClick = () => {
+    if (!JSON.parse(localStorage.getItem('inProgressRecipes'))) {
+      const inProgressRecipes = {
+        meals: {
+          [id]: [],
+        },
+        cocktails: {},
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+    } else {
+      const previousObj = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      const previousMeals = previousObj.meals;
+      const newMeals = { ...previousMeals, [id]: [] };
+      const newObj = {
+        ...previousObj,
+        meals: newMeals,
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(newObj));
+    }
+    const path = `/comidas/${id}/in-progress`;
+    setRecipesInProgress(recipesInProgress.concat(id));
+    props.history.push(path);
+  };
   
   const buttonMount = () => {
     if (localStorage.getItem('doneRecipes') !== null) {
@@ -66,6 +128,17 @@ export default function FoodDetails(props) {
       }
     }
     return true;
+  };
+
+  const setButtonTitle = () => {
+    if (localStorage.getItem('inProgressRecipes') !== null) {
+      const recipes = JSON.parse(localStorage.getItem('inProgressRecipes')).meals;
+      const recipesIds = Object.keys(recipes);
+      const findElement = recipesIds.find((recipeId) => recipeId === id);
+      if (findElement !== undefined) {
+        setBtnTitle('Continuar Receita');
+      }
+    }
   };
 
   const ingredientsMount = useCallback((jsonRecipe) => {
@@ -89,6 +162,13 @@ export default function FoodDetails(props) {
     setRecipeIngredients(ingredientsMeasures);
   }, [setRecipeIngredients]);
 
+  const videoMount = (value) => {
+    const lastIndex = value.meals[0].strYoutube.lastIndexOf('=');
+    const videoId = value.meals[0].strYoutube.slice(lastIndex + 1);
+    const newVideoPath = `https://www.youtube.com/embed/${videoId}`;
+    setRecipeVideo(newVideoPath);
+  };
+
   const fetchRecipe = useCallback(async () => {
     // hard code
     const path = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=52771';
@@ -97,7 +177,6 @@ export default function FoodDetails(props) {
     // console.log(getRecipe);
     const result = await getRecipe.json();
     // console.log(result)
-    setRecipeId(result.meals[0].idMeal);
     setRecipeTitle(result.meals[0].strMeal);
     setRecipeCategory(result.meals[0].strCategory);
     setRecipeImage(result.meals[0].strMealThumb);
@@ -106,9 +185,10 @@ export default function FoodDetails(props) {
     setRecipeVideo(result.meals[0].strYoutube);
     setRecipeAlc(result.meals[0].strDrinkAlternate);
     setRecipeTags(result.meals[0].strTags);
+    videoMount(result);
     ingredientsMount(result);
   }, [
-    setRecipeId,
+    // setRecipeId,
     setRecipeTitle,
     setRecipeCategory,
     setRecipeImage,
@@ -117,6 +197,7 @@ export default function FoodDetails(props) {
     setRecipeVideo,
     setRecipeAlc,
     setRecipeTags,
+    videoMount,
     ingredientsMount,
   ]);
 
@@ -125,7 +206,6 @@ export default function FoodDetails(props) {
     const path = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=178319';
     // const path = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
     const response = await fetch(path);
-    // console.log(getDrink);
     const result = await response.json();
     const maximumRecommendations1 = 3;
     const maximumRecommendations2 = 6;
@@ -143,109 +223,102 @@ export default function FoodDetails(props) {
     setRecommendations1(getRecommendations1);
     setRecommendations2(getRecommendations2);
   }, [setRecommendations1, setRecommendations2]);
-    // console.log(result);
-//     drinks: Array(1)
-// 0:
-// dateModified: null
-// idDrink: "178319"
-// strAlcoholic: "Alcoholic"
-// strCategory: "Cocktail"
-// strCreativeCommonsConfirmed: "No"
-// strDrink: "Aquamarine"
-// strDrinkAlternate: null
-// strDrinkDE: null
-// strDrinkES: null
-// strDrinkFR: null
-// strDrinkThumb: "https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg"
-// strDrinkZH-HANS: null
-// strDrinkZH-HANT: null
-// strGlass: "Martini Glass"
-// strIBA: null
-// strImageAttribution: null
-// strImageSource: null
-// strIngredient1: "Hpnotiq"
-// strIngredient2: "Pineapple Juice"
-// strIngredient3: "Banana Liqueur"
-// strIngredient4: ""
-// strIngredient5: ""
-// strIngredient6: ""
-// strIngredient7: ""
-// strIngredient8: null
-// strIngredient9: null
-// strIngredient10: null
-// strIngredient11: null
-// strIngredient12: null
-// strIngredient13: null
-// strIngredient14: null
-// strIngredient15: null
-// strInstructions: "Shake well in a shaker with ice.
-// ↵Strain in a martini glass."
-// strInstructionsDE: null
-// strInstructionsES: null
-// strInstructionsFR: null
-// strInstructionsZH-HANS: null
-// strInstructionsZH-HANT: null
-// strMeasure1: "2 oz"
-// strMeasure2: "1 oz"
-// strMeasure3: "1 oz"
-// strMeasure4: ""
-// strMeasure5: ""
-// strMeasure6: ""
-// strMeasure7: ""
-// strMeasure8: null
-// strMeasure9: null
-// strMeasure10: null
-// strMeasure11: null
-// strMeasure12: null
-// strMeasure13: null
-// strMeasure14: null
-// strMeasure15: null
-// strTags: null
-// strVideo: null
-// __proto__: Object
+
+  const setLikeImage = () => {
+    if (localStorage.getItem('favoriteRecipes') !== null) {
+      const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      const findElement = recipes.find((item) => item.id.toString() === id);
+      if (findElement !== undefined) {
+        setBtnImg(fullLikeIcon);
+      } else {
+        setBtnImg(likeIcon);
+      }
+    } else {
+      setBtnImg(likeIcon);
+    }
+  };
 
   useEffect(() => {
     fetchRecipe()
     fetchRecommendations()
+    setLikeImage()
+    setButtonTitle()
   },[]);
   
   useEffect(() => {
     setTitle('Food Details');
   }, [setTitle]);
 
-  // console.log(recipeIngredients[0]) chegando indefinido
-
   return (
     <div>
-      <img src={recipeImage} alt={recipeTitle} data-testid="recipe-photo" />
-      <p data-testid="recipe-title">{recipeTitle}</p>
+      {/* hard code */}
+      <img
+        src="https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg"
+        alt="Aquamarine"
+        data-testid="recipe-photo"
+      />
+
+      {/* <img src={recipeImage} alt={recipeTitle} data-testid="recipe-photo" /> */}
+      {/* hard code */}
+      <p data-testid="recipe-title">Spicy Arrabiata Penne</p>
+      {/* <p data-testid="recipe-title">{getRecipeTitle}</p> */}
       <div>
-        {/* dentro do btn fazer onClick={handleImage} */}
-        <button type="button"> 
+        <button type="button" onClick={handleImage} className="favorite-btn">
           <img src={btnImg} alt="like" data-testid="favorite-btn" />
-          <ShareButton path={pathname} />
         </button>
+        <ShareButton path={pathname} />
       </div>
       <p>
         Category-
-        <span data-testid="recipe-category">{recipeCategory}</span>
+        {/* hard code */}
+        <span data-testid="recipe-category">Vegetarian</span>
+        {/* <span data-testid="recipe-category">{getRecipeCategory}</span> */}
       </p>
       {/* hard code */}
-      <ul>
-        <li data-testid='0-ingredient-name-and-measure'>Açucar</li>
-        <li data-testid='1-ingredient-name-and-measure'>Açucar</li>
-        <li data-testid='2-ingredient-name-and-measure'>Açucar</li>
-        <li data-testid='3-ingredient-name-and-measure'>Açucar</li>
-      </ul>
+      <li data-testid="0-ingredient-name-and-measure">penne rigate</li>
+      <li data-testid="0-ingredient-name-and-measure">1 pound</li>
+      <li data-testid="1-ingredient-name-and-measure">olive oil</li>
+      <li data-testid="1-ingredient-name-and-measure">1/4 cup</li>
+      <li data-testid="2-ingredient-name-and-measure">garlic</li>
+      <li data-testid="2-ingredient-name-and-measure">3 cloves</li>
+      <li data-testid="3-ingredient-name-and-measure">chopped tomatoes</li>
+      <li data-testid="3-ingredient-name-and-measure">1 tin</li>
+      <li data-testid="4-ingredient-name-and-measure">red chile flakes</li>
+      <li data-testid="4-ingredient-name-and-measure">1/2 teaspoon</li>
+      <li data-testid="5-ingredient-name-and-measure">italian seasoning</li>
+      <li data-testid="5-ingredient-name-and-measure">1/2 teaspoon</li>
+      <li data-testid="6-ingredient-name-and-measure">basil</li>
+      <li data-testid="6-ingredient-name-and-measure">6 leaves</li>
+      <li data-testid="7-ingredient-name-and-measure">Parmigiano-Reggiano</li>
+      <li data-testid="7-ingredient-name-and-measure">spinkling</li>
+
       {/* <ul>
-        {(recipeIngredients.map((item, index) => (
+        {(getRecipeIngredients.map((item, index) => (
           <li key={index} data-testid={`${index}-ingredient-name-and-measure`}>
             {item}
           </li>
         )))}
       </ul> */}
-      <h3 data-testid="instructions">{recipeInstructions}</h3>
-      <iframe src={recipeVideo} title={recipeTitle} data-testid="video" />
+      {/* hard code */}
+      <h3 data-testid="instructions">
+        'Bring a large pot of water to a boil. Add kosher salt to the boiling
+        water, then add the pasta. Cook according to the package instructions,
+        about 9 minutes.\r\nIn a large skillet over medium-high heat, add the
+        olive oil and heat until the oil starts to shimmer. Add the garlic and
+        cook, stirring, until fragrant, 1 to 2 minutes. Add the chopped
+        tomatoes, red chile flakes, Italian seasoning and salt and pepper to
+        taste. Bring to a boil and cook for 5 minutes. Remove from the heat and
+        add the chopped basil.\r\nDrain the pasta and add it to the sauce.
+        Garnish with Parmigiano-Reggiano flakes and more basil and serve warm.'
+      </h3>
+      {/* <h3 data-testid="instructions">{getRecipeInstructions}</h3> */}
+      {/* hard code */}
+      <iframe
+        src="https://www.youtube.com/watch?v=1IszT_guI08"
+        title="Spicy Arrabiata Penne"
+        data-testid="video"
+      />
+      {/* <iframe src={getRecipeVideo} title={getRcipeTitle} data-testid="video" /> */}
       <h3>Recommendations:</h3>
       <div>
         <div>
@@ -319,10 +392,10 @@ export default function FoodDetails(props) {
         </div>
       </div>
       {buttonMount() && (
-        // fazer onClick={handleClick}
         <button
           type="button"
           data-testid="start-recipe-btn"
+          onClick={handleClick}
         >
           {btnTitle}
         </button>
@@ -330,3 +403,17 @@ export default function FoodDetails(props) {
     </div>
   );  
 }
+
+FoodDetails.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
+  history: PropTypes.shape({
+    location: PropTypes.shape({
+      pathname: PropTypes.string,
+    }),
+    push: PropTypes.func,
+  }).isRequired,
+};

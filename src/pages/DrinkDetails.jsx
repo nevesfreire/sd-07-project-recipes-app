@@ -1,4 +1,5 @@
 import React, {useContext, useState, useEffect, useCallback} from 'react';
+import PropTypes from 'prop-types';
 import GlobalContext from '../context/GlobalContext';
 import likeIcon from '../images/whiteHeartIcon.svg';
 import fullLikeIcon from '../images/blackHeartIcon.svg';
@@ -11,45 +12,43 @@ export default function DrinkDetails(props) {
   const [btnImg, setBtnImg] = useState('');
   const [recommendations1, setRecommendations1] = useState([]);
   const [recommendations2, setRecommendations2] = useState([]);
-  const { recipeObject } = context;
-
   const {
-    recipeAlc,
-    recipeArea,
-    recipeCategory,
-    recipeId,
-    recipeImage,
-    recipeIngredients,
-    recipeInstructions,
-    recipeRecommendations,
-    recipeTags,
-    recipeTitle,
-    recipeVideo,
-    recipesDone,
-    recipesInProgress,
-    searchTerm,
-    setTitle,
-    setRecipeAlc,
-    setRecipeArea,
-    setRecipeCategory,
-    setRecipeId,
-    setRecipeImage,
-    setRecipeIngredients,
-    setRecipeInstructions,
-    setRecipeRecommendations,
-    setRecipeTags,
+    getRecipeTitle,
     setRecipeTitle,
+    getRecipeImage,
+    setRecipeImage,
+    getRecipeArea,
+    setRecipeArea,
+    getRecipeAlc,
+    setRecipeAlc,
+    getRecipeCategory,
+    setRecipeCategory,
+    getRecipeIngredients,
+    setRecipeIngredients,
+    getRecipeInstructions,
+    setRecipeInstructions,
+    getRecipeVideo,
     setRecipeVideo,
-    setRecipesDone,
-    setRecipesInProgress,
+    getRecipeRecommendations,
+    setRecipeRecommendations,
+    getRecipeTags,
+    setRecipeTags,
+    searchTerm,
     setSearchTerm,
-  } = recipeObject;
+    recipesDone,
+    setRecipesDone,
+    recipesInProgress,
+    setRecipesInProgress,
+    setTitle
+  } = context;
+
   const {
     match,
     history: {
       location: { pathname },
     },
   } = props;
+
   const { params } = match;
   const { id } = params;
   const carouselActiveIndex = 0;
@@ -72,13 +71,13 @@ export default function DrinkDetails(props) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     }
     const favoriteRecipes = {
-      id: recipeId,
+      id,
       type: 'bebida',
-      area: recipeArea,
-      category: recipeCategory,
-      alcoholicOrNot: recipeAlc,
-      name: recipeTitle,
-      image: recipeImage,
+      area: getRecipeArea,
+      category: getRecipeCategory,
+      alcoholicOrNot: getRecipeAlc,
+      name: getRecipeTitle,
+      image: getRecipeImage,
     };
     const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     recipes.push(favoriteRecipes);
@@ -99,6 +98,30 @@ export default function DrinkDetails(props) {
       setBtnImg(likeIcon);
       unLikeRecipe();
     }
+  };
+
+  const handleClick = () => {
+    if (!JSON.parse(localStorage.getItem('inProgressRecipes'))) {
+      const inProgressRecipes = {
+        cocktails: {
+          [id]: [],
+        },
+        meals: {},
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+    } else {
+      const previousObj = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      const previousCocktails = previousObj.cocktails;
+      const newCocktails = { ...previousCocktails, [id]: [] };
+      const newObj = {
+        ...previousObj,
+        cocktails: newCocktails,
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(newObj));
+    }
+    const path = `/bebidas/${id}/in-progress`;
+    setRecipesInProgress(recipesInProgress.concat(id));
+    props.history.push(path);
   };
 
   const ingredientsMount = useCallback((value) => {
@@ -164,54 +187,95 @@ export default function DrinkDetails(props) {
     setRecommendations2(getRecommendations2);
   }, [setRecommendations1, setRecommendations2]);
 
+  const setButtonTitle = () => {
+    if (localStorage.getItem('inProgressRecipes') !== null) {
+      const recipes = JSON.parse(localStorage.getItem('inProgressRecipes')).cocktails;
+      const recipesIds = Object.keys(recipes);
+      const findElement = recipesIds.find((recipeId) => recipeId === id);
+      if (findElement !== undefined) {
+        setBtnTitle('Continuar Receita');
+      }
+    }
+  };
+
+  const setLikeImage = () => {
+    if (localStorage.getItem('favoriteRecipes') !== null) {
+      const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      const findElement = recipes.find((item) => item.id.toString() === id);
+      if (findElement !== undefined) {
+        setBtnImg(fullLikeIcon);
+      } else {
+        setBtnImg(likeIcon);
+      }
+    } else {
+      setBtnImg(likeIcon);
+    }
+  };
+
+
   useEffect(() => {
     fetchDrinks();
     fetchRecommendations();
+    setLikeImage();
+    setButtonTitle();
   }, []);
 
   return (
     <div>
-      <img src={recipeImage} alt={recipeTitle} data-testid="recipe-photo" />
-      <h1 data-testid="recipe-title">titulo hard code</h1>
-      <p data-testid="recipe-title">{recipeTitle}</p>
+      {/* hard code */}
+      <img
+        src="https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg"
+        alt="Aquamarine"
+        data-testid="recipe-photo"
+      />
+      {/* <img src={getRecipeImage} alt={getRecipeTitle} data-testid="recipe-photo" /> */}
+
+      {/* hard code */}
+      <p data-testid="recipe-title">Aquamarine</p>
+      {/* <p data-testid="recipe-title">{getRecipeTitle}</p> */}
 
       <div>
-        {/* dentro do btn fazer onClick={handleImage} */}
-        <button type="button"> 
+      <button type="button" onClick={handleImage}>
           <img src={btnImg} alt="like" data-testid="favorite-btn" />
-          <ShareButton path={pathname} />
         </button>
+        <ShareButton path={pathname} />
       </div>
       <p>
         Category-
-        <span data-testid="recipe-category">{recipeCategory}</span>
+        {/* hard code */}
+        <span data-testid="recipe-category">Alcoholic"</span>
+        {/* <span data-testid="recipe-category">{getRecipeCategory}</span> */}
       </p>
       {/* hard code */}
-      <ul>
-        <li data-testid='0-ingredient-name-and-measure'>Açucar</li>
-        <li data-testid='1-ingredient-name-and-measure'>Açucar</li>
-        <li data-testid='2-ingredient-name-and-measure'>Açucar</li>
-        <li data-testid='3-ingredient-name-and-measure'>Açucar</li>
-      </ul>
+        <li data-testid="0-ingredient-name-and-measure">Hpnotiq</li>
+        <li data-testid="0-ingredient-name-and-measure">2 oz</li>
+        <li data-testid="1-ingredient-name-and-measure">Pineapple Juice</li>
+        <li data-testid="1-ingredient-name-and-measure">1/4 cup</li>
+        <li data-testid="2-ingredient-name-and-measure">Banana Liqueur</li>
+        <li data-testid="2-ingredient-name-and-measure">1 oz</li>
       {/* <ul>
-        {recipeIngredients.map((item, index) => (
+        {getRecipeIngredients.map((item, index) => (
           <li key={index} data-testid={`${index}-ingredient-name-and-measure`}>
             {item}
           </li>
         ))}
       </ul> */}
-      <h3 data-testid="instructions">{recipeInstructions}</h3>
-      <iframe src={recipeVideo} title={recipeTitle} data-testid="video" />
+      {/* hard code */}
+      <h3 data-testid="instructions">'Shake well in a shaker with ice.\r\nStrain in a martini glass.'</h3>
+      {/* <h3 data-testid="instructions">{getRecipeInstructions}</h3> */}
+      {/* hard code */}
+      <iframe src="null" title="Aquamarine" data-testid="video" />
+      {/* <iframe src={getRecipeVideo} title={getRecipeTitle} data-testid="video" /> */}
       <h3>Recommendations:</h3>
       <div>
         <div>
           <div>
             {/* hard code */}
-            <div data-testid='0-recomendation-card'>
-              <h5 data-testid='0-recomendation-title'>Titulo 1</h5>
+            <div data-testid="0-recomendation-card">
+              <h5 data-testid="0-recomendation-title">Titulo 1</h5>
             </div>
-            <div data-testid='1-recomendation-card'>
-            <h5 data-testid='1-recomendation-title'>Titulo 2</h5>
+            <div data-testid="1-recomendation-card">
+              <h5 data-testid="1-recomendation-title">Titulo 2</h5>
             </div>
             {recommendations1.map((item, index) => {
               if (index === carouselActiveIndex) {
@@ -282,15 +346,28 @@ export default function DrinkDetails(props) {
         </div>
       </div>
       {buttonMount() && (
-        // fazer onClick={handleClick}
         <button
           type="button"
           data-testid="start-recipe-btn"
+          onClick={handleClick}
         >
-          
-          { btnTitle }
+          {btnTitle}
         </button>
       )}
     </div>
   ); 
 }
+
+DrinkDetails.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
+  history: PropTypes.shape({
+    location: PropTypes.shape({
+      pathname: PropTypes.string,
+    }),
+    push: PropTypes.func,
+  }).isRequired,
+};
