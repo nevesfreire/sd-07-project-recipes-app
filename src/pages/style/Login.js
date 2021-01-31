@@ -1,14 +1,6 @@
 // créditos das fotos: Dilyara Garifullina - https://unsplash.com/@dilja96
 import styled from 'styled-components';
 
-const randomBg = () => {
-  const ten = 10;
-  const randomNumber = (Math.random() * ten).toFixed();
-  return `/backgroundImages/${randomNumber}.jpg`;
-};
-
-randomBg();
-
 const Styles = {
   LoginContainer: styled.div`
   align-items: center;
@@ -18,8 +10,7 @@ const Styles = {
     rgba(81,201,105,0.06) 50%,
     rgba(121,14,14,0.2)
   ),
-    url(${randomBg()}
-  );
+    url('/backgroundImages/4.jpg');
   background-size: cover;
   display: flex;
   flex-direction: column;
