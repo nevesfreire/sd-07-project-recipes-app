@@ -1,0 +1,10 @@
+.main-page-container {
+  display: flex;
+  flex-direction: column;
+  margin: 12px;
+}
+.main-page-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}

@@ -1,7 +1,7 @@
 const RequestData = async (URL) => {
   try {
     const promisse = await fetch(URL);
-    const result = promisse.json();
+    const result = await promisse.json();
     return result;
   } catch (err) { return 'Erro'; }
 };
