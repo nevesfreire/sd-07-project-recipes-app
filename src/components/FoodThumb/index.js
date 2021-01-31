@@ -8,6 +8,7 @@ import {
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import './styles.css';
 
 export default function FoodThumb({ detailed, route, id }) {
   const [copiedAlert, setCopiedAlert] = useState(false);
@@ -61,22 +62,34 @@ export default function FoodThumb({ detailed, route, id }) {
         alt=""
         src={ detailed[0][detailedImg] }
       />
-      <h2 data-testid="recipe-title">{detailed[0][detailedTitle]}</h2>
-      <button type="button" data-testid="share-btn" onClick={ copyTo }>
-        <img alt="" src={ shareIcon } />
-      </button>
-      <input
-        type="image"
-        src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-        alt=""
-        data-testid="favorite-btn"
-        onClick={ () => {
-          setIsFavorite(!isFavorite);
-          toggleFavorite(req);
-        } }
-      />
+      <div className="thumb-title-wrapper">
+        <div className="thumb-title">
+          <h2 data-testid="recipe-title">{detailed[0][detailedTitle]}</h2>
+          <h4 data-testid="recipe-category">{detailed[0][category]}</h4>
+        </div>
+        <div className="thumb-icons">
+          <input
+            type="image"
+            src={ shareIcon }
+            alt=""
+            data-testid="share-btn"
+            onClick={ copyTo }
+            className="f-icon"
+          />
+          <input
+            type="image"
+            src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+            alt=""
+            data-testid="favorite-btn"
+            onClick={ () => {
+              setIsFavorite(!isFavorite);
+              toggleFavorite(req);
+            } }
+            className="f-icon"
+          />
+        </div>
+      </div>
 
-      <h4 data-testid="recipe-category">{detailed[0][category]}</h4>
       {copiedAlert && <p>Link copiado!</p>}
     </div>
   );

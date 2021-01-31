@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import FoodThumb from '../../components/FoodThumb';
 
-function EmProgesso() {
+function EmProgesso({ meals, drinks }) {
   const { route, id } = useParams();
   console.log(route);
   console.log(id);
@@ -11,7 +11,7 @@ function EmProgesso() {
   return (
     <div>
       emprogresso
-      <FoodThumb />
+      <FoodThumb detailed={ meals } route={ route } id={ id } />
     </div>
   );
 }

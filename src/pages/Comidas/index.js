@@ -23,7 +23,7 @@ function Comidas(props) {
     const MAX_RETURN = 12;
     const { foods } = props;
     const { meals, isFetching } = foods;
-    if (isFetching) return <div>Loading...</div>;
+    if (isFetching) return <div className="container-drinks"><div className="loader" /></div>;
     if (meals === null) {
       return alert(
         'Sinto muito, não encontramos nenhuma receita para esses filtros.',
