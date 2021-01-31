@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 
 const TitleContext = createContext();
 
-export const titleHeaderNames = [{
+export const titleHeaderNames = {
+  login: {
+    route: '/',
+    title: '',
+  },
   comidas: {
     route: '/comidas',
     title: 'Comidas',
@@ -48,10 +52,11 @@ export const titleHeaderNames = [{
     route: '/receitas-favoritas',
     title: 'Receitas Favoritas',
   },
-}];
+};
 
 export default function TitleHeaderProvider({ children }) {
-  const [titleHeaderName, setHeaderName] = useState(titleHeaderNames[0].comidas);
+  const [titleHeaderName, setHeaderName] = useState(titleHeaderNames.login);
+
   return (
     <TitleContext.Provider value={ { titleHeaderName, setHeaderName } }>
       {children}

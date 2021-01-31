@@ -3,7 +3,11 @@ import { Link } from 'react-router-dom';
 import saveDataLogin from '../services/localStorage';
 // import PropTypes from 'prop-types';
 
+import { titleHeaderNames, useTitleContext } from '../context/TitleContext';
+import { fetchAPIDrinksSurprise } from '../services/api';
+
 function Login() {
+  const { setHeaderName } = useTitleContext();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -20,6 +24,7 @@ function Login() {
   }
 
   function verifyLogin() {
+    fetchAPIDrinksSurprise();
     const verifyFNEmail = verifyEmail();
     const verifyFNPassword = verifyPassword();
 
@@ -31,6 +36,7 @@ function Login() {
 
   function saveToken() {
     saveDataLogin(email);
+    setHeaderName(titleHeaderNames.comidas);
   }
 
   return (
