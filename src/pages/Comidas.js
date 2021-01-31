@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import CardList from '../components/CardList';
@@ -24,6 +25,14 @@ function Comidas() {
   const noFindRecipe = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
   const magicNumberZero = 0;
+
+  const history = useHistory();
+
+  const redirectToDetails = () => {
+    if (dataToRender.length === 1 && category === '') {
+      history.push(`/comidas/${dataToRender[0].idMeal}`);
+    }
+  };
 
   const getGlobalMealData = async () => {
     const data = await fetchGlobalMeal();
@@ -101,12 +110,13 @@ function Comidas() {
         setValueToFetch={ setValueToFetch }
         getEndPointAndFetch={ getEndPointAndFetch }
       />
-      <CategoryBar
+      { !redirectToDetails()
+      && <CategoryBar
         arrayOfCategories={ mealCategories }
         typeOfCategory="Meal"
         setCategory={ setCategory }
         category={ category }
-      />
+      />}
       <CardList
         arrayOfCard={ dataToRender }
         typeOfCard="Meal"
