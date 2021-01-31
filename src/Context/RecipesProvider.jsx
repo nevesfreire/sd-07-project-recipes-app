@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import RecipesContext from './index';
-import useLocalStorage from './Hooks/useLocalStorage';
+import useLocalStorage from '../Hooks/useLocalStorage';
 import Meals from '../services/meals-api';
 import Drinks from '../services/cocktails-api';
 
@@ -170,7 +170,7 @@ function RecipesProvider({ children }) {
     handleClickFavorite,
     verifyInProgress,
     handleClickStartRecipe,
-    email: '',
+    // email: '',
     meal: {
       mealsData,
       setMealsData,

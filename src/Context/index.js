@@ -10,7 +10,7 @@ const RecipesContext = createContext({
   verifyInProgress: () => {},
   inProgress: false,
   setInProgressRecipes: () => {},
-  email: '',
+  // email: '',
   meal: {
     mealsData: [],
     setMealsData: () => {},

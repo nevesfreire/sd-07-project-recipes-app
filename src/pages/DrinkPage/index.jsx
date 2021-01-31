@@ -16,7 +16,7 @@ function DrinkPage() {
 
       <SearchBarByDrinks />
       {
-        !isSearchBarActive && <Grid page="drinks" />
+        !isSearchBarActive && <Grid />
       }
       <Footer />
     </div>
