@@ -7,6 +7,7 @@ const initialStateUser = { user: { email: '' } };
 const initialStateFilter = {
   search: { text: '', option: '', title: '' },
   category: '',
+  area: '',
 };
 
 export default function Provider({ children }) {

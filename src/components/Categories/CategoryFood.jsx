@@ -1,15 +1,15 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import { useFetchApi } from '../../hooks';
 import { LoadingCard } from '../Cards';
 import { SUBMIT_CATEGORY, CLEAR_CATEGORY } from '../../reducers';
 import { CupNodesContext } from '../../contexts';
 import Button from '../Button';
 
-export default function CategoryFood() {
+export default function CategoryFood({ number }) {
   const { dispatchFilter, filterDates } = useContext(CupNodesContext);
   const URL = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
   const [loading, { meals }] = useFetchApi(URL);
-  const five = 5;
   const submitCategory = ({ target: { id } }) => (
     filterDates.category.length
       ? dispatchFilter({ type: CLEAR_CATEGORY })
@@ -27,7 +27,7 @@ export default function CategoryFood() {
                 text="All"
                 func={ submitCategory }
               />
-              {meals.filter((_, index) => index < five).map(({ strCategory }, i) => (
+              {meals.filter((_, index) => index < number).map(({ strCategory }, i) => (
                 <Button
                   id={ strCategory }
                   key={ `btc-fil-${i}` }
@@ -43,3 +43,10 @@ export default function CategoryFood() {
     </div>
   );
 }
+CategoryFood.defaultProps = {
+  number: 5,
+};
+
+CategoryFood.propTypes = {
+  number: PropTypes.number,
+};

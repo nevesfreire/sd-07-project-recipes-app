@@ -1,7 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { CupNodesContext } from '../contexts';
+import {
+  Header, Footer, AreaFilterDropdown, AreaCards, RandonFoodCards,
+} from '../components';
 
-export default function IngredientsExploreFood() {
+export default function OriginFoodExplore() {
+  const { filterDates: { area } } = useContext(CupNodesContext);
   return (
-    <h1>Area</h1>
+    <div>
+      <Header title="Explorar Origem" />
+      <AreaFilterDropdown number={ undefined } />
+      {
+        area
+          ? <AreaCards area={ area } />
+          : <RandonFoodCards number={ undefined } />
+      }
+      <Footer />
+    </div>
+
   );
 }

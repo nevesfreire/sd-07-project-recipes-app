@@ -1,10 +1,8 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { Header, Footer, Button } from '../components';
 
-export default function Explore() {
-  const { push } = useHistory();
-
+export default function Explore({ history: { push } }) {
   return (
     <div>
       <Header title="Explorar" search={ false } />
@@ -22,3 +20,7 @@ export default function Explore() {
     </div>
   );
 }
+
+Explore.propTypes = {
+  history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired,
+};

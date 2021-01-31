@@ -18,7 +18,7 @@ export default function Drinks() {
   return (
     <div>
       <Header title="Bebidas" />
-      <CategoryDrink />
+      <CategoryDrink number={ 15 } />
       {whatchCards(category, search)}
       <Footer />
     </div>

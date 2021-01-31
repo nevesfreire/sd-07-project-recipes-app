@@ -1,15 +1,15 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import { useFetchApi } from '../../hooks';
 import { LoadingCard } from '../Cards';
 import { SUBMIT_CATEGORY, CLEAR_CATEGORY } from '../../reducers';
 import { CupNodesContext } from '../../contexts';
 import Button from '../Button';
 
-export default function CategoryDrink() {
+export default function CategoryDrink({ number }) {
   const { dispatchFilter, filterDates } = useContext(CupNodesContext);
   const URL = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
   const [loading, { drinks }] = useFetchApi(URL);
-  const five = 5;
   const submitCategory = ({ target: { id } }) => (
     filterDates.category.length
       ? dispatchFilter({ type: CLEAR_CATEGORY })
@@ -27,7 +27,7 @@ export default function CategoryDrink() {
                 text="All"
                 func={ submitCategory }
               />
-              {drinks.filter((_, index) => index < five).map(({ strCategory }, i) => (
+              {drinks.filter((_, index) => index < number).map(({ strCategory }, i) => (
                 <Button
                   id={ strCategory }
                   key={ `btc-fil-${i}` }
@@ -43,3 +43,10 @@ export default function CategoryDrink() {
     </div>
   );
 }
+CategoryDrink.defaultProps = {
+  number: 5,
+};
+
+CategoryDrink.propTypes = {
+  number: PropTypes.number,
+};

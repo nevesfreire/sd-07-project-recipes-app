@@ -1,4 +1,5 @@
 export { default as Card } from './Card';
+export { default as AreaCards } from './AreaCards';
 export { default as LoadingCard } from './LoadingCard';
 export { default as CardDrinkRandon } from './CardDrinkRandon';
 export { default as CardFoodRandon } from './CardFoodRandon';
