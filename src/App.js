@@ -2,12 +2,13 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Provider from './provider';
 import {
-  MainPage,
-  RecipeDetails,
   Explore,
   ExploreBy,
   ExploreByIngredient,
   ExploreByArea,
+  Login,
+  MainPage,
+  RecipeDetails,
 } from './pages';
 
 function App() {
@@ -65,6 +66,8 @@ function App() {
             path="/comidas"
             render={ (props) => (<MainPage { ...props } />) }
           />
+          <Route path="/perfil" component={ Profile } />
+          <Route exact path="/" component={ Login } />
           {/* <Redirect to="/404" /> */}
         </Switch>
       </BrowserRouter>
