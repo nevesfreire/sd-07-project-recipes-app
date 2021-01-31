@@ -4,21 +4,6 @@ import renderWithRouter from './renderWithRouter';
 import Login from '../components/Login';
 
 describe('Component Login', () => {
-  const emailInput = screen.getByTestId('email-input');
-  const passwordInput = screen.getByTestId('password-input');
-
-  test('if there is an email field', () => {
-    renderWithRouter(<Login />);
-
-    expect(emailInput).toBeInTheDocument();
-  });
-
-  test('if there is an password field', () => {
-    renderWithRouter(<Login />);
-
-    expect(passwordInput).toBeInTheDocument();
-  });
-
   test('if there is an enter button', () => {
     renderWithRouter(<Login />);
 
@@ -35,6 +20,12 @@ describe('Component Login', () => {
     const disabledEnterButton = screen.getByRole('button');
     expect(disabledEnterButton).toHaveAttribute('disabled');
 
+    const emailInput = screen.getByTestId('email-input');
+    expect(emailInput).toBeInTheDocument();
+
+    const passwordInput = screen.getByTestId('password-input');
+    expect(passwordInput).toBeInTheDocument();
+
     fireEvent.change(emailInput, { target: { value: 'example@email.com' } });
     fireEvent.change(passwordInput, { target: { value: '1234567' } });
 
@@ -44,6 +35,8 @@ describe('Component Login', () => {
   test('whether the button redirects to the food page', () => {
     const { history } = renderWithRouter(<Login />);
 
+    const emailInput = screen.getByTestId('email-input');
+    const passwordInput = screen.getByTestId('password-input');
     fireEvent.change(emailInput, { target: { value: 'example@email.com' } });
     fireEvent.change(passwordInput, { target: { value: '1234567' } });
 
