@@ -39,9 +39,7 @@ class DetalhesBebidas extends Component {
 
   async handleClick(valor) {
     const { history } = this.props;
-    await history.push(`/bebidas/${valor}`);
-    await this.api(valor);
-    await this.componentDidMount2(valor);
+    await history.push(`/comidas/${valor}`);
   }
 
   async api(id) {
