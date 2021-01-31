@@ -107,12 +107,11 @@ class DetalhesBebidas extends Component {
         const limit = 6;
         if (index < limit) {
           return (
-            <div className="card">
+            <div key={ index } className="card">
               <button
                 name={ receita.idMeal }
                 type="button"
                 onClick={ ({ target }) => this.handleClick(target.name) }
-                key={ index }
                 data-testid={ `${index}-recomendation-card` }
               >
                 <img
