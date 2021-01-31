@@ -6,7 +6,11 @@ function ShareButton({ path }) {
   const [pathImage, setPathImage] = useState();
 
   const handleShare = () => {
-    const completePath = `http://localhost:3000${path.replace('/in-progress', '')}`;
+    // https://www.alura.com.br/artigos/javascript-replace-manipulando-strings-e-regex?
+    const completePath = `http://localhost:3000${path.replace(
+      '/in-progress',
+      '',
+    )}`;
     navigator.clipboard.writeText(completePath);
     setPathImage(completePath);
   };

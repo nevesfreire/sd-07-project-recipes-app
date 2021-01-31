@@ -12,7 +12,7 @@ const detailRecipes = {
     recipeVideo: '',
     recipeRecommendations: [],
     recipeTags: [],
-  }
+  },
 };
 
 export default detailRecipes;

@@ -1,60 +1,25 @@
-import React, {useContext, useState, useEffect, useCallback} from 'react';
+import React, { useContext, useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import GlobalContext from '../context/GlobalContext';
 import likeIcon from '../images/whiteHeartIcon.svg';
 import fullLikeIcon from '../images/blackHeartIcon.svg';
 import ShareButton from '../components/ShareButton';
-import teste from '../images/teste.jpg';
-  
+
 export default function DrinkDetails(props) {
   const context = useContext(GlobalContext);
   const [btnTitle, setBtnTitle] = useState('Iniciar Receita');
   const [btnImg, setBtnImg] = useState('');
   const [recommendations1, setRecommendations1] = useState([]);
   const [recommendations2, setRecommendations2] = useState([]);
-  const {
-    getRecipeTitle,
-    setRecipeTitle,
-    getRecipeImage,
-    setRecipeImage,
-    getRecipeArea,
-    setRecipeArea,
-    getRecipeAlc,
-    setRecipeAlc,
-    getRecipeCategory,
-    setRecipeCategory,
-    getRecipeIngredients,
-    setRecipeIngredients,
-    getRecipeInstructions,
-    setRecipeInstructions,
-    getRecipeVideo,
-    setRecipeVideo,
-    getRecipeRecommendations,
-    setRecipeRecommendations,
-    getRecipeTags,
-    setRecipeTags,
-    searchTerm,
-    setSearchTerm,
-    recipesDone,
-    setRecipesDone,
-    recipesInProgress,
-    setRecipesInProgress,
-    setTitle
-  } = context;
-
-  const {
-    match,
-    history: {
-      location: { pathname },
-    },
-  } = props;
-
+  const { getRecipeTitle, setRecipeTitle, getRecipeImage, setRecipeImage,
+    getRecipeArea, getRecipeAlc, setRecipeAlc, getRecipeCategory, setRecipeCategory,
+    getRecipeIngredients, setRecipeIngredients, getRecipeInstructions,
+    setRecipeInstructions, recipesInProgress, setRecipesInProgress } = context;
+  const { match, history: { location: { pathname } } } = props;
   const { params } = match;
   const { id } = params;
-  const carouselActiveIndex = 0;
-  const carouselActiveIndex1 = 1;
+  const carouselActiveIndex = 0; // controla das recomendações
   const carouselPartition = 3;
-
   const buttonMount = () => {
     if (localStorage.getItem('doneRecipes') !== null) {
       const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
@@ -108,7 +73,10 @@ export default function DrinkDetails(props) {
         },
         meals: {},
       };
-      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+      localStorage.setItem(
+        'inProgressRec  ipes',
+        JSON.stringify(inProgressRecipes),
+      );
     } else {
       const previousObj = JSON.parse(localStorage.getItem('inProgressRecipes'));
       const previousCocktails = previousObj.cocktails;
@@ -124,64 +92,59 @@ export default function DrinkDetails(props) {
     props.history.push(path);
   };
 
-  const ingredientsMount = useCallback((value) => {
-    const initialIndex = 0;
-    const halfIndex = 2;
-    const ingredients = Object.entries(value.drinks[0])
-    // console.log(ingredients) // array 2 chave e valor do retorno da API
-    .filter((item) => item[0].includes('Ingredient') || item[0].includes('Measure'))
-    .filter((amount) => amount[1] !== null && amount[1] !== ' ' && amount[1] !== '')
-    // console.log(ingredients) 1 array para cada igrediente e respectiva medida
-    .map((ar2) => ar2[1]); //concatenna cada elemento com posição 2
-    // console.log(ingredients);
-    const ingredientsMeasures = [];
-    for (let i = initialIndex; i < ingredients.length / halfIndex; i += 1) {
-      ingredientsMeasures.push(
-        `${ingredients[i]} - ${ingredients[i + ingredients.length / halfIndex]}`
-      );
-    }
-    setRecipeIngredients(ingredientsMeasures);
-  }, [setRecipeIngredients])
+  const ingredientsMount = useCallback(
+    (value) => {
+      const initialIndex = 0;
+      const halfIndex = 2;
+      const ingredients = Object.entries(value.drinks[0])
+        .filter(
+          (item) => item[0].includes('Ingredient') || item[0].includes('Measure'),
+        )
+        .filter(
+          (amount) => amount[1] !== null && amount[1] !== ' ' && amount[1] !== '',
+        )
+        .map((ar2) => ar2[1]);
+      const ingredientsMeasures = [];
+      for (let i = initialIndex; i < ingredients.length / halfIndex; i += 1) {
+        ingredientsMeasures.push(
+          `${ingredients[i]} - ${ingredients[i + ingredients.length / halfIndex]}`,
+        );
+      }
+      setRecipeIngredients(ingredientsMeasures);
+    },
+    [setRecipeIngredients],
+  );
 
-  const fetchDrinks = useCallback(async () => {
-    const path = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=178319";
+  const fetchDrinks = async () => {
+    const path = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=178319';
     // const path = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
     const response = await fetch(path);
+    // console.log(response)
     const result = await response.json();
+    // console.log(result);
     setRecipeTitle(result.drinks[0].strDrink);
     setRecipeCategory(result.drinks[0].strCategory);
     setRecipeAlc(result.drinks[0].strAlcoholic);
     setRecipeInstructions(result.drinks[0].strInstructions);
     setRecipeImage(result.drinks[0].strDrinkThumb);
     ingredientsMount(result);
-  }, [
-    setRecipeTitle,
-    setRecipeCategory,
-    setRecipeAlc,
-    setRecipeInstructions,
-    setRecipeImage,
-    ingredientsMount,
-  ]);
+  };
 
   const fetchRecommendations = useCallback(async () => {
-    // hard code
-    const path = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=178319';
-    // const path = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+    const path = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
     const response = await fetch(path);
-    // console.log(getDrink);
     const result = await response.json();
     const maximumRecommendations1 = 3;
     const maximumRecommendations2 = 6;
-    const getRecommendations1 = result.drinks.filter(
-      (recommendation, index) => (index < maximumRecommendations1 && recommendation),
+    const getRecommendations1 = result.meals.filter(
+      (recommendation, index) => index < maximumRecommendations1
+        && recommendation,
     );
     // console.log(getRecommendations1);
-    const getRecommendations2 = result.drinks.filter(
-      (recommendation, index) => (
-        index >= maximumRecommendations1
-        && index < maximumRecommendations2
-        && recommendation
-      ),
+    const getRecommendations2 = result.meals.filter(
+      (recommendation, index) => index >= maximumRecommendations1
+      && index < maximumRecommendations2
+      && recommendation,
     );
     setRecommendations1(getRecommendations1);
     setRecommendations2(getRecommendations2);
@@ -189,7 +152,8 @@ export default function DrinkDetails(props) {
 
   const setButtonTitle = () => {
     if (localStorage.getItem('inProgressRecipes') !== null) {
-      const recipes = JSON.parse(localStorage.getItem('inProgressRecipes')).cocktails;
+      const recipes = JSON.parse(localStorage.getItem('inProgressRecipes'))
+        .cocktails;
       const recipesIds = Object.keys(recipes);
       const findElement = recipesIds.find((recipeId) => recipeId === id);
       if (findElement !== undefined) {
@@ -212,7 +176,6 @@ export default function DrinkDetails(props) {
     }
   };
 
-
   useEffect(() => {
     fetchDrinks();
     fetchRecommendations();
@@ -221,123 +184,135 @@ export default function DrinkDetails(props) {
   }, []);
 
   return (
-    <div>
-      {/* hard code */}
+    <div className="recipe-details-container">
       <img
-        src="https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg"
-        alt="Aquamarine"
+        src={ getRecipeImage }
+        alt={ getRecipeTitle }
         data-testid="recipe-photo"
+        className="recipe-details-image"
       />
-      {/* <img src={getRecipeImage} alt={getRecipeTitle} data-testid="recipe-photo" /> */}
-
-      {/* hard code */}
-      <p data-testid="recipe-title">Aquamarine</p>
-      {/* <p data-testid="recipe-title">{getRecipeTitle}</p> */}
-
       <div>
-      <button type="button" onClick={handleImage}>
-          <img src={btnImg} alt="like" data-testid="favorite-btn" />
-        </button>
-        <ShareButton path={pathname} />
+        <p data-testid="recipe-title" className="recipe-details-name">
+          { getRecipeTitle }
+        </p>
+        <div className="favorite-and-share-btn-container">
+          <button type="button" onClick={ handleImage } className="favorite-btn">
+            <img src={ btnImg } alt="like" data-testid="favorite-btn" />
+          </button>
+          <ShareButton path={ pathname } />
+        </div>
       </div>
-      <p>
+      <p className="recipe-details-category">
         Category-
-        {/* hard code */}
-        <span data-testid="recipe-category">Alcoholic"</span>
-        {/* <span data-testid="recipe-category">{getRecipeCategory}</span> */}
+        <span data-testid="recipe-category">{getRecipeAlc}</span>
       </p>
-      {/* hard code */}
-        <li data-testid="0-ingredient-name-and-measure">Hpnotiq</li>
-        <li data-testid="0-ingredient-name-and-measure">2 oz</li>
-        <li data-testid="1-ingredient-name-and-measure">Pineapple Juice</li>
-        <li data-testid="1-ingredient-name-and-measure">1/4 cup</li>
-        <li data-testid="2-ingredient-name-and-measure">Banana Liqueur</li>
-        <li data-testid="2-ingredient-name-and-measure">1 oz</li>
-      {/* <ul>
+      <ul className="ingredients-list">
         {getRecipeIngredients.map((item, index) => (
-          <li key={index} data-testid={`${index}-ingredient-name-and-measure`}>
+          <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
             {item}
           </li>
         ))}
-      </ul> */}
-      {/* hard code */}
-      <h3 data-testid="instructions">'Shake well in a shaker with ice.\r\nStrain in a martini glass.'</h3>
-      {/* <h3 data-testid="instructions">{getRecipeInstructions}</h3> */}
-      {/* hard code */}
-      <iframe src="null" title="Aquamarine" data-testid="video" />
-      {/* <iframe src={getRecipeVideo} title={getRecipeTitle} data-testid="video" /> */}
+      </ul>
+      <h3 data-testid="instructions" className="recipe-details-instructions">
+        {getRecipeInstructions}
+      </h3>
       <h3>Recommendations:</h3>
-      <div>
-        <div>
-          <div>
-            {/* hard code */}
-            <div data-testid="0-recomendation-card">
-              <h5 data-testid="0-recomendation-title">Titulo 1</h5>
-            </div>
-            <div data-testid="1-recomendation-card">
-              <h5 data-testid="1-recomendation-title">Titulo 2</h5>
-            </div>
+      <div className="carousels-container">
+        <div
+          className="carousel slide w-25"
+          data-ride="carousel"
+          id="carousel1"
+        >
+          <div className="carousel-inner">
             {recommendations1.map((item, index) => {
               if (index === carouselActiveIndex) {
+                // console.log(item); obj de cada bebida
                 return (
                   <div
-                    key={item.strDrink}
-                    data-testid={`${index}-recomendation-card`}
+                    key={ item.idMeal }
+                    data-testid={ `${index}-recomendation-card` }
+                    className="carousel-item active"
                   >
-                    <img src={item.strDrinkThumb} alt={item.strDrink} />
-                    <h5 data-testid={`${index}-recomendation-title`}>
-                      {item.strDrink}
+                    <img
+                      src={ item.strMealThumb }
+                      alt={ item.strMeal }
+                      className="d-block w-100"
+                    />
+                    <h5 data-testid={ `${index}-recomendation-title` }>
+                      { item.strMeal }
                     </h5>
                   </div>
                 );
               }
               return (
                 <div
-                  key={item.idDrink}
-                  data-testid={`${
-                    index + carouselActiveIndex1
-                  }-recomendation-card`}
+                  key={ item.idMeal }
+                  data-testid={ `${index}-recomendation-card` }
+                  className="carousel-item"
                 >
-                  <img src={item.strDrinkThumb} alt={item.strDrink} />
-                  <h5 data-testid={`${index}-recomendation-title`}>
-                    {item.strDrink}
+                  <img
+                    src={ item.strMealThumb }
+                    alt={ item.strMeal }
+                    className="d-block w-100"
+                  />
+                  <h5 data-testid={ `${index}-recomendation-title` }>
+                    {item.strMeal}
                   </h5>
                 </div>
               );
             })}
           </div>
         </div>
-        <div>
-          <div>
+        <div
+          className="carousel slide w-25"
+          data-ride="carousel"
+          id="carousel2"
+        >
+          <div className="carousel-inner">
             {recommendations2.map((item, index) => {
               if (index === carouselActiveIndex) {
                 return (
-                  <div key={item.idDrink} data-testid="1-recomendation-card">
-                    <img src={item.strDrinkThumb} alt={item.strDrink} />
+                  <div
+                    key={ item.idMeal }
+                    data-testid={ `${
+                      index + carouselPartition
+                    }-recomendation-card` }
+                    className="carousel-item active"
+                  >
+                    <img
+                      src={ item.strMealThumb }
+                      alt={ item.strMeal }
+                      className="d-block w-100"
+                    />
                     <h5
-                      data-testid={`${
+                      data-testid={ `${
                         index + carouselPartition
-                      }-recomendation-title`}
+                      }-recomendation-title` }
                     >
-                      {item.strDrink}
+                      { item.strMeal }
                     </h5>
                   </div>
                 );
               }
               return (
                 <div
-                  key={item.idDrink}
-                  data-testid={`${
+                  key={ item.idMeal }
+                  data-testid={ `${
                     index + carouselPartition
-                  }-recomendation-card`}
+                  }-recomendation-card` }
+                  className="carousel-item"
                 >
-                  <img src={item.strDrinkThumb} alt={item.strDrink} />
+                  <img
+                    src={ item.strMealThumb }
+                    alt={ item.strMeal }
+                    className="d-block w-100"
+                  />
                   <h5
-                    data-testid={`${
+                    data-testid={ `${
                       index + carouselPartition
-                    }-recomendation-title`}
+                    }-recomendation-title` }
                   >
-                    {item.strDrink}
+                    { item.strMeal }
                   </h5>
                 </div>
               );
@@ -349,13 +324,14 @@ export default function DrinkDetails(props) {
         <button
           type="button"
           data-testid="start-recipe-btn"
-          onClick={handleClick}
+          className="start-recipe-btn"
+          onClick={ handleClick }
         >
           {btnTitle}
         </button>
       )}
     </div>
-  ); 
+  );
 }
 
 DrinkDetails.propTypes = {
