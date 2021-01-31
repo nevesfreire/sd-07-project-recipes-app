@@ -41,7 +41,6 @@ const useLocalStorage = () => {
     favoriteRecipes,
     setFavoriteRecipes,
     doneRecipes,
-    user,
   ];
 };
 

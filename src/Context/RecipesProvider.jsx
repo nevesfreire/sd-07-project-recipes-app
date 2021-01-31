@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import RecipesContext from './index';
-import useLocalStorage from './Hooks/useLocalStorage';
+import useLocalStorage from '../Hooks/useLocalStorage';
 import Meals from '../services/meals-api';
 import Drinks from '../services/cocktails-api';
 
@@ -23,7 +23,6 @@ function RecipesProvider({ children }) {
     favoriteRecipes,
     setFavoriteRecipes,
     doneRecipes,
-    user,
   ] = useLocalStorage();
 
   const [filteredDoneRecipes, setFilteredDoneRecipes] = useState([]);
@@ -172,7 +171,6 @@ function RecipesProvider({ children }) {
     verifyInProgress,
     handleClickStartRecipe,
     // email: '',
-    user,
     meal: {
       mealsData,
       setMealsData,
