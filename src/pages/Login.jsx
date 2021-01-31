@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import GlobalContext from '../context/GlobalContext';
+import './style/Login.css';
+import Logo from '../components/logo/Logo';
 
 export default function Login(props) {
   const { history } = props;
@@ -10,6 +12,7 @@ export default function Login(props) {
     password,
     setEmail,
     setPassword,
+    styles: { loginBG },
   } = context;
 
   const infoVerifier = () => {
@@ -61,9 +64,13 @@ export default function Login(props) {
   }
 
   return (
-    <div>
-      <form className="form">
+    <div className="login-container" style={ { backgroundImage: loginBG } }>
+      <div className="logo-container">
+        <Logo />
+      </div>
+      <form className="login-form">
         <input
+          className="login-input-email"
           required
           id="email"
           type="email"
@@ -73,27 +80,31 @@ export default function Login(props) {
           data-testid="email-input"
           onChange={ (event) => setEmail(event.target.value) }
         />
-        <input
-          required
-          id="password"
-          type="password"
-          placeholder="Digite sua senha"
-          value={ password }
-          data-testid="password-input"
-          onChange={ (event) => setPassword(event.target.value) }
-        />
-        <button
-          id="submit-btn"
-          type="submit"
-          data-testid="login-submit-btn"
-          disabled={ infoVerifier() }
-          onClick={ (event) => {
-            handleChange(event);
-            history.push('/comidas');
-          } }
-        >
-          Entrar
-        </button>
+        <div className="login-pass-container">
+          <input
+            className="login-input-pass"
+            required
+            id="password"
+            type="password"
+            placeholder="Digite sua senha"
+            value={ password }
+            data-testid="password-input"
+            onChange={ (event) => setPassword(event.target.value) }
+          />
+          <button
+            className="login-btn"
+            id="submit-btn"
+            type="submit"
+            data-testid="login-submit-btn"
+            disabled={ infoVerifier() }
+            onClick={ (event) => {
+              handleChange(event);
+              history.push('/comidas');
+            } }
+          >
+            Entrar
+          </button>
+        </div>
       </form>
     </div>
   );
