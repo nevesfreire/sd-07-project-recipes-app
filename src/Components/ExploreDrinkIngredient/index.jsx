@@ -26,7 +26,7 @@ const ExploreDrinkIngredients = () => {
           key={ i }
         >
           <Link
-            onClick={ () =>  }
+            // onClick={ () =>  }
             to="/bebidas"
             key={ i }
           >
