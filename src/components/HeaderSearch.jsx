@@ -66,17 +66,13 @@ function HeaderSearch({ name }) {
     setClick(true);
     if (name === 'Comidas') {
       const answerApi = await searchFood();
-      console.log(answerApi);
-
       if (answerApi) setCardFood(answerApi);
       else printError();
-      // answerApi ? setCardFood(answerApi) : printError();
     }
     if (name === 'Bebidas') {
       const answerApi = await searchDrink();
       if (answerApi) setCardDrink(answerApi);
       else printError();
-      // answerApi ? setCardDrink(answerApi) : printError();
     }
   };
 
@@ -88,12 +84,10 @@ function HeaderSearch({ name }) {
     }
   }, [cardDrink, cardFood]);
 
-  if (redirectDrink) return <Redirect to={ `/bebidas/${cardDrink[0].idDrink}` } />;
-
-  if (redirectFood) return <Redirect to={ `/comidas/${cardFood[0].idMeal}` } />;
-
   return (
     <section>
+      { redirectDrink && <Redirect to={ `/bebidas/${cardDrink[0].idDrink}` } /> }
+      { redirectFood && <Redirect to={ `/comidas/${cardFood[0].idMeal}` } /> }
       <div>
         <input
           type="text"
