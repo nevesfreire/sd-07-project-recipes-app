@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Header from '../Header';
 import Footer from '../Footer';
 
 const ExploreFoodIngredients = () => {
@@ -37,7 +36,6 @@ const ExploreFoodIngredients = () => {
             onClick={ () => filterFood(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient.strIngredient}`) }
             to="/comidas"
             key={ i }
-
           >
             <img
               src={ `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}-Small.png` }
@@ -53,7 +51,6 @@ const ExploreFoodIngredients = () => {
 
   return (
     <div>
-      <Header title="Explore Ingredientes" />
       {!foodIngredientsCategory ? 'Carregando...' : renderCards()}
       <Footer />
     </div>

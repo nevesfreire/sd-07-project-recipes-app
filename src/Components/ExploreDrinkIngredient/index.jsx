@@ -1,25 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Header from '../Header';
 import Footer from '../Footer';
 
 const ExploreDrinkIngredients = () => {
   const [drinkIngredientsCategory, setDrinkIngredientsCategory] = useState();
-  const [drinkRecipes, setDrinkRecipes] = useState();
-  console.log(drinkRecipes);
+
   const callApi = async () => {
     const zero = 0;
     const doze = 12;
     const fetching = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
     const json = await fetching.json();
     const results = await json.drinks;
-    await setDrinkIngredientsCategory(results.slice(zero, doze));
-  };
-
-  const filterDrink = async (url) => {
-    const newRequest = await fetch(url);
-    const newJson = await newRequest.json();
-    await setDrinkRecipes(newJson);
+    setDrinkIngredientsCategory(results.slice(zero, doze));
   };
 
   useEffect(() => {
@@ -34,7 +26,7 @@ const ExploreDrinkIngredients = () => {
           key={ i }
         >
           <Link
-            onClick={ () => filterDrink(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient.strIngredient1}`) }
+            onClick={ () =>  }
             to="/bebidas"
             key={ i }
           >
@@ -52,7 +44,6 @@ const ExploreDrinkIngredients = () => {
 
   return (
     <div>
-      <Header title="Explore Ingredientes" />
       {!drinkIngredientsCategory ? 'Carregando...' : renderCards()}
       <Footer />
     </div>
