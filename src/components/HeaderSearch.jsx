@@ -17,6 +17,8 @@ function HeaderSearch({ name }) {
   const [textSearch, setTextSearch] = useState('');
   const [radioValue, setRadioValue] = useState('');
   const [click, setClick] = useState(false);
+  const [redirectFood, setRedirectFood] = useState(false);
+  const [redirectDrink, setRedirectDrink] = useState(false);
 
   const {
     setCardDrink,
@@ -64,6 +66,8 @@ function HeaderSearch({ name }) {
     setClick(true);
     if (name === 'Comidas') {
       const answerApi = await searchFood();
+      console.log(answerApi);
+
       if (answerApi) setCardFood(answerApi);
       else printError();
       // answerApi ? setCardFood(answerApi) : printError();
@@ -79,14 +83,14 @@ function HeaderSearch({ name }) {
   useEffect(() => {
     if (click) {
       setClick(false);
-      if (cardFood.length === 1) {
-        return <Redirect to={ `/comidas/${cardFood[0].idMeal}` } />;
-      }
-      if (cardDrink.length === 1) {
-        return <Redirect to={ `/bebidas/${cardDrink[0].idDrink}` } />;
-      }
+      if (cardFood.length === 1) setRedirectFood(true);
+      if (cardDrink.length === 1) setRedirectDrink(true);
     }
   }, [cardDrink, cardFood]);
+
+  if (redirectDrink) return <Redirect to={ `/bebidas/${cardDrink[0].idDrink}` } />;
+
+  if (redirectFood) return <Redirect to={ `/comidas/${cardFood[0].idMeal}` } />;
 
   return (
     <section>

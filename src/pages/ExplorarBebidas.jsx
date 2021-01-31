@@ -3,7 +3,7 @@ import Header from '../components/Header';
 
 function ExplorarBebidas() {
   return (
-    <Header name="Explorar Ingrediente" button={ false } />
+    <Header name="Explorar Bebidas" button={ false } />
   );
 }
 

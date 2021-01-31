@@ -1,7 +1,8 @@
 import React from 'react';
+import Header from '../components/Header';
 
 function ComidasPorOrigem() {
-  return <div>oi</div>;
+  return <Header name="Explorar Origem" button />;
 }
 
 export default ComidasPorOrigem;
