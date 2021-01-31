@@ -1,8 +1,9 @@
 import React from 'react';
+import RecipeProgress from '../../components/RecipeProgress/RecipeProgress';
 
 function ProcessDrinkPage() {
   return (
-    <div />
+    <RecipeProgress page="drink" />
 
   );
 }
