@@ -14,11 +14,11 @@ class MealRecipes extends Component {
   render() {
     const { getRecipes } = this.props;
     const MEAL_LENGTH = 12;
-    if (getRecipes.meals) {
-      if (getRecipes.meals.length === 1) {
-        return (<Redirect to={`/comidas/${getRecipes.meals[0].idMeal}`} />)
-      }
-    }
+    // if (getRecipes.meals) {
+    //   if (getRecipes.meals.length === 1) {
+    //     return (<Redirect to={`/comidas/${getRecipes.meals[0].idMeal}`} />)
+    //   }
+    // }
     if (getRecipes.meals === null) {
       return alert(
         'Sinto muito, não encontramos nenhuma receita para esses filtros.',

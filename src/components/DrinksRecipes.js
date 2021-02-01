@@ -14,11 +14,11 @@ class DrinksRecipes extends Component {
   render() {
     const { getRecipes } = this.props;
     const DRINK_LENGTH = 12;
-    if (getRecipes.drinks) {
-      if (getRecipes.drinks.length === 1) {
-        return (<Redirect to={`/bebidas/${getRecipes.drinks[0].idDrink}`} />)
-      }
-    }
+    // if (getRecipes.drinks) {
+    //   if (getRecipes.drinks.length === 1) {
+    //     return (<Redirect to={`/bebidas/${getRecipes.drinks[0].idDrink}`} />)
+    //   }
+    // }
     if (getRecipes.drinks === null) {
       return (alert('Sinto muito, não encontramos nenhuma receita para esses filtros.'))
     }
