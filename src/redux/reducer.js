@@ -1,5 +1,7 @@
 const INITIAL_STATE = {
-  receitas: {},
+  receitas: {
+    reload: true,
+  },
   categorias: [],
 };
 

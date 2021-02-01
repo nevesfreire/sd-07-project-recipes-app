@@ -23,14 +23,6 @@ class IngredientesComidas extends Component {
 
   async getIngredients() {
     const ingredients = await fetchIngredients('comidas');
-    // const { meals } = ingredients;
-    // const ingredientArray = [];
-    // const max = 12;
-    // for (let i = 1; i <= max; i += 1) {
-    //   if (meals[i]) {
-    //     ingredientArray.push(meals[i]);
-    //   }
-    // }
     this.setState({
       ingredientArray: ingredients,
     });
