@@ -14,8 +14,6 @@ import {
   Profile,
   FavoriteRecipes,
 } from './pages';
-import DrinksDetails from './pages/DrinksDetails';
-import FoodsDetails from './pages/FoodsDetails';
 
 function Rotas() {
   return (
@@ -36,13 +34,7 @@ function Rotas() {
       />
       <Route exact path="/explorar/comidas/area" component={ FoodsOrigin } />
       <Route exact path="/perfil" component={ Profile } />
-<<<<<<< HEAD
-      <Route path="/comidas/:id" component={ FoodsDetails } />
-      <Route path="/bebidas/:id" component={ DrinksDetails } />
-
-=======
       <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
->>>>>>> c00c8ebf7a7a94d601a4ee465fd33af4e3f69143
       {/* <Route path="/comidas/id:/in-progress" component={  } />
       <Route path="/bebidas/:id/in-progress" component={  } />
       <Route path="/receitas-feitas" component={  } />
