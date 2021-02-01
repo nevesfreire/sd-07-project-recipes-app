@@ -56,46 +56,56 @@ export const setButtonTitle = (fnSetBtnTitle, valueId) => {
   }
 };
 
-export const saveFavoriteRecipe = (
-  valueId,
-  value_RecipeArea,
-  valueRecipeCategory,
-  value_RecipeTitle,
-  value_RecipeImage
-) => {
+export function saveFavoriteRecipe(
+  valueObject,
+  // valueId,
+  // valueRecipeArea,
+  // valueRecipeCategory,
+  // valueRecipeTitle,
+  // valueRecipeImage,
+) {
+  console.log(valueObject)
+  const {
+    id,
+    getRecipeTitle,
+    getRecipeImage,
+    getRecipeCategory,
+    getRecipeArea,
+  } = valueObject;
+
   if (localStorage.getItem('favoriteRecipes') === null) {
     localStorage.setItem('favoriteRecipes', JSON.stringify([]));
   }
   const favoriteRecipes = {
-    id: valueId,
+    id,
     type: 'comida',
-    area: value_RecipeArea,
-    category: valueRecipeCategory,
+    area: getRecipeArea,
+    category: getRecipeCategory,
     alcoholicOrNot: '',
-    name: value_RecipeTitle,
-    image: value_RecipeImage,
+    name: getRecipeTitle,
+    image: getRecipeImage,
   };
   const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
   recipes.push(favoriteRecipes);
   localStorage.setItem('favoriteRecipes', JSON.stringify(recipes));
-};
+}
 
 export const setLikeImage = (
-  fn_SetBtnImg,
+  fnSetBtnImg,
   valueId,
-  value_FullLikeIcon,
-  value_LikeIcon
+  valueFullLikeIcon,
+  valueLikeIcon,
 ) => {
   if (localStorage.getItem('favoriteRecipes') !== null) {
     const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     const findElement = recipes.find((item) => item.id.toString() === valueId);
     if (findElement !== undefined) {
-      fn_SetBtnImg(value_FullLikeIcon);
+      fnSetBtnImg(valueFullLikeIcon);
     } else {
-      fn_SetBtnImg(value_LikeIcon);
+      fnSetBtnImg(valueLikeIcon);
     }
   } else {
-    fn_SetBtnImg(value_LikeIcon);
+    fnSetBtnImg(valueLikeIcon);
   }
 };
 
@@ -105,22 +115,24 @@ export const unLikeRecipe = (valueId) => {
   localStorage.setItem('favoriteRecipes', JSON.stringify(unSave));
 };
 
-export const fetchRecommendations = async (fn_setRecommendations1, fn_setRecommendations2) => {
+export const fetchRecommendations = async (
+  fnSetRecommendations1, fnSetRecommendations2) => {
   const path = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
   const getRecipe = await fetch(path);
   const result = await getRecipe.json();
-  // console.log(result) chave drinks é o interesse
+  // console.log(result) // chave drinks é o interesse Array(25)
   const maximumRecommendations1 = 3;
   const maximumRecommendations2 = 6;
   const getRecommendations1 = result.drinks.filter(
-    (recommendation, index) => index < maximumRecommendations1 && recommendation
+    (recommendation, index) => index < maximumRecommendations1 && recommendation,
   );
+  // console.log(getRecommendations1) //array 3 objetos ok
   const getRecommendations2 = result.drinks.filter(
-    (recommendation, index) =>
-      index >= maximumRecommendations1 &&
-      index < maximumRecommendations2 &&
-      recommendation
+    (recommendation, index) => index >= maximumRecommendations1
+    && index < maximumRecommendations2
+    && recommendation,
   );
-  fn_setRecommendations1(getRecommendations1);
-  fn_setRecommendations2(getRecommendations2);
+  // console.log(getRecommendations2) array 3 objetos ok
+  fnSetRecommendations1(getRecommendations1);
+  fnSetRecommendations2(getRecommendations2);
 };

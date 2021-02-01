@@ -4,6 +4,7 @@ import GlobalContext from '../context/GlobalContext';
 import likeIcon from '../images/whiteHeartIcon.svg';
 import fullLikeIcon from '../images/blackHeartIcon.svg';
 import ShareButton from '../components/ShareButton';
+import './foodAndDrinkDetails.css';
 
 export default function DrinkDetails(props) {
   const context = useContext(GlobalContext);
@@ -134,6 +135,7 @@ export default function DrinkDetails(props) {
     const path = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
     const response = await fetch(path);
     const result = await response.json();
+    // console.log(result);
     const maximumRecommendations1 = 3;
     const maximumRecommendations2 = 6;
     const getRecommendations1 = result.meals.filter(

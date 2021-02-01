@@ -4,7 +4,7 @@ import GlobalContext from '../context/GlobalContext';
 import likeIcon from '../images/whiteHeartIcon.svg';
 import fullLikeIcon from '../images/blackHeartIcon.svg';
 import ShareButton from '../components/ShareButton';
-import './FoodDetails.css';
+import './foodAndDrinkDetails.css';
 import {
   ingredientsMount,
   buttonMount,
@@ -14,7 +14,6 @@ import {
   setLikeImage,
   saveFavoriteRecipe,
   fetchRecommendations,
-  // handleImage,
 } from '../components/func_details';
 
 export default function FoodDetails(props) {
@@ -30,6 +29,7 @@ export default function FoodDetails(props) {
   const { match, history: { location: { pathname } } } = props;
   const { params } = match;
   const { id } = params;
+  // console.log(id)
   const carouselActiveIndex = 0;
   const carouselActiveIndex1 = 1;
   const carouselPartition = 3;
@@ -50,20 +50,37 @@ export default function FoodDetails(props) {
   };
 
   const handleImage = () => {
+    const options = {
+      id,
+      getRecipeArea,
+      getRecipeCategory,
+      getRecipeTitle,
+      getRecipeImage,
+    };
     if (btnImg === likeIcon) {
       setBtnImg(fullLikeIcon);
-      saveFavoriteRecipe(
-        id,
-        getRecipeArea,
-        getRecipeCategory,
-        getRecipeTitle,
-        getRecipeImage,
-      );
+      saveFavoriteRecipe(options);
     } else {
       setBtnImg(likeIcon);
       unLikeRecipe(id);
     }
   };
+
+  // const handleImage = () => {
+  //   if (btnImg === likeIcon) {
+  //     setBtnImg(fullLikeIcon);
+  //     saveFavoriteRecipe(
+  //       id,
+  //       getRecipeArea,
+  //       getRecipeCategory,
+  //       getRecipeTitle,
+  //       getRecipeImage,
+  //     );
+  //   } else {
+  //     setBtnImg(likeIcon);
+  //     unLikeRecipe(id);
+  //   }
+  // };
 
   const handleClick = () => {
     if (!JSON.parse(localStorage.getItem('inProgressRecipes'))) {
