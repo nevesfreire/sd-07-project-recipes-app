@@ -5,9 +5,8 @@ function DetailsMeal() {
   const { detailsRecipe } = useContext(RecipeContext);
   const [listIngredients, setIngredients] = useState();
   const [listMeasures, setMeasures] = useState();
-  // const [listtest, setTest] = useState([]);
   const { idMeal, strArea, strCategory, strMeal, strMealThumb, strTags, strYoutube, strInstructions} = detailsRecipe.meals[0];
-  console.log(detailsRecipe.meals[0])
+  console.log(detailsRecipe.meals[0]);
 
   function ingredientsAndMeasure() {
     const allRecipe = Object.entries(detailsRecipe.meals[0]);
