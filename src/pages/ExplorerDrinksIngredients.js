@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import * as drinkApiFunctions from '../services/drinkApiFunctions';
 import ExploreFoodIngredientCards from '../components/ExploreFoodIngredientCards';
 import HeaderNoSearch from '../components/HeaderNoSearch';
 import Footer from '../components/Footer';
 
-function ExplorerDrinksIngredients() {
+function ExplorerDrinksIngredients(props) {
+  const { location } = props;
+  const { pathname } = location;
   const [allIngredientsToRender, setAllIngredientsToRender] = useState([]);
   useEffect(() => {
     drinkApiFunctions
@@ -12,7 +15,7 @@ function ExplorerDrinksIngredients() {
       .then((response) => setAllIngredientsToRender(response.drinks));
   }, []);
 
-  const renderTwelveElements = (array) => {
+  const renderTwelveElements = (array, path) => {
     // if (array === null) {
     //   return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     // }
@@ -28,6 +31,7 @@ function ExplorerDrinksIngredients() {
           title={ ingredient.strIngredient1 }
           key={ index }
           index={ index }
+          path={ path }
         />
       ));
     return finalArray;
@@ -38,11 +42,20 @@ function ExplorerDrinksIngredients() {
       {allIngredientsToRender === undefined ? (
         <p>Loading</p>
       ) : (
-        renderTwelveElements(allIngredientsToRender)
+        renderTwelveElements(allIngredientsToRender, pathname)
       )}
       <Footer />
     </div>
   );
 }
+
+ExplorerDrinksIngredients.propTypes = {
+  location: PropTypes.shape({
+    hash: PropTypes.string,
+    pathname: PropTypes.string,
+    search: PropTypes.string,
+    state: PropTypes.bool,
+  }).isRequired,
+};
 
 export default ExplorerDrinksIngredients;

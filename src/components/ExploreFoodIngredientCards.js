@@ -1,13 +1,38 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
+import RecipesContext from '../context/RecipesContext';
 import '../App.css';
 
-function ExploreFoodIngredientICards({ title, index }) {
+function ExploreFoodIngredientICards({ title, index, path }) {
+  const { fetchInIngredientCard, redirectByIngredients } = useContext(RecipesContext);
+
+  const pathToRedirect = (pathName) => {
+    if (pathName === '/explorar/comidas/ingredientes') {
+      return '/comidas';
+    }
+    return '/bebidas';
+  };
+
+  const selectingSrc = (pathName, ingredient) => {
+    let source = '';
+    if (pathName === '/explorar/comidas/ingredientes') {
+      source = `https://www.themealdb.com/images/ingredients/${ingredient}-Small.png`;
+    } else {
+      source = `https://www.thecocktaildb.com/images/ingredients/${ingredient}-Small.png`;
+    }
+    return source;
+  };
+
+  if (redirectByIngredients) {
+    return <Redirect to={ pathToRedirect(path) } />;
+  }
+
   return (
-    <button type="button" onClick={ () => console.log('funciona') }>
+    <button type="button" onClick={ () => fetchInIngredientCard(title, path) }>
       <div data-testid={ `${index}-ingredient-card` }>
         <img
-          src={ `https://www.themealdb.com/images/ingredients/${title}.png` }
+          src={ selectingSrc(path, title) }
           alt="Imagem do profile"
           data-testid={ `${index}-card-img` }
         />
@@ -22,6 +47,7 @@ function ExploreFoodIngredientICards({ title, index }) {
 ExploreFoodIngredientICards.propTypes = {
   title: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
+  path: PropTypes.string.isRequired,
 };
 
 export default ExploreFoodIngredientICards;
