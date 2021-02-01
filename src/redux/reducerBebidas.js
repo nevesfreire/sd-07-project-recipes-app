@@ -3,7 +3,8 @@ import {
   GET_NAME_DRINK,
   GET_FIRST_LETTER_DRINK,
   GET_BY_ID_DRINK,
-  GET_RANDOM_DRINK } from './actionsBebidas';
+  GET_RANDOM_DRINK,
+  GET_CATEGORY_DRINK } from './actionsBebidas';
 
 const initialState = {
   recipesByIngredientsBebida: [],
@@ -11,6 +12,7 @@ const initialState = {
   recipesWithLetterBebida: [],
   recipeByIDBebida: [],
   recipesByRadomBebida: [],
+  recipesByCategory: [],
 };
 
 function reducerBebidas(state = initialState, action) {
@@ -39,6 +41,11 @@ function reducerBebidas(state = initialState, action) {
     return {
       ...state,
       recipesByRadomBebida: action.recipesByRadomDrink,
+    };
+  case GET_CATEGORY_DRINK:
+    return {
+      ...state,
+      recipesByCategory: action.recipesByCategory,
     };
   default:
     return state;
