@@ -25,7 +25,7 @@ class TelaPrincipalReceitasBebidas extends Component {
               <button
                 type="button"
                 key={ categorie.strCategory }
-                data-testid={ `data-testid=${categorie.strCategory}-category-filter` }
+                data-testid={ `${categorie.strCategory}-category-filter` }
               >
                 {categorie.strCategory}
               </button>
