@@ -28,7 +28,8 @@ class FoodDetails extends Component {
   }
 
   componentDidMount() {
-    const { requestRecipes, requestRecomendations, match: { params: { id } } } = this.props;
+    const { requestRecipes,
+      requestRecomendations, match: { params: { id } } } = this.props;
     requestRecipes(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
     requestRecomendations('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     this.createFavoriteLocalStorage();
@@ -48,12 +49,12 @@ class FoodDetails extends Component {
     const filterRecipe = mealsRecipes.meals.find((recipe) => recipe.idMeal === id);
     const ingredients = Object.entries(filterRecipe)
       .filter((array) => array[0]
-      .includes('strIngredient') && array[1] !== null && array[1] !== '')
+        .includes('strIngredient') && array[1] !== null && array[1] !== '')
       .map((array2) => array2[1]);
 
     const measurement = Object.entries(filterRecipe)
       .filter((array) => array[0]
-      .includes('strMeasure') && array[1] !== null && array[1] !== '')
+        .includes('strMeasure') && array[1] !== null && array[1] !== '')
       .map((array2) => array2[1]);
 
     this.setState({
@@ -114,7 +115,7 @@ class FoodDetails extends Component {
           <div className="images-container">
             <button
               type="button"
-              >
+            >
               <img
                 data-testid="share-btn"
                 src={ shareIcon }
@@ -124,7 +125,7 @@ class FoodDetails extends Component {
             <button
               type="button"
               onClick={ this.changeFavorite }
-              >
+            >
               <img
                 data-testid="favorite-btn"
                 src={ favorite ? blackHeartIcon : whiteHeartIcon }

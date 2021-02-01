@@ -96,7 +96,7 @@ class Header extends Component {
           <button
             type="button"
             onClick={ this.changeDisplayInput }
-            >
+          >
             <img
               data-testid="search-top-btn"
               src={ searchIcon }

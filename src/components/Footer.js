@@ -23,7 +23,7 @@ class Footer extends Component {
         <button
           type="button"
           onClick={ () => history.push('/explorar') }
-          >
+        >
           <img
             data-testid="explore-bottom-btn"
             src={ exploreIcon }
@@ -33,7 +33,7 @@ class Footer extends Component {
         <button
           type="button"
           onClick={ () => history.push('/comidas') }
-          >
+        >
           <img
             data-testid="food-bottom-btn"
             src={ mealIcon }
