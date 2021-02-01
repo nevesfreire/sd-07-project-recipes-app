@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { CustomFooter } from '../components';
+import { CustomFooter, CustomExploreFoods } from '../components';
 import CustomHeader from '../components/CustomHeader';
 
 export default class ExploreFoods extends Component {
@@ -7,6 +7,7 @@ export default class ExploreFoods extends Component {
     return (
       <div>
         <CustomHeader title="Explorar Comidas" showSearchTopBtn={ false } />
+        <CustomExploreFoods />
         <CustomFooter />
       </div>
     );
