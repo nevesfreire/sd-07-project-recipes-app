@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../../components/header';
 import Footer from '../../components/footer';
-import { fetchFoodId, fetchFoodIngredient } from '../../services';
-import { despachoReceitas } from '../../redux/action'; // fazer uma forma de atender o requisito 77
+import { fetchFoodId } from '../../services';
+import { loadRecipesIngredent } from '../../redux/action';
 
 class IngredientesComidas extends Component {
   constructor() {
@@ -14,6 +14,7 @@ class IngredientesComidas extends Component {
     };
 
     this.atualizaState = this.atualizaState.bind(this);
+    this.fetchRecipes = this.fetchRecipes.bind(this);
   }
 
   async componentDidMount() {
@@ -36,6 +37,13 @@ class IngredientesComidas extends Component {
     });
   }
 
+  async fetchRecipes(ingredent) {
+    ingredent = ingredent.replace(/ /g, '_');
+    const { loadrecipesingredent, history } = this.props;
+    await loadrecipesingredent(ingredent, 'comidas');
+    history.push('/comidas');
+  }
+
   render() {
     const { history } = this.props;
     const { ingredientArray } = this.state;
@@ -43,7 +51,12 @@ class IngredientesComidas extends Component {
       <div>
         <Header title="Explorar Ingredientes" searchOn="off" history={ history } />
         { ingredientArray.map((ingrediente) => (
-          <button type="button" key={ ingrediente } data-testid="index-ingredient-card">
+          <button
+            type="button"
+            key={ ingrediente }
+            data-testid="index-ingredient-card"
+            onClick={ () => this.fetchRecipes(ingrediente) }
+          >
             <img
               src={ `https://www.themealdb.com/images/ingredients/${ingrediente}-Small.png` }
               alt="Imagem do ingrediente"
@@ -60,10 +73,15 @@ class IngredientesComidas extends Component {
 
 IngredientesComidas.propTypes = {
   history: PropTypes.objectOf({ push: PropTypes.func.isRequired }).isRequired,
+  loadrecipesingredent: PropTypes.objectOf().isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  despachoreceitas: (e) => dispatch(despachoReceitas(e)),
+  loadrecipesingredent: (ingredient, local) => dispatch(loadRecipesIngredent(ingredient, local)),
 });
 
-export default connect(null, mapDispatchToProps)(IngredientesComidas);
+const mapStateToProps = (state) => ({
+  receitas: state.fastFood.receitas,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(IngredientesComidas);

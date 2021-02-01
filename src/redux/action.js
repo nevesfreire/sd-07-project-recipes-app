@@ -31,6 +31,20 @@ function loadRecipes(local) {
   };
 }
 
+function loadRecipesIngredent(ingredient, local) {
+  console.log(ingredient)
+  console.log(local)
+  return async (dispatch) => {
+    let url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`;
+    if (local === 'comidas') {
+      url = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
+    }
+    const response = await fetch(url);
+    const responsejeson = await response.json();
+    dispatch(despachoReceitas(responsejeson));
+  };
+}
+
 function loadCategories(local) {
   return async (dispatch) => {
     let tipo = 'drinks';
@@ -55,4 +69,10 @@ function setFilterRecipes(local) {
   });
 }
 
-export { loadRecipes, setReceitas, loadCategories, setFilterRecipes };
+export {
+  loadRecipes,
+  setReceitas,
+  loadCategories,
+  setFilterRecipes,
+  loadRecipesIngredent,
+};
