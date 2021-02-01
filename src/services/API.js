@@ -16,6 +16,38 @@ const searchByIngredient = async (ingredient) => {
   return data;
 };
 
+const mealRecomendations = async () => {
+  console.log('rodando mealRecomendations');
+  const data = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
+    .then((dataJson) => dataJson.json())
+    .catch((err) => console.log(err));
+  return data;
+};
+
+const mealById = async (ID) => {
+  console.log('rodando mealById');
+  const data = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${ID}`)
+    .then((dataJson) => dataJson.json())
+    .catch((err) => console.log(err));
+  return data;
+};
+
+const drinkById = async (ID) => {
+  console.log('rodando drinkById');
+  const data = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${ID}`)
+    .then((dataJson) => dataJson.json())
+    .catch((err) => console.log(err));
+  return data;
+};
+
+const drinkRecomendations = async () => {
+  console.log('rodando drinkRecomendations');
+  const data = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
+    .then((dataJson) => dataJson.json())
+    .catch((err) => console.log(err));
+  return data;
+};
+
 const searchByName = async (name) => {
   const path = window.location.pathname;
   let url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
@@ -62,4 +94,4 @@ const searchGeneral = async ({ text, option }) => {
   return data;
 };
 
-export { getCategories, searchGeneral };
+export { getCategories, searchGeneral, mealById, mealRecomendations, drinkById, drinkRecomendations };

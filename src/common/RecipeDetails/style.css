@@ -1,0 +1,9 @@
+.recomendations {
+  height:70px;
+   overflow:auto;
+}
+
+.startRecipe {
+  position: fixed;
+  bottom: 5px;
+}
