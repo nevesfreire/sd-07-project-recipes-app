@@ -71,7 +71,7 @@ function CategoriesBar(props) {
     }
   };
   const zero = 0;
-  const five = 5;
+  const maxLength = 5;
   return (
     <div style={ { display: toggle ? 'none' : 'inline' } }>
       {meals.length === 1 && (
@@ -91,7 +91,7 @@ function CategoriesBar(props) {
         >
           All
         </button>
-        { mealsCategories.slice(zero, five).map((categorie, index) => (
+        { mealsCategories.slice(zero, maxLength).map((categorie, index) => (
           <button
             type="button"
             key={ index }
