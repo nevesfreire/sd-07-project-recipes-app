@@ -62,7 +62,7 @@ class Header extends Component {
 
   alertFilter() {
     const { searchInput, filterRadioButton } = this.state;
-    console.log(searchInput.length);
+    // console.log(searchInput.length);
     if (filterRadioButton === 'firstLetterName' && searchInput.length > 1) {
       alert('Sua busca deve conter somente 1 (um) caracter'); // eslint-disable-line no-alert
     }

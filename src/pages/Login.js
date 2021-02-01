@@ -26,6 +26,7 @@ class Login extends Component {
   handleClick() {
     const { updateEmail, history } = this.props;
     const { email } = this.state;
+    console.log(history);
     updateEmail(email);
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
