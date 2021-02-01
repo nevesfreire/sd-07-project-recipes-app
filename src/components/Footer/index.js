@@ -6,8 +6,6 @@ import Drink from '../../images/drinkIcon.svg';
 import Explore from '../../images/exploreIcon.svg';
 import Meal from '../../images/mealIcon.svg';
 
-import './footer.css';
-
 class Footer extends React.Component {
   wrapperLink(pathImg, pathRoute, dataId) {
     return (
@@ -25,11 +23,11 @@ class Footer extends React.Component {
           variant="light"
           bg="light"
           data-testid="footer"
-          className="pe"
+          fixed="bottom"
         >
           <Container>
             <Navbar.Brand>
-              {this.wrapperLink(Drink, '/bebidas', 'drink')}
+              {this.wrapperLink(Drink, '/bebidas', 'drinks')}
             </Navbar.Brand>
             <Navbar.Brand>
               {this.wrapperLink(Explore, '/explorar', 'explore')}
