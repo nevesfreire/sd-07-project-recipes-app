@@ -4,6 +4,7 @@ import Context from '../../context';
 import RequestData from '../../services/RequestAPI';
 
 const SearchBar = () => {
+  const zero = 0;
   const {
     recipesInput,
     recipesRadio,
@@ -34,7 +35,9 @@ const SearchBar = () => {
 
   const Request = async (url) => {
     RequestedAPI = await RequestData(url);
-    if (RequestedAPI[`${mealOrDrink}s`] === null) RequestedAPI[`${mealOrDrink}s`] = undefined;
+    if (RequestedAPI[`${mealOrDrink}s`] === null) {
+      RequestedAPI[`${mealOrDrink}s`] = undefined;
+    }
     setData(RequestedAPI[`${mealOrDrink}s`]);
     return (RequestedAPI[`${mealOrDrink}s`]);
   };
@@ -114,10 +117,12 @@ const SearchBar = () => {
       if (RequestedAPI === undefined) {
         alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       } else if (RequestedAPI.length === 1) {
-        let id = `id${mealOrDrink.replace(mealOrDrink.charAt(0), mealOrDrink.charAt(0).toUpperCase())}`;
+        let id = `id${mealOrDrink.replace(mealOrDrink.charAt(zero),
+          mealOrDrink.charAt(zero).toUpperCase())}`;
         id = RequestedAPI[0][id];
         console.log(id);
-        console.log(`id${mealOrDrink.replace(mealOrDrink.charAt(0), mealOrDrink.charAt(0).toUpperCase())}`);
+        console.log(`id${mealOrDrink.replace(mealOrDrink.charAt(zero),
+          mealOrDrink.charAt(zero).toUpperCase())}`);
         push(`${location.pathname}/${id}`);
         // push(`${location.pathname}/${path}`);
       }
