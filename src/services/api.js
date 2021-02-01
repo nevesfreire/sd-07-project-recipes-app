@@ -74,9 +74,6 @@ export const fetchAPIFoodsFilters = async (name, radioFilter) => {
     responseFiltered = await fetchAPIFoodsName(name);
     return responseFiltered;
   }
-  //  if (radioFilter === 'first' && radioFilter.length > 1) {
-  //    alert('Sua busca deve conter somente 1 (um) caracter');
-  //  } else {
   if (radioFilter === 'firstLetter') {
     responseFiltered = await fetchAPIFoodsLetterFirst(name);
     return responseFiltered;
@@ -94,9 +91,6 @@ export const fetchAPIDrinksFilters = async (name, radioFilter) => {
     responseFiltered = await fetchAPIDrinksName(name);
     return responseFiltered;
   }
-  //  if (radioFilter === 'first' && radioFilter.length > 1) {
-  //    alert('Sua busca deve conter somente 1 (um) caracter');
-  //  } else {
   if (radioFilter === 'firstLetter') {
     responseFiltered = await fetchAPIDrinksLetterFirst(name);
     return responseFiltered;
