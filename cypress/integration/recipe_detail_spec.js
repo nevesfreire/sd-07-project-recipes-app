@@ -589,7 +589,7 @@ describe('46 - Salve as receitas favoritas no `localStorage` na chave `favoriteR
     });
   });
 
-  it.only('Verifica se após favoritar receita de uma bebida, ela é salva corretamente no localStorage', () => {
+  it('Verifica se após favoritar receita de uma bebida, ela é salva corretamente no localStorage', () => {
     cy.visit('http://localhost:3000/bebidas/178319', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;

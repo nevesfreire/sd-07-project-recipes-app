@@ -3,9 +3,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import { drinkById, drinkRecomendations } from '../../services/API';
 import shareImg from '../../images/shareIcon.svg';
-import favImgON from '../../images/whiteHeartIcon.svg';
-import favImgOFF from '../../images/blackHeartIcon.svg';
-import { toggleFav, checkFav } from '../../services/saveLocal';
+import FavBtn from '../../common/FavBtn';
 import './style.css';
 
 const BebidaDetails = () => {
@@ -14,11 +12,6 @@ const BebidaDetails = () => {
   const [recomen, setRecomen] = useState([]);
   const [copyOK, setCopyOK] = useState(false);
   const { id } = useParams();
-  const [favRecipe, setFavRecipe] = useState(true);
-
-  useEffect(() => {
-    setFavRecipe(checkFav(id));
-  }, [id]);
 
   useEffect(() => {
     const getData = async () => {
@@ -55,28 +48,7 @@ const BebidaDetails = () => {
           <img data-testid="share-btn" src={ shareImg } alt="compartilhar" />
         </button>
         <h1>{copyOK && 'Link copiado!'}</h1>
-        <button
-          type="button"
-          onClick={ () => {
-            console.log(mainData);
-            const recipe = {
-              id: String(mainData.idDrink),
-              type: 'bebida',
-              area: '',
-              category: mainData.strCategory,
-              alcoholicOrNot: mainData.strAlcoholic,
-              name: mainData.strDrink,
-              image: mainData.strDrinkThumb,
-            };
-            console.log(recipe);
-            toggleFav(recipe);
-            if (favRecipe) {
-              setFavRecipe(false);
-            } else setFavRecipe(true);
-          } }
-        >
-          <img data-testid="favorite-btn" src={ favRecipe ? favImgON : favImgOFF } alt="compartilhar" />
-        </button>
+        <FavBtn mainData={ mainData } type="bebida" />
         <p data-testid="recipe-category">{strCategory}</p>
         <p data-testid="instructions">{strInstructions}</p>
         <h2>Ingredientes:</h2>

@@ -7,6 +7,7 @@ import shareImg from '../../images/shareIcon.svg';
 import favImgON from '../../images/whiteHeartIcon.svg';
 import favImgOFF from '../../images/blackHeartIcon.svg';
 import { toggleFav, checkFav } from '../../services/saveLocal';
+import FavBtn from '../../common/FavBtn';
 
 const ComidaDetails = () => {
   const history = useHistory();
@@ -39,7 +40,7 @@ const ComidaDetails = () => {
     return (
       <div>
         <img
-          src={strMealThumb}
+          src={ strMealThumb }
           alt="meal"
           data-testid="recipe-photo"
         />
@@ -54,26 +55,7 @@ const ComidaDetails = () => {
           <img data-testid="share-btn" src={ shareImg } alt="compartilhar" />
         </button>
         <h1>{copyOK && 'Link copiado!'}</h1>
-        <button
-          type="button"
-          onClick={ () => {
-            const recipe = {
-              id: mainData.idMeal,
-              type: mainData.type,
-              area: mainData.strArea,
-              category: mainData.strCategory,
-              alcoholicOrNot: mainData.alcoholicOrNot,
-              name: mainData.strMeal,
-              image: mainData.strMealThumb,
-            };
-            toggleFav(recipe);
-            if (favRecipe) {
-              setFavRecipe(false);
-            } else setFavRecipe(true);
-          } }
-        >
-          <img data-testid="favorite-btn" src={ favRecipe ? favImgON : favImgOFF } alt="compartilhar" />
-        </button>
+        <FavBtn mainData={ mainData } type="comida" />
         <p data-testid="recipe-category">{strCategory}</p>
         <p data-testid="instructions">{strInstructions}</p>
         <h2>Ingredientes:</h2>
