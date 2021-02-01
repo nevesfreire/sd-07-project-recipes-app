@@ -1,11 +1,11 @@
 import React from 'react';
 
 function CocktailsInProgress() {
-  return(
+  return (
     <div>
       Bebidas
     </div>
-  )
+  );
 }
 
 export default CocktailsInProgress;
