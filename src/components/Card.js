@@ -1,23 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { useHistory, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import useFetch from '../hooks/useFetch';
+import RecipeContext from '../Context/Context';
 
 function Card({ name, thumb, index, id, type }) {
-  const { recipeDetailsAPI } = useFetch();
+  const { recipeDetailsAPI } = useFetch()
+  const { recipes, categoriesFood, typeAndIdDetails, setTypeAndIdDetails } = useContext(RecipeContext);
+  
+  const history = useHistory();
+
 
   return (
-    <div
+    <Link to={`/${type}/${id}`}>
+        <div
       className="recipe-card"
-      onKeyDown={ () => recipeDetailsAPI(id, type) }
+      onKeyDown={ () => setTypeAndIdDetails({
+        type,
+        id,
+      }) }
       role="button"
       tabIndex="0"
-      onClick={ () => recipeDetailsAPI(id, type) }
+      onClick={ () => setTypeAndIdDetails({
+        type,
+        id
+      }) }
       data-testid={ `${index}-recipe-card` }
     >
       <p data-testid={ `${index}-card-name` }>{ name }</p>
       <img src={ thumb } alt={ name } data-testid={ `${index}-card-img` } />
     </div>
 
+    </Link>
   );
 }
 

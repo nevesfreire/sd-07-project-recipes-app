@@ -6,6 +6,7 @@ function DetailsDrink() {
   console.log('detailsDrink');
   return (
     <div>
+      <p>ascadvdc</p>
       {/* <img src={detailsRecipe.image} data-testid="recipe-photo" />
       <h1 data-testid="recipe-title"></h1>
       <button data-testid="share-btn">Compartilhar</button>
