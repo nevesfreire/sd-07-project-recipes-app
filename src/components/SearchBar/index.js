@@ -49,7 +49,6 @@ const SearchBar = () => {
     case 'Nome':
       URL = `https://www.the${mealOrCoktail}db.com/api/json/v1/1/search.php?s=${recipesInput}`;
       RequestedAPI = await Request(URL);
-
       if (RequestedAPI === undefined) {
         alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       } else if (RequestedAPI.length === 1) {
