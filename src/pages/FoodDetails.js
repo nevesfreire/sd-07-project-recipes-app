@@ -5,7 +5,7 @@ import { fetchDetails, fetchRecipes } from '../actions';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import Loading from '../components/Loading';
-import '../css/foodDetails.css';
+import '../css/details.css';
 
 class FoodDetails extends Component {
   constructor(props) {
@@ -32,14 +32,14 @@ class FoodDetails extends Component {
     const { request } = this.state;
     // console.log(mealsRecipes);
 
-    if (mealsRecipes && request) {
+    if (mealsRecipes.meals && request) {
       this.handleState();
     }
   }
 
   handleState() {
     const { match: { params: { id } }, mealsRecipes } = this.props;
-    const filterRecipe = mealsRecipes.find((recipe) => recipe.idMeal === id);
+    const filterRecipe = mealsRecipes.meals.find((recipe) => recipe.idMeal === id);
     const ingredients = Object.entries(filterRecipe)
       .filter((array) => array[0].includes('strIngredient') && array[1] !== '')
       .map((array2) => array2[1]);
@@ -58,7 +58,7 @@ class FoodDetails extends Component {
     const { strMealThumb, strMeal, strCategory, strInstructions } = meal;
     const DRINK_LENGTH = 6;
     // console.log(recomendations);
-    if (!recomendations) return <Loading />;
+    if (!recomendations.drinks) return <Loading />;
     return (
       <div className="main-container">
         <img
@@ -120,7 +120,7 @@ class FoodDetails extends Component {
           <h1>Recomendadas</h1>
           <div className="div-recomendations">
             {
-              recomendations
+              recomendations.drinks
                 .filter((_drink, index) => index < DRINK_LENGTH)
                 .map((drink, index) => (
                   <div
@@ -149,8 +149,8 @@ class FoodDetails extends Component {
 }
 
 const mapStateToProps = ({ recipesReducer, recomendationsReducer }) => ({
-  mealsRecipes: recipesReducer.recipes.meals,
-  recomendations: recomendationsReducer.recomendations.drinks,
+  mealsRecipes: recipesReducer.recipes,
+  recomendations: recomendationsReducer.recomendations,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -164,8 +164,12 @@ FoodDetails.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
-  recomendations: PropTypes.arrayOf(PropTypes.object),
-  mealsRecipes: PropTypes.arrayOf(PropTypes.object),
+  recomendations: PropTypes.shape({
+    drinks: PropTypes.arrayOf(PropTypes.object),
+  }).isRequired,
+  mealsRecipes: PropTypes.shape({
+    meals: PropTypes.arrayOf(PropTypes.object),
+  }).isRequired,
   requestRecomendations: PropTypes.func.isRequired,
   requestRecipes: PropTypes.func.isRequired,
   match: PropTypes.shape({
@@ -173,9 +177,4 @@ FoodDetails.propTypes = {
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
-};
-
-FoodDetails.defaultProps = {
-  recomendations: [],
-  mealsRecipes: [],
 };

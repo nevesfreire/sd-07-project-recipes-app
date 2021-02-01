@@ -1,7 +1,7 @@
 import { ERROR, RECEIVED_DETAILS } from '../actions';
 
 const INITIAL_STATE = {
-  recomendations: [],
+  recomendations: {},
   error: '',
 };
 

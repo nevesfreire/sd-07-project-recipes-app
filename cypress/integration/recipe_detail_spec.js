@@ -26,7 +26,7 @@ describe.only('33 - Implemente os elementos da tela de detalhes de uma receita r
     cy.get('[data-testid="start-recipe-btn"]');
   });
 
-  it.skip('A tela de bebidas possui todos os atributos data-testid', () => {
+  it('A tela de bebidas possui todos os atributos data-testid', () => {
     cy.visit('http://localhost:3000/bebidas/178319', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
