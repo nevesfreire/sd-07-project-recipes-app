@@ -28,7 +28,7 @@ class HeaderS extends React.Component {
   renderSearchBar() {
     const { isSearching } = this.state;
     const { title } = this.props;
-    if (isSearching && title === 'Comida') {
+    if (isSearching && title === 'Comidas') {
       return <SearchBarMeals />;
     }
     if (isSearching && title === 'Bebidas') {

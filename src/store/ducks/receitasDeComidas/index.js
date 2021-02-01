@@ -9,6 +9,8 @@ const recipesMealsReducer = (state = INITIAL_STATE_MEALS, action) => {
   // Cada 'case' traz o tipo da action, conforme definido e o seu retorno.
   case AuthTypes.MEALS:
     return { ...state, meals: action.payload };
+  case AuthTypes.CATEGORIES:
+    return { ...state, categories: action.payload };
   default:
     return state;
   }
