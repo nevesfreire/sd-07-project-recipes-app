@@ -1,4 +1,7 @@
 .login-container label {
+  display: flex;
   justify-content: center;
   padding: 10px;
 }
+
+
