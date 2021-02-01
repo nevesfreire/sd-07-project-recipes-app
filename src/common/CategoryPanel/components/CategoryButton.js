@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { AppContext } from '../../context/AppContext';
+import { AppContext } from '../../../context/AppContext';
 
 function CategoryButton({ categoryName, categoryType }) {
   const { filterByCategory } = useContext(AppContext);

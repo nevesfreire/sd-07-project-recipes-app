@@ -3,24 +3,22 @@ import { useHistory } from 'react-router-dom';
 import SearchBar from '../../common/SearchBar';
 import { AppContext } from '../../context/AppContext';
 
-import CategoryButton from '../../common/CategoryButton';
+import CategoryPanel from '../../common/CategoryPanel';
 import NavigationButton from '../../common/NavigationButton';
 
 import './style.css';
 
 const Bebidas = () => {
   const history = useHistory();
-  const { drinksCategories, filteredDrinks } = useContext(AppContext);
+  const { drinksCategories, filteredDrinks, isUsingSearchBar } = useContext(AppContext);
   const goToDetails = (idMeal) => {
     history.push(`/bebidas/${idMeal}`);
   };
 
   if (filteredDrinks.drinks) {
-    console.log('na tela de bebida');
-    console.log(filteredDrinks.drinks);
     const zero = 0;
     const doze = 12;
-    if (filteredDrinks.drinks.length === 1) {
+    if (filteredDrinks.drinks.length === 1 && isUsingSearchBar) {
       history.push(
         `/bebidas/${filteredDrinks.drinks[0].idDrink}`,
       );
@@ -28,16 +26,7 @@ const Bebidas = () => {
     return (
       <div>
         <SearchBar />
-        <CategoryButton
-          categoryName="All"
-          categoryType="all-drinks"
-        />
-        {drinksCategories.map((item, index) => (
-          <CategoryButton
-            key={ index }
-            categoryName={ item.strCategory }
-            categoryType="drinks"
-          />))}
+        <CategoryPanel categoryType="drinks" categoryList={ drinksCategories } />
         {filteredDrinks.drinks.slice(zero, doze).map((e, i) => (
           <div
             className="drinkContainer"

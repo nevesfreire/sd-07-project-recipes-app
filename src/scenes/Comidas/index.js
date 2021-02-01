@@ -3,13 +3,13 @@ import { useHistory } from 'react-router-dom';
 import SearchBar from '../../common/SearchBar';
 import { AppContext } from '../../context/AppContext';
 
-import CategoryButton from '../../common/CategoryButton';
+import CategoryPanel from '../../common/CategoryPanel';
 import NavigationButton from '../../common/NavigationButton';
 import './style.css';
 
 const Comidas = () => {
   const history = useHistory();
-  const { mealsCategories, filteredMeals, isUsingSearchBar } = useContext(AppContext);
+  const { filteredMeals, isUsingSearchBar, mealsCategories } = useContext(AppContext);
 
   const goToDetails = (idMeal) => {
     history.push(`/comidas/${idMeal}`);
@@ -24,16 +24,7 @@ const Comidas = () => {
     return (
       <div>
         <SearchBar />
-        <CategoryButton
-          categoryName="All"
-          categoryType="all-meals"
-        />
-        {mealsCategories.map((item, index) => (
-          <CategoryButton
-            key={ index }
-            categoryName={ item.strCategory }
-            categoryType="meals"
-          />))}
+        <CategoryPanel categoryType="meals" categoryList={ mealsCategories } />
         {filteredMeals.meals.slice(zero, doze).map((e, i) => (
           <div
             className="mealContainer"
