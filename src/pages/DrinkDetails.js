@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import RecipeDetails from '../components/RecipeDetails';
 import FoodAppContext from '../context/FoodAppContext';
+import '../styles/details.css';
 
 function DrinkDetails({ match }) {
   const { handleClickDetail } = useContext(FoodAppContext);
@@ -15,7 +16,7 @@ function DrinkDetails({ match }) {
   }, []);
 
   return (
-    <RecipeDetails />
+    <RecipeDetails recipes={ requestApi[1] } />
   );
 }
 

@@ -10,6 +10,7 @@ import FoodAppContext from '../context/FoodAppContext';
 
 function Header({ title, isSearchable }) {
   const { showSearch, setShowSearch } = useContext(FoodAppContext);
+
   const handleSearchClick = () => {
     setShowSearch(!showSearch);
   };

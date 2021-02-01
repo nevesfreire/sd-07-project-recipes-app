@@ -1,59 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-import { Ingredient, Recomendations, Video } from './index';
-import shareIcon from '../images/shareIcon.svg';
-import favoriteIcon from '../images/blackHeartIcon.svg';
+import { Ingredient, Recomendations, Video,
+  ImageDetails, TitleDetails, Instructions } from './index';
 
-function RecipeDetails() {
+function RecipeDetails({ recipes }) {
   return (
-    <div>
-      <div>
-        <img
-          data-testid="recipe-photo"
-          src={ shareIcon }
-          alt="Receita"
-        />
-      </div>
-      <div>
-        <h2
-          data-testid="recipe-title"
-        >
-          Titulo
-        </h2>
-      </div>
-      <div>
-        <img
-          data-testid="share-btn"
-          src={ shareIcon }
-          alt="Icone Compartilhar"
-        />
-      </div>
-      <div>
-        <button type="button">
-          <img
-            data-testid="favorite-btn"
-            src={ favoriteIcon }
-            alt="Icone Compartilhar"
-          />
-        </button>
-      </div>
-      <div>
-        <p
-          data-testid="recipe-category"
-        >
-          Categoria
-        </p>
-      </div>
-      <Ingredient />
-      <div>
-        <p
-          data-testid="instructions"
-        >
-          Instrucoes
-        </p>
-      </div>
-      <Video />
-      <Recomendations />
+    <div className="div-recipes-details">
+      <ImageDetails recipes={ recipes } />
+      <TitleDetails recipes={ recipes } />
+      <Ingredient recipes={ recipes } />
+      <Instructions recipes={ recipes } />
+      { recipes === 'comidas' ? <Video /> : ''}
+      <Recomendations recipes={ recipes } />
       <button
         data-testid="start-recipe-btn"
         type="button"
@@ -63,5 +22,9 @@ function RecipeDetails() {
     </div>
   );
 }
+
+RecipeDetails.propTypes = {
+  recipes: PropTypes.string.isRequired,
+};
 
 export default RecipeDetails;

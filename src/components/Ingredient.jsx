@@ -1,19 +1,14 @@
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import FoodAppContext from '../context/FoodAppContext';
 
-function Ingredient() {
+function Ingredient({ recipes }) {
   const { detailRecipe } = useContext(FoodAppContext);
-  const history = useHistory();
-  const { location } = history;
-  const { pathname } = location;
-
   const { meals } = detailRecipe;
   const { drinks } = detailRecipe;
-  const name = pathname.split('/');
 
-  const details = name[1] === 'comidas' ? meals : drinks;
+  const details = recipes === 'comidas' ? meals : drinks;
   const zero = 0;
   let ingredients = [];
   let measures = [];
@@ -29,19 +24,26 @@ function Ingredient() {
 
   return (
     <div>
-      {ingredients.map(([key, value], index) => (
-        <p
-          key={ key }
-          data-testid={ `${index}-ingredient-name-and-measure` }
-        >
-          -
-          { value }
-          -
-          { measures[index][1] }
-        </p>
-      ))}
+      <h3>Ingredient</h3>
+      <div className="div-ingredient">
+        {ingredients.map(([key, value], index) => (
+          <p
+            key={ key }
+            data-testid={ `${index}-ingredient-name-and-measure` }
+          >
+            -
+            { value }
+            -
+            { measures[index][1] }
+          </p>
+        ))}
+      </div>
     </div>
   );
 }
+
+Ingredient.propTypes = {
+  recipes: PropTypes.string.isRequired,
+};
 
 export default Ingredient;
