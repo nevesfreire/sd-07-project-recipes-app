@@ -32,8 +32,6 @@ function loadRecipes(local) {
 }
 
 function loadRecipesIngredent(ingredient, local) {
-  console.log(ingredient)
-  console.log(local)
   return async (dispatch) => {
     let url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`;
     if (local === 'comidas') {

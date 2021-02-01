@@ -77,7 +77,8 @@ IngredientesComidas.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  loadrecipesingredent: (ingredient, local) => dispatch(loadRecipesIngredent(ingredient, local)),
+  loadrecipesingredent:
+    (ingredient, local) => dispatch(loadRecipesIngredent(ingredient, local)),
 });
 
 const mapStateToProps = (state) => ({
