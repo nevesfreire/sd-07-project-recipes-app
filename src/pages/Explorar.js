@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import Header from './components/Header';
+import Footer from '../../components/footer';
 
 function Explorar(props) {
   const { history } = props;
