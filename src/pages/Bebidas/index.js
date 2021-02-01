@@ -30,6 +30,9 @@ function Bebidas(props) {
       );
     }
 
+    if (cocktails === undefined) {
+      return <p>wtf</p>;
+    }
     if (cocktails === null) {
       return alert(
         'Sinto muito, não encontramos nenhuma receita para esses filtros.',
