@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Button, Navbar, Alert } from 'react-bootstrap';
+import { Form, Button, Navbar } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
@@ -26,7 +26,7 @@ class SearchBarMeals extends React.Component {
     });
   }
 
-  searchBtnClick() {
+  async searchBtnClick() {
     const { searchInput, searchRadio } = this.state;
     const {
       getByIngredientsMealsD,
@@ -34,17 +34,29 @@ class SearchBarMeals extends React.Component {
       getByLetterMealsD,
     } = this.props;
     if (searchRadio === 'ingredient') {
-      return getByIngredientsMealsD(searchInput);
+      await getByIngredientsMealsD(searchInput);
+      return this.emptyMeal();
     }
     if (searchRadio === 'name') {
-      return getByNameMealsD(searchInput);
+      await getByNameMealsD(searchInput);
+      return this.emptyMeal();
     }
     if (searchInput.length > 1) {
       return this.setState({ alertLetter: true });
     }
     if (searchRadio === 'firstLetter') {
-      getByLetterMealsD(searchInput);
+      await getByLetterMealsD(searchInput);
+      this.emptyMeal();
       return this.setState({ alertLetter: false });
+    }
+  }
+
+  emptyMeal() {
+    const { mealsStore } = this.props;
+    if (!mealsStore) {
+      return alert(
+        'Sinto muito, não encontramos nenhuma receita para esses filtros.',
+      );
     }
   }
 
@@ -54,13 +66,9 @@ class SearchBarMeals extends React.Component {
       <Navbar>
         <Form>
           <Form.Group controlId="exampleForm.ControlInput1">
-            {alertLetter ? (
-              <Alert variant="danger">
-                Sua busca deve conter somente 1 (um) caracter
-              </Alert>
-            ) : (
-              null
-            )}
+            {alertLetter
+              ? alert('Sua busca deve conter somente 1 (um) caracter')
+              : null}
             <Form.Label>Buscar</Form.Label>
             <Form.Control
               type="text"
@@ -116,7 +124,6 @@ SearchBarMeals.propTypes = {
   getByIngredientsMealsD: PropTypes.func.isRequired,
   getByNameMealsD: PropTypes.func.isRequired,
   getByLetterMealsD: PropTypes.func.isRequired,
-
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -125,4 +132,12 @@ const mapDispatchToProps = (dispatch) => ({
   getByLetterMealsD: (letter) => dispatch(getByLetterMeals(letter)),
 });
 
-export default connect(null, mapDispatchToProps)(SearchBarMeals);
+const mapStateToProps = (state) => ({
+  mealsStore: state.receitasDeComidas.meals.meals,
+});
+
+SearchBarMeals.propTypes = {
+  mealsStore: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBarMeals);

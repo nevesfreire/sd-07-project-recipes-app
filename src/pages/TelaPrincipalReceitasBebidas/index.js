@@ -9,7 +9,7 @@ class TelaPrincipalReceitasBebidas extends Component {
   renderDrinks(drinks) {
     const zero = 0;
     if (drinks.length === 1) {
-      const { idDrink } = drinks;
+      const { idDrink } = drinks[0];
       return <Redirect to={ `/bebidas/${idDrink}` } />;
     }
     if (drinks.length === zero) {
@@ -24,8 +24,9 @@ class TelaPrincipalReceitasBebidas extends Component {
               <div
                 className="col-6 justify-content-md-center"
                 key={ item.strDrink }
+                data-testid={ `${index}-recipe-card` }
               >
-                <CardC card={ item } />
+                <CardC card={ item } indexDrink={ index } />
               </div>
             );
           }
