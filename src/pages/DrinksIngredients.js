@@ -7,7 +7,9 @@ class DrinksIngredients extends Component {
     return (
       <div>
         <Header />
+
         <h2>Ingredientes</h2>
+
         <Footer />
       </div>
     );
