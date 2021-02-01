@@ -54,8 +54,15 @@ function SearchHeaderBar() {
     }
   };
 
+  if (data.drink === null || data.food === null) {
+    return false;
+  }
+
   return (
     <div>
+      {
+        data.drink === null && setData({ ...data, drink: [] })
+      }
       {
         (data.food.length === 1) && push(`/comidas/${data.food[0].idMeal}`)
       }
