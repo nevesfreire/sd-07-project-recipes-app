@@ -91,15 +91,15 @@ export const resultRandomFood = () => async (dispatch) => {
 // -------------------------------- CATEGORY -----------------------------
 export const GET_CATEGORY_FOOD = 'GET_CATEGORY_FOOD';
 
-export const getCategoryFood = (recipesByCategoryFFood) => ({
+export const getCategoryFood = (recipesByCategoryFood) => ({
   type: GET_CATEGORY_FOOD,
-  recipesByCategoryFFood,
+  recipesByCategoryFood,
 });
 
 async function fetchCategoryFood() {
   const responseAPI = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
-  const recipesByRandom = await responseAPI.json();
-  return recipesByRandom;
+  const recipesByCategory = await responseAPI.json();
+  return recipesByCategory;
 }
 
 export const resultCategoryFood = () => async (dispatch) => {
