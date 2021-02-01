@@ -33,6 +33,10 @@ body {
   justify-content: space-between;
 }
 
+h1 {
+  font-weight: 700;
+}
+
 .title-subcontainer h1 {
   font-weight: 700;
 }
@@ -128,8 +132,4 @@ body {
   font-weight: 700;
   margin-bottom: 20px;
   padding: 10px;
-}
-
-h1 {
-  font-weight: 700;
 }
