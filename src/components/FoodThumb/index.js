@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import copy from 'copy-to-clipboard';
+// import copy from 'copy-to-clipboard';
 import propTypes from 'prop-types';
 import {
   toggleFavorite,
@@ -16,20 +16,23 @@ export default function FoodThumb({ detailed, route, id }) {
   let detailedImg;
   let detailedTitle;
   let category;
+  let idType;
 
   if (route === 'comidas') {
     detailedImg = 'strMealThumb';
     detailedTitle = 'strMeal';
     category = 'strCategory';
+    idType = 'idMeal';
   } else {
     detailedImg = 'strDrinkThumb';
     detailedTitle = 'strDrink';
     category = 'strAlcoholic';
+    idType = 'idDrink';
   }
 
   const req = {
     id,
-    type: route,
+    type: route === 'comidas' ? 'comida' : 'bebida',
     area: route === 'comidas' ? detailed[0].strArea : '',
     category: detailed[0].strCategory,
     alcoholicOrNot: route === 'comidas' ? '' : detailed[0].strAlcoholic,
@@ -45,10 +48,16 @@ export default function FoodThumb({ detailed, route, id }) {
   const mds = 1000;
 
   const copyTo = () => {
-    copy(`http://localhost:3000/${route}/${id}`);
+    const elem = document.createElement('textarea');
+    elem.value = `http://localhost:3000/${route}/${detailed[0][idType]}`;
+    document.body.appendChild(elem);
+    elem.select();
+    document.execCommand('copy');
+
+    // copy(`http://localhost:3000/${route}/${id}`);
     setCopiedAlert(true);
     setTimeout(() => {
-      copy(`http://localhost:3000/${route}/${id}`);
+      // copy(`http://localhost:3000/${route}/${id}`);
       setCopiedAlert(false);
     }, mds);
   };

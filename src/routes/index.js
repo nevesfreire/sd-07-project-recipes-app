@@ -41,11 +41,8 @@ function Routes() {
         />
         <Route exact path="/perfil" component={ Perfil } />
         <Route exact path="/:route/:id" component={ ComidasID } />
-        <Route
-          exact
-          path="/comidas/:id/in-progress"
-          component={ EmProgresso }
-        />
+        <Route exact path="/comidas/:id/in-progress" component={ EmProgresso } />
+        <Route exact path="/bebidas/:id/in-progress" component={ EmProgresso } />
         <Route component={ Notfound } />
 
         {/*

@@ -1,17 +1,74 @@
-import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import FoodThumb from '../../components/FoodThumb';
+import TodoList from './TodoList';
 
-function EmProgesso({ meals, drinks }) {
-  const { route, id } = useParams();
-  console.log(route);
-  console.log(id);
+import {
+  fetchFoodById,
+  fetchFoodByName,
+} from '../../redux/actions/foodActions';
+import {
+  fetchCocktailByName,
+  fetchCocktailById,
+} from '../../redux/actions/drinkActions';
 
+function EmProgesso({
+  meals,
+  drinks,
+  fetchFoodId,
+  fetchCocktails,
+  fetchDrinkID,
+  fetchMeals,
+}) {
+  const {id} = useParams();
+  const history = useHistory();
+
+  let route = 'bebidas';
+  if (history.location.pathname.match(/comidas/)) {
+    route = 'comidas';
+  }
+
+  useEffect(() => {
+    if (route === 'comidas') {
+      fetchFoodId(id);
+      fetchCocktails('');
+    } else {
+      fetchDrinkID(id);
+      fetchMeals('');
+    }
+  }, []);
+
+  const [isEnded, setisEnded] = useState(false);
+  console.log('history', history);
+  console.log('route', id);
+  console.log('obj', meals);
+  if (!meals[0] || !drinks[0]) return <p>Carregando...</p>;
+
+  const ingredients = Object.entries(
+    route === 'comidas' ? meals[0] : drinks[0],
+  ).filter((element) => {
+    if (element[0].match(/strIngredient/) && element[1]) {
+      return true;
+    }
+    return false;
+  });
+  console.log('ing', ingredients);
   return (
     <div>
       emprogresso
-      <FoodThumb detailed={ meals } route={ route } id={ id } />
+      <FoodThumb
+        detailed={ route === 'comidas' ? meals : drinks }
+        route={ route }
+        id={ id }
+      />
+      <TodoList ingredients={ ingredients } setisEnded={ setisEnded } />
+      <p data-testid="instructions">
+        {route === 'comidas'
+          ? meals[0].strInstructions
+          : drinks[0].strInstructions}
+      </p>
+      {isEnded && <p>terminou</p>}
     </div>
   );
 }
@@ -21,4 +78,11 @@ const mapStateToProps = (state) => ({
   drinks: state.cocktailsDrinks.cocktails,
 });
 
-export default connect(mapStateToProps)(EmProgesso);
+const mapDispatchToProps = {
+  fetchFoodId: fetchFoodById,
+  fetchCocktails: fetchCocktailByName,
+  fetchDrinkID: fetchCocktailById,
+  fetchMeals: fetchFoodByName,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EmProgesso);
