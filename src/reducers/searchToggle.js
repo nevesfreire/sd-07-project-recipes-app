@@ -1,4 +1,7 @@
-import { SEARCH_TOGGLE } from '../actions';
+
+import {
+  SEARCH_TOGGLE,
+} from '../actions';
 
 const INITIAL_STATE = false;
 

@@ -3,27 +3,27 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-class Explorer extends Component {
+class DrinksExplorer extends Component {
   render() {
     return (
       <div>
         <Header />
 
-        <Link to="/explorar/comidas">
+        <Link to="/explorar/bebidas/ingredientes">
           <button
             type="button"
-            data-testid="explore-food"
+            data-testid="explore-by-ingredient"
           >
-            Explorar Comidas
+            Por Ingredientes
           </button>
         </Link>
 
-        <Link to="/explorar/bebidas">
+        <Link to="/bebidas/178319">
           <button
             type="button"
-            data-testid="explore-drinks"
+            data-testid="explore-surprise"
           >
-            Explorar Bebidas
+            Me Surpreenda!
           </button>
         </Link>
 
@@ -33,4 +33,4 @@ class Explorer extends Component {
   }
 }
 
-export default Explorer;
+export default DrinksExplorer;
