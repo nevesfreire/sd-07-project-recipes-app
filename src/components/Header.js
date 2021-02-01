@@ -33,7 +33,7 @@ function Header({ title, toggle, toggleAction }) {
         </button>
       </div>
       <SearchBar title={ title } />
-      <CategoriesBar title={ title }/>
+      <CategoriesBar title={ title } />
     </header>
   );
 }
