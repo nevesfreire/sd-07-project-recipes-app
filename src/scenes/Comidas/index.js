@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import BottomBar from '../../common/BottomBar';
 import { AppContext } from '../../context/AppContext';
 import Header from '../../common/Header';
 import './style.css';
@@ -17,24 +18,30 @@ const Comidas = () => {
       );
     }
     return (
-      <div>
-        {mealsData.meals.slice(zero, doze).map((e, i) => (
-          <div
-            className="mealContainer"
-            key={ e.idMeal }
-            data-testid={ `${i}-recipe-card` }
-          >
-            <img data-testid={ `${i}-card-img` } src={ e.strMealThumb } alt="meail" />
-            <h1 data-testid={ `${i}-card-name` }>{e.strMeal}</h1>
-          </div>))}
-      </div>
+      <>
+        <Header />
+        <div>
+          {mealsData.meals.slice(zero, doze).map((e, i) => (
+            <div
+              className="mealContainer"
+              key={ e.idMeal }
+              data-testid={ `${i}-recipe-card` }
+            >
+              <img data-testid={ `${i}-card-img` } src={ e.strMealThumb } alt="meail" />
+              <h1 data-testid={ `${i}-card-name` }>{e.strMeal}</h1>
+            </div>))}
+        </div>
+        <BottomBar />
+      </>
     );
   }
 
   return (
-    <div>
+    <>
       <Header />
-    </div>
+      <BottomBar />
+    </>
+
   );
 };
 
