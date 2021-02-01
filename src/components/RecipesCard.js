@@ -113,6 +113,8 @@ class RecipesCard extends React.Component {
 }
 RecipesCard.propTypes = {
   recipe: PropTypes.shape({
+    idMeal: PropTypes.string,
+    idDrink: PropTypes.string,
     strMealThumb: PropTypes.string,
     strMeal: PropTypes.string,
     strDrinkThumb: PropTypes.string,
