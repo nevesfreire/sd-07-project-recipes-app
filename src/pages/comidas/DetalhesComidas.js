@@ -9,7 +9,7 @@ import { loadRecipes } from '../../redux/action';
 import shareIcon from '../../images/shareIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
-
+// problema no filtro??
 class DetalhesComidas extends Component {
   constructor() {
     super();
@@ -40,9 +40,7 @@ class DetalhesComidas extends Component {
 
   async handleClick(valor) {
     const { history } = this.props;
-    await history.push(`/comidas/${valor}`);
-    await this.api(valor);
-    await this.componentDidMount2(valor);
+    await history.push(`/bebidas/${valor}`);
   }
 
   async api(id) {
@@ -108,12 +106,11 @@ class DetalhesComidas extends Component {
         const limit = 6;
         if (index < limit) {
           return (
-            <div className="card">
+            <div key={ index } className="card">
               <button
                 name={ receita.idDrink }
                 type="button"
                 onClick={ ({ target }) => this.handleClick(target.name) }
-                key={ index }
                 data-testid={ `${index}-recomendation-card` }
               >
                 <img
