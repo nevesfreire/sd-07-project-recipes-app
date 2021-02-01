@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Card from './Card';
-import LoadingCard from './LoadingCard';
-import { useFetchApi } from '../../hooks';
+import Card from '../Card';
+import LoadingCard from '../LoadingCard';
+import { useFetchApi } from '../../../hooks';
 import '../components.css';
 
 export default function CardFoodRandon({ testidCard, testidImg, testidTitle }) {

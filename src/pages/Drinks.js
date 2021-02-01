@@ -10,13 +10,7 @@ const whatchCards = (category, search) => {
   } if (search.text) {
     return (<SearchDrinkCards search={ search } number={ 12 } />);
   }
-  return (
-    <DrinkRecomendationsCards
-      number={ 12 }
-      testidImg="-card-img"
-      testidCard="-recipe-card"
-      testidTitle="-card-name"
-    />);
+  return (<DrinkRecomendationsCards number={ 12 } />);
 };
 
 export default function Drinks() {

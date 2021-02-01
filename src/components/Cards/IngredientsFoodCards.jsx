@@ -16,16 +16,15 @@ export default function IngredientsFoodCards({ number }) {
         loading
           ? (<LoadingCard />)
           : meals.filter((_, index) => index < number)
-            .map(({ strIngredient, idIngredient }) => (
+            .map(({ strIngredient }, i) => (
               <Card
                 link="/comidas"
                 title={ strIngredient }
                 img={ `https://www.themealdb.com/images/ingredients/${strIngredient}.png` }
-                id={ idIngredient }
-                key={ idIngredient }
-                testidImg={ `${idIngredient}-ingredient-card` }
-                testidCard={ `${idIngredient}-card-img` }
-                testidTitle={ `${idIngredient}-card-name` }
+                key={ i }
+                testidImg={ `${i}-ingredient-card` }
+                testidCard={ `${i}-card-img` }
+                testidTitle={ `${i}-card-name` }
                 callback={ () => {
                   dispatchFilter({
                     type: SUBMIT_SEARCH,

@@ -7,7 +7,6 @@ import { factoryCard } from '../../Services';
 export default function AreaCards({ area, number }) {
   const URL = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`;
   const [loading, { meals }] = useFetchApi(URL);
-
   return (
     <div className="cards">
       {

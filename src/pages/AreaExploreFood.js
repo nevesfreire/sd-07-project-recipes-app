@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { CupNodesContext } from '../contexts';
 import {
-  Header, Footer, AreaFilterDropdown, AreaCards, RandonFoodCards,
+  Header, Footer, AreaFilterDropdown, AreaCards, FoodRecomendationsCards,
 } from '../components';
 
 export default function OriginFoodExplore() {
@@ -13,7 +13,7 @@ export default function OriginFoodExplore() {
       {
         area
           ? <AreaCards area={ area } />
-          : <RandonFoodCards number={ undefined } />
+          : <FoodRecomendationsCards number={ undefined } />
       }
       <Footer />
     </div>

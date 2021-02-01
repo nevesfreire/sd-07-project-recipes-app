@@ -3,8 +3,6 @@ export { default as Footer } from './Footer';
 export {
   AreaCards,
   LoadingCard,
-  RandonFoodCards,
-  RandonDrinkCards,
   Card,
   DrinkCards,
   FoodCards,

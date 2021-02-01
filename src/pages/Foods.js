@@ -10,14 +10,7 @@ const whatchCards = (category, search) => {
   } if (search.text) {
     return (<SearchFoodCards search={ search } number={ 12 } />);
   }
-  return (
-    <FoodRecomendationsCards
-      number={ 12 }
-      testidImg="-card-img"
-      testidCard="-recipe-card"
-      testidTitle="-card-name"
-    />
-  );
+  return (<FoodRecomendationsCards number={ 12 } />);
 };
 
 export default function Foods() {
