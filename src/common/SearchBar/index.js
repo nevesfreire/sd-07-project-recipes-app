@@ -4,7 +4,9 @@ import { searchGeneral } from '../../services/API';
 
 const SearchBar = () => {
   const [searchBarData, setSearchBarData] = useState({ text: '', option: '' });
-  const { setFilteredMeals, setFilteredDrinks } = useContext(AppContext);
+  const { setFilteredMeals,
+    setFilteredDrinks,
+    setIsUsingSearchBar } = useContext(AppContext);
 
   const radioClick = ({ target }) => setSearchBarData({
     ...searchBarData,
@@ -14,6 +16,7 @@ const SearchBar = () => {
   const searchClick = async () => {
     const path = window.location.pathname;
     console.log('clicou na busca');
+    setIsUsingSearchBar(true);
     const data = await searchGeneral(searchBarData);
     if (path === '/comidas')setFilteredMeals(data);
     if (path === '/bebidas')setFilteredDrinks(data);
@@ -22,7 +25,6 @@ const SearchBar = () => {
   return (
     <form data-testid="search-top-btn">
       <input
-        disabled={ false }
         type="text"
         data-testid="search-input"
         value={ searchBarData.text }

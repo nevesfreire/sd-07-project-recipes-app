@@ -9,7 +9,7 @@ import './style.css';
 
 const Comidas = () => {
   const history = useHistory();
-  const { mealsCategories, filteredMeals } = useContext(AppContext);
+  const { mealsCategories, filteredMeals, isUsingSearchBar } = useContext(AppContext);
 
   const goToDetails = (idMeal) => {
     history.push(`/comidas/${idMeal}`);
@@ -18,7 +18,7 @@ const Comidas = () => {
   if (filteredMeals.meals) {
     const zero = 0;
     const doze = 12;
-    if (filteredMeals.meals.length === 1) {
+    if (filteredMeals.meals.length === 1 && isUsingSearchBar) {
       goToDetails(filteredMeals.meals[0].idMeal);
     }
     return (
@@ -56,10 +56,7 @@ const Comidas = () => {
   }
 
   return (
-    <>
-      <SearchBar />
-      <h1>Faça uma pesquisa</h1>
-    </>
+    <h1>Faça uma pesquisa</h1>
   );
 };
 

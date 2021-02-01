@@ -59,10 +59,7 @@ const Bebidas = () => {
   }
 
   return (
-    <>
-      <SearchBar />
-      <h1>Faça uma pesquisa</h1>
-    </>
+    <h1>Faça uma pesquisa</h1>
   );
 };
 

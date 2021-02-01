@@ -20,6 +20,7 @@ const AppProvider = ({ children }) => {
   const [filteredDrinks, setFilteredDrinks] = useState({ drinks: null });
   const [chosenMealCategory, setChosenMealCategory] = useState('');
   const [chosenDrinkCategory, setChosenDrinkCategory] = useState('');
+  const [isUsingSearchBar, setIsUsingSearchBar] = useState(false);
 
   const onFetchMeals = async () => {
     const foodRes = await getMeals();
@@ -112,6 +113,8 @@ const AppProvider = ({ children }) => {
     filteredDrinks: !filteredDrinks.drinks ? drinksData : filteredDrinks,
     setFilteredDrinks,
     chosenMealCategory,
+    isUsingSearchBar,
+    setIsUsingSearchBar,
   };
 
   return (
