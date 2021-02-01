@@ -9,6 +9,14 @@ import Meal from '../../images/mealIcon.svg';
 import './footer.css';
 
 class Footer extends React.Component {
+  wrapperLink(pathImg, pathRoute, dataId) {
+    return (
+      <Link to={ pathRoute } replace>
+        <img data-testid={ `${dataId}-bottom-btn` } src={ pathImg } alt="drink" />
+      </Link>
+    );
+  }
+
   render() {
     return (
       <footer>
@@ -17,23 +25,17 @@ class Footer extends React.Component {
           variant="light"
           bg="light"
           data-testid="footer"
-          className="footer"
+          className="pe"
         >
           <Container>
             <Navbar.Brand>
-              <Link to="/bebidas" replace>
-                <img data-testid="drinks-bottom-btn" src={ Drink } alt="drink" />
-              </Link>
+              {this.wrapperLink(Drink, '/bebidas', 'drink')}
             </Navbar.Brand>
             <Navbar.Brand>
-              <Link to="/explorar" replace>
-                <img data-testid="explore-bottom-btn" src={ Explore } alt="explore" />
-              </Link>
+              {this.wrapperLink(Explore, '/explorar', 'explore')}
             </Navbar.Brand>
             <Navbar.Brand>
-              <Link to="/comidas" replace>
-                <img data-testid="food-bottom-btn" src={ Meal } alt="food" />
-              </Link>
+              {this.wrapperLink(Meal, '/comidas', 'food')}
             </Navbar.Brand>
           </Container>
         </Navbar>
