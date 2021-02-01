@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 
 class MealCard extends Component {
   render() {
-    const { meals: { idMeal, strMealThumb, strMeal } } = this.props;
+    const { meals: { strMealThumb, strMeal, idMeal }, index } = this.props;
     return (
       <div>
-        <img src={ strMealThumb } alt={ strMeal } />
-        <p data-testid={ `${idMeal}-recomendation-card` }>{ strMeal }</p>
+        <div data-testid={ `${index}-recipe-card` }>{ idMeal }</div>
+        <img src={ strMealThumb } alt={ strMeal } data-testid={ `${index}-card-img` } />
+        <p data-testid={ `${index}-card-name` }>{ strMeal }</p>
       </div>
     );
   }
@@ -19,6 +20,7 @@ MealCard.propTypes = {
     strMealThumb: PropTypes.string.isRequired,
     strMeal: PropTypes.string.isRequired,
   }).isRequired,
+  index: PropTypes.number.isRequired,
 };
 
 export default MealCard;
