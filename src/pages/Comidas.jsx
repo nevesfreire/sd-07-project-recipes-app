@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import MenuInferior from '../components/MenuInferior';
 
 function Comidas(props) {
   const [foodCards, setFoodCards] = useState([]);
@@ -85,6 +86,7 @@ function Comidas(props) {
             />
           </div>))}
       </div>
+      <MenuInferior />
     </div>
   );
 }

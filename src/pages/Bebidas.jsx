@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import MenuInferior from '../components/MenuInferior';
 
 function Bebidas(props) {
   const [beverageCards, setBeverageCards] = useState([]);
@@ -87,6 +88,7 @@ function Bebidas(props) {
             />
           </div>))}
       </div>
+      <MenuInferior />
     </div>
   );
 }

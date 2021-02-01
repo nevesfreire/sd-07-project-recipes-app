@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import MenuInferior from '../components/MenuInferior';
 
 function Profile(props) {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -32,6 +33,7 @@ function Profile(props) {
       >
         Sair
       </button>
+      <MenuInferior />
     </div>
   );
 }
