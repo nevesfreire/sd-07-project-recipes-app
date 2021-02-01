@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import SearchBar from '../../common/SearchBar';
+import BottomBar from '../../common/BottomBar';
 import { AppContext } from '../../context/AppContext';
 
 import CategoryPanel from '../../common/CategoryPanel';
 import NavigationButton from '../../common/NavigationButton';
+import Header from '../../common/Header';
 import './style.css';
 
 const Comidas = () => {
@@ -23,7 +24,7 @@ const Comidas = () => {
     }
     return (
       <div>
-        <SearchBar />
+        <Header />
         <CategoryPanel categoryType="meals" categoryList={ mealsCategories } />
         {filteredMeals.meals.slice(zero, doze).map((e, i) => (
           <div
@@ -42,13 +43,12 @@ const Comidas = () => {
               />
             </h1>
           </div>))}
+        <BottomBar />
       </div>
     );
   }
 
-  return (
-    <h1>Faça uma pesquisa</h1>
-  );
+  return <h1>Loading...</h1>;
 };
 
 export default Comidas;

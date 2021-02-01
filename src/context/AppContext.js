@@ -21,6 +21,7 @@ const AppProvider = ({ children }) => {
   const [chosenMealCategory, setChosenMealCategory] = useState('');
   const [chosenDrinkCategory, setChosenDrinkCategory] = useState('');
   const [isUsingSearchBar, setIsUsingSearchBar] = useState(false);
+  const [inputStatus, setInputStatus] = useState({ searchInput: false });
 
   const onFetchMeals = async () => {
     const foodRes = await getMeals();
@@ -115,6 +116,8 @@ const AppProvider = ({ children }) => {
     chosenMealCategory,
     isUsingSearchBar,
     setIsUsingSearchBar,
+    inputStatus,
+    setInputStatus,
   };
 
   return (

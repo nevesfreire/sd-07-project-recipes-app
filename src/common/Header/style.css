@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap') ;
+
+.header {
+  align-items: center;
+  display: flex;
+  height: 58px;
+  justify-content: space-between;
+  position: relative;
+  width: 360px;
+}
+
+.profile-button {
+  height: 30px;
+  left: 15px;
+  position: absolute;
+  top: 12px;
+  width: 30px;
+}
+
+.search-button {
+  height: 30px;
+  left: 317px;
+  position: absolute;
+  top: 12px;
+  width: 30px;
+}
+
+.title-header {
+  color: black;
+  font-family: Roboto , sans-serif;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 35px;
+  position: relative;
+}
