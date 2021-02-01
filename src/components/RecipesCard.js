@@ -1,48 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 class RecipesCard extends React.Component {
   render() {
     const { recipe, index, search } = this.props;
-    const { strMealThumb, strMeal, strDrinkThumb, strDrink } = recipe;
-    const maxNumber = 12;
+    const { strMealThumb, strMeal, idMeal, strDrinkThumb, strDrink, idDrink } = recipe;
     return (
-      <div>
+      <div className="recipe-card">
         {
-          index < maxNumber && search === 'meals' ? (
-            <div data-testid={ `${index}-recipe-card` }>
-              <Card
-                style={ { width: '10rem' } }
-                bg="warning"
-                text="dark"
-              >
-                <Card.Img
-                  variant="top"
-                  src={ strMealThumb }
-                  alt={ strMeal }
-                  data-testid={ `${index}-card-img` }
-                />
-                <Card.Body>
-                  <Card.Text data-testid={ `${index}-card-name` }>
-                    {strMeal}
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </div>
+          search === 'meals' ? (
+            <Link data-testid={ `${index}-recipe-card` } to={ `/comidas/${idMeal}` }>
+              <img
+                src={ strMealThumb }
+                alt={ strMeal }
+                data-testid={ `${index}-card-img` }
+              />
+              <p data-testid={ `${index}-card-name` }>{strMeal}</p>
+            </Link>
           ) : null
         }
         {
-          index < maxNumber && search === 'drinks' ? (
-            <div data-testid={ `${index}-recipe-card` }>
+          search === 'drinks' ? (
+            <Link data-testid={ `${index}-recipe-card` } to={ `/bebidas/${idDrink}` }>
               <img
-                style={ { width: 30 } }
                 src={ strDrinkThumb }
                 alt={ strDrink }
                 data-testid={ `${index}-card-img` }
               />
               <p data-testid={ `${index}-card-name` }>{strDrink}</p>
-            </div>
+            </Link>
           ) : null
         }
       </div>
@@ -54,8 +41,10 @@ RecipesCard.propTypes = {
   recipe: PropTypes.shape({
     strMealThumb: PropTypes.string,
     strMeal: PropTypes.string,
+    idMeal: PropTypes.number,
     strDrinkThumb: PropTypes.string,
     strDrink: PropTypes.string,
+    idDrink: PropTypes.number,
   }).isRequired,
   search: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,

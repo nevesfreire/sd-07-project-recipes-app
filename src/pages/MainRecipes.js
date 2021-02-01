@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import RecipesList from '../components/RecipesList';
+import FoodTypeSelector from '../components/CategorySelector';
 
 class MainRecipes extends React.Component {
   render() {
@@ -17,7 +18,10 @@ class MainRecipes extends React.Component {
     return (
       <div>
         <Header shouldRenderSearchIcon="yes" pageTitle="Comidas" search="meals" />
-        <RecipesList search="meals" />
+        <div className="content">
+          <FoodTypeSelector search="meals" />
+          <RecipesList search="meals" />
+        </div>
         <Footer />
       </div>
     );
