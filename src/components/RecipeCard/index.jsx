@@ -26,11 +26,11 @@ export default function RecipeCard({ id, meal }) {
 RecipeCard.propTypes = {
   id: PropTypes.number.isRequired,
   meal: PropTypes.shape({
-    strMealThumb: PropTypes.string.isRequired,
-    strDrinkThumb: PropTypes.string.isRequired,
-    strMeal: PropTypes.string.isRequired,
-    strDrink: PropTypes.string.isRequired,
-    idMeal: PropTypes.string.isRequired,
-    idDrink: PropTypes.string.isRequired,
+    strMealThumb: PropTypes.string,
+    strDrinkThumb: PropTypes.string,
+    strMeal: PropTypes.string,
+    strDrink: PropTypes.string,
+    idMeal: PropTypes.string,
+    idDrink: PropTypes.string,
   }).isRequired,
 };
