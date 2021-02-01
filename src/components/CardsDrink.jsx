@@ -10,14 +10,14 @@ function CardsFood() {
 
   const { cardDrink, setCardDrink } = useContext(CoffeeAndCodeContext);
 
-  useEffect(() => {
-    if (!cardDrink.length) callApi();
-  }, []);
-
   const callApi = async () => {
     const apiResult = await requestApiDrinkFilterName();
     setCardDrink(apiResult);
   };
+
+  useEffect(() => {
+    if (!cardDrink.length) callApi();
+  }, []);
 
   if (!cardDrink.length) return <span>Loading...</span>;
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice
@@ -56,7 +56,7 @@ function CardsFood() {
       <button
         type="button"
         onClick={ () => setCardAmount(cardAmount + maxCardAmount) }
-        disabled={ cardDrink.length > cardAmount ? false : true }
+        disabled={ cardDrink.length < cardAmount }
       >
         See More
       </button>

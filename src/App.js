@@ -17,6 +17,7 @@ import DetalhesBebida from './pages/DetalhesBebidas';
 import DetalhesReceita from './pages/DetalhesReceita';
 import ProcessoBebida from './pages/ProcessoBebida';
 import ProcessoReceita from './pages/ProcessoReceita';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -103,6 +104,7 @@ function App() {
             path="/bebidas/:id/in-progress"
             component={ ProcessoBebida }
           />
+          <Route component={ NotFound } />
         </Switch>
       </Provider>
     </div>
