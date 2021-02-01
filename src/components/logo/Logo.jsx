@@ -4,7 +4,7 @@ import GlobalContext from '../../context/GlobalContext';
 
 export default function Logo() {
   const { styles: { logo: {
-    width, colors, borderRadius, animation,
+    width, colors, borderradius, animation,
   } } } = useContext(GlobalContext);
 
   const animationClass = animation ? 'animated' : '';
@@ -12,7 +12,7 @@ export default function Logo() {
   return (
     <svg
       width={ width }
-      style={ { borderRadius } }
+      style={ { borderRadius: borderradius } }
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 44.056 44.056"
     >

@@ -10,7 +10,7 @@ const dataStyles = {
         spoon: '#f2f2f2',
         text: '#c83737',
       },
-      borderRadius: '30%',
+      borderradius: '30%',
       animation: true,
     },
   },
