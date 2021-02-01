@@ -8,5 +8,6 @@ export { default as ImageDetails } from './ImageDetails';
 export { default as TitleDetails } from './TitleDetails';
 export { default as Ingredient } from './Ingredient';
 export { default as Instructions } from './Instructions';
-export { default as Recomendations } from './Recomendations';
 export { default as Video } from './Video';
+export { default as Recomendations } from './Recomendations';
+export { default as ButtonDetails } from './ButtonDetails';

@@ -38,6 +38,7 @@ function TitleDetails({ recipes }) {
         ))}
         <div className="div-favorite-detail">
           <img
+            className="img-compartilhar"
             data-testid="share-btn"
             src={ shareIcon }
             alt="Icone Compartilhar"
@@ -49,7 +50,7 @@ function TitleDetails({ recipes }) {
             <img
               data-testid="favorite-btn"
               src={ favorite ? favoriteIcon : notFavoriteIcon }
-              alt="Icone Compartilhar"
+              alt="Icone Favoritar"
             />
           </button>
         </div>
@@ -89,7 +90,7 @@ function TitleDetails({ recipes }) {
           <img
             data-testid="favorite-btn"
             src={ favorite ? favoriteIcon : notFavoriteIcon }
-            alt="Icone Compartilhar"
+            alt="Icone Favoritar"
           />
         </button>
       </div>

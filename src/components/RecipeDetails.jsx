@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Ingredient, Recomendations, Video,
-  ImageDetails, TitleDetails, Instructions } from './index';
+  ImageDetails, TitleDetails, Instructions, ButtonDetails } from './index';
 
-function RecipeDetails({ recipes }) {
+function RecipeDetails({ recipes, id }) {
   return (
     <div className="div-recipes-details">
       <ImageDetails recipes={ recipes } />
@@ -13,18 +13,14 @@ function RecipeDetails({ recipes }) {
       <Instructions recipes={ recipes } />
       { recipes === 'comidas' ? <Video /> : ''}
       <Recomendations recipes={ recipes } />
-      <button
-        data-testid="start-recipe-btn"
-        type="button"
-      >
-        Iniciar Receita
-      </button>
+      <ButtonDetails recipes={ recipes } id={ id } />
     </div>
   );
 }
 
 RecipeDetails.propTypes = {
   recipes: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default RecipeDetails;

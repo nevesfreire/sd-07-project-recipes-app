@@ -2,7 +2,8 @@ import React from 'react';
 
 function InProgressRecipes() {
   return (
-    <div />
+    <h2>Receita em progresso</h2>
   );
 }
+
 export default InProgressRecipes;

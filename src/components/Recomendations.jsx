@@ -37,20 +37,21 @@ function Recomendations({ recipes }) {
 
   if (recipes !== 'comidas') {
     return (
-      <div>
+      <div className="title-recomendations">
         <h3>Recomendations</h3>
         <div className="div-recomendations">
           {mealsData && mealsData.slice(zero, six).map(
-            ({ idMeal, strMeal, strCategory, strMealThumb }) => (
+            ({ idMeal, strMeal, strCategory, strMealThumb }, index) => (
               <button
                 key={ idMeal }
                 type="button"
+                data-testid={ `${index}-recomendation-card` }
                 className="div-meals"
                 onClick={ () => handleToDetail(idMeal) }
               >
                 <img src={ strMealThumb } alt="recipes-meals" />
                 <p>{ strCategory }</p>
-                <h4>{ strMeal }</h4>
+                <h4 data-testid={ `${index}-recomendation-title` }>{ strMeal }</h4>
               </button>
             ),
           )}
@@ -59,20 +60,21 @@ function Recomendations({ recipes }) {
     );
   }
   return (
-    <div>
+    <div className="title-recomendations">
       <h3>Recomendations</h3>
       <div className="div-recomendations">
         {drinksData && drinksData.slice(zero, six).map(
-          ({ idDrink, strDrink, strAlcoholic, strDrinkThumb }) => (
+          ({ idDrink, strDrink, strAlcoholic, strDrinkThumb }, index) => (
             <button
               key={ idDrink }
               type="button"
+              data-testid={ `${index}-recomendation-card` }
               className="div-meals"
               onClick={ () => handleToDetail(idDrink) }
             >
               <img src={ strDrinkThumb } alt="recipes-meals" />
               <p>{ strAlcoholic }</p>
-              <h4>{ strDrink }</h4>
+              <h4 data-testid={ `${index}-recomendation-title` }>{ strDrink }</h4>
             </button>
           ),
         )}

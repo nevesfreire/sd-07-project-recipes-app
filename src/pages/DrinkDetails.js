@@ -16,7 +16,7 @@ function DrinkDetails({ match }) {
   }, []);
 
   return (
-    <RecipeDetails recipes={ requestApi[1] } />
+    <RecipeDetails recipes={ requestApi[1] } id={ requestApi[2] } />
   );
 }
 

@@ -4,6 +4,17 @@ body{
   top: 0;
 }
 
+.div-button-details button {
+  background: #6CE34F;
+  border: none;
+  bottom: 0px;
+  height: 76px;
+  font-size: 20pt;
+  margin-left: -167px;
+  position: fixed;
+  width: 339px;
+}
+
 .div-ingredient {
   background-color: #E5E5E5;
   border-radius: 5px;
@@ -21,10 +32,11 @@ body{
 .div-recomendations .divmeals {
   box-shadow: 2px 2px 1px rgb(65, 64, 64);
   height: 172px;
-  left: 185px;;
-  position: absolute;
-  top: 546px;
   width: 162px;
+}
+
+.div-recomendations button {
+  margin-right: 15px;
 }
 
 .div-recomendations p {
@@ -37,17 +49,24 @@ body{
 
 .div-recomendations {
   display: flex;
-  flex-wrap: wrap;
-  height: 185px;
-  overflow-y: scroll;
-  width: 355px;
+  height: 200px;
+  margin-left: 5px;
+  margin-bottom: 83px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  width: 345px;
+}
+
+.title-recomendations h3 {
+  margin-left: 5px;
+  margin-bottom: auto;
 }
 
 .div-recipes-details  {
   align-items: center;
   display: flex;
   flex-direction: column;
-  height: 829px;
+  height: fit-content;
   justify-content: center;
   margin: auto;
   top: 167px;
@@ -79,6 +98,15 @@ body{
   border: none;
   outline: none;
   padding: 0;
+}
+
+.div-video {
+  border-radius: 4px;
+  height: 160px;
+  left: 9px;
+  margin-bottom: 45px;
+  top: 955px;
+  width: 341px;
 }
 
 .img-compartilhar {

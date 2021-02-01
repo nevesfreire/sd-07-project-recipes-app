@@ -14,6 +14,7 @@ function ImageDetails({ recipes }) {
         {meals && meals.map(({ idMeal, strMealThumb }) => (
           <div key={ idMeal }>
             <img
+              data-testid="recipe-photo"
               className="images-details"
               src={ strMealThumb }
               alt="images-details"
@@ -28,6 +29,7 @@ function ImageDetails({ recipes }) {
       {drinks && drinks.map(({ idDrink, strDrinkThumb }) => (
         <div key={ idDrink }>
           <img
+            data-testid="recipe-photo"
             className="images-details"
             src={ strDrinkThumb }
             alt="images-details"
