@@ -1,7 +1,11 @@
 import React from 'react';
 
-class CocktailsInProgress extends React.Component {
-
+function CocktailsInProgress() {
+  return(
+    <div>
+      Bebidas
+    </div>
+  )
 }
 
 export default CocktailsInProgress;
