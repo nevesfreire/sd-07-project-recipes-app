@@ -22,11 +22,16 @@ class TelaPrincipalReceitasBebidas extends Component {
         {categories.map((categorie, index) => {
           if (index < five) {
             return (
-              <button type="button" key={ categorie.strCategory }>
+              <button
+                type="button"
+                key={ categorie.strCategory }
+                data-testid={ `data-testid=${categorie.strCategory}-category-filter` }
+              >
                 {categorie.strCategory}
               </button>
             );
-          } return null;
+          }
+          return null;
         })}
       </div>
     );

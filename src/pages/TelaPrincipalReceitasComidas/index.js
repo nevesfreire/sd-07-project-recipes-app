@@ -56,11 +56,16 @@ class TelaPrincipalReceitasComidas extends Component {
         {categories.map((categorie, index) => {
           if (index < five) {
             return (
-              <button type="button" key={ categorie.strCategory }>
+              <button
+                type="button"
+                key={ categorie.strCategory }
+                data-testid={ `data-testid=${categorie.strCategory}-category-filter` }
+              >
                 {categorie.strCategory}
               </button>
             );
-          } return null;
+          }
+          return null;
         })}
       </div>
     );
@@ -94,7 +99,6 @@ TelaPrincipalReceitasComidas.propTypes = {
   loadMealsDispatch: PropTypes.func.isRequired,
   getCategoriesDispatch: PropTypes.func.isRequired,
   categoriesStore: PropTypes.objectOf(PropTypes.string).isRequired,
-
 };
 
 export default connect(
