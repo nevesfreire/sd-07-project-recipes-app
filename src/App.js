@@ -21,6 +21,7 @@ function App() {
       <Route exact path="/profile" component={ Profile } />
       <Route exact path="/explorar" component={ Explorer } />
       <Route exact path="/comidas" component={ Meals } />
+      <Route exact path="/comidas/:id" component={ MealRecipeDetails } />
       <Route path="/comidas/52771" component={ MealRecipeDetails } />
       <Route path="/bebidas/178319" component={ CocktailRecipeDetails } />
       <Route exact path="/explorar/comidas" component={ MealsExplorer } />
