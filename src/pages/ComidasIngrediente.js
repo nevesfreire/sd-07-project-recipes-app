@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-// import { Card } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -8,14 +8,11 @@ import { fetchMealsIngredients } from '../services/api';
 
 export default function ComidasIngrediente() {
   const [ingrCards, setIngrCards] = useState([]);
-  const [endpoint, setEndpoint] = useState('');
 
   const {
     isFetching,
     setIsFetching,
-    setCards,
-    filteredIngrCards,
-    setFilteredIngrCards,
+    setEndpoint,
   } = useContext(RecipesContext);
 
   const history = useHistory();
@@ -36,18 +33,10 @@ export default function ComidasIngrediente() {
     getMealsIngredients();
   }, [getMealsIngredients]);
 
-  console.log(ingrCards);
-
-  console.log(filteredIngrCards);
-
   // Setando os cards com o ingrediente selecionado no estado global
 
   const handleClick = async ({ target }) => {
-    setEndpoint(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${target.value}`);
-    const { meals } = await fetch(endpoint).then((response) => response.json());
-    const twelveFilteredCards = meals.slice(zero, doze);
-    setFilteredIngrCards(twelveFilteredCards);
-    setCards([]);
+    setEndpoint(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${target.alt}`);
     history.push('/comidas');
   };
 
@@ -56,24 +45,30 @@ export default function ComidasIngrediente() {
     <div>
       <Header />
       {ingrCards.map((meal, index) => (
-        <button
-          type="button"
+        <Card
+          role="button"
           key={ index }
-          to="/comidas"
+          tabIndex={ 0 }
+          onKeyPress={ () => {} }
+          style={ { width: '18rem' } }
           data-testid={ `${index}-ingredient-card` }
-          value={ meal.strIngredient }
           onClick={ (e) => handleClick(e) }
         >
-          <img
+          <Card.Img
+            variant="top"
             data-testid={ `${index}-card-img` }
             src={ `https://www.themealdb.com/images/ingredients/${meal.strIngredient}-Small.png` }
-            alt="ingrediente"
-            value={ meal.strIngredient }
+            alt={ meal.strIngredient }
           />
-          <h3 data-testid={ `${index}-card-name` }>
-            { meal.strIngredient }
-          </h3>
-        </button>
+          <Card.Body>
+            <Card.Title
+              data-testid={ `${index}-card-name` }
+            >
+              { meal.strIngredient }
+            </Card.Title>
+          </Card.Body>
+        </Card>
+
       ))}
       <Footer />
     </div>

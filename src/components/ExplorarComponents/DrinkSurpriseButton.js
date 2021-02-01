@@ -14,13 +14,12 @@ export default function DrinkSurpriseButton() {
 
   const history = useHistory();
 
-  const getDrinkSurprise = async () => {
-    setCards(await fetchDrinkSurprise());
-  };
-
   useEffect(() => {
+    const getDrinkSurprise = async () => {
+      setCards(await fetchDrinkSurprise());
+    };
     getDrinkSurprise();
-  }, [clickDrinkSurprise]);
+  }, [clickDrinkSurprise, setCards]);
 
   const handleExploreSurprise = () => {
     setCards([]);

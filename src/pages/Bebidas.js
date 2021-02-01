@@ -7,12 +7,12 @@ import RecipesContext from '../context/RecipesContext';
 
 export default function Bebidas() {
   const [categories, setCategories] = useState([]);
+  const [filteredIngrCards, setFilteredIngrCards] = useState([]);
 
   const {
-    filteredDrinkCards,
-    filterDrinkByIngredient,
     cards,
     setCards,
+    endpoint,
   } = useContext(RecipesContext);
 
   const getCards = async () => {
@@ -55,28 +55,49 @@ export default function Bebidas() {
     getCategories();
   }, []);
 
-  if (filterDrinkByIngredient) {
+  const zero = 0;
+  const doze = 12;
+
+  useEffect(() => {
+    const getFilteredIngrCards = async () => {
+      const { drinks } = await fetch(endpoint).then((response) => response.json());
+      const twelveFilteredCards = drinks.slice(zero, doze);
+      setFilteredIngrCards(twelveFilteredCards);
+    };
+    getFilteredIngrCards();
+  }, [endpoint]);
+
+  if (filteredIngrCards.length > zero) {
     return (
-      filterDrinkByIngredient && filteredDrinkCards.map((drink, index) => (
-        <Card
-          key={ index }
-          style={ { width: '18rem' } }
-          data-testid={ `${index}-recipe-card` }
-        >
-          <Card.Img
-            variant="top"
-            src={ drink.strDrinkThumb }
-            data-testid={ `${index}-card-img` }
-          />
-          <Card.Body>
-            <Card.Title
-              data-testid={ `${index}-card-name` }
+      <div>
+        <Header />
+        {filteredIngrCards.map((drink, index) => (
+          <Link
+            key={ index }
+            to={ `/bebidas/${drink.idDrink}` }
+          >
+            <Card
+              key={ index }
+              style={ { width: '18rem' } }
+              data-testid={ `${index}-recipe-card` }
             >
-              { drink.strDrink }
-            </Card.Title>
-          </Card.Body>
-        </Card>
-      ))
+              <Card.Img
+                variant="top"
+                src={ drink.strDrinkThumb }
+                data-testid={ `${index}-card-img` }
+              />
+              <Card.Body>
+                <Card.Title
+                  data-testid={ `${index}-card-name` }
+                >
+                  { drink.strDrink }
+                </Card.Title>
+              </Card.Body>
+            </Card>
+          </Link>
+        ))}
+        <Footer />
+      </div>
     );
   }
 

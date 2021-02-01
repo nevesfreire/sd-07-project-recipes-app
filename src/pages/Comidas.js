@@ -7,11 +7,12 @@ import RecipesContext from '../context/RecipesContext';
 
 export default function Comidas() {
   const [categories, setCategories] = useState([]);
+  const [filteredIngrCards, setFilteredIngrCards] = useState([]);
 
   const {
     cards,
     setCards,
-    filteredIngrCards,
+    endpoint,
   } = useContext(RecipesContext);
 
   const getCards = async () => {
@@ -52,16 +53,25 @@ export default function Comidas() {
   useEffect(() => {
     getCategories();
     getCards();
-  }, [getCategories]);
+  }, []);
 
   const zero = 0;
+  const doze = 12;
+
+  useEffect(() => {
+    const getFilteredIngrCards = async () => {
+      const { meals } = await fetch(endpoint).then((response) => response.json());
+      const twelveFilteredCards = meals.slice(zero, doze);
+      setFilteredIngrCards(twelveFilteredCards);
+    };
+    getFilteredIngrCards();
+  }, [endpoint]);
 
   if (filteredIngrCards.length > zero) {
     return (
       <div>
         <Header />
         {filteredIngrCards.map((meal, index) => (
-
           <Link
             key={ index }
             to={ `/comidas/${meal.idMeal}` }
@@ -85,7 +95,6 @@ export default function Comidas() {
               </Card.Body>
             </Card>
           </Link>
-
         ))}
         <Footer />
       </div>

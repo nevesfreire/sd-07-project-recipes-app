@@ -14,13 +14,12 @@ export default function MealSurpriseButton() {
 
   const history = useHistory();
 
-  const getMealSurprise = async () => {
-    setCards(await fetchMealSurprise());
-  };
-
   useEffect(() => {
+    const getMealSurprise = async () => {
+      setCards(await fetchMealSurprise());
+    };
     getMealSurprise();
-  }, [clickMealSurprise]);
+  }, [clickMealSurprise, setCards]);
 
   const handleExploreSurprise = () => {
     setCards([]);
