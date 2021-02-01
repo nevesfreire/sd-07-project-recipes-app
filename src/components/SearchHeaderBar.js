@@ -1,58 +1,12 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import {
-  getFoodFirstLetter,
-  getFoodIngredients,
-  getFoodName,
-  getDrinkFirstLetter,
-  getDrinkName,
-  getDrinkIngredients,
-} from '../services/Api';
 import RecipeContext from '../context/RecipeContext';
 
 function SearchHeaderBar() {
   const [valueInput, setValueInput] = useState();
   const [valueRadio, setValueRadio] = useState();
   const { location: { pathname }, push } = useHistory();
-  const { data, setData } = useContext(RecipeContext);
-
-  const getApi = async () => {
-    switch (valueRadio) {
-    case ('ingredient'):
-      return pathname === '/comidas'
-        ? setData({
-          ...data,
-          food: await getFoodIngredients(valueInput) })
-        : setData({
-          ...data,
-          drink: await getDrinkIngredients(valueInput) });
-
-    case ('name'):
-      return pathname === '/comidas'
-        ? setData({
-          ...data,
-          food: await getFoodName(valueInput) })
-        : setData({
-          ...data,
-          drink: await getDrinkName(valueInput) });
-
-    case ('firstLetter'):
-      if (valueInput.length > 1) {
-        return window.alert(
-          'Sua busca deve conter somente 1 (um) caracter',
-        );
-      }
-      return pathname === '/comidas'
-        ? setData({
-          ...data,
-          food: await getFoodFirstLetter(valueInput) })
-        : setData({
-          ...data,
-          drink: await getDrinkFirstLetter(valueInput) });
-    default:
-      break;
-    }
-  };
+  const { data, setData, getApi } = useContext(RecipeContext);
 
   if (data.drink === null || data.food === null) {
     return false;
@@ -115,7 +69,7 @@ function SearchHeaderBar() {
           <button
             data-testid="exec-search-btn"
             type="button"
-            onClick={ () => getApi() }
+            onClick={ () => getApi(valueRadio, pathname, valueInput) }
           >
             Buscar
           </button>
