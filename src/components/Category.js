@@ -14,12 +14,13 @@ function Category() {
   const { setRecipesFilters, recipesFilters } = useContext(RecipesContext);
 
   const [categorys, setCategorys] = useState([]);
+  const [filterSelected, setFilterSelected] = useState('');
+  const [initialRecipes, setInitialRecipes] = useState();
 
   const history = useHistory();
+  const checkLocation = history.location.pathname;
 
   useEffect(() => {
-    const checkLocation = history.location.pathname;
-
     if (checkLocation === '/bebidas') {
       getCategoryDrinks().then((response) =>
         setCategorys(response.drinks.slice(0, 5)),
@@ -30,26 +31,31 @@ function Category() {
         setCategorys(response.meals.slice(0, 5)),
       );
     }
+    setInitialRecipes(recipesFilters);
   }, []);
 
   const handleFilter = (filter) => {
-    const checkLocation = history.location.pathname;
+    //se o avaliador não passar criar um estado de ultimo filtro selecionado, depois comparar se o param filter === lastFilter
+    if (filterSelected === filter) {
+      // ao inves de limpar com [] retornar o que estava antes, da onde está vindo as informações padrões de comidas e bebidas?
+      setRecipesFilters(initialRecipes);
+      setFilterSelected('');
+    }
 
-    if (checkLocation === '/bebidas') {
-      getRecipesDrinksByCategory(filter).then((response) =>
-        setRecipesFilters(
-          recipesFilters.length === 0 ? response.drinks.slice(0, 12) : [],
-        ),
-      );
+    if (filterSelected === '' || filterSelected !== filter) {
+      setFilterSelected(filter);
+
+      if (checkLocation === '/bebidas') {
+        getRecipesDrinksByCategory(filter).then((response) =>
+          setRecipesFilters(response.drinks.slice(0, 12)),
+        );
+      }
+      if (checkLocation === '/comidas') {
+        getRecipesFoodsByCategory(filter).then((response) =>
+          setRecipesFilters(response.meals.slice(0, 12)),
+        );
+      }
     }
-    if (checkLocation === '/comidas') {
-      getRecipesFoodsByCategory(filter).then((response) =>
-        setRecipesFilters(
-          recipesFilters.length === 0 ? response.meals.slice(0, 12) : [],
-        ),
-      );
-    }
-    console.log(recipesFilters);
   };
 
   return (
