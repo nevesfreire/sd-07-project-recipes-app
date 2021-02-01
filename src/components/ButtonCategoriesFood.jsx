@@ -1,6 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react';
 import CoffeAndCodeContext from '../context/CoffeeAndCodeContext';
-import { requestApiFoodListCategories } from '../services/requestFood';
+import {
+  requestApiFoodListCategories,
+  requestApiFoodFilterName,
+  requestApiFoodFilterCategories,
+} from '../services/requestFood';
 
 function ButtonCategoriesFood() {
   const [categorySelectedPreviously, setCategorySelectedPreviously] = useState('All');
@@ -25,6 +29,18 @@ function ButtonCategoriesFood() {
     if (!categoriesButtonFood.length) getCategoriesFoodArray();
   }, []);
 
+  const selectedCategory = async (category) => {
+    if (category === categorySelectedPreviously || category === 'All') {
+      const allRecipes = await requestApiFoodFilterName();
+      setCardFood(allRecipes);
+      setCategorySelectedPreviously('All');
+    } else {
+      const filteredRecipes = await requestApiFoodFilterCategories(category);
+      setCardFood(filteredRecipes);
+      setCategorySelectedPreviously(category);
+    }
+  };
+
   if (!categoriesButtonFood.length) return <span>Loading...</span>;
 
   return (
@@ -39,8 +55,7 @@ function ButtonCategoriesFood() {
           >
             { category }
           </button>
-        )
-        )
+        ))
       }
     </div>
   );

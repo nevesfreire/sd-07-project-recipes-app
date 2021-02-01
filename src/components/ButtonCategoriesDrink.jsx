@@ -1,6 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react';
 import CoffeAndCodeContext from '../context/CoffeeAndCodeContext';
-import { requestApiDrinkListCategories } from '../services/requestDrink';
+import {
+  requestApiDrinkListCategories,
+  requestApiDrinkFilterName,
+  requestApiDrinkFilterCategories,
+} from '../services/requestDrink';
 
 function ButtonCategoriesDrink() {
   const [categorySelectedPreviously, setCategorySelectedPreviously] = useState('All');
@@ -25,6 +29,18 @@ function ButtonCategoriesDrink() {
     if (!categoriesButtonDrink.length) getCategoriesDrinkArray();
   }, []);
 
+  const selectedCategory = async (category) => {
+    if (category === categorySelectedPreviously || category === 'All') {
+      const allRecipes = await requestApiDrinkFilterName();
+      setCardDrink(allRecipes);
+      setCategorySelectedPreviously('All');
+    } else {
+      const filteredRecipes = await requestApiDrinkFilterCategories(category);
+      setCardDrink(filteredRecipes);
+      setCategorySelectedPreviously(category);
+    }
+  };
+
   if (!categoriesButtonDrink.length) return <span>Loading...</span>;
 
   return (
@@ -35,11 +51,11 @@ function ButtonCategoriesDrink() {
             data-testid={ `${category}-category-filter` }
             type="button"
             key={ category }
+            onClick={ () => selectedCategory(category) }
           >
             { category }
           </button>
-        )
-        )
+        ))
       }
     </div>
   );
