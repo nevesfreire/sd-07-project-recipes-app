@@ -5,6 +5,8 @@ const getCategories = async () => {
 };
 
 const searchByIngredient = async (ingredient) => {
+  console.log('searchByingredinet');
+  console.log(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`);
   const path = window.location.pathname;
   let url = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
   if (path === '/bebidas') url = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
@@ -94,4 +96,83 @@ const searchGeneral = async ({ text, option }) => {
   return data;
 };
 
-export { getCategories, searchGeneral, mealById, mealRecomendations, drinkById, drinkRecomendations };
+const getMeals = async () => {
+  const endPoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  let response = {};
+  try {
+    response = await fetch(endPoint);
+    return response.json();
+  } catch (error) {
+    return error.response;
+  }
+};
+
+const getDrinks = async () => {
+  const endPoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+  let response = {};
+  try {
+    response = await fetch(endPoint);
+    return response.json();
+  } catch (error) {
+    return error.response;
+  }
+};
+
+const getMealsCategories = async () => {
+  const endPoint = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+  let response = {};
+  try {
+    response = await fetch(endPoint);
+    return response.json();
+  } catch (error) {
+    return error.response;
+  }
+};
+
+const getDrinksCategories = async () => {
+  const endPoint = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+  let response = {};
+  try {
+    response = await fetch(endPoint);
+    return response.json();
+  } catch (error) {
+    return error.response;
+  }
+};
+
+const getMealsByCategories = async (category) => {
+  const endPoint = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
+  let response = {};
+  try {
+    response = await fetch(endPoint);
+    return response.json();
+  } catch (error) {
+    return error.response;
+  }
+};
+
+const getDrinksByCategories = async (category) => {
+  const endPoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
+  let response = {};
+  try {
+    response = await fetch(endPoint);
+    return response.json();
+  } catch (error) {
+    return error.response;
+  }
+};
+
+export {
+  getCategories,
+  searchGeneral,
+  getMeals,
+  getDrinks,
+  getMealsCategories,
+  getDrinksCategories,
+  getMealsByCategories,
+  getDrinksByCategories,
+  mealById,
+  mealRecomendations,
+  drinkById,
+  drinkRecomendations,
+};
