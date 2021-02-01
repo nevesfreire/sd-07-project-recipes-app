@@ -82,56 +82,76 @@ class Header extends Component {
     return (
       <div>
         <header className="header-food-container">
-          <img
-            src={ profileIcon }
-            alt="profileIcon"
+          <button
+            type="button"
             data-testid="profile-top-btn"
             onClick={ () => history.push('/perfil') }
-          />
+          >
+            <img
+              src={ profileIcon }
+              alt="profileIcon"
+            />
+          </button>
           <h1 data-testid="page-title">{title}</h1>
-          <img
-            src={ searchIcon }
-            alt="searchIcon"
+          <button
+            type="button"
             data-testid="search-top-btn"
             onClick={ this.changeDisplayInput }
-          />
+          >
+            <img
+              src={ searchIcon }
+              alt="searchIcon"
+            />
+          </button>
         </header>
         {showInputSearch && (
           <section>
             <div className="filter-radio-buttons-container">
-              <label htmlFor="ingredient">
-                <input
-                  type="radio"
-                  id="ingredient"
-                  name="filterRadioButton"
-                  value="ingredient"
-                  data-testid="ingredient-search-radio"
-                  onClick={ this.handleChange }
-                />
-                Ingrediente
-              </label>
-              <label htmlFor="foodName">
-                <input
-                  type="radio"
-                  id="foodName"
-                  name="filterRadioButton"
-                  value="foodName"
-                  data-testid="name-search-radio"
-                  onClick={ this.handleChange }
-                />
-                Nome
-              </label>
-              <label htmlFor="firstLetterName">
-                <input
-                  type="radio"
-                  id="firstLetterName"
-                  name="filterRadioButton"
-                  value="firstLetterName"
-                  data-testid="first-letter-search-radio"
-                  onClick={ this.handleChange }
-                />
-                Primeira letra
-              </label>
+              <button
+                type="button"
+                data-testid="ingredient-search-radio"
+                onClick={ this.handleChange }
+              >
+                <label htmlFor="ingredient">
+                  <input
+                    type="radio"
+                    id="ingredient"
+                    name="filterRadioButton"
+                    value="ingredient"
+                  />
+                  Ingrediente
+                </label>
+              </button>
+              <button
+                type="button"
+                data-testid="name-search-radio"
+                onClick={ this.handleChange }
+              >
+                <label htmlFor="foodName">
+                  <input
+                    type="radio"
+                    id="foodName"
+                    name="filterRadioButton"
+                    value="foodName"
+                  />
+                  Nome
+                </label>
+              </button>
+              <button
+                type="button"
+                data-testid="first-letter-search-radio"
+                onClick={ this.handleChange }
+              >
+                <label htmlFor="firstLetterName">
+                  <input
+                    type="radio"
+                    id="firstLetterName"
+                    name="filterRadioButton"
+                    value="firstLetterName"
+                  />
+                  Primeira letra
+                </label>
+              </button>
               <button
                 type="button"
                 data-testid="exec-search-btn"

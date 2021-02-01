@@ -10,7 +10,7 @@ import '../css/recipe.css';
 class MealRecipes extends Component {
   componentDidMount() {
     const { requestRecipes, requestCategories, endPoint } = this.props;
-    requestCategories("https://www.themealdb.com/api/json/v1/1/list.php?c=list");
+    requestCategories('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
     requestRecipes(endPoint);
   }
 
@@ -31,6 +31,7 @@ class MealRecipes extends Component {
               >
                 <Link
                   to={ `/comidas/${meal.idMeal}` }
+                  className="link-categories"
                 >
                   <img
                     src={ meal.strMealThumb }
@@ -69,4 +70,8 @@ MealRecipes.propTypes = {
   getRecipes: PropTypes.shape({
     meals: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
+  getCategories: PropTypes.shape({
+    meals: PropTypes.arrayOf(PropTypes.object),
+  }).isRequired,
+  requestCategories: PropTypes.func.isRequired,
 };

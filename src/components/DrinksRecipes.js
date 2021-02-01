@@ -34,6 +34,7 @@ class DrinksRecipes extends Component {
               >
                 <Link
                   to={ `/bebidas/${drink.idDrink}` }
+                  className="link-categories"
                 >
                   <img
                     src={ drink.strDrinkThumb }
@@ -72,4 +73,8 @@ DrinksRecipes.propTypes = {
   getRecipes: PropTypes.shape({
     drinks: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
+  getCategories: PropTypes.shape({
+    drinks: PropTypes.arrayOf(PropTypes.object),
+  }).isRequired,
+  requestCategories: PropTypes.func.isRequired,
 };

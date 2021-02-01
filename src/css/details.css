@@ -42,9 +42,8 @@ body {
   text-align: start;
 }
 
-.images-container img {
+.images-container button {
   cursor: pointer;
-  filter: invert(100%);
   margin: 0 10px;
 }
 

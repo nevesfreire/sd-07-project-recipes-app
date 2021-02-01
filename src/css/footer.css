@@ -11,6 +11,9 @@
   width: 100%;
 }
 
-.footer-container img {
+.footer-container button {
+  background: rgb(242, 103, 62);
+  border: none;
   cursor: pointer;
+  padding: 3px;
 }

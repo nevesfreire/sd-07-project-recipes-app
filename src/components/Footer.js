@@ -10,23 +10,36 @@ class Footer extends Component {
     const { history } = this.props;
     return (
       <footer className="footer-container" data-testid="footer">
-        <img
-          src={ drinkIcon }
-          alt="drinkIcon"
+        <button
+          type="button"
           data-testid="drinks-bottom-btn"
           onClick={ () => history.push('/bebidas') }
-        />
-        <img
-          src={ exploreIcon }
-          alt="exploreIcon"
+        >
+          <img
+            src={ drinkIcon }
+            alt="drinkIcon"
+          />
+        </button>
+        <button
+          type="button"
           data-testid="explore-bottom-btn"
           onClick={ () => history.push('/explorar') }
-        />
-        <img
-          src={ mealIcon }
-          alt="mealIcon" data-testid="food-bottom-btn"
+        >
+          <img
+            src={ exploreIcon }
+            alt="exploreIcon"
+          />
+        </button>
+        <button
+          type="button"
+          data-testid="food-bottom-btn"
           onClick={ () => history.push('/comidas') }
-        />
+        >
+          <img
+            src={ mealIcon }
+            alt="mealIcon"
+          />
+        </button>
       </footer>
     );
   }

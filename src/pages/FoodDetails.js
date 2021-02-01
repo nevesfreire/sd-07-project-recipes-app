@@ -71,16 +71,24 @@ class FoodDetails extends Component {
           <div className="title-subcontainer">
             <h1 data-testid="recipe-title">{strMeal }</h1>
             <div className="images-container">
-              <img
-                src={ shareIcon }
-                alt="shareIcon"
+              <button
+                type="button"
                 data-testid="share-btn"
-              />
-              <img
-                src={ whiteHeartIcon }
-                alt="whiteHeartIcon"
+              >
+                <img
+                  src={ shareIcon }
+                  alt="shareIcon"
+                />
+              </button>
+              <button
+                type="button"
                 data-testid="favorite-btn"
-              />
+              >
+                <img
+                  src={ whiteHeartIcon }
+                  alt="whiteHeartIcon"
+                />
+              </button>
             </div>
           </div>
           <h3 data-testid="recipe-category">{strCategory}</h3>

@@ -1,5 +1,5 @@
 .header-food-container {
-  align-items: baseline;
+  align-items: center;
   background: rgb(242, 103, 62);
   display: flex;
   flex-flow: row nowrap;
@@ -8,16 +8,15 @@
   width: 100%;
 }
 
-.header-food-container img {
+.header-food-container button {
+  background: rgb(242, 103, 62);
+  border: none;
   cursor: pointer;
+  padding: 3px;
 }
 
 .filter-radio-buttons-container {
   padding: 20px;
-}
-
-.filter-radio-buttons-container label {
-  margin: 0 10px;
 }
 
 .filter-radio-buttons-container button {
@@ -25,14 +24,15 @@
   border-radius: 10px;
   color: white;
   font-weight: 700;
+  margin: 5px;
   padding: 10px;
 }
 
 .search-food-container {
   display: flex;
   justify-content: center;
-  width: 100%;
   padding: 10px;
+  width: 100%;
 }
 
 .search-food-input {
@@ -43,11 +43,11 @@
 
 .category-button-container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
   gap: 5px;
-  width: 90%;
+  grid-template-columns: 1fr 1fr 1fr;
   margin: 20px auto;
   text-align: center;
+  width: 90%;
 }
 
 .category-button-container button {
@@ -61,9 +61,9 @@
 .main-recipes-categories {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  width: 100%;
-  padding-bottom: 50px;
   margin: auto;
+  padding-bottom: 70px;
+  width: 100%;
 }
 
 .recipes-categories {
@@ -80,13 +80,13 @@
   width: 40vw;
 }
 
-.recipes-categories img {
-  width: 100%;
+.link-categories img {
   border-radius: 20px 20px 0 0;
+  width: 100%;
 }
 
-.recipes-categories h1 {
-  width: 100%;
+.link-categories h1 {
   color: black;
   font-size: 2rem;
+  width: 100%;
 }
