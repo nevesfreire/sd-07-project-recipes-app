@@ -34,6 +34,8 @@ function ComidasID({
 
   const nine = 9;
   const twoOne = 21;
+  const size = 2;
+  const multiplyer = 1.777777777778;
 
   let detailed;
   let suggestions;
@@ -93,8 +95,8 @@ function ComidasID({
         {video && (
           <ReactPlayer
             className="video"
-            height={ `${winSize / 2}px` }
-            width={ `${(winSize / 2) * 1.777777777778}px` }
+            height={ `${winSize / size}px` }
+            width={ `${(winSize / size) * multiplyer}px` }
             data-testid="video"
             url={ detailed[0].strYoutube }
           />

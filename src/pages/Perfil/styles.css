@@ -1,19 +1,17 @@
-.perfil{
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 46px;
+.perfil {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 46px;
 }
 
-.perfil .form-button{
-    text-decoration: none;
-    padding: 16px 22px;
-    font-size: 20px;
+.perfil .form-button {
+  font-size: 20px;
+  padding: 16px 22px;
+  text-decoration: none;
 }
 
-
-
-.h3-email{
-    font-size: 24px;
+.h3-email {
+  font-size: 24px;
 }

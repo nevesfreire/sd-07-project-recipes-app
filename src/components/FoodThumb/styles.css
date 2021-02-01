@@ -1,22 +1,22 @@
-.thumb-title-wrapper{
-    display: flex;
-    justify-content: space-between; 
-    align-items: center;
-    margin-bottom: 7vh;  
+.thumb-title-wrapper {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 7vh;
 }
 
-.thumb-icons{
-    display: flex;
-    justify-content: space-between;
-    margin-left: 12px;
+.thumb-icons {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 12px;
 }
 
-.f-icon{
-    margin-right: 12px;
+.f-icon {
+  margin-right: 12px;
 }
 
-.recipe-thumbnail{
-    width: 100vw;
-    height: 28vh;
-    object-fit: cover;
+.recipe-thumbnail {
+  height: 28vh;
+  object-fit: cover;
+  width: 100vw;
 }

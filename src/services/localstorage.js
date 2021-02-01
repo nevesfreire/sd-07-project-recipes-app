@@ -9,7 +9,9 @@ export function doesFavoriteExists(id) {
   if (localStorage.getItem('favoriteRecipes') === null) {
     localStorage.setItem('favoriteRecipes', JSON.stringify([]));
   }
-  const resp = JSON.parse(localStorage.getItem('favoriteRecipes')).find((foodID) => id === foodID.id) !== undefined;
+  const resp = JSON.parse(localStorage.getItem('favoriteRecipes')).find(
+    (foodID) => id === foodID.id,
+  ) !== undefined;
   console.log(resp);
   return resp;
 }

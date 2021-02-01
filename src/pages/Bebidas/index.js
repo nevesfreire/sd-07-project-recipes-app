@@ -23,7 +23,13 @@ function Bebidas(props) {
     const MAX_RETURN = 12;
     const { drinks } = props;
     const { cocktails, isFetching } = drinks;
-    if (isFetching) return <div className="container-drinks"><div className="loader" /></div>;
+    if (isFetching) {
+      return (
+        <div className="container-drinks">
+          <div className="loader" />
+        </div>
+      );
+    }
     if (cocktails === undefined) {
       return <p>wtf</p>;
     }

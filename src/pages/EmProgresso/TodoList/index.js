@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default function TodoList({ ingredients, setisEnded }) {
   console.log(ingredients);
@@ -9,7 +10,8 @@ export default function TodoList({ ingredients, setisEnded }) {
     checkStatus[e.target.id] = !checkStatus[e.target.id];
     console.log(checkStatus);
     const a = checkStatus.filter((ingredient) => !ingredient);
-    if (a.length === 0) {
+    const ZERO = 0;
+    if (a.length === ZERO) {
       return setisEnded(true);
     }
     return setisEnded(false);
@@ -28,3 +30,8 @@ export default function TodoList({ ingredients, setisEnded }) {
     </div>
   );
 }
+
+TodoList.propTypes = {
+  ingredients: PropTypes.string.isRequired,
+  setisEnded: PropTypes.func.isRequired,
+};

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory, useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { useHistory, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import FoodThumb from '../../components/FoodThumb';
 import TodoList from './TodoList';
@@ -21,7 +22,7 @@ function EmProgesso({
   fetchDrinkID,
   fetchMeals,
 }) {
-  const {id} = useParams();
+  const { id } = useParams();
   const history = useHistory();
 
   let route = 'bebidas';
@@ -54,6 +55,7 @@ function EmProgesso({
     return false;
   });
   console.log('ing', ingredients);
+
   return (
     <div>
       emprogresso
@@ -72,6 +74,15 @@ function EmProgesso({
     </div>
   );
 }
+
+EmProgesso.propTypes = {
+  meals: PropTypes.string.isRequired,
+  drinks: PropTypes.string.isRequired,
+  fetchFoodId: PropTypes.func.isRequired,
+  fetchCocktails: PropTypes.func.isRequired,
+  fetchDrinkID: PropTypes.func.isRequired,
+  fetchMeals: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = (state) => ({
   meals: state.foodMeals.meals,

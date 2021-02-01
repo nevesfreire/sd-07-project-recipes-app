@@ -23,7 +23,13 @@ function Comidas(props) {
     const MAX_RETURN = 12;
     const { foods } = props;
     const { meals, isFetching } = foods;
-    if (isFetching) return <div className="container-drinks"><div className="loader" /></div>;
+    if (isFetching) {
+      return (
+        <div className="container-drinks">
+          <div className="loader" />
+        </div>
+      );
+    }
     if (meals === null) {
       return alert(
         'Sinto muito, não encontramos nenhuma receita para esses filtros.',
@@ -47,7 +53,9 @@ function Comidas(props) {
               src={ item.strMealThumb }
               alt={ item.strMeal }
             />
-            <div data-testid={ `${index}-card-name` } className="df-name">{item.strMeal}</div>
+            <div data-testid={ `${index}-card-name` } className="df-name">
+              {item.strMeal}
+            </div>
           </Link>
         ))}
       </div>

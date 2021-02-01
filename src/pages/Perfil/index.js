@@ -13,11 +13,21 @@ export default function Perfil() {
     <div>
       <Header title="Perfil" />
       <div className="perfil">
-        <h3 className="h3-email" data-testid="profile-email">{user !== null ? user.email : 'email'}</h3>
-        <Link to="/receitas-feitas" data-testid="profile-done-btn" className="form-button">
+        <h3 className="h3-email" data-testid="profile-email">
+          {user !== null ? user.email : 'email'}
+        </h3>
+        <Link
+          to="/receitas-feitas"
+          data-testid="profile-done-btn"
+          className="form-button"
+        >
           Receitas Feitas
         </Link>
-        <Link to="/receitas-favoritas" data-testid="profile-favorite-btn" className="form-button">
+        <Link
+          to="/receitas-favoritas"
+          data-testid="profile-favorite-btn"
+          className="form-button"
+        >
           Receitas Favoritas
         </Link>
         <Link
