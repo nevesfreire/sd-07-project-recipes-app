@@ -18,7 +18,7 @@ class Bebidas extends React.Component {
             return (
               <div data-testid={ `${index}-recipe-card` } key={ drink.idDrink }>
                 <img
-                  src={ drink.stDrinkThumb }
+                  src={ drink.strDrinkThumb }
                   alt="recipe pic"
                   data-testid={ `${index}-card-img` }
                 />
