@@ -5,7 +5,6 @@ import Foods from './pages/Foods';
 import Profile from './pages/Profile';
 import Login from './pages/login';
 import RecipesDone from './pages/RecipesDone';
-import Favourites from './pages/Favourites';
 import FoodDetail from './pages/FoodDetail';
 import DrinkDetail from './pages/DrinkDetail';
 import Favorites from './pages/Favorites';
