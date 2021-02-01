@@ -32,6 +32,14 @@
   position: fixed;
 }
 
+.recommendations-card {
+  min-width: 500px;
+}
+
+.hidden-item {
+  display: none;
+}
+
 .rocksGlass {
   animation: shake 1s infinite ease;
   max-height: 80vh;

@@ -41,7 +41,7 @@ class Bebidas extends React.Component {
     const { toggle, history, toggleDrink, resultDrink, resultApiByName } = this.props;
     return (
       <div>
-        <Header title="Bebidas" />
+        <Header title="Bebidas" history={ history } />
         {toggle && <BarraBuscaBebidas history={ history } />}
         {toggleDrink ? this.showCards(resultApiByName) : this.showCards(resultDrink)}
         <Footer />
