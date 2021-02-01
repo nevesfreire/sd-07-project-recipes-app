@@ -115,6 +115,14 @@ export function addDoneRecipe(recipe) {
     };
   }
 
+  const two = 2;
+  const today = new Date();
+  const day = String(today.getDate()).padStart(two, '0');
+  const month = String(today.getMonth() + 1).padStart(two, '0');
+  const year = today.getFullYear();
+  const date = `${day}/${month}/${year}`;
+  obj.doneDate = date;
+
   if (recipe.strTags) obj.tags = recipe.strTags.split(',');
   else obj.tags = [];
 
