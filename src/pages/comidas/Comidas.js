@@ -38,11 +38,46 @@ class Comidas extends Component {
   }
 
   render() {
-    const { toggle, history, toggleFood, resultApiByName, resultFood } = this.props;
+    const {
+      toggle,
+      history,
+      toggleFood,
+      resultApiByName,
+      resultFood } = this.props;
     return (
       <div>
         <Header title="Comidas" history={ history } />
         {toggle && <BarraBuscaComidas history={ history } />}
+        <button
+          type="button"
+          data-testid="Beef-category-filter"
+        >
+          Beef
+        </button>
+        <button
+          type="button"
+          data-testid="Breakfast-category-filter"
+        >
+          Breakfast
+        </button>
+        <button
+          type="button"
+          data-testid="Chicken-category-filter"
+        >
+          Chicken
+        </button>
+        <button
+          type="button"
+          data-testid="Dessert-category-filter"
+        >
+          Dessert
+        </button>
+        <button
+          type="button"
+          data-testid="Goat-category-filter"
+        >
+          Goat
+        </button>
         {toggleFood ? this.showCards(resultApiByName) : this.showCards(resultFood)}
         <Footer />
       </div>
