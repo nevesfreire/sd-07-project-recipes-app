@@ -1,13 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Header from '../components/Header';
-import FlexContainer from '../components/FlexContainer';
-import ButtonSmall from '../components/ButtonSmall';
-import CardDoneRecipe from '../components/CardDoneRecipe';
-import TopText from '../components/TopText';
-import RecipeName from '../components/RecipeName';
 import ShareDoneRecipe from '../components/ShareDoneRecipe';
-import Tag from '../components/Tag';
 import allActions from '../actions';
 
 function DoneRecipes() {
@@ -20,56 +14,65 @@ function DoneRecipes() {
   return (
     <div>
       <Header />
-      <FlexContainer>
-        <ButtonSmall
+      <div className="flex-container">
+        <button
+          type="button"
+          className="btn-small"
           data-testid="filter-by-all-btn"
         >
           All
-        </ButtonSmall>
-        <ButtonSmall
+        </button>
+        <button
+          type="button"
+          className="btn-small"
           data-testid="filter-by-food-btn"
         >
           Food
-        </ButtonSmall>
-        <ButtonSmall
+        </button>
+        <button
+          type="button"
+          className="btn-small"
           data-testid="filter-by-drink-btn"
         >
           Drinks
-        </ButtonSmall>
-      </FlexContainer>
-      <FlexContainer>
+        </button>
+      </div>
+      <div className="flex-container">
         {something.map((recipe, index) => (
-          <CardDoneRecipe key={ index } id="card">
+          <div className="card-recipe__done" key={ index }>
             <img src="" alt="" data-testid={ `${index}-horizontal-image` } />
-            <FlexContainer id="card-text">
-              <TopText
+            <div className="flex-container card-recipe__info-text">
+              <h4
+                className="card-recipe__top-text"
                 data-testid={ `${index}-horizontal-top-text` }
               >
                 {recipe.type}
-              </TopText>
-              <RecipeName
+              </h4>
+              <h2
+                className="card-recipe__title-text"
                 data-testid={ `${index}-horizontal-name` }
               >
                 {recipe.name}
-              </RecipeName>
+              </h2>
               <p data-testid={ `${index}-horizontal-done-date` }>
                 {`Feita em: ${recipe.date}`}
               </p>
               <ShareDoneRecipe data-testid={ `${index}-horizontal-share-btn` } />
-              <FlexContainer id="card-text__tags">
+              <div className="card-recipe__tags">
                 {recipe.tags.map((tagName, i) => (
-                  <Tag
+                  <button
+                    type="button"
                     data-testid={ `data-testid=${i}-${tagName}-horizontal-tag` }
                     key={ i }
                   >
                     {tagName}
-                  </Tag>
+                  </button>
                 ))}
-              </FlexContainer>
-            </FlexContainer>
-          </CardDoneRecipe>
+              </div>
+            </div>
+          </div>
         ))}
-      </FlexContainer>
+      </div>
     </div>
   );
 }
