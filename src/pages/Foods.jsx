@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
-
+import React, { useState, useEffect, useContext } from 'react';
 import {
   fetchAPIFood,
   fetchAPICategoriesFood,
   fetchAPICategoriesFoodFilter,
 } from '../services/api';
+
 import Footer from '../components/Footer';
+import RecipesContext from '../context/RecipesContext';
 
 function Foods() {
+  const { foodsOrDrinksList } = useContext(RecipesContext);
   const [apiCategoriesFood, setApiCategoriesFood] = useState([]);
   const [filterByCategory, setFilterByCategory] = useState([]);
 
@@ -23,6 +25,10 @@ function Foods() {
     getApiFood();
     getApiCategoriesFood();
   }, []);
+
+  useEffect(() => {
+    setFilterByCategory(foodsOrDrinksList);
+  }, [foodsOrDrinksList]);
 
   const handleClick = async ({ target: { name } }) => {
     const filterCategory = (await fetchAPICategoriesFoodFilter(name));
@@ -54,29 +60,33 @@ function Foods() {
         ) : []}
       </div>
       <div className="row" style={ { width: '23.4rem' } }>
-        {filterByCategory.map((item, index) => (
-          <div
-            data-testid={ `${index}-recipe-card` }
-            key={ item.strMeal }
-            className="card col-6"
-            style={ { width: '8rem' } }
-          >
-            <img
-              data-testid={ `${index}-card-img` }
-              className="card-img-top"
-              src={ item.strMealThumb }
-              alt="Imagem de capa do card"
-            />
-            <div className="card-body">
-              <p
-                data-testid={ `${index}-card-name` }
-                className="card-text"
-              >
-                { item.strMeal }
-              </p>
+        {filterByCategory !== undefined ? (
+          filterByCategory.map((item, index) => (
+            <div
+              data-testid={ `${index}-recipe-card` }
+              key={ item.strMeal }
+              className="card col-6"
+              style={ { width: '8rem' } }
+            >
+              <img
+                data-testid={ `${index}-card-img` }
+                className="card-img-top"
+                src={ item.strMealThumb }
+                alt="Imagem de capa do card"
+              />
+              <div className="card-body">
+                <p
+                  data-testid={ `${index}-card-name` }
+                  className="card-text"
+                >
+                  { item.strMeal }
+                </p>
+              </div>
             </div>
-          </div>
-        )).slice(zero, maxMeals)}
+          )).slice(zero, maxMeals)
+        ) : (
+          []
+        )}
       </div>
       <Footer />
     </div>

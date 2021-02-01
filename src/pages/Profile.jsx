@@ -14,7 +14,7 @@ function Profile() {
   };
 
   const profileElements = () => {
-    let { email } = JSON.parse(localStorage.getItem('user'));
+    let email = JSON.parse(localStorage.getItem('user'));
     if (email === undefined) email = 'E-mail não informado!';
 
     return (
