@@ -43,6 +43,36 @@ class Bebidas extends React.Component {
       <div>
         <Header title="Bebidas" history={ history } />
         {toggle && <BarraBuscaBebidas history={ history } />}
+        <button
+          type="button"
+          data-testid="Ordinary Drink-category-filter"
+        >
+          Ordinary Drink
+        </button>
+        <button
+          type="button"
+          data-testid="Cocktail-category-filter"
+        >
+          Cocktail
+        </button>
+        <button
+          type="button"
+          data-testid="Milk / Float / Shake-category-filter"
+        >
+          Milk / Float / Shake
+        </button>
+        <button
+          type="button"
+          data-testid="Other/Unknown-category-filter"
+        >
+          Other/Unknown
+        </button>
+        <button
+          type="button"
+          data-testid="Cocoa-category-filter"
+        >
+          Cocoa
+        </button>
         {toggleDrink ? this.showCards(resultApiByName) : this.showCards(resultDrink)}
         <Footer />
       </div>

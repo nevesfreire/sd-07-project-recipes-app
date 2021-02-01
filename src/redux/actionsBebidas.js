@@ -88,3 +88,21 @@ export const resultRandomDrink = () => async (dispatch) => {
   const recipe = await fetchRandomDrink();
   dispatch(getRandomDrink(recipe.drinks));
 };
+// -------------------------------- CATEGORY -----------------------------
+export const GET_CATEGORY_DRINK = 'GET_CATEGORY_DRINK';
+
+export const getCategoryDrink = (recipesByCategoryDrink) => ({
+  type: GET_CATEGORY_DRINK,
+  recipesByCategoryDrink,
+});
+
+async function fetchCategoryDrink() {
+  const responseAPI = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
+  const recipesByCategory = await responseAPI.json();
+  return recipesByCategory;
+}
+
+export const resultCategoryDrink = () => async (dispatch) => {
+  const recipe = await fetchCategoryDrink();
+  dispatch(getCategoryDrink(recipe.drinks));
+};
