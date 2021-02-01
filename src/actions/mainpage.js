@@ -20,6 +20,23 @@ export const drinkCategoriesRequest = (categories) => ({
 export const REQUEST_FAIL = 'REQUEST_FAIL';
 export const requestFail = (error) => ({ type: REQUEST_FAIL, error });
 
+export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
+export const getIngredientsSuccess = (ingredients) => (
+  { type: GET_INGREDIENTS_SUCCESS, ingredients });
+
+export const SAVE_INGREDIENT = 'SAVE_INGREDIENT';
+export const saveIngredient = (ingredient) => ({
+  type: SAVE_INGREDIENT, ingredient,
+});
+
+export const GET_MEALS_BY_INGREDIENT = 'GET_MEALS_BY_INGREDIENT';
+export const getMealsByIngSuccess = (meals) => (
+  { type: GET_MEALS_BY_INGREDIENT, meals });
+
+export const GET_DRINKS_BY_INGREDIENT = 'GET_DRINKS_BY_INGREDIENT';
+export const getDrinksByIngSuccess = (drinks) => (
+  { type: GET_DRINKS_BY_INGREDIENT, drinks });
+
 export function fetchCards(isMeal) {
   return async (dispatch) => {
     if (isMeal) {
@@ -46,5 +63,33 @@ export function fetchCards(isMeal) {
     } catch (error) {
       dispatch(requestFail(error));
     }
+  };
+}
+
+export function getIngredients(api, isMeal) {
+  return async (dispatch) => {
+    dispatch(requestStarted());
+    const ingredients = await api();
+    if (isMeal) {
+      dispatch(getIngredientsSuccess(ingredients.meals));
+    } else {
+      dispatch(getIngredientsSuccess(ingredients.drinks));
+    }
+  };
+}
+
+export function getMealsByIngredient(api, ingredient) {
+  return async (dispatch) => {
+    dispatch(requestStarted());
+    const meals = await api(ingredient);
+    dispatch(getMealsByIngSuccess(meals.meals));
+  };
+}
+
+export function getDrinksByIngredient(api, ingredient) {
+  return async (dispatch) => {
+    dispatch(requestStarted());
+    const drinks = await api(ingredient);
+    dispatch(getDrinksByIngSuccess(drinks.drinks));
   };
 }
