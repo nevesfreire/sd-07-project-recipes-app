@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchDetails } from '../actions';
+import { fetchDetails, fetchRecipes } from '../actions';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import Loading from '../components/Loading';
@@ -9,25 +10,46 @@ import '../css/foodDetails.css';
 class FoodDetails extends Component {
   constructor(props) {
     super(props);
+
+    this.handleState = this.handleState.bind(this);
+
     this.state = {
       meal: [],
-      hashYoutube: '',
       ingredients: [],
+      hashYoutube: '',
+      request: true,
     };
   }
 
   componentDidMount() {
-    const { match: { params: { id } }, mealsRecipes, requestRecomendations } = this.props;
+    const { requestRecipes, requestRecomendations } = this.props;
+    requestRecipes('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    requestRecomendations('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+  }
+
+  componentDidUpdate() {
+    const { mealsRecipes } = this.props;
+    const { request } = this.state;
+    // console.log(mealsRecipes);
+
+    if (mealsRecipes && request) {
+      this.handleState();
+    }
+  }
+
+  handleState() {
+    const { match: { params: { id } }, mealsRecipes } = this.props;
     const filterRecipe = mealsRecipes.find((recipe) => recipe.idMeal === id);
     const ingredients = Object.entries(filterRecipe)
       .filter((array) => array[0].includes('strIngredient') && array[1] !== '')
       .map((array2) => array2[1]);
+
     this.setState({
       meal: filterRecipe,
-      hashYoutube: filterRecipe.strYoutube.split('=')[1],
       ingredients,
-    },
-    () => requestRecomendations('https://www.thecocktaildb.com/api/json/v1/1/search.php?s='));
+      hashYoutube: filterRecipe.strYoutube.split('=')[1],
+      request: false,
+    });
   }
 
   render() {
@@ -35,20 +57,25 @@ class FoodDetails extends Component {
     const { meal, hashYoutube, ingredients } = this.state;
     const { strMealThumb, strMeal, strCategory, strInstructions } = meal;
     const DRINK_LENGTH = 6;
-    console.log(recomendations);
-    if (!recomendations.drinks) return <Loading />
+    // console.log(recomendations);
+    if (!recomendations) return <Loading />;
     return (
       <div className="main-container">
         <img
           src={ strMealThumb }
-          alt={ strMeal } data-testid="recipe-photo"
+          alt={ strMeal }
+          data-testid="recipe-photo"
           className="main-image"
         />
         <div className="title-container">
           <div className="title-subcontainer">
             <h1 data-testid="recipe-title">{strMeal }</h1>
             <div className="images-container">
-              <img src={ shareIcon } alt="shareIcon" data-testid="share-btn" />
+              <img
+                src={ shareIcon }
+                alt="shareIcon"
+                data-testid="share-btn"
+              />
               <img
                 src={ whiteHeartIcon }
                 alt="whiteHeartIcon"
@@ -69,7 +96,7 @@ class FoodDetails extends Component {
                 >
                   {ingredient}
                 </li>
-            ))}
+              ))}
           </ul>
         </div>
         <div className="instructions-container">
@@ -83,9 +110,9 @@ class FoodDetails extends Component {
             width="100%"
             height="315"
             src={ `https://www.youtube.com/embed/${hashYoutube}` }
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
+            // allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            // frameborder="0"
+            // allowfullscreen
             data-testid="video"
           />
         </div>
@@ -93,15 +120,19 @@ class FoodDetails extends Component {
           <h1>Recomendadas</h1>
           <div className="div-recomendations">
             {
-              recomendations.drinks
+              recomendations
                 .filter((_drink, index) => index < DRINK_LENGTH)
                 .map((drink, index) => (
-                  <div data-testid={ `${index}-recomendation-card` } className="div-recomendations-children">
-                    <img src={ drink.strDrinkThumb } alt={ drink.strDrink }/>
+                  <div
+                    key={ drink.strDrink }
+                    className="div-recomendations-children"
+                    data-testid={ `${index}-recomendation-card` }
+                  >
+                    <img src={ drink.strDrinkThumb } alt={ drink.strDrink } />
                     <h6 key={ drink.strCategory }>{ drink.strCategory }</h6>
                     <h4 key={ drink.strDrink }>{ drink.strDrink }</h4>
                   </div>
-              ))
+                ))
             }
           </div>
         </div>
@@ -119,11 +150,32 @@ class FoodDetails extends Component {
 
 const mapStateToProps = ({ recipesReducer, recomendationsReducer }) => ({
   mealsRecipes: recipesReducer.recipes.meals,
-  recomendations: recomendationsReducer.recomendations,
+  recomendations: recomendationsReducer.recomendations.drinks,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   requestRecomendations: (endpoint) => dispatch(fetchDetails(endpoint)),
+  requestRecipes: (endpoint) => dispatch(fetchRecipes(endpoint)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FoodDetails);
+
+FoodDetails.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+  recomendations: PropTypes.arrayOf(PropTypes.object),
+  mealsRecipes: PropTypes.arrayOf(PropTypes.object),
+  requestRecomendations: PropTypes.func.isRequired,
+  requestRecipes: PropTypes.func.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+};
+
+FoodDetails.defaultProps = {
+  recomendations: [],
+  mealsRecipes: [],
+};
