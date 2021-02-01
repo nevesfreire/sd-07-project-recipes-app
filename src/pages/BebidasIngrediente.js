@@ -1,63 +1,79 @@
-import React, { useContext, useEffect } from 'react';
-import { Card } from 'react-bootstrap';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
 import { fetchDrinksIngredients } from '../services/api';
 
-export default function BebidasIngrediente() {
+export default function BebibasIngrediente() {
+  const [ingrCards, setIngrCards] = useState([]);
+  const [endpoint, setEndpoint] = useState('');
+
   const {
     isFetching,
-    cards,
-    setCards,
     setIsFetching,
+    setCards,
+    filteredIngrCards,
+    setFilteredIngrCards,
   } = useContext(RecipesContext);
 
   const history = useHistory();
 
-  const getDrinksIngredients = async () => {
-    setCards(await fetchDrinksIngredients());
-    setIsFetching(false);
-  };
-
-  useEffect(() => {
-    getDrinksIngredients();
-  }, []);
-
-  console.log(cards);
   const zero = 0;
   const doze = 12;
 
-  const handleDrinkIngrCard = () => {
+  // Recebendo os cards de ingredientes
+
+  const getDrinksIngredients = useCallback(async () => {
+    const allCards = await fetchDrinksIngredients();
+    const twelveCards = allCards.slice(zero, doze);
+    setIngrCards(twelveCards);
+    setIsFetching(false);
+  }, [setIsFetching]);
+
+  useEffect(() => {
+    getDrinksIngredients();
+  }, [getDrinksIngredients]);
+
+  // Recebendo Cards do Ingrediente Escolhido
+
+  console.log(filteredIngrCards);
+
+  // Setando os cards com o ingrediente selecionado no estado global
+
+  const handleClick = async ({ target }) => {
+    setEndpoint(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${target.value}`);
+    const { drinks } = await fetch(endpoint).then((response) => response.json());
+    const twelveFilteredCards = drinks.slice(zero, doze);
+    setFilteredIngrCards(twelveFilteredCards);
+    setCards([]);
     history.push('/bebidas');
   };
 
+  console.log(endpoint);
+
   if (isFetching) return <h5>Carregando...</h5>;
   return (
+
     <div>
       <Header />
-      {!isFetching && cards.slice(zero, doze).map((drink, index) => (
-
-        <Card
+      {ingrCards.map((drink, index) => (
+        <button
+          type="button"
           key={ index }
-          style={ { width: '18rem' } }
           data-testid={ `${index}-ingredient-card` }
-          onClick={ handleDrinkIngrCard }
+          value={ drink.strIngredient1 }
+          onClick={ (e) => handleClick(e) }
         >
-          <Card.Img
-            variant="top"
-            src={ drink && `https://www.thecocktaildb.com/images/ingredients/${drink.strIngredient1}-Small.png` }
+          <img
             data-testid={ `${index}-card-img` }
+            src={ `https://www.thecocktaildb.com/images/ingredients/${drink.strIngredient1}-Small.png` }
+            alt="ingrediente"
+            value={ drink.strIngredient1 }
           />
-          <Card.Body>
-            <Card.Title
-              data-testid={ `${index}-card-name` }
-            >
-              { `${drink.strIngredient1}` }
-            </Card.Title>
-          </Card.Body>
-        </Card>
-
+          <h3 data-testid={ `${index}-card-name` }>
+            { drink.strIngredient1 }
+          </h3>
+        </button>
       ))}
     </div>
   );

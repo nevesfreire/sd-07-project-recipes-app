@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from '../../context/RecipesContext';
@@ -13,13 +13,12 @@ import {
 
 function SearchExecButton() {
   const {
+
     optionSearch,
     inputSearch,
     setIsFetching,
     setLoadResults,
     setCards,
-    clickExecSearch,
-    setClickExecSearch,
   } = useContext(RecipesContext);
 
   const history = useHistory();
@@ -57,12 +56,9 @@ function SearchExecButton() {
     setLoadResults(true);
   };
 
-  useEffect(() => {
-    getCards();
-  }, [clickExecSearch]);
-
-  const handleExecSearchButton = () => {
-    setClickExecSearch(clickExecSearch + 1);
+  const handleExecSearchButton = async () => {
+    setCards([]);
+    await getCards();
   };
 
   return (

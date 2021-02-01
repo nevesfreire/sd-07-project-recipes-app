@@ -1,81 +1,78 @@
-import React, { useContext, useEffect } from 'react';
-import { Card } from 'react-bootstrap';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+// import { Card } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
 import { fetchMealsIngredients } from '../services/api';
 
 export default function ComidasIngrediente() {
+  const [ingrCards, setIngrCards] = useState([]);
+  const [endpoint, setEndpoint] = useState('');
+
   const {
     isFetching,
     setIsFetching,
-    cards,
     setCards,
-    mealIngredient,
-    setMealIngredient,
-    chosenMealIngrEndpoint,
-    setChosenMealIngrEndpoint,
-    setSearchCards,
+    filteredIngrCards,
+    setFilteredIngrCards,
   } = useContext(RecipesContext);
 
   const history = useHistory();
 
-  useEffect(() => {
-    const getMealsIngredients = async () => {
-      setCards(await fetchMealsIngredients());
-      setIsFetching(false);
-    };
-    getMealsIngredients();
-  }, [setCards, setIsFetching]);
-
-  console.log(cards);
-
   const zero = 0;
   const doze = 12;
 
-  const handleClick = (e) => {
-    setCards([]);
-    setMealIngredient(e);
-    setChosenMealIngrEndpoint(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${mealIngredient}`);
-    history.push('/comidas');
-  };
+  // Recebendo os cards de ingredientes
+
+  const getMealsIngredients = useCallback(async () => {
+    const allCards = await fetchMealsIngredients();
+    const twelveCards = allCards.slice(zero, doze);
+    setIngrCards(twelveCards);
+    setIsFetching(false);
+  }, [setIsFetching]);
 
   useEffect(() => {
-    const getFetchChosenIngredient = async () => {
-      const { meals } = await fetch(
-        chosenMealIngrEndpoint,
-      ).then((response) => response.json());
-      setSearchCards(meals);
-      console.log(meals);
-    };
-    getFetchChosenIngredient();
-  }, [chosenMealIngrEndpoint, mealIngredient, setChosenMealIngrEndpoint, setSearchCards]);
+    getMealsIngredients();
+  }, [getMealsIngredients]);
+
+  console.log(ingrCards);
+
+  console.log(filteredIngrCards);
+
+  // Setando os cards com o ingrediente selecionado no estado global
+
+  const handleClick = async ({ target }) => {
+    setEndpoint(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${target.value}`);
+    const { meals } = await fetch(endpoint).then((response) => response.json());
+    const twelveFilteredCards = meals.slice(zero, doze);
+    setFilteredIngrCards(twelveFilteredCards);
+    setCards([]);
+    history.push('/comidas');
+  };
 
   if (isFetching) return <h5>Carregando...</h5>;
   return (
     <div>
       <Header />
-      {cards.slice(zero, doze).map((meal, index) => (
-        <Card
+      {ingrCards.map((meal, index) => (
+        <button
+          type="button"
           key={ index }
-          style={ { width: '18rem' } }
+          to="/comidas"
           data-testid={ `${index}-ingredient-card` }
-          value={ `${meal.strIngredient}` }
-          onClick={ (e) => handleClick(e.target.value) }
+          value={ meal.strIngredient }
+          onClick={ (e) => handleClick(e) }
         >
-          <Card.Img
-            variant="top"
-            src={ `https://www.themealdb.com/images/ingredients/${meal.strIngredient}-Small.png` }
+          <img
             data-testid={ `${index}-card-img` }
+            src={ `https://www.themealdb.com/images/ingredients/${meal.strIngredient}-Small.png` }
+            alt="ingrediente"
+            value={ meal.strIngredient }
           />
-          <Card.Body>
-            <Card.Title
-              data-testid={ `${index}-card-name` }
-            >
-              { `${meal.strIngredient}` }
-            </Card.Title>
-          </Card.Body>
-        </Card>
+          <h3 data-testid={ `${index}-card-name` }>
+            { meal.strIngredient }
+          </h3>
+        </button>
       ))}
     </div>
   );

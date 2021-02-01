@@ -16,6 +16,7 @@ import ComidasLocal from '../pages/ComidasLocal';
 import ReceitasFeitas from '../pages/ReceitasFeitas';
 import ReceitasFavoritas from '../pages/ReceitasFavoritas';
 import Perfil from '../pages/Perfil';
+import NotFound from '../pages/BebidasLocalNotFound';
 
 function Routes() {
   return (
@@ -44,6 +45,7 @@ function Routes() {
       <Route exact path="/perfil" component={ Perfil } />
       <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
       <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
+      <Route exact path="/explorar/bebidas/area" component={ NotFound } />
     </Switch>
   );
 }

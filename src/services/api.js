@@ -55,3 +55,20 @@ export const fetchDrinksIngredients = async () => {
   const { drinks } = await fetch(endpoint).then((response) => response.json());
   return drinks;
 };
+
+export const fetchExploreByArea = async (area) => {
+  const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`;
+  const { meals } = await fetch(endpoint).then((response) => response.json());
+  return meals;
+};
+export const fetchAreas = async () => {
+  const endpoint = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+  const { meals } = await fetch(endpoint).then((response) => response.json());
+  return meals;
+};
+
+export const fetchMeals = async () => {
+  const endpoint = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+  const { meals } = await fetch(endpoint).then((response) => response.json());
+  return meals;
+};

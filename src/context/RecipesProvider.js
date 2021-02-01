@@ -12,7 +12,7 @@ function Provider({ children }) {
   const [searching, setSearching] = useState(false);
   const [isFetching, setIsFetching] = useState(true);
   const [cards, setCards] = useState([]);
-  const [searchCards, setSearchCards] = useState([]);
+
   const [optionSearch, setOptionSearch] = useState('');
   const [inputSearch, setInputSearch] = useState('');
   const [loadResults, setLoadResults] = useState(false);
@@ -20,8 +20,7 @@ function Provider({ children }) {
   const [clickExecSearch, setClickExecSearch] = useState(zero);
   const [clickMealSurprise, setClickMealSurprise] = useState(zero);
   const [clickSearchIcon, setClickSearchIcon] = useState(zero);
-  const [mealIngredient, setMealIngredient] = useState('');
-  const [chosenMealIngrEndpoint, setChosenMealIngrEndpoint] = useState('');
+  const [filteredIngrCards, setFilteredIngrCards] = useState([]);
 
   return (
     <RecipesContext.Provider
@@ -55,12 +54,8 @@ function Provider({ children }) {
           setClickMealSurprise,
           clickSearchIcon,
           setClickSearchIcon,
-          mealIngredient,
-          setMealIngredient,
-          setChosenMealIngrEndpoint,
-          chosenMealIngrEndpoint,
-          searchCards,
-          setSearchCards }
+          filteredIngrCards,
+          setFilteredIngrCards }
       }
     >
       { children }
