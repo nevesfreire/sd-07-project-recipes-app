@@ -17,7 +17,7 @@ function ButtonCategoriesDrink() {
 
   const getCategoriesDrinkArray = async () => {
     const firstIndex = 0;
-    const lastIndex = 6;
+    const lastIndex = 5;
     const apiResult = await requestApiDrinkListCategories();
     const currentDrinkCategories = apiResult.slice(firstIndex, lastIndex)
       .map(({ strCategory }) => strCategory);

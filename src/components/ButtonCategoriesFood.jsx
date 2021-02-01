@@ -17,7 +17,7 @@ function ButtonCategoriesFood() {
 
   const getCategoriesFoodArray = async () => {
     const firstIndex = 0;
-    const lastIndex = 6;
+    const lastIndex = 5;
     const apiResult = await requestApiFoodListCategories();
     const currentFoodCategories = apiResult.slice(firstIndex, lastIndex)
       .map(({ strCategory }) => strCategory);
