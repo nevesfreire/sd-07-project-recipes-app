@@ -1,32 +1,38 @@
 import React, { useState, useContext } from 'react';
-import Alert from 'react-bootstrap/Alert';
 
 import { fetchAPIFoodsFilters, fetchAPIDrinksFilters } from '../services/api';
 import { useTitleContext } from '../context/TitleContext';
 import RecipesContext from '../context/RecipesContext';
 
 function Search() {
-  const { setFoodsOrDrinksList } = useContext(RecipesContext);
+  const { foodsOrDrinksList, setFoodsOrDrinksList } = useContext(RecipesContext);
   const { titleHeaderName } = useTitleContext();
   const [search, setSearch] = useState('');
   const [radioSelected, setRadioSelected] = useState('');
-  const [alertAPI, setAlertAPI] = useState(false);
 
   async function fetchAPI() {
-    if (radioSelected === 'firstLetter' && search.length !== 1) {
-      setFoodsOrDrinksList([]);
-      setAlertAPI(true);
-      return;
+    if (search === '' && radioSelected === '') {
+      return setFoodsOrDrinksList(foodsOrDrinksList);
     }
 
-    setAlertAPI(false);
+    if (radioSelected === 'firstLetter' && search.length !== 1) {
+      return alert('Sua busca deve conter somente 1 (um) caracter');
+    }
 
     if (titleHeaderName.title.toLowerCase() === 'comidas') {
       const listFoods = await fetchAPIFoodsFilters(search, radioSelected);
-      setFoodsOrDrinksList(listFoods);
+      if (listFoods !== null) {
+        setFoodsOrDrinksList(listFoods);
+      } else {
+        alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      }
     } else {
       const listDrinks = await fetchAPIDrinksFilters(search, radioSelected);
-      setFoodsOrDrinksList(listDrinks);
+      if (listDrinks !== null) {
+        setFoodsOrDrinksList(listDrinks);
+      } else {
+        alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      }
     }
   }
 
@@ -77,11 +83,6 @@ function Search() {
       >
         Buscar
       </button>
-      {alertAPI ? (
-        <Alert variant="warning">
-          Sua busca deve conter somente 1 (um) caracter
-        </Alert>
-      ) : <div />}
     </div>
   );
 }
