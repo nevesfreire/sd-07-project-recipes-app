@@ -1,4 +1,3 @@
-
 import {
   SEARCH_TOGGLE,
 } from '../actions';
