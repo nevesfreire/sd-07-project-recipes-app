@@ -1,17 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Carousel from './CarouselBebida';
+
+const MAX_INGREDIENTS = 20;
 
 export default class BebidasDetalhes extends React.Component {
   constructor() {
     super();
+    this.state = {
+      recipe: {},
+    };
+    this.fetchData = this.fetchData.bind(this);
+    this.renderIngredients = this.renderIngredients.bind(this);
+    this.renderIngredient = this.renderIngredient.bind(this);
     this.iniciarReceita = this.iniciarReceita.bind(this);
   }
 
   componentDidMount() {
+    this.fetchData();
+  }
+
+  async fetchData() {
     const { match: { params } } = this.props;
     const { id } = params;
-    const result = fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
-    console.log(result);
+    const responseAPI = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+    const recipe = await responseAPI.json();
+    this.setState({
+      recipe: recipe.drinks[0],
+    });
   }
 
   iniciarReceita() {
@@ -21,35 +37,48 @@ export default class BebidasDetalhes extends React.Component {
     history.push(`/bebidas/${id}/in-progress`);
   }
 
+  renderIngredient(index) {
+    const { recipe } = this.state;
+    const ingredient = recipe[`strIngredient${index + 1}`];
+    const measure = recipe[`strMeasure${index + 1}`];
+    if (!ingredient || !measure) {
+      return;
+    }
+    const description = `${measure} of ${ingredient}`;
+    return (
+      <li data-testid={ `${index}-ingredient-name-and-measure` }>
+        {description}
+      </li>
+    );
+  }
+
+  renderIngredients() {
+    return [...Array(MAX_INGREDIENTS)]
+      .map((_, index) => this.renderIngredient(index));
+  }
+
   render() {
+    const { recipe } = this.state;
     return (
       <div>
-        {/* <img data-testid="recipe-photo" src="" /> */}
-
-        <h1 data-testid="recipe-title"> titulo</h1>
-
+        <img data-testid="recipe-photo" src={ recipe.strDrinkThumb } alt="drink pic" />
+        <h1 data-testid="recipe-title">{recipe.strDrink}</h1>
         <button
           type="button"
           data-testid="share-btn"
         >
           Compartilhar
         </button>
-
         <button
           type="button"
           data-testid="favorite-btn"
         >
           Favoritar
         </button>
-        <p data-testid="recipe-category"> Texto </p>
-        <p data-testid=""/* "${index}-ingredient-name-and-measure" */>Ingredientes</p>
-        <p data-testid="instructions"> ingredientes</p>
-        {/* <video data-testid="video" width="100px" height="100px">
-          <source
-            src=""
-            type="video"
-          />
-        </video> */}
+        <p data-testid="recipe-category">{recipe.strAlcoholic}</p>
+        <ul>{this.renderIngredients()}</ul>
+        <p data-testid="instructions">{recipe.strInstructions}</p>
+        <Carousel />
         <button
           type="button"
           data-testid="start-recipe-btn"

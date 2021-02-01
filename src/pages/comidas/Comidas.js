@@ -41,7 +41,7 @@ class Comidas extends Component {
     const { toggle, history, toggleFood, resultApiByName, resultFood } = this.props;
     return (
       <div>
-        <Header title="Comidas" />
+        <Header title="Comidas" history={ history } />
         {toggle && <BarraBuscaComidas history={ history } />}
         {toggleFood ? this.showCards(resultApiByName) : this.showCards(resultFood)}
         <Footer />
