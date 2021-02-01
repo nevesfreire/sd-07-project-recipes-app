@@ -6,7 +6,7 @@ import Footer from '../../components/footer';
 import { fetchIngredients } from '../../services';
 import { loadRecipesIngredent } from '../../redux/action';
 
-class IngredientesComidas extends Component {
+class IngredientsBebidas extends Component {
   constructor() {
     super();
     this.state = {
@@ -75,7 +75,7 @@ class IngredientesComidas extends Component {
   }
 }
 
-IngredientesComidas.propTypes = {
+IngredientsBebidas.propTypes = {
   history: PropTypes.objectOf({ push: PropTypes.func.isRequired }).isRequired,
   loadrecipesingredent: PropTypes.objectOf().isRequired,
 };
@@ -89,4 +89,4 @@ const mapStateToProps = (state) => ({
   receitas: state.fastFood.receitas,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(IngredientesComidas);
+export default connect(mapStateToProps, mapDispatchToProps)(IngredientsBebidas);
