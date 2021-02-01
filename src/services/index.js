@@ -59,9 +59,9 @@ async function fetchRandom(id, tipo) {
 }
 
 async function fetchIngredients(tipo) {
-  let url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list ';
+  let url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
   if (tipo === 'comidas') {
-    url = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list ';
+    url = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
   }
   const response = await fetch(url);
   const responsejeson = await response.json();
