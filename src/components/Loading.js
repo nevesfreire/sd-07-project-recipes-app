@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import '../css/food.css';
+import '../css/loading.css';
 
 class Loading extends Component {
   render() {
     return (
-      <h1>...LOADING</h1>
+      <h1 className="loading-container">...LOADING</h1>
     );
   }
 }

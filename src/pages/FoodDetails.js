@@ -91,7 +91,7 @@ class FoodDetails extends Component {
             {ingredients
               .map((ingredient, index) => (
                 <li
-                  key={ ingredient }
+                  key={ index }
                   data-testid={ `${index}-ingredient-name-and-measure` }
                 >
                   {ingredient}

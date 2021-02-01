@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import { sendSearchInput, fetchRecipes } from '../actions';
-import '../css/food.css';
+import '../css/recipe.css';
 
 class Header extends Component {
   constructor(props) {
@@ -82,28 +82,24 @@ class Header extends Component {
     return (
       <div>
         <header className="header-food-container">
-          <button
-            type="button"
+          <img
+            src={ profileIcon }
+            alt="profileIcon"
             data-testid="profile-top-btn"
             onClick={ () => history.push('/perfil') }
-          >
-            <img src={ profileIcon } alt="profileIcon" />
-          </button>
-
+          />
           <h1 data-testid="page-title">{title}</h1>
-          <button
-            type="button"
+          <img
+            src={ searchIcon }
+            alt="searchIcon"
             data-testid="search-top-btn"
             onClick={ this.changeDisplayInput }
-          >
-            <img src={ searchIcon } alt="searchIcon" />
-          </button>
+          />
         </header>
         {showInputSearch && (
           <section>
-            <div>
+            <div className="filter-radio-buttons-container">
               <label htmlFor="ingredient">
-                Ingrediente
                 <input
                   type="radio"
                   id="ingredient"
@@ -112,9 +108,9 @@ class Header extends Component {
                   data-testid="ingredient-search-radio"
                   onClick={ this.handleChange }
                 />
+                Ingrediente
               </label>
               <label htmlFor="foodName">
-                Nome
                 <input
                   type="radio"
                   id="foodName"
@@ -123,9 +119,9 @@ class Header extends Component {
                   data-testid="name-search-radio"
                   onClick={ this.handleChange }
                 />
+                Nome
               </label>
               <label htmlFor="firstLetterName">
-                Primeira letra
                 <input
                   type="radio"
                   id="firstLetterName"
@@ -134,6 +130,7 @@ class Header extends Component {
                   data-testid="first-letter-search-radio"
                   onClick={ this.handleChange }
                 />
+                Primeira letra
               </label>
               <button
                 type="button"
