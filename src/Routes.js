@@ -8,6 +8,7 @@ import RecipesDone from './pages/RecipesDone';
 import Favourites from './pages/Favourites';
 import FoodDetail from './pages/FoodDetail';
 import DrinkDetail from './pages/DrinkDetail';
+import Favorites from './pages/Favorites';
 
 const Router = () => (
   <Switch>
@@ -25,7 +26,7 @@ const Router = () => (
     {/* <Route path="/explorar/comidas/area" component={ FoodByArea } /> */}
     <Route path="/perfil" component={ Profile } />
     <Route path="/receitas-feitas" component={ RecipesDone } />
-    <Route path="/receitas-favoritas" component={ Favourites } />
+    <Route path="/receitas-favoritas" component={ Favorites } />
     <Route exact path="/" component={ Login } />
   </Switch>
 );

@@ -2,8 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import Header from '../../components/Header';
-import { getDoneRecipes } from '../../services/localStorage';
-import { shareIcon } from '../../images';
+import { blackHeartIcon, shareIcon, whiteHeartIcon } from '../../images';
+import {
+  doFavoriteRecipe,
+  getFavoriteRecipes,
+  recipeIsFavorite,
+} from '../../services/localStorage';
 
 let filter = '';
 
@@ -24,7 +28,7 @@ const handleShareIcon = (target) => {
   span.innerHTML = 'Link copiado!';
 };
 
-const recipeCard = (recipes) => {
+const recipeCard = (recipes, updateRecipes) => {
   const render = (item, i) => (
     <div key={ i }>
       <Link
@@ -60,18 +64,6 @@ const recipeCard = (recipes) => {
           { item.name }
         </h3>
       </Link>
-      <h4 data-testid={ `${i}-horizontal-done-date` }>
-        Feita em:
-        { ` ${item.doneDate}` }
-      </h4>
-      { item.tags.map((tag, index) => (
-        <h4
-          data-testid={ `${i}-${tag}-horizontal-tag` }
-          key={ index }
-        >
-          {tag}
-        </h4>
-      ))}
       <input
         id={ `${item.id},${item.type}` }
         type="image"
@@ -82,6 +74,14 @@ const recipeCard = (recipes) => {
         onClick={ ({ target }) => handleShareIcon(target) }
       />
       <p className={ `copied-link-${item.id}` } />
+      <input
+        type="image"
+        id={ `${item.id}` }
+        data-testid={ `${i}-horizontal-favorite-btn` }
+        src={ recipeIsFavorite(item) ? blackHeartIcon : whiteHeartIcon }
+        alt="Favorite recipe"
+        onClick={ () => updateRecipes(item) }
+      />
     </div>
   );
 
@@ -97,23 +97,23 @@ const recipeCard = (recipes) => {
   return null;
 };
 
-export default function RecipesDone() {
+export default function Favorites() {
   const [recipes, setRecipes] = useState([]);
 
   const applyFilter = (value) => {
     setRecipes([]);
     filter = value;
-    setRecipes(getDoneRecipes());
+    setRecipes(getFavoriteRecipes());
   };
 
-  // const updateRecipes = (recipe) => {
-  //   setRecipes([]);
-  //   doFavoriteRecipe(recipe);
-  //   setRecipes(getFavoriteRecipes());
-  // };
+  const updateRecipes = (recipe) => {
+    setRecipes([]);
+    doFavoriteRecipe(recipe);
+    setRecipes(getFavoriteRecipes());
+  };
 
   useEffect(() => {
-    setRecipes(getDoneRecipes());
+    setRecipes(getFavoriteRecipes());
   }, []);
 
   const filterButtons = (
@@ -150,7 +150,7 @@ export default function RecipesDone() {
       <div>
         <Header title="Receitas Favoritas" />
         <h2>
-          Sem receitas prontas =(
+          Sem receitas favoritadas =(
         </h2>
       </div>
     );
@@ -158,9 +158,9 @@ export default function RecipesDone() {
 
   return (
     <div>
-      <Header title="Receitas Feitas" />
+      <Header title="Receitas Favoritas" />
       { filterButtons }
-      { recipeCard(recipes) }
+      { recipeCard(recipes, updateRecipes) }
     </div>
   );
 }
