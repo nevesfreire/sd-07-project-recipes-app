@@ -7,7 +7,7 @@ const ENDPOINT = {
   area: 'filter.php?a=',
   name: 'search.php?s=',
   firstLetter: 'search.php?f=',
-  lookupIngredient: 'lookup.php?i=',
+  ID: 'lookup.php?i=',
   random: 'random.php',
   listIngredient: 'list.php?i=list',
 };

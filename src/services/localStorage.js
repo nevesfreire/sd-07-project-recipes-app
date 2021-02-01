@@ -1,3 +1,5 @@
+import getMeals from './mealAPI';
+
 const minusOne = -1;
 
 export const setStorage = (key, value) => localStorage.setItem(
@@ -10,10 +12,16 @@ function createFavoriteRecipesDatabase() {
   localStorage.setItem('favoriteRecipes', JSON.stringify([]));
 }
 
+function createDoneRecipesDatabase() {
+  localStorage.setItem('doneRecipes', JSON.stringify([]));
+}
+
 function checkDatabase() {
-  // let temp;
-  const temp = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  let temp;
+  temp = JSON.parse(localStorage.getItem('favoriteRecipes'));
   if (!temp) createFavoriteRecipesDatabase();
+  temp = JSON.parse(localStorage.getItem('doneRecipes'));
+  if (!temp) createDoneRecipesDatabase();
 }
 
 function setFavoriteRecipes(recipes) {
@@ -70,4 +78,50 @@ export function doFavoriteRecipe(recipe) {
   }
 
   setFavoriteRecipes(temp);
+}
+
+function setDoneRecipes(recipes) {
+  localStorage.setItem('doneRecipes', JSON.stringify(recipes));
+}
+
+export function getDoneRecipes() {
+  checkDatabase();
+  return JSON.parse(localStorage.getItem('doneRecipes'));
+}
+
+export function addDoneRecipe(recipe) {
+  let obj;
+  if ('idMeal' in recipe) {
+    obj = {
+      id: recipe.idMeal,
+      type: 'comida',
+      area: recipe.strArea,
+      category: recipe.strCategory,
+      alcoholicOrNot: '',
+      name: recipe.strMeal,
+      image: recipe.strMealThumb,
+      doneDate: '',
+    };
+  } else if ('idDrink' in recipe) {
+    obj = {
+      id: recipe.idDrink,
+      type: 'bebidas',
+      area: '',
+      category: recipe.strCategory,
+      alcoholicOrNot: recipe.strAlcoholic,
+      name: recipe.strDrink,
+      image: recipe.strDrinkThumb,
+      doneDate: '',
+    };
+  }
+
+  if (recipe.strTags) obj.tags = recipe.strTags.split(',');
+  else obj.tags = [];
+
+  setDoneRecipes(getDoneRecipes().concat(obj));
+}
+
+export async function mockRecipe(id) {
+  const recipe = await getMeals('ID', id);
+  return recipe;
 }

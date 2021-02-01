@@ -99,6 +99,7 @@ const recipeCard = (recipes, updateRecipes) => {
 
 export default function Favorites() {
   const [recipes, setRecipes] = useState([]);
+
   const applyFilter = (value) => {
     setRecipes([]);
     filter = value;
@@ -144,9 +145,7 @@ export default function Favorites() {
     </div>
   );
 
-  const one = 1;
-
-  if (recipes.length < one) {
+  if (recipes.length < 1) {
     return (
       <div>
         <Header title="Receitas Favoritas" />
