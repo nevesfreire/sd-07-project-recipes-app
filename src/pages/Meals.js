@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import allActions from '../actions';
+import FlexContainer from '../components/FlexContainer';
 
 function Meals() {
   const state = useSelector(({ mainpage }) => mainpage);
@@ -19,6 +20,7 @@ function Meals() {
   const [cardsArray, setCardsArray] = useState([]);
   const [filter, setFilter] = useState('');
   const [isFetching, setIsFetching] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(allActions.renderSearchIcon());
@@ -30,7 +32,6 @@ function Meals() {
     function checkFilter() {
       if (filterOn) {
         setCardsArray(filteredMeals);
-        console.log(filteredMeals);
       } else if (selectedIngredient !== '') {
         setCardsArray(mealsByIngredients);
       } else {
@@ -69,6 +70,7 @@ function Meals() {
       return (
         <button
           type="button"
+          className="btn btn-secondary"
           key={ category.strCategory }
           data-testid={ `${category.strCategory}-category-filter` }
           onClick={ () => turnFilterOn(category.strCategory) }
@@ -83,30 +85,29 @@ function Meals() {
     const CARDS_NUMBER = 12;
     if (index < CARDS_NUMBER) {
       return (
-        <Link to={ `/comidas/${meal.idMeal}` }>
-          <div
-            data-testid={ `${index}-recipe-card` }
-            key={ `card-${index}` }
-            // className="card" style="width: 18rem;"
-          >
-            <img
-              // className="card-img-top"
-              key={ `meal-thumb-${index}` }
-              src={ meal.strMealThumb }
-              alt="meal thumb"
-              data-testid={ `${index}-card-img` }
-            />
-            <div key={ `card-body-${index}` }>
-              <h2
-                // className="card-title"
-                key={ meal.strMeal }
-                data-testid={ `${index}-card-name` }
-              >
-                {meal.strMeal}
-              </h2>
-            </div>
+        <button
+          onClick={ () => history.push(`/comidas/${meal.idMeal}`) }
+          data-testid={ `${index}-recipe-card` }
+          key={ `card-${index}` }
+          className="card meals"
+        >
+          <img
+            className="card-img-top"
+            key={ `meal-thumb-${index}` }
+            src={ meal.strMealThumb }
+            alt="meal thumb"
+            data-testid={ `${index}-card-img` }
+          />
+          <div key={ `card-body-${index}` }>
+            <h2
+              className="card-title links"
+              key={ meal.strMeal }
+              data-testid={ `${index}-card-name` }
+            >
+              {meal.strMeal}
+            </h2>
           </div>
-        </Link>
+        </button>
       );
     }
     return null;
@@ -121,15 +122,20 @@ function Meals() {
   return (
     <div>
       <Header />
-      <button
-        type="button"
-        data-testid="All-category-filter"
-        onClick={ () => setFilterOn(false) }
-      >
-        All
-      </button>
-      {mealCategories.map((category, index) => renderFilters(category, index))}
-      {cardsArray.map((meal, index) => renderCards(meal, index))}
+      <FlexContainer>
+        <button
+          type="button"
+          className="btn btn-secondary"
+          data-testid="All-category-filter"
+          onClick={ () => setFilterOn(false) }
+        >
+          All
+        </button>
+        {mealCategories.map((category, index) => renderFilters(category, index))}
+      </FlexContainer>
+      <FlexContainer>
+        {cardsArray.map((meal, index) => renderCards(meal, index))}
+      </FlexContainer>
       <Footer />
     </div>
   );

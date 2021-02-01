@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import allActions from '../actions';
 import { mealIngredients, mealByIngredient } from '../services/mealAPI';
+import FlexContainer from '../components/FlexContainer';
 
 function ExploreMealsIngredients() {
   const dispatch = useDispatch();
@@ -29,18 +30,21 @@ function ExploreMealsIngredients() {
       return (
         <button
           type="button"
+          className="card meals"
           onClick={ () => handleClick(ingredient.strIngredient) }
           style={ { cursor: 'pointer' } }
           data-testid={ `${index}-ingredient-card` }
           key={ `card-${index}` }
         >
           <img
+            className="card-img-top"
             key={ `ingredient-thumb-${index}` }
             src={ `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}-Small.png` }
             alt="ingredient thumb"
             data-testid={ `${index}-card-img` }
           />
           <h2
+            className="card-title"
             key={ ingredient.strIngredient }
             data-testid={ `${index}-card-name` }
           >
@@ -58,7 +62,9 @@ function ExploreMealsIngredients() {
   return (
     <div>
       <Header />
-      {ingredients.map((ingredient, index) => renderIngredients(ingredient, index))}
+      <FlexContainer>
+        {ingredients.map((ingredient, index) => renderIngredients(ingredient, index))}
+      </FlexContainer>
       <Footer />
     </div>
   );

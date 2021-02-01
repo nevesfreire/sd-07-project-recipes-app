@@ -1,10 +1,11 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import ProfileIcon from '../images/profileIcon.svg';
+import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 import allActions from '../actions';
+import FlexContainer from './FlexContainer';
 
 function Header() {
   const state = useSelector(({ header }) => header);
@@ -30,6 +31,7 @@ function Header() {
         <button
           onClick={ handleSearchBar }
           type="button"
+          className="btn btn-secondary"
         >
           <img
             data-testid="search-top-btn"
@@ -42,21 +44,22 @@ function Header() {
   };
 
   return (
-    <div>
+    <FlexContainer className="header">
       <button
         type="button"
         onClick={ changePage }
+        className="btn btn-secondary"
       >
         <img
           data-testid="profile-top-btn"
-          src={ ProfileIcon }
+          src={ profileIcon }
           alt="profile icon"
         />
       </button>
       <h1 data-testid="page-title">{pageTitle}</h1>
       {renderIcon()}
       <SearchBar />
-    </div>
+    </FlexContainer>
   );
 }
 

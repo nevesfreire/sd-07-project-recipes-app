@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import allActions from '../actions';
 import { drinkIngredients, drinkByIngredient } from '../services/cocktailAPI';
+import FlexContainer from '../components/FlexContainer';
 
 function ExploreCocktailsIngredients() {
   const dispatch = useDispatch();
@@ -29,18 +30,21 @@ function ExploreCocktailsIngredients() {
       return (
         <button
           type="button"
+          className="card meals"
           onClick={ () => handleClick(ingredient.strIngredient1) }
           style={ { cursor: 'pointer' } }
           data-testid={ `${index}-ingredient-card` }
           key={ `card-${index}` }
         >
           <img
+            className="card-img-top"
             key={ `ingredient-thumb-${index}` }
             src={ `https://www.thecocktaildb.com/images/ingredients/${ingredient.strIngredient1}-Small.png` }
             alt="ingredient thumb"
             data-testid={ `${index}-card-img` }
           />
           <h2
+            className="card-title"
             key={ ingredient.strIngredient1 }
             data-testid={ `${index}-card-name` }
           >
@@ -59,7 +63,9 @@ function ExploreCocktailsIngredients() {
   return (
     <div>
       <Header />
-      {ingredients.map((ingredient, index) => renderIngredients(ingredient, index))}
+      <FlexContainer>
+        {ingredients.map((ingredient, index) => renderIngredients(ingredient, index))}
+      </FlexContainer>
       <Footer />
     </div>
   );
