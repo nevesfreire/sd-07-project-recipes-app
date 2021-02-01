@@ -3,12 +3,33 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { HeaderS, CardC } from '../../components';
-import { loadDrinks } from '../../store/ducks/receitasDeBebidas/actions';
+import {
+  loadDrinks,
+  loadDrinksCategories,
+} from '../../store/ducks/receitasDeBebidas/actions';
 
 class TelaPrincipalReceitasBebidas extends Component {
-  componentDidMount() {
-    const { loadDrinksDispatch } = this.props;
-    loadDrinksDispatch();
+  async componentDidMount() {
+    const { loadDrinksDispatch, getCategoriesDispatch } = this.props;
+    getCategoriesDispatch();
+    await loadDrinksDispatch();
+  }
+
+  renderCategories(categories) {
+    const five = 5;
+    return (
+      <div>
+        {categories.map((categorie, index) => {
+          if (index < five) {
+            return (
+              <button type="button" key={ categorie.strCategory }>
+                {categorie.strCategory}
+              </button>
+            );
+          } return null;
+        })}
+      </div>
+    );
   }
 
   renderDrinks(drinks) {
@@ -39,10 +60,11 @@ class TelaPrincipalReceitasBebidas extends Component {
 
   render() {
     const title = 'Bebidas';
-    const { drinksStore } = this.props;
+    const { drinksStore, categoriesStore } = this.props;
     return (
       <div>
         <HeaderS title={ title } />
+        {categoriesStore ? this.renderCategories(categoriesStore) : null}
         {drinksStore ? this.renderDrinks(drinksStore) : null}
       </div>
     );
@@ -51,15 +73,22 @@ class TelaPrincipalReceitasBebidas extends Component {
 
 const mapStateToProps = (state) => ({
   drinksStore: state.receitasDeBebidas.drinks.drinks,
+  categoriesStore: state.receitasDeBebidas.categories.drinks,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   loadDrinksDispatch: () => dispatch(loadDrinks()),
+  getCategoriesDispatch: () => dispatch(loadDrinksCategories()),
 });
 
 TelaPrincipalReceitasBebidas.propTypes = {
+  categoriesStore: PropTypes.arrayOf(PropTypes.object).isRequired,
   drinksStore: PropTypes.objectOf(PropTypes.string).isRequired,
   loadDrinksDispatch: PropTypes.func.isRequired,
+  getCategoriesDispatch: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TelaPrincipalReceitasBebidas);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(TelaPrincipalReceitasBebidas);

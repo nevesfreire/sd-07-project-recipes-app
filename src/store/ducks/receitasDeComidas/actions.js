@@ -6,6 +6,18 @@ export const getMeals = (meals) => ({
   payload: meals,
 });
 
+export const getMealsCategories = (mealsCategories) => ({
+  type: AuthTypes.CATEGORIES,
+  payload: mealsCategories,
+});
+
+export const loadMealsCategories = () => async (dispatch) => {
+  const URL = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+  const request = await fetch(URL);
+  const response = await request.json();
+  dispatch(getMealsCategories(response));
+};
+
 export const loadMeals = () => async (dispatch) => {
   const URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   const request = await fetch(URL);

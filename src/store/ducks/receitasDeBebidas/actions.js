@@ -6,11 +6,23 @@ export const getDrinks = (drinks) => ({
   payload: drinks,
 });
 
+export const getDrinksCategories = (drinksCategories) => ({
+  type: DrinksTypes.CATEGORIES,
+  payload: drinksCategories,
+});
+
 export const loadDrinks = () => async (dispatch) => {
   const URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
   const request = await fetch(URL);
   const response = await request.json();
   dispatch(getDrinks(response));
+};
+
+export const loadDrinksCategories = () => async (dispatch) => {
+  const URL = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+  const request = await fetch(URL);
+  const response = await request.json();
+  dispatch(getDrinksCategories(response));
 };
 
 export const getByIngredientsDrinks = (ingredient) => async (dispatch) => {

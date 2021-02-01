@@ -15,7 +15,6 @@ class CardC extends React.Component {
 
     const { indexMeal } = this.props;
     const { indexDrink } = this.props;
-    console.log(indexMeal);
     if (strDrink) {
       return (
         <Card>
