@@ -39,3 +39,41 @@ export const fetchCategoriesCocktails = async () => {
 
   return limitArray;
 };
+
+export const singleCocktail = async (idCocktail) => {
+  const URL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idCocktail}`;
+  const resolve = await fetch(URL);
+
+  const resolveJson = await resolve.json();
+
+  const objectModel = {
+    idRecipe: resolveJson.drinks[0].idDrink,
+    nameRecipe: resolveJson.drinks[0].strDrink,
+    imgRecipe: resolveJson.drinks[0].strDrinkThumb,
+    instructionRecipe: resolveJson.drinks[0].strInstructions,
+    categoryRecipe: resolveJson.drinks[0].strCategory,
+    ingredients: [],
+    measurements: [],
+    quantityIngredients: 0,
+  };
+
+  const arrayObject = Object.entries(resolveJson.drinks[0]);
+  const arrayIngredients = arrayObject.filter(
+    (elem) => elem[0].includes('strIngredient')
+      && elem[1] !== ''
+      && elem[1] !== ' '
+      && elem[1] !== null,
+  );
+
+  const arrayMeasurements = arrayObject.filter((elem) => elem[0].includes('strMeasure'));
+
+  const SIZE = arrayIngredients.length;
+
+  objectModel.ingredients = arrayIngredients
+    .slice(start, SIZE)
+    .map((elem) => [elem[1], false]);
+  objectModel.measurements = arrayMeasurements.slice(start, SIZE).map((elem) => elem[1]);
+  objectModel.quantityIngredients = SIZE;
+
+  return objectModel;
+};
