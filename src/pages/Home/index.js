@@ -14,11 +14,11 @@ const Home = () => {
   const END_INDEX = 12; // 12 cards - 12 not included
 
   useEffect(() => {
-    const getRecipes = async (type, category) => {
+    const getRecipes = (type, category) => {
       if (category) {
-        dispatch(await fetchRecipesByCategory(type, category));
+        dispatch(fetchRecipesByCategory(type, category));
       } else {
-        dispatch(await fetchRecipes(type));
+        dispatch(fetchRecipes(type));
       }
     };
     getRecipes(pathname, filterByCategory);
