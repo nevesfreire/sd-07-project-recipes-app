@@ -29,7 +29,9 @@ function Comidas() {
   const history = useHistory();
 
   const redirectToDetails = () => {
-    if (dataToRender.length === 1) history.push(`/comidas/${dataToRender[0].idMeal}`);
+    if (dataToRender.length === 1 && category === '') {
+      history.push(`/comidas/${dataToRender[0].idMeal}`);
+    }
   };
 
   const getGlobalMealData = async () => {
