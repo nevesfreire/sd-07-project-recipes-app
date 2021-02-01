@@ -26,7 +26,11 @@ export default function meals(state = INITIAL_STATE, action) {
   case REQUEST_MEALS_CATEGORIES:
     return { ...state, isFetchingCategories: true };
   case REQUEST_MEALS_CATEGORIES_SUCCESS:
-    return { ...state, isFetchingCategories: false, mealsCategories: [...action.meals] };
+    return {
+      ...state,
+      isFetchingCategories: false,
+      mealsCategories: [...action.categories.meals],
+    };
   case REQUEST_MEALS_CATEGORIES_FAILURE:
     return { ...state, isFetchingCategories: false, error: action.error };
   default:

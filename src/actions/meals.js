@@ -24,10 +24,13 @@ const setMealsFailure = (error) => ({ type: REQUEST_MEALS_FAILURE, error });
 
 const requestMealsCategories = () => ({ type: REQUEST_MEALS_CATEGORIES });
 
-const setMealsCategoriesSuccess = (mealsCategories) => (
-  { type: REQUEST_MEALS_CATEGORIES_SUCCESS, mealsCategories });
+const setMealsCategoriesSuccess = (categories) => ({
+  type: REQUEST_MEALS_CATEGORIES_SUCCESS, categories,
+});
 
-const setMealsCategoriesFailure = (error) => ({ type: REQUEST_MEALS_CATEGORIES_FAILURE, error });
+const setMealsCategoriesFailure = (error) => ({
+  type: REQUEST_MEALS_CATEGORIES_FAILURE, error,
+});
 
 export const fetchMealsByIngredient = (i) => (dispatch) => {
   dispatch(requestMeals());

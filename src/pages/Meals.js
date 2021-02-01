@@ -13,8 +13,8 @@ class Meals extends Component {
 
   componentDidMount() {
     const { searchMealsCategories, searchRandomMeals } = this.props;
-    searchMealsCategories();
     searchRandomMeals();
+    searchMealsCategories();
   }
 
   render() {
@@ -24,7 +24,7 @@ class Meals extends Component {
       <div>
         <Header title="Comidas" />
         { firstMeals.map((meal, index) => (
-          <MealCard key={ index } meals={ meal }/>
+          <MealCard key={ index } meals={ meal } />
         ))}
         <Footer />
       </div>
@@ -32,9 +32,9 @@ class Meals extends Component {
   }
 }
 
-const mapStateToProps = ({ meals }) => (
-  { meals: meals.meals }
-);
+const mapStateToProps = ({ meals }) => ({
+  meals: meals.meals,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   searchMealsCategories: () => dispatch(fetchMealsCategories()),
