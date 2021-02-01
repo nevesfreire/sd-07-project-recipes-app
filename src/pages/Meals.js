@@ -86,6 +86,7 @@ function Meals() {
     if (index < CARDS_NUMBER) {
       return (
         <button
+          type="button"
           onClick={ () => history.push(`/comidas/${meal.idMeal}`) }
           data-testid={ `${index}-recipe-card` }
           key={ `card-${index}` }

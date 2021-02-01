@@ -86,6 +86,7 @@ function Cocktails() {
     if (index < CARDS_NUMBER) {
       return (
         <button
+          type="button"
           onClick={ () => history.push(`/bebidas/${drink.idDrink}`) }
           data-testid={ `${index}-recipe-card` }
           key={ `card-${index}` }
