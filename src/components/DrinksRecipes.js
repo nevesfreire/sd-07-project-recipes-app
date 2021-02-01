@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchRecipes } from '../actions';
@@ -20,7 +19,9 @@ class DrinksRecipes extends Component {
     //   }
     // }
     if (getRecipes.drinks === null) {
-      return (alert('Sinto muito, não encontramos nenhuma receita para esses filtros.'))
+      return (alert(
+        'Sinto muito, não encontramos nenhuma receita para esses filtros.',
+      ));
     }
     if (getRecipes.drinks) {
       const filterArray = getRecipes.drinks
