@@ -1,13 +1,19 @@
 import React from 'react';
+import { useParams } from 'react-router';
 import Header from '../../Components/Header';
 import '../../App.css';
+import ProgressScreen from '../../Components/ProgressScreen';
 
-const ProgressFood = () => (
-  <div className="container-over">
-    <div className="container-int">
-      <Header title="Progresso da comida" />
+const ProgressFood = () => {
+  const { idreceita } = useParams();
+  return (
+    <div className="container-over">
+      <div className="container-int">
+        <Header title="Progresso da comida" />
+        <ProgressScreen idReceita={ idreceita } />
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default ProgressFood;
