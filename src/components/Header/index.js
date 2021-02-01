@@ -13,15 +13,16 @@ export default function Header({
   const [state, setstate] = useState(false);
   return (
     <div data-testid="header" className="header">
-      <Link src={ profileIcon } to="/profile" data-testid="profile-top-btn">
+      <Link src={ profileIcon } to="/perfil" data-testid="profile-top-btn">
         <img alt="" src={ profileIcon } />
       </Link>
       <h2 data-testid="page-title">{title}</h2>
       {searchButtonExists && (
         <button
           src={ searchIcon }
-          to="/profile"
+          // to="/profile"
           type="button"
+          className="b-search"
           onClick={ () => {
             setstate(!state);
             setIsSearchBarVisible(!state);

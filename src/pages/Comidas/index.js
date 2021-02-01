@@ -23,7 +23,13 @@ function Comidas(props) {
     const MAX_RETURN = 12;
     const { foods } = props;
     const { meals, isFetching } = foods;
-    if (isFetching) return <div>Loading...</div>;
+    if (isFetching) {
+      return (
+        <div className="container-drinks">
+          <div className="loader" />
+        </div>
+      );
+    }
     if (meals === null) {
       return alert(
         'Sinto muito, não encontramos nenhuma receita para esses filtros.',
@@ -38,7 +44,7 @@ function Comidas(props) {
         {comida.map((item, index) => (
           <Link
             key={ index }
-            className="list-foods"
+            className="list-drinks"
             to={ `/comidas/${item.idMeal}` }
             data-testid={ `${index}-recipe-card` }
           >
@@ -47,7 +53,9 @@ function Comidas(props) {
               src={ item.strMealThumb }
               alt={ item.strMeal }
             />
-            <div data-testid={ `${index}-card-name` }>{item.strMeal}</div>
+            <div data-testid={ `${index}-card-name` } className="df-name">
+              {item.strMeal}
+            </div>
           </Link>
         ))}
       </div>
@@ -77,12 +85,13 @@ function Comidas(props) {
   function renderCategories() {
     if (!categories) return <div>Loading Categories</div>;
     return (
-      <div>
+      <div className="tags-wrapper">
         <button
           type="button"
           data-testid="All-category-filter"
           value=""
           onClick={ handleCategories }
+          className="button-category"
         >
           All
         </button>
@@ -93,6 +102,7 @@ function Comidas(props) {
             type="button"
             value={ category.strCategory }
             onClick={ handleCategories }
+            className="button-category"
           >
             {category.strCategory}
           </button>

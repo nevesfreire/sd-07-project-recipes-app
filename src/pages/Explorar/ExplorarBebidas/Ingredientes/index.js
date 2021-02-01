@@ -61,7 +61,7 @@ function ExplorarBebidasIngredientes(props) {
   return (
     <div>
       <Header
-        title="Explorar Bebidas"
+        title="Explorar Ingredientes"
       />
       { renderDrinks() }
       <Footer />

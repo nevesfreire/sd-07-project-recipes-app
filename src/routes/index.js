@@ -5,12 +5,14 @@ import Bebidas from '../pages/Bebidas';
 import ComidasID from '../pages/ComidasID';
 import Login from '../pages/Login';
 import Explorar from '../pages/Explorar';
+import Perfil from '../pages/Perfil';
 import ExplorarBebidas from '../pages/Explorar/ExplorarBebidas';
 import ExplorarComidas from '../pages/Explorar/ExplorarComidas';
 import ExplorarComidasIngredientes from '../pages/Explorar/ExplorarComidas/Ingredientes';
 import ExplorarAreaComidas from '../pages/Explorar/ExplorarComidas/Area';
 import ExplorarBebidasIngredientes from '../pages/Explorar/ExplorarBebidas/Ingredientes';
 import Notfound from '../components/Notfound';
+import EmProgresso from '../pages/EmProgresso';
 
 function Routes() {
   return (
@@ -27,14 +29,22 @@ function Routes() {
           path="/explorar/comidas/ingredientes"
           component={ ExplorarComidasIngredientes }
         />
-        <Route exact path="/explorar/comidas/area" component={ ExplorarAreaComidas } />
+        <Route
+          exact
+          path="/explorar/comidas/area"
+          component={ ExplorarAreaComidas }
+        />
         <Route
           exact
           path="/explorar/bebidas/ingredientes"
           component={ ExplorarBebidasIngredientes }
         />
+        <Route exact path="/perfil" component={ Perfil } />
         <Route exact path="/:route/:id" component={ ComidasID } />
+        <Route exact path="/comidas/:id/in-progress" component={ EmProgresso } />
+        <Route exact path="/bebidas/:id/in-progress" component={ EmProgresso } />
         <Route component={ Notfound } />
+
         {/*
         <Route exact path="/bebidas/:id-da-receita" component={ BebidasID } />
         <Route
@@ -47,7 +57,6 @@ function Routes() {
           path="/bebidas/:id-da-receita/in-progress"
           component={ BebidasIDProgress }
         />
-        <Route exact path="/perfil" component={ Perfil } />
         <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
         <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } /> */}
       </Switch>

@@ -23,7 +23,16 @@ function Bebidas(props) {
     const MAX_RETURN = 12;
     const { drinks } = props;
     const { cocktails, isFetching } = drinks;
-    if (isFetching) return <div>Loading...</div>;
+    if (isFetching) {
+      return (
+        <div className="container-drinks">
+          <div className="loader" />
+        </div>
+      );
+    }
+    if (cocktails === undefined) {
+      return <p>wtf</p>;
+    }
     if (cocktails === null) {
       return alert(
         'Sinto muito, não encontramos nenhuma receita para esses filtros.',
@@ -49,7 +58,9 @@ function Bebidas(props) {
               src={ item.strDrinkThumb }
               alt={ item.strDrink }
             />
-            <div data-testid={ `${index}-card-name` }>{item.strDrink}</div>
+            <div data-testid={ `${index}-card-name` } className="df-name">
+              {item.strDrink}
+            </div>
           </Link>
         ))}
       </div>
@@ -79,12 +90,13 @@ function Bebidas(props) {
   function renderCategories() {
     if (!categories) return <div>Loading Categories</div>;
     return (
-      <div>
+      <div className="tags-wrapper">
         <button
           type="button"
           data-testid="All-category-filter"
           value=""
           onClick={ handleCategories }
+          className="button-category"
         >
           All
         </button>
@@ -95,6 +107,7 @@ function Bebidas(props) {
             type="button"
             value={ category.strCategory }
             onClick={ handleCategories }
+            className="button-category"
           >
             {category.strCategory}
           </button>
