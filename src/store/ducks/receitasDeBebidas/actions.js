@@ -6,6 +6,13 @@ export const getDrinks = (drinks) => ({
   payload: drinks,
 });
 
+export const loadDrinks = () => async (dispatch) => {
+  const URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+  const request = await fetch(URL);
+  const response = await request.json();
+  dispatch(getDrinks(response));
+};
+
 export const getByIngredientsDrinks = (ingredient) => async (dispatch) => {
   const URL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`;
   const request = await fetch(URL);

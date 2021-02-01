@@ -6,6 +6,13 @@ export const getMeals = (meals) => ({
   payload: meals,
 });
 
+export const loadMeals = () => async (dispatch) => {
+  const URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  const request = await fetch(URL);
+  const response = await request.json();
+  dispatch(getMeals(response));
+};
+
 export const getByIngredientsMeals = (ingredient) => async (dispatch) => {
   const URL = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
   const request = await fetch(URL);
