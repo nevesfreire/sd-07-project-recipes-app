@@ -1,8 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Header, Footer, IngredientCard } from '../../components';
+import { fetchingDrinks } from '../../services/mandaFoods';
+import RecipeContext from '../../context/RecipesContext';
 
 export default function DrinksIngredients() {
   const [ingredients, setIngredients] = useState([]);
+  const { setDrinks } = useContext(RecipeContext);
+  const { push } = useHistory();
   const twelve = 12;
   const fetchFoodIngredients = async () => {
     try {
@@ -13,6 +18,13 @@ export default function DrinksIngredients() {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const redirectToDrinkPage = async (ingredientSelect) => {
+    const selectedIngredient = await fetchingDrinks('Ingrediente', ingredientSelect);
+    // console.log(selectedIngredient);
+    setDrinks(selectedIngredient);
+    push('/bebidas');
   };
 
   useEffect(() => {
@@ -27,7 +39,12 @@ export default function DrinksIngredients() {
         {
           ingredients.filter((_, index) => index < twelve)
             .map((ingredient, index) => (
-              <IngredientCard key={ index } id={ index } ingredient={ ingredient } />
+              <IngredientCard
+                key={ index }
+                id={ index }
+                ingredient={ ingredient }
+                redirectToDrinkPage={ redirectToDrinkPage }
+              />
             ))
         }
       </div>

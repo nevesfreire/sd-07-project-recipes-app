@@ -12,6 +12,8 @@ export default function MainDrink() {
   const [categories, setCategories] = useState([]);
 
   const fetchDrinks = async () => {
+    const ZERO = 0;
+    if (drinks.length > ZERO) return;
     try {
       const URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
       const response = await fetch(URL).then((results) => results.json());
