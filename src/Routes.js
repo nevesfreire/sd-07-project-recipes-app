@@ -7,13 +7,14 @@ import Login from './pages/login';
 import RecipesDone from './pages/RecipesDone';
 import Favourites from './pages/Favourites';
 import FoodDetail from './pages/FoodDetail';
+import DrinkDetail from './pages/DrinkDetail';
 
 const Router = () => (
   <Switch>
     <Route path="/comidas/:id" component={ FoodDetail } />
+    <Route path="/bebidas/:id" component={ DrinkDetail } />
     <Route path="/comidas" component={ Foods } />
     <Route path="/bebidas" component={ Drinks } />
-    {/* <Route path="/bebidas/:id" component={ DrinkDetail } /> */}
     {/* <Route path="/comidas/:id/in-progress" component={ FoodProgress } /> */}
     {/* <Route path="/bebidas/:id/in-progress" component={ DrinkProgress } /> */}
     {/* <Route path="/explorar" component={ Explore } /> */}

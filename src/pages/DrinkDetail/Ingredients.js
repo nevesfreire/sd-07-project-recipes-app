@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export default function Ingredients({ data }) {
   const minDataLength = 1;
-  const maxIngredients = 20;
+  const maxIngredients = 15;
   if (data.length < minDataLength) return null;
 
   const ingredients = [];
@@ -21,10 +21,10 @@ export default function Ingredients({ data }) {
         key={ index }
         data-testid={ `${index}-ingredient-name-and-measure` }
       >
-        {`${ingredient} - ${measures[index]}`}
+        {`${ingredient}`}
+        {(measures[index]) ? ` - ${measures[index]}` : ''}
       </li>
-    ))
-  );
+    )));
 }
 
 Ingredients.propTypes = {
