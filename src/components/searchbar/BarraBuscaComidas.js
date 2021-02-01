@@ -46,57 +46,59 @@ class BarraBuscaComidas extends Component {
     const { busca } = this.state;
     return (
       <div>
-        <label htmlFor="busca">
-          <input
-            type="text"
-            name="busca"
-            id="busca"
-            value={ busca }
-            onChange={ this.handleChange }
-            data-testid="search-input"
-          />
-        </label>
-        <label htmlFor="name">
-          Nome
-          <input
-            name="select"
-            id="name"
-            type="radio"
-            data-testid="name-search-radio"
-            value="nome"
-            onChange={ this.handleChange }
-          />
-        </label>
-        <label htmlFor="ingredient">
-          Ingrediente
-          <input
-            name="select"
-            id="ingredient"
-            type="radio"
-            data-testid="ingredient-search-radio"
-            value="ingrediente"
-            onChange={ this.handleChange }
-          />
-        </label>
-        <label htmlFor="letter">
-          Primeira letra
-          <input
-            name="select"
-            id="letter"
-            type="radio"
-            data-testid="first-letter-search-radio"
-            value="letra"
-            onChange={ this.handleChange }
-          />
-        </label>
-        <button
-          type="button"
-          id="botão"
-          data-testid="exec-search-btn"
-          onClick={ this.searchContent }
-        >
-          Buscar
-        </button>
+        <fieldset>
+          <label htmlFor="busca">
+            <input
+              type="text"
+              name="busca"
+              id="busca"
+              value={ busca }
+              onChange={ this.handleChange }
+              data-testid="search-input"
+            />
+          </label>
+          <label htmlFor="name">
+            Nome
+            <input
+              name="select"
+              id="name"
+              type="radio"
+              data-testid="name-search-radio"
+              value="nome"
+              onChange={ this.handleChange }
+            />
+          </label>
+          <label htmlFor="ingredient">
+            Ingrediente
+            <input
+              name="select"
+              id="ingredient"
+              type="radio"
+              data-testid="ingredient-search-radio"
+              value="ingrediente"
+              onChange={ this.handleChange }
+            />
+          </label>
+          <label htmlFor="letter">
+            Primeira letra
+            <input
+              name="select"
+              id="letter"
+              type="radio"
+              data-testid="first-letter-search-radio"
+              value="letra"
+              onChange={ this.handleChange }
+            />
+          </label>
+          <button
+            type="button"
+            id="botão"
+            data-testid="exec-search-btn"
+            onClick={ this.searchContent }
+          >
+            Buscar
+          </button>
+        </fieldset>
       </div>
     );
   }
