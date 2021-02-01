@@ -5,7 +5,7 @@ import {
 
 const INITIAL_STATE = false;
 
-const searchToggleReducer = (state = INITIAL_STATE, action) => {
+const searchToggle = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case SEARCH_TOGGLE:
     return action.toggle;
@@ -14,4 +14,4 @@ const searchToggleReducer = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default searchToggleReducer;
+export default searchToggle;
