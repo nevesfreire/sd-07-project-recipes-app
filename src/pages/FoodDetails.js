@@ -20,6 +20,7 @@ class FoodDetails extends Component {
     this.state = {
       meal: [],
       ingredients: [],
+      measurement: [],
       hashYoutube: '',
       request: true,
       favorite: false,
@@ -50,9 +51,15 @@ class FoodDetails extends Component {
       .includes('strIngredient') && array[1] !== null && array[1] !== '')
       .map((array2) => array2[1]);
 
+    const measurement = Object.entries(filterRecipe)
+      .filter((array) => array[0]
+      .includes('strMeasure') && array[1] !== null && array[1] !== '')
+      .map((array2) => array2[1]);
+
     this.setState({
       meal: filterRecipe,
       ingredients,
+      measurement,
       hashYoutube: filterRecipe.strYoutube.split('=')[1],
       request: false,
     });
@@ -86,7 +93,7 @@ class FoodDetails extends Component {
 
   render() {
     const { match: { params: { id } }, recomendations, history } = this.props;
-    const { meal, hashYoutube, ingredients, favorite } = this.state;
+    const { meal, hashYoutube, ingredients, favorite, measurement } = this.state;
     const { strMealThumb, strMeal, strCategory, strInstructions } = meal;
     const DRINK_LENGTH = 6;
     // console.log(recomendations);
@@ -107,19 +114,19 @@ class FoodDetails extends Component {
           <div className="images-container">
             <button
               type="button"
-              data-testid="share-btn"
-            >
+              >
               <img
+                data-testid="share-btn"
                 src={ shareIcon }
                 alt="shareIcon"
               />
             </button>
             <button
               type="button"
-              data-testid="favorite-btn"
               onClick={ this.changeFavorite }
-            >
+              >
               <img
+                data-testid="favorite-btn"
                 src={ favorite ? blackHeartIcon : whiteHeartIcon }
                 alt="whiteHeartIcon"
               />
@@ -135,7 +142,7 @@ class FoodDetails extends Component {
                   key={ index }
                   data-testid={ `${index}-ingredient-name-and-measure` }
                 >
-                  {ingredient}
+                  {`${ingredient} - ${measurement[index]}`}
                 </li>
               ))}
           </ul>
@@ -168,7 +175,12 @@ class FoodDetails extends Component {
                   >
                     <img src={ drink.strDrinkThumb } alt={ drink.strDrink } />
                     <h6 key={ drink.strCategory }>{ drink.strCategory }</h6>
-                    <h4 key={ drink.strDrink }>{ drink.strDrink }</h4>
+                    <h4
+                      key={ drink.strDrink }
+                      data-testid={ `${index}-recomendation-title` }
+                    >
+                      { drink.strDrink }
+                    </h4>
                   </div>
                 ))
             }

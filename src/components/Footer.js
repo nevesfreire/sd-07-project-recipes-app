@@ -12,30 +12,30 @@ class Footer extends Component {
       <footer className="footer-container" data-testid="footer">
         <button
           type="button"
-          data-testid="drinks-bottom-btn"
           onClick={ () => history.push('/bebidas') }
         >
           <img
+            data-testid="drinks-bottom-btn"
             src={ drinkIcon }
             alt="drinkIcon"
           />
         </button>
         <button
           type="button"
-          data-testid="explore-bottom-btn"
           onClick={ () => history.push('/explorar') }
-        >
+          >
           <img
+            data-testid="explore-bottom-btn"
             src={ exploreIcon }
             alt="exploreIcon"
           />
         </button>
         <button
           type="button"
-          data-testid="food-bottom-btn"
           onClick={ () => history.push('/comidas') }
-        >
+          >
           <img
+            data-testid="food-bottom-btn"
             src={ mealIcon }
             alt="mealIcon"
           />

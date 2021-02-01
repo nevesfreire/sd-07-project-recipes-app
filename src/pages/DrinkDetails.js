@@ -6,6 +6,7 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Loading from '../components/Loading';
+import readFavoriteLocalStorage from '../localStorage';
 import '../css/details.css';
 
 class DrinkDetails extends Component {
@@ -14,10 +15,12 @@ class DrinkDetails extends Component {
 
     this.handleState = this.handleState.bind(this);
     this.changeFavorite = this.changeFavorite.bind(this);
+    this.createFavoriteLocalStorage = this.createFavoriteLocalStorage.bind(this);
 
     this.state = {
       drinks: [],
       ingredients: [],
+      measurement: [],
       request: true,
       favorite: false,
     };
@@ -27,12 +30,12 @@ class DrinkDetails extends Component {
     const { requestRecipes, requestRecomendations, match: { params: { id } } } = this.props;
     requestRecipes(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
     requestRecomendations('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    this.createFavoriteLocalStorage();
   }
 
   componentDidUpdate() {
     const { drinksRecipes } = this.props;
     const { request } = this.state;
-    // console.log(drinksRecipes);
 
     if (drinksRecipes.drinks && request) {
       this.handleState();
@@ -47,9 +50,15 @@ class DrinkDetails extends Component {
       .includes('strIngredient') && array[1] !== null && array[1] !== '')
       .map((array2) => array2[1]);
 
+    const measurement = Object.entries(filterRecipe)
+      .filter((array) => array[0]
+      .includes('strMeasure') && array[1] !== null && array[1] !== '')
+      .map((array2) => array2[1]);
+
     this.setState({
       drinks: filterRecipe,
       ingredients,
+      measurement,
       request: false,
     });
   }
@@ -57,13 +66,33 @@ class DrinkDetails extends Component {
   changeFavorite() {
     this.setState((prevState) => ({
       favorite: !prevState.favorite,
-    }));
+    }),
+    () => {
+      const { drinks, favorite } = this.state;
+      readFavoriteLocalStorage(drinks, favorite);
+    });
+  }
+
+  createFavoriteLocalStorage() {
+    const { match: { params: { id } } } = this.props;
+    const read = JSON.parse(localStorage.getItem('favoriteRecipes'));
+
+    if (read && read.some((obj) => obj.idMeal === id)) {
+      this.setState({
+        favorite: true,
+      });
+    } else if (!read) {
+      this.setState({
+        favorite: false,
+      },
+      () => localStorage.setItem('favoriteRecipes', JSON.stringify([])));
+    }
   }
 
   render() {
     const { match: { params: { id } }, recomendations, history } = this.props;
-    const { drinks, ingredients, favorite } = this.state;
-    const { strDrinkThumb, strDrink, strCategory, strInstructions } = drinks;
+    const { drinks, ingredients, favorite, measurement } = this.state;
+    const { strDrinkThumb, strDrink, strInstructions, strAlcoholic } = drinks;
     const MEAL_LENGTH = 6;
     // console.log(recomendations);
     if (!recomendations.meals) return <Loading />;
@@ -78,24 +107,24 @@ class DrinkDetails extends Component {
         <div className="title-container">
           <div className="title-subcontainer">
             <h1 data-testid="recipe-title">{strDrink}</h1>
-            <h3 data-testid="recipe-category">{strCategory}</h3>
+            <h3 data-testid="recipe-category">{strAlcoholic}</h3>
           </div>
           <div className="images-container">
             <button
               type="button"
-              data-testid="share-btn"
-            >
+              >
               <img
+                data-testid="share-btn"
                 src={ shareIcon }
                 alt="shareIcon"
               />
             </button>
             <button
               type="button"
-              data-testid="favorite-btn"
               onClick={ this.changeFavorite }
-            >
+              >
               <img
+                data-testid="favorite-btn"
                 src={ favorite ? blackHeartIcon : whiteHeartIcon }
                 alt="whiteHeartIcon"
               />
@@ -111,7 +140,7 @@ class DrinkDetails extends Component {
                   key={ ingredient }
                   data-testid={ `${index}-ingredient-name-and-measure` }
                 >
-                  {ingredient}
+                  {`${ingredient} - ${measurement[index]}`}
                 </li>
               ))}
           </ul>
@@ -134,7 +163,12 @@ class DrinkDetails extends Component {
                   >
                     <img src={ meal.strMealThumb } alt={ meal.strMeal } />
                     <h6 key={ meal.strCategory }>{ meal.strCategory }</h6>
-                    <h4 key={ meal.strMeal }>{ meal.strMeal }</h4>
+                    <h4
+                      key={ meal.strMeal }
+                      data-testid={ `${index}-recomendation-title` }
+                    >
+                      { meal.strMeal }
+                    </h4>
                   </div>
                 ))
             }
@@ -144,7 +178,7 @@ class DrinkDetails extends Component {
           <button
             type="button"
             data-testid="start-recipe-btn"
-            onClick={ () => history.push(`/comidas/${id}/in-progress`) }
+            onClick={ () => history.push(`/bebidas/${id}/in-progress`) }
             className="finish-button-recipe"
           >
             Iniciar Receita

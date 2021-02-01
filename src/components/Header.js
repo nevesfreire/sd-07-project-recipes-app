@@ -84,10 +84,10 @@ class Header extends Component {
         <header className="header-food-container">
           <button
             type="button"
-            data-testid="profile-top-btn"
             onClick={ () => history.push('/perfil') }
           >
             <img
+              data-testid="profile-top-btn"
               src={ profileIcon }
               alt="profileIcon"
             />
@@ -95,10 +95,10 @@ class Header extends Component {
           <h1 data-testid="page-title">{title}</h1>
           <button
             type="button"
-            data-testid="search-top-btn"
             onClick={ this.changeDisplayInput }
-          >
+            >
             <img
+              data-testid="search-top-btn"
               src={ searchIcon }
               alt="searchIcon"
             />

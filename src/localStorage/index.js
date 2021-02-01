@@ -15,13 +15,13 @@ const readFavoriteLocalStorage = (meal, favorite) => {
     const checkoutStorage = read.some((obj, index) => {
       if (obj.idMeal === idMeal) {
         read[index] = {
-          idMeal,
-          strTags,
-          strArea,
-          strCategory,
-          strDrinkAlternate,
-          strMeal,
-          strMealThumb,
+          id: idMeal,
+          type: strTags,
+          area: strArea,
+          category: strCategory,
+          name: strMeal,
+          image: strMealThumb,
+          alcoholicOrNot: strDrinkAlternate,
         };
         localStorage.setItem('favoriteRecipes', JSON.stringify(read));
       }
@@ -32,13 +32,13 @@ const readFavoriteLocalStorage = (meal, favorite) => {
       const newArray = [
         ...read,
         {
-          idMeal,
-          strTags,
-          strArea,
-          strCategory,
-          strDrinkAlternate,
-          strMeal,
-          strMealThumb,
+          id: idMeal,
+          type: strTags,
+          area: strArea,
+          category: strCategory,
+          name: strMeal,
+          image: strMealThumb,
+          alcoholicOrNot: strDrinkAlternate,
         },
       ];
       localStorage.setItem('favoriteRecipes', JSON.stringify(newArray));
