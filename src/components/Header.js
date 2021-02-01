@@ -8,6 +8,7 @@ import { setToggle } from '../actions/actionSearchToggle';
 import ProfileIcon from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
+import CategoriesBar from './CategoriesBar';
 
 function Header({ title, toggle, toggleAction }) {
   return (
@@ -32,6 +33,7 @@ function Header({ title, toggle, toggleAction }) {
         </button>
       </div>
       <SearchBar title={ title } />
+      <CategoriesBar title={ title }/>
     </header>
   );
 }

@@ -2,22 +2,33 @@ import {
   REQUEST_MEALS,
   REQUEST_MEALS_SUCCESS,
   REQUEST_MEALS_FAILURE,
+  REQUEST_MEALS_CATEGORIES,
+  REQUEST_MEALS_CATEGORIES_SUCCESS,
+  REQUEST_MEALS_CATEGORIES_FAILURE,
 } from '../actions';
 
 const INITIAL_STATE = {
   meals: [],
-  isFetching: false,
+  mealsCategories: [],
+  isFetchingMeals: false,
+  isFetchingCategories: false,
   error: '',
 };
 
 export default function meals(state = INITIAL_STATE, action) {
   switch (action.type) {
   case REQUEST_MEALS:
-    return { ...state, isFetching: true };
+    return { ...state, isFetchingMeals: true };
   case REQUEST_MEALS_SUCCESS:
-    return { ...state, isFetching: false, meals: [...action.meals.meals] };
+    return { ...state, isFetchingMeals: false, meals: [...action.meals.meals] };
   case REQUEST_MEALS_FAILURE:
-    return { ...state, isFetching: false, error: action.error };
+    return { ...state, isFetchingMeals: false, error: action.error };
+  case REQUEST_MEALS_CATEGORIES:
+    return { ...state, isFetchingCategories: true };
+  case REQUEST_MEALS_CATEGORIES_SUCCESS:
+    return { ...state, isFetchingCategories: false, mealsCategories: [...action.meals] };
+  case REQUEST_MEALS_CATEGORIES_FAILURE:
+    return { ...state, isFetchingCategories: false, error: action.error };
   default:
     return state;
   }

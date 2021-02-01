@@ -2,22 +2,33 @@ import {
   REQUEST_COCKTAILS,
   REQUEST_COCKTAILS_SUCCESS,
   REQUEST_COCKTAILS_FAILURE,
+  REQUEST_COCKTAILS_CATEGORIES,
+  REQUEST_COCKTAILS_CATEGORIES_SUCCESS,
+  REQUEST_COCKTAILS_CATEGORIES_FAILURE,
 } from '../actions';
 
 const INITIAL_STATE = {
   cocktails: [],
-  isFetching: false,
+  cocktailsCategories: [],
+  isFetchingCocktails: false,
+  isFetchingCategories: false,
   error: '',
 };
 
 export default function cocktails(state = INITIAL_STATE, action) {
   switch (action.type) {
   case REQUEST_COCKTAILS:
-    return { ...state, isFetching: true };
+    return { ...state, isFetchingCocktails: true };
   case REQUEST_COCKTAILS_SUCCESS:
-    return { ...state, isFetching: false, cocktails: [...action.cocktails.drinks] };
+    return { ...state, isFetchingCocktails: false, cocktails: [...action.cocktails.drinks] };
   case REQUEST_COCKTAILS_FAILURE:
-    return { ...state, isFetching: false, error: action.error };
+    return { ...state, isFetchingCocktails: false, error: action.error };
+  case REQUEST_COCKTAILS_CATEGORIES:
+    return { ...state, isFetchingCategories: true };
+  case REQUEST_COCKTAILS_CATEGORIES_SUCCESS:
+    return { ...state, isFetchingCategories: false, cocktailsCategories: [...action.drinks] };
+  case REQUEST_COCKTAILS_CATEGORIES_FAILURE:
+    return { ...state, isFetchingCategories: false, error: action.error };
   default:
     return state;
   }
