@@ -8,6 +8,11 @@ import Explorer from './pages/Explorer';
 import Meals from './pages/Meals';
 import MealRecipeDetails from './pages/MealRecipeDetails';
 import CocktailRecipeDetails from './pages/CocktailRecipeDetails';
+import MealsExplorer from './pages/MealsExplorer';
+import DrinksExplorer from './pages/DrinksExplorer';
+import MealsIngredients from './pages/MealsIngredients';
+import DrinksIngredients from './pages/DrinksIngredients';
+import MealsOrigin from './pages/MealsOrigin';
 
 function App() {
   return (
@@ -18,6 +23,15 @@ function App() {
       <Route exact path="/comidas" component={ Meals } />
       <Route path="/comidas/52771" component={ MealRecipeDetails } />
       <Route path="/bebidas/178319" component={ CocktailRecipeDetails } />
+      <Route exact path="/explorar/comidas" component={ MealsExplorer } />
+      <Route exact path="/explorar/bebidas" component={ DrinksExplorer } />
+      <Route exact path="/explorar/comidas/ingredientes" component={ MealsIngredients } />
+      <Route
+        exact
+        path="/explorar/bebidas/ingredientes"
+        component={ DrinksIngredients }
+      />
+      <Route exact path="/explorar/comidas/area" component={ MealsOrigin } />
     </Switch>
   );
 }
