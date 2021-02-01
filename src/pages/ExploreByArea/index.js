@@ -1,9 +1,11 @@
 import React from 'react';
+import { Footer, Header } from '../../components';
 
 function ExploreByArea() {
   return (
     <div>
-      area
+      <Header />
+      <Footer />
     </div>
   );
 }
