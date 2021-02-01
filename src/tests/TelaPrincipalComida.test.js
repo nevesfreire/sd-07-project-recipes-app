@@ -1,17 +1,8 @@
 import React from 'react';
 import renderWithRouter from '../renderWithRouter';
-import { screen, waitFor } from '@testing-library/react';
+import { screen, fireEvent, getByTestId } from '@testing-library/react';
 import Comidas from '../pages/Comidas';
-import { response as mockData } from './mockData';
 
-const apiResponse = Promise.resolve({
-    json: () => Promise.resolve(mockData),
-    ok: true,
-  });
-
-const mockedRecipes = jest.spyOn(global, 'fetch').mockImplementation(() => apiResponse);
-
-afterEach(() => jest.clearAllMocks());
 
 describe('Testa Comidas.js', () => {
   it('Verifica se há um header respeitando os atributos descritos no protótipo', () => {
@@ -30,6 +21,45 @@ describe('Testa Comidas.js', () => {
     expect(pageTitle.textContent).toBe('Comidas');
     expect(searchIcon.tagName).toBe('BUTTON');
   });
+  it('Verificar se é renderizada 12 receitas', async () => {
+
+    renderWithRouter(<Comidas />);
+    const recipeTwelve = await screen.findByTestId('11-recipe-card');
+    const recipeNameTwelve = await screen.findByTestId('11-card-name');
+    const recipeOne = await screen.findByTestId('0-recipe-card');
+    const recipeNameOne = await screen.findByTestId('0-card-name');
+
+    expect(recipeOne).toContainHTML(0);
+    expect(recipeNameOne.textContent).toBe('Corba');
+
+    expect(recipeTwelve).toContainHTML(0);
+    expect(recipeNameTwelve.textContent).toBe('Kapsalon');
+  });
+
+  it(('Pesquisar receitas por ingredite'), async () => {
+    renderWithRouter(<Comidas />);
+    const searchIcon = getByTestId('search-top-btn');
+
+
+    fireEvent.click(searchIcon);
+
+    const inputTextSearch = getByTestId('search-input');
+    const radioIngredient = getByTestId('ingredient-search-radio');
+    const radioName = getByTestId('name-search-radio');
+    const radioFisrtLetter = getByTestId('first-letter-search-radio');
+    const execShearch = getByTestId('exec-search-btn');
+
+    expect(inputTextSearch).toBeInTheDocument();
+    expect(radioIngredient).toBeInTheDocument();
+    expect(radioName).toBeInTheDocument();
+    expect(radioFisrtLetter).toBeInTheDocument();
+    expect(execShearch).toBeInTheDocument();
+
+    userEvent.type(inputTextSearch, 'onion');
+  });
+});
+
+
   /*
 - Se o radio selecionado for Ingrediente, a busca na API é feita corretamente pelo ingrediente
 - Se o radio selecionado for Nome, a busca na API é feita corretamente pelo nome
@@ -37,18 +67,4 @@ describe('Testa Comidas.js', () => {
 - Se o radio selecionado for Primeira letra e a busca na API for feita com mais de uma letra, deve-se exibir um alert
 - Caso apenas uma comida seja encontrada, deve-se ir para sua rota de detalhes
 - Caso nenhuma comida seja encontrada o alert deve ser exibido
-- Caso mais de uma bebida seja encontrada, mostrar as 12 primeiras
-
  */
-  it('Verificar se é renderizada 12 receitas', async () => {
-
-    renderWithRouter(<Comidas />);
-    const recipeTwelve = await screen.findByTestId('11-recipe-card');
-    const recipeNameTwelve = await screen.findByTestId('11-card-name');
-
-    await waitFor(() => {
-        expect(recipeTwelve).toContainHTML(0);
-        expect(recipeNameTwelve.textContent).toBe('Kapsalon');
-      });
-  });
-});
