@@ -34,8 +34,8 @@ h1 {
 }
 
 .title-subcontainer {
-  display: flex;
   align-items: flex-start;
+  display: flex;
   flex-flow: column nowrap;
   justify-content: center;
   text-align: left;
