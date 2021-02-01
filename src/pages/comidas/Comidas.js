@@ -9,12 +9,34 @@ import { resultRandomFood } from '../../redux/actionsComidas';
 class Comidas extends Component {
   constructor() {
     super();
+    this.state = {
+      recipes: [],
+      loading: false,
+    };
     this.showCards = this.showCards.bind(this);
+    this.searchCategory = this.searchCategory.bind(this);
   }
 
   componentDidMount() {
     const { fetchRandomFood } = this.props;
     fetchRandomFood();
+  }
+
+  async searchCategory(category) {
+    this.setState({
+      loading: true,
+    }, async () => {
+      const ZERO = 0;
+      const TWELVE = 12;
+      const responseAPI = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
+      const response = await responseAPI.json();
+      const copyResponse = [...response.meals];
+      const recipes = copyResponse.splice(ZERO, TWELVE);
+      this.setState({
+        recipes,
+        loading: false,
+      });
+    });
   }
 
   showCards(card) {
@@ -44,6 +66,8 @@ class Comidas extends Component {
       toggleFood,
       resultApiByName,
       resultFood } = this.props;
+    const { recipes, loading } = this.state;
+    console.log(recipes);
     return (
       <div>
         <Header title="Comidas" history={ history } />
@@ -51,34 +75,40 @@ class Comidas extends Component {
         <button
           type="button"
           data-testid="Beef-category-filter"
+          onClick={ () => this.searchCategory('beef') }
         >
           Beef
         </button>
         <button
           type="button"
           data-testid="Breakfast-category-filter"
+          onClick={ () => this.searchCategory('breakfast') }
         >
           Breakfast
         </button>
         <button
           type="button"
           data-testid="Chicken-category-filter"
+          onClick={ () => this.searchCategory('chicken') }
         >
           Chicken
         </button>
         <button
           type="button"
           data-testid="Dessert-category-filter"
+          onClick={ () => this.searchCategory('dessert') }
         >
           Dessert
         </button>
         <button
           type="button"
           data-testid="Goat-category-filter"
+          onClick={ () => this.searchCategory('goat') }
         >
           Goat
         </button>
-        {toggleFood ? this.showCards(resultApiByName) : this.showCards(resultFood)}
+        {loading ? 'Loading' : this.showCards(recipes)}
+        {toggleFood && !loading ? this.showCards(resultApiByName) : this.showCards(resultFood)}
         <Footer />
       </div>
     );
