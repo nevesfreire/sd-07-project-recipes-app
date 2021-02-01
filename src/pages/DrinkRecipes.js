@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import Header from '../components/Header';
 import SearchInput from '../components/SearchInput';
 import RecipesContext from '../context/RecipesContext';
@@ -25,20 +25,24 @@ function DrinksRecipes() {
   if (recipesFilters !== null && recipesFilters.length === 1) {
     const { idDrink } = recipesFilters[zero];
     setDrinkRecipeId(idDrink);
-    return <Redirect to={ `bebidas/${idDrink}` } />;
+    return <Redirect to={ `/bebidas/${idDrink}` } />;
   }
 
   if (drinkRecipeId !== '') {
-    return <Redirect to={ `bebidas/${drinkRecipeId}` } />;
+    return <Redirect to={ `/bebidas/${drinkRecipeId}` } />;
   }
   const showDetails = (id) => {
+    setDrinkRecipeId(id);
+  };
+
+  const handleClick = (id) => {
     setDrinkRecipeId(id);
   };
 
   return (
     <div>
       <Header />
-      { searchRender ? <SearchInput /> : null}
+      {searchRender ? <SearchInput /> : null}
 
       {filterRecipesTwelve.map((recipe, index) => (
         <button
@@ -51,12 +55,17 @@ function DrinksRecipes() {
             Nome:
             {recipe.strDrink}
           </p>
-          <img
-            data-testid={ `${index}-card-img` }
-            width="200px"
-            alt="receitas"
-            src={ recipe.strDrinkThumb }
-          />
+          <Link
+            to={ `/bebidas/${recipe.idDrink}` }
+            onClick={ () => handleClick(recipe.idDrink) }
+          >
+            <img
+              data-testid={ `${index}-card-img` }
+              width="200px"
+              alt="receitas"
+              src={ recipe.strDrinkThumb }
+            />
+          </Link>
         </button>
       ))}
     </div>

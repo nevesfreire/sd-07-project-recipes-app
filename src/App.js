@@ -20,11 +20,11 @@ function App() {
     <Provider>
       <BrowserRouter>
         <Route exact path="/" component={ Login } />
-        <Route path="/comidas" component={ FoodRecipes } />
-        <Route path="/bebidas" component={ DrinkRecipes } />
+        <Route exact path="/comidas" component={ FoodRecipes } />
+        <Route exact path="/bebidas" component={ DrinkRecipes } />
         <Route path="/comidas/:id" component={ FoodDetails } />
         <Route path="/bebidas/:id" component={ DrinkDetails } />
-        <Route path="/perfil" component={ Profile } />
+        <Route exact path="/perfil" component={ Profile } />
         <Route exact path="/explorar" component={ Explore } />
         <Route exact path="/explorar/comidas" component={ ExploreFood } />
         <Route exact path="/explorar/bebidas" component={ ExploreDrink } />

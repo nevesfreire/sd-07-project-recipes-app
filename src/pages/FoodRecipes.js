@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import Header from '../components/Header';
 import SearchInput from '../components/SearchInput';
 import RecipesContext from '../context/RecipesContext';
@@ -26,14 +26,18 @@ function FoodRecipes() {
   if (recipesFilters !== null && recipesFilters.length === 1) {
     const { idMeal } = recipesFilters[zero];
     setMealRecipeId(idMeal);
-    return <Redirect to={ `comidas/${idMeal}` } />;
+    return <Redirect to={ `/comidas/${idMeal}` } />;
   }
 
   if (mealRecipeId !== '') {
-    return <Redirect to={ `comidas/${mealRecipeId}` } />;
+    return <Redirect to={ `/comidas/${mealRecipeId}` } />;
   }
 
   const showDetails = (id) => {
+    setMealRecipeId(id);
+  };
+
+  const handleClick = (id) => {
     setMealRecipeId(id);
   };
 
@@ -53,12 +57,17 @@ function FoodRecipes() {
             Nome:
             {recipe.strMeal}
           </p>
-          <img
-            data-testid={ `${index}-card-img` }
-            width="200px"
-            alt="receitas"
-            src={ recipe.strMealThumb }
-          />
+          <Link
+            to={ `/comidas/${recipe.idMeal}` }
+            onClick={ () => handleClick(recipe.idMeal) }
+          >
+            <img
+              data-testid={ `${index}-card-img` }
+              width="200px"
+              alt="receitas"
+              src={ recipe.strMealThumb }
+            />
+          </Link>
         </button>
       ))}
     </div>
