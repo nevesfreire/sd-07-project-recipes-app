@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card } from '../components';
 
-function factoryCard(arr, number, drink = true, parameters) {
+function factoryCard(arr, number, drink, parameters) {
   if (!arr) return (<h1>Não encontrado!</h1>);
   const text = drink ? 'Drink' : 'Meal';
   const str = `str${text}`;

@@ -4,14 +4,12 @@ export {
   AreaCards,
   LoadingCard,
   Card,
-  DrinkCards,
+  CardsFactory,
   FoodCards,
-  SearchDrinkCards,
   SearchFoodCards,
   IngredientsFoodCards,
   IngredientsDrinkCards,
   FoodRecomendationsCards,
-  DrinkRecomendationsCards,
 } from './Cards';
 export { CategoryFood, CategoryDrink } from './Categories';
 export { default as Button } from './Button';

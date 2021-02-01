@@ -2,7 +2,7 @@ import React from 'react';
 import '../components/components.css';
 import PropTypes from 'prop-types';
 import { shareIcon, whiteHeartIcon } from '../images';
-import { Button, DrinkRecomendationsCards, LoadingCard,
+import { Button, CardsFactory, LoadingCard,
 } from '../components';
 import { useFetchApi } from '../hooks';
 
@@ -71,8 +71,9 @@ export default function DetailsFood({ history, match }) {
             </div>
             <div>
               <h4>Recomendadas</h4>
-              <DrinkRecomendationsCards
+              <CardsFactory
                 number={ 6 }
+                URL="https://www.thecocktaildb.com/api/json/v1/1/search.php?s="
                 testidImg="-recomendation-img"
                 testidCard="-recomendation-card"
                 testidTitle="-recomendation-title"

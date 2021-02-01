@@ -2,7 +2,7 @@ import React from 'react';
 import '../components/components.css';
 import PropTypes from 'prop-types';
 import { shareIcon, whiteHeartIcon } from '../images';
-import { Button, FoodRecomendationsCards, LoadingCard,
+import { Button, CardsFactory, LoadingCard,
 } from '../components';
 import { useFetchApi } from '../hooks';
 
@@ -61,8 +61,10 @@ export default function DetailsDrink({ history, match }) {
             </div>
             <div>
               <h4>Recomendadas</h4>
-              <FoodRecomendationsCards
+              <CardsFactory
                 number={ 6 }
+                drink={ false }
+                URL="https://www.themealdb.com/api/json/v1/1/search.php?s="
                 testidImg="-recomendation-img"
                 testidCard="-recomendation-card"
                 testidTitle="-recomendation-title"

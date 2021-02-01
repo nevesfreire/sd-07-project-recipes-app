@@ -4,29 +4,31 @@ import { useFetchApi } from '../../hooks';
 import LoadingCard from './LoadingCard';
 import { factoryCard } from '../../Services';
 
-export default function DrinkRecomendationsCards(
-  { number, testidImg, testidCard, testidTitle },
+export default function CardsFactory(
+  { URL, number, testidImg, testidCard, testidTitle, drink },
 ) {
-  const URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
-  const [loading, { drinks }] = useFetchApi(URL);
-  const parameters = { testidImg, testidCard, testidTitle };
+  const [loading, { meals }] = useFetchApi(URL);
+  const parameters = testidCard ? { testidImg, testidCard, testidTitle } : '';
   return (
     <div className="cards">
       {
         loading
           ? (<LoadingCard />)
-          : (factoryCard(drinks, number, true, parameters))
+          : (factoryCard(meals, number, drink, parameters))
       }
     </div>
   );
 }
 
-DrinkRecomendationsCards.defaultProps = {
-  number: 6,
+CardsFactory.defaultProps = {
+  number: 12,
+  drink: true,
 };
 
-DrinkRecomendationsCards.propTypes = {
+CardsFactory.propTypes = {
   number: PropTypes.number,
+  drink: PropTypes.bool,
+  URL: PropTypes.string.isRequired,
   testidImg: PropTypes.string.isRequired,
   testidCard: PropTypes.string.isRequired,
   testidTitle: PropTypes.string.isRequired,
