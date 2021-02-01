@@ -55,7 +55,6 @@ export default function Comidas() {
   }, [getCategories]);
 
   const zero = 0;
-  console.log(filteredIngrCards);
 
   if (filteredIngrCards.length > zero) {
     return (

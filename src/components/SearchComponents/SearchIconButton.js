@@ -10,11 +10,8 @@ function SearchButton() {
   } = useContext(RecipesContext);
 
   const handleSearchIcon = () => {
-    if (searching) {
-      setSearching(false);
-    } else {
-      setSearching(true);
-    }
+    if (searching) return setSearching(false);
+    return setSearching(true);
   };
 
   return (
