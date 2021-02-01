@@ -14,8 +14,7 @@ import {
   IngredientsExploreDrink,
   IngredientsExploreFood,
 } from './pages';
-
-const notFound = () => (<span>Not Found</span>);
+import { NotFound } from './components';
 
 export default function Routes() {
   return (
@@ -41,7 +40,7 @@ export default function Routes() {
         />
         <Route exact path="/explorar/comidas/area" component={ AreaExploreFood } />
         <Route exact path="/perfil" component={ Profile } />
-        <Route exact path="/explorar/bebidas/area" component={ notFound } />
+        <Route exact path="/explorar/bebidas/area" component={ NotFound } />
       </Switch>
     </BrowserRouter>
   );

@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { profileIcon, searchIcon } from '../images';
 import SearchBar from './SearchBar';
-import Button from './Button';
+import { Button } from './Contructors';
 
 export default function Header({ title, profile, search }) {
   const { push } = useHistory();

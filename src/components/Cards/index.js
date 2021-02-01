@@ -1,9 +1,2 @@
-export { default as Card } from './Card';
 export { default as CardsFactory } from './CardsFactory';
-export { default as AreaCards } from './AreaCards';
-export { default as LoadingCard } from './LoadingCard';
-export { default as FoodCards } from './FoodCards';
-export { default as SearchFoodCards } from './SearchFoodCards';
-export { default as IngredientsFoodCards } from './IngredientsFoodCards';
-export { default as IngredientsDrinkCards } from './IngredientsDrinkCards';
-export { default as FoodRecomendationsCards } from './FoodRecomendationsCards';
+export { default as IngredientsCardsFactory } from './IngredientsCardsFactory';

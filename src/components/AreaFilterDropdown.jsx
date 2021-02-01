@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useFetchApi } from '../hooks';
-import { LoadingCard } from './Cards';
+import { LoadingCard } from './Contructors';
 import { SUBMIT_AREA, CLEAR_AREA } from '../reducers';
 import { CupNodesContext } from '../contexts';
 
