@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import { fetchDetails, fetchRecipes } from '../actions';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Loading from '../components/Loading';
+import readFavoriteLocalStorage from '../localStorage';
 import '../css/details.css';
 
 class FoodDetails extends Component {
@@ -12,12 +14,16 @@ class FoodDetails extends Component {
     super(props);
 
     this.handleState = this.handleState.bind(this);
+    this.changeFavorite = this.changeFavorite.bind(this);
+    this.createFavoriteLocalStorage = this.createFavoriteLocalStorage.bind(this);
+    // this.readFavoriteLocalStorage = this.readFavoriteLocalStorage.bind(this);
 
     this.state = {
       meal: [],
       ingredients: [],
       hashYoutube: '',
       request: true,
+      favorite: false,
     };
   }
 
@@ -25,12 +31,12 @@ class FoodDetails extends Component {
     const { requestRecipes, requestRecomendations } = this.props;
     requestRecipes('https://www.themealdb.com/api/json/v1/1/search.php?s=');
     requestRecomendations('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+    this.createFavoriteLocalStorage();
   }
 
   componentDidUpdate() {
     const { mealsRecipes } = this.props;
     const { request } = this.state;
-    // console.log(mealsRecipes);
 
     if (mealsRecipes.meals && request) {
       this.handleState();
@@ -52,9 +58,35 @@ class FoodDetails extends Component {
     });
   }
 
+  changeFavorite() {
+    this.setState((prevState) => ({
+      favorite: !prevState.favorite,
+    }),
+    () => {
+      const { meal, favorite } = this.state;
+      readFavoriteLocalStorage(meal, favorite);
+    });
+  }
+
+  createFavoriteLocalStorage() {
+    const { match: { params: { id } } } = this.props;
+    const read = JSON.parse(localStorage.getItem('favoriteRecipes'));
+
+    if (read && read.some((obj) => obj.idMeal === id)) {
+      this.setState({
+        favorite: true,
+      });
+    } else if (!read) {
+      this.setState({
+        favorite: false,
+      },
+      () => localStorage.setItem('favoriteRecipes', JSON.stringify([])));
+    }
+  }
+
   render() {
     const { match: { params: { id } }, recomendations, history } = this.props;
-    const { meal, hashYoutube, ingredients } = this.state;
+    const { meal, hashYoutube, ingredients, favorite } = this.state;
     const { strMealThumb, strMeal, strCategory, strInstructions } = meal;
     const DRINK_LENGTH = 6;
     // console.log(recomendations);
@@ -70,28 +102,29 @@ class FoodDetails extends Component {
         <div className="title-container">
           <div className="title-subcontainer">
             <h1 data-testid="recipe-title">{strMeal }</h1>
-            <div className="images-container">
-              <button
-                type="button"
-                data-testid="share-btn"
-              >
-                <img
-                  src={ shareIcon }
-                  alt="shareIcon"
-                />
-              </button>
-              <button
-                type="button"
-                data-testid="favorite-btn"
-              >
-                <img
-                  src={ whiteHeartIcon }
-                  alt="whiteHeartIcon"
-                />
-              </button>
-            </div>
+            <h3 data-testid="recipe-category">{strCategory}</h3>
           </div>
-          <h3 data-testid="recipe-category">{strCategory}</h3>
+          <div className="images-container">
+            <button
+              type="button"
+              data-testid="share-btn"
+            >
+              <img
+                src={ shareIcon }
+                alt="shareIcon"
+              />
+            </button>
+            <button
+              type="button"
+              data-testid="favorite-btn"
+              onClick={ this.changeFavorite }
+            >
+              <img
+                src={ favorite ? blackHeartIcon : whiteHeartIcon }
+                alt="whiteHeartIcon"
+              />
+            </button>
+          </div>
         </div>
         <div className="ingredients-container">
           <h1>Ingredientes</h1>
@@ -118,9 +151,6 @@ class FoodDetails extends Component {
             width="100%"
             height="315"
             src={ `https://www.youtube.com/embed/${hashYoutube}` }
-            // allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            // frameborder="0"
-            // allowfullscreen
             data-testid="video"
           />
         </div>
@@ -144,13 +174,16 @@ class FoodDetails extends Component {
             }
           </div>
         </div>
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-          onClick={ () => history.push(`/comidas/${id}/in-progress`) }
-        >
-          Iniciar Receita
-        </button>
+        <div className="finish-button-container">
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            onClick={ () => history.push(`/comidas/${id}/in-progress`) }
+            className="finish-button-recipe"
+          >
+            Iniciar Receita
+          </button>
+        </div>
       </div>
     );
   }

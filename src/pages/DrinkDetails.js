@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { fetchDetails, fetchRecipes } from '../actions';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Loading from '../components/Loading';
 import '../css/details.css';
 
@@ -12,11 +13,13 @@ class DrinkDetails extends Component {
     super(props);
 
     this.handleState = this.handleState.bind(this);
+    this.changeFavorite = this.changeFavorite.bind(this);
 
     this.state = {
       drinks: [],
       ingredients: [],
       request: true,
+      favorite: false,
     };
   }
 
@@ -50,9 +53,15 @@ class DrinkDetails extends Component {
     });
   }
 
+  changeFavorite() {
+    this.setState((prevState) => ({
+      favorite: !prevState.favorite,
+    }));
+  }
+
   render() {
     const { match: { params: { id } }, recomendations, history } = this.props;
-    const { drinks, ingredients } = this.state;
+    const { drinks, ingredients, favorite } = this.state;
     const { strDrinkThumb, strDrink, strCategory, strInstructions } = drinks;
     const MEAL_LENGTH = 6;
     // console.log(recomendations);
@@ -67,29 +76,30 @@ class DrinkDetails extends Component {
         />
         <div className="title-container">
           <div className="title-subcontainer">
-            <h1 data-testid="recipe-title">{strDrink }</h1>
-            <div className="images-container">
-              <button
-                type="button"
-                data-testid="share-btn"
-              >
-                <img
-                  src={ shareIcon }
-                  alt="shareIcon"
-                />
-              </button>
-              <button
-                type="button"
-                data-testid="favorite-btn"
-              >
-                <img
-                  src={ whiteHeartIcon }
-                  alt="whiteHeartIcon"
-                />
-              </button>
-            </div>
+            <h1 data-testid="recipe-title">{strDrink}</h1>
+            <h3 data-testid="recipe-category">{strCategory}</h3>
           </div>
-          <h3 data-testid="recipe-category">{strCategory}</h3>
+          <div className="images-container">
+            <button
+              type="button"
+              data-testid="share-btn"
+            >
+              <img
+                src={ shareIcon }
+                alt="shareIcon"
+              />
+            </button>
+            <button
+              type="button"
+              data-testid="favorite-btn"
+              onClick={ this.changeFavorite }
+            >
+              <img
+                src={ favorite ? blackHeartIcon : whiteHeartIcon }
+                alt="whiteHeartIcon"
+              />
+            </button>
+          </div>
         </div>
         <div className="ingredients-container">
           <h1>Ingredientes</h1>
@@ -129,13 +139,16 @@ class DrinkDetails extends Component {
             }
           </div>
         </div>
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-          onClick={ () => history.push(`/comidas/${id}/in-progress`) }
-        >
-          Iniciar Receita
-        </button>
+        <div className="finish-button-container">
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            onClick={ () => history.push(`/comidas/${id}/in-progress`) }
+            className="finish-button-recipe"
+          >
+            Iniciar Receita
+          </button>
+        </div>
       </div>
     );
   }

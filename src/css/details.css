@@ -14,41 +14,55 @@ body {
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
+  padding-bottom: 50px;
 }
 
 .main-image {
   width: 100%;
 }
 
-.title-container {
+.title-subcontainer {
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
+  align-items: flex-start;
   width: 100%;
 }
 
-.title-subcontainer {
+.title-container {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
+  width: 100%;
 }
 
 h1 {
   font-weight: 700;
 }
 
-.title-subcontainer h1 {
+.title-container h1 {
   font-weight: 700;
 }
 
-.title-container h3 {
+.title-subcontainer h3 {
   color: black;
   text-align: start;
 }
 
+.images-container {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
 .images-container button {
+  background: rgb(242, 103, 62);
+  border: none;
   cursor: pointer;
   margin: 0 10px;
+}
+
+.images-container button img {
+  filter: invert(100%);
 }
 
 .ingredients-container {
@@ -125,11 +139,18 @@ h1 {
   font-weight: 700;
 }
 
-.main-container button {
+.finish-button-container {
+  background-color: whitesmoke;
+  width: 100%;
+  padding: 10px;
+  position: fixed;
+  bottom: 0px;
+}
+
+.finish-button-recipe {
   background: rgb(242, 103, 62);
   border-radius: 10px;
   color: white;
   font-weight: 700;
-  margin-bottom: 20px;
   padding: 10px;
 }
