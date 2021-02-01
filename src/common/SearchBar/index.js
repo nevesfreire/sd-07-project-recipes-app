@@ -20,10 +20,11 @@ const SearchBar = () => {
   };
 
   return (
-    <form data-testid="search-top-btn">
+    <form>
       <input
         type="text"
         data-testid="search-input"
+        placeholder="Buscar Receita"
         value={ searchBarData.text }
         onChange={ ({ target }) => setSearchBarData({
           ...searchBarData,

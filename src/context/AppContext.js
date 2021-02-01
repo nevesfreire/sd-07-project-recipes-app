@@ -6,8 +6,19 @@ const AppContext = createContext();
 const AppProvider = ({ children }) => {
   const [mealsData, setMealsData] = useState({ meals: null });
   const [drinksData, setDrinksData] = useState({ drinks: null });
+  const [inputStatus, setInputStatus] = useState({ searchInput: false });
   return (
-    <AppContext.Provider value={ { mealsData, setMealsData, drinksData, setDrinksData } }>
+    <AppContext.Provider
+      value={
+        {
+          mealsData,
+          setMealsData,
+          drinksData,
+          setDrinksData,
+          inputStatus,
+          setInputStatus }
+      }
+    >
       {children}
     </AppContext.Provider>
   );
