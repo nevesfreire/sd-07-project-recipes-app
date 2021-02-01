@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import RecipeContext from '../Context/Context';
 
 function useFetch() {
@@ -8,7 +9,10 @@ function useFetch() {
     setRecipes,
     setCategoriesFood,
     setCategoriesDrinks,
+    setDetailsRecipe,
   } = useContext(RecipeContext);
+  const history = useHistory();
+
   async function foodFetch(searchWord, type) {
     const um = 1;
     if (type === 'ingredients') {
@@ -97,6 +101,21 @@ function useFetch() {
     }
   }
 
+  async function recipeDetailsAPI(id, type) {
+    if (type === 'comidas') {
+      const results = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
+        .then((response) => response.json());
+      await setDetailsRecipe(results);
+      return history.push(`/${type}/${id}`);
+    }
+    if (type === 'bebidas') {
+      const results = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
+        .then((response) => response.json());
+      await setDetailsRecipe(results);
+      return history.push(`/${type}/${id}`);
+    }
+  }
+
   return (
     {
       foodFetch,
@@ -106,6 +125,7 @@ function useFetch() {
       drinksCategories,
       foodCategories,
       selectedCategory,
+      recipeDetailsAPI,
     }
   );
 }

@@ -1,16 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import useFetch from '../hooks/useFetch';
 
 function Card({ name, thumb, index, id, type }) {
-  return (
-    <Link to={ `/${type}/${id}` }>
-      <div data-testid={ `${index}-recipe-card` }>
-        <p data-testid={ `${index}-card-name` }>{ name }</p>
-        <img src={ thumb } alt={ name } data-testid={ `${index}-card-img` } />
-      </div>
+  const { recipeDetailsAPI } = useFetch();
 
-    </Link>
+  return (
+    <div
+      className="recipe-card"
+      onKeyDown={ () => recipeDetailsAPI(id, type) }
+      role="button"
+      tabIndex="0"
+      onClick={ () => recipeDetailsAPI(id, type) }
+      data-testid={ `${index}-recipe-card` }
+    >
+      <p data-testid={ `${index}-card-name` }>{ name }</p>
+      <img src={ thumb } alt={ name } data-testid={ `${index}-card-img` } />
+    </div>
 
   );
 }

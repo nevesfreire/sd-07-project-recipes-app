@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import RecipeContext from '../Context/Context';
+import DetailsDrink from './DetailsDrink';
+import DetailsMeal from './DetailsMeal';
 
 function DetailsPage() {
-  return (<p>Detalhes de receita comida</p>);
+  const { detailsRecipe } = useContext(RecipeContext);
+
+  return (
+    <div>
+      {detailsRecipe.drinks ? <DetailsDrink /> : <DetailsMeal />}
+    </div>
+  );
 }
 
 export default DetailsPage;
