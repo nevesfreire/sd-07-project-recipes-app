@@ -8,7 +8,6 @@ class MealsCategoryFilter extends Component {
   constructor() {
     super();
     this.handleClick = this.handleClick.bind(this);
-    this.state = {};
   }
 
   componentDidMount() {
@@ -20,8 +19,10 @@ class MealsCategoryFilter extends Component {
     const { selectCategory } = this.props;
     // setar a categoria no estado
     // pra ser filtrado no MealRecepies
-    selectCategory(event.target.value);
-    console.log(event.target.value);
+    const category = event.target.value;
+    // const URL = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
+    selectCategory(category);
+    // getRecipesByCategory(URL);
     // console.log(event.target.value);
     // seta uma variavel para para deixar botoes disable
     // se clicar nele novamete vai voltar ao filter normal
@@ -51,9 +52,7 @@ class MealsCategoryFilter extends Component {
       );
     }
     return (
-      <div>
-        Loading...
-      </div>
+      <div />
     );
   }
 }

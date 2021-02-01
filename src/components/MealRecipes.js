@@ -6,21 +6,42 @@ import { fetchRecipes } from '../actions';
 import '../css/food.css';
 
 class MealRecipes extends Component {
+  constructor(props) {
+    super(props);
+    this.fetchRecipesByCategory = this.fetchRecipesByCategory.bind(this);
+    this.state = {
+      recipesByCategory: {},
+    };
+  }
+
   componentDidMount() {
     const { requestRecipes, endPoint } = this.props;
     requestRecipes(endPoint);
   }
 
+  componentDidUpdate(prevProps) {
+    const { selectedCategory } = this.props;
+    if (selectedCategory !== prevProps.selectedCategory) this.fetchRecipesByCategory();
+  }
+
+  async fetchRecipesByCategory() {
+    const { selectedCategory } = this.props;
+    const URL = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${selectedCategory}`;
+    const response = await fetch(URL);
+    const data = await response.json();
+    console.log(data);
+    this.setState({ recipesByCategory: data });
+  }
+
   render() {
     const { getRecipes } = this.props;
+    const { recipesByCategory } = this.state;
+
     const MEAL_LENGTH = 12;
     if (getRecipes.meals) {
-      const { selectedCategory } = this.props;
       let filterArray = [];
-      console.log(getRecipes.meals);
-      if (selectedCategory) {
-        filterArray = getRecipes.meals
-          .filter((meal) => (meal.strCategory === selectedCategory))
+      if (recipesByCategory.meals) {
+        filterArray = recipesByCategory.meals
           .filter((_meal, index) => index < MEAL_LENGTH);
       } else filterArray = getRecipes.meals.filter((_meal, index) => index < MEAL_LENGTH);
 
@@ -33,9 +54,9 @@ class MealRecipes extends Component {
             >
               <div key={ meal.strMeal } data-testid={ `${index}-recipe-card` }>
                 <img
+                  data-testid={ `${index}-card-img` }
                   src={ meal.strMealThumb }
                   alt={ meal.strMeal }
-                  data-testid={ `${index}-card-img` }
                 />
                 <h1 data-testid={ `${index}-card-name` }>{ meal.strMeal }</h1>
               </div>

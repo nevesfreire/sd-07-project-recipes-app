@@ -1,13 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchCategories } from '../actions';
+import { fetchCategories, setCategory } from '../actions';
 import '../css/food.css';
 
 class DrinksCategoryFilter extends Component {
+  constructor() {
+    super();
+    this.handleClick = this.handleClick.bind(this);
+  }
+
   componentDidMount() {
     const { requestCategories, endPoint } = this.props;
     requestCategories(endPoint);
+  }
+
+  handleClick(event) {
+    const { selectCategory } = this.props;
+    const category = event.target.value;
+    selectCategory(category);
   }
 
   render() {
@@ -23,7 +34,9 @@ class DrinksCategoryFilter extends Component {
             <button
               type="button"
               key={ drink.strCategory }
+              value={ drink.strCategory }
               data-testid={ `${drink.strCategory}-category-filter` }
+              onClick={ this.handleClick }
             >
               { drink.strCategory }
             </button>
@@ -32,15 +45,14 @@ class DrinksCategoryFilter extends Component {
       );
     }
     return (
-      <div>
-        Loading...
-      </div>
+      <div />
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
   requestCategories: (endPoint) => dispatch(fetchCategories(endPoint)),
+  selectCategory: (category) => dispatch(setCategory(category)),
 });
 
 const mapStateToProps = ({ categoriesReducer }) => ({
@@ -53,4 +65,5 @@ DrinksCategoryFilter.propTypes = {
   endPoint: PropTypes.string.isRequired,
   requestCategories: PropTypes.func.isRequired,
   getCategories: PropTypes.arrayOf(PropTypes.object).isRequired,
+  selectCategory: PropTypes.func.isRequired,
 };
