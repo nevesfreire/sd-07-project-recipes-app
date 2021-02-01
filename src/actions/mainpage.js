@@ -37,6 +37,10 @@ export const GET_DRINKS_BY_INGREDIENT = 'GET_DRINKS_BY_INGREDIENT';
 export const getDrinksByIngSuccess = (drinks) => (
   { type: GET_DRINKS_BY_INGREDIENT, drinks });
 
+export const GET_AREAS_SUCCESS = 'GET_AREAS_SUCCESS';
+export const getAreasSuccess = (meals) => (
+  { type: GET_AREAS_SUCCESS, meals });
+
 export function fetchCards(isMeal) {
   return async (dispatch) => {
     if (isMeal) {
@@ -51,17 +55,18 @@ export function fetchCards(isMeal) {
       } catch (error) {
         dispatch(requestFail(error));
       }
-    }
-    try {
-      dispatch(requestStarted());
-      const requestCocktails = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
-      const requestDrinkCategories = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
-      const result = await requestCocktails.json();
-      const categories = await requestDrinkCategories.json();
-      dispatch(cocktailsRequest(result.drinks));
-      dispatch(drinkCategoriesRequest(categories.drinks));
-    } catch (error) {
-      dispatch(requestFail(error));
+    } else {
+      try {
+        dispatch(requestStarted());
+        const requestCocktails = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+        const requestDrinkCategories = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
+        const result = await requestCocktails.json();
+        const categories = await requestDrinkCategories.json();
+        dispatch(cocktailsRequest(result.drinks));
+        dispatch(drinkCategoriesRequest(categories.drinks));
+      } catch (error) {
+        dispatch(requestFail(error));
+      }
     }
   };
 }
@@ -91,5 +96,13 @@ export function getDrinksByIngredient(api, ingredient) {
     dispatch(requestStarted());
     const drinks = await api(ingredient);
     dispatch(getDrinksByIngSuccess(drinks.drinks));
+  };
+}
+
+export function getAreas(api) {
+  return async (dispatch) => {
+    dispatch(requestStarted());
+    const meals = await api();
+    dispatch(getAreasSuccess(meals.meals));
   };
 }
