@@ -6,8 +6,6 @@ export const fetchAPI = async (url) => {
   return data;
 };
 
-export default fetchAPI;
-
 export const handleIngredients = (recipe, initial, middle, end) => {
   const ingredients = Object.values(recipe).slice(initial, middle);
   const measures = Object.values(recipe).slice(middle, end);
@@ -22,6 +20,7 @@ export const handleIngredients = (recipe, initial, middle, end) => {
 
 export const SIX = 6;
 export const NINE = 9;
+export const TWELVE = 12;
 export const TWENTY_NINE = 29;
 export const FOURTY_NINE = 49;
 export const THIRTY_SIX = 36;
