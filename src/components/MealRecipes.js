@@ -57,5 +57,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(MealRecipes);
 MealRecipes.propTypes = {
   endPoint: PropTypes.string.isRequired,
   requestRecipes: PropTypes.func.isRequired,
-  getRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  getRecipes: PropTypes.shape({
+    meals: PropTypes.arrayOf(PropTypes.object).isRequired,
+  }).isRequired,
 };

@@ -1,15 +1,129 @@
 import React, { Component } from 'react';
-import '../css/food.css';
+import { connect } from 'react-redux';
+import { fetchDetails } from '../actions';
+import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import Loading from '../components/Loading';
+import '../css/foodDetails.css';
 
 class FoodDetails extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      meal: [],
+      hashYoutube: '',
+      ingredients: [],
+    };
+  }
+
+  componentDidMount() {
+    const { match: { params: { id } }, mealsRecipes, requestRecomendations } = this.props;
+    const filterRecipe = mealsRecipes.find((recipe) => recipe.idMeal === id);
+    const ingredients = Object.entries(filterRecipe)
+      .filter((array) => array[0].includes('strIngredient') && array[1] !== '')
+      .map((array2) => array2[1]);
+    this.setState({
+      meal: filterRecipe,
+      hashYoutube: filterRecipe.strYoutube.split('=')[1],
+      ingredients,
+    },
+    () => requestRecomendations('https://www.thecocktaildb.com/api/json/v1/1/search.php?s='));
+  }
+
   render() {
-    // const { params } = this.props.match;
+    const { match: { params: { id } }, recomendations, history } = this.props;
+    const { meal, hashYoutube, ingredients } = this.state;
+    const { strMealThumb, strMeal, strCategory, strInstructions } = meal;
+    const DRINK_LENGTH = 6;
+    console.log(recomendations);
+    if (!recomendations.drinks) return <Loading />
     return (
-      <div>
-        Food Details
+      <div className="main-container">
+        <img
+          src={ strMealThumb }
+          alt={ strMeal } data-testid="recipe-photo"
+          className="main-image"
+        />
+        <div className="title-container">
+          <div className="title-subcontainer">
+            <h1 data-testid="recipe-title">{strMeal }</h1>
+            <div className="images-container">
+              <img src={ shareIcon } alt="shareIcon" data-testid="share-btn" />
+              <img
+                src={ whiteHeartIcon }
+                alt="whiteHeartIcon"
+                data-testid="favorite-btn"
+              />
+            </div>
+          </div>
+          <h3 data-testid="recipe-category">{strCategory}</h3>
+        </div>
+        <div className="ingredients-container">
+          <h1>Ingredientes</h1>
+          <ul className="list-container">
+            {ingredients
+              .map((ingredient, index) => (
+                <li
+                  key={ ingredient }
+                  data-testid={ `${index}-ingredient-name-and-measure` }
+                >
+                  {ingredient}
+                </li>
+            ))}
+          </ul>
+        </div>
+        <div className="instructions-container">
+          <h1>Instruções</h1>
+          <p data-testid="instructions">{strInstructions}</p>
+        </div>
+        <div>
+          <h1>Vídeo</h1>
+          <iframe
+            title="video"
+            width="100%"
+            height="315"
+            src={ `https://www.youtube.com/embed/${hashYoutube}` }
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            data-testid="video"
+          />
+        </div>
+        <div className="recomendations-container">
+          <h1>Recomendadas</h1>
+          <div className="div-recomendations">
+            {
+              recomendations.drinks
+                .filter((_drink, index) => index < DRINK_LENGTH)
+                .map((drink, index) => (
+                  <div data-testid={ `${index}-recomendation-card` } className="div-recomendations-children">
+                    <img src={ drink.strDrinkThumb } alt={ drink.strDrink }/>
+                    <h6 key={ drink.strCategory }>{ drink.strCategory }</h6>
+                    <h4 key={ drink.strDrink }>{ drink.strDrink }</h4>
+                  </div>
+              ))
+            }
+          </div>
+        </div>
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          onClick={ () => history.push(`/comidas/${id}/in-progress`) }
+        >
+          Iniciar Receita
+        </button>
       </div>
     );
   }
 }
 
-export default FoodDetails;
+const mapStateToProps = ({ recipesReducer, recomendationsReducer }) => ({
+  mealsRecipes: recipesReducer.recipes.meals,
+  recomendations: recomendationsReducer.recomendations,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  requestRecomendations: (endpoint) => dispatch(fetchDetails(endpoint)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FoodDetails);

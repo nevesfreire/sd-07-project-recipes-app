@@ -3,6 +3,7 @@ export const RECEIVED_RECIPES = 'RECEIVED_RECIPES';
 export const ERROR = 'ERROR';
 export const RECEIVED_CATEGORIES = 'RECEIVED_CATEGORIES';
 export const SEARCH_INPUT = 'SEARCH_INPUT';
+export const RECEIVED_DETAILS = 'RECEIVED_DETAILS';
 
 export const sendSearchInput = (value) => ({
   type: SEARCH_INPUT,
@@ -21,6 +22,11 @@ const recievedRecipes = (payload) => ({
 
 const recievedCategories = (payload) => ({
   type: RECEIVED_CATEGORIES,
+  payload,
+});
+
+const recievedDetails = (payload) => ({
+  type: RECEIVED_DETAILS,
   payload,
 });
 
@@ -47,6 +53,18 @@ export function fetchCategories(endPoint) {
       const response = await fetch(endPoint);
       const data = await response.json();
       dispatch(recievedCategories(data));
+    } catch (error) {
+      dispatch(errorFetch());
+    }
+  };
+}
+
+export function fetchDetails(endPoint) {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(endPoint);
+      const data = await response.json();
+      dispatch(recievedDetails(data));
     } catch (error) {
       dispatch(errorFetch());
     }

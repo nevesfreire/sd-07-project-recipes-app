@@ -1,0 +1,132 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  text-align: center;
+  width: 100%;
+}
+
+.main-container {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main-image {
+  width: 100%;
+}
+
+.title-container {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  width: 100%;
+}
+
+.title-subcontainer {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
+.title-subcontainer h1 {
+  font-weight: 700;
+}
+
+.title-container h3 {
+  color: black;
+  text-align: start;
+}
+
+.images-container img {
+  filter: invert(100%);
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.ingredients-container {
+  width: 100%;
+  margin: 30px 0;
+}
+
+.list-container {
+  background-color: whitesmoke;
+  box-shadow: 3px 3px 10px black;
+  width: 70%;
+  margin: auto;
+  padding: 20px 30px;
+  border-radius: 20px;
+  list-style: inside;
+  text-align: left;
+}
+
+.instructions-container {
+  margin-bottom: 30px;
+}
+
+.instructions-container p {
+  background-color: whitesmoke;
+  box-shadow: 3px 3px 10px black;
+  width: 80%;
+  text-align: justify;
+  margin: auto;
+  padding: 20px 30px;
+}
+
+.recomendations-container {
+  align-items: center;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  width: 100%;
+  margin: 30px 0;
+}
+
+.div-recomendations {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  overflow-x: scroll;
+  padding-bottom: 20px;
+  width: 100%;
+}
+
+.div-recomendations-children {
+  align-items: center;
+  background-color: whitesmoke;
+  border-radius: 20px;
+  box-shadow: 3px 3px 10px black;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-around;
+  margin: 0 5vw;
+  width: 40vw;
+  text-align: center;
+  cursor: pointer;
+}
+
+.div-recomendations-children img {
+  border-radius: 20px 20px 0 0;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.div-recomendations-children h6 {
+  color: gray;
+}
+
+.div-recomendations-children h4 {
+  font-weight: 700;
+}
+
+.main-container button {
+  background: rgb(242, 103, 62);
+  color: white;
+  font-weight: 700;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
