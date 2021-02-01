@@ -12,6 +12,8 @@ import DoneRecipes from '../pages/doneRecipes';
 import FoodIngredients from '../pages/foodIngredients';
 import DrinkIngredients from '../pages/drinkIngredients';
 import AreaFood from '../pages/areaFood';
+import DetailsFood from '../pages/detailsFood';
+import DetailsDrink from '../pages/detailsDrink';
 
 function Routes() {
   return (
@@ -19,6 +21,8 @@ function Routes() {
       <Switch>
         <Route exact path="/" component={ Login } />
         <Route exact path="/comidas" component={ Food } />
+        <Route exact path="/comidas/:id" component={ DetailsFood } />
+        <Route exact path="/bebidas/:id" component={ DetailsDrink } />
         <Route exact path="/perfil" component={ Profile } />
         <Route exact path="/bebidas" component={ Drink } />
         <Route exact path="/explorar" component={ Explorer } />
