@@ -73,3 +73,5 @@ Bebidas.propTypes = {
   fetchRandomDrink: PropTypes.func.isRequired,
   resultApiByName: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
+
+// fazendo alteração pra conseguir commitar, pode apagar essa linha
