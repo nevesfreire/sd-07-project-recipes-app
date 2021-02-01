@@ -1,8 +1,15 @@
 import React from 'react';
+import Footer from '../../components/footer/Footer';
 
 class ComidasArea extends React.Component {
   render() {
-    return (<div> Comidas Area</div>);
+    return (
+      <div>
+        Comida Area
+        <Footer />
+      </div>
+
+    );
   }
 }
 
