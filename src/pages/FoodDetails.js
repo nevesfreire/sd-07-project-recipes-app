@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import RecipesContext from '../context/RecipesContext';
 import { fetchAPI, handleIngredients,
@@ -8,10 +8,13 @@ import '../style/recipeDetail.css';
 
 function FoodDetails() {
   const [recommendation, setRecommendation] = useState(['']);
+  const history = useHistory();
+  const { pathname } = history.location;
+  const mealRecipeId = pathname.split('/')[2];
 
   const {
     recipeDetailFood,
-    mealRecipeId,
+    setMealRecipeId,
     setDrinkRecipeId,
     setRecipeDetailFood,
   } = useContext(RecipesContext);
@@ -21,9 +24,10 @@ function FoodDetails() {
       const food = await fetchAPI(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealRecipeId}`);
       const recipeFood = await food.meals;
       setRecipeDetailFood(recipeFood[0]);
+      setMealRecipeId(mealRecipeId);
     };
     getAPI();
-  }, [mealRecipeId, setRecipeDetailFood]);
+  }, [setMealRecipeId, mealRecipeId, setRecipeDetailFood]);
 
   useEffect(() => {
     const fetchRecommendation = async () => {

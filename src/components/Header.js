@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import perfilIcon from '../images/profileIcon.svg';
 import search from '../images/searchIcon.svg';
 import history from '../history/history';
@@ -40,13 +41,15 @@ function Header() {
         {' '}
         {checkLocation === '/bebidas' ? 'Bebidas' : 'Comidas'}
       </h1>
-      <button type="button" onClick={ perfilRedirect }>
-        <img
-          data-testid="profile-top-btn"
-          src={ perfilIcon }
-          alt="perfil"
-        />
-      </button>
+      <Link to="/perfil">
+        <button type="button" onClick={ perfilRedirect }>
+          <img
+            data-testid="profile-top-btn"
+            src={ perfilIcon }
+            alt="perfil"
+          />
+        </button>
+      </Link>
       <button type="button" onClick={ () => stateSearchInput(searchRender) }>
         <img
           data-testid="search-top-btn"

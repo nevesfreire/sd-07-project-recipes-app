@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import RecipesContext from '../context/RecipesContext';
 import { fetchAPI, handleIngredients,
@@ -8,10 +8,13 @@ import '../style/recipeDetail.css';
 
 function DrinkDetails() {
   const [recommendation, setRecommendation] = useState(['']);
+  const history = useHistory();
+  const { pathname } = history.location;
+  const drinkRecipeId = pathname.split('/')[2];
 
   const {
     recipeDetailDrink,
-    drinkRecipeId,
+    setDrinkRecipeId,
     setMealRecipeId,
     setRecipeDetailDrink,
   } = useContext(RecipesContext);
@@ -21,9 +24,10 @@ function DrinkDetails() {
       const drink = await fetchAPI(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinkRecipeId}`);
       const recipeDrink = await drink.drinks;
       setRecipeDetailDrink(recipeDrink[0]);
+      setDrinkRecipeId(drinkRecipeId);
     };
     getAPI();
-  }, [drinkRecipeId, setRecipeDetailDrink]);
+  }, [drinkRecipeId, setDrinkRecipeId, setRecipeDetailDrink]);
 
   useEffect(() => {
     const fetchRecommendation = async () => {
