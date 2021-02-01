@@ -60,10 +60,10 @@ const ComidaDetails = () => {
         <p data-testid="instructions">{strInstructions}</p>
         <h2>Ingredientes:</h2>
         <ol>
-          {ingredients.map((e, i) => <li data-testid={ `${i}-ingredient-name-and-measure`} key={i}>{mainData[e]}</li>)}
+          {ingredients.map((e, i) => <li data-testid={ `${i}-ingredient-name-and-measure` } key={ i }>{mainData[e]}</li>)}
         </ol>
         <ol>
-          {measures.map((e, i) => <li data-testid={ `${i}-ingredient-name-and-measure`} key={i}>{mainData[e]}</li>)}
+          {measures.map((e, i) => <li data-testid={ `${i}-ingredient-name-and-measure` } key={ i }>{mainData[e]}</li>)}
         </ol>
         <iframe
           title="video"
@@ -76,7 +76,7 @@ const ComidaDetails = () => {
           allowFullScreen
         />
         <button
-          onClick={() => history.push(`/comidas/${id}/in-progress`)}
+          onClick={ () => history.push(`/comidas/${id}/in-progress`) }
           className="startRecipe"
           type="button"
           data-testid="start-recipe-btn"
@@ -85,8 +85,8 @@ const ComidaDetails = () => {
         </button>
         <ol className="recomendations">
           {recomendations.map((e, i) => (
-            <li data-testid={`${i}-recomendation-card`} key={i}>
-              <p data-testid={`${i}-recomendation-title`}>{e}</p>
+            <li data-testid={ `${i}-recomendation-card` } key={ i }>
+              <p data-testid={ `${i}-recomendation-title` }>{e}</p>
             </li>))}
         </ol>
       </div>

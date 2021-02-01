@@ -69,7 +69,7 @@ const BebidaDetails = () => {
           allowFullScreen
         />
         <button
-          onClick={() => history.push(`/bebidas/${id}/in-progress`)}
+          onClick={ () => history.push(`/bebidas/${id}/in-progress`) }
           className="startRecipe"
           type="button"
           data-testid="start-recipe-btn"
@@ -79,7 +79,7 @@ const BebidaDetails = () => {
         <ol className="recomendations">
           {recomendations.map((e, i) => (
             <li data-testid={ `${i}-recomendation-card` } key={ i }>
-              <p data-testid={`${i}-recomendation-title`}>{ e }</p>
+              <p data-testid={ `${i}-recomendation-title` }>{ e }</p>
             </li>))}
         </ol>
       </div>

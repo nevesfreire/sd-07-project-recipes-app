@@ -10,7 +10,6 @@ const RecipeDetails = () => {
   const [recomen, setRecomen] = useState([]);
   const { id } = useParams();
 
-  
   useEffect(() => {
     const getData = async () => {
       if (typeRecipe === 'meal') {
@@ -27,8 +26,6 @@ const RecipeDetails = () => {
     };
     getData();
   }, [id, typeRecipe]);
-  
-  
 
   const { strMealThumb: thumbRecipe, strMeal: nameRecipe, strCategory, strInstructions } = mainContent;
   const ingredients = Object.keys(mainContent).filter((e) => e.includes('strIngredient'));
@@ -46,7 +43,7 @@ const RecipeDetails = () => {
     return (
       <div>
         <img
-          src={thumbRecipe}
+          src={ thumbRecipe }
           alt="meal"
           data-testid="recipe-photo"
         />
@@ -67,10 +64,10 @@ const RecipeDetails = () => {
         <p data-testid="instructions">{strInstructions}</p>
         <h2>Ingredientes:</h2>
         <ol>
-          {ingredients.map((e, i) => <li data-testid={`${i}-ingredient-name-and-measure`} key={i}>{mainContent[e]}</li>)}
+          {ingredients.map((e, i) => <li data-testid={ `${i}-ingredient-name-and-measure` } key={ i }>{mainContent[e]}</li>)}
         </ol>
         <ol>
-          {measures.map((e, i) => <li data-testid={`${i}-ingredient-name-and-measure`} key={i}>{mainContent[e]}</li>)}
+          {measures.map((e, i) => <li data-testid={ `${i}-ingredient-name-and-measure` } key={ i }>{mainContent[e]}</li>)}
         </ol>
         <iframe
           title="video"
@@ -83,7 +80,7 @@ const RecipeDetails = () => {
           allowFullScreen
         />
         <button
-          onClick={() => history.push(`/comidas/${id}/in-progress`)}
+          onClick={ () => history.push(`/comidas/${id}/in-progress`) }
           className="startRecipe"
           type="button"
           data-testid="start-recipe-btn"
@@ -92,8 +89,8 @@ const RecipeDetails = () => {
         </button>
         <ol className="recomendations">
           {recomendations.map((e, i) => (
-            <li data-testid={`${i}-recomendation-card`} key={i}>
-              <p data-testid={`${i}-recomendation-title`}>{e}</p>
+            <li data-testid={ `${i}-recomendation-card` } key={ i }>
+              <p data-testid={ `${i}-recomendation-title` }>{e}</p>
             </li>))}
         </ol>
       </div>
