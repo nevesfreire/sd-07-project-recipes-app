@@ -44,8 +44,22 @@ export const getSuggestedDrinks = async () => {
   }
 };
 
+export const getAllDrinksCategories = async () => {
+  const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+  try {
+    const response = await fetch(endpoint);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+
 export const drinksFilteredByCategory = (category) => {
-  const drinkUrlForFilterByCategory = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category.strCategory}`;
+  let drinkUrlForFilterByCategory = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category.strCategory}`;
+  if (category === '') {
+    drinkUrlForFilterByCategory = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+  }
   return async (dispatch) => {
     dispatch(requestDrinkRecipes());
     try {
@@ -56,4 +70,15 @@ export const drinksFilteredByCategory = (category) => {
       dispatch(failedDrinkRequest(error));
     }
   };
+};
+
+export const getIngredientsDrink = async () => {
+  const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
+  try {
+    const response = await fetch(endpoint);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    return error;
+  }
 };
