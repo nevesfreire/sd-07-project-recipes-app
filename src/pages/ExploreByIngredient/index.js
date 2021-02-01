@@ -1,9 +1,11 @@
 import React from 'react';
+import { Footer, Header } from '../../components';
 
 function ExploreByIngredient() {
   return (
     <div>
-      ingredientes
+      <Header />
+      <Footer />
     </div>
   );
 }

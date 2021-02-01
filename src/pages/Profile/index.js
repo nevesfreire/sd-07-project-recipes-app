@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Footer } from '../../components';
+import { Footer, Header } from '../../components';
 import { getStorage } from '../../services/localStorage';
 
 function Profile() {
@@ -14,7 +14,7 @@ function Profile() {
 
   return (
     <div>
-      {/* <Header /> */}
+      <Header />
       <h3 data-testid="profile-email">{user}</h3>
       <Link to="/receitas-feitas">
         <button
