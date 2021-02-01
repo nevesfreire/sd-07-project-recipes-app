@@ -20,7 +20,10 @@ function Profile() {
     return (
       <div className="profile-buttons">
         <h3 className="email-perfil" data-testid="profile-email">{ email }</h3>
-        <Link to="/receitas-feitas" onClick={ () => setHeaderName(titleHeaderNames.receitasfeitas) }>
+        <Link
+          to="/receitas-feitas"
+          onClick={ () => setHeaderName(titleHeaderNames.receitasfeitas) }
+        >
           <button
             className="button-list"
             type="button"
@@ -29,7 +32,10 @@ function Profile() {
             Receitas Feitas
           </button>
         </Link>
-        <Link to="/receitas-favoritas" onClick={ () => setHeaderName(titleHeaderNames.receitasfavoritas) }>
+        <Link
+          to="/receitas-favoritas"
+          onClick={ () => setHeaderName(titleHeaderNames.receitasfavoritas) }
+        >
           <button
             className="button-list"
             type="button"

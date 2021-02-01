@@ -1,16 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import RecipesContext from './RecipesContext';
 import TitleContext from './TitleContext';
 
 function Provider({ children }) {
-  const [foodsOrDrinksList, setFoodsOrDrinksList] = useState([]);
-
   return (
     <TitleContext>
       <RecipesContext.Provider
-        value={ { foodsOrDrinksList, setFoodsOrDrinksList } }
+        value={ { } }
       >
         {children}
       </RecipesContext.Provider>

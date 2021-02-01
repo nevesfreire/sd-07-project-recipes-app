@@ -1,20 +1,17 @@
 import React, { useState, useEffect } from 'react';
+
 import {
   fetchAPIDrinks,
   fetchAPICategoriesDrinks,
   fetchAPICategoriesDrinkFilter,
 } from '../services/api';
-
 import Footer from '../components/Footer';
-// import RecipesContext from '../context/RecipesContext';
 
 function Drinks() {
-  const [apiDrinks, setApiDrinks] = useState([]);
   const [apiCategoriesDrinks, setApiCategoriesDrinks] = useState([]);
   const [filterByCategory, setFilterByCategory] = useState([]);
 
   const getApiDrinks = async () => {
-    setApiDrinks(await fetchAPIDrinks());
     setFilterByCategory(await fetchAPIDrinks());
   };
 
@@ -28,7 +25,6 @@ function Drinks() {
   }, []);
 
   const handleClick = async ({ target: { name } }) => {
-    console.log(apiDrinks);
     const filterCategory = (await fetchAPICategoriesDrinkFilter(name));
     const filterCategoryDrink = filterCategory.filter((item) => item.strDrink);
     setFilterByCategory(filterCategoryDrink);
@@ -37,7 +33,6 @@ function Drinks() {
   const zero = 0;
   const maxDrinks = 12;
   const maxCategoriesDrinks = 5;
-  // const { foodsOrDrinksList } = useContext(RecipesContext);
 
   return (
     <div>
