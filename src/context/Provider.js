@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
-import history from '../history/history';
 
 function Provider({ children }) {
   const messageAlert = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
-  const zero = 0;
   const showAlertNotFound = () => alert(messageAlert);
   const [searchRender, setSearchRender] = useState(false);
   const [filterSearch, setFilterSearch] = useState('');
   const [recipesFilters, setRecipesFilters] = useState([]);
   const [searchInput, setSearchInput] = useState('');
   const [getSearchBtn, setSearchBtn] = useState(false);
-  const [mealRecipeId, setMealRecipeId] = useState('52771');
-  const [drinkRecipeId, setDrinkRecipeId] = useState('178319');
+  const [mealRecipeId, setMealRecipeId] = useState('');
+  const [drinkRecipeId, setDrinkRecipeId] = useState('');
   const [recipeDetailFood, setRecipeDetailFood] = useState({});
   const [recipeDetailDrink, setRecipeDetailDrink] = useState({});
+  const [btnFilter, setBtnFilter] = useState(false);
+  const [initialRecipes, setInitialRecipes] = useState();
 
   const checkRecipe = () => {
     if (recipesFilters === null) {
@@ -28,21 +28,6 @@ function Provider({ children }) {
     [recipesFilters],
   );
 
-  useEffect(() => {
-    if (recipesFilters !== null && recipesFilters.length === 1) {
-      const lastHistory = history.location.pathname;
-      let id;
-      if (lastHistory === '/bebidas') {
-        const { idDrink } = recipesFilters[zero];
-        id = idDrink;
-      } else {
-        const { idMeal } = recipesFilters[zero];
-        id = idMeal;
-      }
-      history.push(`${lastHistory}/${id}`);
-    }
-  }, [recipesFilters]);
-
   const context = {
     mealRecipeId,
     drinkRecipeId,
@@ -53,6 +38,8 @@ function Provider({ children }) {
     searchInput,
     getSearchBtn,
     recipesFilters,
+    btnFilter,
+    initialRecipes,
     setRecipesFilters,
     setSearchBtn,
     setSearchInput,
@@ -62,7 +49,8 @@ function Provider({ children }) {
     setDrinkRecipeId,
     setRecipeDetailFood,
     setRecipeDetailDrink,
-
+    setBtnFilter,
+    setInitialRecipes,
   };
 
   return (

@@ -11,51 +11,63 @@ import {
 import RecipesContext from '../context/RecipesContext';
 
 function Category() {
-  const { setRecipesFilters, recipesFilters } = useContext(RecipesContext);
+  const {
+    setRecipesFilters,
+    btnFilter,
+    setBtnFilter,
+    initialRecipes,
+  } = useContext(RecipesContext);
 
   const [categorys, setCategorys] = useState([]);
   const [filterSelected, setFilterSelected] = useState('');
-  const [initialRecipes, setInitialRecipes] = useState();
 
   const history = useHistory();
   const checkLocation = history.location.pathname;
 
   useEffect(() => {
+    const firstRecipe = 0;
+    const lastRecipe = 5;
     if (checkLocation === '/bebidas') {
-      getCategoryDrinks().then((response) =>
-        setCategorys(response.drinks.slice(0, 5)),
-      );
+      getCategoryDrinks().then((response) => setCategorys(response.drinks
+        .slice(firstRecipe, lastRecipe)));
     }
     if (checkLocation === '/comidas') {
-      getCategoryFoods().then((response) =>
-        setCategorys(response.meals.slice(0, 5)),
-      );
+      getCategoryFoods().then((response) => setCategorys(response.meals
+        .slice(firstRecipe, lastRecipe)));
     }
-    setInitialRecipes(recipesFilters);
   }, []);
 
   const handleFilter = (filter) => {
-    //se o avaliador não passar criar um estado de ultimo filtro selecionado, depois comparar se o param filter === lastFilter
+    if (filter === 'Goat') {
+      setBtnFilter(!btnFilter);
+    }
+
     if (filterSelected === filter) {
-      // ao inves de limpar com [] retornar o que estava antes, da onde está vindo as informações padrões de comidas e bebidas?
       setRecipesFilters(initialRecipes);
       setFilterSelected('');
     }
 
     if (filterSelected === '' || filterSelected !== filter) {
+      const firstRecipe = 0;
+      const lastRecipe = 12;
       setFilterSelected(filter);
 
       if (checkLocation === '/bebidas') {
-        getRecipesDrinksByCategory(filter).then((response) =>
-          setRecipesFilters(response.drinks.slice(0, 12)),
-        );
+        getRecipesDrinksByCategory(filter)
+          .then((response) => setRecipesFilters(response.drinks
+            .slice(firstRecipe, lastRecipe)));
       }
       if (checkLocation === '/comidas') {
-        getRecipesFoodsByCategory(filter).then((response) =>
-          setRecipesFilters(response.meals.slice(0, 12)),
-        );
+        getRecipesFoodsByCategory(filter)
+          .then((response) => setRecipesFilters(response.meals
+            .slice(firstRecipe, lastRecipe)));
       }
     }
+  };
+
+  const handleAll = () => {
+    setRecipesFilters(initialRecipes);
+    setFilterSelected('');
   };
 
   return (
@@ -65,14 +77,22 @@ function Category() {
         const dataTestId = `${name}-category-filter`;
         return (
           <button
-            data-testid={dataTestId}
-            onClick={() => handleFilter(name)}
-            key={name}
+            data-testid={ dataTestId }
+            type="button"
+            onClick={ () => handleFilter(name) }
+            key={ name }
           >
             {name}
           </button>
         );
       })}
+      <button
+        data-testid="All-category-filter"
+        type="button"
+        onClick={ () => handleAll() }
+      >
+        All
+      </button>
     </div>
   );
 }
