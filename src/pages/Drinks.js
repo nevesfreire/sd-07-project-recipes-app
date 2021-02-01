@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import {
-  Header, Footer, RandonDrinkCards, DrinkCards, SearchDrinkCards, CategoryDrink,
+  Header, Footer, DrinkRecomendationsCards, DrinkCards, SearchDrinkCards, CategoryDrink,
 } from '../components';
 import { CupNodesContext } from '../contexts';
 
@@ -10,7 +10,13 @@ const whatchCards = (category, search) => {
   } if (search.text) {
     return (<SearchDrinkCards search={ search } number={ 12 } />);
   }
-  return (<RandonDrinkCards number={ 12 } />);
+  return (
+    <DrinkRecomendationsCards
+      number={ 12 }
+      testidImg="-card-img"
+      testidCard="-recipe-card"
+      testidTitle="-card-name"
+    />);
 };
 
 export default function Drinks() {

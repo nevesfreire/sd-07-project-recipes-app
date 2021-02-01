@@ -7,6 +7,7 @@ import {
   Drinks,
   Explore,
   DetailsFood,
+  DetailsDrink,
   FoodExplore,
   DrinkExplore,
   AreaExploreFood,
@@ -24,7 +25,7 @@ export default function Routes() {
         <Route exact path="/comidas" component={ Foods } />
         <Route exact path="/comidas/:idFood" component={ DetailsFood } />
         <Route exact path="/bebidas" component={ Drinks } />
-        <Route exact path="/bebidas/:idDrink" component={ DetailsFood } />
+        <Route exact path="/bebidas/:idDrink" component={ DetailsDrink } />
         <Route exact path="/explorar" component={ Explore } />
         <Route exact path="/explorar/comidas" component={ FoodExplore } />
         <Route exact path="/explorar/bebidas" component={ DrinkExplore } />

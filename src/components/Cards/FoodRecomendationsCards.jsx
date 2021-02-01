@@ -4,10 +4,11 @@ import { useFetchApi } from '../../hooks';
 import LoadingCard from './LoadingCard';
 import Card from './Card';
 
-export default function RecomendationsCards({ name, number }) {
-  const URL = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`;
-  const [loading, { meals = [] }] = useFetchApi(URL);
-  console.log(!name);
+export default function FoodRecomendationsCards(
+  { number, testidImg, testidCard, testidTitle },
+) {
+  const URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  const [loading, { meals }] = useFetchApi(URL);
   return (
     <div className="cards">
       {
@@ -20,9 +21,9 @@ export default function RecomendationsCards({ name, number }) {
                 link={ `/comidas/${idMeal}` }
                 title={ strMeal }
                 img={ strMealThumb }
-                testidImg={ `${strMeal}-recomendation-img` }
-                testidCard={ `${index}-recomendation-card` }
-                testidTitle={ `${index}-recomendation-title` }
+                testidImg={ `${index}${testidImg}` }
+                testidCard={ `${index}${testidCard}` }
+                testidTitle={ `${index}${testidTitle}` }
               />
             ))
       }
@@ -30,11 +31,13 @@ export default function RecomendationsCards({ name, number }) {
   );
 }
 
-RecomendationsCards.defaultProps = {
+FoodRecomendationsCards.defaultProps = {
   number: 6,
 };
 
-RecomendationsCards.propTypes = {
-  name: PropTypes.string.isRequired,
+FoodRecomendationsCards.propTypes = {
   number: PropTypes.number,
+  testidImg: PropTypes.string.isRequired,
+  testidCard: PropTypes.string.isRequired,
+  testidTitle: PropTypes.string.isRequired,
 };

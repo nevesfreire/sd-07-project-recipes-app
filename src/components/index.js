@@ -12,7 +12,8 @@ export {
   SearchFoodCards,
   IngredientsFoodCards,
   IngredientsDrinkCards,
-  RecomendationsCards,
+  FoodRecomendationsCards,
+  DrinkRecomendationsCards,
 } from './Cards';
 export { CategoryFood, CategoryDrink } from './Categories';
 export { default as Button } from './Button';
