@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Carousel from './CarouselComida';
 
 const MAX_INGREDIENTS = 20;
 
@@ -84,7 +85,7 @@ class ComidaDetalhes extends React.Component {
         <ul>{this.renderIngredients()}</ul>
         <p data-testid="instructions">{recipe.strInstructions}</p>
         <a data-testid="video" href={ recipe.strYoutube }>Veja o vídeo</a>
-        {/* <div data-testid="${index}-recomendation-card"> recomendadas</div> */}
+        <Carousel />
         <button
           type="button"
           data-testid="start-recipe-btn"
