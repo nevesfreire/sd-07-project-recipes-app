@@ -40,8 +40,8 @@ body {
 }
 
 .svg-class {
-  filter: invert(90%) sepia(31%)
-  saturate(1370%) hue-rotate(4deg) brightness(97%) contrast(77%);
+  filter: invert(90%) sepia(31%) saturate(1370%) hue-rotate(4deg)
+  brightness(97%) contrast(77%);
 }
 
 .profile-buttons {
