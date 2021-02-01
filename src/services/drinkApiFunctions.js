@@ -62,6 +62,14 @@ export const fetchRandomDrinkRecipes = async () => {
   return response;
 };
 
+export const fetchAllDrinkIngredients = async () => {
+  const request = await fetch(
+    'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list',
+  );
+  const response = await request.json();
+  return response;
+};
+
 // export default {
 //   fetchDrinkByIngredient,
 //   fetchDrinkByName,

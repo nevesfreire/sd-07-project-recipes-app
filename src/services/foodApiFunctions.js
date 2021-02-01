@@ -62,6 +62,14 @@ export const fetchRandomFoodRecipes = async () => {
   return response;
 };
 
+export const fetchAllFoodIngredients = async () => {
+  const request = await fetch(
+    'https://www.themealdb.com/api/json/v1/1/list.php?i=list',
+  );
+  const response = await request.json();
+  return response;
+};
+
 // export default {
 //   fetchFoodByIngredient,
 //   fetchFoodByName,
