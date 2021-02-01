@@ -12,7 +12,7 @@ const getBG = () => {
 
 const LoginStyle = {
   Container: styled.div`align-items: center;
-  background-image: ${getBG};
+  background-image: ${getBG()};
   background-position: center;
   background-size: cover;
   display: flex;
