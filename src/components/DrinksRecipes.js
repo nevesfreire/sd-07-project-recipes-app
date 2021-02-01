@@ -17,9 +17,12 @@ class DrinksRecipes extends Component {
   render() {
     const { getRecipes, getCategories } = this.props;
     const DRINK_LENGTH = 12;
-    // console.log(getRecipes);
+    if (getRecipes.drinks === null) {
+      return (alert(
+        'Sinto muito, não encontramos nenhuma receita para esses filtros.',
+      ));
+    }
     if (getRecipes.drinks && getCategories.drinks) {
-      // console.log(getRecipes);
       const filterArray = getRecipes.drinks
         .filter((_drink, index) => index < DRINK_LENGTH);
       return (

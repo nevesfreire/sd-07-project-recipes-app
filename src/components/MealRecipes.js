@@ -17,6 +17,11 @@ class MealRecipes extends Component {
   render() {
     const { getRecipes, getCategories } = this.props;
     const MEAL_LENGTH = 12;
+    if (getRecipes.meals === null) {
+      return alert(
+        'Sinto muito, não encontramos nenhuma receita para esses filtros.',
+      );
+    }
     if (getRecipes.meals && getCategories.meals) {
       const filterArray = getRecipes.meals.filter((_meal, index) => index < MEAL_LENGTH);
       return (
