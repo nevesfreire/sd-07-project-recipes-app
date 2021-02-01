@@ -9,7 +9,9 @@ function Profile() {
   };
 
   const profileElements = () => {
-    const { email } = JSON.parse(localStorage.getItem('user'));
+    // const { email } = JSON.parse(localStorage.getItem('user'));
+    const email = '';
+
     return (
       <div>
         <h3 data-testid="profile-email">{ email }</h3>

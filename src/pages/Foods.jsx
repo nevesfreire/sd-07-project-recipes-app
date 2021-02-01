@@ -6,6 +6,7 @@ import {
 } from '../services/api';
 
 import Footer from '../components/Footer';
+// import RecipesContext from '../context/RecipesContext';
 
 function Foods() {
   const [apiFood, setApiFood] = useState([]);
@@ -36,6 +37,8 @@ function Foods() {
   const zero = 0;
   const maxMeals = 12;
   const maxCategoriesMeals = 5;
+  // const { foodsOrDrinksList } = useContext(RecipesContext);
+
   return (
     <div>
       <div>
