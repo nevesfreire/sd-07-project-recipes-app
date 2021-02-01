@@ -1,6 +1,7 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 // import { Card } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
 import { fetchMealsIngredients } from '../services/api';
@@ -74,6 +75,7 @@ export default function ComidasIngrediente() {
           </h3>
         </button>
       ))}
+      <Footer />
     </div>
   );
 }

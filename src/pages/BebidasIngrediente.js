@@ -1,5 +1,6 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
 import { fetchDrinksIngredients } from '../services/api';
@@ -75,6 +76,7 @@ export default function BebibasIngrediente() {
           </h3>
         </button>
       ))}
+      <Footer />
     </div>
   );
 }
