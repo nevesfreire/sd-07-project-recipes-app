@@ -11,7 +11,6 @@ class Explorar extends Component {
     return (
       <div>
         <Header title={ title } />
-        <Footer />
         <div>
           <button
             type="button"
@@ -29,7 +28,9 @@ class Explorar extends Component {
             Explorar Bebidas
           </button>
         </div>
+        <Footer />
       </div>
+
     );
   }
 }
