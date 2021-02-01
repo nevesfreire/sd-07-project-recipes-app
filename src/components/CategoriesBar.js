@@ -46,8 +46,6 @@ function CategoriesBar(props) {
     meals,
     cocktails,
     mealsCategories,
-    searchMealsCategories,
-    searchCocktailsCategories,
   } = props;
 
   const handleClick = (event) => {
@@ -72,7 +70,8 @@ function CategoriesBar(props) {
       }
     }
   };
-
+  const zero = 0;
+  const maxLength = 5;
   return (
     <div style={ { display: toggle ? 'none' : 'inline' } }>
       {meals.length === 1 && (
@@ -92,7 +91,7 @@ function CategoriesBar(props) {
         >
           All
         </button>
-        { mealsCategories.slice(0, 5).map((categorie, index) => (
+        { mealsCategories.slice(zero, maxLength).map((categorie, index) => (
           <button
             type="button"
             key={ index }
@@ -130,5 +129,12 @@ const mapDispatchToProps = (dispatch) => ({
   searchMealsCategories: () => dispatch(fetchMealsCategories()),
   searchCocktailsCategories: () => dispatch(fetchCocktailsCategories()),
 });
+
+CategoriesBar.propTypes = {
+  title: PropTypes.string.isRequired,
+  meals: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  cocktails: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  mealsCategories: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategoriesBar);

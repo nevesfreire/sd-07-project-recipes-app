@@ -10,7 +10,6 @@ import {
 } from '../actions/meals';
 
 class Meals extends Component {
-
   componentDidMount() {
     const { searchMealsCategories, searchRandomMeals } = this.props;
     searchRandomMeals();
@@ -18,8 +17,10 @@ class Meals extends Component {
   }
 
   render() {
+    const zero = 0;
+    const maxLength = 12;
     const { meals } = this.props;
-    const firstMeals = meals.slice(0, 12);
+    const firstMeals = meals.slice(zero, maxLength);
     return (
       <div>
         <Header title="Comidas" />
@@ -43,6 +44,8 @@ const mapDispatchToProps = (dispatch) => ({
 
 Meals.propTypes = {
   meals: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  searchMealsCategories: PropTypes.func.isRequired,
+  searchRandomMeals: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Meals);

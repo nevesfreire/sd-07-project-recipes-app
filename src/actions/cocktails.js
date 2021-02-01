@@ -12,23 +12,23 @@ export const REQUEST_COCKTAILS_SUCCESS = 'REQUEST_COCKTAILS_SUCCESS';
 export const REQUEST_COCKTAILS_FAILURE = 'REQUEST_COCKTAILS_FAILURE ';
 
 export const REQUEST_COCKTAILS_CATEGORIES = 'REQUEST_COCKTAILS_CATEGORIES';
-export const REQUEST_COCKTAILS_CATEGORIES_SUCCESS = 'REQUEST_COCKTAILS_CATEGORIES_SUCCESS';
-export const REQUEST_COCKTAILS_CATEGORIES_FAILURE = 'REQUEST_COCKTAILS_CATEGORIES_FAILURE ';
+export const COCKTAILS_CATEGORIES_SUCCESS = 'COCKTAILS_CATEGORIES_SUCCESS';
+export const COCKTAILS_CATEGORIES_FAILURE = 'COCKTAILS_CATEGORIES_FAILURE';
 
-const requestCocktails = () => ({ type: 'REQUEST_COCKTAILS' });
+const requestCocktails = () => ({ type: REQUEST_COCKTAILS });
 
 const setCocktailsSuccess = (cocktails) => (
-  { type: 'REQUEST_COCKTAILS_SUCCESS', cocktails });
+  { type: REQUEST_COCKTAILS_SUCCESS, cocktails });
 
-const setCocktailsFailure = (error) => ({ type: 'REQUEST_COCKTAILS_FAILURE', error });
+const setCocktailsFailure = (error) => ({ type: REQUEST_COCKTAILS_FAILURE, error });
 
-const requestCocktailsCategories = () => ({ type: 'REQUEST_COCKTAILS' });
+const requestCocktailsCategories = () => ({ type: REQUEST_COCKTAILS_CATEGORIES });
 
 const setCocktailsCategoriesSuccess = (cocktails) => (
-  { type: 'REQUEST_COCKTAILS_SUCCESS', cocktails });
+  { type: COCKTAILS_CATEGORIES_SUCCESS, cocktails });
 
 const setCocktailsCategoriesFailure = (error) => (
-  { type: 'REQUEST_COCKTAILS_FAILURE', error });
+  { type: COCKTAILS_CATEGORIES_FAILURE, error });
 
 export const fetchCocktailsByIngredient = (i) => (dispatch) => {
   dispatch(requestCocktails());
