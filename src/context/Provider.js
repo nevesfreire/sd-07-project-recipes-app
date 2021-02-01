@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-
 import RecipesContext from './RecipesContext';
-import RequestData from '../services/RequestAPI';
 
 const RecipesProvider = ({ children }) => {
   const [recipesInput, setRecipesInput] = useState('');

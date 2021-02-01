@@ -94,9 +94,11 @@ function MainPage(props) {
           {
             printFilters()
           }
-          {
-            printRecipes()
-          }
+          <div className="main-page-cards">
+            {
+              printRecipes()
+            }
+          </div>
         </div>
       </div>
       <Footer />
