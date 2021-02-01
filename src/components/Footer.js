@@ -11,34 +11,34 @@ class Footer extends Component {
     return (
       <footer className="footer-container" data-testid="footer">
         <button
-          src={ drinkIcon }
           type="button"
-          data-testid="drinks-bottom-btn"
-          onClick={ () => {
-            history.push('/bebidas');
-          } }
+          onClick={ () => history.push('/bebidas') }
         >
-          <img src={ drinkIcon } alt="drinkIcon" />
+          <img
+            data-testid="drinks-bottom-btn"
+            src={ drinkIcon }
+            alt="drinkIcon"
+          />
         </button>
         <button
-          src={ exploreIcon }
           type="button"
-          data-testid="explore-bottom-btn"
-          onClick={ () => {
-            history.push('/explorar');
-          } }
+          onClick={ () => history.push('/explorar') }
         >
-          <img src={ exploreIcon } alt="exploreIcon" />
+          <img
+            data-testid="explore-bottom-btn"
+            src={ exploreIcon }
+            alt="exploreIcon"
+          />
         </button>
         <button
-          src={ mealIcon }
           type="button"
-          data-testid="food-bottom-btn"
-          onClick={ () => {
-            history.push('/comidas');
-          } }
+          onClick={ () => history.push('/comidas') }
         >
-          <img src={ mealIcon } alt="mealIcon" />
+          <img
+            data-testid="food-bottom-btn"
+            src={ mealIcon }
+            alt="mealIcon"
+          />
         </button>
       </footer>
     );
