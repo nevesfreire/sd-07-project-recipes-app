@@ -6,8 +6,6 @@ import imageSearch from '../images/searchIcon.svg';
 import { titleHeaderNames, useTitleContext } from '../context/TitleContext';
 import Search from './Search';
 
-import './Header.css';
-
 function Header() {
   const { titleHeaderName, setHeaderName } = useTitleContext();
   const [toggle, setToggle] = useState(false);
@@ -42,6 +40,7 @@ function Header() {
         onClick={ () => setHeaderName(titleHeaderNames.perfil) }
       >
         <img
+          className="svg-class"
           data-testid="profile-top-btn"
           src={ imageProfile }
           alt="Perfil"
@@ -53,10 +52,12 @@ function Header() {
   const elementSearch = (
     <div className="element-header">
       <button
+        className="button"
         type="button"
         onClick={ () => setToggle(!toggle) }
       >
         <img
+          className="svg-class"
           data-testid="search-top-btn"
           src={ imageSearch }
           alt="Buscar"
@@ -81,17 +82,19 @@ function Header() {
   function renderHeader() {
     if (path === '/comidas' || path === '/bebidas' || path === '/explorar/comidas/area') {
       return (
-        <div className="container-div">
-          {elementProfile}
-          {titleNamePage}
-          {elementSearch}
+        <div>
+          <div className="header-div">
+            {elementProfile}
+            {titleNamePage}
+            {elementSearch}
+          </div>
           {toggle ? <Search /> : <div />}
         </div>
       );
     }
     if (path === '/' || checkDetails === true) return null;
     return (
-      <div className="container-div">
+      <div className="header-div">
         {elementProfile}
         {titleNamePage}
       </div>
