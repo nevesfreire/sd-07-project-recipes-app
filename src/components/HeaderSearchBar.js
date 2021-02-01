@@ -1,6 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import RecipesContext from '../context/RecipesContext';
 
 function HeaderSearchBar() {
+  const {
+    pathName,
+    fetchByIngredients,
+    fetchByName,
+    fetchByFirstLetter,
+  } = useContext(RecipesContext);
   const [radioButtonValue, setRadioButtonValue] = useState('');
   const [inputValue, setInputValue] = useState('');
 
@@ -13,12 +20,23 @@ function HeaderSearchBar() {
     setRadioButtonValue(e.target.value);
     console.log(radioButtonValue);
   };
-
   const getApiData = () => {
+    console.log(pathName);
     if (inputValue.length > 1 && radioButtonValue === 'primeiraLetra') {
       alert('Sua busca deve conter somente 1 (um) caracter');
     } else {
-      return console.log('Busca na API');
+      switch (radioButtonValue) {
+      case 'ingrediente':
+        fetchByIngredients(inputValue);
+        break;
+      case 'nome':
+        fetchByName(inputValue);
+        break;
+
+      default:
+        fetchByFirstLetter(inputValue);
+        break;
+      }
     }
   };
 

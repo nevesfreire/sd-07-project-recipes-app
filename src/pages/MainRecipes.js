@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import * as foodApiFunctions from '../services/foodApiFunctions';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import MainCards from '../components/MainCards';
+import RecipesContext from '../context/RecipesContext';
 
-function MainRecipes() {
-  const [data, setData] = useState([]);
-  const [foodsToRender, setFoodsToRender] = useState([]);
+function MainRecipes(props) {
+  const { location } = props;
+  const { pathname } = location;
+  const { setPathName } = useContext(RecipesContext);
+  const { foodsToRender, setFoodsToRender, foodData } = useContext(RecipesContext);
   const [allFiltersToRender, setAllFiltersToRender] = useState([]);
   const [filtersToRender, setFiltersToRender] = useState([]);
   const [filtered, setFiltered] = useState(false);
-
-  useEffect(() => {
-    foodApiFunctions.fetchAllFoodRecipes().then((response) => setData(response));
-  }, []);
 
   useEffect(() => {
     foodApiFunctions
@@ -22,14 +23,20 @@ function MainRecipes() {
   }, []);
 
   useEffect(() => {
-    setFoodsToRender(data.meals);
-  }, [data]);
+    setPathName(pathname);
+  });
 
   useEffect(() => {
     setFiltersToRender(allFiltersToRender.meals);
   }, [allFiltersToRender]);
 
   const renderTwelveElements = (array) => {
+    if (array === null) {
+      return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
+    if (array.length === 1) {
+      return <Redirect to={ `/comidas/${array[0].idMeal}` } />;
+    }
     const eleven = 11;
     const finalArray = array
       .filter((_someFood, index) => index <= eleven)
@@ -54,13 +61,13 @@ function MainRecipes() {
         .then((response) => setFoodsToRender(response.meals));
       setFiltered(true);
     } else {
-      setFoodsToRender(data.meals);
+      setFoodsToRender(foodData.meals);
       setFiltered(false);
     }
   };
 
   const resetFoodsToRender = () => {
-    setFoodsToRender(data.meals);
+    setFoodsToRender(foodData.meals);
     setFiltered(false);
   };
 
@@ -109,5 +116,14 @@ function MainRecipes() {
     </div>
   );
 }
+
+MainRecipes.propTypes = {
+  location: PropTypes.shape({
+    hash: PropTypes.string,
+    pathname: PropTypes.string,
+    search: PropTypes.string,
+    state: PropTypes.bool,
+  }).isRequired,
+};
 
 export default MainRecipes;

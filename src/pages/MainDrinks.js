@@ -1,19 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import * as drinkApiFunctions from '../services/drinkApiFunctions';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import MainDrinkCards from '../components/MainDrinkCards';
+import RecipesContext from '../context/RecipesContext';
 
-function MainDrinks() {
-  const [data, setData] = useState([]);
-  const [drinksToRender, setDrinksToRender] = useState([]);
+function MainDrinks(props) {
+  const { location } = props;
+  const { pathname } = location;
+  const { setPathName } = useContext(RecipesContext);
+  const { drinksToRender, setDrinksToRender, drinkData } = useContext(RecipesContext);
   const [allFiltersToRender, setAllFiltersToRender] = useState([]);
   const [filtersToRender, setFiltersToRender] = useState([]);
   const [filtered, setFiltered] = useState(false);
 
   useEffect(() => {
-    drinkApiFunctions.fetchAllDrinkRecipes().then((response) => setData(response));
-  }, []);
+    setPathName(pathname);
+  });
 
   useEffect(() => {
     drinkApiFunctions
@@ -22,14 +27,16 @@ function MainDrinks() {
   }, []);
 
   useEffect(() => {
-    setDrinksToRender(data.drinks);
-  }, [data]);
-
-  useEffect(() => {
     setFiltersToRender(allFiltersToRender.drinks);
   }, [allFiltersToRender]);
 
   const renderTwelveElements = (array) => {
+    if (array === null) {
+      return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
+    if (array.length === 1) {
+      return <Redirect to={ `/bebidas/${array[0].idDrink}` } />;
+    }
     const eleven = 11;
     const finalArray = array
       .filter((_someDrink, index) => index <= eleven)
@@ -54,13 +61,13 @@ function MainDrinks() {
         .then((response) => setDrinksToRender(response.drinks));
       setFiltered(true);
     } else {
-      setDrinksToRender(data.drinks);
+      setDrinksToRender(drinkData.drinks);
       setFiltered(false);
     }
   };
 
   const resetDrinksToRender = () => {
-    setDrinksToRender(data.drinks);
+    setDrinksToRender(drinkData.drinks);
     setFiltered(false);
   };
 
@@ -109,5 +116,14 @@ function MainDrinks() {
     </div>
   );
 }
+
+MainDrinks.propTypes = {
+  location: PropTypes.shape({
+    hash: PropTypes.string,
+    pathname: PropTypes.string,
+    search: PropTypes.string,
+    state: PropTypes.bool,
+  }).isRequired,
+};
 
 export default MainDrinks;
