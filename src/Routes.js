@@ -6,6 +6,7 @@ import {
   Profile,
   Drinks,
   Explore,
+  DetailsFood,
   FoodExplore,
   DrinkExplore,
   AreaExploreFood,
@@ -21,7 +22,9 @@ export default function Routes() {
       <Switch>
         <Route exact path="/" component={ Login } />
         <Route exact path="/comidas" component={ Foods } />
+        <Route exact path="/comidas/:idFood" component={ DetailsFood } />
         <Route exact path="/bebidas" component={ Drinks } />
+        <Route exact path="/bebidas/:idDrink" component={ DetailsFood } />
         <Route exact path="/explorar" component={ Explore } />
         <Route exact path="/explorar/comidas" component={ FoodExplore } />
         <Route exact path="/explorar/bebidas" component={ DrinkExplore } />

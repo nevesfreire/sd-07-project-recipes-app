@@ -18,12 +18,11 @@ export default function IngredientsDrinkCards({ number }) {
           : drinks.filter((_, index) => index < number)
             .map(({ strIngredient1 }, index) => (
               <Card
-                link="/bebidas"
                 title={ strIngredient1 }
                 img={ `https://www.themealdb.com/images/ingredients/${strIngredient1}.png` }
                 key={ index }
                 testidImg={ `${strIngredient1}-ingredient-card` }
-                testidIndex={ `${index}-card-img` }
+                testidCard={ `${index}-card-img` }
                 testidTitle={ `${strIngredient1}-card-name` }
                 callback={ () => {
                   dispatchFilter({

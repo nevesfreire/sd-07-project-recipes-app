@@ -11,3 +11,4 @@ export { default as SearchDrinkCards } from './SearchDrinkCards';
 export { default as SearchFoodCards } from './SearchFoodCards';
 export { default as IngredientsFoodCards } from './IngredientsFoodCards';
 export { default as IngredientsDrinkCards } from './IngredientsDrinkCards';
+export { default as RecomendationsCards } from './RecomendationsCards';

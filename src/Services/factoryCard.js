@@ -10,7 +10,7 @@ export default function factoryCard(arr, number, drink = true) {
   return arr.filter((_, index) => index < number)
     .map((element, i) => (
       <Card
-        link={ `/comidas/${element[id]}` }
+        link={ `/${text === 'Drink' ? 'bebidas' : 'comidas'}/${element[id]}` }
         title={ element[str] }
         img={ element[Thumb] }
         strAlcoholic={ element.strAlcoholic }

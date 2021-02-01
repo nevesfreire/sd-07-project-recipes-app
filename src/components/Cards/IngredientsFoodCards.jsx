@@ -24,7 +24,7 @@ export default function IngredientsFoodCards({ number }) {
                 id={ idIngredient }
                 key={ idIngredient }
                 testidImg={ `${idIngredient}-ingredient-card` }
-                testidIndex={ `${idIngredient}-card-img` }
+                testidCard={ `${idIngredient}-card-img` }
                 testidTitle={ `${idIngredient}-card-name` }
                 callback={ () => {
                   dispatchFilter({

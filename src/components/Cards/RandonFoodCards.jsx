@@ -6,7 +6,14 @@ export default function RandonFoodCards({ number }) {
   return (
     <div className="cards">
       {Array.from(
-        { length: [number] }, (a, i) => <CardFoodRandon key={ `food${i}` } />,
+        { length: [number] }, (_, i) => (
+          <CardFoodRandon
+            key={ `food${i}` }
+            testidCard={ `${i}-recipe-card` }
+            testidImg={ `${i}-card-img` }
+            testidTitle={ `${i}-card-name` }
+          />
+        ),
       )}
     </div>
   );

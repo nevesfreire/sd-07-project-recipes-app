@@ -16,7 +16,6 @@ export default function FoodCards({ category, number }) {
           : (factoryCard(meals, number, false))
       }
     </div>
-
   );
 }
 
