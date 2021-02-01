@@ -9,6 +9,7 @@ import {
   Login,
   MainPage,
   RecipeDetails,
+  Profile,
 } from './pages';
 
 function App() {

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import SearchBar from '../SearchBar';
 import imageProfile from '../../images/profileIcon.svg';
 import imageSearch from '../../images/searchIcon.svg';
 import './style.css';
@@ -36,6 +37,7 @@ export default function Header() {
             <div className="header-right" />
           )
       }
+      { enableSearch && (<SearchBar />) }
     </header>
   );
 }

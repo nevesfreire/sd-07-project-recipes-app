@@ -1,6 +1,6 @@
 import React from 'react';
 import { fireEvent } from '@testing-library/react';
-import renderWithRouter from '../../Tests/renderWithRouter';
+import renderWithRouter from '../../components/RenderWithRouter';
 import Login from './index';
 
 const emailInput = 'email-input';
