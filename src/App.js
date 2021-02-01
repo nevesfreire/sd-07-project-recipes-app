@@ -17,6 +17,7 @@ import {
   ReceitasFavoritas,
   ExplorarBebidasOuComidas,
 } from './pages';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
         <Route exact path="/perfil" component={ Perfil } />
         <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
         <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
+        <Route exact path="/explorar/bebidas/area" component={ NotFound } />
       </Switch>
     </div>
   );

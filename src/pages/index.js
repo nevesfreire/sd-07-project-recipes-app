@@ -11,3 +11,4 @@ export { default as Perfil } from './Perfil';
 export { default as ReceitasFeitas } from './ReceitasFeitas';
 export { default as ReceitasFavoritas } from './ReceitasFavoritas';
 export { default as ExplorarBebidasOuComidas } from './ExplorarBebidasOuComidas';
+export { default as NotFount } from './NotFound';

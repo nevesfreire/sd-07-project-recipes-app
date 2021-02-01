@@ -63,6 +63,7 @@ class Login extends Component {
             placeholder="Insira seu email"
             data-testid="email-input"
             onChange={ this.handleChange }
+            autoComplete="username"
           />
 
           <input
@@ -72,6 +73,7 @@ class Login extends Component {
             placeholder="Insira sua senha"
             data-testid="password-input"
             onChange={ this.handleChange }
+            autoComplete="current-password"
           />
 
           <button
