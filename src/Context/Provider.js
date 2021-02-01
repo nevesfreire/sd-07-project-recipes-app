@@ -76,7 +76,6 @@ function Provider({ children }) {
     const { email } = login;
     const regexEmail = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
     const verifyEmail = email.match(regexEmail);
-    console.log(email);
     if (verifyEmail) {
       setBtActive(true);
     } else {
