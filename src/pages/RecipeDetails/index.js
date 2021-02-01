@@ -1,6 +1,7 @@
+/* eslint-disable max-lines-per-function */
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { copy } from 'clipboard-copy';
+import copy from 'clipboard-copy';
 import RequestData from '../../services/RequestAPI';
 import shareIcon from '../../images/shareIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
@@ -10,6 +11,7 @@ import { getStorage, setStorage } from '../../services/localStorage';
 
 function RecipeDetails() {
   const [details, setDetails] = useState();
+  const [shared, setShared] = useState(false);
   const [favorite, setFavorite] = useState(false);
   const [recomendation, setRecomendation] = useState();
   const [inProgress, setInProgress] = useState(false);
@@ -50,10 +52,10 @@ function RecipeDetails() {
   useEffect(() => {
     const recipe = getStorage('inProgressRecipes');
     if (category === 'comidas' && recipe.meals) {
-      const bool = recipe.meals.find((id) => id === idReceita);
+      const bool = Object.keys(recipe.meals).find((id) => id === idReceita);
       setInProgress(bool);
     } else if (category === 'bebidas' && recipe.cocktails) {
-      const bool = recipe.cocktails.find((id) => id === idReceita);
+      const bool = Object.keys(recipe.cocktails).find((id) => id === idReceita);
       setInProgress(bool);
     }
   }, [category, idReceita]);
@@ -76,24 +78,45 @@ function RecipeDetails() {
     );
   }
 
-  function handleFavorite() {
-  //   [{
-  //     id: id-da-receita,
-  //     type: comida-ou-bebida,
-  //     area: area-da-receita-ou-texto-vazio,
-  //     category: categoria-da-receita-ou-texto-vazio,
-  //     alcoholicOrNot: alcoholic-ou-non-alcoholic-ou-texto-vazio,
-  //     name: nome-da-receita,
-  //     image: imagem-da-receita
-  // }]
+  useEffect(() => {
     const localFavorite = getStorage('favoriteRecipes');
-    if (!favorite) {
-      const addItem = [...localFavorite, details];
-      setStorage('favoriteRecipes', addItem);
-      setFavorite(true);
-    } else {
-
+    if (localFavorite) {
+      const bool = localFavorite.find((item) => item.id === idReceita);
+      setFavorite(bool);
     }
+  }, [idReceita]);
+
+  function handleFavorite() {
+    let localFavorite = getStorage('favoriteRecipes');
+    if (localFavorite) {
+      const bool = localFavorite.find((item) => item.id === idReceita);
+      setFavorite(!bool);
+      if (bool) {
+        const newFavorite = localFavorite.filter((item) => item.id !== idReceita);
+        setStorage('favoriteRecipes', newFavorite);
+        return;
+      }
+    } else {
+      localFavorite = [];
+      setFavorite(true);
+    }
+    const obj = {
+      id: idReceita,
+      type: category,
+      area: details.strArea || '',
+      category: details.strAlcoholic || details.strCategory,
+      alcoholicOrNot: details.strAlcoholic || '',
+      name: details.strDrink || details.strMeal,
+      image: details.strDrinkThumb || details.strMealThumb,
+    };
+    localFavorite.push(obj);
+    setStorage('favoriteRecipes', localFavorite);
+  }
+
+  function sharedButton() {
+    setShared(true);
+    const time = 3000;
+    setTimeout(() => setShared(false), time);
   }
 
   return (
@@ -112,37 +135,38 @@ function RecipeDetails() {
           <button
             type="button"
             data-testid="share-btn"
-            onClick={ () => copy('Link copiado!') }
+            onClick={ () => {
+              sharedButton();
+              copy(window.location.href);
+            } }
           >
             <img
               src={ shareIcon }
               alt="Compartilhar"
             />
+            {(shared) && <span>Link copiado!</span>}
           </button>
-          {!favorite && (
-            <button
-              type="button"
-              data-testid="favorite-btn"
-              onClick={ () => handleFavorite() }
-            >
-              <img
-                src={ whiteHeartIcon }
-                alt="favoritar"
-              />
-            </button>
-          )}
-          {favorite && (
-            <button
-              type="button"
-              data-testid="favorite-btn"
-              onClick={ () => handleFavorite() }
-            >
-              <img
-                src={ blackHeartIcon }
-                alt="favoritar"
-              />
-            </button>
-          )}
+          <button
+            type="button"
+            onClick={ () => handleFavorite() }
+          >
+            {
+              !favorite
+                ? (
+                  <img
+                    data-testid="favorite-btn"
+                    src={ whiteHeartIcon }
+                    alt="favoritar"
+                  />
+                ) : (
+                  <img
+                    data-testid="favorite-btn"
+                    src={ blackHeartIcon }
+                    alt="favoritar"
+                  />
+                )
+            }
+          </button>
           <p data-testid="recipe-category">
             {details.strAlcoholic || details.strCategory}
           </p>
