@@ -1,14 +1,14 @@
 import React from 'react';
-import Footer from '../footer/Footer';
 import Header from '../header/Header';
+import Footer from '../footer/Footer';
 
 class ExplorarBebidasIngredientes extends React.Component {
   render() {
     return (
       <div>
+        <Header />
         ExplorarBebidasIngredientes
         <Footer />
-        <Header />
       </div>
     );
   }
