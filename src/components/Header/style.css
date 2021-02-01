@@ -1,0 +1,27 @@
+.header-container {
+  align-items: center;
+  background-color: rgb(196, 196, 196);
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  width: 100vw;
+}
+
+.header-button {
+  background-color: rgb(196, 196, 196);
+  border: none;
+  outline: none;
+}
+
+.header-button:hover {
+  cursor: pointer;
+}
+
+.header-right {
+  width: 30px;
+}
+
+.header-img {
+  width: 30px;
+}
