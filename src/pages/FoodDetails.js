@@ -16,7 +16,6 @@ class FoodDetails extends Component {
     this.handleState = this.handleState.bind(this);
     this.changeFavorite = this.changeFavorite.bind(this);
     this.createFavoriteLocalStorage = this.createFavoriteLocalStorage.bind(this);
-    // this.readFavoriteLocalStorage = this.readFavoriteLocalStorage.bind(this);
 
     this.state = {
       meal: [],
@@ -28,8 +27,8 @@ class FoodDetails extends Component {
   }
 
   componentDidMount() {
-    const { requestRecipes, requestRecomendations } = this.props;
-    requestRecipes('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    const { requestRecipes, requestRecomendations, match: { params: { id } } } = this.props;
+    requestRecipes(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
     requestRecomendations('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     this.createFavoriteLocalStorage();
   }
@@ -47,7 +46,8 @@ class FoodDetails extends Component {
     const { match: { params: { id } }, mealsRecipes } = this.props;
     const filterRecipe = mealsRecipes.meals.find((recipe) => recipe.idMeal === id);
     const ingredients = Object.entries(filterRecipe)
-      .filter((array) => array[0].includes('strIngredient') && array[1] !== '')
+      .filter((array) => array[0]
+      .includes('strIngredient') && array[1] !== null && array[1] !== '')
       .map((array2) => array2[1]);
 
     this.setState({

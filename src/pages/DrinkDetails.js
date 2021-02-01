@@ -24,8 +24,8 @@ class DrinkDetails extends Component {
   }
 
   componentDidMount() {
-    const { requestRecipes, requestRecomendations } = this.props;
-    requestRecipes('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+    const { requestRecipes, requestRecomendations, match: { params: { id } } } = this.props;
+    requestRecipes(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
     requestRecomendations('https://www.themealdb.com/api/json/v1/1/search.php?s=');
   }
 
@@ -43,7 +43,8 @@ class DrinkDetails extends Component {
     const { match: { params: { id } }, drinksRecipes } = this.props;
     const filterRecipe = drinksRecipes.drinks.find((recipe) => recipe.idDrink === id);
     const ingredients = Object.entries(filterRecipe)
-      .filter((array) => array[0].includes('strIngredient') && array[1] !== null)
+      .filter((array) => array[0]
+      .includes('strIngredient') && array[1] !== null && array[1] !== '')
       .map((array2) => array2[1]);
 
     this.setState({
