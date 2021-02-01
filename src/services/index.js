@@ -58,6 +58,16 @@ async function fetchRandom(id, tipo) {
   return responsejeson;
 }
 
+async function fetchIngredients(tipo) {
+  let url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list ';
+  if (tipo === 'comidas') {
+    url = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list ';
+  }
+  const response = await fetch(url);
+  const responsejeson = await response.json();
+  return responsejeson;
+}
+
 export {
   fetchFoodId,
   fetchFoodIngredient,
@@ -65,4 +75,5 @@ export {
   fetchFoodLetter,
   fetchFoodCategory,
   fetchRandom,
+  fetchIngredients,
 };
