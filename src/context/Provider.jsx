@@ -7,6 +7,8 @@ function Provider({ children }) {
   const [password, setPassword] = useState('');
   const [cardFood, setCardFood] = useState([]);
   const [cardDrink, setCardDrink] = useState([]);
+  const [categoriesButtonDrink, setCategoriesButtonDrink] = useState([]);
+  const [categoriesButtonFood, setCategoriesButtonFood] = useState([]);
 
   const contextValue = {
     email,
@@ -17,6 +19,10 @@ function Provider({ children }) {
     setCardDrink,
     cardFood,
     cardDrink,
+    categoriesButtonDrink,
+    categoriesButtonFood,
+    setCategoriesButtonDrink,
+    setCategoriesButtonFood,
   };
 
   return (
