@@ -2,13 +2,13 @@ import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-function Comidas() {
+function Perfil() {
   return (
     <div>
-      <Header name="Comidas" button />
+      <Header name="Perfil" button={ false } />
       <Footer />
     </div>
   );
 }
 
-export default Comidas;
+export default Perfil;
