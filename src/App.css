@@ -9,7 +9,7 @@ body {
 
 .header-div {
   align-items: center;
-  background-image: url("./images/fire_base.gif");
+  background-image: url('./images/fire_base.gif');
   background-size: cover;
   color: #e0e010;
   display: flex;
@@ -41,13 +41,13 @@ body {
 
 .svg-class {
   filter: invert(90%) sepia(31%) saturate(1370%) hue-rotate(4deg)
-  brightness(97%) contrast(77%);
+    brightness(97%) contrast(77%);
 }
 
 .profile-buttons {
   align-items: center;
   background-color: red;
-  background-image: linear-gradient( black, red );
+  background-image: linear-gradient(black, red);
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
@@ -73,7 +73,7 @@ body {
 }
 
 .button-list:hover {
-  background-image: linear-gradient( yellow, yellow, red ) ;
+  background-image: linear-gradient(yellow, yellow, red);
 }
 
 
