@@ -49,7 +49,6 @@ export default class Carousel extends React.Component {
 
   render() {
     const { recommendations } = this.state;
-    console.log(recommendations);
     return (
       <>
         {this.renderRecommendations(recommendations)}

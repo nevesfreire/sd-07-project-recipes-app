@@ -59,7 +59,6 @@ class ComidaDetalhes extends React.Component {
 
   render() {
     const { recipe } = this.state;
-    console.log(recipe);
     return (
       <div className="ComidaDetalhes">
         <img

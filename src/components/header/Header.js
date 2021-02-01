@@ -13,7 +13,6 @@ class Header extends React.Component {
   }
 
   redirectPerfil() {
-    console.log(this.props);
     const { history } = this.props;
     history.push('/perfil');
   }

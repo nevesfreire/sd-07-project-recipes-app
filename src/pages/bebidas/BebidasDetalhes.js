@@ -59,7 +59,6 @@ export default class BebidasDetalhes extends React.Component {
 
   render() {
     const { recipe } = this.state;
-    console.log(recipe);
     return (
       <div>
         <img data-testid="recipe-photo" src={ recipe.strDrinkThumb } alt="drink pic" />
