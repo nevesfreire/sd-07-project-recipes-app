@@ -74,6 +74,9 @@ export const fetchAPIFoodsFilters = async (name, radioFilter) => {
     responseFiltered = await fetchAPIFoodsName(name);
     return responseFiltered;
   }
+  //  if (radioFilter === 'first' && radioFilter.length > 1) {
+  //    alert('Sua busca deve conter somente 1 (um) caracter');
+  //  } else {
   if (radioFilter === 'firstLetter') {
     responseFiltered = await fetchAPIFoodsLetterFirst(name);
     return responseFiltered;
@@ -91,6 +94,9 @@ export const fetchAPIDrinksFilters = async (name, radioFilter) => {
     responseFiltered = await fetchAPIDrinksName(name);
     return responseFiltered;
   }
+  //  if (radioFilter === 'first' && radioFilter.length > 1) {
+  //    alert('Sua busca deve conter somente 1 (um) caracter');
+  //  } else {
   if (radioFilter === 'firstLetter') {
     responseFiltered = await fetchAPIDrinksLetterFirst(name);
     return responseFiltered;
@@ -130,6 +136,26 @@ export const fetchAPICategoriesFood = async () => {
 export const fetchAPICategoriesDrinks = async () => {
   try {
     const response = await fetch(URLCatDrinks);
+    const { drinks } = await response.json();
+    return drinks;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchAPICategoriesFoodFilter = async (filter) => {
+  try {
+    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${filter}`);
+    const { meals } = await response.json();
+    return meals;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchAPICategoriesDrinkFilter = async (filter) => {
+  try {
+    const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${filter}`);
     const { drinks } = await response.json();
     return drinks;
   } catch (error) {
