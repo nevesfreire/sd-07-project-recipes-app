@@ -1,4 +1,3 @@
-
 import {
   SEARCH_TOGGLE,
 } from '../actions';
@@ -6,12 +5,10 @@ import {
 const INITIAL_STATE = false;
 
 const searchToggleReducer = (state = INITIAL_STATE, action) => {
-  switch (action.type) {
-  case SEARCH_TOGGLE:
+  if (action.type === SEARCH_TOGGLE) {
     return action.toggle;
-  default:
-    return state;
   }
+  return state;
 };
 
 export default searchToggleReducer;
