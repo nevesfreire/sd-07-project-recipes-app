@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -52,24 +52,23 @@ function CategoriesBar(props) {
 
   const handleClick = (event) => {
     event.preventDefault();
-    const { name } = event.target;
-    let { className } = event.target;
+    const { name, className } = event.target;
     if (title === 'Comidas') {
       if (className === 'selected') {
         searchByMeals(ALL, props);
-        className = '';
+        event.target.className = '';
       } else {
         searchByMeals(name, props);
-        className = 'selected';
+        event.target.className = 'selected';
       }
     }
     if (title === 'Bebidas') {
       if (className === 'selected') {
         searchByCocktails(ALL, props);
-        className = '';
+        event.target.className = '';
       } else {
         searchByCocktails(name, props);
-        className = 'selected';
+        event.target.className = 'selected';
       }
     }
   };
@@ -110,7 +109,7 @@ function CategoriesBar(props) {
 }
 
 CategoriesBar.propTypes = {
-
+  toggle: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = ({ searchToggleReducer, meals, cocktails }) => ({
