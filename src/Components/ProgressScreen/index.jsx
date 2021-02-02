@@ -1,15 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import PropTypes from 'prop-types';
+import copy from 'clipboard-copy';
 import { singleCocktail } from '../../API/apiCocktails';
 import { singleMeal } from '../../API/apiMeals';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 
 const ProgressScreen = (props) => {
   const { idReceita } = props;
   const location = useLocation();
+  const history = useHistory();
 
   const [recipe, setRecipe] = useState({});
   const [ingredients, setIngredients] = useState([]);
+  const [copyBtn, setCopyBtn] = useState('Compartilhar');
+  const [favorite, setFavorite] = useState(false);
+  const [complete, setComplete] = useState(true);
 
   useEffect(() => {
     const stringStorage = localStorage.getItem('inProgressRecipe');
@@ -36,7 +43,11 @@ const ProgressScreen = (props) => {
     const path = location.pathname.includes('comidas') ? 'meals' : 'cocktails';
     const stringStorage = localStorage.getItem('inProgressRecipe');
     const jsonStorage = JSON.parse(stringStorage);
-
+    if (ingredients.every((elem) => elem[1] === true)) {
+      setComplete(false);
+    } else {
+      setComplete(true);
+    }
     const objectStorage = {
       meals: {},
       cocktails: {},
@@ -50,6 +61,18 @@ const ProgressScreen = (props) => {
     }
   }, [ingredients, idReceita, location.pathname]);
 
+  useEffect(() => {
+    const stringFavorite = localStorage.getItem('favoriteRecipes');
+    const jsonFavorite = JSON.parse(stringFavorite);
+
+    if (
+      jsonFavorite !== null
+      && jsonFavorite.some((elem) => elem.id === idReceita)
+    ) {
+      setFavorite(true);
+    }
+  }, [idReceita]);
+
   const handleProgress = ({ target }) => {
     const { name } = target;
     const newIngredients = ingredients.map((elem) => {
@@ -57,6 +80,43 @@ const ProgressScreen = (props) => {
       return elem;
     });
     setIngredients(newIngredients);
+  };
+
+  const copyLink = () => {
+    const typeRecipe = location.pathname.includes('comidas')
+      ? 'comidas'
+      : 'bebidas';
+    setCopyBtn('Link copiado!');
+    return `http://localhost:3000/${typeRecipe}/${idReceita}`;
+  };
+
+  const defineFavorite = () => {
+    if (favorite) {
+      return (
+        <img data-testid="favorite-btn" src={ blackHeartIcon } alt="blackHeart" />
+      );
+    }
+    return (
+      <img data-testid="favorite-btn" src={ whiteHeartIcon } alt="whiteHeart" />
+    );
+  };
+
+  const favoriteBtn = () => {
+    const objRecipe = {
+      id: idReceita,
+      type: recipe.typeRecipe,
+      area: recipe.areaRecipe,
+      category: recipe.categoryRecipe,
+      alcoholicOrNot: recipe.alcoholic,
+      name: recipe.nameRecipe,
+      image: recipe.imgRecipe,
+    };
+    const stringFavorite = localStorage.getItem('favoriteRecipes');
+    const jsonFavorite = stringFavorite !== null ? JSON.parse(stringFavorite) : [];
+    const allValue = [...jsonFavorite, objRecipe];
+    const stringRecipe = JSON.stringify(allValue);
+    localStorage.setItem('favoriteRecipes', stringRecipe);
+    setFavorite(!favorite);
   };
 
   return (
@@ -68,11 +128,15 @@ const ProgressScreen = (props) => {
         data-testid="recipe-photo"
       />
       <p data-testid="recipe-title">{recipe.nameRecipe}</p>
-      <button type="button" data-testid="share-btn">
-        Compartilhar
+      <button
+        type="button"
+        data-testid="share-btn"
+        onClick={ () => copy(copyLink()) }
+      >
+        {copyBtn}
       </button>
-      <button type="button" data-testid="favorite-btn">
-        Favoritar
+      <button type="button" onClick={ favoriteBtn }>
+        {defineFavorite()}
       </button>
       <p data-testid="recipe-category">{recipe.categoryRecipe}</p>
       {ingredients.map((elem, index) => (
@@ -93,7 +157,12 @@ const ProgressScreen = (props) => {
         </label>
       ))}
       <p data-testid="instructions">{recipe.instructionRecipe}</p>
-      <button type="button" data-testid="finish-recipe-btn">
+      <button
+        type="button"
+        data-testid="finish-recipe-btn"
+        disabled={ complete }
+        onClick={ () => history.push('/receitas-feitas') }
+      >
         Finalizar
       </button>
     </div>

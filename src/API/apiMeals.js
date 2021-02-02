@@ -51,6 +51,9 @@ export const singleMeal = async (idMeal) => {
     ingredients: [],
     measurements: [],
     quantityIngredients: 0,
+    areaRecipe: resolveJson.meals[0].strArea,
+    typeRecipe: 'comida',
+    alcoholic: '',
   };
 
   const arrayObject = Object.entries(resolveJson.meals[0]);
@@ -62,7 +65,6 @@ export const singleMeal = async (idMeal) => {
   );
 
   const arrayMeasurements = arrayObject.filter((elem) => elem[0].includes('strMeasure'));
-
   const SIZE = arrayIngredients.length;
 
   objectModel.ingredients = arrayIngredients

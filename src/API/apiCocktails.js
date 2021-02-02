@@ -55,6 +55,9 @@ export const singleCocktail = async (idCocktail) => {
     ingredients: [],
     measurements: [],
     quantityIngredients: 0,
+    areaRecipe: '',
+    typeRecipe: 'bebida',
+    alcoholic: resolveJson.drinks[0].strAlcoholic,
   };
 
   const arrayObject = Object.entries(resolveJson.drinks[0]);
