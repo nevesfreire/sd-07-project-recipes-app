@@ -8,7 +8,10 @@ function useFetch() {
     setRecipes,
     setCategoriesFood,
     setCategoriesDrinks,
+    setDetailsRecipe,
+    setRecomandations,
   } = useContext(RecipeContext);
+
   async function foodFetch(searchWord, type) {
     const um = 1;
     if (type === 'ingredients') {
@@ -97,6 +100,32 @@ function useFetch() {
     }
   }
 
+  async function recipeDetailsAPI(id, type) {
+    if (type === 'comidas') {
+      const results = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
+        .then((response) => response.json());
+      await setDetailsRecipe(results);
+    }
+    if (type === 'bebidas') {
+      const results = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
+        .then((response) => response.json());
+      await setDetailsRecipe(results);
+    }
+  }
+
+  async function recipeRecomandationsAPI(type) {
+    if (type === 'drinks') {
+      const results = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
+        .then((response) => response.json());
+      await setRecomandations(results);
+    }
+    if (type === 'meals') {
+      const results = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
+        .then((response) => response.json());
+      await setRecomandations(results);
+    }
+  }
+
   return (
     {
       foodFetch,
@@ -106,6 +135,8 @@ function useFetch() {
       drinksCategories,
       foodCategories,
       selectedCategory,
+      recipeDetailsAPI,
+      recipeRecomandationsAPI,
     }
   );
 }

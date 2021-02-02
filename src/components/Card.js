@@ -1,17 +1,28 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import RecipeContext from '../Context/Context';
 
 function Card({ name, thumb, index, id, type }) {
+  const { setTypeAndIdDetails } = useContext(RecipeContext);
+
   return (
     <Link to={ `/${type}/${id}` }>
-      <div data-testid={ `${index}-recipe-card` }>
+      <div
+        className="recipe-card"
+        onKeyDown=""
+        role="button"
+        tabIndex="0"
+        onClick={ () => setTypeAndIdDetails({
+          type,
+          id,
+        }) }
+        data-testid={ `${index}-recipe-card` }
+      >
         <p data-testid={ `${index}-card-name` }>{ name }</p>
         <img src={ thumb } alt={ name } data-testid={ `${index}-card-img` } />
       </div>
-
     </Link>
-
   );
 }
 

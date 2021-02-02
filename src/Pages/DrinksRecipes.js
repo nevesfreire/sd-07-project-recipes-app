@@ -9,7 +9,7 @@ import Categories from '../components/Categories';
 
 function DrinksRecipes() {
   const { drinkFetch, randomDrinkFetch, drinksCategories } = useFetch();
-  const { recipes, categoriesDrinks } = useContext(RecipeContext);
+  const { recipes, categoriesDrinks, setTypeAndIdDetails } = useContext(RecipeContext);
   const um = 1;
   function handleRoutes() {
     const zero = 0;
@@ -25,6 +25,16 @@ function DrinksRecipes() {
     />));
   }
 
+  function handleDatails() {
+    setTypeAndIdDetails({
+      type: 'bebidas',
+      id: recipes.drinks[0].idDrink,
+    });
+    return (
+      <Redirect to={ `/bebidas/${recipes.drinks[0].idDrink}` } />
+    );
+  }
+
   useEffect(() => {
     randomDrinkFetch();
     drinksCategories();
@@ -35,7 +45,7 @@ function DrinksRecipes() {
       <Header title="Bebidas" explore funcFetch={ drinkFetch } />
       <Categories list={ categoriesDrinks } type="drinks" />
       {recipes.drinks && !recipes.type && recipes.drinks.length === um
-        ? <Redirect to={ `/bebidas/${recipes.drinks[0].idDrink}` } />
+        ? handleDatails()
         : handleRoutes()}
       <FooterMenu />
     </div>
