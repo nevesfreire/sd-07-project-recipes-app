@@ -12,6 +12,7 @@ function RecipesProvider({ children }) {
   const [pathName, setPathName] = useState('');
   const [foodData, setFoodData] = useState([]);
   const [drinkData, setDrinkData] = useState([]);
+  const [redirectByIngredients, setRedirectByIngredients] = useState(false);
 
   useEffect(() => {
     foodApiFunctions.fetchAllFoodRecipes().then((response) => setFoodData(response));
@@ -43,6 +44,19 @@ function RecipesProvider({ children }) {
         .fetchDrinkByIngredient(value)
         .then((response) => setDrinksToRender(response.drinks));
     }
+  };
+
+  const fetchInIngredientCard = (ingredient, path) => {
+    if (path === '/explorar/comidas/ingredientes') {
+      foodApiFunctions
+        .fetchFoodByIngredient(ingredient)
+        .then((response) => setFoodsToRender(response.meals));
+    } else {
+      drinkApiFunctions
+        .fetchDrinkByIngredient(ingredient)
+        .then((response) => setDrinksToRender(response.drinks));
+    }
+    setRedirectByIngredients(true);
   };
 
   const fetchByName = (value) => {
@@ -85,6 +99,9 @@ function RecipesProvider({ children }) {
     fetchByFirstLetter,
     foodData,
     drinkData,
+    fetchInIngredientCard,
+    setRedirectByIngredients,
+    redirectByIngredients,
   };
 
   return (

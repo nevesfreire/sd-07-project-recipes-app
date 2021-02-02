@@ -10,7 +10,7 @@ import RecipesContext from '../context/RecipesContext';
 function MainDrinks(props) {
   const { location } = props;
   const { pathname } = location;
-  const { setPathName } = useContext(RecipesContext);
+  const { setPathName, setRedirectByIngredients } = useContext(RecipesContext);
   const { drinksToRender, setDrinksToRender, drinkData } = useContext(RecipesContext);
   const [allFiltersToRender, setAllFiltersToRender] = useState([]);
   const [filtersToRender, setFiltersToRender] = useState([]);
@@ -18,6 +18,10 @@ function MainDrinks(props) {
 
   useEffect(() => {
     setPathName(pathname);
+  });
+
+  useEffect(() => {
+    setRedirectByIngredients(false);
   });
 
   useEffect(() => {
