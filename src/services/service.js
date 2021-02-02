@@ -18,12 +18,12 @@ export const getIngredients = (details) => {
 };
 
 export const enableButton = (setDisableButton, stateList, mealType, itemId) => {
-  // console.log('chamou');
-  // console.log(stateList.length, 'statelist')
-  // const list = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  // const checkedIngredients = list[mealType][itemId];
-  // console.log(checkedIngredients.length, 'checkedingred');
-  // if (stateList.length === checkedIngredients.length) setDisableButton(false);
+  console.log('chamou');
+  console.log(stateList.length, 'statelist');
+  const list = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const checkedIngredients = list[mealType][itemId];
+  console.log(checkedIngredients.length, 'checkedingred');
+  if (stateList.length === checkedIngredients.length) setDisableButton(false);
 };
 
 export const checkOut = (value, mealType, itemId) => {

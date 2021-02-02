@@ -27,8 +27,6 @@ function Details({ itemId, mealType }) {
   const [hideBtn, setHideBtn] = useState('');
   const [isFavorite, setIsFavorite] = useState(false);
 
-  const { strInstructions } = details;
-
   useEffect(() => {
     const getRecommendation = async () => {
       let fetchRecommendation = [];
@@ -43,7 +41,7 @@ function Details({ itemId, mealType }) {
   }, [mealType]);
 
   useEffect(() => {
-    const checkForProgress = async () => {
+    const checkForProgress = () => {
       const list = JSON.parse(localStorage.getItem('inProgressRecipes'));
       if (list !== null) {
         let keys = [];
@@ -56,7 +54,6 @@ function Details({ itemId, mealType }) {
     checkForProgress();
     checksUnited(itemId, setHideBtn, setIsFavorite);
   }, [itemId, mealType, recommendation, details]);
-
   useEffect(() => {
     const getDetails = async () => {
       let fromFetch = [];
@@ -73,7 +70,6 @@ function Details({ itemId, mealType }) {
     }
     if (mealType === 'Meal') progressList.meals[itemId] = [];
     else progressList.cocktails[itemId] = [];
-
     localStorage.setItem('inProgressRecipes', JSON.stringify(progressList));
     if (mealType === 'Meal') {
       history.push(`/comidas/${itemId}/in-progress`);
@@ -180,19 +176,25 @@ function Details({ itemId, mealType }) {
         }
       </h5>
       { loadIngredients()}
-      <p width="90%" data-testid="instructions">{strInstructions}</p>
+      <p
+        data-testid="instructions"
+      >
+        {details.strInstructions}
+      </p>
       {mealType === 'Meal'
-        && (<iframe
-          title="video"
-          data-testid="video"
-          src={ details.strYoutube }
-          width="80%"
-        />)}
+        && (
+          <iframe
+            title="video"
+            data-testid="video"
+            src={ details.strYoutube && details.strYoutube.replace('watch?v=', 'embed/') }
+            width="100%"
+          />
+        )}
       <CardList
         arrayOfCard={ recommendation }
         typeOfCard={ mealType === 'Meal' ? 'Drink' : 'Meal' }
         sideScroll=" sideScroll"
-        recommendation
+        recommendation="true"
       />
       <button
         className="button-begin"

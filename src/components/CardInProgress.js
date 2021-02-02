@@ -24,36 +24,29 @@ function CardInProgress() {
   const [showMessage, setShowMessage] = useState('hidden');
   const [isFavorite, setIsFavorite] = useState(false);
   const [disableButton, setDisableButton] = useState(true);
-  const [renderIngredients, setRenderIngredients] = useState([]);
-
-  const [ingredientsList, setStateIngredients] = useState([]);
+  const [ingredientState, setIngredientState] = useState([]);
+  const [ingredientsList, setIngredientsList] = useState([]);
 
   const RedirectToDone = () => {
     history.push('/receitas-feitas');
   };
 
   useEffect(() => {
-    const checkForProgress = async () => {
+    const loadIngredients = () => {
+      setIngredientState(getIngredients(details));
+    };
+    const checkedIngredients = async () => {
       const list = JSON.parse(localStorage.getItem('inProgressRecipes'));
       if (list) {
         const ingredients = list[mealTypeChain][itemId];
-        setStateIngredients(ingredients);
+        setIngredientsList(ingredients);
       }
     };
-    // const loadIngredients = () => {
-    //   setRenderIngredients(getIngredients(details))
-    // }
-    // loadIngredients();
-    checkForProgress();
+
+    loadIngredients();
+    checkedIngredients();
     checksUnited(itemId, undefined, setIsFavorite);
   }, [itemId, mealType, details, mealTypeChain]);
-
-  useEffect(() => {
-    const loadIngredients = () => {
-      setRenderIngredients(getIngredients(details));
-    };
-    loadIngredients();
-  }, [ingredientsList, details]);
 
   useEffect(() => {
     const getDetails = async () => {
@@ -71,7 +64,7 @@ function CardInProgress() {
       {getIngredients(details).map((item, index) => (
         <li
           key={ `ìngredient${index}` }
-          data-testid={ `data-testid=${index}-ingredient-step` }
+          data-testid={ `${index}-ingredient-step` }
         >
           <label htmlFor={ `${item.ingredient}` }>
             <input
@@ -79,11 +72,11 @@ function CardInProgress() {
               value={ `${item.ingredient}` }
               onChange={ (event) => {
                 checkOut(event.target.value, mealTypeChain, itemId);
-                // enableButton(setDisableButton, getIngredients(details), mealTypeChain, itemId);
-                setStateIngredients([...ingredientsList, `${item.ingredient}`]);
+                enableButton(setDisableButton, ingredientState, mealTypeChain, itemId);
+                setIngredientsList([...ingredientsList, `${item.ingredient}`]);
               } }
-              { ...console.log(ingredientsList, 'ingredient list') }
-              { ...ingredientsList.includes(`${item.ingredient}`) ? 'checked' : '' }
+              { ...console.log(ingredientsList.includes(`${item.ingredient}`)) }
+              checked={ ingredientsList.includes(`${item.ingredient}`) }
             />
             <img
               width="30px"
