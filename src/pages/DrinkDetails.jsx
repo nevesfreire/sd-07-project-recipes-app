@@ -20,6 +20,7 @@ export default function DrinkDetails(props) {
   const { params } = match;
   const { id } = params;
   const carouselActiveIndex = 0; // controla das recomendações
+  const carouselActiveIndex1 = 1;
   const carouselPartition = 3;
   const buttonMount = () => {
     if (localStorage.getItem('doneRecipes') !== null) {
@@ -167,7 +168,7 @@ export default function DrinkDetails(props) {
   const setLikeImage = () => {
     if (localStorage.getItem('favoriteRecipes') !== null) {
       const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      const findElement = recipes.find((item) => item.id.toString() === id);
+      const findElement = recipes.find((item) => item.id === id);
       if (findElement !== undefined) {
         setBtnImg(fullLikeIcon);
       } else {
@@ -221,14 +222,13 @@ export default function DrinkDetails(props) {
       <h3>Recommendations:</h3>
       <div className="carousels-container">
         <div
-          className="carousel slide w-25"
+          className="carousel slide"
           data-ride="carousel"
           id="carousel1"
         >
-          <div className="carousel-inner">
+          <div className="carousel-item active">
             {recommendations1.map((item, index) => {
               if (index === carouselActiveIndex) {
-                // console.log(item); obj de cada bebida
                 return (
                   <div
                     key={ item.idMeal }
@@ -236,9 +236,9 @@ export default function DrinkDetails(props) {
                     className="carousel-item active"
                   >
                     <img
+                      className="d-block w-100"
                       src={ item.strMealThumb }
                       alt={ item.strMeal }
-                      className="d-block w-100"
                     />
                     <h5 data-testid={ `${index}-recomendation-title` }>
                       { item.strMeal }
@@ -249,16 +249,18 @@ export default function DrinkDetails(props) {
               return (
                 <div
                   key={ item.idMeal }
-                  data-testid={ `${index}-recomendation-card` }
+                  data-testid={ `${
+                    index + carouselActiveIndex1
+                  }-recomendation-card` }
                   className="carousel-item"
                 >
                   <img
                     src={ item.strMealThumb }
                     alt={ item.strMeal }
-                    className="d-block w-100"
+                    className="d-block w 100"
                   />
                   <h5 data-testid={ `${index}-recomendation-title` }>
-                    {item.strMeal}
+                    { item.strMeal }
                   </h5>
                 </div>
               );
@@ -266,7 +268,7 @@ export default function DrinkDetails(props) {
           </div>
         </div>
         <div
-          className="carousel slide w-25"
+          className="carousel slide"
           data-ride="carousel"
           id="carousel2"
         >
@@ -276,9 +278,7 @@ export default function DrinkDetails(props) {
                 return (
                   <div
                     key={ item.idMeal }
-                    data-testid={ `${
-                      index + carouselPartition
-                    }-recomendation-card` }
+                    data-testid="1-recomendation-card"
                     className="carousel-item active"
                   >
                     <img

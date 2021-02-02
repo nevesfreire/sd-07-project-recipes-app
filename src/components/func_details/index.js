@@ -64,7 +64,6 @@ export function saveFavoriteRecipe(
   // valueRecipeTitle,
   // valueRecipeImage,
 ) {
-  console.log(valueObject)
   const {
     id,
     getRecipeTitle,
@@ -98,7 +97,7 @@ export const setLikeImage = (
 ) => {
   if (localStorage.getItem('favoriteRecipes') !== null) {
     const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const findElement = recipes.find((item) => item.id.toString() === valueId);
+    const findElement = recipes.find((item) => item.id === valueId);
     if (findElement !== undefined) {
       fnSetBtnImg(valueFullLikeIcon);
     } else {

@@ -66,22 +66,6 @@ export default function FoodDetails(props) {
     }
   };
 
-  // const handleImage = () => {
-  //   if (btnImg === likeIcon) {
-  //     setBtnImg(fullLikeIcon);
-  //     saveFavoriteRecipe(
-  //       id,
-  //       getRecipeArea,
-  //       getRecipeCategory,
-  //       getRecipeTitle,
-  //       getRecipeImage,
-  //     );
-  //   } else {
-  //     setBtnImg(likeIcon);
-  //     unLikeRecipe(id);
-  //   }
-  // };
-
   const handleClick = () => {
     if (!JSON.parse(localStorage.getItem('inProgressRecipes'))) {
       const inProgressRecipes = {
@@ -158,11 +142,11 @@ export default function FoodDetails(props) {
       <h3>Recommendations:</h3>
       <div className="carousels-container">
         <div
-          className="carousel slide w-25"
+          className="carousel slide"
           data-ride="carousel"
           id="carousel1"
         >
-          <div className="carousel-inner">
+          <div className="carousel-item active">
             { recommendations1.map((item, index) => {
               if (index === carouselActiveIndex) {
                 return (
@@ -172,9 +156,9 @@ export default function FoodDetails(props) {
                     className="carousel-item active"
                   >
                     <img
+                      className="d-block w-100"
                       src={ item.strDrinkThumb }
                       alt={ item.strDrink }
-                      className="d-block w-100"
                     />
                     <h5 data-testid={ `${index}-recomendation-title` }>
                       { item.strDrink }
@@ -204,7 +188,7 @@ export default function FoodDetails(props) {
           </div>
         </div>
         <div
-          className="carousel slide w-25"
+          className="carousel slide"
           data-ride="carousel"
           id="carousel2"
         >
@@ -218,9 +202,9 @@ export default function FoodDetails(props) {
                     className="carousel-item active"
                   >
                     <img
+                      className="d-block w-100"
                       src={ item.strDrinkThumb }
                       alt={ item.strDrink }
-                      className="d-block w-100"
                     />
                     <h5
                       data-testid={ `${
