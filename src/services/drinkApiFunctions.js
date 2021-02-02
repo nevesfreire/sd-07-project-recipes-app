@@ -70,7 +70,7 @@ export const fetchAllDrinkIngredients = async () => {
   return response;
 };
 
-// export default {
+// export {
 //   fetchDrinkByIngredient,
 //   fetchDrinkByName,
 //   fetchDrinkByFirstLetter,

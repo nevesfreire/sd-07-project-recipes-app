@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import { Route, BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import RecipesProvider from './context/RecipesProvider';
@@ -15,6 +14,8 @@ import ExplorerFoodArea from './pages/ExplorerFoodArea';
 import Perfil from './pages/Perfil';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
+import RecipesDetails from './pages/RecipesDetails';
+import DrinksDetails from './pages/DrinksDetails';
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -25,8 +26,16 @@ function App() {
           <Route exact path="/" component={ Login } />
           <Route exact path="/comidas" component={ MainRecipes } />
           <Route exact path="/bebidas" component={ MainDrinks } />
-          <Route exact path="/comidas/{id-da-receita}" />
-          <Route exact path="/bebidas/{id-da-receita}" />
+          <Route
+            exact
+            path="/comidas/:id"
+            render={ (props) => <RecipesDetails { ...props } /> }
+          />
+          <Route
+            exact
+            path="/bebidas/:id"
+            render={ (props) => <DrinksDetails { ...props } /> }
+          />
           <Route exact path="/comidas/{id-da-receita}/in-progress" />
           <Route exact path="/bebidas/{id-da-receita}/in-progress" />
           <Route exact path="/explorar" component={ Explorer } />

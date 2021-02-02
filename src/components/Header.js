@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-import '../App.css';
 import RecipesContext from '../context/RecipesContext';
 import HeaderSearchBar from './HeaderSearchBar';
 
@@ -40,9 +39,7 @@ function Header({ title }) {
     </div>
   );
 }
-
 Header.propTypes = {
   title: PropTypes.string.isRequired,
 };
-
 export default Header;

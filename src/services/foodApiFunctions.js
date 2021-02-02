@@ -85,14 +85,3 @@ export const fetchFilterFoodByArea = async (area) => {
   const response = await request.json();
   return response;
 };
-
-// export default {
-//   fetchFoodByIngredient,
-//   fetchFoodByName,
-//   fetchFoodByFirstLetter,
-//   fetchAllFoodRecipes,
-//   fetchAllFoodCategories,
-//   fetchFilterFoodByCategory,
-//   fetchFoodDetailById,
-//   fetchRandomFoodRecipes,
-// };

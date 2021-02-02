@@ -5,6 +5,11 @@ import * as drinkApiFunctions from '../services/drinkApiFunctions';
 import * as foodApiFunctions from '../services/foodApiFunctions';
 
 function RecipesProvider({ children }) {
+  const zero = 0;
+  const [foodDetail, setFoodDetail] = useState([]);
+  const [drinkDetail, setDrinkDetail] = useState([]);
+  const [id, setId] = useState(zero);
+  const [ingredients, setIngredients] = useState([]);
   const [foodsToRender, setFoodsToRender] = useState([]);
   const [drinksToRender, setDrinksToRender] = useState([]);
   const [login, setLogin] = useState({ email: '', password: '' });
@@ -13,27 +18,21 @@ function RecipesProvider({ children }) {
   const [foodData, setFoodData] = useState([]);
   const [drinkData, setDrinkData] = useState([]);
   const [redirectByIngredients, setRedirectByIngredients] = useState(false);
-
   useEffect(() => {
     foodApiFunctions.fetchAllFoodRecipes().then((response) => setFoodData(response));
   }, []);
-
   useEffect(() => {
     drinkApiFunctions.fetchAllDrinkRecipes().then((response) => setDrinkData(response));
   }, []);
-
   useEffect(() => {
     setDrinksToRender(drinkData.drinks);
   }, [drinkData]);
-
   useEffect(() => {
     setFoodsToRender(foodData.meals);
   }, [foodData]);
-
   const toggleSearchBar = () => {
     setShowSearchBar(!showSearchBar);
   };
-
   const fetchByIngredients = (value) => {
     if (pathName === '/comidas') {
       foodApiFunctions
@@ -45,7 +44,6 @@ function RecipesProvider({ children }) {
         .then((response) => setDrinksToRender(response.drinks));
     }
   };
-
   const fetchInIngredientCard = (ingredient, path) => {
     if (path === '/explorar/comidas/ingredientes') {
       foodApiFunctions
@@ -58,7 +56,6 @@ function RecipesProvider({ children }) {
     }
     setRedirectByIngredients(true);
   };
-
   const fetchByName = (value) => {
     if (pathName === '/comidas') {
       foodApiFunctions
@@ -70,7 +67,6 @@ function RecipesProvider({ children }) {
         .then((response) => setDrinksToRender(response.drinks));
     }
   };
-
   const fetchByFirstLetter = (value) => {
     if (pathName === '/comidas') {
       foodApiFunctions
@@ -82,10 +78,17 @@ function RecipesProvider({ children }) {
         .then((response) => setDrinksToRender(response.drinks));
     }
   };
-
   const context = {
     login,
     setLogin,
+    foodDetail,
+    setFoodDetail,
+    drinkDetail,
+    setDrinkDetail,
+    id,
+    setId,
+    ingredients,
+    setIngredients,
     showSearchBar,
     toggleSearchBar,
     pathName,
@@ -103,7 +106,6 @@ function RecipesProvider({ children }) {
     setRedirectByIngredients,
     redirectByIngredients,
   };
-
   return (
     <div>
       <RecipesContext.Provider value={ context }>
@@ -112,9 +114,7 @@ function RecipesProvider({ children }) {
     </div>
   );
 }
-
 RecipesProvider.propTypes = {
   children: PropTypes.oneOfType([PropTypes.object]).isRequired,
 };
-
 export default RecipesProvider;

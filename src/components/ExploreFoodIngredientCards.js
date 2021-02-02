@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
-import '../App.css';
 
 function ExploreFoodIngredientICards({ title, index, path }) {
   const { fetchInIngredientCard, redirectByIngredients } = useContext(RecipesContext);
