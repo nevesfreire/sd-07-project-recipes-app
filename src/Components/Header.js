@@ -12,8 +12,8 @@ const Header = ({ children }) => {
   return (
     <header>
       <Link to="/perfil">
-        <button type="button">
-          <img src={ ImgPerfil } data-testid="profile-top-btn" alt="SVG Perfil" />
+        <button type="button" data-testid="profile-top-btn">
+          <img src={ ImgPerfil } alt="SVG Perfil" />
         </button>
       </Link>
       <h2 data-testid="page-title">{children}</h2>

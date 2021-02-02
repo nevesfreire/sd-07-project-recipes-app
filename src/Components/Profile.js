@@ -20,9 +20,11 @@ function Profile() {
 
   return (
     <div>
-      <div data-testid="profile-email">
-        <span>{email.email}</span>
-      </div>
+      { email && (
+        <h4 data-testid="profile-email">
+          {email.email}
+        </h4>
+      ) }
       <button
         type="button"
         onClick={ doneRecipes }
