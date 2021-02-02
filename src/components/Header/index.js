@@ -3,7 +3,6 @@ import { Link, useHistory } from 'react-router-dom';
 import SearchBar from '../SearchBar';
 import imageProfile from '../../images/profileIcon.svg';
 import imageSearch from '../../images/searchIcon.svg';
-import SearchBar from '../SearchBar';
 import './style.css';
 
 function Title(pathname) {
