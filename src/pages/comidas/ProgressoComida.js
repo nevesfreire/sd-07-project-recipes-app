@@ -1,11 +1,9 @@
 import React from 'react';
-import Header2 from '../../components/header/Header2';
 
 class ProgressoComida extends React.Component {
   render() {
     return (
       <div>
-        <Header2 />
         {/* <img src="" data-testid="recipe-photo" /> */}
         <h1 data-testid="recipe-title"> Titulo </h1>
         <button
