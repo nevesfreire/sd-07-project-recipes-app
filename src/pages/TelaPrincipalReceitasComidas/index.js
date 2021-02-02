@@ -1,15 +1,46 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Alert } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-import CardC from '../../components/Card/CardC';
-import { HeaderS } from '../../components';
+import { HeaderS, CardC } from '../../components';
+import {
+  loadMeals,
+  loadMealsCategories,
+  getByCategorieMeals,
+} from '../../store/ducks/receitasDeComidas/actions';
 
 class TelaPrincipalReceitasComidas extends Component {
+  constructor() {
+    super();
+    this.state = {
+      toggleFilter: false,
+      currentCategory: '',
+    };
+  }
+
+  async componentDidMount() {
+    const { loadMealsDispatch, getCategoriesDispatch } = this.props;
+    loadMealsDispatch();
+    await getCategoriesDispatch();
+  }
+
+  async getMealsCategorie(e) {
+    const mealCategorie = e.target.innerHTML;
+    const { getByCategorieMealsD, loadMealsDispatch } = this.props;
+    const { toggleFilter, currentCategory } = this.state;
+    if (!toggleFilter || currentCategory !== mealCategorie) {
+      this.setState({ toggleFilter: true, currentCategory: mealCategorie });
+      await getByCategorieMealsD(mealCategorie);
+    } else {
+      this.setState({ toggleFilter: false, currentCategory: '' });
+      await loadMealsDispatch();
+    }
+  }
+
   renderMeals(meals) {
-    if (meals.length === 1) {
-      const { idMeal } = meals;
+    const { toggleFilter } = this.state;
+    if (meals.length === 1 && !toggleFilter) {
+      const { idMeal } = meals[0];
       return <Redirect to={ `/comidas/${idMeal}` } />;
     }
     return (
@@ -20,9 +51,10 @@ class TelaPrincipalReceitasComidas extends Component {
             return (
               <div
                 className="col-6 justify-content-md-center"
+                data-testid={ `${index}-recipe-card` }
                 key={ item.strMeals }
               >
-                <CardC card={ item } />
+                <CardC card={ item } indexMeal={ index } />
               </div>
             );
           }
@@ -34,23 +66,51 @@ class TelaPrincipalReceitasComidas extends Component {
 
   renderAlert(meals) {
     if (!meals) {
-      return (
-        <Alert variant="danger">
-          Sinto muito, não encontramos nenhuma receita para esses filtros.
-        </Alert>
+      return alert(
+        'Sinto muito, não encontramos nenhuma receita para esses filtros.',
       );
     }
   }
 
+  renderCategories(categories) {
+    const five = 5;
+    const { loadMealsDispatch } = this.props;
+    return (
+      <div>
+        {categories.map((categorie, index) => {
+          if (index < five) {
+            return (
+              <button
+                type="button"
+                key={ categorie.strCategory }
+                data-testid={ `${categorie.strCategory}-category-filter` }
+                onClick={ (e) => this.getMealsCategorie(e) }
+              >
+                {categorie.strCategory}
+              </button>
+            );
+          }
+          return null;
+        })}
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ () => loadMealsDispatch() }
+        >
+          All
+        </button>
+      </div>
+    );
+  }
+
   render() {
-    const title = 'Comida';
-    const { mealsStore } = this.props;
+    const title = 'Comidas';
+    const { mealsStore, categoriesStore } = this.props;
     return (
       <div>
         <HeaderS title={ title } />
-        {mealsStore
-          ? this.renderMeals(mealsStore)
-          : this.renderAlert(mealsStore)}
+        {categoriesStore ? this.renderCategories(categoriesStore) : null}
+        {mealsStore ? this.renderMeals(mealsStore) : null}
       </div>
     );
   }
@@ -58,10 +118,24 @@ class TelaPrincipalReceitasComidas extends Component {
 
 const mapStateToProps = (state) => ({
   mealsStore: state.receitasDeComidas.meals.meals,
+  categoriesStore: state.receitasDeComidas.categories.meals,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  loadMealsDispatch: () => dispatch(loadMeals()),
+  getCategoriesDispatch: () => dispatch(loadMealsCategories()),
+  getByCategorieMealsD: (categorie) => dispatch(getByCategorieMeals(categorie)),
 });
 
 TelaPrincipalReceitasComidas.propTypes = {
   mealsStore: PropTypes.objectOf(PropTypes.string).isRequired,
+  loadMealsDispatch: PropTypes.func.isRequired,
+  getCategoriesDispatch: PropTypes.func.isRequired,
+  categoriesStore: PropTypes.objectOf(PropTypes.string).isRequired,
+  getByCategorieMealsD: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, null)(TelaPrincipalReceitasComidas);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(TelaPrincipalReceitasComidas);

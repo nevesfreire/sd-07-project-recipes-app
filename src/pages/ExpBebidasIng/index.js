@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header } from '../../components';
+import { Header, Footer } from '../../components';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class ExplorarBebidasIng extends Component {
@@ -8,6 +8,7 @@ class ExplorarBebidasIng extends Component {
     return (
       <div>
         <Header title={ title } />
+        <Footer />
       </div>
     );
   }

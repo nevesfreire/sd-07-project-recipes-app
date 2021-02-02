@@ -19,7 +19,6 @@ class ExplorarComidas extends Component {
     return (
       <div>
         <Header title={ title } />
-        <Footer />
         <button
           type="button"
           data-testid="explore-by-ingredient"
@@ -43,6 +42,7 @@ class ExplorarComidas extends Component {
         >
           Me Surpreenda!
         </button>
+        <Footer />
       </div>
     );
   }

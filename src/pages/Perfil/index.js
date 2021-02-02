@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Header } from '../../components';
+import { Container, Button } from 'react-bootstrap';
+import { Header, Footer } from '../../components';
 
 class Perfil extends Component {
   render() {
@@ -7,6 +8,21 @@ class Perfil extends Component {
     return (
       <div>
         <Header title={ title } />
+        <Container>
+          <h1>email aqui</h1>
+        </Container>
+        <Container>
+          <Button variant="secondary" size="lg" block>
+            Receitas Feitas
+          </Button>
+          <Button variant="secondary" size="lg" block>
+            Receitas Favoritas
+          </Button>
+          <Button variant="secondary" size="lg" block>
+            Sair
+          </Button>
+        </Container>
+        <Footer />
       </div>
     );
   }

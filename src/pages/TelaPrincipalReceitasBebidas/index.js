@@ -1,20 +1,77 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Alert } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-import { HeaderS } from '../../components';
-import CardC from '../../components/Card/CardC';
+import { HeaderS, CardC, Footer } from '../../components';
+import {
+  loadDrinks,
+  loadDrinksCategories,
+  getByCategorieDrinks,
+} from '../../store/ducks/receitasDeBebidas/actions';
 
 class TelaPrincipalReceitasBebidas extends Component {
-  renderDrinks(drinks) {
-    const zero = 0;
-    if (drinks.length === 1) {
-      const { idDrink } = drinks;
-      return <Redirect to={ `/bebidas/${idDrink}` } />;
+  constructor() {
+    super();
+    this.state = {
+      toggleFilter: false,
+      currentCategory: '',
+    };
+  }
+
+  async componentDidMount() {
+    const { loadDrinksDispatch, getCategoriesDispatch } = this.props;
+    getCategoriesDispatch();
+    await loadDrinksDispatch();
+  }
+
+  async getDrinksCategorie(e) {
+    const drinkCategorie = e.target.innerHTML;
+    const { getByCategorieDrinksD, loadDrinksDispatch } = this.props;
+    const { toggleFilter, currentCategory } = this.state;
+    if (!toggleFilter || currentCategory !== drinkCategorie) {
+      await getByCategorieDrinksD(drinkCategorie);
+      this.setState({ toggleFilter: true, currentCategory: drinkCategorie });
+    } else {
+      await loadDrinksDispatch();
+      this.setState({ toggleFilter: false, currentCategory: '' });
     }
-    if (drinks.length === zero) {
-      return this.renderAlert();
+  }
+
+  renderCategories(categories) {
+    const five = 5;
+    const { loadDrinksDispatch } = this.props;
+    return (
+      <div>
+        {categories.map((categorie, index) => {
+          if (index < five) {
+            return (
+              <button
+                type="button"
+                key={ categorie.strCategory }
+                data-testid={ `${categorie.strCategory}-category-filter` }
+                onClick={ (e) => this.getDrinksCategorie(e) }
+              >
+                {categorie.strCategory}
+              </button>
+            );
+          }
+          return null;
+        })}
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ () => loadDrinksDispatch() }
+        >
+          All
+        </button>
+      </div>
+    );
+  }
+
+  renderDrinks(drinks) {
+    if (drinks.length === 1) {
+      const { idDrink } = drinks[0];
+      return <Redirect to={ `/bebidas/${idDrink}` } />;
     }
     return (
       <div className="row">
@@ -25,8 +82,9 @@ class TelaPrincipalReceitasBebidas extends Component {
               <div
                 className="col-6 justify-content-md-center"
                 key={ item.strDrink }
+                data-testid={ `${index}-recipe-card` }
               >
-                <CardC card={ item } />
+                <CardC card={ item } indexDrink={ index } />
               </div>
             );
           }
@@ -36,23 +94,15 @@ class TelaPrincipalReceitasBebidas extends Component {
     );
   }
 
-  renderAlert(drinks) {
-    if (!drinks) {
-      return (
-        <Alert variant="danger">
-          Sinto muito, não encontramos nenhuma receita para esses filtros.
-        </Alert>
-      );
-    }
-  }
-
   render() {
     const title = 'Bebidas';
-    const { drinksStore } = this.props;
+    const { drinksStore, categoriesStore } = this.props;
     return (
       <div>
         <HeaderS title={ title } />
+        {categoriesStore ? this.renderCategories(categoriesStore) : null}
         {drinksStore ? this.renderDrinks(drinksStore) : null}
+        <Footer />
       </div>
     );
   }
@@ -60,10 +110,24 @@ class TelaPrincipalReceitasBebidas extends Component {
 
 const mapStateToProps = (state) => ({
   drinksStore: state.receitasDeBebidas.drinks.drinks,
+  categoriesStore: state.receitasDeBebidas.categories.drinks,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  loadDrinksDispatch: () => dispatch(loadDrinks()),
+  getCategoriesDispatch: () => dispatch(loadDrinksCategories()),
+  getByCategorieDrinksD: (categorie) => dispatch(getByCategorieDrinks(categorie)),
 });
 
 TelaPrincipalReceitasBebidas.propTypes = {
+  categoriesStore: PropTypes.arrayOf(PropTypes.object).isRequired,
   drinksStore: PropTypes.objectOf(PropTypes.string).isRequired,
+  loadDrinksDispatch: PropTypes.func.isRequired,
+  getCategoriesDispatch: PropTypes.func.isRequired,
+  getByCategorieDrinksD: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, null)(TelaPrincipalReceitasBebidas);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(TelaPrincipalReceitasBebidas);

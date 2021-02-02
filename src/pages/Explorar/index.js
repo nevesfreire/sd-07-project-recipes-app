@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import PropTypes from 'prop-types';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
@@ -10,7 +11,6 @@ class Explorar extends Component {
     return (
       <div>
         <Header title={ title } />
-        <Footer />
         <div>
           <button
             type="button"
@@ -28,7 +28,9 @@ class Explorar extends Component {
             Explorar Bebidas
           </button>
         </div>
+        <Footer />
       </div>
+
     );
   }
 }

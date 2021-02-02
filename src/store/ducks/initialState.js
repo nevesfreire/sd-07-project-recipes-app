@@ -6,10 +6,12 @@ export default {
   },
   receitasDeBebidas: {
     drinks: '',
+    categories: '',
     // Estados referentes a receitas de bebidas
   },
   receitasDeComidas: {
     meals: '',
+    categories: '',
     // Estados referentes a receitas de comidas
   },
   exploreDrinks: {

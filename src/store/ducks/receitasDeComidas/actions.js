@@ -6,6 +6,25 @@ export const getMeals = (meals) => ({
   payload: meals,
 });
 
+export const getMealsCategories = (mealsCategories) => ({
+  type: AuthTypes.CATEGORIES,
+  payload: mealsCategories,
+});
+
+export const loadMealsCategories = () => async (dispatch) => {
+  const URL = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+  const request = await fetch(URL);
+  const response = await request.json();
+  dispatch(getMealsCategories(response));
+};
+
+export const loadMeals = () => async (dispatch) => {
+  const URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  const request = await fetch(URL);
+  const response = await request.json();
+  dispatch(getMeals(response));
+};
+
 export const getByIngredientsMeals = (ingredient) => async (dispatch) => {
   const URL = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
   const request = await fetch(URL);
@@ -22,6 +41,13 @@ export const getByNameMeals = (name) => async (dispatch) => {
 
 export const getByLetterMeals = (firstLetter) => async (dispatch) => {
   const URL = `https://www.themealdb.com/api/json/v1/1/search.php?f=${firstLetter}`;
+  const request = await fetch(URL);
+  const response = await request.json();
+  dispatch(getMeals(response));
+};
+
+export const getByCategorieMeals = (categorie) => async (dispatch) => {
+  const URL = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${categorie}`;
   const request = await fetch(URL);
   const response = await request.json();
   dispatch(getMeals(response));
