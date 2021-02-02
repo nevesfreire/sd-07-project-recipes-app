@@ -23,9 +23,9 @@ class CocktailCard extends Component {
 
 CocktailCard.propTypes = {
   cocktail: PropTypes.shape({
-    idCocktail: PropTypes.number.isRequired,
-    strCocktailThumb: PropTypes.string.isRequired,
-    strCocktail: PropTypes.string.isRequired,
+    idDrink: PropTypes.number.isRequired,
+    strDrinkThumb: PropTypes.string.isRequired,
+    strDrink: PropTypes.string.isRequired,
   }).isRequired,
   index: PropTypes.number.isRequired,
 };

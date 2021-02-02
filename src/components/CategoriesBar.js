@@ -39,6 +39,30 @@ const searchByCocktails = (name, {
   }
 };
 
+const handleClick = (event, props) => {
+  event.preventDefault();
+  const { title } = props;
+  const { name, className } = event.target;
+  if (title === 'Comidas') {
+    if (className === 'selected') {
+      searchByMeals(ALL, props);
+      event.target.className = '';
+    } else {
+      searchByMeals(name, props);
+      event.target.className = 'selected';
+    }
+  }
+  if (title === 'Bebidas') {
+    if (className === 'selected') {
+      searchByCocktails(ALL, props);
+      event.target.className = '';
+    } else {
+      searchByCocktails(name, props);
+      event.target.className = 'selected';
+    }
+  }
+};
+
 function CategoriesBar(props) {
   const {
     title,
@@ -48,28 +72,6 @@ function CategoriesBar(props) {
     cocktailsCategories,
   } = props;
 
-  const handleClick = (event) => {
-    event.preventDefault();
-    const { name, className } = event.target;
-    if (title === 'Comidas') {
-      if (className === 'selected') {
-        searchByMeals(ALL, props);
-        event.target.className = '';
-      } else {
-        searchByMeals(name, props);
-        event.target.className = 'selected';
-      }
-    }
-    if (title === 'Bebidas') {
-      if (className === 'selected') {
-        searchByCocktails(ALL, props);
-        event.target.className = '';
-      } else {
-        searchByCocktails(name, props);
-        event.target.className = 'selected';
-      }
-    }
-  };
   const zero = 0;
   const maxLength = 5;
   return (
@@ -102,7 +104,7 @@ function CategoriesBar(props) {
               key={ index }
               data-testid={ `${categorie.strCategory}-category-filter` }
               name={ categorie.strCategory }
-              onClick={ handleClick }
+              onClick={ (event) => handleClick(event, props) }
             >
               { categorie.strCategory }
             </button>
@@ -114,7 +116,7 @@ function CategoriesBar(props) {
               key={ index }
               data-testid={ `${category.strCategory}-category-filter` }
               name={ category.strCategory }
-              onClick={ handleClick }
+              onClick={ (event) => handleClick(event, props) }
             >
               { category.strCategory }
             </button>
