@@ -1,5 +1,6 @@
 import React from 'react';
 import Header2 from '../../components/header/Header2';
+import Footer from '../../components/footer/Footer';
 
 class BebidasExplorar extends React.Component {
   render() {
@@ -7,8 +8,8 @@ class BebidasExplorar extends React.Component {
       <div>
         <Header2 title="Explorar Bebidas" />
         <p>Bebidas Explorar</p>
-      </div>
-    );
+        <Footer />
+      </div>);
   }
 }
 
