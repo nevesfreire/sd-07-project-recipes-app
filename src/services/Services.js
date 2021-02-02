@@ -3,18 +3,24 @@ const twelve = 12;
 
 export async function apiFoods(type) {
   const urlFoods = `https://www.themealdb.com/api/json/v1/1/${type}`;
-  const { meals } = await fetch(urlFoods)
-    .then((response) => response.json());
-  const firstMeals = meals.slice(zero, twelve);
-  return firstMeals;
+  const results = await fetch(urlFoods)
+    .then((response) => response.json())
+    .catch((error) => console.log(`deu erro ${error}`));
+  if (results.meals && results !== undefined) {
+    const firstMeals = results.meals.slice(zero, twelve);
+    return firstMeals;
+  }
 }
 
 export async function apiDrinks(type) {
   const urlDrinks = `https://www.thecocktaildb.com/api/json/v1/1/${type}`;
-  const { drinks } = await fetch(urlDrinks)
-    .then((response) => response.json());
-  const firstDrinks = drinks.slice(zero, twelve);
-  return firstDrinks;
+  const results = await fetch(urlDrinks)
+    .then((response) => response.json())
+    .catch((err) => console.log(`deu erro ${err}`));
+  if (results !== undefined && results.drinks) {
+    const firstDrinks = results.drinks.slice(zero, twelve);
+    return firstDrinks;
+  }
 }
 
 // Comidas:

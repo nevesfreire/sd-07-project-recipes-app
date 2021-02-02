@@ -1,5 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+}
+
 body {
   padding: 0;
   margin: 0;
@@ -73,7 +84,7 @@ code {
   padding-left: 10px;
   flex-wrap: wrap;
   position: absolute;
-  top: 59px;
+  top: 400px;
   width: 350px;
   align-items: center;
   justify-content: center;
