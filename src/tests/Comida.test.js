@@ -111,7 +111,7 @@ describe('Testa Comidas.js', () => {
     expect(recipeNameThree.textContent).toBe('Grilled Mac and Cheese Sandwich');
   });
   it('Pesquisar receitas pela primeira letra corretamente', async () => {
-    const { getByTestId } =renderWithRouter(<Comidas />);
+    renderWithRouter(<Comidas />);
     const searchIcon = screen.getByTestId('search-top-btn');
 
     fireEvent.click(searchIcon);
@@ -142,7 +142,7 @@ describe('Testa Comidas.js', () => {
     expect(recipeNameTwo.textContent).toBe('Apple & Blackberry Crumble');
   });
   it('Pesquisar receitas pela primeira letra de forma incorreta deve aparecer um alerta', async () => {
-    const { getByTestId } =renderWithRouter(<Comidas />);
+    renderWithRouter(<Comidas />);
     const searchIcon = screen.getByTestId('search-top-btn');
 
     fireEvent.click(searchIcon);
