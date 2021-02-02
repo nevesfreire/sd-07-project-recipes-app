@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import FoodAppContext from '../context/FoodAppContext';
@@ -6,14 +6,26 @@ import shareIcon from '../images/shareIcon.svg';
 import favoriteIcon from '../images/blackHeartIcon.svg';
 import notFavoriteIcon from '../images/whiteHeartIcon.svg';
 
-function TitleDetails({ recipes }) {
+function TitleDetails({ recipes, id }) {
   const { detailRecipe } = useContext(FoodAppContext);
   const [favorite, setFavorite] = useState(false);
+  const [copy, setCopy] = useState(false);
   const { meals } = detailRecipe;
   const { drinks } = detailRecipe;
 
   const handlerFavorite = () => {
     setFavorite(!favorite);
+  };
+
+  const clipBoardRef = useRef();
+
+  const clipBoard = () => {
+    setCopy(true);
+    const range = document.createRange();
+    range.selectNode(clipBoardRef.current);
+    window.getSelection().addRange(range);
+    document.execCommand('copy');
+    window.getSelection().removeAllRanges();
   };
 
   if (recipes === 'comidas') {
@@ -37,12 +49,21 @@ function TitleDetails({ recipes }) {
           </div>
         ))}
         <div className="div-favorite-detail">
-          <img
-            className="img-compartilhar"
+          <span
+            className={ copy ? 'copy-compartilhar' : '' }
+          >
+            { copy ? 'Link copiado!' : '' }
+          </span>
+          <button
+            type="button"
             data-testid="share-btn"
+            ref={ clipBoardRef }
             src={ shareIcon }
-            alt="Icone Compartilhar"
-          />
+            alt={ `http://localhost:3000/${recipes}/${id}` }
+            onClick={ clipBoard }
+          >
+            dsdsds
+          </button>
           <button
             type="button"
             onClick={ handlerFavorite }
@@ -77,12 +98,21 @@ function TitleDetails({ recipes }) {
         </div>
       ))}
       <div className="div-favorite-detail">
-        <img
-          className="img-compartilhar"
+        <span
+          className={ copy ? 'copy-compartilhar' : '' }
+        >
+          { copy ? 'Link copiado!' : '' }
+        </span>
+        <button
+          type="button"
           data-testid="share-btn"
+          ref={ clipBoardRef }
           src={ shareIcon }
-          alt="Icone Compartilhar"
-        />
+          alt={ `http://localhost:3000/${recipes}/${id}` }
+          onClick={ clipBoard }
+        >
+          dsdsds
+        </button>
         <button
           type="button"
           onClick={ handlerFavorite }
@@ -100,6 +130,7 @@ function TitleDetails({ recipes }) {
 
 TitleDetails.propTypes = {
   recipes: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default TitleDetails;

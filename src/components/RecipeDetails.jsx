@@ -8,7 +8,7 @@ function RecipeDetails({ recipes, id }) {
   return (
     <div className="div-recipes-details">
       <ImageDetails recipes={ recipes } />
-      <TitleDetails recipes={ recipes } />
+      <TitleDetails recipes={ recipes } id={ id } />
       <Ingredient recipes={ recipes } />
       <Instructions recipes={ recipes } />
       { recipes === 'comidas' ? <Video /> : ''}
