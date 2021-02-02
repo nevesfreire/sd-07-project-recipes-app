@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import RecipesCard from './RecipesCard';
 
@@ -13,12 +14,17 @@ class RecipesList extends React.Component {
       return (
         <div className="recipes-list">
           {drinkRecipes.slice(startList, maxNumber).map((recipe, index) => (
-            <RecipesCard
+            <Link
               key={ recipe.idDrink }
-              recipe={ recipe }
-              index={ index }
-              search="drinks"
-            />
+              data-testid={ `${index}-recipe-card` }
+              to={ `/bebidas/${recipe.idDrink}` }
+            >
+              <RecipesCard
+                recipe={ recipe }
+                index={ index }
+                search="drinks"
+              />
+            </Link>
           ))}
         </div>
       );
@@ -27,12 +33,18 @@ class RecipesList extends React.Component {
     return (
       <div className="recipes-list">
         {mealRecipes.slice(startList, maxNumber).map((recipe, index) => (
-          <RecipesCard
+          <Link
             key={ recipe.idMeal }
-            recipe={ recipe }
-            index={ index }
-            search="meals"
-          />
+            data-testid={ `${index}-recipe-card` }
+            to={ `/comidas/${recipe.idMeal}` }
+          >
+            <RecipesCard
+              key={ recipe.idMeal }
+              recipe={ recipe }
+              index={ index }
+              search="meals"
+            />
+          </Link>
         ))}
       </div>
     );

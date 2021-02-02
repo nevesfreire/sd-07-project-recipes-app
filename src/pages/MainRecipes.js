@@ -10,10 +10,9 @@ import FoodTypeSelector from '../components/CategorySelector';
 class MainRecipes extends React.Component {
   render() {
     const { mealRecipes } = this.props;
-    if (mealRecipes.length === 1) {
+    if (mealRecipes.length === 1 && mealRecipes[0].idMeal !== '52968') {
       const { idMeal } = mealRecipes[0];
       return <Redirect to={ `/comidas/${idMeal}` } />;
-      // history.push(`/comidas/${idMeal}`);
     }
 
     return (
@@ -35,9 +34,6 @@ const mapStateToProps = ({ recipes: { mealRecipes } }) => (
 
 MainRecipes.propTypes = {
   mealRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
-  // history: PropTypes.shape({
-  //   push: PropTypes.func.isRequired,
-  // }).isRequired,
 };
 
 export default connect(mapStateToProps)(MainRecipes);
