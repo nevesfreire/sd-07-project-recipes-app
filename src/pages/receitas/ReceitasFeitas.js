@@ -1,12 +1,12 @@
 import React from 'react';
-import Header from '../../components/header/Header';
+import Header2 from '../../components/header/Header2';
 
 class ReceitasFeitas extends React.Component {
   render() {
     return (
       <div>
-        <Header />
-        TelaReceitasFeitas
+        <Header2 title="Receitas Feitas" />
+        <p>TelaReceitasFeitas</p>
       </div>
     );
   }
