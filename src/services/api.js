@@ -24,6 +24,9 @@ const fetchMeal = async (value, type) => {
   case 'categoriesList':
     url = `${mealBaseURL}/list.php?c=list`;
     break;
+  case 'recipe':
+    url = `${mealBaseURL}/lookup.php?i=${value}`;
+    break;
   default:
     break;
   }
@@ -60,6 +63,9 @@ const fetchDrinks = async (value, type) => {
     break;
   case 'categoriesList':
     url = `${beverageBaseURL}/list.php?c=list`;
+    break;
+  case 'recipe':
+    url = `${beverageBaseURL}/lookup.php?i=${value}`;
     break;
   default:
     break;
