@@ -10,8 +10,6 @@ export default function MainFood() {
   const [categories, setCategories] = useState([]);
 
   const fetchRandomFoods = async () => {
-    const ZERO = 0;
-    if (meals.length > ZERO) return;
     try {
       const URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
       const foods = await fetch(URL).then((response) => response.json());
@@ -32,7 +30,10 @@ export default function MainFood() {
   };
 
   useEffect(() => {
-    fetchRandomFoods();
+    const ZERO = 0;
+    if (meals.length === ZERO) {
+      fetchRandomFoods();
+    }
     fetchFoodsCategories();
   }, []);
 
