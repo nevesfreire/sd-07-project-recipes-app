@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
@@ -8,10 +8,9 @@ import RecipesContext from '../context/RecipesContext';
 export default function Bebidas() {
   const [categories, setCategories] = useState([]);
   const [filteredIngrCards, setFilteredIngrCards] = useState([]);
+  const [cards, setCards] = useState([]);
 
   const {
-    cards,
-    setCards,
     endpoint,
   } = useContext(RecipesContext);
 
@@ -25,14 +24,14 @@ export default function Bebidas() {
     setCards(splicedCards);
   };
 
-  const getCategories = async () => {
+  const getCategories = (useCallback(async () => {
     const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
     const data = await response.json();
     const arr = [...data.drinks];
     const initialIndex = 0;
     const finalIndex = 5;
     setCategories(arr.splice(initialIndex, finalIndex));
-  };
+  }, [setCategories]));
 
   const filterByCategory = async ({ target }) => {
     if (target.id === 'unclicked') {
@@ -53,7 +52,7 @@ export default function Bebidas() {
   useEffect(() => {
     getCards();
     getCategories();
-  }, []);
+  }, [getCategories]);
 
   const zero = 0;
   const doze = 12;

@@ -19,6 +19,7 @@ function Provider({ children }) {
   const [clickExecSearch, setClickExecSearch] = useState(zero);
   const [clickMealSurprise, setClickMealSurprise] = useState(zero);
   const [clickSearchIcon, setClickSearchIcon] = useState(zero);
+  const [idDetail, setIdDetail] = useState();
 
   return (
     <RecipesContext.Provider
@@ -53,7 +54,9 @@ function Provider({ children }) {
           clickSearchIcon,
           setClickSearchIcon,
           endpoint,
-          setEndpoint }
+          setEndpoint,
+          idDetail,
+          setIdDetail }
       }
     >
       { children }

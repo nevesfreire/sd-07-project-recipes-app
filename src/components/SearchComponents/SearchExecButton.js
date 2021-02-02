@@ -25,11 +25,10 @@ function SearchExecButton() {
   const drinkName = (path === urlBebidas && optionSearch === 'name');
   const drinkLetter = (path === urlBebidas && optionSearch === 'letter');
 
-  const failure = () => alert(
-    'Sinto muito, não encontramos nenhuma receita para esses filtros.',
-  );
-
   const handleExecSearchButton = async () => {
+    const failure = () => alert(
+      'Sinto muito, não encontramos nenhuma receita para esses filtros.',
+    );
     if (optionSearch === 'letter' && inputSearch.length > 1) {
       return alert('Sua busca deve conter somente 1 (um) caracter');
     }

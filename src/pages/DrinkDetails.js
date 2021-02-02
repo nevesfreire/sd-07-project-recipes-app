@@ -2,8 +2,6 @@ import React from 'react';
 
 export default function DrinkDetails() {
   return (
-    <div>
-      Detalhes Bebida
-    </div>
+    <h1>Detalhes de Bebidas</h1>
   );
 }
