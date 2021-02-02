@@ -12,6 +12,13 @@ function despachoReceitas(object) {
   });
 }
 
+function despachoReceitas2(object) {
+  return ({
+    type: 'LOADRECIPES2',
+    object,
+  });
+}
+
 function despachoCategorias(array) {
   return ({
     type: 'GETCATEGORIES',
@@ -39,7 +46,7 @@ function loadRecipesIngredent(ingredient, local) {
     }
     const response = await fetch(url);
     const responsejeson = await response.json();
-    dispatch(despachoReceitas(responsejeson));
+    dispatch(despachoReceitas2(responsejeson));
   };
 }
 

@@ -58,6 +58,7 @@ async function fetchRandom(id, tipo) {
   return responsejeson;
 }
 
+
 async function fetchFood() {
   const url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   const response = await fetch(url);
@@ -74,6 +75,12 @@ async function fetchListArea() {
 
 async function fetchArea(area) {
   const url = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`;
+
+async function fetchIngredients(tipo) {
+  let url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
+  if (tipo === 'comidas') {
+    url = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+  }
   const response = await fetch(url);
   const responsejeson = await response.json();
   return responsejeson;
@@ -89,4 +96,5 @@ export {
   fetchFoodCategory,
   fetchRandom,
   fetchArea,
+  fetchIngredients,
 };

@@ -1,5 +1,7 @@
 const INITIAL_STATE = {
-  receitas: {},
+  receitas: {
+    reload: true,
+  },
   categorias: [],
 };
 
@@ -11,14 +13,24 @@ function fastFood(state = INITIAL_STATE, action) {
       receitas: {
         ...action.object,
         redirect: true,
+        reload: true,
+      },
+    };
+  case 'LOADRECIPES2':
+    return {
+      ...state,
+      receitas: {
+        ...action.object,
+        redirect: true,
+        reload: false,
       },
     };
   case 'SETRECEITAS':
-    return { ...state, receitas: { ...action.value, redirect: true } };
+    return { ...state, receitas: { ...action.value, redirect: true, reload: true } };
   case 'GETCATEGORIES':
     return { ...state, categorias: action.array };
   case 'SETFILTERRECIPES':
-    return { ...state, receitas: { ...action.value, redirect: false } };
+    return { ...state, receitas: { ...action.value, redirect: false, reload: true } };
   default:
     return state;
   }

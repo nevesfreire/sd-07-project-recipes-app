@@ -13,8 +13,10 @@ class PrincipalComidas extends Component {
   }
 
   componentDidMount() {
-    const { loadrecipes } = this.props;
-    loadrecipes('comidas');
+    const { loadrecipes, reload } = this.props;
+    if (reload) {
+      loadrecipes('comidas');
+    }
   }
 
   handleClick(valor) {
@@ -84,10 +86,12 @@ PrincipalComidas.propTypes = {
   match: PropTypes.objectOf().isRequired,
   receitas: PropTypes.objectOf().isRequired,
   loadrecipes: PropTypes.func.isRequired,
+  reload: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   receitas: state.fastFood.receitas,
+  reload: state.fastFood.receitas.reload,
 });
 
 const mapDispatchToProps = (dispatch) => ({
