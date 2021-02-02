@@ -4,6 +4,7 @@ export const ERROR = 'ERROR';
 export const RECEIVED_CATEGORIES = 'RECEIVED_CATEGORIES';
 export const SEARCH_INPUT = 'SEARCH_INPUT';
 export const SET_CATEGORY = 'SET_CATEGORY';
+export const RECEIVED_DETAILS = 'RECEIVED_DETAILS';
 
 export const sendSearchInput = (value) => ({
   type: SEARCH_INPUT,
@@ -30,6 +31,11 @@ export const setCategory = (payload) => ({
   payload,
 });
 
+const recievedDetails = (payload) => ({
+  type: RECEIVED_DETAILS,
+  payload,
+});
+
 const errorFetch = () => ({
   type: ERROR,
   error: 'deu ruim!',
@@ -53,6 +59,18 @@ export function fetchCategories(endPoint) {
       const response = await fetch(endPoint);
       const data = await response.json();
       dispatch(recievedCategories(data));
+    } catch (error) {
+      dispatch(errorFetch());
+    }
+  };
+}
+
+export function fetchDetails(endPoint) {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(endPoint);
+      const data = await response.json();
+      dispatch(recievedDetails(data));
     } catch (error) {
       dispatch(errorFetch());
     }

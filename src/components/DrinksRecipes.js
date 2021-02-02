@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { fetchRecipes } from '../actions';
-import '../css/food.css';
+import { fetchRecipes, fetchCategories } from '../actions';
+import Loading from './Loading';
+import '../css/recipe.css';
 
 class DrinksRecipes extends Component {
   constructor(props) {
@@ -15,7 +16,8 @@ class DrinksRecipes extends Component {
   }
 
   componentDidMount() {
-    const { requestRecipes, endPoint } = this.props;
+    const { requestRecipes, requestCategories, endPoint } = this.props;
+    requestCategories('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
     requestRecipes(endPoint);
   }
 
@@ -38,7 +40,11 @@ class DrinksRecipes extends Component {
     const { recipesByCategory } = this.state;
 
     const DRINK_LENGTH = 12;
-
+    if (getRecipes.drinks === null) {
+      return (alert(
+        'Sinto muito, não encontramos nenhuma receita para esses filtros.',
+      ));
+    }
     if (getRecipes.drinks) {
       let filterArray = [];
       if (recipesByCategory.drinks) {
@@ -50,34 +56,39 @@ class DrinksRecipes extends Component {
       }
       return (
         <div>
-          {filterArray.map((drink, index) => (
-            <Link
-              to={ `/bebidas/${drink.idDrink}` }
-              key={ drink.strDrink }
-            >
-              <div data-testid={ `${index}-recipe-card` }>
-                <img
-                  src={ drink.strDrinkThumb }
-                  alt={ drink.strDrink }
-                  data-testid={ `${index}-card-img` }
-                />
-                <h1 data-testid={ `${index}-card-name` }>{ drink.strDrink }</h1>
+          <div className="main-recipes-categories">
+            {filterArray.map((drink, index) => (
+              <div
+                data-testid={ `${index}-recipe-card` }
+                className="recipes-categories"
+                key={ drink.strDrink }
+              >
+                <Link
+                  to={ `/bebidas/${drink.idDrink}` }
+                  className="link-categories"
+                >
+                  <img
+                    src={ drink.strDrinkThumb }
+                    alt={ drink.strDrink }
+                    data-testid={ `${index}-card-img` }
+                  />
+                  <h1 data-testid={ `${index}-card-name` }>{ drink.strDrink }</h1>
+                </Link>
               </div>
-            </Link>
-          ))}
+            ))}
+          </div>
         </div>
       );
     }
     return (
-      <div>
-        Loading...
-      </div>
+      <Loading />
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
   requestRecipes: (endPoint) => dispatch(fetchRecipes(endPoint)),
+  requestCategories: (endPoint) => dispatch(fetchCategories(endPoint)),
 });
 
 const mapStateToProps = ({ recipesReducer, categoriesReducer }) => ({
@@ -90,6 +101,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(DrinksRecipes);
 DrinksRecipes.propTypes = {
   endPoint: PropTypes.string.isRequired,
   requestRecipes: PropTypes.func.isRequired,
-  getRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
   selectedCategory: PropTypes.string.isRequired,
+  getRecipes: PropTypes.shape({
+    drinks: PropTypes.arrayOf(PropTypes.object),
+  }).isRequired,
+  getCategories: PropTypes.shape({
+    drinks: PropTypes.arrayOf(PropTypes.object),
+  }).isRequired,
+  requestCategories: PropTypes.func.isRequired,
 };

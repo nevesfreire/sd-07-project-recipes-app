@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import { sendSearchInput, fetchRecipes } from '../actions';
-import '../css/food.css';
+import '../css/recipe.css';
 
 class Header extends Component {
   constructor(props) {
@@ -62,7 +62,7 @@ class Header extends Component {
 
   alertFilter() {
     const { searchInput, filterRadioButton } = this.state;
-    console.log(searchInput.length);
+    // console.log(searchInput.length);
     if (filterRadioButton === 'firstLetterName' && searchInput.length > 1) {
       alert('Sua busca deve conter somente 1 (um) caracter'); // eslint-disable-line no-alert
     }
@@ -84,57 +84,74 @@ class Header extends Component {
         <header className="header-food-container">
           <button
             type="button"
-            data-testid="profile-top-btn"
             onClick={ () => history.push('/perfil') }
           >
-            <img src={ profileIcon } alt="profileIcon" />
+            <img
+              data-testid="profile-top-btn"
+              src={ profileIcon }
+              alt="profileIcon"
+            />
           </button>
-
           <h1 data-testid="page-title">{title}</h1>
           <button
             type="button"
-            data-testid="search-top-btn"
             onClick={ this.changeDisplayInput }
           >
-            <img src={ searchIcon } alt="searchIcon" />
+            <img
+              data-testid="search-top-btn"
+              src={ searchIcon }
+              alt="searchIcon"
+            />
           </button>
         </header>
         {showInputSearch && (
           <section>
-            <div>
-              <label htmlFor="ingredient">
-                Ingrediente
-                <input
-                  type="radio"
-                  id="ingredient"
-                  name="filterRadioButton"
-                  value="ingredient"
-                  data-testid="ingredient-search-radio"
-                  onClick={ this.handleChange }
-                />
-              </label>
-              <label htmlFor="foodName">
-                Nome
-                <input
-                  type="radio"
-                  id="foodName"
-                  name="filterRadioButton"
-                  value="foodName"
-                  data-testid="name-search-radio"
-                  onClick={ this.handleChange }
-                />
-              </label>
-              <label htmlFor="firstLetterName">
-                Primeira letra
-                <input
-                  type="radio"
-                  id="firstLetterName"
-                  name="filterRadioButton"
-                  value="firstLetterName"
-                  data-testid="first-letter-search-radio"
-                  onClick={ this.handleChange }
-                />
-              </label>
+            <div className="filter-radio-buttons-container">
+              <button
+                type="button"
+                data-testid="ingredient-search-radio"
+                onClick={ this.handleChange }
+              >
+                <label htmlFor="ingredient">
+                  <input
+                    type="radio"
+                    id="ingredient"
+                    name="filterRadioButton"
+                    value="ingredient"
+                  />
+                  Ingrediente
+                </label>
+              </button>
+              <button
+                type="button"
+                data-testid="name-search-radio"
+                onClick={ this.handleChange }
+              >
+                <label htmlFor="foodName">
+                  <input
+                    type="radio"
+                    id="foodName"
+                    name="filterRadioButton"
+                    value="foodName"
+                  />
+                  Nome
+                </label>
+              </button>
+              <button
+                type="button"
+                data-testid="first-letter-search-radio"
+                onClick={ this.handleChange }
+              >
+                <label htmlFor="firstLetterName">
+                  <input
+                    type="radio"
+                    id="firstLetterName"
+                    name="filterRadioButton"
+                    value="firstLetterName"
+                  />
+                  Primeira letra
+                </label>
+              </button>
               <button
                 type="button"
                 data-testid="exec-search-btn"

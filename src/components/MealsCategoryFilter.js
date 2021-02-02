@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchCategories, setCategory } from '../actions';
-import '../css/food.css';
+import '../css/recipe.css';
 
 class MealsCategoryFilter extends Component {
   constructor() {
@@ -17,15 +17,8 @@ class MealsCategoryFilter extends Component {
 
   handleClick(event) {
     const { selectCategory } = this.props;
-    // setar a categoria no estado
-    // pra ser filtrado no MealRecepies
     const category = event.target.value;
-    // const URL = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
     selectCategory(category);
-    // getRecipesByCategory(URL);
-    // console.log(event.target.value);
-    // seta uma variavel para para deixar botoes disable
-    // se clicar nele novamete vai voltar ao filter normal
   }
 
   render() {
@@ -36,7 +29,7 @@ class MealsCategoryFilter extends Component {
       const filterArray = getCategories.meals
         .filter((_meal, index) => index < MEALS_LENGTH);
       return (
-        <div>
+        <div className="category-button-container">
           {filterArray.map((meal) => (
             <button
               type="button"
@@ -71,6 +64,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(MealsCategoryFilter)
 MealsCategoryFilter.propTypes = {
   endPoint: PropTypes.string.isRequired,
   requestCategories: PropTypes.func.isRequired,
-  getCategories: PropTypes.arrayOf(PropTypes.object).isRequired,
   selectCategory: PropTypes.func.isRequired,
+  getCategories: PropTypes.shape({
+    meals: PropTypes.arrayOf(PropTypes.object).isRequired,
+  }).isRequired,
 };

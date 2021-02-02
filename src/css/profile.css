@@ -1,0 +1,18 @@
+.btn {
+  margin: 5px;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  padding: 2em;
+}
+
+.profile-container {
+  max-width: 360px;
+}
+
+.profile-email {
+  font-size: 22px;
+  font-weight: 800;
+}

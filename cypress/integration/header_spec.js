@@ -147,7 +147,7 @@ describe('12 - Desenvolva o botão de busca que, ao ser clicado, a barra de busc
     cy.visit('http://localhost:3000/comidas');
 
     cy.get('[data-testid="search-input"]').should('not.exist');
-    display: none;
+    
     cy.get('[data-testid="search-top-btn"]').click();
 
     cy.get('[data-testid="search-input"]');

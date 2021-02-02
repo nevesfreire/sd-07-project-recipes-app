@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import '../css/recipe.css';
 import { fetchCategories, setCategory } from '../actions';
-import '../css/food.css';
 
 class DrinksCategoryFilter extends Component {
   constructor() {
@@ -29,7 +29,7 @@ class DrinksCategoryFilter extends Component {
       const filterArray = getCategories.drinks
         .filter((_drink, index) => index < DRINK_LENGTH);
       return (
-        <div>
+        <div className="category-button-container">
           {filterArray.map((drink) => (
             <button
               type="button"
@@ -64,6 +64,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(DrinksCategoryFilter
 DrinksCategoryFilter.propTypes = {
   endPoint: PropTypes.string.isRequired,
   requestCategories: PropTypes.func.isRequired,
-  getCategories: PropTypes.arrayOf(PropTypes.object).isRequired,
   selectCategory: PropTypes.func.isRequired,
+  getCategories: PropTypes.shape({
+    drinks: PropTypes.arrayOf(PropTypes.object).isRequired,
+  }).isRequired,
 };

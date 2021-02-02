@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Footer from '../components/Footer';
+import ProfileDetails from '../components/ProfileDetails';
+import '../css/profile.css';
 
 class Profile extends Component {
   render() {
@@ -10,6 +12,7 @@ class Profile extends Component {
         <header>
           <h1 data-testid="page-title">Perfil</h1>
         </header>
+        <ProfileDetails history={ history } />
         <Footer history={ history } />
       </div>
     );

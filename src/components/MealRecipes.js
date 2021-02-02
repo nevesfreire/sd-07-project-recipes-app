@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { fetchRecipes } from '../actions';
-import '../css/food.css';
+import { fetchRecipes, fetchCategories } from '../actions';
+// import MealsCategoryFilter from './MealsCategoryFilter';
+import Loading from './Loading';
+import '../css/recipe.css';
 
 class MealRecipes extends Component {
   constructor(props) {
@@ -15,7 +17,8 @@ class MealRecipes extends Component {
   }
 
   componentDidMount() {
-    const { requestRecipes, endPoint } = this.props;
+    const { requestRecipes, requestCategories, endPoint } = this.props;
+    requestCategories('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
     requestRecipes(endPoint);
   }
 
@@ -38,6 +41,11 @@ class MealRecipes extends Component {
     const { recipesByCategory } = this.state;
 
     const MEAL_LENGTH = 12;
+    if (getRecipes.meals === null) {
+      return alert(
+        'Sinto muito, não encontramos nenhuma receita para esses filtros.',
+      );
+    }
     if (getRecipes.meals) {
       let filterArray = [];
       if (recipesByCategory.meals) {
@@ -66,15 +74,14 @@ class MealRecipes extends Component {
       );
     }
     return (
-      <div>
-        Loading...
-      </div>
+      <Loading />
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
   requestRecipes: (endPoint) => dispatch(fetchRecipes(endPoint)),
+  requestCategories: (endPoint) => dispatch(fetchCategories(endPoint)),
 });
 
 const mapStateToProps = ({ recipesReducer, categoriesReducer }) => ({
@@ -87,6 +94,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(MealRecipes);
 MealRecipes.propTypes = {
   endPoint: PropTypes.string.isRequired,
   requestRecipes: PropTypes.func.isRequired,
-  getRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  getRecipes: PropTypes.shape({
+    meals: PropTypes.arrayOf(PropTypes.object),
+  }).isRequired,
+  getCategories: PropTypes.shape({
+    meals: PropTypes.arrayOf(PropTypes.object),
+  }).isRequired,
+  requestCategories: PropTypes.func.isRequired,
   selectedCategory: PropTypes.string.isRequired,
 };

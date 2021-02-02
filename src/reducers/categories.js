@@ -1,7 +1,7 @@
 import { ERROR, RECEIVED_CATEGORIES, SET_CATEGORY } from '../actions';
 
 const INITIAL_STATE = {
-  categories: [],
+  categories: {},
   error: '',
   selectedCategory: '',
 };
