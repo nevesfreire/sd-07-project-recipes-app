@@ -7,7 +7,7 @@ function Perfil() {
   return (
     <div>
       <h2 data-testid="profile-email">
-        { user.email }
+        { user ? user.email : '' }
       </h2>
       <button type="button">
         <Link
