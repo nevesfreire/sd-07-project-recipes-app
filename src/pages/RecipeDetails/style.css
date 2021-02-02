@@ -1,5 +1,9 @@
-.footer-container {
-  background-color: rgb(196, 196, 196);
+img {
+  width: 200px;
+}
+
+.footer-button {
+  background-color: rgb(112, 211, 104);
   bottom: 0;
   box-sizing: border-box;
   display: flex;
@@ -7,8 +11,4 @@
   padding: 10px;
   position: fixed;
   width: 100vw;
-}
-
-.footer-img {
-  width: 30px;
 }

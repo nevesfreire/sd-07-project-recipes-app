@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import SearchBar from '../SearchBar';
 import imageProfile from '../../images/profileIcon.svg';
 import imageSearch from '../../images/searchIcon.svg';
 import SearchBar from '../SearchBar';
@@ -56,6 +55,7 @@ function Header() {
       <header className="header-container">
         <Link to="/perfil">
           <img
+            className="header-img"
             src={ imageProfile }
             alt="Ir para a página de pperfil"
             data-testid="profile-top-btn"
@@ -79,6 +79,7 @@ function Header() {
               >
                 <img
                   src={ imageSearch }
+                  className="header-img"
                   alt="Fazer buscas"
                   data-testid="search-top-btn"
                 />
