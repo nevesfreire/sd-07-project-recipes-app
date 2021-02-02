@@ -9,7 +9,7 @@ const ProgressFood = () => {
   return (
     <div className="container-over">
       <div className="container-int">
-        <Header title="Progresso da comida" />
+        {/* <Header title="Progresso da comida" /> */}
         <ProgressScreen idReceita={ idreceita } />
       </div>
     </div>
