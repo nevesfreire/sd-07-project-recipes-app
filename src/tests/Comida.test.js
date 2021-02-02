@@ -1,18 +1,19 @@
 import React from 'react';
 import renderWithRouter from '../renderWithRouter';
-import { screen, fireEvent, cleanup, waitFor} from '@testing-library/react';
+import { screen, fireEvent, cleanup} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Comidas from '../pages/Comidas';
 
-afterEach(cleanup);
+global.alert = jest.fn() 
+
 
 describe('Testa Comidas.js', () => {
   it('Verifica se há um header respeitando os atributos descritos no protótipo', () => {
     const { getByRole, getByTestId } = renderWithRouter(<Comidas />);
-    const header = getByRole('banner');
-    const profileIcon = getByTestId('profile-top-btn');
-    const pageTitle = getByTestId('page-title');
-    const searchIcon = getByTestId('search-top-btn');
+    const header = screen.getByRole('banner');
+    const profileIcon = screen.getByTestId('profile-top-btn');
+    const pageTitle = screen.getByTestId('page-title');
+    const searchIcon = screen.getByTestId('search-top-btn');
 
     expect(header).toBeInTheDocument();
     expect(profileIcon).toBeInTheDocument();
@@ -39,16 +40,16 @@ describe('Testa Comidas.js', () => {
   });
   it(('Pesquisar receitas por ingredite'), async () => {
     const { getByTestId } =renderWithRouter(<Comidas />);
-    const searchIcon = getByTestId('search-top-btn');
+    const searchIcon = screen.getByTestId('search-top-btn');
 
 
     fireEvent.click(searchIcon);
 
-    const inputTextSearch = getByTestId('search-input');
-    const radioIngredient = getByTestId('ingredient-search-radio');
-    const radioName = getByTestId('name-search-radio');
-    const radioFisrtLetter = getByTestId('first-letter-search-radio');
-    const execShearch = getByTestId('exec-search-btn');
+    const inputTextSearch = screen.getByTestId('search-input');
+    const radioIngredient = screen.getByTestId('ingredient-search-radio');
+    const radioName = screen.getByTestId('name-search-radio');
+    const radioFisrtLetter = screen.getByTestId('first-letter-search-radio');
+    const execShearch = screen.getByTestId('exec-search-btn');
 
     expect(inputTextSearch).toBeInTheDocument();
     expect(radioIngredient).toBeInTheDocument();
@@ -74,15 +75,14 @@ describe('Testa Comidas.js', () => {
 
   });
   it('Pesquisar receitas por nome', async() => {
-    const { getByTestId } =renderWithRouter(<Comidas />);
-    const searchIcon = getByTestId('search-top-btn');
-
+    renderWithRouter(<Comidas />);
+    const searchIcon = screen.getByTestId('search-top-btn');
 
     fireEvent.click(searchIcon);
 
-    const inputTextSearch = getByTestId('search-input');
-    const radioName = getByTestId('name-search-radio');
-    const execShearch = getByTestId('exec-search-btn');
+    const inputTextSearch = screen.getByTestId('search-input');
+    const radioName = screen.getByTestId('name-search-radio');
+    const execShearch = screen.getByTestId('exec-search-btn');
 
     expect(inputTextSearch).toBeInTheDocument();
     expect(radioName).toBeInTheDocument();
@@ -106,23 +106,20 @@ describe('Testa Comidas.js', () => {
 
     expect(recipeTwo).toContainHTML(0);
     expect(recipeNameTwo.textContent).toBe('Chicken Fajita Mac and Cheese');
-    
-    expect(recipeOne).toContainHTML(0);
-    expect(recipeNameOne.textContent).toBe('Big Mac');
 
     expect(recipeThree).toContainHTML(0);
     expect(recipeNameThree.textContent).toBe('Grilled Mac and Cheese Sandwich');
   });
   it('Pesquisar receitas pela primeira letra corretamente', async () => {
     const { getByTestId } =renderWithRouter(<Comidas />);
-    const searchIcon = getByTestId('search-top-btn');
+    const searchIcon = screen.getByTestId('search-top-btn');
 
     fireEvent.click(searchIcon);
 
-    const inputTextSearch = getByTestId('search-input');
+    const inputTextSearch = screen.getByTestId('search-input');
 
-    const radioFisrtLetter = getByTestId('first-letter-search-radio');
-    const execShearch = getByTestId('exec-search-btn');
+    const radioFisrtLetter = screen.getByTestId('first-letter-search-radio');
+    const execShearch = screen.getByTestId('exec-search-btn');
 
     expect(inputTextSearch).toBeInTheDocument();
     expect(radioFisrtLetter).toBeInTheDocument();
@@ -144,15 +141,15 @@ describe('Testa Comidas.js', () => {
     expect(recipeTwo).toContainHTML(0);
     expect(recipeNameTwo.textContent).toBe('Apple & Blackberry Crumble');
   });
-  it('Pesquisar receitas pela primeira letra de forma incorreta', async () => {
-    const { getByTestId, getByRole } =renderWithRouter(<Comidas />);
-    const searchIcon = getByTestId('search-top-btn');
+  it('Pesquisar receitas pela primeira letra de forma incorreta deve aparecer um alerta', async () => {
+    const { getByTestId } =renderWithRouter(<Comidas />);
+    const searchIcon = screen.getByTestId('search-top-btn');
 
     fireEvent.click(searchIcon);
 
-    const inputTextSearch = getByTestId('search-input');
-    const radioFisrtLetter = getByTestId('first-letter-search-radio');
-    const execShearch = getByTestId('exec-search-btn');
+    const inputTextSearch = screen.getByTestId('search-input');
+    const radioFisrtLetter = screen.getByTestId('first-letter-search-radio');
+    const execShearch = screen.getByTestId('exec-search-btn');
 
     expect(inputTextSearch).toBeInTheDocument();
     expect(radioFisrtLetter).toBeInTheDocument();
@@ -162,15 +159,27 @@ describe('Testa Comidas.js', () => {
     userEvent.click(radioFisrtLetter)
     fireEvent.click(execShearch);
 
-    const alert = await screen.findByText('Sua busca deve conter somente 1 (um) caracter')
-
-    expect(alert).toBeInTheDocument()
+    expect(global.alert).toHaveBeenCalledTimes(1)
   });
+  it('Caso uma comida seja encontrada, deve-se ir para rota de detalhes', async() => {
+    const { history } = renderWithRouter(<Comidas />);
+    const searchIcon = screen.getByTestId('search-top-btn');
+
+    fireEvent.click(searchIcon);
+
+    const inputTextSearch = screen.getByTestId('search-input');
+    const radioName = screen.getByTestId('name-search-radio');
+    const execShearch = screen.getByTestId('exec-search-btn');
+
+    userEvent.type(inputTextSearch, 'Corba');
+    userEvent.click(radioName)
+    fireEvent.click(execShearch);
+
+    await screen.findByText('Corba')
+
+    expect(history.location.pathname).toBe('/comidas/52977');
+  })
 });
-
-
   /*
-- Se o radio selecionado for Primeira letra e a busca na API for feita com mais de uma letra, deve-se exibir um alert
 - Caso apenas uma comida seja encontrada, deve-se ir para sua rota de detalhes
-- Caso nenhuma comida seja encontrada o alert deve ser exibido
  */
