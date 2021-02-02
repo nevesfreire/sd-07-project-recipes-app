@@ -41,7 +41,6 @@ export default function FoodThumb({ detailed, route, id }) {
   };
 
   useEffect(() => {
-    console.log('entrou');
     setIsFavorite(doesFavoriteExists(id));
   }, [id, isFavorite]);
 
@@ -99,7 +98,7 @@ export default function FoodThumb({ detailed, route, id }) {
         </div>
       </div>
 
-      {copiedAlert && <p>Link copiado!</p>}
+      { copiedAlert && <p>Link copiado!</p> }
     </div>
   );
 }

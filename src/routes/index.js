@@ -13,6 +13,7 @@ import ExplorarAreaComidas from '../pages/Explorar/ExplorarComidas/Area';
 import ExplorarBebidasIngredientes from '../pages/Explorar/ExplorarBebidas/Ingredientes';
 import Notfound from '../components/Notfound';
 import EmProgresso from '../pages/EmProgresso';
+import ReceitasFavoritas from '../pages/ReceitasFavoritas';
 
 function Routes() {
   return (
@@ -43,6 +44,7 @@ function Routes() {
         <Route exact path="/:route/:id" component={ ComidasID } />
         <Route exact path="/comidas/:id/in-progress" component={ EmProgresso } />
         <Route exact path="/bebidas/:id/in-progress" component={ EmProgresso } />
+        <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
         <Route component={ Notfound } />
 
         {/*
@@ -58,7 +60,7 @@ function Routes() {
           component={ BebidasIDProgress }
         />
         <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
-        <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } /> */}
+         */}
       </Switch>
     </BrowserRouter>
   );
