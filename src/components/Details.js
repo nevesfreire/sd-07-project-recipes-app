@@ -43,7 +43,7 @@ function Details({ itemId, mealType }) {
   useEffect(() => {
     const checkForProgress = () => {
       const list = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      if (list !== null) {
+      if (list) {
         let keys = [];
         if (mealType === 'Meal') { keys = Object.keys(list.meals); } else {
           keys = Object.keys(list.cocktails);

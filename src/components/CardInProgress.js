@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
-
 import { fetchDrinkDetailsById, fetchFoodDetailsById } from '../services/API';
-
-import { getIngredients,
+import {
+  getIngredients,
   checkOut,
   copyLink,
   addToFavorites,
-  enableButton } from '../services/service';
-
+  enableButton,
+} from '../services/service';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import checksUnited from './checksUnited';
+import RedirectToDone from './Redirect';
+import ingredientsAndFavorites from './ingredientsAndFavorites';
 
 function CardInProgress() {
   const history = useHistory();
@@ -27,25 +27,15 @@ function CardInProgress() {
   const [ingredientState, setIngredientState] = useState([]);
   const [ingredientsList, setIngredientsList] = useState([]);
 
-  const RedirectToDone = () => {
-    history.push('/receitas-feitas');
-  };
-
   useEffect(() => {
     const loadIngredients = () => {
       setIngredientState(getIngredients(details));
     };
-    const checkedIngredients = async () => {
-      const list = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      if (list) {
-        const ingredients = list[mealTypeChain][itemId];
-        setIngredientsList(ingredients);
-      }
-    };
 
+    ingredientsAndFavorites(itemId, mealTypeChain, setIngredientsList, setIsFavorite);
+    // checkFavorites();
     loadIngredients();
-    checkedIngredients();
-    checksUnited(itemId, undefined, setIsFavorite);
+    // checkedIngredients();
   }, [itemId, mealType, details, mealTypeChain]);
 
   useEffect(() => {
@@ -75,7 +65,6 @@ function CardInProgress() {
                 enableButton(setDisableButton, ingredientState, mealTypeChain, itemId);
                 setIngredientsList([...ingredientsList, `${item.ingredient}`]);
               } }
-              { ...console.log(ingredientsList.includes(`${item.ingredient}`)) }
               checked={ ingredientsList.includes(`${item.ingredient}`) }
             />
             <img
@@ -140,7 +129,10 @@ function CardInProgress() {
         width="100%"
         data-testid="finish-recipe-btn"
         disabled={ disableButton }
-        onClick={ () => RedirectToDone() }
+        onClick={ () => {
+          RedirectToDone(itemId, mealType, details);
+          history.push('/receitas-feitas');
+        } }
       >
         Finish
       </button>
