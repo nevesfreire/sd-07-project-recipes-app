@@ -29,13 +29,13 @@ describe('Profile screen', () => {
     });
   });
 
-  describe.skip('83 - Implemente a solução de maneira que o e-mail da pessoa usuária deve estar visível', () => {
+  describe('83 - Implemente a solução de maneira que o e-mail da pessoa usuária deve estar visível', () => {
     it('O e-mail armazenado em localStorage está visível', () => {
       cy.get('[data-testid="profile-email"]').contains('email@mail.com');
     });
   });
 
-  describe.skip('84 - Implemente 3 botões: um de nome "Receitas Feitas", um de nome "Receitas Favoritas" e um de nome "Sair"', () => {
+  describe('84 - Implemente 3 botões: um de nome "Receitas Feitas", um de nome "Receitas Favoritas" e um de nome "Sair"', () => {
     it('A tela contêm todos os 3 botões', () => {
       cy.get('[data-testid="profile-done-btn"]').contains('Receitas Feitas');
       cy.get('[data-testid="profile-favorite-btn"]').contains('Receitas Favoritas');

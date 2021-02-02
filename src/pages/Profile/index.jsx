@@ -1,16 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Header, Footer } from '../../components';
-import { RecipesContext } from '../../context';
 
 export default function Profile() {
-  const { login } = useContext(RecipesContext);
+  const { email } = JSON.parse(localStorage.getItem('user'));
 
   return (
     <div>
       <Header title="Perfil" />
       <h2 data-testid="profile-email">
-        Email:
-        { login.email }
+        { email }
       </h2>
       <button type="button" data-testid="profile-done-btn">Receitas Feitas</button>
       <button type="button" data-testid="profile-favorite-btn">Receitas Favoritas</button>
