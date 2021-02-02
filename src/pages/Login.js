@@ -38,7 +38,7 @@ class Login extends Component {
     const { email, password } = this.state;
     const minLength = 6;
     const re = /\S+@\S+\.\S+/;
-    return re.test(email) && password.length >= minLength;
+    return re.test(email) && password.length > minLength;
   }
 
   render() {

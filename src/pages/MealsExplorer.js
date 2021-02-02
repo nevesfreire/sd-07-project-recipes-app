@@ -7,7 +7,7 @@ class MealsExplorer extends Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header title="Explorar Comidas" />
 
         <Link to="/explorar/comidas/ingredientes">
           <button
