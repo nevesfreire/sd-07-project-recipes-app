@@ -5,7 +5,14 @@ import { Link } from 'react-router-dom';
 class RecipesCard extends React.Component {
   render() {
     const { recipe, index, search } = this.props;
-    const { strMealThumb, strMeal, idMeal, strDrinkThumb, strDrink, idDrink } = recipe;
+    const {
+      strMealThumb,
+      strMeal,
+      strDrinkThumb,
+      strDrink,
+      strIngredient1,
+      strIngredient } = recipe;
+    const maxNumber = 12;
     return (
       <div className="recipe-card">
         {
@@ -21,15 +28,81 @@ class RecipesCard extends React.Component {
           ) : null
         }
         {
-          search === 'drinks' ? (
-            <Link data-testid={ `${index}-recipe-card` } to={ `/bebidas/${idDrink}` }>
-              <img
-                src={ strDrinkThumb }
-                alt={ strDrink }
-                data-testid={ `${index}-card-img` }
-              />
-              <p data-testid={ `${index}-card-name` }>{strDrink}</p>
-            </Link>
+          index < maxNumber && search === 'drinks' ? (
+            <div data-testid={ `${index}-recipe-card` }>
+              <Card
+                style={ { width: '10rem' } }
+                bg="warning"
+                text="dark"
+              >
+                <Card.Img
+                  style={ { width: 30 } }
+                  src={ strDrinkThumb }
+                  alt={ strDrink }
+                  data-testid={ `${index}-card-img` }
+                />
+                <Card.Body>
+                  <Card.Text data-testid={ `${index}-card-name` }>
+                    {strDrink}
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </div>
+          ) : null
+        }
+        {
+          index < maxNumber && search === 'ingredientsDrinks' ? (
+            <div data-testid={ `${index}-ingredient-card` }>
+              <Card
+                style={ { width: '10rem' } }
+                bg="warning"
+                text="dark"
+              >
+                <Card.Img
+                  style={ { width: 30 } }
+                  src={ `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png` }
+                  alt={ strIngredient1 }
+                  data-testid={ `${index}-card-img` }
+                />
+                <Card.Body>
+                  <Card.Text data-testid={ `${index}-card-name` }>
+                    {strIngredient1}
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </div>
+          ) : null
+        }
+        {
+          index < maxNumber && search === 'ingredientsMeals' ? (
+            <div data-testid={ `${index}-ingredient-card` }>
+              <Card
+                style={ { width: '10rem' } }
+                bg="warning"
+                text="dark"
+              >
+                <Card.Img
+                  style={ { width: 30 } }
+                  src={ `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png` }
+                  alt={ strIngredient }
+                  data-testid={ `${index}-card-img` }
+                />
+                <Card.Body>
+                  <Card.Text data-testid={ `${index}-card-name` }>
+                    {strIngredient}
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </div>
+//           search === 'drinks' ? (
+//             <Link data-testid={ `${index}-recipe-card` } to={ `/bebidas/${idDrink}` }>
+//               <img
+//                 src={ strDrinkThumb }
+//                 alt={ strDrink }
+//                 data-testid={ `${index}-card-img` }
+//               />
+//               <p data-testid={ `${index}-card-name` }>{strDrink}</p>
+//             </Link>
           ) : null
         }
       </div>
@@ -44,6 +117,8 @@ RecipesCard.propTypes = {
     idMeal: PropTypes.number,
     strDrinkThumb: PropTypes.string,
     strDrink: PropTypes.string,
+    strIngredient1: PropTypes.string,
+    strIngredient: PropTypes.string,
     idDrink: PropTypes.number,
   }).isRequired,
   search: PropTypes.string.isRequired,
