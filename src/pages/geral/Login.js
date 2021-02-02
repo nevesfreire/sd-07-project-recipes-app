@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Login extends Component {
   constructor() {
@@ -33,33 +34,47 @@ class Login extends Component {
     const regexPassword = 6;
     return (
       <div>
-        <h1>
+        <h1 className="text-center">
           Login
         </h1>
-        <input
-          type="text"
-          data-testid="email-input"
-          placeholder="E-Mail"
-          value={ email }
-          name="email"
-          onChange={ (event) => this.handleChange(event) }
-        />
-        <input
-          type="password"
-          data-testid="password-input"
-          placeholder="Senha"
-          value={ password }
-          name="password"
-          onChange={ (event) => this.handleChange(event) }
-        />
-        <button
-          type="button"
-          data-testid="login-submit-btn"
-          disabled={ !regexEmail.test(email) || password.length <= regexPassword }
-          onClick={ () => this.handleClick() }
-        >
-          Entrar
-        </button>
+        <div className="form-floating mb-3">
+          <input
+            className="form-control"
+            type="text"
+            data-testid="email-input"
+            placeholder="Email address"
+            value={ email }
+            name="email"
+            onChange={ (event) => this.handleChange(event) }
+          />
+        </div>
+        <div className="mb-3">
+          <input
+            className="form-control"
+            type="password"
+            data-testid="password-input"
+            placeholder="Password"
+            value={ password }
+            name="password"
+            onChange={ (event) => this.handleChange(event) }
+          />
+        </div>
+        <div className="mb-3 form-check">
+          <input type="checkbox" className="form-check-input" />
+          Check me out
+        </div>
+
+        <div className="form-floating">
+          <button
+            type="button"
+            className="btn btn-outline-success form-control"
+            data-testid="login-submit-btn"
+            disabled={ !regexEmail.test(email) || password.length <= regexPassword }
+            onClick={ () => this.handleClick() }
+          >
+            Entrar
+          </button>
+        </div>
       </div>
     );
   }

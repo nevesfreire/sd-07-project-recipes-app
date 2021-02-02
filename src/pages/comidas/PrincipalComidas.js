@@ -26,6 +26,7 @@ class PrincipalComidas extends Component {
 
   Meals() {
     const { history, receitas } = this.props;
+    const recipe = 52977;
     let controlealert = false;
     if (receitas.meals || receitas.meals === null) {
       if (receitas.meals === null && !controlealert) {
@@ -39,29 +40,47 @@ class PrincipalComidas extends Component {
           const limit = 12;
           if (index < limit) {
             return (
-              <button
-                className="card"
-                name={ receita.idMeal }
-                type="button"
-                onClick={ ({ target }) => this.handleClick(target.name) }
-                key={ index }
-                data-testid={ `${index}-recipe-card` }
-              >
-                <img
+              <div className="container" Style="width: 18rem;">
+                <button
                   className="card"
                   name={ receita.idMeal }
-                  data-testid={ `${index}-card-img` }
-                  src={ receita.strMealThumb }
-                  alt="imagem da receita"
-                />
-                <h1
-                  className="card"
-                  name={ receita.idMeal }
-                  data-testid={ `${index}-card-name` }
+                  type="button"
+                  onClick={ ({ target }) => this.handleClick(target.name) }
+                  key={ index }
+                  data-testid={ `${index}-recipe-card` }
                 >
-                  {receita.strMeal}
-                </h1>
-              </button>
+                  <figure className="figure">
+                    <img
+                      className="figure-img img-fluid rounded"
+                      name={ receita.idMeal }
+                      data-testid={ `${index}-card-img` }
+                      src={ receita.strMealThumb }
+                      alt="imagem da receita"
+                    />
+                  </figure>
+
+                  <div className="card-body">
+                    <h4
+                      name={ receita.idMeal }
+                      data-testid={ `${index}-card-name` }
+                    >
+                      {receita.strMeal}
+                    </h4>
+                    <p className="card-text">
+                      Some quick example text
+                      to build on the card title
+                      and make up the bulk of the
+                      card's content.
+                    </p>
+                    <a
+                      href={ `/comidas/${recipe}` }
+                      className="btn btn-outline-success"
+                    >
+                      Go to Recipe
+                    </a>
+                  </div>
+                </button>
+              </div>
             );
           }
           return null;

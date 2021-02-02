@@ -31,25 +31,36 @@ class Header extends Component {
 
   render() {
     const { title, searchOn, history, match } = this.props;
+    const Style = { border: 0 };
     const { estilo } = this.state;
     if (searchOn === 'on') {
       return (
-        <header>
-          <input
-            type="image"
-            data-testid="profile-top-btn"
-            src={ profileIcon }
-            alt="Imagem de perfil"
-            onClick={ () => history.push('/perfil') }
-          />
-          <h3 data-testid="page-title">{title}</h3>
-          <input
-            type="image"
-            data-testid="search-top-btn"
-            onClick={ () => this.handleClick() }
-            src={ searchIcon }
-            alt="Buscar"
-          />
+        <header className="row">
+          <div className="col">
+            <input
+              className="form-control"
+              style={ Style }
+              type="image"
+              data-testid="profile-top-btn"
+              src={ profileIcon }
+              alt="Imagem de perfil"
+              onClick={ () => history.push('/perfil') }
+            />
+          </div>
+          <div className="col">
+            <h3 data-testid="page-title">{title}</h3>
+          </div>
+          <div className="col">
+            <input
+              style={ Style }
+              className="form-control"
+              type="image"
+              data-testid="search-top-btn"
+              onClick={ () => this.handleClick() }
+              src={ searchIcon }
+              alt="Buscar"
+            />
+          </div>
           {
             estilo === 'visible'
               ? <Searchbar match={ match } />
@@ -59,15 +70,19 @@ class Header extends Component {
       );
     }
     return (
-      <header>
-        <input
-          type="image"
-          data-testid="profile-top-btn"
-          src={ profileIcon }
-          alt="Imagem de perfil"
-          onClick={ () => history.push('/perfil') }
-        />
-        <h3 data-testid="page-title">{title}</h3>
+      <header className="col">
+        <div className="row">
+          <input
+            type="image"
+            data-testid="profile-top-btn"
+            src={ profileIcon }
+            alt="Imagem de perfil"
+            onClick={ () => history.push('/perfil') }
+          />
+          <div className="col">
+            <h3 className="text-center" data-testid="page-title">{title}</h3>
+          </div>
+        </div>
       </header>
     );
   }

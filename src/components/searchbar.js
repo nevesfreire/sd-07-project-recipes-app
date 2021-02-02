@@ -65,8 +65,9 @@ class Searchbar extends Component {
   render() {
     const { busca, inputValue } = this.state;
     return (
-      <div>
+      <div className="form-control">
         <input
+          className="form-control"
           onChange={ (event) => this.handlechange(event) }
           name="inputValue"
           data-testid="search-input"
@@ -74,8 +75,9 @@ class Searchbar extends Component {
           placeholder="Busca"
           value={ inputValue }
         />
-        <label htmlFor="ingredient">
+        <label htmlFor="ingredient" className="visually-hidden">
           <input
+            className="row gy-2 gx-3 align-items-center"
             onChange={ (event) => this.handlechange(event) }
             value="ingredient"
             checked={ busca === 'ingredient' }
@@ -110,13 +112,16 @@ class Searchbar extends Component {
           />
           Primeira letra
         </label>
-        <button
-          data-testid="exec-search-btn"
-          type="button"
-          onClick={ () => this.handleClick() }
-        >
-          Buscar
-        </button>
+        <div className="col-auto">
+          <button
+            className="btn btn-outline-success btn-sm"
+            data-testid="exec-search-btn"
+            type="button"
+            onClick={ () => this.handleClick() }
+          >
+            Buscar
+          </button>
+        </div>
       </div>
     );
   }

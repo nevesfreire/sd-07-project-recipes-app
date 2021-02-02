@@ -47,12 +47,14 @@
   width: 90%;
 }
 
-.card {
-  width: 50vw;
+.card-body {
+  margin: auto;
 }
 
-.card img {
-  width: 49vw;
+.figure {
+  display: flex;
+  justify-content: center;
+  width: 70vw;
 }
 
 .scroller {

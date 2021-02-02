@@ -52,8 +52,9 @@ class Categories extends Component {
   render() {
     const { categorias } = this.props;
     return (
-      <div>
+      <div className="btn-group" role="group" aria-label="Basic example">
         <button
+          className="btn btn-outline-success"
           data-testid="All-category-filter"
           type="button"
           onClick={ () => this.handleClick('All') }
@@ -62,6 +63,7 @@ class Categories extends Component {
         </button>
         { categorias.map((categoria) => (
           <button
+            className="btn btn-outline-success"
             name={ categoria.strCategory }
             type="button"
             data-testid={ `${categoria.strCategory}-category-filter` }
