@@ -15,6 +15,7 @@ class CustomCardFavoriteRecipe extends Component {
       <div>
         <Link to={ `/bebidas/${id}` }>
           <img
+            width="100vw"
             data-testid={ `${index}-horizontal-image` }
             src={ image }
             alt="imagem de uma receita"
@@ -43,6 +44,7 @@ class CustomCardFavoriteRecipe extends Component {
       <div>
         <Link to={ `/comidas/${id}` }>
           <img
+            width="100vw"
             data-testid={ `${index}-horizontal-image` }
             src={ image }
             alt="imagem de uma receita"
