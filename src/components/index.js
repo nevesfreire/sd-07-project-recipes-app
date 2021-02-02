@@ -11,3 +11,4 @@ export { default as Instructions } from './Instructions';
 export { default as Video } from './Video';
 export { default as Recomendations } from './Recomendations';
 export { default as ButtonDetails } from './ButtonDetails';
+export { default as Loading } from './Loading';

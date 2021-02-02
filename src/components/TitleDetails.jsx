@@ -1,31 +1,26 @@
-import React, { useContext, useState, useRef } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import FoodAppContext from '../context/FoodAppContext';
 import shareIcon from '../images/shareIcon.svg';
 import favoriteIcon from '../images/blackHeartIcon.svg';
 import notFavoriteIcon from '../images/whiteHeartIcon.svg';
+import useFavorites from '../hooks/useFavorites';
 
-function TitleDetails({ recipes, id }) {
+function TitleDetails({ recipes, pathname, id }) {
   const { detailRecipe } = useContext(FoodAppContext);
-  const [favorite, setFavorite] = useState(false);
+  const [favorite, handleClickFavorite, isAlreadyFavorite] = useFavorites();
   const [copy, setCopy] = useState(false);
   const { meals } = detailRecipe;
   const { drinks } = detailRecipe;
 
-  const handlerFavorite = () => {
-    setFavorite(!favorite);
-  };
+  useEffect(() => {
+    isAlreadyFavorite(id);
+  }, []);
 
-  const clipBoardRef = useRef();
-
-  const clipBoard = () => {
+  const copyLink = () => {
     setCopy(true);
-    const range = document.createRange();
-    range.selectNode(clipBoardRef.current);
-    window.getSelection().addRange(range);
-    document.execCommand('copy');
-    window.getSelection().removeAllRanges();
   };
 
   if (recipes === 'comidas') {
@@ -39,34 +34,33 @@ function TitleDetails({ recipes, id }) {
             <h2
               data-testid="recipe-title"
             >
-              { strMeal }
+              {strMeal}
             </h2>
             <p
               data-testid="recipe-category"
             >
-              { strCategory }
+              {strCategory}
             </p>
           </div>
         ))}
         <div className="div-favorite-detail">
-          <span
-            className={ copy ? 'copy-compartilhar' : '' }
-          >
-            { copy ? 'Link copiado!' : '' }
-          </span>
+          <CopyToClipboard text={ pathname }>
+            <button
+              type="button"
+              data-testid="share-btn"
+              onClick={ () => copyLink() }
+            >
+              <img
+                className="img-compartilhar"
+                src={ shareIcon }
+                alt="Icone Compartilhar"
+              />
+              <p>{copy && 'Link copiado!'}</p>
+            </button>
+          </CopyToClipboard>
           <button
             type="button"
-            data-testid="share-btn"
-            ref={ clipBoardRef }
-            src={ shareIcon }
-            alt={ `http://localhost:3000/${recipes}/${id}` }
-            onClick={ clipBoard }
-          >
-            dsdsds
-          </button>
-          <button
-            type="button"
-            onClick={ handlerFavorite }
+            onClick={ () => handleClickFavorite(meals, recipes, id) }
           >
             <img
               data-testid="favorite-btn"
@@ -88,34 +82,33 @@ function TitleDetails({ recipes, id }) {
           <h2
             data-testid="recipe-title"
           >
-            { strDrink }
+            {strDrink}
           </h2>
           <p
             data-testid="recipe-category"
           >
-            { strAlcoholic }
+            {strAlcoholic}
           </p>
         </div>
       ))}
       <div className="div-favorite-detail">
-        <span
-          className={ copy ? 'copy-compartilhar' : '' }
-        >
-          { copy ? 'Link copiado!' : '' }
-        </span>
+        <CopyToClipboard text={ pathname }>
+          <button
+            type="button"
+            data-testid="share-btn"
+            onClick={ () => copyLink() }
+          >
+            <img
+              className="img-compartilhar"
+              src={ shareIcon }
+              alt="Icone Compartilhar"
+            />
+            <p>{copy && 'Link copiado!'}</p>
+          </button>
+        </CopyToClipboard>
         <button
           type="button"
-          data-testid="share-btn"
-          ref={ clipBoardRef }
-          src={ shareIcon }
-          alt={ `http://localhost:3000/${recipes}/${id}` }
-          onClick={ clipBoard }
-        >
-          dsdsds
-        </button>
-        <button
-          type="button"
-          onClick={ handlerFavorite }
+          onClick={ () => handleClickFavorite(drinks, recipes, id) }
         >
           <img
             data-testid="favorite-btn"
@@ -130,6 +123,7 @@ function TitleDetails({ recipes, id }) {
 
 TitleDetails.propTypes = {
   recipes: PropTypes.string.isRequired,
+  pathname: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
 };
 

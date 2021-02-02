@@ -9,18 +9,22 @@ function Provider({ children }) {
   const [drinksData, setDrinksData] = useState([]);
   const [detailRecipe, setDetailRecipe] = useState({});
   const [showSearch, setShowSearch] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getMealsDrinks = async () => {
+    setIsLoading(true);
     const { meals } = await mealsAPI('', '');
     const { drinks } = await drinksAPI('', '');
     setMealsData(meals);
     setDrinksData(drinks);
+    setIsLoading(false);
   };
 
   const handleClickDetail = async (pathname, id) => {
+    setIsLoading(true);
     const detail = await detailApi(id, pathname);
-
     setDetailRecipe(detail);
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -28,6 +32,7 @@ function Provider({ children }) {
   }, []);
 
   const context = {
+    isLoading,
     drinksData,
     mealsData,
     setMealsData,
