@@ -1,9 +1,13 @@
+:root {
+  --zero: 0;
+}
+
 .recomendations {
   height: 70px;
   overflow: auto;
 }
 
 .startRecipe {
-  bottom: 0px;
+  bottom: var(--zero);
   position: fixed;
 }
