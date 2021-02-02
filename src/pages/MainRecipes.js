@@ -13,6 +13,7 @@ class MainRecipes extends React.Component {
     if (mealRecipes.length === 1) {
       const { idMeal } = mealRecipes[0];
       return <Redirect to={ `/comidas/${idMeal}` } />;
+      // history.push(`/comidas/${idMeal}`);
     }
 
     return (
@@ -34,6 +35,9 @@ const mapStateToProps = ({ recipes: { mealRecipes } }) => (
 
 MainRecipes.propTypes = {
   mealRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  // history: PropTypes.shape({
+  //   push: PropTypes.func.isRequired,
+  // }).isRequired,
 };
 
 export default connect(mapStateToProps)(MainRecipes);
