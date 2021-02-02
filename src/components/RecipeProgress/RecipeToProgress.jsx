@@ -16,7 +16,7 @@ const RecipeToProgress = ({ recipe, commonProps }) => {
   const btnvalue = 'Finalizar Receita';
   const [copied, setCopied] = useState(false);
   const [check, setCheck] = useState(true);
-  const verdadeiro = true;
+
   const {
     page, favorite, ingredients, inProgress, id,
   } = commonProps;
@@ -172,6 +172,7 @@ const RecipeToProgress = ({ recipe, commonProps }) => {
                     index,
                   );
                   verifyCheckbox();
+                  console.log(index);
                 } }
                 data-testid="ingredient-search-radio"
                 type="checkbox"

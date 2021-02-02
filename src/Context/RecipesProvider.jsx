@@ -123,9 +123,7 @@ function RecipesProvider({ children }) {
   // foi alterado o valor da chave ID, onde continha apenas os ingrediente
   const handleClickStartRecipe = (id, ingredients, page) => {
     const key = page === 'meal' ? 'meals' : 'cocktails';
-    const ingredientsOBJ = ingredients.map((ingredient) => {
-      return ({ [ingredient]: false });
-    });
+    const ingredientsOBJ = ingredients.map((ingredient) => ({ [ingredient]: false }));
 
     const isInProgress = verifyInProgress(id, page);
     if (!isInProgress) {
