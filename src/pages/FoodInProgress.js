@@ -9,7 +9,7 @@ import Loading from '../components/Loading';
 import readFavoriteLocalStorage from '../localStorage';
 // import '../css/details.css';
 
-class FoodDetails extends Component {
+class FoodInProgress extends Component {
   constructor(props) {
     super(props);
 
@@ -29,9 +29,8 @@ class FoodDetails extends Component {
 
   componentDidMount() {
     const { requestRecipes,
-      requestRecomendations, match: { params: { id } } } = this.props;
+      match: { params: { id } } } = this.props;
     requestRecipes(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
-    requestRecomendations('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     this.createFavoriteLocalStorage();
   }
 
@@ -96,10 +95,10 @@ class FoodDetails extends Component {
   }
 
   render() {
-    const { recomendations, history } = this.props;
+    const { history } = this.props;
     const { meal, ingredients, favorite, measurement } = this.state;
     const { strMealThumb, strMeal, strCategory, strInstructions } = meal;
-    if (!recomendations.drinks) return <Loading />;
+    if (!ingredients) return <Loading />;
 
     return (
       <div className="main-container">
@@ -143,11 +142,11 @@ class FoodDetails extends Component {
               .map((ingredient, index) => (
                 <div
                   className="form-check"
+                  data-testid={ `${index}-ingredient-step` }
                   key={ ingredient }
                 >
                   <input
                     type="checkbox"
-                    data-testid={ `${index}-ingredient-step` }
                     className="form-check-input"
                     id={ ingredient }
                     onClick={ this.handleCheckbox }
@@ -193,9 +192,9 @@ const mapDispatchToProps = (dispatch) => ({
   requestRecipes: (endpoint) => dispatch(fetchRecipes(endpoint)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(FoodDetails);
+export default connect(mapStateToProps, mapDispatchToProps)(FoodInProgress);
 
-FoodDetails.propTypes = {
+FoodInProgress.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
@@ -205,7 +204,6 @@ FoodDetails.propTypes = {
   mealsRecipes: PropTypes.shape({
     meals: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
-  requestRecomendations: PropTypes.func.isRequired,
   requestRecipes: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
