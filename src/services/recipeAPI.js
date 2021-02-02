@@ -12,7 +12,7 @@ const END_POINT_CATEGORY_LIST = '/list.php?c=list';
 // const END_POINT_INGREDIENT_LIST = '/list.php?i=list';
 // const END_POINT_AREA_LIST = '/list.php?a=list';
 
-const END_POINT_FILTER = 'filter.php?';
+const END_POINT_FILTER = '/filter.php?';
 const BY_CATEGORY = 'c=';
 const BY_INGREDIENT = 'i=';
 // const BY_AREA = 'a=';
@@ -71,8 +71,8 @@ export const getRecipesByCategory = async (type, category) => {
   const response = await fetch(GET_RECIPES_BY_CATEGORY_URL);
   const result = await response.json();
   return type.includes('comidas')
-    ? mapMealAndDrinkToRecipe(result.meals)
-    : mapMealAndDrinkToRecipe(result.drinks);
+    ? mapShortMealAndDrinkToRecipe(result.meals)
+    : mapShortMealAndDrinkToRecipe(result.drinks);
 };
 
 export const getCategories = async (type) => {
@@ -81,6 +81,6 @@ export const getCategories = async (type) => {
   const response = await fetch(GET_CATEGORIES_URL);
   const result = await response.json();
   return type.includes('comidas')
-    ? mapShortMealAndDrinkToRecipe(result.meals)
-    : mapShortMealAndDrinkToRecipe(result.drinks);
+    ? result.meals
+    : result.drinks;
 };

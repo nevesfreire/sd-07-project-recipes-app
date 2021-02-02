@@ -1,5 +1,5 @@
 const authTypes = {
-  SIGNIN: 'SIGNIN',
+  SIGNIN: 'auth/SIGNIN',
 };
 
 export default authTypes;
