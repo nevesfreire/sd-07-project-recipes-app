@@ -45,7 +45,6 @@ export default class CustomButtonFavorite extends Component {
     const { recipe, recipeType } = this.props;
     const recipeId = (recipeType === 'comidas') ? recipe.idMeal : recipe.idDrink;
     const favoriteRecipes = getStorage('favoriteRecipes');
-    console.log(favoriteRecipes);
     setStorage('favoriteRecipes', favoriteRecipes.filter(({ id }) => id !== recipeId));
     this.setState({ isFavorite: false });
   }

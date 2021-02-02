@@ -12,6 +12,7 @@ import {
   Explore,
   FoodsOrigin,
   Profile,
+  FavoriteRecipes,
 } from './pages';
 
 function Rotas() {
@@ -33,10 +34,11 @@ function Rotas() {
       />
       <Route exact path="/explorar/comidas/area" component={ FoodsOrigin } />
       <Route exact path="/perfil" component={ Profile } />
+      <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
       {/* <Route path="/comidas/id:/in-progress" component={  } />
       <Route path="/bebidas/:id/in-progress" component={  } />
       <Route path="/receitas-feitas" component={  } />
-      <Route path="/receitas-favoritas" component={  } /> */}
+      */}
     </Switch>
   );
 }
