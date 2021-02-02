@@ -15,7 +15,6 @@ class CustomCardFavoriteRecipe extends Component {
       <div>
         <Link to={ `/bebidas/${id}` }>
           <img
-            width="200px !important"
             data-testid={ `${index}-horizontal-image` }
             src={ image }
             alt="imagem de uma receita"
