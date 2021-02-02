@@ -1,18 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import clipboardCopy from 'clipboard-copy';
 import RecipesContext from '../context/RecipesContext';
 import { fetchAllFoodRecipes } from '../services/foodApiFunctions';
 import { fetchDrinkDetailById } from '../services/drinkApiFunctions';
 import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHearthIcon from '../images/blackHeartIcon.svg';
+import whiteHearthIcon from '../images/whiteHeartIcon.svg';
 import './recipes.css';
-
-const copy = require('clipboard-copy');
 
 function DrinksDetails(props) {
   const [ingredients, setIngredients] = useState([]);
   const [recomended, setRecomendedRecipes] = useState([]);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [clipboard, setClipboard] = useState('');
 
   const {
     drinkDetail,
@@ -25,12 +27,27 @@ function DrinksDetails(props) {
   const six = 6;
   const fifty = 50;
 
-  async function copyCliboard() {
-    copy(`http://localhost:3000/bebidas/${id}`)
-      .then(() => {
-        alert('Link copiado!');
-      });
-  }
+  const handlerFavorite = () => {
+    const favoriteRec = {
+      id,
+      type: 'bebida',
+      area: '',
+      category: drinkDetail.strCategory,
+      alcoholicOrNot: drinkDetail.strAlcoholic,
+      name: drinkDetail.strDrink,
+      image: drinkDetail.strDrinkThumb,
+    };
+    localStorage.setItem('favoriteRecipes', JSON.stringify([favoriteRec]));
+    localStorage.setItem('favorites', JSON.stringify([id]));
+    setIsFavorite(true);
+  };
+
+  const copyClipboard = async () => {
+    const urlarray = window.location.href.split('/');
+    const url = `${urlarray[0]}//${urlarray[2]}/bebidas/${id}`;
+    await clipboardCopy(url);
+    setClipboard({ mensagem: 'Link copiado!' });
+  };
 
   const recomendedFood = async () => {
     const allFoods = await fetchAllFoodRecipes();
@@ -55,9 +72,9 @@ function DrinksDetails(props) {
 
   const randomId = async () => {
     const { match } = props;
-    const { id } = match.params;
-    setId(id);
-    const details = await fetchDrinkDetailById(id);
+    const idRandom = match.params.id;
+    setId(idRandom);
+    const details = await fetchDrinkDetailById(idRandom);
     console.log('Console da receita', details);
     setDrinkDetail(details.drinks[0]);
   };
@@ -85,29 +102,25 @@ function DrinksDetails(props) {
       >
         {drinkDetail.strDrink}
       </h2>
-      <button
-        type="button"
+      <input
+        type="image"
         data-testid="share-btn"
-        onClick={ copyCliboard }
-      >
-        <img
-          alt="imagem de compartilhamento"
-          src={ shareIcon }
-        />
-      </button>
-      <button
-        type="button"
+        src={ shareIcon }
+        alt="compartilhar"
+        onClick={ copyClipboard }
+      />
+      { clipboard.mensagem }
+      <input
+        type="image"
+        onClick={ handlerFavorite }
         data-testid="favorite-btn"
-      >
-        <img
-          alt="imagem de coração(favoritar)"
-          src={ whiteHeartIcon }
-        />
-      </button>
+        src={ isFavorite ? blackHearthIcon : whiteHearthIcon }
+        alt="Icone Favoritar"
+      />
       <p
         data-testid="recipe-category"
       >
-        {drinkDetail.strCategory}
+        {drinkDetail.strAlcoholic}
       </p>
       <div>
         Ingredientes

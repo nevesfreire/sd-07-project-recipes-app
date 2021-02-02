@@ -1,15 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import clipboardCopy from 'clipboard-copy';
 import RecipesContext from '../context/RecipesContext';
 import './recipedetails.css';
 import { fetchFoodDetailById } from '../services/foodApiFunctions';
 import { fetchAllDrinkRecipes } from '../services/drinkApiFunctions';
-
+import shareIcon from '../images/shareIcon.svg';
+import blackHearthIcon from '../images/blackHeartIcon.svg';
+import whiteHearthIcon from '../images/whiteHeartIcon.svg';
 import './recipes.css';
 
 function RecipesDetails(props) {
   const [ingredients, setIngredients] = useState([]);
   const [recomended, setRecomendedDrinks] = useState([]);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [clipboard, setClipboard] = useState('');
 
   const {
     foodDetail,
@@ -18,23 +24,47 @@ function RecipesDetails(props) {
     id,
   } = useContext(RecipesContext);
 
-  const copyCliboard = () => {
-    navigator.clipboard.writeText(`http://localhost:3000/comidas/${id}`);
-    window.alert('Link copiado!');
+  const zero = 0;
+  const six = 6;
+  const fifty = 50;
+
+  const handlerFavorite = () => {
+    const favoriteRec = {
+      id,
+      type: 'comida',
+      area: 'Italian',
+      category: foodDetail.strCategory,
+      alcoholicOrNot: '',
+      name: foodDetail.strMeal,
+      image: foodDetail.strMealThumb,
+    };
+    localStorage.setItem('favoriteRecipes', JSON.stringify([favoriteRec]));
+    localStorage.setItem('favorites', JSON.stringify(id));
+    setIsFavorite(true);
+  };
+
+  const copyClipboard = async () => {
+    const urlarray = window.location.href.split('/');
+    const url = `${urlarray[0]}//${urlarray[2]}/comidas/${id}`;
+    await clipboardCopy(url);
+    setClipboard({ mensagem: 'Link copiado!' });
   };
 
   const recomendedDrink = async () => {
     const allDrinks = await fetchAllDrinkRecipes();
-    const sixDrinks = allDrinks.drinks.slice(0, 6);
+    const sixDrinks = allDrinks.drinks.slice(zero, six);
     console.log(sixDrinks);
     setRecomendedDrinks(sixDrinks);
   };
 
   const recipesIngredients = () => {
     const allIngredients = [];
-    for (let i = 0; i <= 50 ; i++) {
+    for (let i = zero; i <= fifty; i += 1) {
       if (foodDetail[`strIngredient${i}`]) {
-        allIngredients.push({ nomeIngrediente: foodDetail[`strIngredient${i}`], medida: foodDetail[`strMeasure${i}`]});
+        allIngredients.push(
+          { nomeIngrediente: foodDetail[`strIngredient${i}`],
+            medida: foodDetail[`strMeasure${i}`] },
+        );
       }
     }
 
@@ -43,9 +73,9 @@ function RecipesDetails(props) {
 
   const randomId = async () => {
     const { match } = props;
-    const id = match.params.id
-    setId(id);
-    const details = await fetchFoodDetailById(id);
+    const idRandom = match.params.id;
+    setId(idRandom);
+    const details = await fetchFoodDetailById(idRandom);
     console.log(details);
     setFoodDetail(details.meals[0]);
   };
@@ -60,7 +90,7 @@ function RecipesDetails(props) {
   }, [foodDetail]);
 
   return (
-    <div>
+    <div className="main_recipe">
       {console.log('Console do Food Detail', foodDetail)}
       <img
         data-testid="recipe-photo"
@@ -72,18 +102,23 @@ function RecipesDetails(props) {
       >
         {foodDetail.strMeal}
       </h2>
-      <button
-        type="button"
+      <input
+        type="image"
         data-testid="share-btn"
-        onClick={ copyCliboard }
-      >
-        Compartilhar
-      </button>
+        src={ shareIcon }
+        alt="compartilhar"
+        onClick={ copyClipboard }
+      />
+      {clipboard.mensagem}
       <button
         type="button"
-        data-testid="favorite-btn"
+        onClick={ handlerFavorite }
       >
-        Favoritar
+        <img
+          data-testid="favorite-btn"
+          src={ isFavorite ? blackHearthIcon : whiteHearthIcon }
+          alt="Icone Favoritar"
+        />
       </button>
       <p
         data-testid="recipe-category"
@@ -113,24 +148,26 @@ function RecipesDetails(props) {
       >
         {foodDetail.strInstructions}
       </p>
-      <video
+      <div
         data-testid="video"
-        src={foodDetail.strYoutube}
+        src={ foodDetail.strYoutube }
       />
-      <div>
+      <div className="main_carrousel">
         Receitas recomendadas
-        {
-          recomended.map(
-            (item, index) => (
-              <span
-                data-testid={ `${index}-recomendation-card` }
-                key={ index }
-              >
-                <img alt="recomendadas" src={ item.strDrinkThumb } />
-              </span>
-            ),
-          )
-        }
+        <div className="carrousel">
+          {
+            recomended.map(
+              (item, index) => (
+                <span
+                  data-testid={ `${index}-recomendation-card` }
+                  key={ index }
+                >
+                  <img alt="recomendadas" src={ item.strDrinkThumb } />
+                </span>
+              ),
+            )
+          }
+        </div>
       </div>
       <Link to={ `/comidas/${id}/in-progress` }>
         <button
@@ -144,5 +181,11 @@ function RecipesDetails(props) {
     </div>
   );
 }
+
+RecipesDetails.propTypes = {
+  match: PropTypes.string.isRequired,
+  params: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+};
 
 export default RecipesDetails;
