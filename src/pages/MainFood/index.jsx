@@ -40,7 +40,7 @@ export default function MainFood() {
   return (
     <div>
       <Header title="Comidas" />
-      <main>
+      <div className="categories-buttons">
         <button
           type="button"
           onClick={ fetchRandomFoods }
@@ -48,18 +48,18 @@ export default function MainFood() {
         >
           ALL
         </button>
-        <div>
-          {
-            categories && categories.filter((_, index) => index < five)
-              .map((category, index) => (
-                <Category
-                  fetchRandomFoods={ fetchRandomFoods }
-                  key={ index }
-                  category={ category }
-                />
-              ))
-          }
-        </div>
+        {
+          categories && categories.filter((_, index) => index < five)
+            .map((category, index) => (
+              <Category
+                fetchRandomFoods={ fetchRandomFoods }
+                key={ index }
+                category={ category }
+              />
+            ))
+        }
+      </div>
+      <main className="main-food">
         <div className="cards-container">
           {
             meals.filter((_, index) => index < twelve)

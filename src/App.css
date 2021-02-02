@@ -4,28 +4,66 @@ body {
   background-repeat: inherit;
   background: linear-gradient(to bottom, #d4d2d2, #7c7a7a);
   font-size: 16px;
-  height: 100%;
   margin: auto;
   max-width: 100vmin;
   min-height: 640px;
-  min-width: 360px;
+  width: 360px;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  min-width: 360px;
+  background-color: #FF6A28;
+  color: white;
 }
 
 .search-bar {
   display: flex;
+  background-color: white;
+  justify-content: space-between;
+  height: 120px;
+  align-items: center;
+  color: #FF6A28;
+  font-weight: 600;
+  flex-direction: wrap;
+}
+
+.search-bar img {
+  justify-content: center;
+}
+
+.search-bar input {
+  border-radius: 15px;
+  border: 1px solid rgb(247, 131, 36);
+  display: flex;
+  margin: 0 0 0 5px;
+  padding: 8px 10px;
+}
+
+.search-bar label {
+  flex-flow: wrap;
+}
+
+.search-bar button {
+  background-image: linear-gradient(to right, #ee5a1a 0%, #FF6A28  51%, #df4807  100%);
+  background-size: 200% auto;
+  border-radius: 10px;
+  color: white;
+  display: block;
+  font-size: 1em;
+  font-weight: 700;
+  margin: 0;
+  padding: 8px 10px;
+  text-align: center;
+  transition: 0.5s;
 }
 
 .footer {
-  border: 1px solid #030303;
+  background-color: #FF6A28;
   bottom: 0;
   display: flex;
   justify-content: space-between;
   position: fixed;
-  width: 100%;
+  min-width: 360px;
 }

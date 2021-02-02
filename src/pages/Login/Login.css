@@ -29,7 +29,7 @@ body {
 }
 
 .login-content button {
-  background-image: linear-gradient(to right, #e64703 0%, #b13b08  51%, #bb3800  100%);
+  background-image: linear-gradient(to right, #ee5a1a 0%, #FF6A28  51%, #df4807  100%);
   background-size: 200% auto;
   border-radius: 10px;
   box-shadow: 0 0 20px #eee;

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Header, Footer, RecipeCard, Category } from '../../components';
 import { RecipesContext } from '../../context';
+import './MainDrink.css';
 
 export default function MainDrink() {
   const {
@@ -42,36 +43,38 @@ export default function MainDrink() {
   return (
     <div>
       <Header title="Bebidas" />
-      <main>
-        <div>
-          <button
-            type="button"
-            onClick={ fetchDrinks }
-            data-testid="All-category-filter"
-          >
-            ALL
-          </button>
+      <div className="categories-buttons">
+        <button
+          type="button"
+          onClick={ fetchDrinks }
+          data-testid="All-category-filter"
+        >
+          ALL
+        </button>
+        {
+          categories && categories.filter((_, index) => index < five)
+            .map((category, index) => (
+              <Category
+                fetchDrinks={ fetchDrinks }
+                key={ index }
+                category={ category }
+              />
+            ))
+        }
+      </div>
+      <main className="main-drink">
+        <div className="cards-container">
           {
-            categories && categories.filter((_, index) => index < five)
-              .map((category, index) => (
-                <Category
-                  fetchDrinks={ fetchDrinks }
+            drinks.filter((_, index) => index < TWELVE)
+              .map((drink, index) => (
+                <RecipeCard
                   key={ index }
-                  category={ category }
+                  id={ index }
+                  meal={ drink }
                 />
               ))
           }
         </div>
-        {
-          drinks.filter((_, index) => index < TWELVE)
-            .map((drink, index) => (
-              <RecipeCard
-                key={ index }
-                id={ index }
-                meal={ drink }
-              />
-            ))
-        }
       </main>
       <Footer />
     </div>
