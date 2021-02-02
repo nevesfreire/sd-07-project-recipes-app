@@ -23,7 +23,9 @@ class DrinksRecipes extends Component {
 
   componentDidUpdate(prevProps) {
     const { selectedCategory } = this.props;
-    if (selectedCategory !== prevProps.selectedCategory) this.fetchRecipesByCategory();
+    if (selectedCategory !== prevProps.selectedCategory && selectedCategory !== 'All') {
+      this.fetchRecipesByCategory();
+    }
   }
 
   async fetchRecipesByCategory() {
@@ -31,12 +33,11 @@ class DrinksRecipes extends Component {
     const URL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${selectedCategory}`;
     const response = await fetch(URL);
     const data = await response.json();
-    console.log(data);
     this.setState({ recipesByCategory: data });
   }
 
   render() {
-    const { getRecipes } = this.props;
+    const { getRecipes, selectedCategory } = this.props;
     const { recipesByCategory } = this.state;
 
     const DRINK_LENGTH = 12;
@@ -47,7 +48,7 @@ class DrinksRecipes extends Component {
     }
     if (getRecipes.drinks) {
       let filterArray = [];
-      if (recipesByCategory.drinks) {
+      if (recipesByCategory.drinks && (selectedCategory !== 'All')) {
         filterArray = recipesByCategory.drinks
           .filter((_drink, index) => index < DRINK_LENGTH);
       } else {

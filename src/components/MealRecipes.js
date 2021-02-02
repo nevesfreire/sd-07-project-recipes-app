@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { fetchRecipes, fetchCategories } from '../actions';
-// import MealsCategoryFilter from './MealsCategoryFilter';
 import Loading from './Loading';
 import '../css/recipe.css';
 
@@ -24,7 +23,9 @@ class MealRecipes extends Component {
 
   componentDidUpdate(prevProps) {
     const { selectedCategory } = this.props;
-    if (selectedCategory !== prevProps.selectedCategory) this.fetchRecipesByCategory();
+    if (selectedCategory !== prevProps.selectedCategory && selectedCategory !== 'All') {
+      this.fetchRecipesByCategory();
+    }
   }
 
   async fetchRecipesByCategory() {
@@ -32,12 +33,11 @@ class MealRecipes extends Component {
     const URL = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${selectedCategory}`;
     const response = await fetch(URL);
     const data = await response.json();
-    console.log(data);
     this.setState({ recipesByCategory: data });
   }
 
   render() {
-    const { getRecipes } = this.props;
+    const { getRecipes, selectedCategory } = this.props;
     const { recipesByCategory } = this.state;
 
     const MEAL_LENGTH = 12;
@@ -48,7 +48,7 @@ class MealRecipes extends Component {
     }
     if (getRecipes.meals) {
       let filterArray = [];
-      if (recipesByCategory.meals) {
+      if (recipesByCategory.meals && (selectedCategory !== 'All')) {
         filterArray = recipesByCategory.meals
           .filter((_meal, index) => index < MEAL_LENGTH);
       } else filterArray = getRecipes.meals.filter((_meal, index) => index < MEAL_LENGTH);
