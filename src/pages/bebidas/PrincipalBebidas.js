@@ -26,7 +26,6 @@ class PrincipalBebidas extends Component {
 
   Drinks() {
     const { history, receitas } = this.props;
-    console.log(receitas);
     let controlealert = false;
     if (receitas.drinks || receitas.drinks === null) {
       if (receitas.drinks === null && !controlealert) {

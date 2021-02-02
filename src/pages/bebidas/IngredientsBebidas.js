@@ -29,7 +29,7 @@ class IngredientsBebidas extends Component {
   }
 
   async fetchRecipes(ingredent) {
-    ingredent = ingredent.replace(/ /g, '_');
+    // ingredent = ingredent.replace(/ /g, '_');
     const { loadrecipesingredent, history } = this.props;
     await loadrecipesingredent(ingredent, 'drinks');
     history.push('/bebidas');
