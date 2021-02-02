@@ -88,3 +88,21 @@ export const resultRandomFood = () => async (dispatch) => {
   const recipe = await fetchRandomFood();
   dispatch(getRandomFood(recipe.meals));
 };
+// -------------------------------- CATEGORY -----------------------------
+export const GET_CATEGORY_FOOD = 'GET_CATEGORY_FOOD';
+
+export const getCategoryFood = (recipesByCategoryFood) => ({
+  type: GET_CATEGORY_FOOD,
+  recipesByCategoryFood,
+});
+
+async function fetchCategoryFood() {
+  const responseAPI = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
+  const recipesByCategory = await responseAPI.json();
+  return recipesByCategory;
+}
+
+export const resultCategoryFood = () => async (dispatch) => {
+  const recipe = await fetchCategoryFood();
+  dispatch(getCategoryFood(recipe.meals));
+};

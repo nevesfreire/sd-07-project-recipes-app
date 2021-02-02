@@ -9,7 +9,15 @@ import { resultRandomDrink } from '../../redux/actionsBebidas';
 class Bebidas extends React.Component {
   constructor() {
     super();
+    this.state = {
+      recipes: [],
+      currentCategory: undefined,
+    };
     this.showCards = this.showCards.bind(this);
+    this.searchCategory = this.searchCategory.bind(this);
+    this.conditionalRender = this.conditionalRender.bind(this);
+    this.allCategories = this.allCategories.bind(this);
+    this.detailRecipe = this.detailRecipe.bind(this);
   }
 
   componentDidMount() {
@@ -17,12 +25,42 @@ class Bebidas extends React.Component {
     fetchRandomDrink();
   }
 
+  async searchCategory(category) {
+    const { currentCategory } = this.state;
+    if (currentCategory && currentCategory === category) {
+      this.setState({
+        currentCategory: undefined,
+      });
+      return;
+    }
+    const ZERO = 0;
+    const TWELVE = 12;
+    const responseAPI = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`);
+    const response = await responseAPI.json();
+    const copyResponse = [...response.drinks];
+    const recipes = copyResponse.splice(ZERO, TWELVE);
+    this.setState({
+      recipes,
+      currentCategory: category,
+    });
+  }
+
+  detailRecipe(id) {
+    const { history } = this.props;
+    history.push(`bebidas/${id}`);
+  }
+
   showCards(cards) {
     return cards.map((drink, index) => {
       const DOZE = 12;
       if (index < DOZE) {
         return (
-          <div data-testid={ `${index}-recipe-card` } key={ drink.idDrink }>
+          <button
+            type="button"
+            data-testid={ `${index}-recipe-card` }
+            key={ drink.idDrink }
+            onClick={ () => this.detailRecipe(drink.idDrink) }
+          >
             <img
               src={ drink.strDrinkThumb }
               alt="recipe pic"
@@ -30,20 +68,89 @@ class Bebidas extends React.Component {
               width="50%"
             />
             <h4 data-testid={ `${index}-card-name` }>{drink.strDrink}</h4>
-          </div>
+          </button>
         );
       }
       return null; // referência: Brenda Lima;
     });
   }
 
+  conditionalRender() {
+    const { currentCategory, recipes } = this.state;
+    const { toggleDrink, resultApiByName, resultDrink } = this.props;
+    if (currentCategory) {
+      return (
+        this.showCards(recipes)
+      );
+    }
+    if (toggleDrink) {
+      return (
+        this.showCards(resultApiByName)
+      );
+    }
+    return (
+      this.showCards(resultDrink)
+    );
+  }
+
+  allCategories() {
+    const { resultDrink } = this.props;
+    this.setState({
+      recipes: resultDrink,
+    });
+  }
+
   render() {
-    const { toggle, history, toggleDrink, resultDrink, resultApiByName } = this.props;
+    const { toggle, history } = this.props;
     return (
       <div>
         <Header title="Bebidas" history={ history } />
         {toggle && <BarraBuscaBebidas history={ history } />}
-        {toggleDrink ? this.showCards(resultApiByName) : this.showCards(resultDrink)}
+        <button
+          type="button"
+          data-testid="Ordinary Drink-category-filter"
+          onClick={ () => this.searchCategory('Ordinary Drink') }
+        >
+          Ordinary Drink
+        </button>
+        <button
+          type="button"
+          data-testid="Cocktail-category-filter"
+          onClick={ () => this.searchCategory('Cocktail') }
+        >
+          Cocktail
+        </button>
+        <button
+          type="button"
+          data-testid="Milk / Float / Shake-category-filter"
+          onClick={ () => this.searchCategory('Milk / Float / Shake') }
+        >
+          Milk / Float / Shake
+        </button>
+        <button
+          type="button"
+          data-testid="Other/Unknown-category-filter"
+          onClick={ () => this.searchCategory('Other/Unknown') }
+        >
+          Other/Unknown
+        </button>
+        <button
+          type="button"
+          data-testid="Cocoa-category-filter"
+          onClick={ () => this.searchCategory('Cocoa') }
+        >
+          Cocoa
+        </button>
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ () => this.allCategories() }
+        >
+          All
+        </button>
+        <div>
+          {this.conditionalRender()}
+        </div>
         <Footer />
       </div>
     );
