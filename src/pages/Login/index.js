@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
+import ilustration from './undraw_breakfast_psiw.svg';
 import './styles.css';
 
 export default function Login() {
@@ -29,6 +30,7 @@ export default function Login() {
 
   return (
     <div className="form-wrapper">
+      <img src={ ilustration } alt="ilustration" className="login-svg" />
       <form className="form-login">
         <input
           onChange={ (e) => setEmail(e.target.value) }

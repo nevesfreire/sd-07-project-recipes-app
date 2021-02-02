@@ -29,7 +29,6 @@ function Bebidas(props) {
         </div>
       );
     }
-
     if (cocktails === undefined) {
       return <p>wtf</p>;
     }
@@ -38,7 +37,11 @@ function Bebidas(props) {
         'Sinto muito, não encontramos nenhuma receita para esses filtros.',
       );
     }
+    // if (cocktails.length === 1) {
+    //   history.push(`/bebidas/${cocktails[0].idDrink}`);
+    // }
 
+    console.log(cocktails);
     const cocktail = cocktails.slice(INITIAL_RETURN, MAX_RETURN);
     return (
       <div className="container-drinks">

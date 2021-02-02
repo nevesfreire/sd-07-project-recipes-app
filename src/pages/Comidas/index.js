@@ -34,7 +34,9 @@ function Comidas(props) {
         'Sinto muito, não encontramos nenhuma receita para esses filtros.',
       );
     }
-
+    // if (meals.length === 1) {
+    //   history.push(`/comidas/${meals[0].idMeal}`);
+    // }
     const comida = meals.slice(INITIAL_RETURN, MAX_RETURN);
     return (
       <div className="container-foods">
