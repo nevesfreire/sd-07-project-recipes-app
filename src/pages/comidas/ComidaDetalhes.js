@@ -45,11 +45,16 @@ class ComidaDetalhes extends React.Component {
   }
 
   async copyClipboard() {
-    await navigator.clipboard.writeText(window.location.href);
-    const copySucess = await window.location.href;
-    this.setState({
-      copyClipboard: copySucess,
-    });
+    try {
+      console.log('copy clipboard');
+      await navigator.clipboard.writeText(window.location.href);
+      console.log('copy clipboard write done');
+      this.setState({
+        copyClipboard: window.location.href,
+      });
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   favoriteRecipe() {
@@ -91,24 +96,28 @@ class ComidaDetalhes extends React.Component {
           width="200px"
         />
         <h1 data-testid="recipe-title">{recipe.strMeal}</h1>
-        <button
-          type="button"
-          data-testid="share-btn"
-          onClick={ this.copyClipboard }
-        >
-          <img src={ ShareIcon } alt="compartilhar" />
-        </button>
+        <div>
+          <button
+            type="button"
+            data-testid="share-btn"
+            onClick={ this.copyClipboard }
+          >
+            <img src={ ShareIcon } alt="compartilhar" />
+          </button>
+        </div>
         <span>
           {copyClipboard ? 'Link copiado!' : ''}
         </span>
-        <button
-          type="button"
-          data-testid="favorite-btn"
-          onClick={ () => this.favoriteRecipe() }
-          src={ !isFavorite ? whiteHeartIcon : blackHeartIcon }
-        >
-          <img src={ !isFavorite ? whiteHeartIcon : blackHeartIcon } alt="favorite" />
-        </button>
+        <div>
+          <button
+            type="button"
+            data-testid="favorite-btn"
+            onClick={ () => this.favoriteRecipe() }
+            src={ !isFavorite ? whiteHeartIcon : blackHeartIcon }
+          >
+            <img src={ !isFavorite ? whiteHeartIcon : blackHeartIcon } alt="favorite" />
+          </button>
+        </div>
         <p data-testid="recipe-category">{recipe.strCategory}</p>
         <ul>{this.renderIngredients()}</ul>
         <p data-testid="instructions">{recipe.strInstructions}</p>
