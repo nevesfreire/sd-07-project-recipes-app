@@ -14,4 +14,12 @@ export default {
     categories: '',
     // Estados referentes a receitas de comidas
   },
+  detalhesDaReceitaBebida: {
+    drink: '',
+    // Estados referentes aos detalhes da receita de bebida
+  },
+  detalhesDaReceitaComida: {
+    meal: '',
+    // Estados referentes aos detalhes da receita de comida
+  },
 };

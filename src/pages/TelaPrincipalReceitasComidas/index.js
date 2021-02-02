@@ -7,6 +7,7 @@ import {
   loadMeals,
   loadMealsCategories,
 } from '../../store/ducks/receitasDeComidas/actions';
+import { getSpecificMealById } from '../../store/ducks/getDetailedMeal/actions';
 
 class TelaPrincipalReceitasComidas extends Component {
   async componentDidMount() {
@@ -15,11 +16,18 @@ class TelaPrincipalReceitasComidas extends Component {
     await getCategoriesDispatch();
   }
 
+  handlePagerediRection(item) {
+    const { getDetailedMealDispatch } = this.props;
+    getDetailedMealDispatch(item.idMeal);
+    window.location.replace(`/comidas/${item.idMeal}`);
+  }
+
   renderMeals(meals) {
     if (meals.length === 1) {
       const { idMeal } = meals[0];
       return <Redirect to={ `/comidas/${idMeal}` } />;
     }
+
     return (
       <div className="row">
         {meals.map((item, index) => {
@@ -30,6 +38,10 @@ class TelaPrincipalReceitasComidas extends Component {
                 className="col-6 justify-content-md-center"
                 data-testid={ `${index}-recipe-card` }
                 key={ item.strMeals }
+                onClick={ () => this.handlePagerediRection(item) }
+                onKeyDown={ () => this.handlePagerediRection(item) }
+                role="button"
+                tabIndex={ 0 }
               >
                 <CardC card={ item } indexMeal={ index } />
               </div>
@@ -73,7 +85,7 @@ class TelaPrincipalReceitasComidas extends Component {
 
   render() {
     const title = 'Comidas';
-    const { mealsStore, categoriesStore } = this.props;
+    const { mealsStore/* , categoriesStore */ } = this.props;
     return (
       <div>
         <HeaderS title={ title } />
@@ -94,13 +106,15 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   loadMealsDispatch: () => dispatch(loadMeals()),
   getCategoriesDispatch: () => dispatch(loadMealsCategories()),
+  getDetailedMealDispatch: (id) => dispatch(getSpecificMealById(id)),
 });
 
 TelaPrincipalReceitasComidas.propTypes = {
   mealsStore: PropTypes.objectOf(PropTypes.string).isRequired,
   loadMealsDispatch: PropTypes.func.isRequired,
   getCategoriesDispatch: PropTypes.func.isRequired,
-  categoriesStore: PropTypes.objectOf(PropTypes.string).isRequired,
+  getDetailedMealDispatch: PropTypes.func.isRequired,
+  // categoriesStore: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 export default connect(

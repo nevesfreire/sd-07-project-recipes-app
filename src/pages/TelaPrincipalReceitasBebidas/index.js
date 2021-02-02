@@ -7,12 +7,19 @@ import {
   loadDrinks,
   loadDrinksCategories,
 } from '../../store/ducks/receitasDeBebidas/actions';
+import { getSpecificDrinkById } from '../../store/ducks/getDetailedDrink/actions';
 
 class TelaPrincipalReceitasBebidas extends Component {
   async componentDidMount() {
     const { loadDrinksDispatch, getCategoriesDispatch } = this.props;
     getCategoriesDispatch();
     await loadDrinksDispatch();
+  }
+
+  handlePagerediRection(item) {
+    const { getDetailedDrinkDispatch } = this.props;
+    getDetailedDrinkDispatch(item.idDrink);
+    window.location.replace(`/bebidas/${item.idDrink}`);
   }
 
   renderCategories(categories) {
@@ -52,6 +59,10 @@ class TelaPrincipalReceitasBebidas extends Component {
                 className="col-6 justify-content-md-center"
                 key={ item.strDrink }
                 data-testid={ `${index}-recipe-card` }
+                onClick={ () => this.handlePagerediRection(item) }
+                onKeyDown={ () => this.handlePagerediRection(item) }
+                role="button"
+                tabIndex={ 0 }
               >
                 <CardC card={ item } indexDrink={ index } />
               </div>
@@ -85,6 +96,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   loadDrinksDispatch: () => dispatch(loadDrinks()),
   getCategoriesDispatch: () => dispatch(loadDrinksCategories()),
+  getDetailedDrinkDispatch: (id) => dispatch(getSpecificDrinkById(id)),
 });
 
 TelaPrincipalReceitasBebidas.propTypes = {
@@ -92,6 +104,7 @@ TelaPrincipalReceitasBebidas.propTypes = {
   drinksStore: PropTypes.objectOf(PropTypes.string).isRequired,
   loadDrinksDispatch: PropTypes.func.isRequired,
   getCategoriesDispatch: PropTypes.func.isRequired,
+  getDetailedDrinkDispatch: PropTypes.func.isRequired,
 };
 
 export default connect(
