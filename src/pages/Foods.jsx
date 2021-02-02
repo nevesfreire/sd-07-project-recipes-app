@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 
 import {
   fetchAPIFood,
@@ -12,6 +13,8 @@ function Foods() {
   const { foodsOrDrinksList } = useContext(RecipesContext);
   const [apiCategoriesFood, setApiCategoriesFood] = useState([]);
   const [filterByCategory, setFilterByCategory] = useState([]);
+  const [buttonClicked, setButtonClicked] = useState(false);
+  const [buttonName, setButtonName] = useState('');
 
   const getApiFood = async () => {
     setFilterByCategory(await fetchAPIFood());
@@ -31,9 +34,20 @@ function Foods() {
   }, [foodsOrDrinksList]);
 
   const handleClick = async ({ target: { name } }) => {
-    const filterCategory = (await fetchAPICategoriesFoodFilter(name));
-    const filterCategoryFood = filterCategory.filter((item) => item.strMeal);
-    setFilterByCategory(filterCategoryFood);
+    if (name === 'all') {
+      const resetFilter = (await fetchAPIFood());
+      setFilterByCategory(resetFilter);
+    } else if (buttonClicked === false || buttonName !== name) {
+      setButtonClicked(true);
+      setButtonName(name);
+      const filterCategory = (await fetchAPICategoriesFoodFilter(name));
+      const filterCategoryFood = filterCategory.filter((item) => item.strMeal);
+      setFilterByCategory(filterCategoryFood);
+    } else {
+      setButtonClicked(false);
+      const resetFilter = (await fetchAPIFood());
+      setFilterByCategory(resetFilter);
+    }
   };
 
   const zero = 0;
@@ -43,6 +57,16 @@ function Foods() {
   return (
     <div>
       <div>
+        <button
+          className="btn btn-outline-dark btn-sm btn-block"
+          style={ { width: '22.5rem' } }
+          data-testid="All-category-filter"
+          name="all"
+          type="button"
+          onClick={ handleClick }
+        >
+          All
+        </button>
         {apiCategoriesFood !== undefined ? (
           apiCategoriesFood.map((item) => (
             <button
@@ -62,27 +86,32 @@ function Foods() {
       <div className="row" style={ { width: '23.4rem' } }>
         {filterByCategory !== undefined ? (
           filterByCategory.map((item, index) => (
-            <div
-              data-testid={ `${index}-recipe-card` }
+            <Link
+              to={ `/comidas/${item.idMeal}` }
               key={ item.strMeal }
+              onClick={ () => console.log(item.idMeal) }
               className="card col-6"
               style={ { width: '8rem' } }
             >
-              <img
-                data-testid={ `${index}-card-img` }
-                className="card-img-top"
-                src={ item.strMealThumb }
-                alt="Imagem de capa do card"
-              />
-              <div className="card-body">
-                <p
-                  data-testid={ `${index}-card-name` }
-                  className="card-text"
-                >
-                  { item.strMeal }
-                </p>
+              <div
+                data-testid={ `${index}-recipe-card` }
+              >
+                <img
+                  data-testid={ `${index}-card-img` }
+                  className="card-img-top"
+                  src={ item.strMealThumb }
+                  alt="Imagem de capa do card"
+                />
+                <div className="card-body">
+                  <p
+                    data-testid={ `${index}-card-name` }
+                    className="card-text"
+                  >
+                    { item.strMeal }
+                  </p>
+                </div>
               </div>
-            </div>
+            </Link>
           )).slice(zero, maxMeals)
         ) : (
           []
