@@ -5,9 +5,9 @@
   flex-direction: column;
   font-family: sans-serif;
   justify-content: center;
-  width: 100%;
   margin-bottom: 40px;
   margin-top: 57px;
+  width: 100%;
 }
 
 button {
