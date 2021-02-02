@@ -10,6 +10,7 @@ import {
   GET_MEALS_BY_INGREDIENT,
   GET_DRINKS_BY_INGREDIENT,
   GET_AREAS_SUCCESS,
+  GET_BY_AREA,
 } from '../actions/mainpage';
 
 const INITIAL_STATE = {
@@ -24,6 +25,7 @@ const INITIAL_STATE = {
   mealsByIngredients: [],
   drinksByIngredients: [],
   areaList: [],
+  filteredByArea: [],
 };
 
 function mainpage(state = INITIAL_STATE, action) {
@@ -53,6 +55,8 @@ function mainpage(state = INITIAL_STATE, action) {
     return { ...state, drinksByIngredients: action.drinks, isLoading: false };
   case GET_AREAS_SUCCESS:
     return { ...state, areaList: action.meals, isLoading: false };
+  case GET_BY_AREA:
+    return { ...state, filteredByArea: action.meals, isLoading: false };
   default:
     return state;
   }

@@ -41,6 +41,10 @@ export const GET_AREAS_SUCCESS = 'GET_AREAS_SUCCESS';
 export const getAreasSuccess = (meals) => (
   { type: GET_AREAS_SUCCESS, meals });
 
+export const GET_BY_AREA = 'GET_BY_AREA';
+export const getByAreaSuccess = (meals) => (
+  { type: GET_BY_AREA, meals });
+
 export function fetchCards(isMeal) {
   return async (dispatch) => {
     if (isMeal) {
@@ -55,7 +59,7 @@ export function fetchCards(isMeal) {
       } catch (error) {
         dispatch(requestFail(error));
       }
-    } else {
+    }
       try {
         dispatch(requestStarted());
         const requestCocktails = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
@@ -67,7 +71,6 @@ export function fetchCards(isMeal) {
       } catch (error) {
         dispatch(requestFail(error));
       }
-    }
   };
 }
 
@@ -104,5 +107,13 @@ export function getAreas(api) {
     dispatch(requestStarted());
     const meals = await api();
     dispatch(getAreasSuccess(meals.meals));
+  };
+}
+
+export function fetchByArea(api, filter) {
+  return async (dispatch) => {
+    dispatch(requestStarted());
+    const meals = await api(filter);
+    dispatch(getByAreaSuccess(meals.meals));
   };
 }

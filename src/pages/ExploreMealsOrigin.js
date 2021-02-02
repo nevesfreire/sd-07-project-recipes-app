@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import allActions from '../actions';
-import { areas } from '../services/mealAPI';
+import { areas, mealsByArea } from '../services/mealAPI';
 import { Link } from 'react-router-dom';
 
 function ExploreMealsOrigin() {
   const dispatch = useDispatch();
   const state = useSelector(({ mainpage }) => mainpage);
-  const { meals, isLoading, areaList } = state;
+  const { meals, isLoading, areaList, filteredByArea } = state;
   const [filterOn, setFilterOn] = useState(false);
   const [cardsArray, setCardsArray] = useState([]);
   const [filter, setFilter] = useState('');
@@ -27,15 +27,10 @@ function ExploreMealsOrigin() {
   }, [isLoading]);
 
   useEffect(() => {
-    const fetchFiltered = async () => {
-      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=
-      ${filter}`);
-      const json = await response.json();
-      setCardsArray(json.meals);
-      setFilterOn(true);
-    };
     if (isFetching) {
-      fetchFiltered();
+      dispatch(allActions.fetchByArea(mealsByArea, filter));
+      setCardsArray(filteredByArea);
+      setFilterOn(true);
     }
   }, [filter, isFetching]);
 
@@ -91,7 +86,7 @@ function ExploreMealsOrigin() {
   };
 
   if ( isLoading ) {
-    console.log(areaList)
+    console.log(cardsArray)
     return (
       <h1>Loading...</h1>
     )

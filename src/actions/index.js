@@ -12,6 +12,7 @@ import {
   getMealsByIngredient,
   getDrinksByIngredient,
   getAreas,
+  fetchByArea,
 } from './mainpage';
 
 export default {
@@ -25,4 +26,5 @@ export default {
   getMealsByIngredient,
   getDrinksByIngredient,
   getAreas,
+  fetchByArea,
 };
