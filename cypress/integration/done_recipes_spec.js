@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe.skip('Done recipes screen', () => {
+describe('Done recipes screen', () => {
   const doneRecipes = [
     {
       id: '52771',
@@ -40,7 +40,7 @@ describe.skip('Done recipes screen', () => {
     });
   });
 
-  describe.skip('54 - Implemente os elementos da tela de receitas feitas respeitando os atributos descritos no protótipo', () => {
+  describe('54 - Implemente os elementos da tela de receitas feitas respeitando os atributos descritos no protótipo', () => {
     it('Todos os data-testids estão disponíveis', () => {
       cy.get('[data-testid="filter-by-all-btn"]');
       cy.get('[data-testid="filter-by-food-btn"]');
@@ -51,7 +51,7 @@ describe.skip('Done recipes screen', () => {
       cy.get('[data-testid="0-horizontal-done-date"]');
       cy.get('[data-testid="0-horizontal-share-btn"]');
       cy.get('[data-testid="0-Pasta-horizontal-tag"]');
-      cy.get('[data-testid="0-Curry-horizontal-tag"]');
+      cy.get('[data-testid="1-Curry-horizontal-tag"]');
       cy.get('[data-testid="1-horizontal-image"]');
       cy.get('[data-testid="1-horizontal-top-text"]');
       cy.get('[data-testid="1-horizontal-name"]');

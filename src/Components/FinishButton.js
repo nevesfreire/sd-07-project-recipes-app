@@ -34,7 +34,7 @@ function FinishButton(props) {
           name: strMeal,
           image: strMealThumb,
           doneDate: new Date(),
-          tags: strTags || '',
+          tags: strTags.split(',') || '',
         },
       ]));
       setFinnished(true);

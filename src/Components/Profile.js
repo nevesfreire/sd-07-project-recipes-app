@@ -10,7 +10,7 @@ function Profile() {
       const { email } = JSON.parse(profileEmail);
       setUserEmail(email);
     }
-  }, [  ]);
+  }, []);
 
   const clearLocalStorage = () => {
     window.localStorage.clear();
