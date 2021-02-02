@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import MealRecipes from '../components/MealRecipes';
-import '../css/food.css';
 import MealsCategoryFilter from '../components/MealsCategoryFilter';
+import '../css/recipe.css';
 
 class Food extends Component {
   render() {

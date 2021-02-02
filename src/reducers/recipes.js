@@ -1,7 +1,7 @@
 import { ERROR, RECEIVED_RECIPES } from '../actions';
 
 const INITIAL_STATE = {
-  recipes: [],
+  recipes: {},
   error: '',
 };
 

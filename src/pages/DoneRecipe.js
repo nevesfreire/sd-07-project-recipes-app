@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../css/food.css';
 import shareIcon from '../images/shareIcon.svg';
+import '../css/recipe.css';
 
 class DoneRecipe extends Component {
   render() {

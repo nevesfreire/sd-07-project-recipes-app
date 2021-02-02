@@ -2,62 +2,96 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { fetchRecipes } from '../actions';
-import '../css/food.css';
+import { fetchRecipes, fetchCategories } from '../actions';
+import Loading from './Loading';
+import '../css/recipe.css';
 
 class MealRecipes extends Component {
+  constructor(props) {
+    super(props);
+    this.fetchRecipesByCategory = this.fetchRecipesByCategory.bind(this);
+    this.state = {
+      recipesByCategory: {},
+    };
+  }
+
   componentDidMount() {
-    const { requestRecipes, endPoint } = this.props;
+    const { requestRecipes, requestCategories, endPoint } = this.props;
+    requestCategories('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
     requestRecipes(endPoint);
   }
 
+  componentDidUpdate(prevProps) {
+    const { selectedCategory } = this.props;
+    if (selectedCategory !== prevProps.selectedCategory && selectedCategory !== 'All') {
+      this.fetchRecipesByCategory();
+    }
+  }
+
+  async fetchRecipesByCategory() {
+    const { selectedCategory } = this.props;
+    const URL = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${selectedCategory}`;
+    const response = await fetch(URL);
+    const data = await response.json();
+    this.setState({ recipesByCategory: data });
+  }
+
   render() {
-    const { getRecipes } = this.props;
+    const { getRecipes, selectedCategory } = this.props;
+    const { recipesByCategory } = this.state;
+
     const MEAL_LENGTH = 12;
-    // if (getRecipes.meals) {
-    //   if (getRecipes.meals.length === 1) {
-    //     return (<Redirect to={`/comidas/${getRecipes.meals[0].idMeal}`} />)
-    //   }
-    // }
     if (getRecipes.meals === null) {
       return alert(
         'Sinto muito, não encontramos nenhuma receita para esses filtros.',
       );
     }
     if (getRecipes.meals) {
-      const filterArray = getRecipes.meals.filter(
-        (_meal, index) => index < MEAL_LENGTH,
-      );
+      let filterArray = [];
+      if (recipesByCategory.meals && (selectedCategory !== 'All')) {
+        filterArray = recipesByCategory.meals
+          .filter((_meal, index) => index < MEAL_LENGTH);
+      } else filterArray = getRecipes.meals.filter((_meal, index) => index < MEAL_LENGTH);
+
       return (
-        <div>
+        <div className="main-recipes-categories">
           {filterArray.map((meal, index) => (
-            <Link
-              to={ `/comidas/${meal.idMeal}` }
-              key={ meal.idMeal }
+            <div
+              key={ meal.strMeal }
+              data-testid={ `${index}-recipe-card` }
+              className="recipes-categories"
             >
-              <div key={ meal.strMeal } data-testid={ `${index}-recipe-card` }>
+              <Link
+                to={ `/comidas/${meal.idMeal}` }
+                key={ meal.idMeal }
+                className="link-categories"
+              >
                 <img
+                  data-testid={ `${index}-card-img` }
                   src={ meal.strMealThumb }
                   alt={ meal.strMeal }
-                  data-testid={ `${index}-card-img` }
                 />
                 <h1 data-testid={ `${index}-card-name` }>{ meal.strMeal }</h1>
-              </div>
-            </Link>
+              </Link>
+            </div>
           ))}
         </div>
       );
     }
-    return <div>Loading...</div>;
+    return (
+      <Loading />
+    );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
   requestRecipes: (endPoint) => dispatch(fetchRecipes(endPoint)),
+  requestCategories: (endPoint) => dispatch(fetchCategories(endPoint)),
 });
 
-const mapStateToProps = ({ recipesReducer }) => ({
+const mapStateToProps = ({ recipesReducer, categoriesReducer }) => ({
   getRecipes: recipesReducer.recipes,
+  selectedCategory: categoriesReducer.selectedCategory,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MealRecipes);
@@ -65,5 +99,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(MealRecipes);
 MealRecipes.propTypes = {
   endPoint: PropTypes.string.isRequired,
   requestRecipes: PropTypes.func.isRequired,
-  getRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  getRecipes: PropTypes.shape({
+    meals: PropTypes.arrayOf(PropTypes.object),
+  }).isRequired,
+  getCategories: PropTypes.shape({
+    meals: PropTypes.arrayOf(PropTypes.object),
+  }).isRequired,
+  requestCategories: PropTypes.func.isRequired,
+  selectedCategory: PropTypes.string.isRequired,
 };

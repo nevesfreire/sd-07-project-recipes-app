@@ -1,0 +1,160 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  text-align: center;
+  width: 100%;
+}
+
+:checked + label {
+  text-decoration: line-through;
+}
+
+.main-container {
+  align-items: center;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  padding-bottom: 50px;
+}
+
+.main-image {
+  width: 100%;
+}
+
+.title-container {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  width: 100%;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.title-subcontainer {
+  align-items: flex-start;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  text-align: left;
+  width: 100%;
+}
+
+.title-subcontainer h1 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.title-subcontainer h3 {
+  color: black;
+  text-align: left;
+}
+
+.images-container {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.images-container button {
+  background: rgb(242, 103, 62);
+  border: none;
+  cursor: pointer;
+  margin: 0 10px;
+}
+
+.div-recomendations-children img {
+  border-radius: 20px 20px 0 0;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.images-container button img {
+  filter: invert(100%);
+}
+
+.ingredients-container {
+  margin: 30px 0;
+  width: 100%;
+}
+
+.list-container {
+  background-color: whitesmoke;
+  border-radius: 20px;
+  box-shadow: 3px 3px 10px black;
+  list-style: inside;
+  margin: auto;
+  padding: 20px 30px;
+  text-align: left;
+  width: 70%;
+}
+
+.instructions-container {
+  margin-bottom: 30px;
+}
+
+.instructions-container p {
+  background-color: whitesmoke;
+  box-shadow: 3px 3px 10px black;
+  margin: auto;
+  padding: 20px 30px;
+  text-align: justify;
+  width: 80%;
+}
+
+.recomendations-container {
+  align-items: center;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  margin: 30px 0;
+  width: 100%;
+}
+
+.div-recomendations {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  overflow-x: scroll;
+  padding-bottom: 20px;
+  width: 100%;
+}
+
+.div-recomendations-children {
+  align-items: center;
+  background-color: whitesmoke;
+  border-radius: 20px;
+  box-shadow: 3px 3px 10px black;
+  cursor: pointer;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-around;
+  margin: 0 5vw;
+  text-align: center;
+  width: 40vw;
+}
+
+.div-recomendations-children h6 {
+  color: gray;
+}
+
+.div-recomendations-children h4 {
+  font-weight: 700;
+}
+
+.finish-button-recipe {
+  background: rgb(242, 103, 62);
+  bottom: 0;
+  box-shadow: 3px 3px 10px black;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 700;
+  left: 0;
+  padding: 10px;
+  position: fixed;
+  width: 100%;
+}
