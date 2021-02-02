@@ -1,24 +1,17 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { fetchRecipeDetails } from '../../store/ducks/recipes';
-// import { getRandom } from '../../services/recipeAPI';
 
 const RecipeExploreMore = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const currentPath = location.pathname;
 
-  // const [randomDrinkId, setRandomDrinkId] = useState('');
-  // const [randomMealId, setRandomMealId] = useState('');
+  const randomId = useSelector((state) => state.recipes.detailsRecipe.id);
 
   useEffect(() => {
     dispatch(fetchRecipeDetails(currentPath));
-    // getRandom('bebidas')
-    //   .then((response) => setRandomDrinkId(response[0].id));
-
-    // getRandom('comidas')
-    //   .then((response) => setRandomMealId(response[0].id));
   }, [dispatch, currentPath]);
 
   if (currentPath.includes('bebidas')) {
@@ -30,7 +23,7 @@ const RecipeExploreMore = () => {
             Por Ingredientes
           </button>
         </Link>
-        <Link to={ `/bebidas/${randomDrinkId}` }>
+        <Link to={ `/bebidas/${randomId}` }>
           <button type="button" data-testid="explore-surprise">
             Me Surpreenda!
           </button>
@@ -51,7 +44,7 @@ const RecipeExploreMore = () => {
             Por Local de Origem
           </button>
         </Link>
-        <Link to={ `/comidas/${randomMealId}` }>
+        <Link to={ `/comidas/${randomId}` }>
           <button type="button" data-testid="explore-surprise">
             Me Surpreenda!
           </button>

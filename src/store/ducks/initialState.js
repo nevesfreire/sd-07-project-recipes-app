@@ -14,7 +14,7 @@ const INITIAL_STATE = {
       meals: {},
     },
     detailsRecipe: {
-
+      id: 0,
     },
     isFetching: false,
     data: [],

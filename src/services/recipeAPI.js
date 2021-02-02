@@ -92,8 +92,8 @@ export const getRandom = async (type) => {
   const response = await fetch(GET_RANDOM_URL);
   const result = await response.json();
   return type.includes('comidas')
-    ? mapShortMealAndDrinkToRecipe(result.meals)
-    : mapShortMealAndDrinkToRecipe(result.drinks);
+    ? mapMealAndDrinkToRecipe(result.meals)
+    : mapMealAndDrinkToRecipe(result.drinks);
 };
 
 export const getIngredientList = async (type) => {
