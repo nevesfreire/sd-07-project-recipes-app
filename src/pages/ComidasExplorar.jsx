@@ -1,5 +1,5 @@
 import React from 'react';
-import MenuInferior from '../components/MenuInferior';
+import MenuInferior from './Components/MenuInferior';
 
 function ComidasExplorar() {
   return (
