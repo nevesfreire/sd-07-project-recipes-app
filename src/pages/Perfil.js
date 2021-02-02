@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Header from '../components/header/Header';
+import Header2 from '../components/header/Header2';
 
 export default class Perfil extends React.Component {
   constructor() {
@@ -40,7 +40,7 @@ export default class Perfil extends React.Component {
   render() {
     return (
       <div>
-        <Header title="Perfil" />
+        <Header2 title="Perfil" />
         <div data-testid="profile-email">{this.getEmail()}</div>
         <button
           type="button"
