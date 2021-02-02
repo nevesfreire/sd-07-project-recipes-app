@@ -6,16 +6,42 @@ import { Context } from '../../context/Provider';
 import Card from '../../components/Card';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import Categories from '../../components/Categories';
+import fetchApi from '../../services/api';
 
 function Recipes({ history, search = false }) {
   const [slicedResults, setSlicedResults] = useState([]);
-  const { setApi, results, isFetching, setIsFetching } = useContext(Context);
+  const [category, setCategory] = useState('all');
+  const {
+    api,
+    setApi,
+    results,
+    setResults,
+    isFetching,
+    setIsFetching,
+  } = useContext(Context);
   const { pathname } = history.location;
 
   useEffect(() => {
     if (pathname.includes('bebidas')) setApi('drinks');
     else setApi('meal');
   }, [pathname, setApi]);
+
+  useEffect(() => {
+    if (api === '') return;
+    const firstFetch = async () => {
+      let data = [];
+      if (category === 'all') {
+        data = await fetchApi(undefined, 'firstFetch', api);
+      } else {
+        data = await fetchApi(category, 'categories', api);
+      }
+      if (!data) return;
+      setResults(data);
+      setIsFetching(true);
+    };
+    firstFetch();
+  }, [api, setIsFetching, setResults, category]);
 
   useEffect(() => {
     if (!isFetching) return;
@@ -29,10 +55,11 @@ function Recipes({ history, search = false }) {
       window.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
   }, [isFetching, results, setIsFetching]);
-
+  console.log(slicedResults);
   return (
     <>
       <Header history={ history } search={ search } />
+      <Categories category={ category } setCategory={ setCategory } />
       {slicedResults.map((res, index) => {
         const card = {
           id: res.idMeal || res.idDrink,
