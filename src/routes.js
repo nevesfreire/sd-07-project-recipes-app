@@ -8,6 +8,8 @@ import {
   Login,
   DrinkDetails,
   FoodDetails,
+  DoneRecipes,
+  FavoriteRecipes,
 } from './pages';
 
 const Routes = () => (
@@ -18,6 +20,8 @@ const Routes = () => (
       <Route path="/comidas/:id" component={ FoodDetails } />
       <Route exact path="/bebidas" component={ Drink } />
       <Route path="/bebidas/:id" component={ DrinkDetails } />
+      <Route path="/receitas-feitas" component={ DoneRecipes } />
+      <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
       <Route path="/explorar" component={ Explore } />
       <Route path="/perfil" component={ Perfil } />
     </Switch>
