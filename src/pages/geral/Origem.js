@@ -107,6 +107,7 @@ class Origem extends Component {
       <div>
         <Header
           title="Explorar Origem"
+          searchOn="on"
           history={ history }
           match={ match }
         />
