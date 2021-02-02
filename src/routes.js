@@ -10,6 +10,8 @@ import {
   FoodDetails,
   DrinkProgress,
   FoodProgress,
+  DrinkExplore,
+  FoodExplore,
 } from './pages';
 
 const Routes = () => (
@@ -18,11 +20,13 @@ const Routes = () => (
       <Route exact path="/" component={ Login } />
       <Route exact path="/comidas" component={ Food } />
       <Route exact path="/bebidas" component={ Drink } />
+      <Route exact path="/explorar" component={ Explore } />
       <Route exact path="/comidas/:id" component={ FoodDetails } />
       <Route exact path="/bebidas/:id" component={ DrinkDetails } />
+      <Route path="/explorar/comidas" component={ FoodExplore } />
+      <Route path="/explorar/bebidas" component={ DrinkExplore } />
       <Route path="/comidas/:id/in-progress" component={ FoodProgress } />
       <Route path="/bebidas/:id/in-progress" component={ DrinkProgress } />
-      <Route path="/explorar" component={ Explore } />
       <Route path="/perfil" component={ Perfil } />
     </Switch>
   </Router>
