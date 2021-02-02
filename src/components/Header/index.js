@@ -1,14 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { profileIcon } from '../../images/index';
 import SearchBar from '../SearchBar';
 
-function Header({ title }) {
+function Header(props) {
+  const [propsState] = useState(props);
+
+  const { title, showSearchBar } = propsState;
+
   return (
     <header>
       <nav>
-        <Link className="profile" to="/perfil">
+        <Link to="/perfil">
           <img
             data-testid="profile-top-btn"
             src={ profileIcon }
@@ -17,19 +20,13 @@ function Header({ title }) {
         </Link>
         <h1
           data-testid="page-title"
-          className="title"
         >
           { title }
         </h1>
-        {
-          (title === 'Comidas' || title === 'Explorar Origem' || title === 'Bebidas')
-          && <SearchBar title={ title } />
-        }
+        { showSearchBar && <SearchBar /> }
       </nav>
     </header>
   );
 }
-
-Header.propTypes = { title: PropTypes.string.isRequired };
 
 export default Header;
