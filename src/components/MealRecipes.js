@@ -3,51 +3,73 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { fetchRecipes, fetchCategories } from '../actions';
-import MealsCategoryFilter from './MealsCategoryFilter';
+// import MealsCategoryFilter from './MealsCategoryFilter';
 import Loading from './Loading';
 import '../css/recipe.css';
 
 class MealRecipes extends Component {
+  constructor(props) {
+    super(props);
+    this.fetchRecipesByCategory = this.fetchRecipesByCategory.bind(this);
+    this.state = {
+      recipesByCategory: {},
+    };
+  }
+
   componentDidMount() {
     const { requestRecipes, requestCategories, endPoint } = this.props;
     requestCategories('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
     requestRecipes(endPoint);
   }
 
+  componentDidUpdate(prevProps) {
+    const { selectedCategory } = this.props;
+    if (selectedCategory !== prevProps.selectedCategory) this.fetchRecipesByCategory();
+  }
+
+  async fetchRecipesByCategory() {
+    const { selectedCategory } = this.props;
+    const URL = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${selectedCategory}`;
+    const response = await fetch(URL);
+    const data = await response.json();
+    console.log(data);
+    this.setState({ recipesByCategory: data });
+  }
+
   render() {
-    const { getRecipes, getCategories } = this.props;
+    const { getRecipes } = this.props;
+    const { recipesByCategory } = this.state;
+
     const MEAL_LENGTH = 12;
     if (getRecipes.meals === null) {
       return alert(
         'Sinto muito, não encontramos nenhuma receita para esses filtros.',
       );
     }
-    if (getRecipes.meals && getCategories.meals) {
-      const filterArray = getRecipes.meals.filter((_meal, index) => index < MEAL_LENGTH);
+    if (getRecipes.meals) {
+      let filterArray = [];
+      if (recipesByCategory.meals) {
+        filterArray = recipesByCategory.meals
+          .filter((_meal, index) => index < MEAL_LENGTH);
+      } else filterArray = getRecipes.meals.filter((_meal, index) => index < MEAL_LENGTH);
+
       return (
         <div>
-          <MealsCategoryFilter />
-          <div className="main-recipes-categories">
-            {filterArray.map((meal, index) => (
-              <div
-                key={ meal.idMeal }
-                data-testid={ `${index}-recipe-card` }
-                className="recipes-categories"
-              >
-                <Link
-                  to={ `/comidas/${meal.idMeal}` }
-                  className="link-categories"
-                >
-                  <img
-                    src={ meal.strMealThumb }
-                    alt={ meal.strMeal }
-                    data-testid={ `${index}-card-img` }
-                  />
-                  <h1 data-testid={ `${index}-card-name` }>{ meal.strMeal }</h1>
-                </Link>
+          {filterArray.map((meal, index) => (
+            <Link
+              to={ `/comidas/${meal.idMeal}` }
+              key={ meal.idMeal }
+            >
+              <div key={ meal.strMeal } data-testid={ `${index}-recipe-card` }>
+                <img
+                  data-testid={ `${index}-card-img` }
+                  src={ meal.strMealThumb }
+                  alt={ meal.strMeal }
+                />
+                <h1 data-testid={ `${index}-card-name` }>{ meal.strMeal }</h1>
               </div>
-            ))}
-          </div>
+            </Link>
+          ))}
         </div>
       );
     }
@@ -62,9 +84,9 @@ const mapDispatchToProps = (dispatch) => ({
   requestCategories: (endPoint) => dispatch(fetchCategories(endPoint)),
 });
 
-const mapStateToProps = ({ recipesReducer, categories }) => ({
+const mapStateToProps = ({ recipesReducer, categoriesReducer }) => ({
   getRecipes: recipesReducer.recipes,
-  getCategories: categories.categories,
+  selectedCategory: categoriesReducer.selectedCategory,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MealRecipes);
@@ -79,4 +101,5 @@ MealRecipes.propTypes = {
     meals: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
   requestCategories: PropTypes.func.isRequired,
+  selectedCategory: PropTypes.string.isRequired,
 };

@@ -4,30 +4,58 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { fetchRecipes, fetchCategories } from '../actions';
 import Loading from './Loading';
-import DrinksCategoryFilter from './DrinksCategoryFilter';
 import '../css/recipe.css';
 
 class DrinksRecipes extends Component {
+  constructor(props) {
+    super(props);
+    this.fetchRecipesByCategory = this.fetchRecipesByCategory.bind(this);
+    this.state = {
+      recipesByCategory: {},
+    };
+  }
+
   componentDidMount() {
     const { requestRecipes, requestCategories, endPoint } = this.props;
     requestCategories('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
     requestRecipes(endPoint);
   }
 
+  componentDidUpdate(prevProps) {
+    const { selectedCategory } = this.props;
+    if (selectedCategory !== prevProps.selectedCategory) this.fetchRecipesByCategory();
+  }
+
+  async fetchRecipesByCategory() {
+    const { selectedCategory } = this.props;
+    const URL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${selectedCategory}`;
+    const response = await fetch(URL);
+    const data = await response.json();
+    console.log(data);
+    this.setState({ recipesByCategory: data });
+  }
+
   render() {
-    const { getRecipes, getCategories } = this.props;
+    const { getRecipes } = this.props;
+    const { recipesByCategory } = this.state;
+
     const DRINK_LENGTH = 12;
     if (getRecipes.drinks === null) {
       return (alert(
         'Sinto muito, não encontramos nenhuma receita para esses filtros.',
       ));
     }
-    if (getRecipes.drinks && getCategories.drinks) {
-      const filterArray = getRecipes.drinks
-        .filter((_drink, index) => index < DRINK_LENGTH);
+    if (getRecipes.drinks) {
+      let filterArray = [];
+      if (recipesByCategory.drinks) {
+        filterArray = recipesByCategory.drinks
+          .filter((_drink, index) => index < DRINK_LENGTH);
+      } else {
+        filterArray = getRecipes.drinks
+          .filter((_drink, index) => index < DRINK_LENGTH);
+      }
       return (
         <div>
-          <DrinksCategoryFilter />
           <div className="main-recipes-categories">
             {filterArray.map((drink, index) => (
               <div
@@ -63,9 +91,9 @@ const mapDispatchToProps = (dispatch) => ({
   requestCategories: (endPoint) => dispatch(fetchCategories(endPoint)),
 });
 
-const mapStateToProps = ({ recipesReducer, categories }) => ({
+const mapStateToProps = ({ recipesReducer, categoriesReducer }) => ({
   getRecipes: recipesReducer.recipes,
-  getCategories: categories.categories,
+  selectedCategory: categoriesReducer.selectedCategory,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DrinksRecipes);
@@ -73,6 +101,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(DrinksRecipes);
 DrinksRecipes.propTypes = {
   endPoint: PropTypes.string.isRequired,
   requestRecipes: PropTypes.func.isRequired,
+  selectedCategory: PropTypes.string.isRequired,
   getRecipes: PropTypes.shape({
     drinks: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
