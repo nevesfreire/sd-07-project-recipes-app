@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router';
-import Header from '../../Components/Header';
 import '../../App.css';
 import ProgressScreen from '../../Components/ProgressScreen';
 
