@@ -22,7 +22,7 @@
 .details-header-title {
   display: flex;
   font-size: 30px;
-  margin: 0;  
+  margin: 0;
 }
 
 .details-header-buttons {
@@ -30,9 +30,9 @@
 }
 
 .details-header-footer {
-  color: rgb(169, 169, 169);
+  color: darkgray;
   font-size: 21px;
+  margin: 0;
   padding: 0;
   padding-left: 10px;
-  margin: 0;
 }
