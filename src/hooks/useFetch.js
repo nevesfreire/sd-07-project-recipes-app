@@ -1,5 +1,4 @@
 import { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
 import RecipeContext from '../Context/Context';
 
 function useFetch() {
@@ -11,7 +10,6 @@ function useFetch() {
     setCategoriesDrinks,
     setDetailsRecipe,
   } = useContext(RecipeContext);
-  const history = useHistory();
 
   async function foodFetch(searchWord, type) {
     const um = 1;
@@ -105,13 +103,11 @@ function useFetch() {
     if (type === 'comidas') {
       const results = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
         .then((response) => response.json());
-        console.log('results', results)
       await setDetailsRecipe(results);
     }
     if (type === 'bebidas') {
       const results = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
         .then((response) => response.json());
-        console.log('results', results)
       await setDetailsRecipe(results);
     }
   }

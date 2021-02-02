@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import RecipeContext from '../Context/Context';
 import useFetch from '../hooks/useFetch';
+import RecomandationCard from '../components/RecomandationCard';
 
 function DetailsMeal() {
   const { detailsRecipe } = useContext(RecipeContext);
@@ -21,11 +22,15 @@ function DetailsMeal() {
     return (<div>Loading...</div>);
   }
 
-  const { idMeal, strArea, strCategory,
-    strMeal, strMealThumb, strTags, strYoutube, strInstructions} = detailsRecipe.meals[0];
+  const { strCategory,
+    strMeal,
+    strMealThumb,
+    strYoutube,
+    strInstructions,
+  } = detailsRecipe.meals[0];
 
   const allRecipe = Object.entries(detailsRecipe.meals[0]);
-  console.log('allrceipes', detailsRecipe.meals[0])
+  console.log('allrceipes', detailsRecipe.meals[0]);
   const ingredients = allRecipe.filter(
     (ingredient) => (ingredient[0].includes('strIngredient') && ingredient[1] !== ''),
   );
@@ -53,9 +58,10 @@ function DetailsMeal() {
       <p data-testid="instructions">{strInstructions}</p>
       <video data-testid="video" width="100">
         <source src={ strYoutube } type="video/mp4" />
+        <track default kind="captions" srcLang="en" src={ strYoutube } />
       </video>
-      {/* <div data-testid={`${index}-recomendation-card`}>CARD Receitas recomendadas</div> */}
-      <button data-testid="start-recipe-btn">Iniciar receita</button>
+      <RecomandationCard />
+      <button type="button" data-testid="start-recipe-btn">Iniciar receita</button>
     </div>
   );
 }

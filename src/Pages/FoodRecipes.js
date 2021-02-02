@@ -6,18 +6,16 @@ import useFetch from '../hooks/useFetch';
 import RecipeContext from '../Context/Context';
 import FooterMenu from '../components/FooterMenu';
 import Categories from '../components/Categories';
-import DetailsPage from '../Pages/DetailsPage'
 
 function FoodRecipes() {
   const { foodFetch, randomFoodFetch, foodCategories } = useFetch();
-  const { recipes, categoriesFood, typeAndIdDetails, setTypeAndIdDetails } = useContext(RecipeContext);
+  const { recipes, categoriesFood, setTypeAndIdDetails } = useContext(RecipeContext);
   const um = 1;
-
 
   function handleRoutes() {
     const zero = 0;
     const doze = 12;
-    return recipes.meals && recipes.meals.slice(zero, doze).map((meal, index) => <Card
+    return recipes.meals && recipes.meals.slice(zero, doze).map((meal, index) => (<Card
       data-testid={ `${index}-recipe-card` }
       key={ meal.idMeal }
       name={ meal.strMeal }
@@ -25,20 +23,20 @@ function FoodRecipes() {
       index={ index }
       type="comidas"
       id={ meal.idMeal }
-    />);
+    />));
   }
 
-  const url = document.URL
-  console.log('url', url)
+  const url = document.URL;
+  console.log('url', url);
 
   function handleDatails() {
     setTypeAndIdDetails({
-      type: "comidas",
+      type: 'comidas',
       id: recipes.meals[0].idMeal,
-    })
+    });
     return (
-    <Redirect to={ `/comidas/${recipes.meals[0].idMeal}` } />
-    )
+      <Redirect to={ `/comidas/${recipes.meals[0].idMeal}` } />
+    );
   }
 
   useEffect(() => {
@@ -51,8 +49,8 @@ function FoodRecipes() {
       <Header title="Comidas" explore funcFetch={ foodFetch } />
       <Categories list={ categoriesFood } type="meals" />
       {recipes.meals && !recipes.type && recipes.meals.length === um
-      ? handleDatails()
-      : handleRoutes()}
+        ? handleDatails()
+        : handleRoutes()}
       <FooterMenu />
     </div>
   );

@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import useFetch from '../hooks/useFetch';
 import RecipeContext from '../Context/Context';
 
 function Card({ name, thumb, index, id, type }) {

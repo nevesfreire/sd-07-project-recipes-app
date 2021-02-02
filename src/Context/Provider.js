@@ -7,8 +7,7 @@ function RecipeProvider({ children }) {
   const [categoriesFood, setCategoriesFood] = useState([]);
   const [categoriesDrinks, setCategoriesDrinks] = useState([]);
   const [detailsRecipe, setDetailsRecipe] = useState([]);
-  const [typeAndIdDetails, setTypeAndIdDetails] = useState({})
-
+  const [typeAndIdDetails, setTypeAndIdDetails] = useState({});
 
   const context = {
     recipes,
@@ -20,7 +19,7 @@ function RecipeProvider({ children }) {
     detailsRecipe,
     setDetailsRecipe,
     typeAndIdDetails,
-    setTypeAndIdDetails
+    setTypeAndIdDetails,
   };
 
   return (

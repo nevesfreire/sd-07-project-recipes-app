@@ -27,12 +27,12 @@ function DrinksRecipes() {
 
   function handleDatails() {
     setTypeAndIdDetails({
-      type: "bebidas",
+      type: 'bebidas',
       id: recipes.drinks[0].idDrink,
-    })
+    });
     return (
-    <Redirect to={ `/bebidas/${recipes.drinks[0].idDrink}` } />
-    )
+      <Redirect to={ `/bebidas/${recipes.drinks[0].idDrink}` } />
+    );
   }
 
   useEffect(() => {
