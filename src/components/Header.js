@@ -8,13 +8,14 @@ import { setToggle } from '../actions/actionSearchToggle';
 import ProfileIcon from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
+import CategoriesBar from './CategoriesBar';
 
 function Header({ title, toggle, toggleAction }) {
   return (
     <header>
       <div>
-        <Link to="/perfil" data-testid="profile-top-btn">
-          <img src={ ProfileIcon } alt="perfil" />
+        <Link to="/perfil">
+          <img data-testid="profile-top-btn" src={ ProfileIcon } alt="perfil" />
         </Link>
       </div>
       <div>
@@ -22,16 +23,18 @@ function Header({ title, toggle, toggleAction }) {
           { title }
         </h1>
       </div>
-      <div>
-        <button
-          type="button"
-          data-testid="search-top-btn"
-          onClick={ () => toggleAction(!toggle) }
-        >
-          <img src={ SearchIcon } alt="search" />
-        </button>
-      </div>
+      {!title.includes('Explorar') && (
+        <div>
+          <button
+            type="button"
+            onClick={ () => toggleAction(!toggle) }
+          >
+            <img data-testid="search-top-btn" src={ SearchIcon } alt="search" />
+          </button>
+        </div>
+      )}
       <SearchBar title={ title } />
+      <CategoriesBar title={ title } />
     </header>
   );
 }

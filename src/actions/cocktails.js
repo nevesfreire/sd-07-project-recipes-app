@@ -3,18 +3,32 @@ import {
   getCocktailsByIngredient,
   getCocktailsByName,
   getRandomCocktails,
+  getCocktailsByCategory,
+  getCocktailsCategories,
 } from '../services/cocktailsAPI';
 
 export const REQUEST_COCKTAILS = 'REQUEST_COCKTAILS';
 export const REQUEST_COCKTAILS_SUCCESS = 'REQUEST_COCKTAILS_SUCCESS';
 export const REQUEST_COCKTAILS_FAILURE = 'REQUEST_COCKTAILS_FAILURE ';
 
-const requestCocktails = () => ({ type: 'REQUEST_COCKTAILS' });
+export const REQUEST_COCKTAILS_CATEGORIES = 'REQUEST_COCKTAILS_CATEGORIES';
+export const COCKTAILS_CATEGORIES_SUCCESS = 'COCKTAILS_CATEGORIES_SUCCESS';
+export const COCKTAILS_CATEGORIES_FAILURE = 'COCKTAILS_CATEGORIES_FAILURE';
+
+const requestCocktails = () => ({ type: REQUEST_COCKTAILS });
 
 const setCocktailsSuccess = (cocktails) => (
-  { type: 'REQUEST_COCKTAILS_SUCCESS', cocktails });
+  { type: REQUEST_COCKTAILS_SUCCESS, cocktails });
 
-const setCocktailsFailure = (error) => ({ type: 'REQUEST_COCKTAILS_FAILURE', error });
+const setCocktailsFailure = (error) => ({ type: REQUEST_COCKTAILS_FAILURE, error });
+
+const requestCocktailsCategories = () => ({ type: REQUEST_COCKTAILS_CATEGORIES });
+
+const setCocktailsCategoriesSuccess = (cocktails) => (
+  { type: COCKTAILS_CATEGORIES_SUCCESS, cocktails });
+
+const setCocktailsCategoriesFailure = (error) => (
+  { type: COCKTAILS_CATEGORIES_FAILURE, error });
 
 export const fetchCocktailsByIngredient = (i) => (dispatch) => {
   dispatch(requestCocktails());
@@ -42,4 +56,18 @@ export const fetchRandomCocktails = () => (dispatch) => {
   return getRandomCocktails()
     .then((response) => dispatch(setCocktailsSuccess(response)))
     .catch((error) => dispatch(setCocktailsFailure(error)));
+};
+
+export const fetchCocktailsByCategory = (category) => (dispatch) => {
+  dispatch(requestCocktails());
+  return getCocktailsByCategory(category)
+    .then((response) => dispatch(setCocktailsSuccess(response)))
+    .catch((error) => dispatch(setCocktailsFailure(error)));
+};
+
+export const fetchCocktailsCategories = () => (dispatch) => {
+  dispatch(requestCocktailsCategories());
+  return getCocktailsCategories()
+    .then((response) => dispatch(setCocktailsCategoriesSuccess(response)))
+    .catch((error) => dispatch(setCocktailsCategoriesFailure(error)));
 };

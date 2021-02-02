@@ -5,6 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Explorer from './pages/Explorer';
+import Meals from './pages/Meals';
 import MealRecipeDetails from './pages/MealRecipeDetails';
 import CocktailRecipeDetails from './pages/CocktailRecipeDetails';
 import MealsExplorer from './pages/MealsExplorer';
@@ -17,8 +18,10 @@ function App() {
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
-      <Route exact path="/profile" component={ Profile } />
+      <Route exact path="/perfil" component={ Profile } />
       <Route exact path="/explorar" component={ Explorer } />
+      <Route exact path="/comidas" component={ Meals } />
+      <Route exact path="/comidas/:id" component={ MealRecipeDetails } />
       <Route path="/comidas/52771" component={ MealRecipeDetails } />
       <Route path="/bebidas/178319" component={ CocktailRecipeDetails } />
       <Route exact path="/explorar/comidas" component={ MealsExplorer } />

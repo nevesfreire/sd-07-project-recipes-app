@@ -7,7 +7,7 @@ class Explorer extends Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header title="Explorar" />
 
         <Link to="/explorar/comidas">
           <button
