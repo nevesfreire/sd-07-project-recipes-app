@@ -101,4 +101,3 @@ export {
   fetchArea,
   fetchIngredients,
 };
-// Finish

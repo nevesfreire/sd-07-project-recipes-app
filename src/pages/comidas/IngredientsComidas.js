@@ -29,7 +29,6 @@ class IngredientesComidas extends Component {
   }
 
   async fetchRecipes(ingredent) {
-    // ingredent = ingredent.replace(/ /g, '_');
     const { loadrecipesingredent, history } = this.props;
     await loadrecipesingredent(ingredent, 'comidas');
     history.push('/comidas');
