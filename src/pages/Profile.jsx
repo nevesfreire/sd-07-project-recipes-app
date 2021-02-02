@@ -15,11 +15,16 @@ function Profile() {
 
   const profileElements = () => {
     let email = JSON.parse(localStorage.getItem('user'));
-    if (email === undefined) email = 'E-mail não informado!';
+    if (email === null) email = 'E-mail não informado!';
 
     return (
       <div className="profile-buttons">
-        <h3 className="email-perfil" data-testid="profile-email">{ email }</h3>
+        <h3
+          className="email-perfil"
+          data-testid="profile-email"
+        >
+          {email === 'E-mail não informado!' ? email : email.email}
+        </h3>
         <Link
           to="/receitas-feitas"
           onClick={ () => setHeaderName(titleHeaderNames.receitasfeitas) }
