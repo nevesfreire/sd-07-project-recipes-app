@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Container, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { sendDrinkRecipes, sendMealRecipes } from '../redux/actions';
 import { apiTheMealDB, apiTheCocktailDB } from '../services';
 import { Header, Footer, RecipesCards, Loading } from '../components';
 
@@ -29,6 +32,18 @@ class Ingredientes extends React.Component {
     }
   }
 
+  async saveToRedux(item, type) {
+    const { sendMealRecipesDispatch, sendDrinkRecipesDispatch } = this.props;
+    if (type === 'comidas') {
+      const response = await apiTheMealDB(`filter.php?i=${item.strIngredient}`);
+      sendMealRecipesDispatch(response.meals);
+    }
+    if (type === 'bebidas') {
+      const response = await apiTheCocktailDB(`filter.php?i=${item.strIngredient1}`);
+      sendDrinkRecipesDispatch(response.drinks);
+    }
+  }
+
   render() {
     const { location: { pathname } } = this.props;
     const { data } = this.state;
@@ -39,24 +54,35 @@ class Ingredientes extends React.Component {
           {pathname === '/explorar/comidas/ingredientes' && (
             <Row>
               {data ? data.map((item, index) => (
-                <RecipesCards
+                <Link
+                  to="/comidas"
                   key={ index }
-                  recipe={ item }
-                  search="ingredientsMeals"
-                  index={ index }
-                />
+                  onClick={ () => this.saveToRedux(item, 'comidas') }
+                >
+                  <RecipesCards
+                    recipe={ item }
+                    search="ingredientsMeals"
+                    index={ index }
+                  />
+                </Link>
               )) : <Loading />}
             </Row>
           )}
           {pathname === '/explorar/bebidas/ingredientes' && (
             <Row>
               {data ? data.map((item, index) => (
-                <RecipesCards
+                <Link
+                  to="/bebidas"
                   key={ index }
-                  recipe={ item }
-                  search="ingredientsDrinks"
-                  index={ index }
-                />
+                  onClick={ () => this.saveToRedux(item, 'bebidas') }
+                >
+                  <RecipesCards
+                    onClick={ () => this.saveToRedux(item, 'bebidas') }
+                    recipe={ item }
+                    search="ingredientsDrinks"
+                    index={ index }
+                  />
+                </Link>
               )) : <Loading />}
             </Row>
           )}
@@ -66,8 +92,16 @@ class Ingredientes extends React.Component {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  sendMealRecipesDispatch: (e) => dispatch(sendMealRecipes(e)),
+  sendDrinkRecipesDispatch: (e) => dispatch(sendDrinkRecipes(e)),
+});
+
 Ingredientes.propTypes = {
   location: PropTypes.shape({ pathname: PropTypes.func.isRequired }).isRequired,
+  sendMealRecipesDispatch: PropTypes.func.isRequired,
+  sendDrinkRecipesDispatch: PropTypes.func.isRequired,
 };
 
-export default Ingredientes;
+export default connect(null, mapDispatchToProps)(Ingredientes);
