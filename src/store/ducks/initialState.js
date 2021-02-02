@@ -12,4 +12,10 @@ export default {
     meals: '',
     // Estados referentes a receitas de comidas
   },
+  exploreDrinks: {
+    drinks: '',
+  },
+  exploreFoods: {
+    meals: '',
+  },
 };
