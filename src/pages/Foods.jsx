@@ -40,9 +40,11 @@ class Foods extends Component {
 
   async handleCategories() {
     const { meals } = await getAllFoodCategories();
-    this.setState({
-      mealsCategories: Object.values(meals),
-    });
+    if (meals) {
+      this.setState({
+        mealsCategories: Object.values(meals),
+      });
+    }
   }
 
   handleRecipes() {
