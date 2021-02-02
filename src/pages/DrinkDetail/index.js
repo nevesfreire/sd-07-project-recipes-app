@@ -47,7 +47,7 @@ export default function FoodDetail() {
 
   useEffect(() => {
     async function fetchMeal() {
-      const response = await getDrinks('lookupIngredient', drinkId);
+      const response = await getDrinks('ID', drinkId);
       setData(response.drinks[0]);
     }
     fetchMeal();
