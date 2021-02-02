@@ -11,3 +11,4 @@ export { default as CustomDetailsButton } from './CustomDetailsButton';
 export { default as CustomDetailsIngredients } from './CustomDetailsIngredients';
 export { default as CustomButtonShare } from './CustomButtonShare';
 export { default as CustomButtonFavorite } from './CustomButtonFavorite';
+export { default as CustomDropdown } from './CustomDropdown';

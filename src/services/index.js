@@ -15,3 +15,8 @@ export {
   getIngredientsFood,
 } from './foodApi';
 export { getStorage, setStorage } from './localStorage';
+
+export {
+  getArea,
+  getAllOrigin,
+} from './areaApi';
