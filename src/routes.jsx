@@ -16,6 +16,7 @@ import BebidasIngredientes from './Pages/DrinksIngredientsPage';
 import ComidaArea from './Pages/FoodAreaPage';
 import ReceitaFeitas from './Pages/ RecipesMadePage';
 import ReceitaFavorita from './Pages/RecipesFavoritesPage';
+import NotFound from './Pages/NotFoundPage';
 
 const Routes = () => (
   <BrowserRouter>
@@ -52,6 +53,7 @@ const Routes = () => (
       <Route exact path="/explorar/comidas/area" component={ ComidaArea } />
       <Route exact path="/receitas-feitas" component={ ReceitaFeitas } />
       <Route exact path="/receitas-favoritas" component={ ReceitaFavorita } />
+      <Route component={ NotFound } />
     </Switch>
   </BrowserRouter>
 );

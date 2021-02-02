@@ -5,6 +5,9 @@ const initialState = {
   search: {
     categoryFilterDrinks: '',
     categoryFilterMeals: '',
+    searchingFilter: false,
+    searchParam: '',
+    searchType: 's',
   },
   mealsData: [],
   cocktailsData: [],

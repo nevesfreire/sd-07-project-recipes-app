@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router';
 import { fetchAllRecipes } from '../../API/apiMeals';
 import { fetchAllCocktails } from '../../API/apiCocktails';
 import RecipeContext from '../../Context/RecipeContext';
@@ -10,22 +11,51 @@ const MainScreen = (props) => {
   const { page } = props;
   const { dispatch } = useContext(RecipeContext);
   const {
-    state: { mealsData, cocktailsData },
+    state: {
+      mealsData,
+      cocktailsData,
+      search: { searchingFilter, searchType, searchParam },
+    },
   } = useContext(RecipeContext);
+
   const {
-    state: { search: { categoryFilterDrinks, categoryFilterMeals } },
+    state: {
+      search: { categoryFilterDrinks, categoryFilterMeals },
+    },
   } = useContext(RecipeContext);
 
   useEffect(() => {
-    fetchAllRecipes('', categoryFilterMeals).then((arrayLimit) => dispatch({
-      type: 'SET_MEALS',
-      data: arrayLimit,
-    }));
-    fetchAllCocktails('', categoryFilterDrinks).then((arrayLimit) => dispatch({
-      type: 'SET_COCKTAILS',
-      data: arrayLimit,
-    }));
-  }, [dispatch, categoryFilterDrinks, categoryFilterMeals]);
+    fetchAllRecipes(searchParam, categoryFilterMeals, searchType).then(
+      (arrayLimit) => dispatch({
+        type: 'SET_MEALS',
+        data: arrayLimit,
+      }),
+    );
+    fetchAllCocktails(searchParam, categoryFilterDrinks, searchType).then(
+      (arrayLimit) => dispatch({
+        type: 'SET_COCKTAILS',
+        data: arrayLimit,
+      }),
+    );
+  }, [
+    dispatch,
+    categoryFilterDrinks,
+    categoryFilterMeals,
+    searchType,
+    searchParam,
+  ]);
+
+  const checkRedirect = (name, arr, id) => {
+    const ZERO = 0;
+    if (searchingFilter && arr.length === ZERO) {
+      // eslint-disable-next-line no-alert
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
+    const unique = 1;
+    if (arr.length === unique && searchingFilter) {
+      return <Redirect to={ `${name}/${arr[0][id]}` } />;
+    }
+  };
 
   const mealsDoc = () => (
     <div>
@@ -39,6 +69,7 @@ const MainScreen = (props) => {
           thumb={ strMealThumb }
         />
       ))}
+      {checkRedirect('comidas', mealsData, 'idMeal')}
     </div>
   );
 
@@ -54,6 +85,7 @@ const MainScreen = (props) => {
           thumb={ strDrinkThumb }
         />
       ))}
+      {checkRedirect('bebidas', cocktailsData, 'idDrink')}
     </div>
   );
 

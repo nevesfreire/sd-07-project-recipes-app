@@ -1,19 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import '../../App.css';
 import profileicon from '../../images/profileIcon.svg';
 import searchicon from '../../images/searchIcon.svg';
+import Searcher from '../Searcher';
 
 const userName = 'User';
 const Header = (props) => {
   const { title } = props;
   const history = useHistory();
   const { location } = history;
+  const [searchBar, setSearchBar] = useState(false);
 
   const isHeader = () => (
     <div className="search">
-      <img src={ searchicon } alt="serchIcon" data-testid="search-top-btn" />
+      <button type="button" onClick={ () => setSearchBar(!searchBar) }>
+        <img src={ searchicon } alt="serchIcon" data-testid="search-top-btn" />
+      </button>
     </div>
   );
 
@@ -35,7 +39,11 @@ const Header = (props) => {
       </div>
       {location.pathname === '/comidas'
       || location.pathname === '/bebidas'
-      || location.pathname === '/explorar/comidas/area' ? isHeader() : null}
+      || location.pathname === '/explorar/comidas/area'
+        ? isHeader()
+        : null}
+
+      {searchBar && <Searcher />}
     </div>
   );
 };
