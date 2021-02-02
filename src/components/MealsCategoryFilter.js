@@ -41,6 +41,14 @@ class MealsCategoryFilter extends Component {
               { meal.strCategory }
             </button>
           ))}
+          <button
+            type="button"
+            value="All"
+            onClick={ this.handleClick }
+            data-testid="All-category-filter"
+          >
+            All
+          </button>
         </div>
       );
     }
