@@ -1,10 +1,10 @@
 .form-wrapper {
+  align-items: center;
   background-color: white;
   border-radius: 16px;
-  padding: 200px 40px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  padding: 200px 40px;
 }
 
 .form-login {
@@ -41,7 +41,7 @@
   color: rgb(115, 122, 139);
 }
 
-.login-svg{
+.login-svg {
   margin-bottom: 50px;
   width: 70vw;
 }
