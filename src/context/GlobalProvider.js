@@ -12,6 +12,7 @@ export default function GlobalProvider({ children }) {
   const [renderButtonExplore, setRenderButtonExplore] = useState('comidas');
   const [randomRecipeDetail, setRandomRecipeDetail] = useState({});
   const [idRandom, setIdRamdom] = useState('');
+  const [emailLocalStorage, setEmailLocalStorage] = useState({});
   const {
     initialState: { email, password },
     initialFoods: { dataFoods, foodCategories },
@@ -48,9 +49,16 @@ export default function GlobalProvider({ children }) {
     }
   }, [renderButtonExplore]);
 
+  const getStorage = useCallback((key) => JSON.parse(localStorage.getItem(key)), []);
+  const clearStorage = () => localStorage.clear();
+
   return (
     <GlobalContext.Provider
       value={ {
+        getStorage,
+        clearStorage,
+        emailLocalStorage,
+        setEmailLocalStorage,
         redirect,
         title,
         setTitle,
