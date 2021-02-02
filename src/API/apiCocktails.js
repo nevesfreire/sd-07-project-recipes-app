@@ -45,8 +45,9 @@ export const singleCocktail = async (idCocktail) => {
   const resolve = await fetch(URL);
 
   const resolveJson = await resolve.json();
-  const tags = resolveJson.drinks[0].strTags.split(',');
-  console.log(tags);
+  const tags = resolveJson.drinks[0].strTags === null
+    ? []
+    : resolveJson.drinks[0].strTags.split(',');
   const objectModel = {
     idRecipe: resolveJson.drinks[0].idDrink,
     nameRecipe: resolveJson.drinks[0].strDrink,

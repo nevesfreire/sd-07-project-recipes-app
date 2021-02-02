@@ -41,7 +41,9 @@ export const singleMeal = async (idMeal) => {
   const resolve = await fetch(URL);
 
   const resolveJson = await resolve.json();
-  const tags = resolveJson.meals[0].strTags.split(',');
+  const tags = resolveJson.meals[0].strTags === null
+    ? []
+    : resolveJson.meals[0].strTags.split(',');
   const objectModel = {
     idRecipe: resolveJson.meals[0].idMeal,
     nameRecipe: resolveJson.meals[0].strMeal,
@@ -71,7 +73,9 @@ export const singleMeal = async (idMeal) => {
   objectModel.ingredients = arrayIngredients
     .slice(start, SIZE)
     .map((elem) => [elem[1], false]);
-  objectModel.measurements = arrayMeasurements.slice(start, SIZE).map((elem) => elem[1]);
+  objectModel.measurements = arrayMeasurements
+    .slice(start, SIZE)
+    .map((elem) => elem[1]);
   objectModel.quantityIngredients = SIZE;
 
   return objectModel;
