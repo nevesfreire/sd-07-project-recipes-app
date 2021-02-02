@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { getRandom } from '../../services/recipeAPI';
 
-function ExploreMore() {
+const ExploreMore = () => {
   const location = useLocation();
   const currentPath = location.pathname;
 
@@ -20,7 +20,7 @@ function ExploreMore() {
   if (currentPath.includes('bebidas')) {
     return (
       <div>
-        <h2>Drinks</h2>
+        <h2>Bebida</h2>
         <Link to="/explorar/bebidas/ingredientes">
           <button type="button" data-testid="explore-by-ingredient">
             Por Ingredientes
@@ -36,7 +36,7 @@ function ExploreMore() {
   } if (currentPath.includes('comidas')) {
     return (
       <div>
-        <h2>Food</h2>
+        <h2>Comida</h2>
         <Link to="/explorar/comidas/ingredientes">
           <button type="button" data-testid="explore-by-ingredient">
             Por Ingredientes
@@ -55,6 +55,6 @@ function ExploreMore() {
       </div>
     );
   }
-}
+};
 
 export default ExploreMore;

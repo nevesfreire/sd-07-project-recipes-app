@@ -10,7 +10,7 @@ const END_POINT_SEARCH = '/search.php?s=';
 const END_POINT_SEARCH_BY_FIRST_LETTER = '/search.php?f=';
 const END_POINT_CATEGORY_LIST = '/list.php?c=list';
 const END_POINT_RANDOM = '/random.php';
-// const END_POINT_INGREDIENT_LIST = '/list.php?i=list';
+const END_POINT_INGREDIENT_LIST = '/list.php?i=list';
 // const END_POINT_AREA_LIST = '/list.php?a=list';
 
 const END_POINT_FILTER = 'filter.php?';
@@ -94,4 +94,15 @@ export const getRandom = async (type) => {
   return type.includes('comidas')
     ? mapShortMealAndDrinkToRecipe(result.meals)
     : mapShortMealAndDrinkToRecipe(result.drinks);
+};
+
+export const getIngredientList = async (type) => {
+  const GET_INGREDIENTS_URL = (type.includes('comidas')
+    ? BASE_MEAL_URL : BASE_COCKTAIL_URL) + END_POINT_INGREDIENT_LIST;
+  const response = await fetch(GET_INGREDIENTS_URL);
+  const result = await response.json();
+  return result;
+  // return type.includes('comidas')
+  //   ? mapShortMealAndDrinkToRecipe(result.meals)
+  //   : mapShortMealAndDrinkToRecipe(result.drinks);
 };
