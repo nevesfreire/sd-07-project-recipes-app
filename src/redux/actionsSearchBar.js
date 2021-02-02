@@ -4,8 +4,6 @@ export const toggleSearchBar = (toggle) => ({
   type: SHOW_HIDE_SEARCHBAR,
   toggle,
 });
-<<<<<<< HEAD
-=======
 
 export const SHOW_HIDE_CARD_FOOD = 'SHOW_HIDE_CARD_FOOD';
 
@@ -20,4 +18,3 @@ export const toggleCardDrink = (toggleDrink) => ({
   type: SHOW_HIDE_CARD_DRINK,
   toggleDrink,
 });
->>>>>>> main-group-1
