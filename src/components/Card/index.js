@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 function Card({
@@ -11,8 +11,17 @@ function Card({
   index,
   pathname,
 }) {
+  const [shouldRedirect, setShouldRedirect] = useState(false);
+  if (shouldRedirect) {
+    return <Redirect to={ `${pathname}/${id}` } />;
+  }
+
   return (
-    <article data-testid={ `${index}-recipe-card` }>
+    <button
+      type="button"
+      data-testid={ `${index}-recipe-card` }
+      onClick={ () => setShouldRedirect(true) }
+    >
       <header>
         <img
           data-testid={ `${index}-card-img` }
@@ -24,10 +33,7 @@ function Card({
       <main>
         <p data-testid={ `${index}-card-name` }>{name}</p>
       </main>
-      <Link to={ `${pathname}/${id}` }>
-        Detalhes
-      </Link>
-    </article>
+    </button>
   );
 }
 
