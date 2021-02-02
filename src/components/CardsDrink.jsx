@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import CoffeeAndCodeContext from '../context/CoffeeAndCodeContext';
 import { requestApiDrinkFilterName } from '../services/requestDrink';
 
-function CardsFood() {
+function CardsDrink() {
   const maxCardAmount = 12;
   const firstCard = 0;
   const [cardAmount, setCardAmount] = useState(maxCardAmount);
@@ -37,7 +37,7 @@ function CardsFood() {
                 key={ idDrink }
                 data-testid={ `${index}-recipe-card` }
               >
-                <Link to={ `/comidas/${idDrink}` }>
+                <Link to={ `/bebidas/${idDrink}` }>
                   <img
                     src={ strDrinkThumb }
                     alt={ strDrink }
@@ -45,7 +45,7 @@ function CardsFood() {
                   />
                 </Link>
                 <div>
-                  <Link to={ `/comidas/${idDrink}` }>
+                  <Link to={ `/bebidas/${idDrink}` }>
                     <h4 data-testid={ `${index}-card-name` }>{ strDrink }</h4>
                   </Link>
                 </div>
@@ -64,4 +64,4 @@ function CardsFood() {
   );
 }
 
-export default CardsFood;
+export default CardsDrink;
