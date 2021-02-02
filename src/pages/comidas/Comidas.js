@@ -17,6 +17,7 @@ class Comidas extends Component {
     this.searchCategory = this.searchCategory.bind(this);
     this.conditionalRender = this.conditionalRender.bind(this);
     this.allCategories = this.allCategories.bind(this);
+    this.detailRecipe = this.detailRecipe.bind(this);
   }
 
   componentDidMount() {
@@ -45,12 +46,22 @@ class Comidas extends Component {
     });
   }
 
+  detailRecipe(id) {
+    const { history } = this.props;
+    history.push(`comidas/${id}`);
+  }
+
   showCards(card) {
     return card.map((food, index) => {
       const DOZE = 12;
       if (index < DOZE) {
         return (
-          <div data-testid={ `${index}-recipe-card` } key={ food.idMeal }>
+          <button
+            type="button"
+            data-testid={ `${index}-recipe-card` }
+            key={ food.idMeal }
+            onClick={ () => this.detailRecipe(food.idMeal) }
+          >
             <img
               src={ food.strMealThumb }
               alt="recipe pic"
@@ -58,7 +69,7 @@ class Comidas extends Component {
               width="50%"
             />
             <h4 data-testid={ `${index}-card-name` }>{food.strMeal}</h4>
-          </div>
+          </button>
         );
       }
       return null; // referência: Brenda Lima;
@@ -138,7 +149,9 @@ class Comidas extends Component {
         >
           All
         </button>
-        {this.conditionalRender()}
+        <div>
+          {this.conditionalRender()}
+        </div>
         <Footer />
       </div>
     );

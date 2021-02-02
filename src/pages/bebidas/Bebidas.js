@@ -17,6 +17,7 @@ class Bebidas extends React.Component {
     this.searchCategory = this.searchCategory.bind(this);
     this.conditionalRender = this.conditionalRender.bind(this);
     this.allCategories = this.allCategories.bind(this);
+    this.detailRecipe = this.detailRecipe.bind(this);
   }
 
   componentDidMount() {
@@ -44,12 +45,22 @@ class Bebidas extends React.Component {
     });
   }
 
+  detailRecipe(id) {
+    const { history } = this.props;
+    history.push(`bebidas/${id}`);
+  }
+
   showCards(cards) {
     return cards.map((drink, index) => {
       const DOZE = 12;
       if (index < DOZE) {
         return (
-          <div data-testid={ `${index}-recipe-card` } key={ drink.idDrink }>
+          <button
+            type="button"
+            data-testid={ `${index}-recipe-card` }
+            key={ drink.idDrink }
+            onClick={ () => this.detailRecipe(drink.idDrink) }
+          >
             <img
               src={ drink.strDrinkThumb }
               alt="recipe pic"
@@ -57,7 +68,7 @@ class Bebidas extends React.Component {
               width="50%"
             />
             <h4 data-testid={ `${index}-card-name` }>{drink.strDrink}</h4>
-          </div>
+          </button>
         );
       }
       return null; // referência: Brenda Lima;
@@ -137,7 +148,9 @@ class Bebidas extends React.Component {
         >
           All
         </button>
-        {this.conditionalRender()}
+        <div>
+          {this.conditionalRender()}
+        </div>
         <Footer />
       </div>
     );
