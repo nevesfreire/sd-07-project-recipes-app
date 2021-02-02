@@ -16,13 +16,6 @@ function ExplorerFoodIngredients(props) {
   }, []);
 
   const renderTwelveElements = (array, path) => {
-    // if (array === null) {
-    //   return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-    // }
-    // if (array.length === 1) {
-    //   return <Redirect to={ `/comidas/${array[0].idMeal}` } />;
-    // }
-    // const eleven = 11;
     const initialarray = [...array];
     initialarray.length = 12;
     const finalArray = initialarray
