@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import MenuInferior from '../components/MenuInferior';
 
-
 function Profile() {
   const eraseLocalStorage = () => {
     localStorage.clear();
@@ -11,9 +10,9 @@ function Profile() {
   const profileItems = () => {
     const { email } = JSON.parse(localStorage.getItem('user'));
     return (
-    <div>
-      <Header title="Profile" />
-      <h4 data-testid="profile-email">{ email }</h4>
+      <div>
+        <Header title="Profile" />
+        <h4 data-testid="profile-email">{ email }</h4>
         <Link to="/receitas-feitas">
           <button
             type="button"
@@ -39,7 +38,7 @@ function Profile() {
           Sair
           </button>
         </Link>
-        <MenuInferior />
+      <MenuInferior />
       </div>
     );
   };
