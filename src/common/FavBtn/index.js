@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import favImgON from '../../images/whiteHeartIcon.svg';
 import favImgOFF from '../../images/blackHeartIcon.svg';
@@ -51,7 +52,28 @@ export default function FavBtn({ mainData, type }) {
         } else setFavRecipe(true);
       } }
     >
-      <img data-testid="favorite-btn" src={ favRecipe ? favImgON : favImgOFF } alt="compartilhar" />
+      <img
+        data-testid="favorite-btn"
+        src={ favRecipe ? favImgON : favImgOFF }
+        alt="compartilhar"
+      />
     </button>
   );
 }
+
+FavBtn.propTypes = {
+  type: PropTypes.string.isRequired,
+  mainData: PropTypes.shape({
+    idDrink: PropTypes.string,
+    strCategory: PropTypes.string,
+    strAlcoholic: PropTypes.string,
+    strDrink: PropTypes.string,
+    strDrinkThumb: PropTypes.string,
+    idMeal: PropTypes.string,
+    type: PropTypes.string,
+    strArea: PropTypes.string,
+    strMeal: PropTypes.string,
+    strMealThumb: PropTypes.string,
+    alcoholicOrNot: PropTypes.string,
+  }).isRequired,
+};

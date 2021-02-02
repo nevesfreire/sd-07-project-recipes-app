@@ -23,12 +23,24 @@ const BebidaDetails = () => {
     };
     getData();
   }, [id]);
+  const seis = 6;
+  const zero = 0;
 
   if (mainData) {
-    const { strDrinkThumb, strDrink, strAlcoholic, strCategory, strInstructions } = mainData;
+    const { strDrinkThumb,
+      strDrink,
+      strAlcoholic,
+      strCategory,
+      strInstructions } = mainData;
     const ingredients = Object.keys(mainData).filter((e) => e.includes('strIngredient'));
     const measures = Object.keys(mainData).filter((e) => e.includes('strMeasure'));
-    const recomendations = recomen.map((e) => e.strMeal).slice(0, 6);
+    const recomendations = recomen.map((e) => e.strMeal).slice(zero, seis);
+
+    const mapOl = (e, i) => (
+      <li data-testid={ `${i}-ingredient-name-and-measure` } key={ i }>
+        {mainData[e]}
+      </li>);
+
     return (
       <div>
         <img
@@ -53,10 +65,10 @@ const BebidaDetails = () => {
         <p data-testid="instructions">{strInstructions}</p>
         <h2>Ingredientes:</h2>
         <ol>
-          {ingredients.map((e, i) => <li data-testid={ `${i}-ingredient-name-and-measure` } key={ i }>{mainData[e]}</li>)}
+          {ingredients.map((e, i) => mapOl(e, i))}
         </ol>
         <ol>
-          {measures.map((e, i) => <li data-testid={ `${i}-ingredient-name-and-measure` } key={ i }>{mainData[e]}</li>)}
+          {measures.map((e, i) => mapOl(e, i))}
         </ol>
         <iframe
           title="video"
@@ -65,7 +77,8 @@ const BebidaDetails = () => {
           height="315"
           src="https://www.youtube.com/embed/vaZb1MnFBgA"
           frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allow="accelerometer;
+          autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         />
         <button

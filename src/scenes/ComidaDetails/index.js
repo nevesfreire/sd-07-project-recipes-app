@@ -4,9 +4,6 @@ import copy from 'clipboard-copy';
 import { mealById, mealRecomendations } from '../../services/API';
 import './style.css';
 import shareImg from '../../images/shareIcon.svg';
-import favImgON from '../../images/whiteHeartIcon.svg';
-import favImgOFF from '../../images/blackHeartIcon.svg';
-import { toggleFav, checkFav } from '../../services/saveLocal';
 import FavBtn from '../../common/FavBtn';
 
 const ComidaDetails = () => {
@@ -15,12 +12,8 @@ const ComidaDetails = () => {
   const [recomen, setRecomen] = useState([]);
   const [copyOK, setCopyOK] = useState(false);
   const { id } = useParams();
-  const [favRecipe, setFavRecipe] = useState(true);
-
-  useEffect(() => {
-    setFavRecipe(checkFav(id));
-  }, [id]);
-
+  const seis = 6;
+  const zero = 0;
   useEffect(() => {
     const getData = async () => {
       const data = await mealById(id);
@@ -32,11 +25,16 @@ const ComidaDetails = () => {
     getData();
   }, [id]);
 
+  const mapOl = (e, i) => (
+    <li data-testid={ `${i}-ingredient-name-and-measure` } key={ i }>
+      {mainData[e]}
+    </li>);
+
   if (mainData) {
     const { strMealThumb, strMeal, strCategory, strInstructions } = mainData;
     const ingredients = Object.keys(mainData).filter((e) => e.includes('strIngredient'));
     const measures = Object.keys(mainData).filter((e) => e.includes('strMeasure'));
-    const recomendations = recomen.map((e) => e.strDrink).slice(0, 6);
+    const recomendations = recomen.map((e) => e.strDrink).slice(zero, seis);
     return (
       <div>
         <img
@@ -60,10 +58,10 @@ const ComidaDetails = () => {
         <p data-testid="instructions">{strInstructions}</p>
         <h2>Ingredientes:</h2>
         <ol>
-          {ingredients.map((e, i) => <li data-testid={ `${i}-ingredient-name-and-measure` } key={ i }>{mainData[e]}</li>)}
+          {ingredients.map((e, i) => mapOl(e, i))}
         </ol>
         <ol>
-          {measures.map((e, i) => <li data-testid={ `${i}-ingredient-name-and-measure` } key={ i }>{mainData[e]}</li>)}
+          {measures.map((e, i) => mapOl(e, i))}
         </ol>
         <iframe
           title="video"
@@ -72,7 +70,8 @@ const ComidaDetails = () => {
           height="315"
           src="https://www.youtube.com/embed/vaZb1MnFBgA"
           frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allow="accelerometer;
+          autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         />
         <button

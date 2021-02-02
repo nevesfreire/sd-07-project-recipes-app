@@ -1,3 +1,6 @@
+const urlFetch = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+const urlFetch2 = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+
 const getCategories = async () => {
   const categories = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list')
     .then((data) => data.json());
@@ -20,7 +23,7 @@ const searchByIngredient = async (ingredient) => {
 
 const mealRecomendations = async () => {
   console.log('rodando mealRecomendations');
-  const data = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
+  const data = await fetch(urlFetch)
     .then((dataJson) => dataJson.json())
     .catch((err) => console.log(err));
   return data;
@@ -44,7 +47,7 @@ const drinkById = async (ID) => {
 
 const drinkRecomendations = async () => {
   console.log('rodando drinkRecomendations');
-  const data = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
+  const data = await fetch(urlFetch2)
     .then((dataJson) => dataJson.json())
     .catch((err) => console.log(err));
   return data;
@@ -52,8 +55,8 @@ const drinkRecomendations = async () => {
 
 const searchByName = async (name) => {
   const path = window.location.pathname;
-  let url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-  if (path === '/bebidas') url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+  let url = urlFetch2;
+  if (path === '/bebidas') url = urlFetch;
 
   console.log('rodando searchByName');
   const data = await fetch(`${url}${name}`)
@@ -97,7 +100,7 @@ const searchGeneral = async ({ text, option }) => {
 };
 
 const getMeals = async () => {
-  const endPoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  const endPoint = urlFetch2;
   let response = {};
   try {
     response = await fetch(endPoint);
@@ -108,7 +111,7 @@ const getMeals = async () => {
 };
 
 const getDrinks = async () => {
-  const endPoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+  const endPoint = urlFetch;
   let response = {};
   try {
     response = await fetch(endPoint);
