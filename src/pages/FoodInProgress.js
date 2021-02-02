@@ -22,7 +22,6 @@ class FoodDetails extends Component {
       meal: [],
       ingredients: [],
       measurement: [],
-      hashYoutube: '',
       request: true,
       favorite: false,
     };
@@ -62,7 +61,6 @@ class FoodDetails extends Component {
       meal: filterRecipe,
       ingredients,
       measurement,
-      hashYoutube: filterRecipe.strYoutube.split('=')[1],
       request: false,
     });
   }
@@ -98,10 +96,11 @@ class FoodDetails extends Component {
   }
 
   render() {
-    const { match: { params: { id } }, recomendations, history } = this.props;
-    const { meal, hashYoutube, ingredients, favorite, measurement } = this.state;
+    const { recomendations, history } = this.props;
+    const { meal, ingredients, favorite, measurement } = this.state;
     const { strMealThumb, strMeal, strCategory, strInstructions } = meal;
     if (!recomendations.drinks) return <Loading />;
+
     return (
       <div className="main-container">
         <img
@@ -168,6 +167,7 @@ class FoodDetails extends Component {
           <h1>Instruções</h1>
           <p data-testid="instructions">{strInstructions}</p>
         </div>
+
         <div className="finish-button-container">
           <button
             type="button"
