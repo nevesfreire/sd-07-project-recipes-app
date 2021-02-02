@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { getMealsDetailsById } from '../services/mealsAPI';
 import shareIcon from '../images/shareIcon.svg';
 import favIconEnabled from '../images/blackHeartIcon.svg';
 import favIconDisabled from '../images/whiteHeartIcon.svg';
@@ -10,9 +12,16 @@ class MealRecipeDetails extends Component {
 
     this.state = {
       favorite: false,
+      meals: '',
+      isLoading: true,
     };
 
     this.handleFavoriteButton = this.handleFavoriteButton.bind(this);
+    this.fetchAPI = this.fetchAPI.bind(this);
+  }
+
+  componentDidMount() {
+    this.fetchAPI();
   }
 
   handleFavoriteButton() {
@@ -27,12 +36,51 @@ class MealRecipeDetails extends Component {
     });
   }
 
+  async fetchAPI() {
+    const { match: { params: { id } } } = this.props;
+    const results = await getMealsDetailsById(id);
+    this.setState({
+      meals: results,
+      isLoading: false,
+    });
+  }
+
   render() {
-    const { favorite } = this.state;
+    const { meals, isLoading, favorite } = this.state;
+    if (isLoading) {
+      return <p>Loading...</p>;
+    }
+
+    const {
+      strMealThumb,
+      strMeal,
+      strCategory,
+      strIngredient1,
+      strMeasure1,
+      strIngredient2,
+      strMeasure2,
+      strIngredient3,
+      strMeasure3,
+      strIngredient4,
+      strMeasure4,
+      strIngredient5,
+      strMeasure5,
+      strIngredient6,
+      strMeasure6,
+      strIngredient7,
+      strMeasure7,
+      strIngredient8,
+      strMeasure8,
+      strInstructions,
+      strYoutube,
+    } = meals.meals[0];
+
+    const youtubeId = strYoutube.substring(strYoutube.indexOf('=') + 1);
+
     return (
       <div className="recipe-details">
         <img
-          src="https://cdn.pixabay.com/photo/2014/04/22/02/55/pasta-329522__340.jpg"
+          src={ strMealThumb }
           alt=""
           data-testid="recipe-photo"
           className="recipe-photo"
@@ -42,7 +90,7 @@ class MealRecipeDetails extends Component {
             data-testid="recipe-title"
             className="recipe-title"
           >
-            Miojão top!
+            {strMeal}
           </h1>
           <div className="actions">
             <button
@@ -64,6 +112,7 @@ class MealRecipeDetails extends Component {
               <img
                 src={ (favorite) ? favIconEnabled : favIconDisabled }
                 alt="favorite"
+                className="favorite-icon"
               />
             </button>
           </div>
@@ -72,27 +121,49 @@ class MealRecipeDetails extends Component {
           data-testid="recipe-category"
           className="recipe-category"
         >
-          Categoria
+          { strCategory }
         </span>
         <div>
           <h2>Ingredients</h2>
           <ul data-testid="0-ingredient-name-and-measure">
-            <li>1 pacote de miojo</li>
-            <li>1 sache molho de tomate</li>
-            <li>50g parmesão ralado</li>
-            <li>Sal a gosto</li>
+            <li>
+              {`${strIngredient1} ${strMeasure1}`}
+            </li>
+            <li>
+              {`${strIngredient2} ${strMeasure2}`}
+            </li>
+            <li>
+              {`${strIngredient3} ${strMeasure3}`}
+            </li>
+            <li>
+              {`${strIngredient4} ${strMeasure4}`}
+            </li>
+            <li>
+              {`${strIngredient5} ${strMeasure5}`}
+            </li>
+            <li>
+              {`${strIngredient6} ${strMeasure6}`}
+            </li>
+            <li>
+              {`${strIngredient7} ${strMeasure7}`}
+            </li>
+            <li>
+              {`${strIngredient8} ${strMeasure8}`}
+            </li>
           </ul>
         </div>
         <div>
           <h2>Instructions</h2>
-          <p data-testid="instructions">Aprenda a fazer um miojão top!</p>
+          <p data-testid="instructions">{strInstructions}</p>
         </div>
-        <div data-testid="video">
+        <div>
+          <h2>Video</h2>
           <iframe
-            title="Miojão"
-            width="100%"
-            height="350px"
-            src="https://www.youtube.com/embed/CBK3WYUb4ng"
+            data-testid="video"
+            title={ strMeal }
+            width="360"
+            height="202.5"
+            src={ `https://www.youtube.com/embed/${youtubeId}` }
             frameBorder="0"
             allow="accelerometer;
             autoplay;
@@ -143,5 +214,13 @@ class MealRecipeDetails extends Component {
     );
   }
 }
+
+MealRecipeDetails.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+};
 
 export default MealRecipeDetails;

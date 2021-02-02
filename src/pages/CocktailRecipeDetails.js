@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { getCocktailsDetailsById } from '../services/cocktailsAPI';
 import shareIcon from '../images/shareIcon.svg';
 import favIconEnabled from '../images/blackHeartIcon.svg';
 import favIconDisabled from '../images/whiteHeartIcon.svg';
@@ -10,9 +12,16 @@ class CocktailRecipeDetails extends Component {
 
     this.state = {
       favorite: false,
+      cocktails: '',
+      isLoading: true,
     };
 
     this.handleFavoriteButton = this.handleFavoriteButton.bind(this);
+    this.fetchAPI = this.fetchAPI.bind(this);
+  }
+
+  componentDidMount() {
+    this.fetchAPI();
   }
 
   handleFavoriteButton() {
@@ -27,12 +36,40 @@ class CocktailRecipeDetails extends Component {
     });
   }
 
+  async fetchAPI() {
+    const { match: { params: { id } } } = this.props;
+    const results = await getCocktailsDetailsById(id);
+    this.setState({
+      cocktails: results,
+      isLoading: false,
+    });
+  }
+
   render() {
-    const { favorite } = this.state;
+    const { cocktails, isLoading, favorite } = this.state;
+    if (isLoading) {
+      return <p>Loading...</p>;
+    }
+
+    const {
+      strDrink,
+      strDrinkThumb,
+      strCategory,
+      strIngredient1,
+      strMeasure1,
+      strIngredient2,
+      strMeasure2,
+      strIngredient3,
+      strMeasure3,
+      strIngredient4,
+      strMeasure4,
+      strInstructions,
+    } = cocktails.drinks[0];
+
     return (
       <div className="recipe-details">
         <img
-          src="https://cdn.pixabay.com/photo/2020/01/21/11/36/caipirinha-4782694_960_720.jpg"
+          src={ strDrinkThumb }
           alt=""
           data-testid="recipe-photo"
           className="recipe-photo"
@@ -42,7 +79,7 @@ class CocktailRecipeDetails extends Component {
             data-testid="recipe-title"
             className="recipe-title"
           >
-            Caipirinha
+            {strDrink}
           </h1>
           <div className="actions">
             <button
@@ -73,20 +110,28 @@ class CocktailRecipeDetails extends Component {
           data-testid="recipe-category"
           className="recipe-category"
         >
-          Categoria
+          { strCategory }
         </span>
         <div>
           <h2>Ingredients</h2>
           <ul data-testid="0-ingredient-name-and-measure">
-            <li>1 limão</li>
-            <li>100ml cachaça</li>
-            <li>2 colheres de açúcar</li>
-            <li>5 cubos de gelo</li>
+            <li>
+              {`${strIngredient1} ${strMeasure1}`}
+            </li>
+            <li>
+              {`${strIngredient2} ${strMeasure2}`}
+            </li>
+            <li>
+              {`${strIngredient3} ${strMeasure3}`}
+            </li>
+            <li>
+              {`${strIngredient4} ${strMeasure4}`}
+            </li>
           </ul>
         </div>
         <div>
           <h2>Instructions</h2>
-          <p data-testid="instructions">Aprenda a fazer uma caipirinha</p>
+          <p data-testid="instructions">{strInstructions}</p>
         </div>
         <div>
           <h2
@@ -128,5 +173,13 @@ class CocktailRecipeDetails extends Component {
     );
   }
 }
+
+CocktailRecipeDetails.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+};
 
 export default CocktailRecipeDetails;

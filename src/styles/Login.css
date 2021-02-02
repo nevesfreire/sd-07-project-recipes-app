@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Josefin+Sans&display=swap');
+
+button, input {
+  outline: 0px auto -webkit-focus-ring-color;
+  outline-offset: 0px;
+}
+
+.login-page {
+  background-image: url('https://pixabay.com/get/g15c6ba1be95b8e8c501a513323a22e6c7271d1c7bf21ab6adb9890285e881f7224a6329f1c3b064e07fc17d200b6e3c8_640.jpg');
+  box-sizing: border-box ;
+  font-family: Josefin Sans;
+  height: 100vh;
+  width: 100vw;
+}
+
+.login-content {
+  align-items: center;
+  background-color: #252525be;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+}
+
+.form {
+  align-items: center;
+  border: 3px solid #f80;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  min-height: 80%;
+  padding: 20px;
+  width: 80%;
+}
+
+.form-title {
+  color: white;
+  font-family: Berkshire Swash;
+  font-size: 2.5em;
+  text-shadow: 2px 2px 5px #252525;
+}
+
+.logo {
+  max-width: 50%;
+  margin-bottom: 20px;
+}
+
+.form-input {
+  background-color: #252525ab;
+  border: 1px solid #f80;
+  color: white;
+  font-size: .8em;
+  height: 40px;
+  padding: 0 10px;
+  text-shadow: 3px 3px 5px black;
+  width: 90%;
+}
+
+.form-button {
+  background-color: #f80;
+  border: none;
+  color: white;
+  font-family: Josefin Sans;
+  font-weight: 700;
+  height: 40px;
+  text-shadow: 3px 3px 3px #454545;
+  width: 90%;
+}
+
+.form-button:disabled {
+  background-color: #884401;
+  color: #252525;
+}

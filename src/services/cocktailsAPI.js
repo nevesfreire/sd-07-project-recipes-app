@@ -23,3 +23,9 @@ export const getRandomCocktails = () => new Promise((resolve, reject) => {
     .then((response) => resolve(response.data))
     .catch((error) => reject(error));
 });
+
+export const getCocktailsDetailsById = (id) => new Promise((resolve, reject) => {
+  axios.get(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
+    .then((response) => resolve(response.data))
+    .catch((error) => reject(error));
+});

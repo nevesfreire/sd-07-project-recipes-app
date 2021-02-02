@@ -3,6 +3,7 @@ import {
   getMealsByIngredient,
   getMealsByName,
   getRandomMeals,
+  getMealsDetailsById,
 } from '../services/mealsAPI';
 
 export const REQUEST_MEALS = 'REQUEST_MEALS';
@@ -40,6 +41,13 @@ export const fetchMealsByFirstLetter = (firstLetter) => (dispatch) => {
 export const fetchRandomMeals = () => (dispatch) => {
   dispatch(requestMeals());
   return getRandomMeals()
+    .then((response) => dispatch(setMealsSuccess(response)))
+    .catch((error) => dispatch(setMealsFailure(error)));
+};
+
+export const fetchMealsDetailsById = () => (dispatch) => {
+  dispatch(requestMeals());
+  return getMealsDetailsById()
     .then((response) => dispatch(setMealsSuccess(response)))
     .catch((error) => dispatch(setMealsFailure(error)));
 };
