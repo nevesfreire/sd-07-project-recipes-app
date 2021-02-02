@@ -1,8 +1,9 @@
 import React from 'react';
+import CardInProgress from '../components/CardInProgress';
 
 function BebidasProcesso() {
   return (
-    <h1>Bebidas Processo</h1>
+    <CardInProgress />
   );
 }
 
