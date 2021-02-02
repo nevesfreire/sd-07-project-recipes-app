@@ -16,10 +16,11 @@ class TelaPrincipalReceitasComidas extends Component {
     await getCategoriesDispatch();
   }
 
-  handlePagerediRection(item) {
-    const { getDetailedMealDispatch } = this.props;
-    getDetailedMealDispatch(item.idMeal);
-    window.location.replace(`/comidas/${item.idMeal}`);
+  async handlePagerediRection(item) {
+    const { getDetailedMealDispatch, history } = this.props;
+    await getDetailedMealDispatch(item.idMeal);
+    // const { history } = this.props;
+    history.push(`/comidas/${item.idMeal}`);
   }
 
   renderMeals(meals) {
@@ -114,6 +115,9 @@ TelaPrincipalReceitasComidas.propTypes = {
   loadMealsDispatch: PropTypes.func.isRequired,
   getCategoriesDispatch: PropTypes.func.isRequired,
   getDetailedMealDispatch: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
   // categoriesStore: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 

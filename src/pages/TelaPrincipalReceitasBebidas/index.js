@@ -17,9 +17,9 @@ class TelaPrincipalReceitasBebidas extends Component {
   }
 
   handlePagerediRection(item) {
-    const { getDetailedDrinkDispatch } = this.props;
+    const { getDetailedDrinkDispatch, history } = this.props;
     getDetailedDrinkDispatch(item.idDrink);
-    window.location.replace(`/bebidas/${item.idDrink}`);
+    history.push(`/comidas/${item.idDrink}`);
   }
 
   renderCategories(categories) {
@@ -105,6 +105,9 @@ TelaPrincipalReceitasBebidas.propTypes = {
   loadDrinksDispatch: PropTypes.func.isRequired,
   getCategoriesDispatch: PropTypes.func.isRequired,
   getDetailedDrinkDispatch: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default connect(
