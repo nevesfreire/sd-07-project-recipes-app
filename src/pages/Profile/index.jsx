@@ -1,18 +1,35 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Header, Footer } from '../../components';
 
 export default function Profile() {
-  const { email } = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem('user'));
 
   return (
     <div>
       <Header title="Perfil" />
       <h2 data-testid="profile-email">
-        { email }
+        { user ? user.email : '' }
       </h2>
-      <button type="button" data-testid="profile-done-btn">Receitas Feitas</button>
-      <button type="button" data-testid="profile-favorite-btn">Receitas Favoritas</button>
-      <button type="button" data-testid="profile-logout-btn">Sair</button>
+      <Link
+        to="/receitas-feitas"
+        data-testid="profile-done-btn"
+      >
+        Receitas Feitas
+      </Link>
+      <Link
+        to="/receitas-favoritas"
+        data-testid="profile-favorite-btn"
+      >
+        Receitas Favoritas
+      </Link>
+      <Link
+        to="/"
+        data-testid="profile-logout-btn"
+        onClick={ () => localStorage.clear() }
+      >
+        Sair
+      </Link>
       <Footer />
     </div>
   );

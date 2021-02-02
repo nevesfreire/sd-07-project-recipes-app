@@ -43,21 +43,21 @@ describe('Profile screen', () => {
     });
   });
 
-  describe.skip('85 - Redirecione a pessoa usuária que, ao clicar no botão de "Receitas Favoritas", a rota deve mudar para a tela de receitas favoritas', () => {
+  describe('85 - Redirecione a pessoa usuária que, ao clicar no botão de "Receitas Favoritas", a rota deve mudar para a tela de receitas favoritas', () => {
     it('Redireciona para a rota correta', () => {
       cy.get('[data-testid="profile-done-btn"]').click();
       cy.location().should((loc) => expect(loc.pathname).to.eq('/receitas-feitas'));
     });
   });
 
-  describe.skip('86 - Redirecione a pessoa usuária que, ao clicar no botão de "Receitas Feitas", a rota deve mudar para a tela de receitas feitas', () => {
+  describe('86 - Redirecione a pessoa usuária que, ao clicar no botão de "Receitas Feitas", a rota deve mudar para a tela de receitas feitas', () => {
     it('Redireciona para a rota correta', () => {
       cy.get('[data-testid="profile-favorite-btn"]').click();
       cy.location().should((loc) => expect(loc.pathname).to.eq('/receitas-favoritas'));
     });
   });
 
-  describe.skip('87 - Redirecione a pessoa usuária que, ao clicar no botão de "Sair", o `localStorage` deve ser limpo e a rota deve mudar para a tela de login', () => {
+  describe('87 - Redirecione a pessoa usuária que, ao clicar no botão de "Sair", o `localStorage` deve ser limpo e a rota deve mudar para a tela de login', () => {
     it('Limpa todas as chaves da localStorage', () => {
       cy.window().then((win) => {
         expect(win.localStorage.getItem('user')).to.eq('{ "email": "email@mail.com" }');
