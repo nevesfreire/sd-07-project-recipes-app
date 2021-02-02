@@ -103,7 +103,7 @@ class Origem extends Component {
   render() {
     const { history, match } = this.props;
     const { lista, receitas } = this.state;
-    const valorfalso= false;
+    const valorfalso = false;
     return (
       <div>
         <Header
