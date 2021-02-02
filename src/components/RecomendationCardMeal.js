@@ -1,6 +1,8 @@
 import React, { useEffect, useContext, useState } from 'react';
 import useFetch from '../hooks/useFetch';
 import RecipeContext from '../Context/Context';
+import '../css/Recomendation.css'
+
 
 function RecomendationCard() {
   const { detailsRecipe, recomendations } = useContext(RecipeContext);
@@ -8,7 +10,14 @@ function RecomendationCard() {
   const [loadingRecomendation, setLoadingRecomendation] = useState(true);
   const type = Object.keys(detailsRecipe)[0];
   console.log('recomendations', recomendations.drinks);
-  // const recomendationsItens = Object.values(recomendations)[0];
+
+ var settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1
+  };
 
   useEffect(() => {
     recipeRecomendationsAPI(type)
@@ -23,9 +32,11 @@ function RecomendationCard() {
   const seis = 6;
       
   return (
-    <div>
+      <div className="slider">
       {recomendations.drinks.slice(zero, seis).map((recomendation, index) => (
-        <li data-testid={ `${index}-recomendation-card` } key={ index }>{recomendation.strDrink}</li>
+        <ul className="sliderItem" data-testid={ `${index}-recomendation-card` }> 
+          <li data-testid={ `${index}-recomendation-title` } key={ index }>{recomendation.strDrink}<img src={recomendation.strDrinkThumb}/></li>
+        </ul>
       ))}
     </div>
   );

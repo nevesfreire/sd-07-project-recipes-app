@@ -25,7 +25,9 @@ function RecomendationDrinkCard() {
   return (
     <div>
       {recomendations.meals.slice(zero, seis).map((recomendation, index) => (
-        <li data-testid={ `${index}-recomendation-card` } key={ index }>{recomendation.strMeal}</li>
+        <div data-testid={ `${index}-recomendation-card` }>
+          <li data-testid={ `${index}-recomendation-title` } key={ index }>{recomendation.strMeal}</li>
+        </div>
       ))}
     </div>
   );
