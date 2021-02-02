@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-function Login({ history }) {
+function Login(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isDisable, setIsDisable] = useState(true);
@@ -10,6 +10,7 @@ function Login({ history }) {
     const six = 6;
     const regex = /\S+@\S+\.\S+/;
     if (regex.test(email) && password.length > six) setIsDisable(false);
+    else setIsDisable(true);
   };
 
   useEffect(() => {
@@ -20,7 +21,7 @@ function Login({ history }) {
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
     localStorage.setItem('user', JSON.stringify({ email }));
-    history.push('/comidas');
+    props.history.push('/comidas');
   };
 
   return (

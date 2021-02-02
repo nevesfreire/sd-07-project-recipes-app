@@ -3,14 +3,22 @@ import PropTypes from 'prop-types';
 import Slider from 'react-slick';
 import RecipesContext from '../context/recipesContext';
 import { apiFoods } from '../services/Services';
+import {
+  innitialLocalStorage,
+  verifyIdMeals,
+  changeFavorites,
+  handleClick,
+  ingredientsListMeals,
+} from '../services/functions';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-
-const copy = require('clipboard-copy');
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function DetalhesComidas({ match: { params: { id } }, history }) {
   const [detailMeal, setDetailMeal] = useState([]);
   const [copyLink, setCopyLink] = useState(false);
+  const [startRecipe, setStartRecipe] = useState(true);
+  const [isFavorite, setIsFavorite] = useState(false);
   const { fetchDrinks, drinks } = useContext(RecipesContext);
 
   useEffect(() => {
@@ -19,12 +27,14 @@ function DetalhesComidas({ match: { params: { id } }, history }) {
       fetchDrinks();
       setDetailMeal(detailMealResponse);
     };
+    innitialLocalStorage(id);
+    setStartRecipe(verifyIdMeals(id));
     fetchDetailMeal();
+    setIsFavorite(changeFavorites(id));
   }, []);
-  console.log(detailMeal);
 
   const zero = 0;
-
+  const six = 6;
   if (detailMeal.length === zero) return (<h1>Carregando...</h1>);
 
   const {
@@ -33,29 +43,11 @@ function DetalhesComidas({ match: { params: { id } }, history }) {
     strCategory,
     strInstructions,
     strYoutube,
+    strArea,
   } = detailMeal[0];
 
   const detail = detailMeal[0];
 
-  const ingredientsList = () => {
-    const one = 1;
-    const twenty = 20;
-    const list = [];
-    for (let index = one; index <= twenty; index += one) {
-      if (detail[`strIngredient${index}`] !== '') {
-        list.push(
-          <li
-            data-testid={ `${index - one}-ingredient-name-and-measure` }
-            key={ index }
-          >
-            {`${detail[`strIngredient${index}`]} - ${detail[`strMeasure${index}`]}`}
-          </li>,
-        );
-      }
-    }
-    return list;
-  };
-  const six = 6;
   const recomendedDrinks = drinks.slice(zero, six);
 
   const settings = {
@@ -71,11 +63,58 @@ function DetalhesComidas({ match: { params: { id } }, history }) {
 
   function clickStartRecipes() {
     history.push(`/comidas/${id}/in-progress`);
+
+    if (!localStorage.getItem('inProgressRecipes')) {
+      localStorage.setItem('inProgressRecipes', JSON.stringify({}));
+    }
+
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+    const currentRecipe = {
+      ...inProgressRecipes,
+      meals: {
+        ...inProgressRecipes.meals,
+        [id]: [],
+      },
+    };
+
+    localStorage.setItem('inProgressRecipes', JSON.stringify(currentRecipe));
   }
 
-  function handleClick() {
-    setCopyLink(true);
-    copy(`http://localhost:3000${history.location.pathname}`);
+  function continueRecipe() {
+    history.push(`/comidas/${id}/in-progress`);
+  }
+
+  function favoriteRecipes() {
+    const favoritesRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    setIsFavorite(!isFavorite);
+
+    if (!localStorage.getItem('favoriteRecipes')) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    }
+
+    const currentFavoritesRecipes = {
+      id,
+      type: 'comida',
+      area: strArea,
+      category: strCategory,
+      alcoholicOrNot: '',
+      name: strMeal,
+      image: strMealThumb,
+    };
+
+    localStorage.setItem('favoriteRecipes',
+      JSON.stringify([...favoritesRecipes, currentFavoritesRecipes]));
+  }
+
+  function allRecipesFavorite() {
+    setIsFavorite(!isFavorite);
+    const favoriteRecipess = JSON.parse(localStorage.getItem('favoriteRecipes'));
+
+    const newFavorites = favoriteRecipess.filter((favorite) => favorite.id !== id);
+
+    localStorage.setItem('favoriteRecipes',
+      JSON.stringify(newFavorites));
   }
 
   return (
@@ -91,7 +130,7 @@ function DetalhesComidas({ match: { params: { id } }, history }) {
       <button
         data-testid="share-btn"
         type="button"
-        onClick={ handleClick }
+        onClick={ () => setCopyLink(handleClick(history)) }
       >
         <img
           src={ shareIcon }
@@ -102,14 +141,29 @@ function DetalhesComidas({ match: { params: { id } }, history }) {
       <button
         data-testid="favorite-btn"
         type="button"
+        src={ !isFavorite ? whiteHeartIcon : blackHeartIcon }
+        onClick={ !isFavorite ? favoriteRecipes : allRecipesFavorite }
       >
         <img
-          src={ whiteHeartIcon }
+          src={ !isFavorite ? whiteHeartIcon : blackHeartIcon }
           alt="whiteHeart"
         />
       </button>
       <h6><b>Ingredientes</b></h6>
-      <ul>{(ingredientsList())}</ul>
+      <ul>
+        {(ingredientsListMeals(detail))
+          .map(
+            (ingredient, index) => (
+              <li
+                key={ index }
+                data-testid={ `${index}-ingredient-name-and-measure` }
+              >
+                {ingredient}
+              </li>
+            ),
+          )}
+
+      </ul>
       <h6><b>Instructions</b></h6>
       <p data-testid="instructions">{ strInstructions }</p>
       <p data-testid="video">Aqui fica o vídeo do youtube</p>
@@ -140,9 +194,9 @@ function DetalhesComidas({ match: { params: { id } }, history }) {
         type="button"
         className="Recipes__Start__Btn"
         data-testid="start-recipe-btn"
-        onClick={ clickStartRecipes }
+        onClick={ startRecipe ? clickStartRecipes : continueRecipe }
       >
-        Iniciar receita
+        { startRecipe ? 'Iniciar Receita' : 'Continuar Receita'}
       </button>
     </div>
   );

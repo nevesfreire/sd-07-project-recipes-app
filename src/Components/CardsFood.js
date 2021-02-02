@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import RecipesContext from '../context/recipesContext';
+import './cards.css';
 
 function CardsFood() {
   const { foods, fetchFoods } = useContext(RecipesContext);
@@ -9,9 +10,10 @@ function CardsFood() {
   }, []);
 
   return (
-    <div>
+    <div className="Container__Cards">
       { foods.map(({ strMeal, strMealThumb, idMeal }, index) => (
         <a
+          className="cards__results"
           key={ strMeal }
           href={ `/comidas/${idMeal}` }
           data-testid={ `${index}-recipe-card` }
