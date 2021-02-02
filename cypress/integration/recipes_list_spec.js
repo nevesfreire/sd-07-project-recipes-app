@@ -139,6 +139,7 @@ describe('28 - Implemente o filtro das receitas através da API ao clicar no fil
 
     cy.get('[data-testid="Beef-category-filter"]').click();
 
+    cy.wait(1000);
     checkFirstTwelveRecipes(beefMealsMock.meals);
   });
 

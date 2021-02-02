@@ -1,9 +1,18 @@
-import { GET_INGREDIENTS, GET_NAME, GET_FIRST_LETTER } from './actionsComidas';
+import {
+  GET_INGREDIENTS,
+  GET_NAME,
+  GET_FIRST_LETTER,
+  GET_BY_ID,
+  GET_RANDOM_FOOD,
+  GET_CATEGORY_FOOD } from './actionsComidas';
 
 const initialState = {
   recipesByIngredients: [],
   recipesByName: [],
   recipesWithLetter: [],
+  recipeById: [],
+  recipesByRadomFood: [],
+  recipesByCategoryFood: [],
 };
 
 function reducerComidas(state = initialState, action) {
@@ -22,6 +31,21 @@ function reducerComidas(state = initialState, action) {
     return {
       ...state,
       recipesWithLetter: action.recipesWithLetter,
+    };
+  case GET_BY_ID:
+    return {
+      ...state,
+      recipeById: action.recipeById,
+    };
+  case GET_RANDOM_FOOD:
+    return {
+      ...state,
+      recipesByRadomFood: action.recipesByRadomFood,
+    };
+  case GET_CATEGORY_FOOD:
+    return {
+      ...state,
+      recipesByCategoryFood: action.recipesByCategoryFood,
     };
   default:
     return state;

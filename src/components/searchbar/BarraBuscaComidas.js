@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { resultIngredients, resultName, resultLetter } from '../../redux/actionsComidas';
+import {
+  resultIngredients,
+  resultName,
+  resultLetter,
+  resultID } from '../../redux/actionsComidas';
+import { toggleCardFood } from '../../redux/actionsSearchBar';
 
 class BarraBuscaComidas extends Component {
   constructor() {
@@ -11,6 +16,7 @@ class BarraBuscaComidas extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.searchContent = this.searchContent.bind(this);
+    this.findContent = this.findContent.bind(this);
   }
 
   handleChange({ target }) {
@@ -20,26 +26,41 @@ class BarraBuscaComidas extends Component {
     });
   }
 
-  searchContent() {
+  findContent() {
+    const { resultApi, history, getByID, toggleFood } = this.props;
+    if (resultApi === null) {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      toggleFood(false);
+    } else if (resultApi.length === 1) {
+      toggleFood(false);
+      getByID(resultApi[0].idMeal);
+      history.push(`/comidas/${resultApi[0].idMeal}`);
+    } else {
+      toggleFood(true);
+    }
+  }
+
+  async searchContent() {
     const { getIngredient, getName, getLetter } = this.props;
     const { busca, select } = this.state;
     switch (select) {
     case 'nome':
-      getName(busca);
+      await getName(busca);
       break;
     case 'ingrediente':
-      getIngredient(busca);
+      await getIngredient(busca);
       break;
     case 'letra':
-      if (busca.length !== 1) {
-        alert('Sua busca deve conter somente 1 (um) caracter');
+      if (busca.length === 1) {
+        await getLetter(busca);
       } else {
-        getLetter(busca);
+        alert('Sua busca deve conter somente 1 (um) caracter');
       }
       break;
     default:
       return null;
     }
+    this.findContent();
   }
 
   render() {
@@ -104,16 +125,28 @@ class BarraBuscaComidas extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  resultApi: state.reducerComidas.recipesByName,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   getIngredient: (ingredient) => dispatch(resultIngredients(ingredient)),
   getName: (name) => dispatch(resultName(name)),
   getLetter: (letter) => dispatch(resultLetter(letter)),
+  getByID: (id) => dispatch(resultID(id)),
+  toggleFood: (toggleToFood) => dispatch(toggleCardFood(toggleToFood)),
 });
 
-export default connect(null, mapDispatchToProps)(BarraBuscaComidas);
+export default connect(mapStateToProps, mapDispatchToProps)(BarraBuscaComidas);
 
 BarraBuscaComidas.propTypes = {
   getIngredient: PropTypes.func.isRequired,
   getName: PropTypes.func.isRequired,
   getLetter: PropTypes.func.isRequired,
+  resultApi: PropTypes.arrayOf(PropTypes.object).isRequired,
+  getByID: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+  toggleFood: PropTypes.func.isRequired,
 };

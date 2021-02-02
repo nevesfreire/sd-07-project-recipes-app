@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import userProfile from '../../images/profileIcon.svg';
+import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
 import '../../App.css';
 import * as action from '../../redux/actionsSearchBar';
@@ -13,7 +13,6 @@ class Header extends React.Component {
   }
 
   redirectPerfil() {
-    console.log(this.props);
     const { history } = this.props;
     history.push('/perfil');
   }
@@ -26,8 +25,9 @@ class Header extends React.Component {
           type="button"
           data-testid="profile-top-btn"
           onClick={ this.redirectPerfil }
+          src={ profileIcon }
         >
-          <img src={ userProfile } alt="profile icon" />
+          <img src={ profileIcon } alt="profile icon" />
         </button>
         <div data-testid="page-title">{title}</div>
         <button type="button" onClick={ toggleSearchBar }>
