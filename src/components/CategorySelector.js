@@ -15,9 +15,13 @@ class CategorySelector extends React.Component {
     };
   }
 
-  componentDidMount() {
-    this.getCategories();
-    this.updateItems('All');
+  async componentDidMount() {
+    const magicZero = 0;
+    const { mealRecipes } = this.props;
+    await this.getCategories();
+    if (mealRecipes.length === magicZero) {
+      await this.updateItems('All');
+    }
   }
 
   async getCategories() {
@@ -113,11 +117,14 @@ const mapDispatchToProps = (dispatch) => ({
   sendMealRecipesDispatch: (e) => dispatch(sendMealRecipes(e)),
   sendDrinkRecipesDispatch: (e) => dispatch(sendDrinkRecipes(e)),
 });
-
+const mapStateToProps = ({ recipes: { mealRecipes } }) => (
+  { mealRecipes }
+);
 CategorySelector.propTypes = {
   search: PropTypes.string.isRequired,
   sendMealRecipesDispatch: PropTypes.func.isRequired,
   sendDrinkRecipesDispatch: PropTypes.func.isRequired,
+  mealRecipes: PropTypes.string.isRequired,
 };
 
-export default connect(null, mapDispatchToProps)(CategorySelector);
+export default connect(mapStateToProps, mapDispatchToProps)(CategorySelector);
