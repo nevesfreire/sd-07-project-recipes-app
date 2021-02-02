@@ -5,14 +5,16 @@ import Foods from './pages/Foods';
 import Profile from './pages/Profile';
 import Login from './pages/login';
 import RecipesDone from './pages/RecipesDone';
+import FoodDetail from './pages/FoodDetail';
+import DrinkDetail from './pages/DrinkDetail';
 import Favorites from './pages/Favorites';
 
 const Router = () => (
   <Switch>
+    <Route path="/comidas/:id" component={ FoodDetail } />
+    <Route path="/bebidas/:id" component={ DrinkDetail } />
     <Route path="/comidas" component={ Foods } />
     <Route path="/bebidas" component={ Drinks } />
-    {/* <Route path="/comidas/:id" component={ FoodDetail } /> */}
-    {/* <Route path="/bebidas/:id" component={ DrinkDetail } /> */}
     {/* <Route path="/comidas/:id/in-progress" component={ FoodProgress } /> */}
     {/* <Route path="/bebidas/:id/in-progress" component={ DrinkProgress } /> */}
     {/* <Route path="/explorar" component={ Explore } /> */}
