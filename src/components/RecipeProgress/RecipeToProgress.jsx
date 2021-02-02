@@ -16,7 +16,7 @@ const RecipeToProgress = ({ recipe, commonProps }) => {
   const btnvalue = 'Finalizar Receita';
   const [copied, setCopied] = useState(false);
   const [check, setCheck] = useState(true);
-
+  const verdadeiro = true;
   const {
     page, favorite, ingredients, inProgress, id,
   } = commonProps;
@@ -78,15 +78,21 @@ const RecipeToProgress = ({ recipe, commonProps }) => {
                 key={ `${ing}-${index}` }
               >
                 <input
+                  defaultChecked={ funcsRecipes.isChecked(ing, page, id, index) }
                   onChange={ (event) => {
-                    funcsRecipes.streakIngredient(`${ing}-${index}`, event);
+                    funcsRecipes.streakIngredient(
+                      `${ing}-${index}`,
+                      event,
+                      page,
+                      id,
+                      index,
+                    );
                     verifyCheckbox();
                   } }
                   data-testid="ingredient-search-radio"
                   type="checkbox"
                   value={ ing }
                   name={ ing }
-
                 />
                 {' '}
                 <p id={ `${ing}-${index}` }>{ing}</p>
@@ -158,7 +164,13 @@ const RecipeToProgress = ({ recipe, commonProps }) => {
             >
               <input
                 onChange={ (event) => {
-                  funcsRecipes.streakIngredient(`${ing}-${index}`, event);
+                  funcsRecipes.streakIngredient(
+                    `${ing}-${index}`,
+                    event,
+                    page,
+                    id,
+                    index,
+                  );
                   verifyCheckbox();
                 } }
                 data-testid="ingredient-search-radio"
