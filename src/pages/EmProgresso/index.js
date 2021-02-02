@@ -71,6 +71,14 @@ function EmProgesso({
           : drinks[0].strInstructions}
       </p>
       {isEnded && <p>terminou</p>}
+      <button
+        disabled={ !isEnded }
+        data-testid="finish-recipe-btn"
+        type="button"
+        onClick={ () => history.push('/receitas-feitas') }
+      >
+        Finalizar Receita
+      </button>
     </div>
   );
 }
