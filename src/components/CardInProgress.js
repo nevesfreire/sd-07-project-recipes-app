@@ -1,32 +1,52 @@
 import React, { useState, useEffect } from 'react';
-import { useRouteMatch } from 'react-router-dom';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 
-import {
-  fetchDrinkDetailsById,
-  fetchFoodDetailsById,
-} from '../services/API';
+import { fetchDrinkDetailsById, fetchFoodDetailsById } from '../services/API';
 
-import
-{
-  getIngredients,
+import { getIngredients,
   checkOut,
-}
-  from '../services/service';
+  copyLink,
+  addToFavorites,
+  enableButton } from '../services/service';
+
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import checksUnited from './checksUnited';
 
 function CardInProgress() {
-  const ingredientsfromlocalstorage = localStorage.getItem('checkedList')
-    ? localStorage.getItem('checkedList')
-    : [];
+  const history = useHistory();
+  const matchObject = useRouteMatch();
+  const itemId = matchObject.params.id;
+  const mealType = matchObject.path === '/comidas/:id/in-progress' ? 'Meal' : 'Drink';
+  const mealTypeChain = mealType === 'Meal' ? 'meals' : 'cocktails';
 
   const [details, setDetails] = useState({});
-  const [checkedList, setCheckedList] = useState(ingredientsfromlocalstorage);
+  const [showMessage, setShowMessage] = useState('hidden');
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [disableButton, setDisableButton] = useState(true);
+  const [ingredientState, setIngredientState] = useState([]);
+  const [ingredientsList, setIngredientsList] = useState([]);
 
-  const matchObject = useRouteMatch();
+  const RedirectToDone = () => {
+    history.push('/receitas-feitas');
+  };
 
-  const mealType = matchObject.path === '/comidas/:id/in-progress' ? 'Meal' : 'Drink';
-  const localStorageKeyType = mealType === 'Meal' ? 'meals' : 'cocktails';
+  useEffect(() => {
+    const loadIngredients = () => {
+      setIngredientState(getIngredients(details));
+    };
+    const checkedIngredients = async () => {
+      const list = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      if (list) {
+        const ingredients = list[mealTypeChain][itemId];
+        setIngredientsList(ingredients);
+      }
+    };
 
-  const itemId = matchObject.params.id;
+    loadIngredients();
+    checkedIngredients();
+    checksUnited(itemId, undefined, setIsFavorite);
+  }, [itemId, mealType, details, mealTypeChain]);
 
   useEffect(() => {
     const getDetails = async () => {
@@ -39,31 +59,24 @@ function CardInProgress() {
     getDetails();
   }, [itemId, mealType]);
 
-  const addToCheckedList = (value) => {
-    setCheckedList(checkOut(checkedList, value));
-  };
-
-  useEffect(() => {
-    const getLocalStorageList = () => {
-      localStorage.setItem('inProgressRecipes',
-        JSON.stringify({ [localStorageKeyType]:
-        { [itemId]: checkedList } }));
-    };
-    getLocalStorageList();
-  }, [checkedList, itemId, localStorageKeyType]);
-
   const loadIngredients = () => (
     <ul>
       {getIngredients(details).map((item, index) => (
         <li
           key={ `ìngredient${index}` }
-          data-testid={ `data-testid=${index}-ingredient-step` }
+          data-testid={ `${index}-ingredient-step` }
         >
           <label htmlFor={ `${item.ingredient}` }>
             <input
               type="checkbox"
               value={ `${item.ingredient}` }
-              onChange={ (event) => addToCheckedList(event.target.value) }
+              onChange={ (event) => {
+                checkOut(event.target.value, mealTypeChain, itemId);
+                enableButton(setDisableButton, ingredientState, mealTypeChain, itemId);
+                setIngredientsList([...ingredientsList, `${item.ingredient}`]);
+              } }
+              { ...console.log(ingredientsList.includes(`${item.ingredient}`)) }
+              checked={ ingredientsList.includes(`${item.ingredient}`) }
             />
             <img
               width="30px"
@@ -91,8 +104,27 @@ function CardInProgress() {
         tagName="img"
       />
       <h3 data-testid="recipe-title">{details[`str${mealType}`]}</h3>
-      <button type="button" data-testid="share-btn">Compartilhar</button>
-      <button type="button" data-testid="favorite-btn">Favoritar</button>
+      <button
+        type="button"
+        data-testid="share-btn"
+        onClick={ () => copyLink(window.location.href, setShowMessage) }
+      >
+        Compartilhar
+      </button>
+      <button
+        type="button"
+        data-testid="favorite-btn"
+        onClick={ () => addToFavorites(itemId, mealType, details, setIsFavorite) }
+        src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+        tabIndex="0"
+      >
+        <img
+          src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+          alt="heartIcon"
+        />
+        Favoritar
+      </button>
+      <h5 hidden={ showMessage }>Link copiado!</h5>
       <h4 width="90%" data-testid="recipe-category">
         {
           mealType === 'Meal'
@@ -107,6 +139,8 @@ function CardInProgress() {
         type="button"
         width="100%"
         data-testid="finish-recipe-btn"
+        disabled={ disableButton }
+        onClick={ () => RedirectToDone() }
       >
         Finish
       </button>
