@@ -48,7 +48,7 @@ class Comidas extends Component {
 
   detailRecipe(id) {
     const { history } = this.props;
-    history.push(`comidas/${id}`);
+    history.push(`/comidas/${id}`);
   }
 
   showCards(card) {

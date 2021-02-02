@@ -42,9 +42,8 @@ export default class BebidasDetalhes extends React.Component {
 
   async copyClipboard() {
     await navigator.clipboard.writeText(window.location.href);
-    const copySucess = await window.location.href;
     this.setState({
-      copyClipboard: copySucess,
+      copyClipboard: window.location.href,
     });
   }
 

@@ -27,11 +27,11 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route
-            path="/comidas/{id-da-receita}/in-progress"
+            path="/comidas/:id/in-progress"
             component={ ProgressoComida }
           />
           <Route
-            path="/bebidas/{id-da-receita}/in-progress"
+            path="/bebidas/:id/in-progress"
             component={ ProgressoBebidas }
           />
           <Route
@@ -43,8 +43,8 @@ function App() {
             component={ ExplorarBebidasIngredientes }
           />
           <Route path="/explorar/comidas/area" component={ ExplorarComidasOrigem } />
-          <Route path="/comidas/{id-da-receita}" component={ ComidaDetalhes } />
-          <Route path="/bebidas/{id-da-receita}" component={ BebidasDetalhes } />
+          <Route path="/comidas/:id" component={ ComidaDetalhes } />
+          <Route path="/bebidas/:id" component={ BebidasDetalhes } />
           <Route path="/explorar/comidas" component={ ExplorarComidas } />
           <Route path="/explorar/bebidas" component={ BebidasExplorar } />
           <Route exact path="/comidas" component={ Comidas } />

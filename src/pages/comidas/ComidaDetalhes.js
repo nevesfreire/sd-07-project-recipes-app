@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Carousel from './CarouselComida';
 import ShareIcon from '../../images/shareIcon.svg';
+import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
 const MAX_INGREDIENTS = 20;
 
@@ -11,12 +13,14 @@ class ComidaDetalhes extends React.Component {
     this.state = {
       recipe: {},
       copyClipboard: '',
+      isFavorite: false,
     };
     this.fetchData = this.fetchData.bind(this);
     this.renderIngredients = this.renderIngredients.bind(this);
     this.renderIngredient = this.renderIngredient.bind(this);
     this.iniciarReceita = this.iniciarReceita.bind(this);
     this.copyClipboard = this.copyClipboard.bind(this);
+    this.favoriteRecipe = this.favoriteRecipe.bind(this);
   }
 
   componentDidMount() {
@@ -41,11 +45,28 @@ class ComidaDetalhes extends React.Component {
   }
 
   async copyClipboard() {
-    await navigator.clipboard.writeText(window.location.href);
-    const copySucess = await window.location.href;
+    try {
+      console.log('copy clipboard');
+      await navigator.clipboard.writeText(window.location.href);
+      console.log('copy clipboard write done');
+      this.setState({
+        copyClipboard: window.location.href,
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  favoriteRecipe() {
+    const { isFavorite } = this.state;
     this.setState({
-      copyClipboard: copySucess,
+      isFavorite: !isFavorite,
     });
+  }
+
+  renderIngredients() {
+    return [...Array(MAX_INGREDIENTS)]
+      .map((_, index) => this.renderIngredient(index));
   }
 
   renderIngredient(index) {
@@ -63,13 +84,9 @@ class ComidaDetalhes extends React.Component {
     );
   }
 
-  renderIngredients() {
-    return [...Array(MAX_INGREDIENTS)]
-      .map((_, index) => this.renderIngredient(index));
-  }
-
   render() {
-    const { recipe, copyClipboard } = this.state;
+    const { recipe, copyClipboard, isFavorite } = this.state;
+    console.log(isFavorite);
     return (
       <div className="ComidaDetalhes">
         <img
@@ -79,22 +96,28 @@ class ComidaDetalhes extends React.Component {
           width="200px"
         />
         <h1 data-testid="recipe-title">{recipe.strMeal}</h1>
-        <button
-          type="button"
-          data-testid="share-btn"
-          onClick={ this.copyClipboard }
-        >
-          <img src={ ShareIcon } alt="compartilhar" />
-        </button>
+        <div>
+          <button
+            type="button"
+            data-testid="share-btn"
+            onClick={ this.copyClipboard }
+          >
+            <img src={ ShareIcon } alt="compartilhar" />
+          </button>
+        </div>
         <span>
           {copyClipboard ? 'Link copiado!' : ''}
         </span>
-        <button
-          type="button"
-          data-testid="favorite-btn"
-        >
-          Favoritar
-        </button>
+        <div>
+          <button
+            type="button"
+            data-testid="favorite-btn"
+            onClick={ () => this.favoriteRecipe() }
+            src={ !isFavorite ? whiteHeartIcon : blackHeartIcon }
+          >
+            <img src={ !isFavorite ? whiteHeartIcon : blackHeartIcon } alt="favorite" />
+          </button>
+        </div>
         <p data-testid="recipe-category">{recipe.strCategory}</p>
         <ul>{this.renderIngredients()}</ul>
         <p data-testid="instructions">{recipe.strInstructions}</p>
