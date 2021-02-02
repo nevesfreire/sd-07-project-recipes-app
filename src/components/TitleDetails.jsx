@@ -1,19 +1,25 @@
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import FoodAppContext from '../context/FoodAppContext';
 import shareIcon from '../images/shareIcon.svg';
 import favoriteIcon from '../images/blackHeartIcon.svg';
 import notFavoriteIcon from '../images/whiteHeartIcon.svg';
 
-function TitleDetails({ recipes }) {
+function TitleDetails({ recipes, pathname }) {
   const { detailRecipe } = useContext(FoodAppContext);
   const [favorite, setFavorite] = useState(false);
+  const [copy, setCopy] = useState(false);
   const { meals } = detailRecipe;
   const { drinks } = detailRecipe;
 
   const handlerFavorite = () => {
     setFavorite(!favorite);
+  };
+
+  const copyLink = () => {
+    setCopy(true);
   };
 
   if (recipes === 'comidas') {
@@ -27,22 +33,30 @@ function TitleDetails({ recipes }) {
             <h2
               data-testid="recipe-title"
             >
-              { strMeal }
+              {strMeal}
             </h2>
             <p
               data-testid="recipe-category"
             >
-              { strCategory }
+              {strCategory}
             </p>
           </div>
         ))}
         <div className="div-favorite-detail">
-          <img
-            className="img-compartilhar"
-            data-testid="share-btn"
-            src={ shareIcon }
-            alt="Icone Compartilhar"
-          />
+          <CopyToClipboard text={ pathname }>
+            <button
+              type="button"
+              data-testid="share-btn"
+              onClick={ () => copyLink() }
+            >
+              <img
+                className="img-compartilhar"
+                src={ shareIcon }
+                alt="Icone Compartilhar"
+              />
+              <p>{copy && 'Link copiado!'}</p>
+            </button>
+          </CopyToClipboard>
           <button
             type="button"
             onClick={ handlerFavorite }
@@ -67,22 +81,31 @@ function TitleDetails({ recipes }) {
           <h2
             data-testid="recipe-title"
           >
-            { strDrink }
+            {strDrink}
           </h2>
           <p
             data-testid="recipe-category"
           >
-            { strAlcoholic }
+            {strAlcoholic}
           </p>
         </div>
       ))}
       <div className="div-favorite-detail">
-        <img
-          className="img-compartilhar"
-          data-testid="share-btn"
-          src={ shareIcon }
-          alt="Icone Compartilhar"
-        />
+        <CopyToClipboard text={ pathname }>
+          <button
+            type="button"
+            data-testid="share-btn"
+            onClick={ () => copyLink() }
+          >
+            <img
+              className="img-compartilhar"
+              src={ shareIcon }
+              alt="Icone Compartilhar"
+            />
+            <p>{copy && 'Link copiado!'}</p>
+          </button>
+        </CopyToClipboard>
+
         <button
           type="button"
           onClick={ handlerFavorite }
@@ -100,6 +123,7 @@ function TitleDetails({ recipes }) {
 
 TitleDetails.propTypes = {
   recipes: PropTypes.string.isRequired,
+  pathname: PropTypes.string.isRequired,
 };
 
 export default TitleDetails;
