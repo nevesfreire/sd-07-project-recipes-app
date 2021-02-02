@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-import AddInput from './InputPesquisa';
+import InputSearch from './InputSearch';
 
 function Header({ text, search }) {
   const [renderComponent, setRenderComponent] = useState(false);
@@ -34,7 +34,7 @@ function Header({ text, search }) {
               src={ searchIcon }
             />
           </button>)}
-      { renderComponent && <AddInput /> }
+      { renderComponent && <InputSearch /> }
     </header>
   );
 }

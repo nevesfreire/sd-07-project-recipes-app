@@ -45,9 +45,7 @@ describe('Login page', () => {
     expect(buttonEnter).not.toBeDisabled();
 
     fireEvent.click(buttonEnter);
-    console.log(history.location.pathname);
-
-    const path = history.location.pathname;
-    expect(path).toBe('/comidas');
+    const { pathname } = history.location;
+    expect(pathname).toBe('/comidas');
   });
 });

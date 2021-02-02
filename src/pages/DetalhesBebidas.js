@@ -55,7 +55,8 @@ function DetalhesBebidas({ match: { params: { id } }, history }) {
     slidesToScroll: 2,
   };
 
-  const recomendedFood = foods.slice(zero, six);
+  const recomendedFood = foods && foods.slice(zero, six);
+
   function clickStartRecipes() {
     history.push(`/bebidas/${id}/in-progress`);
 
@@ -154,18 +155,19 @@ function DetalhesBebidas({ match: { params: { id } }, history }) {
       <p>Recomendados</p>
       <div>
         <Slider { ...settings }>
-          {recomendedFood.map(({ strMealThumb, strMeal }, index) => (
-            <div className="Recipe__Recomended" key={ index }>
-              <img
-                data-testid={ `${index}-recomendation-card` }
-                className={ { visibility: 'hidden !important' } }
-                src={ strMealThumb }
-                alt={ index }
-                width="50px"
-              />
-              <p data-testid={ `${index}-recomendation-title` }>{ strMeal }</p>
-            </div>
-          ))}
+          {recomendedFood
+            && recomendedFood.map(({ strMealThumb, strMeal }, index) => (
+              <div className="Recipe__Recomended" key={ index }>
+                <img
+                  data-testid={ `${index}-recomendation-card` }
+                  className={ { visibility: 'hidden !important' } }
+                  src={ strMealThumb }
+                  alt={ index }
+                  width="50px"
+                />
+                <p data-testid={ `${index}-recomendation-title` }>{ strMeal }</p>
+              </div>
+            ))}
         </Slider>
       </div>
       <button

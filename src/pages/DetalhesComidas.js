@@ -48,7 +48,7 @@ function DetalhesComidas({ match: { params: { id } }, history }) {
 
   const detail = detailMeal[0];
 
-  const recomendedDrinks = drinks.slice(zero, six);
+  const recomendedDrinks = drinks && drinks.slice(zero, six);
 
   const settings = {
     dots: true,
@@ -176,18 +176,19 @@ function DetalhesComidas({ match: { params: { id } }, history }) {
       <p>Recomendados</p>
       <div>
         <Slider { ...settings }>
-          { recomendedDrinks.map(({ strDrinkThumb, strDrink }, index) => (
-            <div key={ index }>
-              <img
-                className="Recipe__Recomended"
-                data-testid={ `${index}-recomendation-card` }
-                src={ strDrinkThumb }
-                alt={ index }
-                width="50px"
-              />
-              <p data-testid={ `${index}-recomendation-title` }>{ strDrink }</p>
-            </div>
-          )) }
+          { recomendedDrinks
+            && recomendedDrinks.map(({ strDrinkThumb, strDrink }, index) => (
+              <div key={ index }>
+                <img
+                  className="Recipe__Recomended"
+                  data-testid={ `${index}-recomendation-card` }
+                  src={ strDrinkThumb }
+                  alt={ index }
+                  width="50px"
+                />
+                <p data-testid={ `${index}-recomendation-title` }>{ strDrink }</p>
+              </div>
+            )) }
         </Slider>
       </div>
       <button
