@@ -72,13 +72,15 @@ function Progress({ history, match: { params: { id } } }) {
             <td data-testid={ `${index}-ingredient-step` }>
               <label htmlFor={ `${index}-ingredient` }>
                 <input
+                  key={ index }
                   type="checkbox"
                   id={ `${index}-ingredient` }
-                  checked={ done[index] }
+                  name={ `${index}-ingredient` }
+                  // checked={ done[index] }
                   onChange={
                     ({ target: { checked } }) => {
                       const newDone = [...done];
-                      newDone[index] = done[index] ? false : true;
+                      newDone[index] = checked;
                       setDone(newDone);
                     }
                   }
