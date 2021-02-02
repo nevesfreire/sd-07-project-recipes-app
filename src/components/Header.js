@@ -16,7 +16,7 @@ function Header({ title }) {
             className="title"
             src={ profileIcon }
             alt="Imagem do profile"
-            data-testid="profile-top-btn"
+            data-testid="perfil-top-btn"
           />
         </Link>
         <title
