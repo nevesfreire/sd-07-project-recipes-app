@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import RecipesList from '../components/RecipesList';
+import CategorySelector from '../components/CategorySelector';
 
 class Bebidas extends React.Component {
   render() {
@@ -17,7 +18,10 @@ class Bebidas extends React.Component {
     return (
       <div>
         <Header shouldRenderSearchIcon="yes" pageTitle="Bebidas" search="drinks" />
-        <RecipesList search="drinks" />
+        <div className="content">
+          <CategorySelector search="drinks" />
+          <RecipesList search="drinks" />
+        </div>
         <Footer />
       </div>
     );

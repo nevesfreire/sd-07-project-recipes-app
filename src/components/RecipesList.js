@@ -6,11 +6,13 @@ import RecipesCard from './RecipesCard';
 class RecipesList extends React.Component {
   render() {
     const { mealRecipes, drinkRecipes, search } = this.props;
+    const maxNumber = 12;
+    const startList = 0;
 
     if (search === 'drinks') {
       return (
-        <div>
-          {drinkRecipes.map((recipe, index) => (
+        <div className="recipes-list">
+          {drinkRecipes.slice(startList, maxNumber).map((recipe, index) => (
             <RecipesCard
               key={ recipe.idDrink }
               recipe={ recipe }
@@ -23,8 +25,8 @@ class RecipesList extends React.Component {
     }
 
     return (
-      <div>
-        {mealRecipes.map((recipe, index) => (
+      <div className="recipes-list">
+        {mealRecipes.slice(startList, maxNumber).map((recipe, index) => (
           <RecipesCard
             key={ recipe.idMeal }
             recipe={ recipe }
