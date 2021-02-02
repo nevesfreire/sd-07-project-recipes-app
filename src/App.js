@@ -62,7 +62,7 @@ function App() {
           />
           <Route
             exact
-            path="/:recipes/:id"
+            path="/:category/:idReceita"
             render={ (props) => (<RecipeDetails { ...props } />) }
           />
           <Route
