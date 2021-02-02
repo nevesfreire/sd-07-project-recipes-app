@@ -11,6 +11,8 @@ function RecipeDetails() {
   const [inProgress, setInProgress] = useState(false);
   const { category, idReceita } = useParams();
 
+  console.log(recomendation);
+
   useEffect(() => {
     if (category === 'comidas') {
       RequestData(
