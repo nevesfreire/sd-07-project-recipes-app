@@ -30,7 +30,7 @@ class Header extends Component {
   }
 
   render() {
-    const { title, searchOn, history, match } = this.props;
+    const { title, searchOn, history, match, categori = true } = this.props;
     const { estilo } = this.state;
     if (searchOn === 'on') {
       return (
@@ -53,7 +53,12 @@ class Header extends Component {
           {
             estilo === 'visible'
               ? <Searchbar match={ match } />
-              : <Categories match={ match } />
+              : null
+          }
+          {
+            categori && estilo !== 'visible'
+              ? <Categories match={ match } />
+              : null
           }
         </header>
       );
@@ -74,6 +79,7 @@ class Header extends Component {
 }
 
 Header.propTypes = {
+  categori: PropTypes.bool.isRequired,
   match: PropTypes.objectOf().isRequired,
   title: PropTypes.string.isRequired,
   searchOn: PropTypes.string.isRequired,
