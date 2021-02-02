@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 
 import {
   fetchAPIDrinks,
@@ -12,6 +13,8 @@ function Drinks() {
   const { foodsOrDrinksList } = useContext(RecipesContext);
   const [apiCategoriesDrinks, setApiCategoriesDrinks] = useState([]);
   const [filterByCategory, setFilterByCategory] = useState([]);
+  const [buttonClicked, setButtonClicked] = useState(false);
+  const [buttonName, setButtonName] = useState('');
 
   const getApiDrinks = async () => {
     setFilterByCategory(await fetchAPIDrinks());
@@ -31,9 +34,20 @@ function Drinks() {
   }, [foodsOrDrinksList]);
 
   const handleClick = async ({ target: { name } }) => {
-    const filterCategory = (await fetchAPICategoriesDrinkFilter(name));
-    const filterCategoryDrink = filterCategory.filter((item) => item.strDrink);
-    setFilterByCategory(filterCategoryDrink);
+    if (name === 'all') {
+      const resetFilter = (await fetchAPIDrinks());
+      setFilterByCategory(resetFilter);
+    } else if (buttonClicked === false || buttonName !== name) {
+      setButtonClicked(true);
+      setButtonName(name);
+      const filterCategory = (await fetchAPICategoriesDrinkFilter(name));
+      const filterCategoryDrink = filterCategory.filter((item) => item.strDrink);
+      setFilterByCategory(filterCategoryDrink);
+    } else {
+      setButtonClicked(false);
+      const resetFilter = (await fetchAPIDrinks());
+      setFilterByCategory(resetFilter);
+    }
   };
 
   const zero = 0;
@@ -43,6 +57,16 @@ function Drinks() {
   return (
     <div>
       <div>
+        <button
+          className="btn btn-outline-dark btn-sm btn-block"
+          style={ { width: '22.5rem' } }
+          data-testid="All-category-filter"
+          name="all"
+          type="button"
+          onClick={ handleClick }
+        >
+          All
+        </button>
         {apiCategoriesDrinks !== undefined ? (
           apiCategoriesDrinks.map((item) => (
             <button
@@ -62,27 +86,32 @@ function Drinks() {
       <div className="row" style={ { width: '23.4rem' } }>
         {filterByCategory !== undefined ? (
           filterByCategory.map((item, index) => (
-            <div
-              data-testid={ `${index}-recipe-card` }
+            <Link
+              to={ `/bebidas/${item.idDrink}` }
               key={ item.strDrink }
+              onClick={ () => console.log(item.idDrink) }
               className="card col-6"
               style={ { width: '8rem' } }
             >
-              <img
-                data-testid={ `${index}-card-img` }
-                className="card-img-top"
-                src={ item.strDrinkThumb }
-                alt="Imagem de capa do card"
-              />
-              <div className="card-body">
-                <p
-                  data-testid={ `${index}-card-name` }
-                  className="card-text"
-                >
-                  { item.strDrink }
-                </p>
+              <div
+                data-testid={ `${index}-recipe-card` }
+              >
+                <img
+                  data-testid={ `${index}-card-img` }
+                  className="card-img-top"
+                  src={ item.strDrinkThumb }
+                  alt="Imagem de capa do card"
+                />
+                <div className="card-body">
+                  <p
+                    data-testid={ `${index}-card-name` }
+                    className="card-text"
+                  >
+                    { item.strDrink }
+                  </p>
+                </div>
               </div>
-            </div>
+            </Link>
           )).slice(zero, maxDrinks)) : (
           []
         )}
