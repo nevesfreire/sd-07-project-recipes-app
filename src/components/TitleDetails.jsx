@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
@@ -6,17 +6,18 @@ import FoodAppContext from '../context/FoodAppContext';
 import shareIcon from '../images/shareIcon.svg';
 import favoriteIcon from '../images/blackHeartIcon.svg';
 import notFavoriteIcon from '../images/whiteHeartIcon.svg';
+import useFavorites from '../hooks/useFavorites';
 
-function TitleDetails({ recipes, pathname }) {
+function TitleDetails({ recipes, pathname, id }) {
   const { detailRecipe } = useContext(FoodAppContext);
-  const [favorite, setFavorite] = useState(false);
+  const [favorite, handleClickFavorite, isAlreadyFavorite] = useFavorites();
   const [copy, setCopy] = useState(false);
   const { meals } = detailRecipe;
   const { drinks } = detailRecipe;
 
-  const handlerFavorite = () => {
-    setFavorite(!favorite);
-  };
+  useEffect(() => {
+    isAlreadyFavorite(id);
+  }, []);
 
   const copyLink = () => {
     setCopy(true);
@@ -59,7 +60,7 @@ function TitleDetails({ recipes, pathname }) {
           </CopyToClipboard>
           <button
             type="button"
-            onClick={ handlerFavorite }
+            onClick={ () => handleClickFavorite(meals, recipes, id) }
           >
             <img
               data-testid="favorite-btn"
@@ -108,7 +109,7 @@ function TitleDetails({ recipes, pathname }) {
 
         <button
           type="button"
-          onClick={ handlerFavorite }
+          onClick={ () => handleClickFavorite(drinks, recipes, id) }
         >
           <img
             data-testid="favorite-btn"
@@ -124,6 +125,7 @@ function TitleDetails({ recipes, pathname }) {
 TitleDetails.propTypes = {
   recipes: PropTypes.string.isRequired,
   pathname: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default TitleDetails;
