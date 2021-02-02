@@ -103,6 +103,7 @@ class Origem extends Component {
   render() {
     const { history, match } = this.props;
     const { lista, receitas } = this.state;
+    const valorfalso = false;
     return (
       <div>
         <Header
@@ -110,6 +111,7 @@ class Origem extends Component {
           searchOn="on"
           history={ history }
           match={ match }
+          categori={ valorfalso }
         />
         <select data-testid="explore-by-area-dropdown" onChange={ this.dropdown }>
           <option data-testid="All-option" value="All">All</option>
