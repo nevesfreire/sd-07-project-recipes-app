@@ -1,0 +1,44 @@
+img {
+  width: 150px;
+}
+
+.main_recipe {
+  width: 360px;
+}
+
+.main_carrousel {
+  background-color: red;
+  height: 400px;
+  margin-bottom: 50px;
+  overflow-x: hidden;
+  padding-left: 30px;
+  width: 360px;
+}
+
+.carrousel {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  height: 360px;
+  width: 360px;
+}
+
+.carrousel img {
+  height: 150px;
+  margin-right: 20px;
+  width: 150px;
+}
+
+.card {
+  width: 50vw;
+}
+
+.card img {
+  width: 49vw;
+}
+
+.scroller {
+  display: flex;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+}

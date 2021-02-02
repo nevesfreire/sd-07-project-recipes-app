@@ -10,7 +10,7 @@ import RecipesContext from '../context/RecipesContext';
 function MainRecipes(props) {
   const { location } = props;
   const { pathname } = location;
-  const { setPathName } = useContext(RecipesContext);
+  const { setPathName, setRedirectByIngredients } = useContext(RecipesContext);
   const { foodsToRender, setFoodsToRender, foodData } = useContext(RecipesContext);
   const [allFiltersToRender, setAllFiltersToRender] = useState([]);
   const [filtersToRender, setFiltersToRender] = useState([]);
@@ -21,6 +21,10 @@ function MainRecipes(props) {
       .fetchAllFoodCategories()
       .then((response) => setAllFiltersToRender(response));
   }, []);
+
+  useEffect(() => {
+    setRedirectByIngredients(false);
+  });
 
   useEffect(() => {
     setPathName(pathname);
