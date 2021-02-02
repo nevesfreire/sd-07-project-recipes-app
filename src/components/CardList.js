@@ -18,7 +18,7 @@ function CardList({ arrayOfCard, typeOfCard, sideScroll, recommendation }) {
         && arrayOfCard.map((item, index) => (
           <div
             data-testid={
-              recommendation ? `${index}-recomendation-card` : `${index}-recipe-card`
+              recommendation === "true" ? `${index}-recomendation-card` : `${index}-recipe-card`
             }
             className="item-card"
             key={ item[id] }
@@ -32,7 +32,7 @@ function CardList({ arrayOfCard, typeOfCard, sideScroll, recommendation }) {
               />
               <h3
                 data-testid={
-                  recommendation ? `${index}-recomendation-title` : `${index}-card-name`
+                  recommendation === "true" ? `${index}-recomendation-title` : `${index}-card-name`
                 }
               >
                 {item[name]}

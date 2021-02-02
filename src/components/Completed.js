@@ -59,7 +59,9 @@ function Completed() {
       </button>
 
       {
-        finishedList.map((receita, index) => (
+        finishedList.length === 0
+        ? <h3>Nenhuma Receita Finalizada =]</h3>
+        : finishedList.map((receita, index) => (
           <div key={ `receita-${index}` }>
             <a href={ `http://localhost:3000/${receita.type === 'comida' ? 'comidas' : 'bebidas'}/${receita.id}` }>
               <img
