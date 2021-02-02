@@ -3,7 +3,10 @@ import { Link } from 'react-router-dom';
 import saveDataLogin from '../services/localStorage';
 // import PropTypes from 'prop-types';
 
+import { titleHeaderNames, useTitleContext } from '../context/TitleContext';
+
 function Login() {
+  const { setHeaderName } = useTitleContext();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -31,6 +34,7 @@ function Login() {
 
   function saveToken() {
     saveDataLogin(email);
+    setHeaderName(titleHeaderNames.comidas);
   }
 
   return (
@@ -42,14 +46,12 @@ function Login() {
           data-testid="email-input"
           onChange={ (e) => setEmail(e.target.value) }
         />
-
         <input
           type="password"
           placeholder="Digite sua senha"
           data-testid="password-input"
           onChange={ (e) => setPassword(e.target.value) }
         />
-
         <Link to="/comidas">
           <button
             type="button"

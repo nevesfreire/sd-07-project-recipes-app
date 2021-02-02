@@ -7,6 +7,7 @@ import getMealWithId from '../services/RecipesAPI';
 
 function Provider({ children }) {
   const [mealDescription, setMealDescription] = useState({});
+  const [foodsOrDrinksList, setFoodsOrDrinksList] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
   const fetchMealId = async (id = '52772') => {
     const x = await getMealWithId(id);
@@ -15,6 +16,8 @@ function Provider({ children }) {
   };
 
   const contextValue = {
+    foodsOrDrinksList,
+    setFoodsOrDrinksList,
     fetchMealId,
     isFetching,
     mealDescription,

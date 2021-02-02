@@ -1,68 +1,88 @@
-.meals {
-  align-items: center;
-  background: #0fa36b;
-  color: #464646;
+body {
+  background-color: black;
+  box-sizing: 0;
   display: flex;
-  flex-direction: column;
-  font-family: sans-serif;
-  height: 100vh;
   justify-content: center;
-  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-.rocksGlass {
-  animation: shake 1s infinite ease;
-  max-height: 80vh;
+.header-div {
+  align-items: center;
+  background-image: url('./images/fire_base.gif');
+  background-size: cover;
+  color: #e0e010;
+  display: flex;
+  height: 80px;
+  justify-content: flex-start;
+  padding: 0.5rem 1.5rem 0.5rem 1rem;
+  width: 360px;
 }
 
-/*
-#iceLeft {
-  animation: clink .8s infinite ease;
-  opacity: 0.6;
-  transform-origin: 36px 66px;
+.element-header {
+  display: inline-flex;
+  margin: 0;
 }
 
-#iceRight {
-  animation: clink .8s .2s infinite ease;
-  opacity: 0.6;
-  transform-origin: 60px 78px;
-}
-*/
-
-.meals > .logo {
-  animation: shake 1.5s infinite ease;
-  color: aliceblue;
-  font-family: Montserrat , sans-serif;
-  font-size: 3em;
-  font-weight: 900;
+.center {
+  margin-left: 50px;
+  margin-right: 50px;
 }
 
-@keyframes shake {
-
-  0% {
-    transform: rotate(5deg);
-  }
-
-  50% {
-    transform: rotate(-5deg);
-  }
-
-  100% {
-    transform: rotate(5deg);
-  }
+.button {
+  background-color: transparent;
+  border: none;
+  text-decoration: none;
 }
 
-@keyframes clink {
+.button:focus {
+  outline: none;
+}
 
-  0% {
-    transform: rotate(-10deg);
-  }
+.svg-class {
+  filter: invert(90%) sepia(31%) saturate(1370%) hue-rotate(4deg)
+    brightness(97%) contrast(77%);
+}
 
-  50% {
-    transform: rotate(20deg);
-  }
+.profile-buttons {
+  align-items: center;
+  background-color: red;
+  background-image: linear-gradient(black, red);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding-bottom: 5px;
+  width: 360px;
+}
 
-  100% {
-    transform: rotate(-10deg);
-  }
+.email-perfil {
+  align-items: center;
+  color: rgb(249, 250, 176);
+  text-align: center;
+  width: 360px;
+}
+
+.button-list {
+  background-color: red; /* For browsers that do not support gradients */
+  background-image: linear-gradient(yellow, red);
+  border: 1px solid;
+  border-radius: 5px;
+  font-weight: 300;
+  padding-left: 5px;
+  padding-right: 8px;
+}
+
+.button-list:hover {
+  background-image: linear-gradient(yellow, yellow, red);
+}
+
+.footer-nav {
+  background-color: red; /* For browsers that do not support gradients */
+  background-image: linear-gradient(red, black);
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1.5rem 0.5rem 1rem;
+  position: fixed;
+  width: 360px;
 }

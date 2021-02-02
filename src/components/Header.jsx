@@ -1,17 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 import imageProfile from '../images/profileIcon.svg';
 import imageSearch from '../images/searchIcon.svg';
-
 import { titleHeaderNames, useTitleContext } from '../context/TitleContext';
-
-import './Header.css';
+import Search from './Search';
 
 function Header() {
-  const { setHeaderName } = useTitleContext();
+  const { titleHeaderName, setHeaderName } = useTitleContext();
+  const [toggle, setToggle] = useState(false);
 
-  const path = useHistory().location.pathname;
+  let path = useHistory().location.pathname;
+
+  function routeLoadToState() {
+    const renderTitlePage = path.split('/').join('').split('-').join('');
+    setHeaderName(titleHeaderNames[renderTitlePage]);
+  }
+
+  routeLoadToState();
+
+  if (path === undefined) path = titleHeaderName;
 
   function checkIsNumber(elem) {
     if (Number.isNaN(elem)) {
@@ -29,9 +37,10 @@ function Header() {
       <button
         type="button"
         className="element-header button"
-        onClick={ () => setHeaderName(titleHeaderNames[0].perfil) }
+        onClick={ () => setHeaderName(titleHeaderNames.perfil) }
       >
         <img
+          className="svg-class"
           data-testid="profile-top-btn"
           src={ imageProfile }
           alt="Perfil"
@@ -42,15 +51,22 @@ function Header() {
 
   const elementSearch = (
     <div className="element-header">
-      <img
-        data-testid="search-top-btn"
-        src={ imageSearch }
-        alt="Buscar"
-      />
+      <button
+        className="button"
+        type="button"
+        onClick={ () => setToggle(!toggle) }
+      >
+        <img
+          className="svg-class"
+          data-testid="search-top-btn"
+          src={ imageSearch }
+          alt="Buscar"
+        />
+      </button>
     </div>
   );
 
-  const lengthPath = titleHeaderNames[0][renderTitlePage];
+  const lengthPath = titleHeaderNames[renderTitlePage];
   let titleNamePage;
   if (lengthPath !== undefined) {
     titleNamePage = (
@@ -58,7 +74,7 @@ function Header() {
         className="element-header center"
         data-testid="page-title"
       >
-        {titleHeaderNames[0][renderTitlePage].title}
+        {titleHeaderName.title}
       </h1>
     );
   }
@@ -67,23 +83,25 @@ function Header() {
     if (path === '/comidas' || path === '/bebidas' || path === '/explorar/comidas/area') {
       return (
         <div>
-          {elementProfile}
-          {titleNamePage}
-          {elementSearch}
+          <div className="header-div">
+            {elementProfile}
+            {titleNamePage}
+            {elementSearch}
+          </div>
+          {toggle ? <Search /> : <div />}
         </div>
       );
     }
     if (path === '/' || checkDetails === true) return null;
     return (
-      <div>
+      <div className="header-div">
         {elementProfile}
         {titleNamePage}
       </div>
     );
   }
-  return (
-    <div className="container-div" id="headerNotLoaded">{renderHeader()}</div>
-  );
+
+  return renderHeader();
 }
 
 export default Header;
