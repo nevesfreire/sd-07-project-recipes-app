@@ -4,6 +4,7 @@ import Feitas from './Feitas';
 import Login from './Login';
 import Origem from './Origem';
 import Perfil from './Perfil';
+import NotFound from './NotFound';
 
 export {
   Explorar,
@@ -12,4 +13,5 @@ export {
   Login,
   Origem,
   Perfil,
+  NotFound,
 };
