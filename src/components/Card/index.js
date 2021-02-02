@@ -1,7 +1,6 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Context } from '../../context/Provider';
 
 function Card({
   data: {
@@ -12,15 +11,6 @@ function Card({
   index,
   pathname,
 }) {
-  const { api } = useContext(Context);
-  const [path, setPath] = useState('');
-  useEffect(() => {
-    if (api === 'meal') {
-      setPath('comidas');
-    } else {
-      setPath('bebidas');
-    }
-  }, [api]);
   return (
     <article data-testid={ `${index}-recipe-card` }>
       <header>
@@ -34,7 +24,7 @@ function Card({
       <main>
         <p data-testid={ `${index}-card-name` }>{name}</p>
       </main>
-      <Link to={`${pathname}/${id}`}>
+      <Link to={ `${pathname}/${id}` }>
         Detalhes
       </Link>
     </article>
@@ -48,6 +38,7 @@ Card.propTypes = {
     img: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
   }).isRequired,
+  pathname: PropTypes.string.isRequired,
 };
 
 export default Card;

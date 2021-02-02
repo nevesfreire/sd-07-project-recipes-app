@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import { Context } from '../../context/Provider';
-import fetchApi from '../../services/api';
+import { fetchApi } from '../../services/api';
 
 function Categories({ category, setCategory }) {
   const { api } = useContext(Context);

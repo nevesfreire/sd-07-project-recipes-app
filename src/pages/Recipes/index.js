@@ -7,7 +7,7 @@ import Card from '../../components/Card';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import Categories from '../../components/Categories';
-import fetchApi from '../../services/api';
+import { fetchApi } from '../../services/api';
 
 function Recipes({ history, search = false }) {
   const [slicedResults, setSlicedResults] = useState([]);
@@ -67,10 +67,10 @@ function Recipes({ history, search = false }) {
           img: res.strMealThumb || res.strDrinkThumb,
           category: res.strCategory,
           instrunctions: res.strInstructions,
-          video: res.video
+          video: res.video,
         };
         return (
-          <Card key={ index + 1 } data={ card } index={ index } pathname={ pathname } /> 
+          <Card key={ index + 1 } data={ card } index={ index } pathname={ pathname } />
         );
       })}
       {
