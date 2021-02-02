@@ -47,7 +47,7 @@ export default function CustomHeader({
   );
 }
 CustomHeader.propTypes = {
-  // route: PropTypes.string.isRequired,
+  route: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   showSearchTopBtn: PropTypes.bool.isRequired,
 };
