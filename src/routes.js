@@ -7,6 +7,7 @@ import ComidaDetails from './scenes/ComidaDetails';
 import BebidaDetails from './scenes/BebidaDetails';
 import Bebidas from './scenes/Bebidas';
 import Perfil from './scenes/Perfil';
+import Explorar from './scenes/Explorar';
 
 export default function Routes() {
   return (
@@ -21,7 +22,7 @@ export default function Routes() {
         <Route path="/bebidas/{id-da-receita}" exact component={ Perfil } />
         <Route path="/comidas/{id-da-receita}/in-progress" exact component={ Perfil } />
         <Route path="/bebidas/{id-da-receita}/in-progress" exact component={ Perfil } />
-        <Route path="/explorar" exact component={ Perfil } />
+        <Route path="/explorar" exact component={ Explorar } />
         <Route path="/explorar/comidas" exact component={ Perfil } />
         <Route path="/explorar/bebidas" exact component={ Perfil } />
         <Route path="/explorar/comidas/ingredientes" exact component={ Perfil } />
