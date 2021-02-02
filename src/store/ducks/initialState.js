@@ -16,6 +16,11 @@ const INITIAL_STATE = {
     detailsRecipe: {
 
     },
+    isFetching: false,
+    data: [],
+    error: '',
+    categories: [],
+    filterByCategory: '',
   },
 };
 

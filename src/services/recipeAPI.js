@@ -72,8 +72,8 @@ export const getRecipesByCategory = async (type, category) => {
   const response = await fetch(GET_RECIPES_BY_CATEGORY_URL);
   const result = await response.json();
   return type.includes('comidas')
-    ? mapMealAndDrinkToRecipe(result.meals)
-    : mapMealAndDrinkToRecipe(result.drinks);
+    ? mapShortMealAndDrinkToRecipe(result.meals)
+    : mapShortMealAndDrinkToRecipe(result.drinks);
 };
 
 export const getCategories = async (type) => {
