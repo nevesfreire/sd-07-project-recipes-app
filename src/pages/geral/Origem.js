@@ -2,14 +2,22 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loadRecipes } from '../../redux/action';
+import { /* fetchFood, fetchArea, */ fetchListArea } from '../../services';
 import Header from '../../components/header';
 import Footer from '../../components/footer';
 
 class Origem extends Component {
   constructor() {
     super();
+    this.state = {
+      lista: {},
+    };
+    this.origemArea();
     this.handleClick = this.handleClick.bind(this);
     this.Meals = this.Meals.bind(this);
+    /* this.handleChange = this.handleChange.bind(this); */
+    this.dropdown = this.dropdown.bind(this);
+    this.origemArea = this.origemArea.bind(this);
   }
 
   componentDidMount() {
@@ -20,6 +28,49 @@ class Origem extends Component {
   handleClick(valor) {
     const { history } = this.props;
     history.push(`/comidas/${valor}`);
+  }
+
+  /* async handleChange(valor) {
+    const { match, setfilterrecipes, loadrecipes } = this.props;
+    const { origem } = this.state;
+    if (origem !== valor && valor !== 'All') {
+      this.setState({
+        origem: valor,
+      });
+      let filterOrigem;
+      if (match.path[1] === 'c') {
+        filterOrigem = await fetchFood(valor, 'comidas');
+      } else {
+        filterOrigem = await fetchArea(valor, 'comidas');
+      }
+      setfilterrecipes(filterOrigem);
+    } else {
+      if (match.path[1] === 'c') {
+        loadrecipes('comidas');
+      } else {
+        loadrecipes('bebidas');
+      }
+      this.setState({
+        origem: 'All',
+      });
+    }
+  } */
+
+  async origemArea() {
+    const listArea = await fetchListArea();
+    this.setState({ lista: listArea });
+  }
+
+  async dropdown() {
+    const { lista } = this.state;
+    console.log(lista);
+    return (lista.meals.map((area, index) => (
+      <option
+        key={ index }
+      >
+        {area}
+      </option>
+    )));
   }
 
   Meals() {
@@ -70,6 +121,7 @@ class Origem extends Component {
 
   render() {
     const { history, match } = this.props;
+    const { lista } = this.state;
     return (
       <div>
         <Header
@@ -77,6 +129,18 @@ class Origem extends Component {
           history={ history }
           match={ match }
         />
+        <select
+          name="Selecione a Origem"
+          data-testid="explore-by-area-dropdown"
+        >
+          <option value="All">All</option>
+          {
+            lista.meals
+              ? this.dropdown()
+              : null
+          }
+        </select>
+
         {
           this.Meals()
         }

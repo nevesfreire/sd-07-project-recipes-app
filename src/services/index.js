@@ -58,11 +58,35 @@ async function fetchRandom(id, tipo) {
   return responsejeson;
 }
 
+async function fetchFood() {
+  const url = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+  const response = await fetch(url);
+  const responsejeson = await response.json();
+  return responsejeson;
+}
+
+async function fetchListArea() {
+  const url = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+  const response = await fetch(url);
+  const responsejeson = await response.json();
+  return responsejeson;
+}
+
+async function fetchArea(area) {
+  const url = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`;
+  const response = await fetch(url);
+  const responsejeson = await response.json();
+  return responsejeson;
+}
+
 export {
+  fetchListArea,
+  fetchFood,
   fetchFoodId,
   fetchFoodIngredient,
   fetchFoodName,
   fetchFoodLetter,
   fetchFoodCategory,
   fetchRandom,
+  fetchArea,
 };
