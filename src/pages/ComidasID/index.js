@@ -52,7 +52,7 @@ function ComidasID({
     }
   }, []);
 
-  if (!meals[0] || !drinks[0]) return <p>Carregando...</p>;
+  if (!meals || !drinks || !meals[0] || !drinks[0]) return <p>Carregando...</p>;
 
   if (route === 'comidas') {
     detailed = meals;
