@@ -6,7 +6,7 @@ class MealsOrigin extends Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header title="Explorar Origem" />
         <h2>Origens</h2>
         <Footer />
       </div>
