@@ -7,12 +7,14 @@ import Footer from '../components/Footer';
 class Perfil extends React.Component {
   render() {
     const { history, email } = this.props;
-    // const emailLocal = JSON.parse(localStorage.getItem('user'));
+    const emailLocal = JSON.parse(localStorage.getItem('user'));
 
     return (
       <div className="profile">
         <Header pageTitle="Perfil" />
-        <h4 data-testid="profile-email">{email}</h4>
+        <h4 data-testid="profile-email">
+          {!emailLocal ? email : emailLocal.email}
+        </h4>
         <button
           type="button"
           data-testid="profile-done-btn"

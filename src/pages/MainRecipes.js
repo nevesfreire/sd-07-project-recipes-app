@@ -10,7 +10,7 @@ import FoodTypeSelector from '../components/CategorySelector';
 class MainRecipes extends React.Component {
   render() {
     const { mealRecipes } = this.props;
-    if (mealRecipes.length === 1) {
+    if (mealRecipes.length === 1 && mealRecipes[0].idMeal !== '52968') {
       const { idMeal } = mealRecipes[0];
       return <Redirect to={ `/comidas/${idMeal}` } />;
     }

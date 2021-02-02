@@ -47,7 +47,7 @@ class RecipesCard extends React.Component {
                 text="dark"
               >
                 <Card.Img
-                  style={ { width: 30 } }
+                  variant="top"
                   src={ strDrinkThumb }
                   alt={ strDrink }
                   data-testid={ `${index}-card-img` }
@@ -65,7 +65,9 @@ class RecipesCard extends React.Component {
           index < maxNumber && search === 'ingredientsDrinks' ? (
             <div data-testid={ `${index}-ingredient-card` }>
               <Card
-                style={ { width: '10rem' } }
+                style={
+                  { width: '10rem' }
+                }
                 bg="warning"
                 text="dark"
               >
@@ -113,6 +115,8 @@ class RecipesCard extends React.Component {
 }
 RecipesCard.propTypes = {
   recipe: PropTypes.shape({
+    idMeal: PropTypes.string,
+    idDrink: PropTypes.string,
     strMealThumb: PropTypes.string,
     strMeal: PropTypes.string,
     strDrinkThumb: PropTypes.string,
