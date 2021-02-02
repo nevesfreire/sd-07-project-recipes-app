@@ -33,7 +33,7 @@ function DetailsDrink() {
   const allRecipe = Object.entries(detailsRecipe.drinks[0]);
   console.log('allrceipes', detailsRecipe.drinks[0]);
   const ingredients = allRecipe.filter(
-    (ingredient) => (ingredient[0].includes('strIngredient') && ingredient[1] !== ''),
+    (ingredient) => (ingredient[0].includes('strIngredient') && ingredient[1] !== null),
   );
   const measures = allRecipe.filter(
     (measure) => (measure[0].includes('strMeasure') && measure[1] !== ' '),
@@ -52,7 +52,6 @@ function DetailsDrink() {
           ingredients && measures && ingredients.map((ingredient, index) => (
             <li key={ ingredient } data-testid={ `${index}-ingredient-name-and-measure` }>
               {measures[index][1]}
-              of
               { ingredient[1] }
             </li>))
         }

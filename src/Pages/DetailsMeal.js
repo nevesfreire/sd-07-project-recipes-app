@@ -51,7 +51,6 @@ function DetailsMeal() {
           ingredients && measures && ingredients.map((ingredient, index) => (
             <li key={ ingredient } data-testid={ `${index}-ingredient-name-and-measure` }>
               {measures[index][1]}
-              of
               { ingredient[1] }
             </li>))
         }
