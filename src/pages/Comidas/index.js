@@ -128,7 +128,6 @@ function Comidas(props) {
       {isSearchBarVisible && <SearchBar foodType="comidas" />}
       {renderCategories()}
       {renderMeals()}
-
       <Footer />
     </div>
   );

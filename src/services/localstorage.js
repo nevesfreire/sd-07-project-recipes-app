@@ -12,7 +12,6 @@ export function doesFavoriteExists(id) {
   const resp = JSON.parse(localStorage.getItem('favoriteRecipes')).find(
     (foodID) => id === foodID.id,
   ) !== undefined;
-  console.log(resp);
   return resp;
 }
 
@@ -24,4 +23,10 @@ export function toggleFavorite(obj) {
     favorites.splice(favorites.indexOf(obj.id), 1);
   }
   localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
+}
+
+export function removeFavorite(obj) {
+  const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const newFavorites = favorites.filter((favorite) => favorite.id !== obj.id);
+  localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
 }
