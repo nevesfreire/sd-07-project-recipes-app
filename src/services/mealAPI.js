@@ -18,3 +18,17 @@ export const mealByIngredient = (ingredient) => {
     .then((response) => response.json())
     .then((json) => json);
 };
+
+export const areas = () => {
+  const endpoint = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+  return fetch(endpoint)
+    .then((response) => response.json())
+    .then((json) => json);
+};
+
+export const mealsByArea = (filter) => {
+  const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${filter}`;
+  return fetch(endpoint)
+    .then((response) => response.json())
+    .then((json) => json);
+};
