@@ -7,7 +7,8 @@ class ExplorarComidas extends React.Component {
       <div>
         <Header2 title="Explorar Comidas" />
         <p>Explorar Comidas</p>
-      </div>);
+      </div>
+    );
   }
 }
 
