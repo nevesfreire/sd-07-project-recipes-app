@@ -9,13 +9,13 @@ function Profile() {
     history.push('/receitas-feitas');
   };
 
-  const handleFavoritRecipe = () => {
-    history.push('/receitas-favoritas');
-  };
-
   const handleOut = () => {
     history.push('/');
     localStorage.clear();
+  };
+
+  const handleFavoritRecipe = () => {
+    history.push('/receitas-favoritas');
   };
 
   return (
