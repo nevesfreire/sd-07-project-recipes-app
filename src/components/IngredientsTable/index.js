@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function IngredientsTable({ done, setDone, ingredients, measures }) {
   return (
@@ -30,5 +31,12 @@ function IngredientsTable({ done, setDone, ingredients, measures }) {
     </table>
   );
 }
+
+IngredientsTable.propTypes = {
+  done: PropTypes.arrayOf(PropTypes.boolean).isRequired,
+  setDone: PropTypes.func.isRequired,
+  ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
+  measures: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
 
 export default IngredientsTable;

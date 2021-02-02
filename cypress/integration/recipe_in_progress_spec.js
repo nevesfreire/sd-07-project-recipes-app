@@ -6,67 +6,67 @@ afterEach(() => {
   });
 });
 
-// describe('47 - Desenvolva a tela de maneira que contenha uma imagem da receita, seu titulo, sua categoria (ou se a bebida é alcoólica ou não) uma lista de ingredientes com suas respectivas quantidade e suas instruções', () => {
-//   it('verifica elementos de uma receita de comida', () => {
-//     cy.visit('http://localhost:3000/comidas/52771/in-progress', {
-//       onBeforeLoad(win) {
-//         win.fetch = fetchMock;
-//       },
-//     });
+describe('47 - Desenvolva a tela de maneira que contenha uma imagem da receita, seu titulo, sua categoria (ou se a bebida é alcoólica ou não) uma lista de ingredientes com suas respectivas quantidade e suas instruções', () => {
+  it('verifica elementos de uma receita de comida', () => {
+    cy.visit('http://localhost:3000/comidas/52771/in-progress', {
+      onBeforeLoad(win) {
+        win.fetch = fetchMock;
+      },
+    });
 
-//     cy.get('[data-testid="recipe-photo"]');
-//     cy.get('[data-testid="recipe-title"]');
-//     cy.get('[data-testid="share-btn"]');
-//     cy.get('[data-testid="favorite-btn"]');
-//     cy.get('[data-testid="recipe-category"]');
-//     cy.get('[data-testid*="ingredient-step"]').should('have.length', 8);
-//     cy.get('[data-testid="instructions"]');
-//     cy.get('[data-testid="finish-recipe-btn"]');
-//   });
+    cy.get('[data-testid="recipe-photo"]');
+    cy.get('[data-testid="recipe-title"]');
+    cy.get('[data-testid="share-btn"]');
+    cy.get('[data-testid="favorite-btn"]');
+    cy.get('[data-testid="recipe-category"]');
+    cy.get('[data-testid*="ingredient-step"]').should('have.length', 8);
+    cy.get('[data-testid="instructions"]');
+    cy.get('[data-testid="finish-recipe-btn"]');
+  });
 
-//   it('verifica elementos de uma receita de bebida', () => {
-//     cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
-//       onBeforeLoad(win) {
-//         win.fetch = fetchMock;
-//       },
-//     });
+  it('verifica elementos de uma receita de bebida', () => {
+    cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
+      onBeforeLoad(win) {
+        win.fetch = fetchMock;
+      },
+    });
 
-//     cy.get('[data-testid="recipe-photo"]');
-//     cy.get('[data-testid="recipe-title"]');
-//     cy.get('[data-testid="share-btn"]');
-//     cy.get('[data-testid="favorite-btn"]');
-//     cy.get('[data-testid="recipe-category"]');
-//     cy.get('[data-testid*="ingredient-step"]').should('have.length', 3);
-//     cy.get('[data-testid="instructions"]');
-//     cy.get('[data-testid="finish-recipe-btn"]');
-//   });
-// });
+    cy.get('[data-testid="recipe-photo"]');
+    cy.get('[data-testid="recipe-title"]');
+    cy.get('[data-testid="share-btn"]');
+    cy.get('[data-testid="favorite-btn"]');
+    cy.get('[data-testid="recipe-category"]');
+    cy.get('[data-testid*="ingredient-step"]').should('have.length', 3);
+    cy.get('[data-testid="instructions"]');
+    cy.get('[data-testid="finish-recipe-btn"]');
+  });
+});
 
-// describe('48 - Desenvolva um checkbox para cada item da lista de ingredientes', () => {
-//   it('todos os ingredientes de uma receita de comida possuem um checkbox', () => {
-//     cy.visit('http://localhost:3000/comidas/52771/in-progress', {
-//       onBeforeLoad(win) {
-//         win.fetch = fetchMock;
-//       },
-//     });
+describe('48 - Desenvolva um checkbox para cada item da lista de ingredientes', () => {
+  it('todos os ingredientes de uma receita de comida possuem um checkbox', () => {
+    cy.visit('http://localhost:3000/comidas/52771/in-progress', {
+      onBeforeLoad(win) {
+        win.fetch = fetchMock;
+      },
+    });
 
-//     cy.get('[data-testid*="ingredient-step"]')
-//       .find('input[type="checkbox"]')
-//       .should('have.length', 8);
-//   });
+    cy.get('[data-testid*="ingredient-step"]')
+      .find('input[type="checkbox"]')
+      .should('have.length', 8);
+  });
 
-//   it('todos os ingredientes de uma receita de bebida possuem um checkbox', () => {
-//     cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
-//       onBeforeLoad(win) {
-//         win.fetch = fetchMock;
-//       },
-//     });
+  it('todos os ingredientes de uma receita de bebida possuem um checkbox', () => {
+    cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
+      onBeforeLoad(win) {
+        win.fetch = fetchMock;
+      },
+    });
 
-//     cy.get('[data-testid*="ingredient-step"]')
-//       .find('input[type="checkbox"]')
-//       .should('have.length', 3);
-//   });
-// });
+    cy.get('[data-testid*="ingredient-step"]')
+      .find('input[type="checkbox"]')
+      .should('have.length', 3);
+  });
+});
 
 describe('49 - Implemente uma lógica que, ao clicar no checkbox de um ingrediente, o nome dele deve ser "riscado" da lista', () => {
   const getIngredients = () => (
@@ -84,8 +84,8 @@ describe('49 - Implemente uma lógica que, ao clicar no checkbox de um ingredien
     getIngredients()
       .check();
 
-    // getIngredients()
-    //   .should('have.css', 'text-decoration', 'none solid rgb(0, 0, 0)');
+    getIngredients()
+      .should('have.css', 'text-decoration', 'none solid rgb(0, 0, 0)');
   });
 
   it('verifica se é possível marcar todos os passos da receita de bebida', () => {
@@ -98,48 +98,48 @@ describe('49 - Implemente uma lógica que, ao clicar no checkbox de um ingredien
     getIngredients()
       .check();
 
-    // getIngredients()
-    //   .should('have.css', 'text-decoration', 'none solid rgb(0, 0, 0)');
+    getIngredients()
+      .should('have.css', 'text-decoration', 'none solid rgb(0, 0, 0)');
   });
 });
 
-// describe('50 - Salve o estado do progresso, que deve ser mantido caso a pessoa atualize a página ou volte para a mesma receita', () => {
-//   it('salva o progresso de uma receita de comida em andamento', () => {
-//     cy.visit('http://localhost:3000/comidas/52771/in-progress', {
-//       onBeforeLoad(win) {
-//         win.fetch = fetchMock;
-//       },
-//     });
+describe('50 - Salve o estado do progresso, que deve ser mantido caso a pessoa atualize a página ou volte para a mesma receita', () => {
+  it('salva o progresso de uma receita de comida em andamento', () => {
+    cy.visit('http://localhost:3000/comidas/52771/in-progress', {
+      onBeforeLoad(win) {
+        win.fetch = fetchMock;
+      },
+    });
 
-//     cy.get('[data-testid="0-ingredient-step"]')
-//       .find('input[type="checkbox"]')
-//       .check();
+    cy.get('[data-testid="0-ingredient-step"]')
+      .find('input[type="checkbox"]')
+      .check();
 
-//     cy.reload();
+    cy.reload();
 
-//     cy.get('[data-testid="0-ingredient-step"]')
-//       .find('input[type="checkbox"]')
-//       .should('have.attr', 'checked');
-//   });
+    cy.get('[data-testid="0-ingredient-step"]')
+      .find('input[type="checkbox"]')
+      .should('have.attr', 'checked');
+  });
 
-//   it('salva o progresso de uma receita de bebida em andamento', () => {
-//     cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
-//       onBeforeLoad(win) {
-//         win.fetch = fetchMock;
-//       },
-//     });
+  it('salva o progresso de uma receita de bebida em andamento', () => {
+    cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
+      onBeforeLoad(win) {
+        win.fetch = fetchMock;
+      },
+    });
 
-//     cy.get('[data-testid="0-ingredient-step"]')
-//       .find('input[type="checkbox"]')
-//       .check();
+    cy.get('[data-testid="0-ingredient-step"]')
+      .find('input[type="checkbox"]')
+      .check();
 
-//     cy.reload();
+    cy.reload();
 
-//     cy.get('[data-testid="0-ingredient-step"]')
-//       .find('input[type="checkbox"]')
-//       .should('have.attr', 'checked');
-//   });
-// });
+    cy.get('[data-testid="0-ingredient-step"]')
+      .find('input[type="checkbox"]')
+      .should('have.attr', 'checked');
+  });
+});
 
 // describe('51 - Desenvolva a lógica de favoritar e compartilhar, a lógica da tela de detalhes de uma receita se aplica aqui', () => {
 //   it('verifica se os botões estão disponíveis na tela de detalhes de uma comida', () => {

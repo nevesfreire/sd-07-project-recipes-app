@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { Context } from '../../context/Provider';
 import fetchApi from '../../services/api';
+import { initialize, getItem, saveItem } from '../../services/localStorage';
 import IngredientsTable from '../../components/IngredientsTable';
 import './style.css';
 
@@ -18,11 +19,10 @@ function Progress({ history, match: { params: { id } } }) {
   const [name, setName] = useState('');
   const [image, setImage] = useState('');
   const [done, setDone] = useState([]);
-  const [haveIngredients, setHave] = useState(false);
 
   useEffect(() => {
-    if (ingredients.length > 0) setHave(true);
-  }, [ingredients]);
+    initialize();
+  }, []);
 
   useEffect(() => {
     if (pathname.includes('bebidas')) setApi('drinks');
@@ -40,21 +40,29 @@ function Progress({ history, match: { params: { id } } }) {
   }, [api, id, setResult]);
 
   useEffect(() => {
+    if (api === '') return;
     const ing = [];
     const meas = [];
     const don = [];
     const twenty = 20;
     for (let index = 1; index <= twenty; index += 1) {
-      if (result[`strIngredient${index}`] === ''
-        || result[`strIngredient${index}`] === null) break;
+      if (!result[`strIngredient${index}`]) break;
       ing[index - 1] = result[`strIngredient${index}`];
       meas[index - 1] = result[`strMeasure${index}`] || '';
       don[index - 1] = false;
     }
+    const recipesInProgress = getItem('inProgressRecipes');
+    let doneIng = [];
+    if (api === 'meal') {
+      doneIng = [...recipesInProgress.meals[id] || ''];
+    } else {
+      doneIng = [...recipesInProgress.cocktails[id] || ''];
+    }
+    doneIng.forEach((index) => { don[index] = true; });
     setIngredients(ing);
     setMeasures(meas);
     setDone(don);
-  }, [result]);
+  }, [result, api, id]);
 
   useEffect(() => {
     if (api === 'meal') {
@@ -66,18 +74,35 @@ function Progress({ history, match: { params: { id } } }) {
     }
   }, [api]);
 
+  useEffect(() => {
+    if (api === '') return;
+    const doneIngredients = done
+      .map((ing, index) => {
+        if (ing === true) return index;
+        return false;
+      })
+      .filter((ing) => ing !== false);
+    const newRecipesInProgress = getItem('inProgressRecipes');
+    if (api === 'meal') {
+      newRecipesInProgress.meals[id] = doneIngredients;
+    } else {
+      newRecipesInProgress.cocktails[id] = doneIngredients;
+    }
+    saveItem('inProgressRecipes', newRecipesInProgress);
+  }, [id, api, done]);
+
   return (
     <div>
       <h1 data-testid="recipe-title">{result[name]}</h1>
       <h2 data-testid="recipe-category">{ result.strCategory }</h2>
       <img data-testid="recipe-photo" src={ result[image] } alt="thumbnail" />
       <h2>Ingredients list</h2>
-      {haveIngredients && (<IngredientsTable
+      <IngredientsTable
         ingredients={ ingredients }
         measures={ measures }
         done={ done }
         setDone={ setDone }
-      />) }
+      />
       <h2>instructions</h2>
       <p data-testid="instructions">{result.strInstructions}</p>
       <nav>
