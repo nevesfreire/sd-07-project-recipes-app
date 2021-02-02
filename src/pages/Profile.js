@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
+import Footer from "../components/Footer";
 
 class Profile extends Component {
   constructor(props) {
@@ -49,6 +50,7 @@ class Profile extends Component {
             Sair
           </button>
         </Link>
+        <Footer />
       </div>
     );
   }

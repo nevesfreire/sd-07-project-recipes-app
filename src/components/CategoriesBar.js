@@ -41,11 +41,11 @@ const searchByCocktails = (name, {
 
 function CategoriesBar(props) {
   const {
-    toggle,
     title,
     meals,
     cocktails,
     mealsCategories,
+    cocktailsCategories,
   } = props;
 
   const handleClick = (event) => {
@@ -73,7 +73,11 @@ function CategoriesBar(props) {
   const zero = 0;
   const maxLength = 5;
   return (
-    <div style={ { display: toggle ? 'none' : 'inline' } }>
+    <div
+      style={ {
+        display: title === 'Comidas' || title === 'Bebidas' ? 'inline' : 'none',
+      } }
+    >
       {meals.length === 1 && (
         <Redirect
           to={ { pathname: `/comidas/${meals[0].idMeal}` } }
@@ -91,28 +95,36 @@ function CategoriesBar(props) {
         >
           All
         </button>
-        { mealsCategories.slice(zero, maxLength).map((categorie, index) => (
-          <button
-            type="button"
-            key={ index }
-            data-testid={ `${categorie.strCategory}-category-filter` }
-            name={ categorie.strCategory }
-            onClick={ handleClick }
-          >
-            { categorie.strCategory }
-          </button>
-        ))}
+        { title === 'Comidas' && mealsCategories.slice(zero, maxLength)
+          .map((categorie, index) => (
+            <button
+              type="button"
+              key={ index }
+              data-testid={ `${categorie.strCategory}-category-filter` }
+              name={ categorie.strCategory }
+              onClick={ handleClick }
+            >
+              { categorie.strCategory }
+            </button>
+          ))}
+        { title === 'Bebidas' && cocktailsCategories.slice(zero, maxLength)
+          .map((category, index) => (
+            <button
+              type="button"
+              key={ index }
+              data-testid={ `${category.strCategory}-category-filter` }
+              name={ category.strCategory }
+              onClick={ handleClick }
+            >
+              { category.strCategory }
+            </button>
+          ))}
       </div>
     </div>
   );
 }
 
-CategoriesBar.propTypes = {
-  toggle: PropTypes.bool.isRequired,
-};
-
-const mapStateToProps = ({ searchToggleReducer, meals, cocktails }) => ({
-  toggle: searchToggleReducer,
+const mapStateToProps = ({ meals, cocktails }) => ({
   meals: meals.meals,
   mealsCategories: meals.mealsCategories,
   cocktails: cocktails.cocktails,
@@ -135,6 +147,7 @@ CategoriesBar.propTypes = {
   meals: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   cocktails: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   mealsCategories: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  cocktailsCategories: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategoriesBar);

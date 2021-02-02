@@ -25,7 +25,7 @@ class Cocktails extends Component {
       <div>
         <Header title="Bebidas" />
         { firstCocktails.map((cocktail, index) => (
-          <CocktailCard key={ index } cocktails={ cocktails } index={ index } />
+          <CocktailCard key={ index } cocktail={ cocktail } index={ index } />
         ))}
         <Footer />
       </div>
@@ -43,7 +43,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Cocktails.propTypes = {
-  cocktails: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  cocktails: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   searchCocktailsCategories: PropTypes.func.isRequired,
   searchRandomCocktails: PropTypes.func.isRequired,
 };
