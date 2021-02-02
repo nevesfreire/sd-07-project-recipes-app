@@ -96,3 +96,15 @@ export async function fetchRamdonDrink() {
   const drink = await response.json();
   if (drink) return drink.drinks;
 }
+
+export async function fetchMealIngredients() {
+  const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
+  const ingredients = await response.json();
+  if (ingredients) return ingredients.meals;
+}
+
+export async function fetchDrinkIngredients() {
+  const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
+  const ingredients = await response.json();
+  if (ingredients) return ingredients.drinks;
+}
