@@ -9,6 +9,7 @@ function useFetch() {
     setCategoriesFood,
     setCategoriesDrinks,
     setDetailsRecipe,
+    setRecomandations,
   } = useContext(RecipeContext);
 
   async function foodFetch(searchWord, type) {
@@ -112,6 +113,19 @@ function useFetch() {
     }
   }
 
+  async function recipeRecomandationsAPI(type) {
+    if (type === 'drinks') {
+      const results = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
+        .then((response) => response.json());
+      await setRecomandations(results);
+    }
+    if (type === 'meals') {
+      const results = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
+        .then((response) => response.json());
+      await setRecomandations(results);
+    }
+  }
+
   return (
     {
       foodFetch,
@@ -122,6 +136,7 @@ function useFetch() {
       foodCategories,
       selectedCategory,
       recipeDetailsAPI,
+      recipeRecomandationsAPI,
     }
   );
 }
