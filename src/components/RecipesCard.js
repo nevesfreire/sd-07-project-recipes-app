@@ -5,7 +5,13 @@ import { Card } from 'react-bootstrap';
 class RecipesCard extends React.Component {
   render() {
     const { recipe, index, search } = this.props;
-    const { strMealThumb, strMeal, strDrinkThumb, strDrink, strIngredient1, strIngredient } = recipe;
+    const {
+      strMealThumb,
+      strMeal,
+      strDrinkThumb,
+      strDrink,
+      strIngredient1,
+      strIngredient } = recipe;
     const maxNumber = 12;
     return (
       <div>
@@ -113,6 +119,7 @@ RecipesCard.propTypes = {
     strDrinkThumb: PropTypes.string,
     strDrink: PropTypes.string,
     strIngredient1: PropTypes.string,
+    strIngredient: PropTypes.string,
   }).isRequired,
   search: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
