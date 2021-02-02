@@ -16,9 +16,6 @@ function Header() {
 
   } = useContext(RecipesContext);
 
-  const perfilRedirect = () => {
-    history.push('/perfil');
-  };
   const stateSearchInput = (stateInput) => {
     setSearchRender(!stateInput);
   };
@@ -41,15 +38,15 @@ function Header() {
         {' '}
         {checkLocation === '/bebidas' ? 'Bebidas' : 'Comidas'}
       </h1>
-      <Link to="/perfil">
-        <button type="button" onClick={ perfilRedirect }>
+      <button type="button">
+        <Link to="/perfil">
           <img
             data-testid="profile-top-btn"
             src={ perfilIcon }
             alt="perfil"
           />
-        </button>
-      </Link>
+        </Link>
+      </button>
       <button type="button" onClick={ () => stateSearchInput(searchRender) }>
         <img
           data-testid="search-top-btn"

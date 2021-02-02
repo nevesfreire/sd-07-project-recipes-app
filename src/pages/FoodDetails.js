@@ -1,13 +1,15 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
+import shareIcon from '../images/shareIcon.svg';
 import RecipesContext from '../context/RecipesContext';
 import { fetchAPI, handleIngredients,
-  SIX, NINE, TWENTY_NINE, FOURTY_NINE } from '../services/helpers';
+  TWO_THOUSAND, SIX, NINE, TWENTY_NINE, FOURTY_NINE } from '../services/helpers';
 import '../style/recipeDetail.css';
 
 function FoodDetails() {
   const [recommendation, setRecommendation] = useState(['']);
+  const [copyText, setCopyText] = useState('');
   const history = useHistory();
   const { pathname } = history.location;
   const mealRecipeId = pathname.split('/')[2];
@@ -39,21 +41,20 @@ function FoodDetails() {
   }, []);
 
   const handleCopyClick = () => {
-    copy(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealRecipeId}`);
+    copy(window.location.href);
+    setCopyText('Link copiado!');
+    setInterval(() => setCopyText(''), TWO_THOUSAND);
   };
 
   return (
     <div>
       <img data-testid="recipe-photo" src={ recipeDetailFood.strMealThumb } alt="food" />
       <h2 data-testid="recipe-title">{recipeDetailFood.strMeal}</h2>
-      <button
-        type="button"
-        data-testid="share-btn"
-        onClick={ handleCopyClick }
-      >
-        Share
+      <button type="button" onClick={ handleCopyClick }>
+        <img data-testid="share-btn" src={ shareIcon } alt="share" />
       </button>
       <button type="button" data-testid="favorite-btn">Favorite</button>
+      <p>{copyText}</p>
       <p data-testid="recipe-category">{recipeDetailFood.strCategory}</p>
       <ul>
         {handleIngredients(recipeDetailFood, NINE, TWENTY_NINE, FOURTY_NINE)}

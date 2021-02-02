@@ -1,13 +1,18 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
+import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import RecipesContext from '../context/RecipesContext';
 import { fetchAPI, handleIngredients,
-  SIX, TWENTY_ONE, THIRTY_SIX, FIFTY_ONE } from '../services/helpers';
+  TWO_THOUSAND, SIX, TWENTY_ONE, THIRTY_SIX, FIFTY_ONE } from '../services/helpers';
 import '../style/recipeDetail.css';
 
 function DrinkDetails() {
   const [recommendation, setRecommendation] = useState(['']);
+  const [copyText, setCopyText] = useState('');
+  const [like, setLiked] = useState();
   const history = useHistory();
   const { pathname } = history.location;
   const drinkRecipeId = pathname.split('/')[2];
@@ -39,8 +44,23 @@ function DrinkDetails() {
   }, []);
 
   const handleCopyClick = () => {
-    copy(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinkRecipeId}`);
+    copy(window.location.href);
+    setCopyText('Link copiado!');
+    setInterval(() => setCopyText(''), TWO_THOUSAND);
   };
+
+  useEffect(() => {
+    if (!localStorage.favoriteRecipes) {
+      localStorage.favoriteRecipes = JSON.stringify([]);
+    }
+    const favoriteStorage = JSON.parse(localStorage.favoriteRecipes)
+      .filter((item) => item.id === drinkRecipeId);
+    if (favoriteStorage.length >= 1) {
+      setLiked(blackHeartIcon);
+    } else {
+      setLiked(whiteHeartIcon);
+    }
+  }, [drinkRecipeId]);
 
   return (
     <div>
@@ -50,14 +70,13 @@ function DrinkDetails() {
         alt="drink"
       />
       <h2 data-testid="recipe-title">{recipeDetailDrink.strDrink}</h2>
-      <button
-        type="button"
-        data-testid="share-btn"
-        onClick={ handleCopyClick }
-      >
-        Share
+      <button type="button" onClick={ handleCopyClick }>
+        <img data-testid="share-btn" src={ shareIcon } alt="share" />
       </button>
-      <button type="button" data-testid="favorite-btn">Favorite</button>
+      <button type="button">
+        <img data-testid="favorite-btn" src={ like } alt="favorite" />
+      </button>
+      <p>{copyText}</p>
       <p data-testid="recipe-category">{recipeDetailDrink.strAlcoholic}</p>
       <ul>
         {handleIngredients(recipeDetailDrink, TWENTY_ONE, THIRTY_SIX, FIFTY_ONE)}
