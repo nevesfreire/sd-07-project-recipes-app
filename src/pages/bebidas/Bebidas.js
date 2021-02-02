@@ -11,9 +11,11 @@ class Bebidas extends React.Component {
     super();
     this.state = {
       recipes: [],
-      loading: false,
+      currentCategory: undefined,
     };
     this.showCards = this.showCards.bind(this);
+    this.searchCategory = this.searchCategory.bind(this);
+    this.conditionalRender = this.conditionalRender.bind(this);
   }
 
   componentDidMount() {
@@ -22,19 +24,22 @@ class Bebidas extends React.Component {
   }
 
   async searchCategory(category) {
-    this.setState({
-      loading: true,
-    }, async () => {
-      const ZERO = 0;
-      const TWELVE = 12;
-      const responseAPI = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`);
-      const response = await responseAPI.json();
-      const copyResponse = [...response.drinks];
-      const recipes = copyResponse.splice(ZERO, TWELVE);
+    const { currentCategory } = this.state;
+    if (currentCategory && currentCategory === category) {
       this.setState({
-        recipes,
-        loading: false,
+        currentCategory: undefined,
       });
+      return;
+    }
+    const ZERO = 0;
+    const TWELVE = 12;
+    const responseAPI = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`);
+    const response = await responseAPI.json();
+    const copyResponse = [...response.drinks];
+    const recipes = copyResponse.splice(ZERO, TWELVE);
+    this.setState({
+      recipes,
+      currentCategory: category,
     });
   }
 
@@ -58,9 +63,26 @@ class Bebidas extends React.Component {
     });
   }
 
+  conditionalRender() {
+    const { currentCategory, recipes } = this.state;
+    const { toggleDrink, resultApiByName, resultDrink } = this.props;
+    if (currentCategory) {
+      return (
+        this.showCards(recipes)
+      );
+    }
+    if (toggleDrink) {
+      return (
+        this.showCards(resultApiByName)
+      );
+    }
+    return (
+      this.showCards(resultDrink)
+    );
+  }
+
   render() {
-    const { loading, recipes } = this.state;
-    const { toggle, history, toggleDrink, resultDrink, resultApiByName } = this.props;
+    const { toggle, history } = this.props;
     return (
       <div>
         <Header title="Bebidas" history={ history } />
@@ -100,8 +122,7 @@ class Bebidas extends React.Component {
         >
           Cocoa
         </button>
-        {loading ? 'Loading' : this.showCards(recipes)}
-        {toggleDrink ? this.showCards(resultApiByName) : this.showCards(resultDrink)}
+        {this.conditionalRender()}
         <Footer />
       </div>
     );

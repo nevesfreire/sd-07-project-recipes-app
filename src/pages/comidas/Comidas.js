@@ -11,10 +11,11 @@ class Comidas extends Component {
     super();
     this.state = {
       recipes: [],
-      loading: false,
+      currentCategory: undefined,
     };
     this.showCards = this.showCards.bind(this);
     this.searchCategory = this.searchCategory.bind(this);
+    this.conditionalRender = this.conditionalRender.bind(this);
   }
 
   componentDidMount() {
@@ -23,19 +24,23 @@ class Comidas extends Component {
   }
 
   async searchCategory(category) {
-    this.setState({
-      loading: true,
-    }, async () => {
-      const ZERO = 0;
-      const TWELVE = 12;
-      const responseAPI = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
-      const response = await responseAPI.json();
-      const copyResponse = [...response.meals];
-      const recipes = copyResponse.splice(ZERO, TWELVE);
+    const { currentCategory } = this.state;
+    if (currentCategory && currentCategory === category) {
       this.setState({
-        recipes,
-        loading: false,
+        currentCategory: undefined,
       });
+      return;
+    }
+
+    const ZERO = 0;
+    const TWELVE = 12;
+    const responseAPI = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
+    const response = await responseAPI.json();
+    const copyResponse = [...response.meals];
+    const recipesResult = copyResponse.splice(ZERO, TWELVE);
+    this.setState({
+      recipes: recipesResult,
+      currentCategory: category,
     });
   }
 
@@ -59,15 +64,26 @@ class Comidas extends Component {
     });
   }
 
+  conditionalRender() {
+    const { currentCategory, recipes } = this.state;
+    const { toggleFood, resultApiByName, resultFood } = this.props;
+    if (currentCategory) {
+      return (
+        this.showCards(recipes)
+      );
+    }
+    if (toggleFood) {
+      return (
+        this.showCards(resultApiByName)
+      );
+    }
+    return (
+      this.showCards(resultFood)
+    );
+  }
+
   render() {
-    const {
-      toggle,
-      history,
-      toggleFood,
-      resultApiByName,
-      resultFood } = this.props;
-    const { recipes, loading } = this.state;
-    console.log(recipes);
+    const { toggle, history } = this.props;
     return (
       <div>
         <Header title="Comidas" history={ history } />
@@ -107,9 +123,7 @@ class Comidas extends Component {
         >
           Goat
         </button>
-        {loading ? 'Loading' : this.showCards(recipes)}
-        {toggleFood && !loading
-          ? this.showCards(resultApiByName) : this.showCards(resultFood)}
+        {this.conditionalRender()}
         <Footer />
       </div>
     );
