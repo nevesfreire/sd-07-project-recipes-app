@@ -1,37 +1,90 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import FlexContainer from '../components/FlexContainer';
-import TitleLarge from '../components/TitleLarge';
-import ShareButton from '../components/ShareButton';
-import FavoriteButton from '../components/FavoriteButton';
-import Subtitle from '../components/Subtitle';
-import { getCocktailById } from '../services/cocktailAPI';
 import { getMealById } from '../services/mealAPI';
 import { getCocktailsRecommendations } from '../services/cocktailAPI';
 import Recommendations from '../components/Recommendations';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
 
 function MealDetails() {
   const history = useHistory();
+  const [recipeId, setRecipeId] = useState('');
+  const [heartStatus, setHeartStatus] = useState('');
+  const [copyLink, setCopyLink] = useState(false);
   const [storeIngredients, setStoreIngredients] = useState([]);
   const [storeMeasures, setStoreMeasures] = useState([]);
   const [title, setTitle] = useState('');
   const [source, setSource] = useState('');
   const [video, setVideo] = useState('');
   const [category, setCategory] = useState('');
+  const [area, setArea] = useState('');
   const [instructions, setInstructions] = useState('');
   const [cocktailsRecommendations, setCocktailsRecommendations] = useState([]);
+  /* const [disabled, enableButton] = useState('false'); */
 
-  const getRecipeId = () => {
-    const path = history.location.pathname;
-    const splitPath = path.split('/').splice(2, 1).toString();
-    return splitPath;
+  const handleClick = () => {
+    history.push(`/comidas/${recipeId}/in-progress`);
+  }
+
+  const handleAction = ({ target }) => {
+    const copy = require('clipboard-copy');
+    const getType = target.getAttribute('data-type');
+    if (getType === 'share') {
+      copy(history.location.pathname)
+      .then(setCopyLink(true));
+    } else {
+      if (heartStatus === 'white') {
+        setHeartStatus('black');
+        const addNewRecipe = {
+          id: recipeId,
+          type: 'comida',
+          area,
+          category,
+          alcoholicOrNot: '',
+          name: title,
+          image: source,
+        };
+        const getStatus = JSON.parse(localStorage.getItem('favoriteRecipes'));
+        const myRecipes = [...getStatus, addNewRecipe];
+        localStorage.removeItem('favoriteRecipes');
+        localStorage.setItem('favoriteRecipes', JSON.stringify(myRecipes));
+      } else {
+        setHeartStatus('white');
+        const getStatus = JSON.parse(localStorage.getItem('favoriteRecipes'));
+        const returned = getStatus.filter((recipe) => recipe.id !== recipeId);
+        localStorage.removeItem('favoriteRecipes');
+        localStorage.setItem('favoriteRecipes', JSON.stringify(returned));
+      }
+    }
+  }
+
+  const checkStatus = () => {
+    const getStatus = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (!getStatus) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+      setHeartStatus('white');
+    } else {
+      const path = history.location.pathname;
+      const splitPath = path.split('/').splice(2, 1).toString();
+      const returnId = getStatus.find((recipe) => recipe.id === splitPath);
+      if (returnId) {
+        setHeartStatus('black');
+      } else {
+        setHeartStatus('white');
+      }
+    }
   }
 
   useEffect(() => {
+    const path = history.location.pathname;
+    const splitPath = path.split('/').splice(2, 1).toString();
+    setRecipeId(splitPath);
+    checkStatus();
     getCocktailsRecommendations()
     .then((res) => setCocktailsRecommendations(res));
-    const recipeId = getRecipeId();
-    getMealById(recipeId)
+     getMealById(splitPath)
     .then((res) => {
       const ingredientsArray = [];
       const measureArray = [];
@@ -39,6 +92,7 @@ function MealDetails() {
       setSource(res.meals[0].strMealThumb);
       setVideo(res.meals[0].strYoutube);
       setCategory(res.meals[0].strCategory);
+      setArea(res.meals[0].strArea);
       setInstructions(res.meals[0].strInstructions);
       Object.entries(res.meals[0]).forEach(([key, value]) => {
         const ingredients = key.startsWith('strIngredient') ? value : 0;
@@ -69,12 +123,25 @@ function MealDetails() {
       />
       <FlexContainer>
         <h1 data-testid="recipe-title">{ title }</h1>
-        <FlexContainer>
-          <ShareButton data-testid="share-btn" />
-          <FavoriteButton data-testid="favorite-btn" />
-        </FlexContainer>
+        
+        { copyLink === true ? (<span>Link copiado!</span>) : false }
+        <input
+          data-type="share"
+          data-testid="share-btn"
+          type="image"
+          src={ shareIcon }
+          onClick={ handleAction }
+        />
+        <input
+          data-type="favorite"
+          data-testid="favorite-btn"
+          type="image"
+          src={ heartStatus === 'white' ?  whiteHeartIcon : blackHeartIcon }
+          onClick={ handleAction }
+        />
       </FlexContainer>
       <h3 data-testid="recipe-category">{ category }</h3>
+      
       <h3>Ingredientes</h3>
       <ul>{ getTogether.map((element, index) => {
         const [ key ] = Object.keys(element);
@@ -86,8 +153,10 @@ function MealDetails() {
         )
       })}
       </ul>
+      
       <h3>Instruções</h3>
       <p data-testid="instructions">{ instructions }</p>
+      
       <h3>Vídeo</h3>
       <iframe
         data-testid="video"
@@ -98,9 +167,19 @@ function MealDetails() {
         height="315"
         src={ videoUrl }
       />
+      
       <h3>Recomendações</h3>
       <Recommendations api={ cocktailsRecommendations } />  
-      <button data-testid="start-recipe-btn">Iniciar Receita</button>
+      
+      <button
+        className="startRecipe"
+        data-testid="start-recipe-btn"
+        /* disabled={ disabled } */
+        onClick={ handleClick }
+      >
+        Iniciar Receita
+      </button>
+    
     </div>
   );
 }
