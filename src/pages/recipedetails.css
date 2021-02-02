@@ -7,26 +7,26 @@ img {
 }
 
 .main_carrousel {
-  width: 360px;
   background-color: red;
   height: 400px;
+  margin-bottom: 50px;
   overflow-x: hidden;
   padding-left: 30px;
-  margin-bottom: 50px;
+  width: 360px;
 }
 
 .carrousel {
+  cursor: pointer;
   display: flex;
   flex-direction: row;
-  width: 360px;
   height: 360px;
-  cursor: pointer;
+  width: 360px;
 }
 
 .carrousel img{
+  height: 150px;
   margin-right: 20px;
   width: 150px;
-  height: 150px;
 }
 
 

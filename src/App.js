@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import { Route, BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import RecipesProvider from './context/RecipesProvider';
