@@ -6,6 +6,7 @@ export {
   fetchRecipes,
   fetchCategories,
   fetchRecipesByCategory,
+  fetchRecipeDetails,
 } from './operations';
 
 export default recipes;

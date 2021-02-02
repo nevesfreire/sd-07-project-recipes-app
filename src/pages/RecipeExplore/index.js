@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Explore = () => (
+const RecipeExplore = () => (
   <div>
     <Link
       to="/explorar/comidas"
@@ -18,4 +18,4 @@ const Explore = () => (
   </div>
 );
 
-export default Explore;
+export default RecipeExplore;

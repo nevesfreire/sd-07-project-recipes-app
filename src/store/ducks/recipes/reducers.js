@@ -44,6 +44,13 @@ const recipes = (state = INITIAL_STATE, action) => {
       ...state,
       filterByCategory: action.payload,
     };
+
+  case recipesTypes.SET_RECIPE_DETAILS:
+    return {
+      ...state,
+      detailsRecipe: action.payload,
+    };
+
   default:
     return state;
   }

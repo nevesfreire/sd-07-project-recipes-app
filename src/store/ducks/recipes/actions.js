@@ -19,3 +19,7 @@ export function failedRequest(error) {
 export function setFilterByCategory(categoryFilter) {
   return { type: recipesTypes.SET_FILTER_BY_CATEGORY, payload: categoryFilter };
 }
+
+export function setRecipeDetails(recipe) {
+  return { type: recipesTypes.SET_RECIPE_DETAILS, payload: recipe };
+}

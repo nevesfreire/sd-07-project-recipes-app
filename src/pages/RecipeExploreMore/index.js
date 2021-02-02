@@ -1,21 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import { getRandom } from '../../services/recipeAPI';
+import { fetchRecipeDetails } from '../../store/ducks/recipes';
+// import { getRandom } from '../../services/recipeAPI';
 
-const ExploreMore = () => {
+const RecipeExploreMore = () => {
+  const dispatch = useDispatch();
   const location = useLocation();
   const currentPath = location.pathname;
 
-  const [randomDrinkId, setRandomDrinkId] = useState('');
-  const [randomMealId, setRandomMealId] = useState('');
+  // const [randomDrinkId, setRandomDrinkId] = useState('');
+  // const [randomMealId, setRandomMealId] = useState('');
 
   useEffect(() => {
-    getRandom('bebidas')
-      .then((response) => setRandomDrinkId(response[0].id));
+    dispatch(fetchRecipeDetails(currentPath));
+    // getRandom('bebidas')
+    //   .then((response) => setRandomDrinkId(response[0].id));
 
-    getRandom('comidas')
-      .then((response) => setRandomMealId(response[0].id));
-  }, []);
+    // getRandom('comidas')
+    //   .then((response) => setRandomMealId(response[0].id));
+  }, [dispatch, currentPath]);
 
   if (currentPath.includes('bebidas')) {
     return (
@@ -57,4 +61,4 @@ const ExploreMore = () => {
   }
 };
 
-export default ExploreMore;
+export default RecipeExploreMore;
