@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { CupNodesContext } from '../contexts';
 import { SUBMIT_SEARCH } from '../reducers';
-import Button from './Button';
+import { Button } from './Contructors';
 
 export default function SearchBar({ title }) {
   const { dispatchFilter } = useContext(CupNodesContext);

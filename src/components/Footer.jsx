@@ -4,7 +4,7 @@ import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 import './components.css';
-import Button from './Button';
+import { Button } from './Contructors';
 
 function Footer() {
   const { push } = useHistory();

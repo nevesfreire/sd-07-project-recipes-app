@@ -6,12 +6,15 @@ import {
   Profile,
   Drinks,
   Explore,
+  DetailsFood,
+  DetailsDrink,
   FoodExplore,
   DrinkExplore,
   AreaExploreFood,
   IngredientsExploreDrink,
   IngredientsExploreFood,
 } from './pages';
+import { NotFound } from './components';
 
 export default function Routes() {
   return (
@@ -19,7 +22,9 @@ export default function Routes() {
       <Switch>
         <Route exact path="/" component={ Login } />
         <Route exact path="/comidas" component={ Foods } />
+        <Route exact path="/comidas/:idFood" component={ DetailsFood } />
         <Route exact path="/bebidas" component={ Drinks } />
+        <Route exact path="/bebidas/:idDrink" component={ DetailsDrink } />
         <Route exact path="/explorar" component={ Explore } />
         <Route exact path="/explorar/comidas" component={ FoodExplore } />
         <Route exact path="/explorar/bebidas" component={ DrinkExplore } />
@@ -35,6 +40,7 @@ export default function Routes() {
         />
         <Route exact path="/explorar/comidas/area" component={ AreaExploreFood } />
         <Route exact path="/perfil" component={ Profile } />
+        <Route exact path="/explorar/bebidas/area" component={ NotFound } />
       </Switch>
     </BrowserRouter>
   );

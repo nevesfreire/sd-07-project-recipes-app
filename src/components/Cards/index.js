@@ -1,12 +1,2 @@
-export { default as Card } from './Card';
-export { default as LoadingCard } from './LoadingCard';
-export { default as CardDrinkRandon } from './CardDrinkRandon';
-export { default as CardFoodRandon } from './CardFoodRandon';
-export { default as RandonDrinkCards } from './RandonDrinkCards';
-export { default as RandonFoodCards } from './RandonFoodCards';
-export { default as DrinkCards } from './DrinkCards';
-export { default as FoodCards } from './FoodCards';
-export { default as SearchDrinkCards } from './SearchDrinkCards';
-export { default as SearchFoodCards } from './SearchFoodCards';
-export { default as IngredientsFoodCards } from './IngredientsFoodCards';
-export { default as IngredientsDrinkCards } from './IngredientsDrinkCards';
+export { default as CardsFactory } from './CardsFactory';
+export { default as IngredientsCardsFactory } from './IngredientsCardsFactory';

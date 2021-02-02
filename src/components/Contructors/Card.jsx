@@ -4,11 +4,11 @@ import '../components.css';
 import PropTypes from 'prop-types';
 
 export default function Card({
-  title, img, testidImg, testidIndex, testidTitle, link, callback,
+  title, img, testidImg, testidCard, testidTitle, link, callback,
 }) {
   return (
     <Link to={ link } onClick={ callback }>
-      <div className="card" data-testid={ testidIndex }>
+      <div className="card" data-testid={ testidCard }>
         <img src={ img } className="card-img-top" alt="foto" data-testid={ testidImg } />
         <div className="card-body">
           <h5 className="card-title" data-testid={ testidTitle }>{title}</h5>
@@ -20,7 +20,7 @@ export default function Card({
 
 Card.defaultProps = {
   testidImg: '',
-  testidIndex: '',
+  testidCard: '',
   testidTitle: '',
   link: '',
   callback: () => {},
@@ -30,7 +30,7 @@ Card.propTypes = {
   link: PropTypes.string,
   callback: PropTypes.func,
   testidImg: PropTypes.string,
-  testidIndex: PropTypes.string,
+  testidCard: PropTypes.string,
   testidTitle: PropTypes.string,
   title: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,

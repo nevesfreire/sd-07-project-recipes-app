@@ -1,8 +1,8 @@
 import React from 'react';
 import { Card } from '../components';
 
-export default function factoryCard(arr, number, drink = true) {
-  if (!arr) return (<h1>Não encontrado!</h1>);
+function factoryCard(arr, number, drink, parameters) {
+  if (!arr) return;
   const text = drink ? 'Drink' : 'Meal';
   const str = `str${text}`;
   const Thumb = `str${text}Thumb`;
@@ -10,11 +10,15 @@ export default function factoryCard(arr, number, drink = true) {
   return arr.filter((_, index) => index < number)
     .map((element, i) => (
       <Card
-        link={ `/comidas/${element[id]}` }
+        key={ i }
         title={ element[str] }
         img={ element[Thumb] }
-        strAlcoholic={ element.strAlcoholic }
-        key={ i }
+        testidImg={ parameters ? `${i}${parameters.testidImg}` : `${i}-card-img` }
+        testidCard={ parameters ? `${i}${parameters.testidCard}` : `${i}-recipe-card` }
+        testidTitle={ parameters ? `${i}${parameters.testidTitle}` : `${i}-card-name` }
+        link={ `/${text === 'Drink' ? 'bebidas' : 'comidas'}/${element[id]}` }
       />
     ));
 }
+
+export default factoryCard;
