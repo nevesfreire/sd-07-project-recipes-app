@@ -58,15 +58,6 @@ class Bebidas extends React.Component {
     });
   }
 
-<<<<<<< HEAD
-class Bebidas extends React.Component {
-  render() {
-    const { toggle } = this.props;
-    return (
-      <div>
-        <Header title="Bebidas" />
-        {toggle && <BarraBuscaBebidas />}
-=======
   render() {
     const { loading, recipes } = this.state;
     const { toggle, history, toggleDrink, resultDrink, resultApiByName } = this.props;
@@ -111,7 +102,6 @@ class Bebidas extends React.Component {
         </button>
         {loading ? 'Loading' : this.showCards(recipes)}
         {toggleDrink ? this.showCards(resultApiByName) : this.showCards(resultDrink)}
->>>>>>> main-group-1
         <Footer />
       </div>
     );
@@ -120,14 +110,6 @@ class Bebidas extends React.Component {
 
 const mapStateToProps = (state) => ({
   toggle: state.reducerSearchBar.toggle,
-<<<<<<< HEAD
-});
-
-export default connect(mapStateToProps)(Bebidas);
-
-Bebidas.propTypes = {
-  toggle: PropTypes.bool.isRequired,
-=======
   toggleDrink: state.reducerSearchBar.toggleDrink,
   resultDrink: state.reducerBebidas.recipesByRadomBebida,
   resultApiByName: state.reducerBebidas.recipesByNameBebida,
@@ -148,5 +130,4 @@ Bebidas.propTypes = {
   resultDrink: PropTypes.arrayOf(PropTypes.object).isRequired,
   fetchRandomDrink: PropTypes.func.isRequired,
   resultApiByName: PropTypes.arrayOf(PropTypes.object).isRequired,
->>>>>>> main-group-1
 };
