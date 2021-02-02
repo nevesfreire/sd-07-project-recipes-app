@@ -108,21 +108,18 @@ class DetalhesComidas extends Component {
           return (
             <div key={ index } className="card">
               <button
-                name={ receita.idDrink }
                 type="button"
-                onClick={ ({ target }) => this.handleClick(target.name) }
+                onClick={ () => this.handleClick(receita.idDrink) }
                 data-testid={ `${index}-recomendation-card` }
               >
                 <img
                   data-testid={ `${index}-recomendation-img` }
-                  name={ receita.idDrink }
                   src={ receita.strDrinkThumb }
                   alt="imagem da receita"
                 />
               </button>
               <h1
                 data-testid={ `${index}-recomendation-title` }
-                name={ receita.idDrink }
               >
                 {receita.strDrink}
               </h1>

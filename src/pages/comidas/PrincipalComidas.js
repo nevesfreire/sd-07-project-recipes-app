@@ -41,22 +41,19 @@ class PrincipalComidas extends Component {
             return (
               <button
                 className="card"
-                name={ receita.idMeal }
                 type="button"
-                onClick={ ({ target }) => this.handleClick(target.name) }
+                onClick={ () => this.handleClick(receita.idMeal) }
                 key={ index }
                 data-testid={ `${index}-recipe-card` }
               >
                 <img
                   className="card"
-                  name={ receita.idMeal }
                   data-testid={ `${index}-card-img` }
                   src={ receita.strMealThumb }
                   alt="imagem da receita"
                 />
                 <h1
                   className="card"
-                  name={ receita.idMeal }
                   data-testid={ `${index}-card-name` }
                 >
                   {receita.strMeal}
