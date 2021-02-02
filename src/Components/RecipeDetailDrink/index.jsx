@@ -22,7 +22,10 @@ const RecipeDetailDrink = () => {
   const endPoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
 
   const like = () => {
-    localStorage.setItem('favoriteRecipesDrinks', JSON.stringify(`${id}`));
+    localStorage.setItem(
+      'favoriteRecipesDrinks',
+      JSON.stringify([{ favoriteDrinks: `${id}` }]),
+    );
     if (isFavorite === false) {
       setIsFavorite(true);
     } else {
@@ -146,11 +149,14 @@ const RecipeDetailDrink = () => {
             alt="favorite"
           />
         </button>
-        <button data-testid="share-btn" type="button" onClick={ () => shareLink() }>
+        <button
+          data-testid="share-btn"
+          type="button"
+          onClick={ () => shareLink() }
+        >
           <img src={ shareIcon } alt="share" />
           <span id="result" />
         </button>
-
       </div>
       <div className="container-text">
         <div className="category" data-testid="recipe-category">
