@@ -12,7 +12,7 @@ import ExplorerDrinks from './pages/ExplorerDrinks';
 import ExplorerFoodIngredients from './pages/ExplorerFoodIngredients';
 import ExplorerDrinksIngredients from './pages/ExplorerDrinksIngredients';
 import ExplorerFoodArea from './pages/ExplorerFoodArea';
-import Perfil from './pages/Perfil';
+import Profile from './pages/Profile';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 
@@ -42,7 +42,7 @@ function App() {
             component={ ExplorerDrinksIngredients }
           />
           <Route exact path="/explorar/comidas/area" component={ ExplorerFoodArea } />
-          <Route exact path="/perfil" component={ Perfil } />
+          <Route exact path="/perfil" component={ Profile } />
           <Route exact path="/receitas-feitas" component={ DoneRecipes } />
           <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
         </BrowserRouter>

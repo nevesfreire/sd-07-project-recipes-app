@@ -7,7 +7,7 @@ import '../App.css';
 function Header({ title }) {
   return (
     <header>
-      <Link to="/perfil">
+      <Link to="/profile">
         <img
           className="title"
           src={ profileIcon }
