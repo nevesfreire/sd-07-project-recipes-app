@@ -9,6 +9,10 @@ body {
   width: 100%;
 }
 
+:checked + label {
+  text-decoration: line-through;
+}
+
 .main-container {
   align-items: center;
   display: flex;
