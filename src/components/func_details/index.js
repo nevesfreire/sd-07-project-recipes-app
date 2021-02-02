@@ -2,7 +2,6 @@ export const ingredientsMount = (fn, value) => {
   const initialIndex = 0;
   const halfIndex = 2; // importante para pegar o valor das quantidades
   const ingredients = Object.entries(value.meals[0])
-    // console.log(ingredients); array 2 chave e valor do retorno da API
     .filter(
       (item) => item[0].includes('Ingredient') || item[0].includes('Measure'),
     )
@@ -135,3 +134,27 @@ export const fetchRecommendations = async (
   fnSetRecommendations1(getRecommendations1);
   fnSetRecommendations2(getRecommendations2);
 };
+
+
+export const fetchRecommendationsMeals = async (
+  fnSetRecommendations1,
+  fnSetRecommendations2) => {
+  const path = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  const response = await fetch(path);
+  const result = await response.json();
+  // console.log(result);
+  const maximumRecommendations1 = 3;
+  const maximumRecommendations2 = 6;
+  const getRecommendations1 = result.meals.filter(
+    (recommendation, index) => index < maximumRecommendations1
+      && recommendation,
+  );
+  // console.log(getRecommendations1);
+  const getRecommendations2 = result.meals.filter(
+    (recommendation, index) => index >= maximumRecommendations1
+    && index < maximumRecommendations2
+    && recommendation,
+  );
+  fnSetRecommendations1(getRecommendations1);
+  fnSetRecommendations2(getRecommendations2);
+}

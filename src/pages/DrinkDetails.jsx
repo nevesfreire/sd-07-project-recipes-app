@@ -4,7 +4,13 @@ import GlobalContext from '../context/GlobalContext';
 import likeIcon from '../images/whiteHeartIcon.svg';
 import fullLikeIcon from '../images/blackHeartIcon.svg';
 import ShareButton from '../components/ShareButton';
+import ShowRecommended from '../components/RecommendedFoodOrDrinks';
 import './foodAndDrinkDetails.css';
+import {
+  unLikeRecipe,
+  setLikeImage,
+  fetchRecommendationsMeals,
+} from '../components/func_details';
 
 export default function DrinkDetails(props) {
   const context = useContext(GlobalContext);
@@ -49,12 +55,6 @@ export default function DrinkDetails(props) {
     const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     recipes.push(favoriteRecipes);
     localStorage.setItem('favoriteRecipes', JSON.stringify(recipes));
-  };
-
-  const unLikeRecipe = () => {
-    const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const unSave = recipes.filter((item) => item.id !== id);
-    localStorage.setItem('favoriteRecipes', JSON.stringify(unSave));
   };
 
   const handleImage = () => {
@@ -132,27 +132,6 @@ export default function DrinkDetails(props) {
     ingredientsMount(result);
   };
 
-  const fetchRecommendations = useCallback(async () => {
-    const path = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-    const response = await fetch(path);
-    const result = await response.json();
-    // console.log(result);
-    const maximumRecommendations1 = 3;
-    const maximumRecommendations2 = 6;
-    const getRecommendations1 = result.meals.filter(
-      (recommendation, index) => index < maximumRecommendations1
-        && recommendation,
-    );
-    // console.log(getRecommendations1);
-    const getRecommendations2 = result.meals.filter(
-      (recommendation, index) => index >= maximumRecommendations1
-      && index < maximumRecommendations2
-      && recommendation,
-    );
-    setRecommendations1(getRecommendations1);
-    setRecommendations2(getRecommendations2);
-  }, [setRecommendations1, setRecommendations2]);
-
   const setButtonTitle = () => {
     if (localStorage.getItem('inProgressRecipes') !== null) {
       const recipes = JSON.parse(localStorage.getItem('inProgressRecipes'))
@@ -165,24 +144,10 @@ export default function DrinkDetails(props) {
     }
   };
 
-  const setLikeImage = () => {
-    if (localStorage.getItem('favoriteRecipes') !== null) {
-      const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      const findElement = recipes.find((item) => item.id === id);
-      if (findElement !== undefined) {
-        setBtnImg(fullLikeIcon);
-      } else {
-        setBtnImg(likeIcon);
-      }
-    } else {
-      setBtnImg(likeIcon);
-    }
-  };
-
   useEffect(() => {
     fetchDrinks();
-    fetchRecommendations();
-    setLikeImage();
+    fetchRecommendationsMeals(setRecommendations1, setRecommendations2);
+    setLikeImage(setBtnImg, id, fullLikeIcon, likeIcon);
     setButtonTitle();
   }, []);
 
@@ -220,108 +185,13 @@ export default function DrinkDetails(props) {
         {getRecipeInstructions}
       </h3>
       <h3>Recommendations:</h3>
-      <div className="carousels-container">
-        <div
-          className="carousel slide"
-          data-ride="carousel"
-          id="carousel1"
-        >
-          <div className="carousel-item active">
-            {recommendations1.map((item, index) => {
-              if (index === carouselActiveIndex) {
-                return (
-                  <div
-                    key={ item.idMeal }
-                    data-testid={ `${index}-recomendation-card` }
-                    className="carousel-item active"
-                  >
-                    <img
-                      className="d-block w-100"
-                      src={ item.strMealThumb }
-                      alt={ item.strMeal }
-                    />
-                    <h5 data-testid={ `${index}-recomendation-title` }>
-                      { item.strMeal }
-                    </h5>
-                  </div>
-                );
-              }
-              return (
-                <div
-                  key={ item.idMeal }
-                  data-testid={ `${
-                    index + carouselActiveIndex1
-                  }-recomendation-card` }
-                  className="carousel-item"
-                >
-                  <img
-                    src={ item.strMealThumb }
-                    alt={ item.strMeal }
-                    className="d-block w 100"
-                  />
-                  <h5 data-testid={ `${index}-recomendation-title` }>
-                    { item.strMeal }
-                  </h5>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-        <div
-          className="carousel slide"
-          data-ride="carousel"
-          id="carousel2"
-        >
-          <div className="carousel-inner">
-            {recommendations2.map((item, index) => {
-              if (index === carouselActiveIndex) {
-                return (
-                  <div
-                    key={ item.idMeal }
-                    data-testid="1-recomendation-card"
-                    className="carousel-item active"
-                  >
-                    <img
-                      src={ item.strMealThumb }
-                      alt={ item.strMeal }
-                      className="d-block w-100"
-                    />
-                    <h5
-                      data-testid={ `${
-                        index + carouselPartition
-                      }-recomendation-title` }
-                    >
-                      { item.strMeal }
-                    </h5>
-                  </div>
-                );
-              }
-              return (
-                <div
-                  key={ item.idMeal }
-                  data-testid={ `${
-                    index + carouselPartition
-                  }-recomendation-card` }
-                  className="carousel-item"
-                >
-                  <img
-                    src={ item.strMealThumb }
-                    alt={ item.strMeal }
-                    className="d-block w-100"
-                  />
-                  <h5
-                    data-testid={ `${
-                      index + carouselPartition
-                    }-recomendation-title` }
-                  >
-                    { item.strMeal }
-                  </h5>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
+      <ShowRecommended
+        recommendation1={ recommendations1 }
+        recommendation2={ recommendations2 }
+        carouselActiveIndex={ carouselActiveIndex }
+        carouselActiveIndex1={ carouselActiveIndex1 }
+        carouselPartition={ carouselPartition }
+      />
       {buttonMount() && (
         <button
           type="button"

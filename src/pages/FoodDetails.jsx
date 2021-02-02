@@ -4,6 +4,7 @@ import GlobalContext from '../context/GlobalContext';
 import likeIcon from '../images/whiteHeartIcon.svg';
 import fullLikeIcon from '../images/blackHeartIcon.svg';
 import ShareButton from '../components/ShareButton';
+import ShowRecommended from '../components/RecommendedFoodOrDrinks';
 import './foodAndDrinkDetails.css';
 import {
   ingredientsMount,
@@ -110,28 +111,24 @@ export default function FoodDetails(props) {
         { getRecipeTitle }
       </p>
       <div className="favorite-and-share-btn-container">
-        <button
-          type="button"
-          onClick={ handleImage }
-          className="favorite-btn"
-        >
+        <button type="button" onClick={ handleImage } className="favorite-btn">
           <img src={ btnImg } alt="like" data-testid="favorite-btn" />
         </button>
         <ShareButton path={ pathname } />
       </div>
       <p className="recipe-details-category">
         Category-
-        <span data-testid="recipe-category">{ getRecipeCategory }</span>
+        <span data-testid="recipe-category">{getRecipeCategory}</span>
       </p>
       <ul className="ingredients-list">
-        { getRecipeIngredients.map((item, index) => (
+        {getRecipeIngredients.map((item, index) => (
           <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-            { item }
+            {item}
           </li>
-        )) }
+        ))}
       </ul>
       <h3 data-testid="instructions" className="recipe-details-instructions">
-        { getRecipeInstructions }
+        {getRecipeInstructions}
       </h3>
       <iframe
         src={ getRecipeVideo }
@@ -140,108 +137,13 @@ export default function FoodDetails(props) {
         className="recipe-details-video"
       />
       <h3>Recommendations:</h3>
-      <div className="carousels-container">
-        <div
-          className="carousel slide"
-          data-ride="carousel"
-          id="carousel1"
-        >
-          <div className="carousel-item active">
-            { recommendations1.map((item, index) => {
-              if (index === carouselActiveIndex) {
-                return (
-                  <div
-                    key={ item.strDrink }
-                    data-testid={ `${index}-recomendation-card` }
-                    className="carousel-item active"
-                  >
-                    <img
-                      className="d-block w-100"
-                      src={ item.strDrinkThumb }
-                      alt={ item.strDrink }
-                    />
-                    <h5 data-testid={ `${index}-recomendation-title` }>
-                      { item.strDrink }
-                    </h5>
-                  </div>
-                );
-              }
-              return (
-                <div
-                  key={ item.idDrink }
-                  data-testid={ `${
-                    index + carouselActiveIndex1
-                  }-recomendation-card` }
-                  className="carousel-item"
-                >
-                  <img
-                    src={ item.strDrinkThumb }
-                    alt={ item.strDrink }
-                    className="d-block w-100"
-                  />
-                  <h5 data-testid={ `${index}-recomendation-title` }>
-                    { item.strDrink }
-                  </h5>
-                </div>
-              );
-            }) }
-          </div>
-        </div>
-        <div
-          className="carousel slide"
-          data-ride="carousel"
-          id="carousel2"
-        >
-          <div className="carousel-inner">
-            { recommendations2.map((item, index) => {
-              if (index === carouselActiveIndex) {
-                return (
-                  <div
-                    key={ item.idDrink }
-                    data-testid="1-recomendation-card"
-                    className="carousel-item active"
-                  >
-                    <img
-                      className="d-block w-100"
-                      src={ item.strDrinkThumb }
-                      alt={ item.strDrink }
-                    />
-                    <h5
-                      data-testid={ `${
-                        index + carouselPartition
-                      }-recomendation-title` }
-                    >
-                      {item.strDrink}
-                    </h5>
-                  </div>
-                );
-              }
-              return (
-                <div
-                  key={ item.idDrink }
-                  data-testid={ `${
-                    index + carouselPartition
-                  }-recomendation-card` }
-                  className="carousel-item"
-                >
-                  <img
-                    src={ item.strDrinkThumb }
-                    alt={ item.strDrink }
-                    className="d-block w-100"
-                  />
-                  <h5
-                    data-testid={ `${
-                      index + carouselPartition
-                    }-recomendation-title` }
-                  >
-                    { item.strDrink }
-                  </h5>
-                </div>
-              );
-            }) }
-          </div>
-        </div>
-      </div>
+      <ShowRecommended
+        recommendation1={ recommendations1 }
+        recommendation2={ recommendations2 }
+        carouselActiveIndex={ carouselActiveIndex }
+        carouselActiveIndex1={ carouselActiveIndex1 }
+        carouselPartition={ carouselPartition }
+      />
       {buttonMount(id) && (
         <button
           type="button"
@@ -249,7 +151,7 @@ export default function FoodDetails(props) {
           className="start-recipe-btn"
           onClick={ handleClick }
         >
-          {btnTitle}
+          { btnTitle }
         </button>
       )}
     </div>
