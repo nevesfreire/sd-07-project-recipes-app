@@ -12,9 +12,23 @@ export const getMealById = (id) => {
     .then((json) => json);
 };
 
+export const mealIngredients = () => {
+  const endpoint = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+  return fetch(endpoint)
+    .then((response) => response.json())
+    .then((json) => json);
+};
+
 export const getMealsRecommendations = () => {
-  const endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=`;
+  const endpoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   return fetch(endpoint)
     .then((response) => response.json())
     .then((json) => json.meals);
+};
+
+export const mealByIngredient = (ingredient) => {
+  const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
+  return fetch(endpoint)
+    .then((response) => response.json())
+    .then((json) => json);
 };

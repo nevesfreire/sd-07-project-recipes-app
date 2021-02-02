@@ -1,5 +1,6 @@
 import React from 'react';
-import Slider from "react-slick";
+import PropTypes from 'prop-types';
+import Slider from 'react-slick';
 
 function Recommendations({ api }) {
   const startPosition = 0;
@@ -7,38 +8,40 @@ function Recommendations({ api }) {
   const firstSixItems = api.slice(startPosition, lastPosition);
 
   return (
-    <div >
+    <div>
       <Slider
-        dots={ true }
-        infinite={ true }
+        dots
+        infinite
         speed={ 1000 }
         slidesToScroll={ 1 }
-        arrows={ true }
+        arrows
         slidesToShow={ 2 }
       >
-       {  firstSixItems.map((card, index) => {
-         if (card.strDrink) {
+        { firstSixItems.map((card, index) => {
+          if (card.strDrink) {
+            return (
+              <div key={ index } data-testid={ `${index}-recomendation-card` }>
+                <img src={ card.strDrinkThumb } width="100px" alt="Cocktail" />
+                <h5>{ card.strCategory }</h5>
+                <h4>{ card.strDrink }</h4>
+              </div>
+            );
+          }
           return (
             <div key={ index } data-testid={ `${index}-recomendation-card` }>
-              <img src={ card.strDrinkThumb } width="100px" />
-              <h5>{ card.strCategory }</h5>
-              <h4>{ card.strDrink }</h4>
-            </div>
-          )
-         } else {
-          return (
-            <div key={ index } data-testid={ `${index}-recomendation-card` }>
-              <img src={ card.strMealThumb } width="100px" />
+              <img src={ card.strMealThumb } width="100px" alt="Meal" />
               <h5>{ card.strCategory }</h5>
               <h4>{ card.strMeal }</h4>
             </div>
-          )
-         }
-        })
-      }
+          );
+        })}
       </Slider>
     </div>
   );
 }
+
+Recommendations.propTypes = {
+  api: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
 export default Recommendations;

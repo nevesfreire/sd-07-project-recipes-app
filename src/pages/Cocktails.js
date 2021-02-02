@@ -7,7 +7,12 @@ import allActions from '../actions';
 
 function Cocktails() {
   const state = useSelector(({ mainpage }) => mainpage);
-  const { drinks, isLoading, drinkCategories } = state;
+  const {
+    drinks,
+    isLoading,
+    drinkCategories,
+    selectedIngredient,
+    drinksByIngredients } = state;
   const dispatch = useDispatch();
   const [filterOn, setFilterOn] = useState(false);
   const [filteredDrinks, setFilteredDrinks] = useState([]);
@@ -25,6 +30,8 @@ function Cocktails() {
     function checkFilter() {
       if (filterOn) {
         setCardsArray(filteredDrinks);
+      } else if (selectedIngredient !== '') {
+        setCardsArray(drinksByIngredients);
       } else {
         setCardsArray(drinks);
       }
