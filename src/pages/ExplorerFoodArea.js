@@ -46,10 +46,15 @@ function ExplorerFoodArea() {
   };
 
   const renderFilters = (array) => {
-    const finalArray = array
-      .map((filter, index) => (
-        <option key={ index } value={filter.strArea} data-testid={ `${filter.strArea}-option` }>{filter.strArea}</option>
-      ));
+    const finalArray = array.map((filter, index) => (
+      <option
+        key={ index }
+        value={ filter.strArea }
+        data-testid={ `${filter.strArea}-option` }
+      >
+        {filter.strArea}
+      </option>
+    ));
     const buttonAll = (
       <option key="all" value="all" data-testid="All-option">All</option>
     );
@@ -83,11 +88,15 @@ function ExplorerFoodArea() {
       {allFiltersToRender === undefined ? (
         <p>Loading</p>
       ) : (
-        <select value={ selectedValue } onChange={ (e) => regionSelected(e) } data-testid="explore-by-area-dropdown">
+        <select
+          value={ selectedValue }
+          onChange={ (e) => regionSelected(e) }
+          data-testid="explore-by-area-dropdown"
+        >
           {renderFilters(allFiltersToRender)}
         </select>
       )}
-      {(allRegionFoodsToRender === undefined) || (loading === true) ? (
+      {allRegionFoodsToRender === undefined || loading === true ? (
         <p>Loading</p>
       ) : (
         renderTwelveElements(allRegionFoodsToRender)
