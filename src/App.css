@@ -10,6 +10,28 @@
   width: 100%;
 }
 
+#form-container {
+  width: 100vw;
+  height: 100vh;
+  background: #6C7A89;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center
+}
+
+#form-box {
+  width: 300px;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: white;
+  border-radius: 5px;
+}
+
+#form-box input {
+  font-size: large;
+}
+
 .rocksGlass {
   animation: shake 1s infinite ease;
   max-height: 80vh;

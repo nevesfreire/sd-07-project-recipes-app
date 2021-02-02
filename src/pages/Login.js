@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Form, Button } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Login(props) {
   const [email, setEmail] = useState('');
@@ -34,32 +36,52 @@ function Login(props) {
   };
 
   return (
-    <div>
-      <form>
-        <input
-          type="text"
-          name="email"
-          value={ email }
-          data-testid="email-input"
-          placeholder="user@trybe.com"
-          onChange={ (e) => handleChangeEmail(e) }
-        />
-        <input
-          type="text"
-          name={ password }
-          data-testid="password-input"
-          placeholder="password"
-          onChange={ (e) => handleChangePassword(e) }
-        />
-        <button
-          type="button"
-          data-testid="login-submit-btn"
-          disabled={ checkedPassword || !validatesEmail() }
-          onClick={ submit }
-        >
-          Entrar
-        </button>
-      </form>
+    <div id="form-container">
+      <div className="panel" id="form-box">
+        <form action="login.php" method="post">
+          <h1 className="text-center">Login</h1>
+          <div className="form-group input-group">
+            <span className="input-group-text" id="basic-addon1">@</span>
+            <input
+              type="text"
+              name="email"
+              className="form-control"
+              value={ email }
+              data-testid="email-input"
+              placeholder="user@trybe.com"
+              onChange={ (e) => handleChangeEmail(e) }
+            />
+          </div>
+
+          <div className="form-group input-group">
+            <Form.Control
+              type="password"
+              name={ password }
+              data-testid="password-input"
+              placeholder="Password"
+              onChange={ (e) => handleChangePassword(e) }
+            />
+          </div>
+
+          <div className="form-group">
+            <Button
+              variant="success"
+              size="lg"
+              block
+              type="submit"
+              data-testid="login-submit-btn"
+              disabled={ checkedPassword || !validatesEmail() }
+              onClick={ submit }
+            >
+              Entrar
+            </Button>
+          </div>
+          <div className="form-group">
+            Não é registrado?
+            <a href="cadastro.html">Crie uma contra</a>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
