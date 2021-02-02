@@ -23,9 +23,7 @@ function Login(props) {
 
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
-    localStorage.setItem('user', JSON.stringify({ email: state.email }));
-
-    dispatch(Actions.signIn(state.email));
+    localStorage.setItem('user', JSON.stringify({ email: state.email }));  
 
     history.push('/comidas');
   };
