@@ -23,7 +23,7 @@ function Profile() {
           className="email-perfil"
           data-testid="profile-email"
         >
-          {email === 'E-mail não informado!' ? email : email.email}
+          {email === 'E-mail não informado!' ? email : email.email }
         </h3>
         <Link
           to="/receitas-feitas"

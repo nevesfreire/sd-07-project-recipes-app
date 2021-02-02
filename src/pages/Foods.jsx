@@ -6,7 +6,6 @@ import {
   fetchAPICategoriesFood,
   fetchAPICategoriesFoodFilter,
 } from '../services/api';
-
 import Footer from '../components/Footer';
 import RecipesContext from '../context/RecipesContext';
 
