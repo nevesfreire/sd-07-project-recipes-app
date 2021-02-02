@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import Header from '../components/Header';
+import Category from '../components/Category';
 import SearchInput from '../components/SearchInput';
 import RecipesContext from '../context/RecipesContext';
 import { getCurrenceRecipesFoodsName } from '../services/foodAPI';
@@ -8,22 +9,31 @@ import { getCurrenceRecipesFoodsName } from '../services/foodAPI';
 function FoodRecipes() {
   const zero = 0;
   const Twelve = 12;
-  const { searchRender,
+  const {
+    searchRender,
     recipesFilters,
     setMealRecipeId,
     mealRecipeId,
     setRecipesFilters,
+    btnFilter,
+    setInitialRecipes,
   } = useContext(RecipesContext);
   const filterRecipesTwelve = recipesFilters !== null
     ? recipesFilters.slice(zero, Twelve)
     : [];
 
   useEffect(() => {
-    getCurrenceRecipesFoodsName('')
-      .then((response) => setRecipesFilters(response.meals));
+    getCurrenceRecipesFoodsName('').then((response) => {
+      setRecipesFilters(response.meals);
+      setInitialRecipes(response.meals);
+    });
   }, [setRecipesFilters]);
 
-  if (recipesFilters !== null && recipesFilters.length === 1) {
+  if (
+    recipesFilters !== null
+    && recipesFilters.length === 1
+    && btnFilter === false
+  ) {
     const { idMeal } = recipesFilters[zero];
     setMealRecipeId(idMeal);
     return <Redirect to={ `/comidas/${idMeal}` } />;
@@ -42,10 +52,10 @@ function FoodRecipes() {
   };
 
   return (
-
     <div>
       <Header />
-      { searchRender ? <SearchInput /> : null}
+      <Category />
+      {searchRender ? <SearchInput /> : null}
       {filterRecipesTwelve.map((recipe, index) => (
         <button
           type="button"

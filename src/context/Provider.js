@@ -14,6 +14,8 @@ function Provider({ children }) {
   const [drinkRecipeId, setDrinkRecipeId] = useState('');
   const [recipeDetailFood, setRecipeDetailFood] = useState({});
   const [recipeDetailDrink, setRecipeDetailDrink] = useState({});
+  const [btnFilter, setBtnFilter] = useState(false);
+  const [initialRecipes, setInitialRecipes] = useState();
 
   const checkRecipe = () => {
     if (recipesFilters === null) {
@@ -26,8 +28,6 @@ function Provider({ children }) {
     [recipesFilters],
   );
 
-  console.log(drinkRecipeId);
-
   const context = {
     mealRecipeId,
     drinkRecipeId,
@@ -38,6 +38,8 @@ function Provider({ children }) {
     searchInput,
     getSearchBtn,
     recipesFilters,
+    btnFilter,
+    initialRecipes,
     setRecipesFilters,
     setSearchBtn,
     setSearchInput,
@@ -47,7 +49,8 @@ function Provider({ children }) {
     setDrinkRecipeId,
     setRecipeDetailFood,
     setRecipeDetailDrink,
-
+    setBtnFilter,
+    setInitialRecipes,
   };
 
   return (
