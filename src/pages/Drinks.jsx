@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import Cards from '../components/cards';
+import { CardDrinks } from '../components/cards';
 import GlobalContext from '../context/GlobalContext';
 import { FoodsDrinks } from './style';
-import DrinkCategories from '../components/categories/DrinkCategories';
+import DrinkCategories from '../components/categories/FoodCategories';
 
 const { Container } = FoodsDrinks;
 
@@ -12,11 +12,8 @@ export default function Drinks() {
   const {
     setTitle,
     setSearchButton,
-    setDataDrinks,
-    dataDrinks,
+    selectedTypeDrink,
   } = useContext(GlobalContext);
-
-  const numberOfCards = 12;
 
   useEffect(() => {
     setTitle('Bebidas');
@@ -24,14 +21,14 @@ export default function Drinks() {
   }, [setTitle, setSearchButton]);
 
   useEffect(() => {
-    setDataDrinks();
-  }, [setDataDrinks]);
+    selectedTypeDrink('initial');
+  }, [selectedTypeDrink]);
 
   return (
     <Container>
       <Header />
       <DrinkCategories />
-      {Cards(numberOfCards, dataDrinks)}
+      <CardDrinks />
       <Footer />
     </Container>
   );

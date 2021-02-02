@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useCallback } from 'react';
+import React, { useContext } from 'react';
 import Buttons from '../buttons';
 import GlobalContext from '../../context/GlobalContext';
 import Styles from './Styles';
@@ -6,39 +6,21 @@ import Styles from './Styles';
 const { BtnBar } = Styles;
 
 export default function DrinkCategories() {
-  const numberOfCategories = 5;
   const {
-    setDrinkCategories,
-    drinkCategories,
+    data,
   } = useContext(GlobalContext);
 
-  const fetchDrinkCategories = useCallback(() => {
-    fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list')
-      .then((response) => response.json())
-      .then(({ drinks }) => {
-        const filter = () => {
-          const filteredResponse = [];
-          if (drinks !== null) {
-            Object.entries(drinks).forEach((drink, index) => {
-              if (index < numberOfCategories) {
-                const { strCategory } = drink[1];
-                filteredResponse.push(strCategory);
-              }
-            });
-          }
-          return filteredResponse;
-        };
-        setDrinkCategories(filter());
-      }, []);
-  }, [setDrinkCategories]);
-
-  useEffect(() => {
-    fetchDrinkCategories();
-  }, [fetchDrinkCategories]);
+  const listOfCategories = () => {
+    const list = [];
+    data.forEach(({ strCategory }) => {
+      list.push(strCategory);
+    });
+    return list;
+  };
 
   return (
     <BtnBar>
-      {Buttons(numberOfCategories, drinkCategories)}
+      {Buttons(listOfCategories())}
     </BtnBar>
   );
 }

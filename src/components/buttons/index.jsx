@@ -2,21 +2,23 @@ import React from 'react';
 import Styles from './Styles';
 
 const { Btn } = Styles;
+const totalOfCategories = 5;
 
-export default function Buttons(number, info) {
+export default function Buttons(category) {
+  console.log(category);
+  const removeDuplicates = [...new Set(category)];
   const listOfButtons = [];
-  const zero = 0;
-  for (let index = zero; index < number; index += 1) {
-    if (info[index] !== undefined) {
+  removeDuplicates.forEach((each, index) => {
+    if (each !== undefined && index < totalOfCategories) {
       listOfButtons.push(
         <Btn
-          data-testid={ `${info[index]}-category-filter` }
-          key={ `${info[index]}-category-filter` }
+          data-testid={ `${each}-category-filter` }
+          key={ `${index}-category-filter` }
         >
-          {info[index]}
+          {each}
         </Btn>,
       );
     }
-  }
+  });
   return listOfButtons;
 }
