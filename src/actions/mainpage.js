@@ -41,10 +41,6 @@ export const GET_AREAS_SUCCESS = 'GET_AREAS_SUCCESS';
 export const getAreasSuccess = (meals) => (
   { type: GET_AREAS_SUCCESS, meals });
 
-export const GET_BY_AREA = 'GET_BY_AREA';
-export const getByAreaSuccess = (meals) => (
-  { type: GET_BY_AREA, meals });
-
 export function fetchCards(isMeal) {
   return async (dispatch) => {
     if (isMeal) {
@@ -60,17 +56,17 @@ export function fetchCards(isMeal) {
         dispatch(requestFail(error));
       }
     }
-      try {
-        dispatch(requestStarted());
-        const requestCocktails = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
-        const requestDrinkCategories = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
-        const result = await requestCocktails.json();
-        const categories = await requestDrinkCategories.json();
-        dispatch(cocktailsRequest(result.drinks));
-        dispatch(drinkCategoriesRequest(categories.drinks));
-      } catch (error) {
-        dispatch(requestFail(error));
-      }
+    try {
+      dispatch(requestStarted());
+      const requestCocktails = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+      const requestDrinkCategories = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
+      const result = await requestCocktails.json();
+      const categories = await requestDrinkCategories.json();
+      dispatch(cocktailsRequest(result.drinks));
+      dispatch(drinkCategoriesRequest(categories.drinks));
+    } catch (error) {
+      dispatch(requestFail(error));
+    }
   };
 }
 
@@ -107,13 +103,5 @@ export function getAreas(api) {
     dispatch(requestStarted());
     const meals = await api();
     dispatch(getAreasSuccess(meals.meals));
-  };
-}
-
-export function fetchByArea(api, filter) {
-  return async (dispatch) => {
-    dispatch(requestStarted());
-    const meals = await api(filter);
-    dispatch(getByAreaSuccess(meals.meals));
   };
 }
