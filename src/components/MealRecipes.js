@@ -54,21 +54,26 @@ class MealRecipes extends Component {
       } else filterArray = getRecipes.meals.filter((_meal, index) => index < MEAL_LENGTH);
 
       return (
-        <div>
+        <div className="main-recipes-categories">
           {filterArray.map((meal, index) => (
-            <Link
-              to={ `/comidas/${meal.idMeal}` }
-              key={ meal.idMeal }
+            <div
+              key={ meal.strMeal }
+              data-testid={ `${index}-recipe-card` }
+              className="recipes-categories"
             >
-              <div key={ meal.strMeal } data-testid={ `${index}-recipe-card` }>
+              <Link
+                to={ `/comidas/${meal.idMeal}` }
+                key={ meal.idMeal }
+                className="link-categories"
+              >
                 <img
                   data-testid={ `${index}-card-img` }
                   src={ meal.strMealThumb }
                   alt={ meal.strMeal }
                 />
                 <h1 data-testid={ `${index}-card-name` }>{ meal.strMeal }</h1>
-              </div>
-            </Link>
+              </Link>
+            </div>
           ))}
         </div>
       );
