@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import RecipeContext from '../Context/Context';
 import useFetch from '../hooks/useFetch';
 import RecomandationCard from '../components/RecomandationCard';
@@ -62,7 +63,10 @@ function DetailsDrink() {
         <track default kind="captions" srcLang="en" src={ strYoutube } />
       </video>
       <RecomandationCard />
-      <button type="button" data-testid="start-recipe-btn">Iniciar receita</button>
+      <Link to={ `/bebidas/${newUrlId}/in-progress` }>
+        <button type="button" data-testid="start-recipe-btn">Iniciar receita</button>
+      </Link>
+
     </div>
   );
 }
