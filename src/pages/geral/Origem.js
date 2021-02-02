@@ -1,80 +1,64 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { loadRecipes } from '../../redux/action';
-import { /* fetchFood, fetchArea, */ fetchListArea } from '../../services';
+import { fetchFood, fetchArea, fetchListArea } from '../../services';
 import Header from '../../components/header';
 import Footer from '../../components/footer';
 
 class Origem extends Component {
   constructor() {
     super();
+    this.origemArea = this.origemArea.bind(this);
+    this.Meals = this.Meals.bind(this);
+    this.dropdown = this.dropdown.bind(this);
+    this.click = this.click.bind(this);
+    this.optionDinamico = this.optionDinamico.bind(this);
     this.state = {
       lista: {},
+      receitas: {},
     };
-    this.origemArea();
-    this.handleClick = this.handleClick.bind(this);
-    this.Meals = this.Meals.bind(this);
-    /* this.handleChange = this.handleChange.bind(this); */
-    this.dropdown = this.dropdown.bind(this);
-    this.origemArea = this.origemArea.bind(this);
   }
 
   componentDidMount() {
-    const { loadrecipes } = this.props;
-    loadrecipes('comidas');
+    this.origemArea();
   }
-
-  handleClick(valor) {
-    const { history } = this.props;
-    history.push(`/comidas/${valor}`);
-  }
-
-  /* async handleChange(valor) {
-    const { match, setfilterrecipes, loadrecipes } = this.props;
-    const { origem } = this.state;
-    if (origem !== valor && valor !== 'All') {
-      this.setState({
-        origem: valor,
-      });
-      let filterOrigem;
-      if (match.path[1] === 'c') {
-        filterOrigem = await fetchFood(valor, 'comidas');
-      } else {
-        filterOrigem = await fetchArea(valor, 'comidas');
-      }
-      setfilterrecipes(filterOrigem);
-    } else {
-      if (match.path[1] === 'c') {
-        loadrecipes('comidas');
-      } else {
-        loadrecipes('bebidas');
-      }
-      this.setState({
-        origem: 'All',
-      });
-    }
-  } */
 
   async origemArea() {
+    const listareceitas = await fetchFood();
     const listArea = await fetchListArea();
-    this.setState({ lista: listArea });
+    this.setState({ lista: listArea, receitas: listareceitas });
   }
 
-  async dropdown() {
+  optionDinamico() {
     const { lista } = this.state;
-    console.log(lista);
-    return (lista.meals.map((area, index) => (
+    return (lista.meals.map((item, index) => (
       <option
         key={ index }
+        data-testid={ `${item.strArea}-option` }
+        value={ item.strArea }
       >
-        {area}
+        {item.strArea}
       </option>
     )));
   }
 
+  async dropdown({ target }) {
+    if (target.value === 'All') {
+      const lista = await fetchFood();
+      this.setState({ receitas: lista });
+    } else {
+      const lista = await fetchArea(target.value);
+      this.setState({ receitas: lista });
+    }
+  }
+
+  click(valor) {
+    const { history } = this.props;
+    history.push(`/comidas/${valor}`);
+  }
+
   Meals() {
-    const { history, receitas } = this.props;
+    const { history } = this.props;
+    const { receitas } = this.state;
     let controlealert = false;
     if (receitas.meals || receitas.meals === null) {
       if (receitas.meals === null && !controlealert) {
@@ -90,22 +74,19 @@ class Origem extends Component {
             return (
               <button
                 className="card"
-                name={ receita.idMeal }
                 type="button"
-                onClick={ ({ target }) => this.handleClick(target.name) }
+                onClick={ () => this.click(receita.idMeal) }
                 key={ index }
                 data-testid={ `${index}-recipe-card` }
               >
                 <img
                   className="card"
-                  name={ receita.idMeal }
                   data-testid={ `${index}-card-img` }
                   src={ receita.strMealThumb }
                   alt="imagem da receita"
                 />
                 <h1
                   className="card"
-                  name={ receita.idMeal }
                   data-testid={ `${index}-card-name` }
                 >
                   {receita.strMeal}
@@ -121,7 +102,7 @@ class Origem extends Component {
 
   render() {
     const { history, match } = this.props;
-    const { lista } = this.state;
+    const { lista, receitas } = this.state;
     return (
       <div>
         <Header
@@ -129,20 +110,18 @@ class Origem extends Component {
           history={ history }
           match={ match }
         />
-        <select
-          name="Selecione a Origem"
-          data-testid="explore-by-area-dropdown"
-        >
-          <option value="All">All</option>
+        <select data-testid="explore-by-area-dropdown" onChange={ this.dropdown }>
+          <option data-testid="All-option" value="All">All</option>
           {
-            lista.meals
-              ? this.dropdown()
+            Object.keys(lista).length
+              ? this.optionDinamico()
               : null
           }
         </select>
-
         {
-          this.Meals()
+          Object.keys(receitas).length
+            ? this.Meals()
+            : null
         }
         <Footer history={ history } />
       </div>
@@ -153,16 +132,6 @@ class Origem extends Component {
 Origem.propTypes = {
   history: PropTypes.objectOf({ push: PropTypes.func.isRequired }).isRequired,
   match: PropTypes.objectOf().isRequired,
-  receitas: PropTypes.objectOf().isRequired,
-  loadrecipes: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  receitas: state.fastFood.receitas,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  loadrecipes: (e) => dispatch(loadRecipes(e)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Origem);
+export default Origem;

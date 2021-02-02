@@ -24,6 +24,7 @@ import {
   Login,
   Origem,
   Perfil,
+  NotFound,
 } from './pages/geral';
 
 function App() {
@@ -110,6 +111,10 @@ function App() {
             exact
             path="/perfil"
             component={ Perfil }
+          />
+          <Route
+            path="/"
+            component={ NotFound }
           />
         </Switch>
       </BrowserRouter>

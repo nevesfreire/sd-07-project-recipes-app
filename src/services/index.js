@@ -59,7 +59,7 @@ async function fetchRandom(id, tipo) {
 }
 
 async function fetchFood() {
-  const url = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+  const url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   const response = await fetch(url);
   const responsejeson = await response.json();
   return responsejeson;
