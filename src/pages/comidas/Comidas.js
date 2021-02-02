@@ -16,6 +16,7 @@ class Comidas extends Component {
     this.showCards = this.showCards.bind(this);
     this.searchCategory = this.searchCategory.bind(this);
     this.conditionalRender = this.conditionalRender.bind(this);
+    this.allCategories = this.allCategories.bind(this);
   }
 
   componentDidMount() {
@@ -82,6 +83,13 @@ class Comidas extends Component {
     );
   }
 
+  allCategories() {
+    const { resultFood } = this.props;
+    this.setState({
+      recipes: resultFood,
+    });
+  }
+
   render() {
     const { toggle, history } = this.props;
     return (
@@ -122,6 +130,13 @@ class Comidas extends Component {
           onClick={ () => this.searchCategory('Goat') }
         >
           Goat
+        </button>
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ () => this.allCategories() }
+        >
+          All
         </button>
         {this.conditionalRender()}
         <Footer />

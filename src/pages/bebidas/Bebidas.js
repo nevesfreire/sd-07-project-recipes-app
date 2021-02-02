@@ -16,6 +16,7 @@ class Bebidas extends React.Component {
     this.showCards = this.showCards.bind(this);
     this.searchCategory = this.searchCategory.bind(this);
     this.conditionalRender = this.conditionalRender.bind(this);
+    this.allCategories = this.allCategories.bind(this);
   }
 
   componentDidMount() {
@@ -81,6 +82,13 @@ class Bebidas extends React.Component {
     );
   }
 
+  allCategories() {
+    const { resultDrink } = this.props;
+    this.setState({
+      recipes: resultDrink,
+    });
+  }
+
   render() {
     const { toggle, history } = this.props;
     return (
@@ -121,6 +129,13 @@ class Bebidas extends React.Component {
           onClick={ () => this.searchCategory('Cocoa') }
         >
           Cocoa
+        </button>
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ () => this.allCategories() }
+        >
+          All
         </button>
         {this.conditionalRender()}
         <Footer />
