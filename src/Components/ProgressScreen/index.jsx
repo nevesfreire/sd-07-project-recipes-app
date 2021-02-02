@@ -6,6 +6,7 @@ import { singleCocktail } from '../../API/apiCocktails';
 import { singleMeal } from '../../API/apiMeals';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import dateBrModel from '../../helper/dateConverter';
 
 const ProgressScreen = (props) => {
   const { idReceita } = props;
@@ -119,6 +120,27 @@ const ProgressScreen = (props) => {
     setFavorite(!favorite);
   };
 
+  const doneRecipe = () => {
+    const actualDate = dateBrModel();
+    const objRecipe = {
+      id: idReceita,
+      type: recipe.typeRecipe,
+      area: recipe.areaRecipe,
+      category: recipe.categoryRecipe,
+      alcoholicOrNot: recipe.alcoholic,
+      name: recipe.nameRecipe,
+      image: recipe.imgRecipe,
+      doneDate: actualDate,
+      tags: recipe.tagRecipe,
+    };
+    const stringDone = localStorage.getItem('doneRecipes');
+    const jsonDone = stringDone !== null ? JSON.parse(stringDone) : [];
+    const allValue = [...jsonDone, objRecipe];
+    const stringRecipe = JSON.stringify(allValue);
+    localStorage.setItem('doneRecipes', stringRecipe);
+    history.push('/receitas-feitas');
+  };
+
   return (
     <div>
       <img
@@ -151,7 +173,7 @@ const ProgressScreen = (props) => {
             id={ elem[0] }
             name={ elem[0] }
             checked={ elem[1] }
-            onClick={ handleProgress }
+            onChange={ handleProgress }
           />
           {`${elem[0]} - ${recipe.measurements[index] || ''}`}
         </label>
@@ -161,7 +183,7 @@ const ProgressScreen = (props) => {
         type="button"
         data-testid="finish-recipe-btn"
         disabled={ complete }
-        onClick={ () => history.push('/receitas-feitas') }
+        onClick={ doneRecipe }
       >
         Finalizar
       </button>
