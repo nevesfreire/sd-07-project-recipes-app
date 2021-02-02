@@ -170,7 +170,7 @@ const RecipeDetailDrink = () => {
       </div>
       <div className="container-cards">{mealsDoc()}</div>
       {/* {isDoneRecipe()} */}
-      <Link to={ `/comidas/${id}/in-progress` }>
+      <Link to={ `/bebidas/${id}/in-progress` }>
         <button
           className="btn-start"
           data-testid="start-recipe-btn"
