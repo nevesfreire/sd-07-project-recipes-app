@@ -1,6 +1,6 @@
 import React from 'react';
-import Footer from '../../components/footer/Footer';
 import Header2 from '../../components/header/Header2';
+import Footer from '../../components/footer/Footer';
 
 class ExplorarBebidasIngredientes extends React.Component {
   render() {

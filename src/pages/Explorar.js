@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Header from '../components/header/Header';
+import Header2 from '../components/header/Header2';
 import Footer from '../components/footer/Footer';
 
 export default class Explorar extends React.Component {
@@ -8,7 +8,7 @@ export default class Explorar extends React.Component {
     const { history } = this.props;
     return (
       <div>
-        <Header title="Explorar" />
+        <Header2 title="Explorar" />
         <button
           type="button"
           data-testid="explore-food"
