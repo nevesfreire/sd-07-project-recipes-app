@@ -84,3 +84,15 @@ export async function fetchFoodDetailsById(id) {
   const details = await response.json();
   if (details) return details.meals;
 }
+
+export async function fetchRamdonFood() {
+  const response = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
+  const meal = await response.json();
+  if (meal) return meal.meals;
+}
+
+export async function fetchRamdonDrink() {
+  const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php');
+  const drink = await response.json();
+  if (drink) return drink.drinks;
+}
