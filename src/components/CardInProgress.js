@@ -4,27 +4,29 @@ import { useHistory, useRouteMatch } from 'react-router-dom';
 import { fetchDrinkDetailsById, fetchFoodDetailsById } from '../services/API';
 
 import { getIngredients,
-  addToCheckedList,
+  checkOut,
   copyLink,
-  addToFavorites } from '../services/service';
+  addToFavorites,
+  enableButton } from '../services/service';
 
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import checksUnited from './checksUnited';
 
 function CardInProgress() {
-  const zero = 0;
+  const history = useHistory();
+  const matchObject = useRouteMatch();
+  const itemId = matchObject.params.id;
+  const mealType = matchObject.path === '/comidas/:id/in-progress' ? 'Meal' : 'Drink';
+  const mealTypeChain = mealType === 'Meal' ? 'meals' : 'cocktails';
 
   const [details, setDetails] = useState({});
   const [showMessage, setShowMessage] = useState('hidden');
   const [isFavorite, setIsFavorite] = useState(false);
-  const [checkedList, setCheckedList] = useState(zero);
   const [disableButton, setDisableButton] = useState(true);
+  const [renderIngredients, setRenderIngredients] = useState([]);
 
-  const matchObject = useRouteMatch();
-  const mealType = matchObject.path === '/comidas/:id/in-progress' ? 'Meal' : 'Drink';
-  const itemId = matchObject.params.id;
-  const history = useHistory();
+  const [ingredientsList, setStateIngredients] = useState([]);
 
   const RedirectToDone = () => {
     history.push('/receitas-feitas');
@@ -33,16 +35,25 @@ function CardInProgress() {
   useEffect(() => {
     const checkForProgress = async () => {
       const list = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      if (list !== null) {
-        let keys = [];
-        if (mealType === 'Meal') { keys = Object.keys(list.meals); } else {
-          keys = Object.keys(list.cocktails);
-        }
+      if (list) {
+        const ingredients = list[mealTypeChain][itemId];
+        setStateIngredients(ingredients);
       }
     };
+    // const loadIngredients = () => {
+    //   setRenderIngredients(getIngredients(details))
+    // }
+    // loadIngredients();
     checkForProgress();
     checksUnited(itemId, undefined, setIsFavorite);
-  }, [itemId, mealType, details]);
+  }, [itemId, mealType, details, mealTypeChain]);
+
+  useEffect(() => {
+    const loadIngredients = () => {
+      setRenderIngredients(getIngredients(details));
+    };
+    loadIngredients();
+  }, [ingredientsList, details]);
 
   useEffect(() => {
     const getDetails = async () => {
@@ -66,10 +77,13 @@ function CardInProgress() {
             <input
               type="checkbox"
               value={ `${item.ingredient}` }
-              onChange={ () => addToCheckedList(checkedList,
-                setDisableButton,
-                setCheckedList,
-                details) }
+              onChange={ (event) => {
+                checkOut(event.target.value, mealTypeChain, itemId);
+                // enableButton(setDisableButton, getIngredients(details), mealTypeChain, itemId);
+                setStateIngredients([...ingredientsList, `${item.ingredient}`]);
+              } }
+              { ...console.log(ingredientsList, 'ingredient list') }
+              { ...ingredientsList.includes(`${item.ingredient}`) ? 'checked' : '' }
             />
             <img
               width="30px"

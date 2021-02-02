@@ -17,28 +17,36 @@ export const getIngredients = (details) => {
   return ingredientsList;
 };
 
-export const checkOut = (checkedList, value) => {
-  let isChecked = false;
-  if (checkedList.length > zero) {
-    isChecked = checkedList.some((item) => item === value);
-  }
-  localStorage.setItem('checkedList', isChecked
-    ? filteredList(value, checkedList)
-    : [...checkedList, value]);
-  return (isChecked
-    ? filteredList(value, checkedList)
-    : [...checkedList, value]);
+export const enableButton = (setDisableButton, stateList, mealType, itemId) => {
+  // console.log('chamou');
+  // console.log(stateList.length, 'statelist')
+  // const list = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  // const checkedIngredients = list[mealType][itemId];
+  // console.log(checkedIngredients.length, 'checkedingred');
+  // if (stateList.length === checkedIngredients.length) setDisableButton(false);
 };
 
-export const addToCheckedList = (checkedList,
-  setDisableButton,
-  setCheckedList,
-  details) => {
-  if (checkedList + 1 === getIngredients(details).length) {
-    console.log('entrou na condicao');
-    setDisableButton(false);
+export const checkOut = (value, mealType, itemId) => {
+  const list = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  if (list) {
+    if (list[mealType][itemId].includes(value)) {
+      const filteredListToSave = filteredList(value, list[mealType][itemId]);
+      list[mealType][itemId] = filteredListToSave;
+      localStorage.setItem('inProgressRecipes', JSON.stringify(list));
+    } else {
+      list[mealType][itemId].push(value);
+      localStorage.setItem('inProgressRecipes', JSON.stringify(list));
+    }
+  } else {
+    const newList = {
+      cocktails: {
+      },
+      meals: {
+      },
+    };
+    newList[mealType][itemId] = [value];
+    localStorage.setItem('inProgressRecipes', JSON.stringify(newList));
   }
-  setCheckedList(checkedList + 1);
 };
 
 const copy = require('clipboard-copy');
@@ -61,7 +69,6 @@ export const addToFavorites = (itemId, mealType, details, setIsFavorite) => {
     image: details[`str${mealType}Thumb`],
   };
   let favList = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  console.log(favList);
   if (favList) {
     console.log('entrou');
     if (favList.filter((item) => item.id === itemId).length > zero) {
