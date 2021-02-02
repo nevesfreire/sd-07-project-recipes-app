@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 // import { element } from 'prop-types';
 import shareIcon from '../../images/shareIcon.svg';
 import likeIcon from '../../images/whiteHeartIcon.svg';
@@ -120,6 +120,13 @@ const RecipeDetailDrink = () => {
   //   }
   // };
 
+  const shareLink = () => {
+    const url = window.location.href;
+    console.log(url);
+    navigator.clipboard.writeText(url);
+    const cont = document.getElementById('result');
+    cont.innerHTML = 'Link copiado!';
+  };
   return (
     <div className="containerInt">
       <div className="recipe-image">
@@ -139,9 +146,11 @@ const RecipeDetailDrink = () => {
             alt="favorite"
           />
         </button>
-        <button data-testid="share-btn" type="button">
+        <button data-testid="share-btn" type="button" onClick={ () => shareLink() }>
           <img src={ shareIcon } alt="share" />
+          <span id="result" />
         </button>
+
       </div>
       <div className="container-text">
         <div className="category" data-testid="recipe-category">
@@ -157,16 +166,7 @@ const RecipeDetailDrink = () => {
         </div>
       </div>
       <div className="container-video">
-        <div className="video" data-testid="video">
-          {/* <iframe
-            title="youtube"
-            width="360"
-            height="315"
-            src={ recipeDetails.drinks[0].strYoutube }
-            frameBorder="0"
-            allowFullScreen
-          /> */}
-        </div>
+        <div className="video" data-testid="video" />
       </div>
       <div className="container-cards">{mealsDoc()}</div>
       {/* {isDoneRecipe()} */}

@@ -95,6 +95,14 @@ const RecipeDetail = () => {
     setIsStart(true);
   };
 
+  const shareLink = () => {
+    const url = window.location.href;
+    console.log(url);
+    navigator.clipboard.writeText(url);
+    const cont = document.getElementById('result');
+    cont.innerHTML = 'Link copiado!';
+  };
+
   return (
     <div className="containerInt">
       <div className="recipe-image">
@@ -114,8 +122,9 @@ const RecipeDetail = () => {
             alt="favorite"
           />
         </button>
-        <button data-testid="share-btn" type="button">
+        <button data-testid="share-btn" type="button" onClick={ () => shareLink() }>
           <img src={ shareIcon } alt="share" />
+          <span id="result" />
         </button>
       </div>
       <div className="container-text">
