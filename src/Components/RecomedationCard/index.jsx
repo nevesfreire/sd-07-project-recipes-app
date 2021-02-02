@@ -2,21 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-const CardFood = (props) => {
+const RecomendationCard = (props) => {
   const { thumb, foodName, index, page, idFood } = props;
   return (
     <Link to={ `/${page}/${idFood}` }>
-      <div data-testid={ `${index}-recipe-card` }>
+      <div data-testid={ `${index}-recomendation-card` }>
         <img data-testid={ `${index}-card-img` } src={ thumb } alt={ foodName } />
-        <p data-testid={ `${index}-card-name` }>{foodName}</p>
+        <p data-testid={ `${index}-recomendation-title` }>{foodName}</p>
       </div>
     </Link>
   );
 };
 
-export default CardFood;
+export default RecomendationCard;
 
-CardFood.propTypes = {
+RecomendationCard.propTypes = {
   page: PropTypes.string.isRequired,
   idFood: PropTypes.string.isRequired,
   thumb: PropTypes.string.isRequired,

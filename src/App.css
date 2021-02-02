@@ -61,6 +61,16 @@ body {
   margin-bottom: 200px;
 }
 
+.btn-start {
+  border:none;
+  border-radius:5px;
+  bottom: 0;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+  margin-top: 10px;
+  padding: 5px;
+  position: fixed;
+}
+
 @media only screen and ( max-width : 380px ) {
 
   .btn-default {
@@ -110,6 +120,18 @@ body {
     font-weight: 700;
     margin-left: 10px;
     margin-right: 10px;
+  }
+  
+  .container-cards {
+    display: flex;
+    overflow: hidden;
+    overflow-x: scroll;
+    overflow-y: hidden;
+  }
+
+  .container-cards img {
+    width: 170px;
+    margin-right:10px ;
   }
 
 }

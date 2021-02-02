@@ -25,16 +25,16 @@ const Routes = () => (
       <Route exact path="/bebidas" component={ DrinkPage } />
       <Route exact path="/explorar" component={ ExplorarPage } />
       <Route exact path="/perfil" component={ PerfilPage } />
-      <Route exact path="/comidas/:id-receita" component={ ComidaDetailPage } />
-      <Route exact path="/bebidas/:id-receita" component={ BebidaDetailPage } />
+      <Route exact path="/comidas/:id" component={ ComidaDetailPage } />
+      <Route exact path="/bebidas/:id" component={ BebidaDetailPage } />
       <Route
         exact
-        path="/comidas/:id-receita/in-progress"
+        path="/comidas/:id/in-progress"
         component={ ProgressComidaPage }
       />
       <Route
         exact
-        path="/bebidas/:id-receita/in-progress"
+        path="/bebidas/:id/in-progress"
         component={ ProgressBebidaPage }
       />
       <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
