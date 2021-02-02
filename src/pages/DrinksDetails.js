@@ -56,7 +56,16 @@ function DrinksDetails(props) {
     setRecomendedRecipes(sixFoods);
   };
 
-  const recipesIngredients = () => {
+  useEffect(() => {
+    recomendedFood();
+    const { match } = props;
+    const idRandom = match.params.id;
+    setId(idRandom);
+    fetchDrinkDetailById(idRandom)
+      .then((response) => setDrinkDetail(response.drinks[0]));
+  }, [setDrinkDetail, setId, props]);
+
+  useEffect(() => {
     const allIngredients = [];
     for (let i = zero; i <= fifty; i += 1) {
       if (drinkDetail[`strIngredient${i}`]) {
@@ -66,27 +75,7 @@ function DrinksDetails(props) {
         );
       }
     }
-
     setIngredients(allIngredients);
-  };
-
-  const randomId = async () => {
-    const { match } = props;
-    const idRandom = match.params.id;
-    setId(idRandom);
-    const details = await fetchDrinkDetailById(idRandom);
-    console.log('Console da receita', details);
-    setDrinkDetail(details.drinks[0]);
-  };
-
-  useEffect(() => {
-    // recomendedDrink();
-    recomendedFood();
-    randomId();
-  }, []);
-
-  useEffect(() => {
-    recipesIngredients();
   }, [drinkDetail]);
 
   return (

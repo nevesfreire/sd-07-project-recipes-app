@@ -62,13 +62,26 @@ export const fetchRandomFoodRecipes = async () => {
   return response;
 };
 
-// export {
-//   fetchFoodByIngredient,
-//   fetchFoodByName,
-//   fetchFoodByFirstLetter,
-//   fetchAllFoodRecipes,
-//   fetchAllFoodCategories,
-//   fetchFilterFoodByCategory,
-//   fetchFoodDetailById,
-//   fetchRandomFoodRecipes,
-// };
+export const fetchAllFoodIngredients = async () => {
+  const request = await fetch(
+    'https://www.themealdb.com/api/json/v1/1/list.php?i=list',
+  );
+  const response = await request.json();
+  return response;
+};
+
+export const fetchAllFoodAreas = async () => {
+  const request = await fetch(
+    'https://www.themealdb.com/api/json/v1/1/list.php?a=list',
+  );
+  const response = await request.json();
+  return response;
+};
+
+export const fetchFilterFoodByArea = async (area) => {
+  const request = await fetch(
+    `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`,
+  );
+  const response = await request.json();
+  return response;
+};
