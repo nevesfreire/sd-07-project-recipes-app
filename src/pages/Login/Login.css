@@ -1,7 +1,85 @@
-.login-container label {
+body {
+  height: 100vmin;
+  margin: 0;
+  min-height: 640px;
+  min-width: 360px;
+}
+.login-container {
   display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.login-content {
+  display: flex;
+  flex-direction: column;
+  height: 100vmin;
   justify-content: center;
+  margin: 0;
+  padding: 10px 0 0 10px;
+  position: absolute;
+  width: auto;
+}
+
+.login-content label {
+  color: white;
+  display: flex;
+  font-weight: 700;
   padding: 10px;
 }
 
+.login-content button {
+  background-image: linear-gradient(to right, #e64703 0%, #b13b08  51%, #bb3800  100%);
+  background-size: 200% auto;
+  border-radius: 10px;
+  box-shadow: 0 0 20px #eee;
+  color: white;
+  display: block;
+  font-size: 1.35em;
+  font-weight: 700;
+  margin: 10px;
+  padding: 15px 45px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+}
 
+.login-content button:disabled {
+  background-color: transparent;
+  background-image: none;
+}
+
+.login-content button:hover {
+  background-position: right center;
+  color: #fff;
+  text-decoration: none;
+}
+
+.login-logo {
+  align-self: center;
+  padding-bottom: 10px;
+  width: 230px;
+}
+
+.login-background-image {
+  display: flex;
+  margin-left: 280px;
+}
+
+.login-background-image img {
+  background-image: linear-gradient(to bottom, transparent white, black);
+  display: flex;
+  height: 100vh;
+  margin: 0;
+  opacity: 0.8;
+  padding: 0;
+  width: 100vw;
+}
+
+.login-content input {
+  border-radius: 15px;
+  border: #fff;
+  display: flex;
+  margin: 0 0 0 10px;
+  padding: 8px 10px;
+}
