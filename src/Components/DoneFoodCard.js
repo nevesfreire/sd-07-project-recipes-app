@@ -31,10 +31,10 @@ function DoneFoodCard() {
             {doneRecipe.doneDate}
           </span>
           <img data-testid={ `${index}-horizontal-share-btn` } alt="compartilhe" />
-          {doneRecipe.tags.map((tag, tagIndex) => (
+          {doneRecipe.tags.map((tag) => (
             <span
-              data-testid={ `${tagIndex}-${tag}-horizontal-tag` }
-              key={ tagIndex }
+              data-testid={ `${index}-${tag}-horizontal-tag` }
+              key={ index }
             >
               { tag }
             </span>))}
