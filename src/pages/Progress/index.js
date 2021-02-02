@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 import { Context } from '../../context/Provider';
 import fetchApi from '../../services/api';
 import './style.css';
@@ -69,21 +70,21 @@ function Progress({ history, match: { params: { id } } }) {
         {ingredients.map((ingredient, index) => (
           <tr key={ index }>
             <td>{measures[index]}</td>
-            <td data-testid={ `${index}-ingredient-step` }>
-              <label htmlFor={ `${index}-ingredient` }>
+            <td>
+              <label
+                htmlFor={ `${index}-ingredient` }
+                data-testid={ `${index}-ingredient-step` }
+              >
                 <input
-                  key={ index }
                   type="checkbox"
                   id={ `${index}-ingredient` }
                   name={ `${index}-ingredient` }
-                  // checked={ done[index] }
-                  onChange={
-                    ({ target: { checked } }) => {
-                      const newDone = [...done];
-                      newDone[index] = checked;
-                      setDone(newDone);
-                    }
-                  }
+                  checked={ done[index] }
+                  onChange={ () => {
+                    const newDone = [...done];
+                    newDone[index] = !done[index];
+                    setDone(newDone);
+                  } }
                 />
                 <span className={ done[index] ? 'done' : '' }>{ingredient}</span>
               </label>
@@ -107,5 +108,18 @@ function Progress({ history, match: { params: { id } } }) {
     </div>
   );
 }
+
+Progress.propTypes = {
+  history: PropTypes.shape({
+    location: PropTypes.shape({
+      pathname: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+};
 
 export default Progress;
