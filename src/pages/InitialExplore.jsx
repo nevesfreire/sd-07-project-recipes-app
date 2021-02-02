@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
+import MenuInferior from './Components/MenuInferior';
 
 function InitialExplore() {
   // incluir header
@@ -24,6 +25,7 @@ function InitialExplore() {
           Explorar Bebidas
         </Button>
       </Link>
+      <MenuInferior />
     </div>
   );
 }
