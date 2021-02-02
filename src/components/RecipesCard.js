@@ -5,7 +5,7 @@ import { Card } from 'react-bootstrap';
 class RecipesCard extends React.Component {
   render() {
     const { recipe, index, search } = this.props;
-    const { strMealThumb, strMeal, strDrinkThumb, strDrink } = recipe;
+    const { strMealThumb, strMeal, strDrinkThumb, strDrink, strIngredient1, strIngredient } = recipe;
     const maxNumber = 12;
     return (
       <div>
@@ -35,13 +35,69 @@ class RecipesCard extends React.Component {
         {
           index < maxNumber && search === 'drinks' ? (
             <div data-testid={ `${index}-recipe-card` }>
-              <img
-                style={ { width: 30 } }
-                src={ strDrinkThumb }
-                alt={ strDrink }
-                data-testid={ `${index}-card-img` }
-              />
-              <p data-testid={ `${index}-card-name` }>{strDrink}</p>
+              <Card
+                style={ { width: '10rem' } }
+                bg="warning"
+                text="dark"
+              >
+                <Card.Img
+                  style={ { width: 30 } }
+                  src={ strDrinkThumb }
+                  alt={ strDrink }
+                  data-testid={ `${index}-card-img` }
+                />
+                <Card.Body>
+                  <Card.Text data-testid={ `${index}-card-name` }>
+                    {strDrink}
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </div>
+          ) : null
+        }
+        {
+          index < maxNumber && search === 'ingredientsDrinks' ? (
+            <div data-testid={ `${index}-ingredient-card` }>
+              <Card
+                style={ { width: '10rem' } }
+                bg="warning"
+                text="dark"
+              >
+                <Card.Img
+                  style={ { width: 30 } }
+                  src={ `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png` }
+                  alt={ strIngredient1 }
+                  data-testid={ `${index}-card-img` }
+                />
+                <Card.Body>
+                  <Card.Text data-testid={ `${index}-card-name` }>
+                    {strIngredient1}
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </div>
+          ) : null
+        }
+        {
+          index < maxNumber && search === 'ingredientsMeals' ? (
+            <div data-testid={ `${index}-ingredient-card` }>
+              <Card
+                style={ { width: '10rem' } }
+                bg="warning"
+                text="dark"
+              >
+                <Card.Img
+                  style={ { width: 30 } }
+                  src={ `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png` }
+                  alt={ strIngredient }
+                  data-testid={ `${index}-card-img` }
+                />
+                <Card.Body>
+                  <Card.Text data-testid={ `${index}-card-name` }>
+                    {strIngredient}
+                  </Card.Text>
+                </Card.Body>
+              </Card>
             </div>
           ) : null
         }
@@ -56,6 +112,7 @@ RecipesCard.propTypes = {
     strMeal: PropTypes.string,
     strDrinkThumb: PropTypes.string,
     strDrink: PropTypes.string,
+    strIngredient1: PropTypes.string,
   }).isRequired,
   search: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
