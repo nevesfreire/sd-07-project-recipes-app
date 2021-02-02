@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import {
-  Header, Footer, CategoryFood, CardsFactory,
+  Header, Footer, CategoryButtons, CardsFactory,
 } from '../components';
 import { CupNodesContext } from '../contexts';
 import { UperCaseFirstLetter } from '../Services';
@@ -36,7 +36,7 @@ export default function Foods() {
   return (
     <div>
       <Header title="Comidas" />
-      <CategoryFood number={ 5 } />
+      <CategoryButtons number={ 15 } drink={ false } />
       {whatchCards(category, search)}
       <Footer />
     </div>

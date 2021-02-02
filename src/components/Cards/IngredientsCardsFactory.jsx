@@ -4,17 +4,25 @@ import { Card, LoadingCard, NotFound } from '../Contructors';
 import { useFetchApi } from '../../hooks';
 import { CupNodesContext } from '../../contexts';
 import { SUBMIT_SEARCH } from '../../reducers';
+import { UperCaseFirstLetter } from '../../Services';
 
-const getLink = (drink, key) => {
+const getURLImg = (drink, key) => {
   const imgFoodURL = `https://www.themealdb.com/images/ingredients/${key}.png`;
   const imgDrinkURL = `https://www.themealdb.com/images/ingredients/${key}.png`;
   return drink ? imgFoodURL : imgDrinkURL;
 };
 
-const getTitle = (drink) => (drink ? 'bebidas' : 'Comidas');
+const getURL = (drink) => {
+  const foodURL = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+  const drinkURL = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
+  return drink ? drinkURL : foodURL;
+};
 
-export default function IngredientsCardsFactory({ number, URL, drink }) {
+const getTitle = (drink) => (drink ? 'bebidas' : 'comidas');
+
+export default function IngredientsCardsFactory({ number, drink }) {
   const { dispatchFilter } = useContext(CupNodesContext);
+  const URL = getURL(drink);
   const [loading, result] = useFetchApi(URL);
   const resultArr = drink ? result.drinks : result.meals;
   if (!loading && !resultArr) return (<NotFound />);
@@ -28,8 +36,9 @@ export default function IngredientsCardsFactory({ number, URL, drink }) {
             .map((item, i) => (
               <Card
                 title={ item[text] }
-                img={ getLink(drink, item[text]) }
+                img={ getURLImg(drink, item[text]) }
                 key={ i }
+                link={ `/${getTitle(drink)}` }
                 testidImg={ `${i}-ingredient-card` }
                 testidCard={ `${i}-card-img` }
                 testidTitle={ `${i}-card-name` }
@@ -37,7 +46,9 @@ export default function IngredientsCardsFactory({ number, URL, drink }) {
                   dispatchFilter({
                     type: SUBMIT_SEARCH,
                     payload: {
-                      text: item[text], option: 'ingrediente', title: getTitle(drink),
+                      text: item[text],
+                      option: 'ingrediente',
+                      title: UperCaseFirstLetter(getTitle(drink)),
                     },
                   });
                 } }
@@ -55,6 +66,5 @@ IngredientsCardsFactory.defaultProps = {
 
 IngredientsCardsFactory.propTypes = {
   number: PropTypes.number,
-  URL: PropTypes.string.isRequired,
   drink: PropTypes.bool,
 };

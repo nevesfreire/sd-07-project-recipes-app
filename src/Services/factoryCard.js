@@ -1,8 +1,8 @@
 import React from 'react';
-import { Card, NotFound } from '../components';
+import { Card } from '../components';
 
 function factoryCard(arr, number, drink, parameters) {
-  if (!arr) return (<NotFound />);
+  if (!arr) return;
   const text = drink ? 'Drink' : 'Meal';
   const str = `str${text}`;
   const Thumb = `str${text}Thumb`;
