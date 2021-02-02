@@ -9,7 +9,7 @@ import { loadRecipes } from '../../redux/action';
 import shareIcon from '../../images/shareIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
-// problema no filtro??
+
 class DetalhesComidas extends Component {
   constructor() {
     super();
