@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { Context } from '../../context/Provider';
 import fetchApi from '../../services/api';
+import IngredientsTable from '../../components/IngredientsTable';
 import './style.css';
 
 function Progress({ history, match: { params: { id } } }) {
@@ -17,6 +18,11 @@ function Progress({ history, match: { params: { id } } }) {
   const [name, setName] = useState('');
   const [image, setImage] = useState('');
   const [done, setDone] = useState([]);
+  const [haveIngredients, setHave] = useState(false);
+
+  useEffect(() => {
+    if (ingredients.length > 0) setHave(true);
+  }, [ingredients]);
 
   useEffect(() => {
     if (pathname.includes('bebidas')) setApi('drinks');
@@ -66,32 +72,12 @@ function Progress({ history, match: { params: { id } } }) {
       <h2 data-testid="recipe-category">{ result.strCategory }</h2>
       <img data-testid="recipe-photo" src={ result[image] } alt="thumbnail" />
       <h2>Ingredients list</h2>
-      <table>
-        {ingredients.map((ingredient, index) => (
-          <tr key={ index }>
-            <td>{measures[index]}</td>
-            <td>
-              <label
-                htmlFor={ `${index}-ingredient` }
-                data-testid={ `${index}-ingredient-step` }
-              >
-                <input
-                  type="checkbox"
-                  id={ `${index}-ingredient` }
-                  name={ `${index}-ingredient` }
-                  checked={ done[index] }
-                  onChange={ () => {
-                    const newDone = [...done];
-                    newDone[index] = !done[index];
-                    setDone(newDone);
-                  } }
-                />
-                <span className={ done[index] ? 'done' : '' }>{ingredient}</span>
-              </label>
-            </td>
-          </tr>
-        ))}
-      </table>
+      {haveIngredients && (<IngredientsTable
+        ingredients={ ingredients }
+        measures={ measures }
+        done={ done }
+        setDone={ setDone }
+      />) }
       <h2>instructions</h2>
       <p data-testid="instructions">{result.strInstructions}</p>
       <nav>
