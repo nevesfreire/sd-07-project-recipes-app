@@ -75,40 +75,41 @@ class Comidas extends Component {
         <button
           type="button"
           data-testid="Beef-category-filter"
-          onClick={ () => this.searchCategory('beef') }
+          onClick={ () => this.searchCategory('Beef') }
         >
           Beef
         </button>
         <button
           type="button"
           data-testid="Breakfast-category-filter"
-          onClick={ () => this.searchCategory('breakfast') }
+          onClick={ () => this.searchCategory('Breakfast') }
         >
           Breakfast
         </button>
         <button
           type="button"
           data-testid="Chicken-category-filter"
-          onClick={ () => this.searchCategory('chicken') }
+          onClick={ () => this.searchCategory('Chicken') }
         >
           Chicken
         </button>
         <button
           type="button"
           data-testid="Dessert-category-filter"
-          onClick={ () => this.searchCategory('dessert') }
+          onClick={ () => this.searchCategory('Dessert') }
         >
           Dessert
         </button>
         <button
           type="button"
           data-testid="Goat-category-filter"
-          onClick={ () => this.searchCategory('goat') }
+          onClick={ () => this.searchCategory('Goat') }
         >
           Goat
         </button>
         {loading ? 'Loading' : this.showCards(recipes)}
-        {toggleFood && !loading ? this.showCards(resultApiByName) : this.showCards(resultFood)}
+        {toggleFood && !loading
+          ? this.showCards(resultApiByName) : this.showCards(resultFood)}
         <Footer />
       </div>
     );

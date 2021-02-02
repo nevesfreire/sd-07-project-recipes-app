@@ -9,12 +9,33 @@ import { resultRandomDrink } from '../../redux/actionsBebidas';
 class Bebidas extends React.Component {
   constructor() {
     super();
+    this.state = {
+      recipes: [],
+      loading: false,
+    };
     this.showCards = this.showCards.bind(this);
   }
 
   componentDidMount() {
     const { fetchRandomDrink } = this.props;
     fetchRandomDrink();
+  }
+
+  async searchCategory(category) {
+    this.setState({
+      loading: true,
+    }, async () => {
+      const ZERO = 0;
+      const TWELVE = 12;
+      const responseAPI = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`);
+      const response = await responseAPI.json();
+      const copyResponse = [...response.drinks];
+      const recipes = copyResponse.splice(ZERO, TWELVE);
+      this.setState({
+        recipes,
+        loading: false,
+      });
+    });
   }
 
   showCards(cards) {
@@ -38,6 +59,7 @@ class Bebidas extends React.Component {
   }
 
   render() {
+    const { loading, recipes } = this.state;
     const { toggle, history, toggleDrink, resultDrink, resultApiByName } = this.props;
     return (
       <div>
@@ -46,33 +68,39 @@ class Bebidas extends React.Component {
         <button
           type="button"
           data-testid="Ordinary Drink-category-filter"
+          onClick={ () => this.searchCategory('Ordinary Drink') }
         >
           Ordinary Drink
         </button>
         <button
           type="button"
           data-testid="Cocktail-category-filter"
+          onClick={ () => this.searchCategory('Cocktail') }
         >
           Cocktail
         </button>
         <button
           type="button"
           data-testid="Milk / Float / Shake-category-filter"
+          onClick={ () => this.searchCategory('Milk / Float / Shake') }
         >
           Milk / Float / Shake
         </button>
         <button
           type="button"
           data-testid="Other/Unknown-category-filter"
+          onClick={ () => this.searchCategory('Other/Unknown') }
         >
           Other/Unknown
         </button>
         <button
           type="button"
           data-testid="Cocoa-category-filter"
+          onClick={ () => this.searchCategory('Cocoa') }
         >
           Cocoa
         </button>
+        {loading ? 'Loading' : this.showCards(recipes)}
         {toggleDrink ? this.showCards(resultApiByName) : this.showCards(resultDrink)}
         <Footer />
       </div>
