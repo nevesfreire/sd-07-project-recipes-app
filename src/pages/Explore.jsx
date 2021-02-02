@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
-import MenuInferior from './Components/MenuInferior';
 
 function Explore({ history }) {
   const { location } = history;

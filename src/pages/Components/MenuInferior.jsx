@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import FoodImage from '../../images/mealIcon.svg';
 import DrinkImage from '../../images/drinkIcon.svg';
-import ExploreImage from '../../images/exploreIcon.svg'
-import './MenuInferior.css'
+import ExploreImage from '../../images/exploreIcon.svg';
+import './MenuInferior.Css';
 
 function MenuInferior() {
   return (
