@@ -45,3 +45,10 @@ export const getByLetterMeals = (firstLetter) => async (dispatch) => {
   const response = await request.json();
   dispatch(getMeals(response));
 };
+
+export const getByCategorieMeals = (categorie) => async (dispatch) => {
+  const URL = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${categorie}`;
+  const request = await fetch(URL);
+  const response = await request.json();
+  dispatch(getMeals(response));
+};
