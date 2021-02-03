@@ -7,42 +7,25 @@ import { RecomendationCard } from '../../components';
 import { getSpecificMealById } from '../../store/ducks/getDetailedMeal/actions';
 
 class TelaDetalheComida extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-
-    };
-    this.handleIngredients = this.handleIngredients.bind(this);
-    this.handleMeasure = this.handleMeasure.bind(this);
-  }
-
   handleIngredients(meal) {
-    const mealArray = Object.entries(meal);
-    const ingredientsArray = [];
-    for (let i = 0; i < mealArray.length; i += 1) {
-      if (mealArray[i][0].startsWith('strIngredient') && mealArray[i][1] !== '') {
-        ingredientsArray.push(mealArray[i]);
-      }
-    }
+    const drinkArray = Object.entries(meal[0]);
+    const ingredientsArray = drinkArray.filter((element) => (
+      (element[0].startsWith('strIngredient')
+        && element[1])));
     return ingredientsArray;
   }
 
   handleMeasure(meal) {
-    const mealArray = Object.entries(meal);
-    const measuresArray = [];
-    for (let i = 0; i < mealArray.length; i += 1) {
-      if (mealArray[i][0].startsWith('strMeasure') && mealArray[i][1] !== '') {
-        measuresArray.push(mealArray[i]);
-      }
-    }
+    const drinkArray = Object.entries(meal[0]);
+    const measuresArray = drinkArray.filter((element) => (
+      (element[0].startsWith('strMeasure')
+        && element[1])));
     return measuresArray;
   }
 
-  render() {
-    const { meal } = this.props;
-    console.log(meal);
-    const ingredientsArray = this.handleIngredients(meal[0]);
-    const measuresArray = this.handleMeasure(meal[0]);
+  renderDetails(meal) {
+    const ingredientsArray = this.handleIngredients(meal);
+    const measuresArray = this.handleMeasure(meal);
 
     return (
       <>
@@ -78,11 +61,18 @@ class TelaDetalheComida extends Component {
       </>
     );
   }
+
+  render() {
+    const { meal } = this.props;
+    if (meal) {
+      return this.renderDetails(meal);
+    }
+    return null;
+  }
 }
 
 TelaDetalheComida.propTypes = {
-  meal: PropTypes.objectOf(PropTypes.string).isRequired,
-  getDetailedMealDispatch: PropTypes.func.isRequired,
+  meal: PropTypes.arrayOf(PropTypes.Object).isRequired,
 };
 
 const mapStateToProps = (state) => ({

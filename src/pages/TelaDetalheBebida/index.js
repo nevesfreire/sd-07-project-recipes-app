@@ -6,13 +6,6 @@ import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import { RecomendationCard } from '../../components';
 
 class TelaDetalheBebida extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-    this.handleIngredients = this.handleIngredients.bind(this);
-    this.handleMeasure = this.handleMeasure.bind(this);
-  }
 
   handleIngredients(drink) {
     const drinkArray = Object.entries(drink[0]);
