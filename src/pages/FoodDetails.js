@@ -96,7 +96,7 @@ export default function FoodDetails() {
         data-testid="video"
         className="width360"
         title="video"
-        src={recipe.strYoutube && recipe.strYoutube.replace('watch?v=', 'embed/')}
+        src={ recipe.strYoutube && recipe.strYoutube.replace('watch?v=', 'embed/') }
         frameBorder="0"
         allow="accelerometer; autoplay;
             clipboard-write; encrypted-media; gyroscope; picture-in-picture"
