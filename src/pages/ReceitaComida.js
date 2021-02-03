@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { apiTheMealDB, apiTheCocktailDB } from '../services';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import { startRecipe } from '../redux/actions';
 
 class ReceitaComida extends React.Component {
   constructor() {
@@ -40,8 +42,15 @@ class ReceitaComida extends React.Component {
   //   console.log(test);
   // }
 
+  async startRecipeButton() {
+    const { recipe } = this.state;
+    const { startRecipeDispatch, history } = this.props;
+    localStorage.setItem('inProgressRecipe', JSON.stringify(recipe));
+    await startRecipeDispatch(recipe);
+    history.push(`/comidas/${recipe.idMeal}/in-progress`);
+  }
+
   render() {
-    const { history } = this.props;
     const { recipe, drinkList } = this.state;
     if (recipe === '') {
       return <p>Loading...</p>;
@@ -93,7 +102,7 @@ class ReceitaComida extends React.Component {
           style={ { position: 'fixed', bottom: 0 } }
           type="button"
           data-testid="start-recipe-btn"
-          onClick={ () => history.push(`/comidas/${recipe.idMeal}/in-progress`) }
+          onClick={ () => this.startRecipeButton() }
         >
           Iniciar receita
         </button>
@@ -106,6 +115,11 @@ ReceitaComida.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+  startRecipeDispatch: PropTypes.func.isRequired,
 };
 
-export default ReceitaComida;
+const mapDispatchToProps = (dispatch) => ({
+  startRecipeDispatch: (e) => dispatch(startRecipe(e)),
+});
+
+export default connect(null, mapDispatchToProps)(ReceitaComida);

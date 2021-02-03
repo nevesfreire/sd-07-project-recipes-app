@@ -23,6 +23,11 @@ export const sendDrinkRecipes = (payload) => (
   }
 );
 
+export const startRecipe = (recipe) => ({
+  type: types.START_RECIPE,
+  recipe,
+});
+
 // const isFetching = () => (
 //   {
 //     type: types.IS_FETCHING,
