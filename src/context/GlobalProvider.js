@@ -84,7 +84,6 @@ export default function GlobalProvider({ children }) {
           updateState('initialDrinks', newInitialDrinks);
         }, [state.initialDrinks]),
 
-        dataFoods,
         setDataFoods: useCallback(() => {
           fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
             .then((response) => response.json())
@@ -108,7 +107,6 @@ export default function GlobalProvider({ children }) {
             }, []);
         }, [state.initialFoods]),
 
-        dataDrinks,
         setDataDrinks: useCallback(() => {
           fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
             .then((response) => response.json())
