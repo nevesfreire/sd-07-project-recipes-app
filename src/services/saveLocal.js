@@ -1,5 +1,11 @@
 const getFav = () => localStorage.getItem('favoriteRecipes');
 
+const desFav = (data, setData, id) => {
+  const newData = data.filter((e) => e.id !== id);
+  setData(newData);
+  localStorage.setItem('favoriteRecipes', JSON.stringify(newData));
+};
+
 const checkFav = (id) => {
   let array = JSON.parse(localStorage.getItem('favoriteRecipes'));
   if (array === null) {
@@ -24,4 +30,4 @@ const toggleFav = (recipe) => {
   }
 };
 
-export { toggleFav, getFav, checkFav };
+export { toggleFav, getFav, checkFav, desFav };
