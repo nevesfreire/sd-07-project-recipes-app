@@ -3,14 +3,11 @@ import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import './styles.css';
 import Header from '../../components/Header';
-import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import shareIcon from '../../images/shareIcon.svg';
-import { removeFavorite } from '../../services/localstorage';
 
 function ReceitasFeitas() {
   const [filters, setFilter] = useState('');
   const [copiedAlert, setCopiedAlert] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(false);
 
   const mds = 1000;
 
@@ -57,8 +54,9 @@ function ReceitasFeitas() {
     );
   }
 
-  function renderFavoriteReceipes() {
-    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  function renderDoneReceipes() {
+    const favorites = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (!favorites) return <h3>Não há receitas feitas</h3>;
     const renderFav = favorites.filter((favorite) => favorite.type.includes(filters));
     return renderFav.map((favorite, index) => (
       <div key={ index }>
@@ -74,13 +72,10 @@ function ReceitasFeitas() {
                 src={ favorite.image }
                 alt={ favorite.name }
               />
-              <div data-testid={ `${index}-horizontal-top-text` }>
-                { `${favorite.area} - ${favorite.category}` }
-              </div>
-              <div data-testid={ `${index}-horizontal-name` } className="df-name">
-                { favorite.name }
-              </div>
             </Link>
+            <div data-testid={ `${index}-horizontal-top-text` }>
+              { `${favorite.area} - ${favorite.category}` }
+            </div>
             <div className="thumb-icons">
               <input
                 type="image"
@@ -92,17 +87,19 @@ function ReceitasFeitas() {
                 } }
                 className="f-icon"
               />
-              <input
-                type="image"
-                src={ blackHeartIcon }
-                alt=""
-                data-testid={ `${index}-horizontal-favorite-btn` }
-                onClick={ () => {
-                  removeFavorite(favorite);
-                  setIsFavorite(!isFavorite);
-                } }
-                className="f-icon"
-              />
+            </div>
+            <Link
+              data-testid={ `${index}-horizontal-name` }
+              className="df-name"
+              to={ `/comidas/${favorite.id}` }
+            >
+              { favorite.name }
+            </Link>
+            <div data-testid={ `${index}-horizontal-done-date` }>{favorite.doneDate}</div>
+            <div className="tags">
+              { favorite.tags.map((tag, current) => (
+                <div data-testid={ `${index}-${tag}-horizontal-tag` } key={ current }>{ tag }</div>
+              ))}
             </div>
           </div>
         ) : (
@@ -118,13 +115,10 @@ function ReceitasFeitas() {
                 src={ favorite.image }
                 alt={ favorite.name }
               />
-              <div data-testid={ `${index}-horizontal-top-text` }>
-                { favorite.alcoholicOrNot }
-              </div>
-              <div data-testid={ `${index}-horizontal-name` } className="df-name">
-                { favorite.name }
-              </div>
             </Link>
+            <div data-testid={ `${index}-horizontal-top-text` }>
+              { favorite.alcoholicOrNot }
+            </div>
             <div className="thumb-icons">
               <input
                 type="image"
@@ -136,17 +130,19 @@ function ReceitasFeitas() {
                 } }
                 className="f-icon"
               />
-              <input
-                type="image"
-                src={ blackHeartIcon }
-                alt=""
-                data-testid={ `${index}-horizontal-favorite-btn` }
-                onClick={ () => {
-                  removeFavorite(favorite);
-                  setIsFavorite(!isFavorite);
-                } }
-                className="f-icon"
-              />
+            </div>
+            <Link
+              data-testid={ `${index}-horizontal-name` }
+              className="df-name"
+              to={ `/bebidas/${favorite.id}` }
+            >
+              { favorite.name }
+            </Link>
+            <div data-testid={ `${index}-horizontal-done-date` }>{favorite.doneDate}</div>
+            <div className="tags">
+              { favorite.tags.map((tag, current) => (
+                <div data-testid={ `${index}-${tag}-horizontal-tag` } key={ current }>{ tag }</div>
+              ))}
             </div>
           </div>
         )}
@@ -156,14 +152,14 @@ function ReceitasFeitas() {
   }
 
   useEffect(() => {
-    renderFavoriteReceipes();
+    renderDoneReceipes();
   }, []);
 
   return (
     <div>
-      <Header title="Receitas Favoritas" searchButtonExists={ false } />
+      <Header title="Receitas Feitas" searchButtonExists={ false } />
       { renderFilters() }
-      { renderFavoriteReceipes() }
+      { renderDoneReceipes() }
     </div>
   );
 }
