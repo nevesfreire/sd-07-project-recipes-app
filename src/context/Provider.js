@@ -16,13 +16,13 @@ function Provider({ children }) {
 
   const searchAll = 'search.php?s=';
 
-  const fetchFoods = async () => {
-    const searchFoods = await apiFoods(searchAll);
+  const fetchFoods = async (endPoint = searchAll) => {
+    const searchFoods = await apiFoods(endPoint);
     setFoods(searchFoods);
   };
 
-  const fetchDrinks = async () => {
-    const searchDrinks = await apiDrinks(searchAll);
+  const fetchDrinks = async (endPoint = searchAll) => {
+    const searchDrinks = await apiDrinks(endPoint);
     setDrinks(searchDrinks);
   };
 
@@ -110,6 +110,8 @@ function Provider({ children }) {
     filterCategoryFoods,
     filterCategoryDrinks,
     filterSearchBar,
+    setFoods,
+    setDrinks,
     fetchFoods,
     fetchDrinks,
     fetchCategoriesFoods,

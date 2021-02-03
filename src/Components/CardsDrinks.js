@@ -7,8 +7,9 @@ function CardsDrinks() {
   const { drinks, fetchDrinks } = useContext(RecipesContext);
   const [redirect, setRedirect] = useState(false);
 
+  const zero = 0;
   useEffect(() => {
-    fetchDrinks();
+    if (drinks !== undefined && drinks.length === zero) fetchDrinks();
   }, []);
 
   useEffect(() => {
