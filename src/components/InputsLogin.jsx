@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Input, Button } from '@material-ui/core';
 import context from '../contextAPI/context';
-import stateChanges from '../helpers/useChanges';
+// import stateChanges from '../helpers/stateChanges';
 import '../css/login.css';
 
 
@@ -43,17 +43,16 @@ import '../css/login.css';
     </div>
   );
 export default function Render() {
-  // const { state, setState } = useContext(context);
+  const { login, setLogin} = useContext(context);
   
-  // const onChange = stateChanges()
-  // const stateChange = ({ target: { name, value } }) => {
-  //   setState({ ...state, [name]: value });
-  // };
+  const loginChanges = ({ target: { name, value } }) => {
+    setLogin({ ...login, [name]: value });
+  };
 
   return (
     <div>
-      {inputText(stateChanges())}
-      {inputPasswd(stateChanges())}
+      {inputText(loginChanges)}
+      {inputPasswd(loginChanges)}
       {buttonLogin()}
     </div>
   );

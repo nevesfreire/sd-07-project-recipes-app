@@ -1,19 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Context from '../contextAPI/context';
-// import HandleStateChange from './helpers/HandleStateChange';
 
 function Provider({ children }) {
+  const [login, setLogin] = useState({})
   const [state, setState] = useState({});
 
-  // useEffect(() => {
-  //   UseChanges();
-  // }, [state]);
+  useEffect(() => {
+    const NUM_PASSWORD = 5;
+    const { user, passwd } = login
+    if (user && passwd) {
+      ((/^[^\s@]+@[^\s@]+\.[^\s@]+$/).test(user) && (passwd.length > NUM_PASSWORD)) && setState(s => ({...s, login}))
+    }
+  }, [login]);
 
   const context = {
     state,
     setState,
-    // HandleStateChange,
+    login,
+    setLogin,
   };
 
   return (
