@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
+import copy from 'clipboard-copy';
 import PropTypes from 'prop-types';
 import { Context } from '../../context/Provider';
 import fetchApi from '../../services/api';
@@ -19,6 +20,7 @@ function Progress({ history, match: { params: { id } } }) {
   const [name, setName] = useState('');
   const [image, setImage] = useState('');
   const [done, setDone] = useState([]);
+  const [msg, setMsg] = useState('');
 
   useEffect(() => {
     initialize();
@@ -105,11 +107,19 @@ function Progress({ history, match: { params: { id } } }) {
       />
       <h2>instructions</h2>
       <p data-testid="instructions">{result.strInstructions}</p>
+      <div>{msg}</div>
       <nav>
         <Button data-testid="favorite-btn">
           Favorite
         </Button>
-        <Button data-testid="share-btn">
+        <Button
+          data-testid="share-btn"
+          onClick={ () => {
+            const recipe = (api === 'meal' ? 'comidas' : 'bebidas');
+            copy(`http://localhost:3000/${recipe}/${id}`);
+            setMsg('Link copiado!');
+          } }
+        >
           Share
         </Button>
         <Button data-testid="finish-recipe-btn">
