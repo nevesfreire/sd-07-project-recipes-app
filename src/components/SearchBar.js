@@ -92,7 +92,7 @@ function SearchBar(props) {
           id="busca"
           name="word"
           value={ word }
-          data-testid="search-input"
+          data-testid={ `${toggle ? 'search-input' : ''}` }
           onChange={ changeInputs }
         />
       </label>
