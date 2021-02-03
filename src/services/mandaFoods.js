@@ -53,3 +53,13 @@ export async function fetchingDrinks(radio, input) {
   }
   alert('Sua busca deve conter somente 1 (um) caracter');
 }
+
+export const fetchRandomFoods = async () => {
+  try {
+    const URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+    const foods = await fetch(URL).then((response) => response.json());
+    return foods;
+  } catch (error) {
+    console.log(error);
+  }
+};
