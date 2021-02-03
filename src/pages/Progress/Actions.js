@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import copy from 'clipboard-copy';
+import PropTypes from 'prop-types';
 import { Context } from '../../context/Provider';
 import { getItem, saveItem } from '../../services/localStorage';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
@@ -84,5 +85,21 @@ function Actions({ data, isFavorite, setIsFavorite }) {
     </nav>
   );
 }
+
+Actions.propTypes = {
+  data: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    src: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
+    instructions: PropTypes.string.isRequired,
+    ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
+    video: PropTypes.string.isRequired,
+    alcoholic: PropTypes.bool.isRequired,
+    area: PropTypes.string.isRequired,
+  }).isRequired,
+  isFavorite: PropTypes.bool.isRequired,
+  setIsFavorite: PropTypes.func.isRequired,
+};
 
 export default Actions;
