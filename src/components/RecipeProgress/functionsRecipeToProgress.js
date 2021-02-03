@@ -4,7 +4,7 @@ const streakIngredient = (key, event, page, id, index) => {
   const lineTh = 'line-through';
   const elementText = element.innerText;
   const type = `${page}s`;
-  const idd = parseInt(id);
+  const idd = parseInt(id, 10);
 
   if (target.checked === true && element.style.textDecoration !== lineTh) {
     element.style.textDecoration = lineTh;
@@ -14,7 +14,7 @@ const streakIngredient = (key, event, page, id, index) => {
   }
   const lS = JSON.parse(localStorage.getItem('inProgressRecipes'));
   // eslint-disable-line
-  if (lS.[type].[idd].[index].[elementText] === false){
+  if (lS.[type].[idd].[index].[elementText] === false) {
     // eslint-disable-line
     lS.[type].[idd].[index].[elementText] = true;
   } else {
@@ -27,11 +27,10 @@ const streakIngredient = (key, event, page, id, index) => {
 
 const isChecked = (ing, page, id, index) => {
   const type = `${page}s`;
-  const idd = parseInt(id);
+  const idd = parseInt(id, 10);
   const lS = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  console.log(lS.[type].[idd].[index].[ing])
   return lS.[type].[idd].[index].[ing];
-}
+};
 
 export default {
   streakIngredient,
