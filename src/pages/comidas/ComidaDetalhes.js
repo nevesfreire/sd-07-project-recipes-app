@@ -13,7 +13,9 @@ class ComidaDetalhes extends React.Component {
     this.state = {
       recipe: {},
       copyClipboard: '',
+      isDone: false,
       isFavorite: false,
+
     };
     this.fetchData = this.fetchData.bind(this);
     this.renderIngredients = this.renderIngredients.bind(this);
@@ -21,10 +23,32 @@ class ComidaDetalhes extends React.Component {
     this.iniciarReceita = this.iniciarReceita.bind(this);
     this.copyClipboard = this.copyClipboard.bind(this);
     this.favoriteRecipe = this.favoriteRecipe.bind(this);
+    this.isFavorite = this.isFavorite.bind(this);
+    this.isDone = this.isDone.bind(this);
   }
 
   componentDidMount() {
     this.fetchData();
+    this.isFavorite();
+    this.isDone();
+  }
+
+  isFavorite() {
+    const setFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (setFavorite) {
+      this.setState({
+        isFavorite: true,
+      });
+    }
+  }
+
+  isDone() {
+    const setFavorite = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (setFavorite) {
+      this.setState({
+        isDone: true,
+      });
+    }
   }
 
   async fetchData() {
@@ -45,16 +69,10 @@ class ComidaDetalhes extends React.Component {
   }
 
   async copyClipboard() {
-    try {
-      console.log('copy clipboard');
-      await navigator.clipboard.writeText(window.location.href);
-      console.log('copy clipboard write done');
-      this.setState({
-        copyClipboard: window.location.href,
-      });
-    } catch (e) {
-      console.error(e);
-    }
+    await navigator.clipboard.writeText(window.location.href);
+    this.setState({
+      copyClipboard: window.location.href,
+    });
   }
 
   favoriteRecipe() {
@@ -71,7 +89,11 @@ class ComidaDetalhes extends React.Component {
       name: recipe.strMeal,
       image: recipe.strMealThumb,
     }];
-    localStorage.setItem('favoriteRecipes', JSON.stringify(favorite));
+    if (isFavorite) {
+      localStorage.removeItem('favoriteRecipes');
+    } else {
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favorite));
+    }
   }
 
   renderIngredients() {
@@ -95,8 +117,8 @@ class ComidaDetalhes extends React.Component {
   }
 
   render() {
-    const { recipe, copyClipboard, isFavorite } = this.state;
-    console.log(recipe, isFavorite);
+    const { recipe, copyClipboard, isFavorite, isDone } = this.state;
+    console.log(isDone);
     return (
       <div className="ComidaDetalhes">
         <img
@@ -136,7 +158,8 @@ class ComidaDetalhes extends React.Component {
         <button
           type="button"
           data-testid="start-recipe-btn"
-          className="iniciar-receita-fixo"
+          className={ isDone === false
+            ? 'iniciar-receita-fixo' : 'iniciar-receita-fixo hidden-item' }
           onClick={ this.iniciarReceita }
         >
           Iniciar receita

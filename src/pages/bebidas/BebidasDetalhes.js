@@ -14,6 +14,7 @@ export default class BebidasDetalhes extends React.Component {
       recipe: {},
       copyClipboard: '',
       isFavorite: false,
+      isDone: false,
     };
     this.fetchData = this.fetchData.bind(this);
     this.renderIngredients = this.renderIngredients.bind(this);
@@ -21,10 +22,31 @@ export default class BebidasDetalhes extends React.Component {
     this.iniciarReceita = this.iniciarReceita.bind(this);
     this.copyClipboard = this.copyClipboard.bind(this);
     this.favoriteRecipe = this.favoriteRecipe.bind(this);
+    this.isFavorite = this.isFavorite.bind(this);
   }
 
   componentDidMount() {
     this.fetchData();
+    this.isFavorite();
+    this.isDone();
+  }
+
+  isFavorite() {
+    const setFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (setFavorite) {
+      this.setState({
+        isFavorite: true,
+      });
+    }
+  }
+
+  isDone() {
+    const setFavorite = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (setFavorite) {
+      this.setState({
+        isDone: true,
+      });
+    }
   }
 
   async fetchData() {
@@ -53,7 +75,6 @@ export default class BebidasDetalhes extends React.Component {
 
   favoriteRecipe() {
     const { recipe, isFavorite } = this.state;
-    console.log('click');
     this.setState({
       isFavorite: !isFavorite,
     });
@@ -66,7 +87,11 @@ export default class BebidasDetalhes extends React.Component {
       name: recipe.strDrink,
       image: recipe.strDrinkThumb,
     }];
-    localStorage.setItem('favoriteRecipes', JSON.stringify(favorite));
+    if (isFavorite) {
+      localStorage.removeItem('favoriteRecipes');
+    } else {
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favorite));
+    }
   }
 
   renderIngredient(index) {
@@ -90,7 +115,7 @@ export default class BebidasDetalhes extends React.Component {
   }
 
   render() {
-    const { recipe, copyClipboard, isFavorite } = this.state;
+    const { recipe, copyClipboard, isFavorite, isDone } = this.state;
     console.log(recipe);
     return (
       <div>
@@ -121,7 +146,8 @@ export default class BebidasDetalhes extends React.Component {
         <button
           type="button"
           data-testid="start-recipe-btn"
-          className="iniciar-receita-fixo"
+          className={ isDone === false
+            ? 'iniciar-receita-fixo' : 'iniciar-receita-fixo hidden-item' }
           onClick={ this.iniciarReceita }
         >
           Iniciar receita
