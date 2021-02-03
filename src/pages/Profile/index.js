@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import RecipesContext from '../../Context/RecipesContext';
 import Header from '../../components/Header';
-import { getStorage } from '../../services/localStorage';
 
 export default function Profile() {
-  const { email } = getStorage('user');
+  const { login } = useContext(RecipesContext);
+  const { email } = login;
   const history = useHistory();
 
   const setLogout = () => {
