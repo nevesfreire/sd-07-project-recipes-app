@@ -98,7 +98,12 @@ function ReceitasFeitas() {
             <div data-testid={ `${index}-horizontal-done-date` }>{favorite.doneDate}</div>
             <div className="tags">
               { favorite.tags.map((tag, current) => (
-                <div data-testid={ `${index}-${tag}-horizontal-tag` } key={ current }>{ tag }</div>
+                <div
+                  data-testid={ `${index}-${tag}-horizontal-tag` }
+                  key={ current }
+                >
+                  { tag }
+                </div>
               ))}
             </div>
           </div>
@@ -139,11 +144,14 @@ function ReceitasFeitas() {
               { favorite.name }
             </Link>
             <div data-testid={ `${index}-horizontal-done-date` }>{favorite.doneDate}</div>
-            <div className="tags">
-              { favorite.tags.map((tag, current) => (
-                <div data-testid={ `${index}-${tag}-horizontal-tag` } key={ current }>{ tag }</div>
-              ))}
-            </div>
+            { favorite.tags.map((tag, current) => (
+              <div
+                data-testid={ `${index}-${tag}-horizontal-tag` }
+                key={ current }
+              >
+                { tag }
+              </div>
+            ))}
           </div>
         )}
         { copiedAlert && <p>Link copiado!</p> }
