@@ -14,6 +14,7 @@ class ComidaDetalhes extends React.Component {
       recipe: {},
       copyClipboard: '',
       isFavorite: false,
+
     };
     this.fetchData = this.fetchData.bind(this);
     this.renderIngredients = this.renderIngredients.bind(this);
@@ -25,6 +26,12 @@ class ComidaDetalhes extends React.Component {
 
   componentDidMount() {
     this.fetchData();
+    const setFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (setFavorite) {
+      this.setState({
+        isFavorite: true,
+      });
+    }
   }
 
   async fetchData() {
@@ -45,16 +52,10 @@ class ComidaDetalhes extends React.Component {
   }
 
   async copyClipboard() {
-    try {
-      console.log('copy clipboard');
-      await navigator.clipboard.writeText(window.location.href);
-      console.log('copy clipboard write done');
-      this.setState({
-        copyClipboard: window.location.href,
-      });
-    } catch (e) {
-      console.error(e);
-    }
+    await navigator.clipboard.writeText(window.location.href);
+    this.setState({
+      copyClipboard: window.location.href,
+    });
   }
 
   favoriteRecipe() {
@@ -71,7 +72,11 @@ class ComidaDetalhes extends React.Component {
       name: recipe.strMeal,
       image: recipe.strMealThumb,
     }];
-    localStorage.setItem('favoriteRecipes', JSON.stringify(favorite));
+    if (isFavorite) {
+      localStorage.removeItem('favoriteRecipes');
+    } else {
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favorite));
+    }
   }
 
   renderIngredients() {
@@ -96,7 +101,6 @@ class ComidaDetalhes extends React.Component {
 
   render() {
     const { recipe, copyClipboard, isFavorite } = this.state;
-    console.log(recipe, isFavorite);
     return (
       <div className="ComidaDetalhes">
         <img

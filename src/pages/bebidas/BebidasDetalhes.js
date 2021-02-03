@@ -25,6 +25,12 @@ export default class BebidasDetalhes extends React.Component {
 
   componentDidMount() {
     this.fetchData();
+    const setFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (setFavorite) {
+      this.setState({
+        isFavorite: true,
+      });
+    }
   }
 
   async fetchData() {
@@ -53,7 +59,6 @@ export default class BebidasDetalhes extends React.Component {
 
   favoriteRecipe() {
     const { recipe, isFavorite } = this.state;
-    console.log('click');
     this.setState({
       isFavorite: !isFavorite,
     });
@@ -66,7 +71,11 @@ export default class BebidasDetalhes extends React.Component {
       name: recipe.strDrink,
       image: recipe.strDrinkThumb,
     }];
-    localStorage.setItem('favoriteRecipes', JSON.stringify(favorite));
+    if (isFavorite) {
+      localStorage.removeItem('favoriteRecipes')
+    } else {
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favorite))
+    }
   }
 
   renderIngredient(index) {
