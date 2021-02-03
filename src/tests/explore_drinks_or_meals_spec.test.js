@@ -58,6 +58,7 @@ describe('As telas de Explorar devem:', () => {
 
     const ingrediente = getByTestId(botaoIngrediente);
     const surpreenda = getByTestId(botaoSurpreenda);
+
     expect(ingrediente.textContent).toBe(textoIngrediente);
     expect(surpreenda.textContent).toBe(textoSurpreenda);
   });
