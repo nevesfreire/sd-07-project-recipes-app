@@ -19,7 +19,12 @@ function RecipeDetails({ recipes, id }) {
       <Instructions recipes={ recipes } />
       { recipes === 'comidas' ? <Video /> : ''}
       <Recomendations recipes={ recipes } />
-      <ButtonDetails recipes={ recipes } id={ id } />
+      <ButtonDetails
+        recipes={ recipes }
+        id={ id }
+        textBtn="Iniciar Receita"
+        dataTestId="start-recipe-btn"
+      />
     </div>
   );
 }

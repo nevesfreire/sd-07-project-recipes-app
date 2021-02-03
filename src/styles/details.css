@@ -146,3 +146,7 @@ body {
   opacity: 20px;
   padding: 5px;
 }
+
+.checkedIngredient {
+  text-decoration: line-through;
+}

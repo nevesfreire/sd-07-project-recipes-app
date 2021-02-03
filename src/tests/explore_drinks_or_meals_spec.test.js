@@ -39,7 +39,7 @@ describe('As telas de Explorar devem:', () => {
 
     expect(ingrediente).toBeInTheDocument();
     expect(surpreenda).toBeInTheDocument();
-  });
+});
 
   it('ter os nomes corretos para os botões na tela de Comidas', () => {
     const { getByTestId } = renderWithRouter(<ExploreFoods />);
