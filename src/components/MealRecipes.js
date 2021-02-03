@@ -26,9 +26,6 @@ class MealRecipes extends Component {
     if (selectedCategory !== prevProps.selectedCategory && selectedCategory !== 'All') {
       this.fetchRecipesByCategory();
     }
-    // if (selectedCategory === prevProps.selectedCategory) {
-    //   selectCategory('All');
-    // }
   }
 
   async fetchRecipesByCategory() {
