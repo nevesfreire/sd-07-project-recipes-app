@@ -104,37 +104,37 @@ button {
 .recipes-list {
   display: flex;
   flex-direction: row;
-  justify-content: center;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .recipe-card {
   background-color: white;
-  margin: 5px;
   border-radius: 5px;
-  width: 160px;
-  height: 210px;
+  margin: 5px;
   box-shadow: 4px 4px 4px grey;
+  height: 210px;
+  width: 160px;
   overflow: hidden;
 }
 
 .recipe-card img {
   border-radius: 5px 5px 0 0;
-  width: 100%;
   margin-bottom: 20px;
+  width: 100%;
 }
 
 .recipe-card p {
-  margin-left: 5px;
   color: black;
+  margin-left: 5px;
 }
 
 .categories {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin-bottom: 30px;
   flex-wrap: wrap;
+  margin-bottom: 30px;
 }
 
 .categories button {
