@@ -18,7 +18,6 @@ class RecipesList extends React.Component {
             {drinkRecipes.slice(startList, maxNumber).map((recipe, index) => (
               <Link
                 key={ recipe.idDrink }
-                data-testid={ `${index}-recipe-card` }
                 to={ `/bebidas/${recipe.idDrink}` }
               >
                 <RecipesCard
@@ -40,7 +39,6 @@ class RecipesList extends React.Component {
           {mealRecipes.slice(startList, maxNumber).map((recipe, index) => (
             <Link
               key={ recipe.idMeal }
-              data-testid={ `${index}-recipe-card` }
               to={ `/comidas/${recipe.idMeal}` }
             >
               <RecipesCard
