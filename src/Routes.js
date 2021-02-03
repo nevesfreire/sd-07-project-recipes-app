@@ -8,6 +8,8 @@ import RecipesDone from './pages/RecipesDone';
 import FoodDetail from './pages/FoodDetail';
 import DrinkDetail from './pages/DrinkDetail';
 import Favorites from './pages/Favorites';
+import FoodProgress from './pages/FoodProgress';
+import DrinkProgress from './pages/DrinkProgress';
 import Explore from './pages/Explore';
 import DrinkExplore from './pages/Explore/DrinkExplore';
 import FoodExplore from './pages/Explore/FoodExplore';
@@ -17,12 +19,12 @@ import FoodByArea from './pages/Explore/FoodByArea';
 
 const Router = () => (
   <Switch>
+    <Route path="/comidas/:id/in-progress" component={ FoodProgress } />
+    <Route path="/bebidas/:id/in-progress" component={ DrinkProgress } />
     <Route path="/comidas/:id" component={ FoodDetail } />
     <Route path="/bebidas/:id" component={ DrinkDetail } />
     <Route path="/comidas" component={ Foods } />
     <Route path="/bebidas" component={ Drinks } />
-    {/* <Route path="/comidas/:id/in-progress" component={ FoodProgress } /> */}
-    {/* <Route path="/bebidas/:id/in-progress" component={ DrinkProgress } /> */}
     <Route path="/explorar/comidas/area" component={ FoodByArea } />
     <Route path="/explorar/comidas/ingredientes" component={ FoodIngredients } />
     <Route path="/explorar/bebidas/ingredientes" component={ DrinkIngredients } />

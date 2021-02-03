@@ -16,12 +16,18 @@ function createDoneRecipesDatabase() {
   localStorage.setItem('doneRecipes', JSON.stringify([]));
 }
 
+function createProgressDatabase() {
+  localStorage.setItem('inProgressRecipes', JSON.stringify([]));
+}
+
 function checkDatabase() {
   let temp;
   temp = JSON.parse(localStorage.getItem('favoriteRecipes'));
   if (!temp) createFavoriteRecipesDatabase();
   temp = JSON.parse(localStorage.getItem('doneRecipes'));
   if (!temp) createDoneRecipesDatabase();
+  temp = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  if (!temp) createProgressDatabase();
 }
 
 function setFavoriteRecipes(recipes) {
@@ -127,6 +133,49 @@ export function addDoneRecipe(recipe) {
   else obj.tags = [];
 
   setDoneRecipes(getDoneRecipes().concat(obj));
+}
+
+function setRecipesProgress(recipes) {
+  localStorage.setItem('inProgressRecipes', JSON.stringify(recipes));
+}
+
+export function getRecipesProgress() {
+  checkDatabase();
+  return JSON.parse(localStorage.getItem('inProgressRecipes'));
+}
+
+export function ingredientIsSelected(recipeID, ingredient) {
+  checkDatabase();
+  const recipes = getRecipesProgress();
+  const recipeIndex = recipes.findIndex((item) => item.id === recipeID);
+  if (recipeIndex > minusOne) {
+    const { ingredients } = recipes[recipeIndex];
+    const ingredientIndex = ingredients.findIndex((item) => item === ingredient);
+    if (ingredientIndex > minusOne) return true;
+  }
+
+  return false;
+}
+
+export function addRecipeProgress(recipeID, ingredient) {
+  checkDatabase();
+  const recipes = getRecipesProgress();
+  const recipeIndex = recipes.findIndex((item) => item.id === recipeID);
+  if (recipeIndex > minusOne) {
+    const { ingredients } = recipes[recipeIndex];
+    const ingredientIndex = ingredients.findIndex((item) => item === ingredient);
+    if (ingredientIndex > minusOne) {
+      recipes[recipeIndex].ingredients.splice(ingredientIndex, 1);
+    } else recipes[recipeIndex].ingredients.push(ingredient);
+  } else {
+    const obj = {
+      id: recipeID,
+      ingredients: [ingredient],
+    };
+    recipes.push(obj);
+  }
+
+  setRecipesProgress(recipes);
 }
 
 export async function mockRecipe(id) {
