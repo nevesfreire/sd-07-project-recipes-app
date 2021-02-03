@@ -10,6 +10,7 @@ function Ingredient({ recipes }) {
 
   const details = recipes === 'comidas' ? meals : drinks;
   const zero = 0;
+  const two = 2;
   let ingredients = [];
   let measures = [];
   if (details) {
@@ -22,6 +23,23 @@ function Ingredient({ recipes }) {
     ));
   }
 
+  if (measures.length <= two) {
+    return (
+      <div>
+        <h3>Ingredient</h3>
+        <div className="div-ingredient">
+          {ingredients.map(([key, value], index) => (
+            <p
+              key={ key }
+              data-testid={ `${index}-ingredient-name-and-measure` }
+            >
+              { `- ${value} - 1/2 part` }
+            </p>
+          ))}
+        </div>
+      </div>
+    );
+  }
   return (
     <div>
       <h3>Ingredient</h3>
@@ -31,10 +49,7 @@ function Ingredient({ recipes }) {
             key={ key }
             data-testid={ `${index}-ingredient-name-and-measure` }
           >
-            -
-            { value }
-            -
-            { measures[index][1] }
+            { `- ${value} - ${measures[index][1]}` }
           </p>
         ))}
       </div>

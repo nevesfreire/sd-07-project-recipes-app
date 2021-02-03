@@ -10,10 +10,10 @@ function FoodDetails({ match }) {
   const { handleClickDetail, isLoading } = useContext(FoodAppContext);
 
   const { url } = match;
-  const requestApi = url.split('/');
+  const urlSplitArray = url.split('/');
 
   useEffect(() => {
-    handleClickDetail(requestApi[1], requestApi[2]);
+    handleClickDetail(urlSplitArray[1], urlSplitArray[2]);
   }, []);
 
   if (isLoading) {
@@ -21,7 +21,7 @@ function FoodDetails({ match }) {
   }
 
   return (
-    <RecipeDetails recipes={ requestApi[1] } id={ requestApi[2] } />
+    <RecipeDetails recipes={ urlSplitArray[1] } id={ urlSplitArray[2] } />
   );
 }
 

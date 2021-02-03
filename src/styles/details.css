@@ -88,7 +88,6 @@ body {
   align-items: flex-start;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
   width: 150px;
 }
 
@@ -124,10 +123,10 @@ body {
   width: 360px;
 }
 
-@keyframes hide {
-  from { opacity: 1 }
-  to   { opacity: 0 }
-}
+/* @keyframes hide {
+  from { opacity: 1; }
+  to { opacity: 0; }
+} */
 
 .link-compartilhar {
   background-color: rgb(164, 174, 185);
@@ -138,6 +137,7 @@ body {
 }
 
 .copy-compartilhar {
+
   /* animation: hide 1s 1s forwards; */
   background-color: rgb(164, 174, 185);
   border-radius: 10px;
