@@ -1,123 +1,195 @@
-import React from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import GlobalContext from '../context/GlobalContext';
+import RecipeDetailsContext from '../context/RecipeContext';
+import likeIcon from '../images/whiteHeartIcon.svg';
+import fullLikeIcon from '../images/blackHeartIcon.svg';
+import ShareButton from '../components/ShareButton';
+import ShowRecommended from '../components/RecommendedFoodOrDrinks';
+import './foodAndDrinkDetails.css';
+import {
+  ingredientsMount,
+  buttonMount,
+  videoMount,
+  setButtonTitle,
+  unLikeRecipe,
+  setLikeImage,
+  saveFavoriteRecipe,
+} from '../components/func_details';
 
-export default function FoodDetails() {
+export default function FoodDetails(props) {
+  const contextGlobal = useContext(GlobalContext);
+  const { setTitle } = contextGlobal;
+  const context = useContext(RecipeDetailsContext);
+  const [btnTitle, setBtnTitle] = useState('Iniciar Receita');
+  const [btnImg, setBtnImg] = useState('');
+  const [recommendations1, setRecommendations1] = useState([]);
+  const [recommendations2, setRecommendations2] = useState([]);
+  const { getRecipeTitle, setRecipeTitle, getRecipeImage, setRecipeImage, getRecipeArea,
+    setRecipeArea, getRecipeCategory, setRecipeCategory, getRecipeIngredients,
+    setRecipeIngredients, getRecipeInstructions, setRecipeInstructions, getRecipeVideo,
+    setRecipeVideo, recipesInProgress, setRecipesInProgress } = context;
+  const { match, history: { location: { pathname } } } = props;
+  const { params } = match;
+  const { id } = params;
+  const carouselActiveIndex = 0;
+  const carouselActiveIndex1 = 1;
+  const carouselPartition = 3;
+
+  const fetchRecipe = async () => {
+    // const path = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=52771';
+    const path = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+    const getRecipe = await fetch(path);
+    const result = await getRecipe.json();
+    // console.log(result); chave meals interesse
+    setRecipeTitle(result.meals[0].strMeal);
+    setRecipeCategory(result.meals[0].strCategory);
+    setRecipeImage(result.meals[0].strMealThumb);
+    setRecipeInstructions(result.meals[0].strInstructions);
+    setRecipeArea(result.meals[0].strArea);
+    videoMount(setRecipeVideo, result);
+    ingredientsMount(setRecipeIngredients, result);
+  };
+
+  const fetchRecommendations = async () => {
+    const path = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+    const getRecipe = await fetch(path);
+    const result = await getRecipe.json();
+    // console.log(result) // chave drinks é o interesse Array(25)
+    const maximumRecommendations1 = 3;
+    const maximumRecommendations2 = 6;
+    const getRecommendations1 = result.drinks.filter(
+      (recommendation, index) => index < maximumRecommendations1 && recommendation,
+    );
+    // console.log(getRecommendations1) //array 3 objetos ok
+    const getRecommendations2 = result.drinks.filter(
+      (recommendation, index) => index >= maximumRecommendations1
+      && index < maximumRecommendations2
+      && recommendation,
+    );
+    // console.log(getRecommendations2) array 3 objetos ok
+    setRecommendations1(getRecommendations1);
+    setRecommendations2(getRecommendations2);
+  };
+
+  const handleImage = () => {
+    const options = {
+      id,
+      getRecipeArea,
+      getRecipeCategory,
+      getRecipeTitle,
+      getRecipeImage,
+    };
+    if (btnImg === likeIcon) {
+      setBtnImg(fullLikeIcon);
+      saveFavoriteRecipe(options);
+    } else {
+      setBtnImg(likeIcon);
+      unLikeRecipe(id);
+    }
+  };
+
+  const handleClick = () => {
+    if (!JSON.parse(localStorage.getItem('inProgressRecipes'))) {
+      const inProgressRecipes = {
+        meals: {
+          [id]: [],
+        },
+        cocktails: {},
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+    } else {
+      const previousObj = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      const previousMeals = previousObj.meals;
+      const newMeals = { ...previousMeals, [id]: [] };
+      const newObj = {
+        ...previousObj,
+        meals: newMeals,
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(newObj));
+    }
+    const path = `/comidas/${id}/in-progress`;
+    setRecipesInProgress(recipesInProgress.concat(id));
+    props.history.push(path);
+  };
+
+  useEffect(() => {
+    setTitle('Food Details');
+    fetchRecipe();
+    fetchRecommendations();
+    setButtonTitle(setBtnTitle, id);
+    setLikeImage(setBtnImg, id, fullLikeIcon, likeIcon);
+  }, []);
+
   return (
-    <h1>Detalhes Comida</h1>
+    <div className="recipe-details-container">
+      <img
+        src={ getRecipeImage }
+        alt={ getRecipeTitle }
+        data-testid="recipe-photo"
+        className="recipe-details-image"
+      />
+      <p data-testid="recipe-title" className="recipe-details-name">
+        { getRecipeTitle }
+      </p>
+      <div className="favorite-and-share-btn-container">
+        <button type="button" onClick={ handleImage } className="favorite-btn">
+          <img src={ btnImg } alt="like" data-testid="favorite-btn" />
+        </button>
+        <ShareButton path={ pathname } />
+      </div>
+      <p className="recipe-details-category">
+        Category-
+        <span data-testid="recipe-category">{getRecipeCategory}</span>
+      </p>
+      <ul className="ingredients-list">
+        {getRecipeIngredients.map((item, index) => (
+          <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
+            {item}
+          </li>
+        ))}
+      </ul>
+      <h3 data-testid="instructions" className="recipe-details-instructions">
+        {getRecipeInstructions}
+      </h3>
+      <iframe
+        src={ getRecipeVideo }
+        title={ getRecipeTitle }
+        data-testid="video"
+        className="recipe-details-video"
+      />
+      <h3>Recommendations:</h3>
+      <ShowRecommended
+        recommendation1={ recommendations1 }
+        recommendation2={ recommendations2 }
+        carouselActiveIndex={ carouselActiveIndex }
+        carouselActiveIndex1={ carouselActiveIndex1 }
+        carouselPartition={ carouselPartition }
+      />
+      {buttonMount(id) && (
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          className="start-recipe-btn"
+          onClick={ handleClick }
+        >
+          { btnTitle }
+        </button>
+      )}
+    </div>
   );
 }
-// import React, { useContext, useEffect } from 'react';
-// import { useFetch } from '../hooks/useFetch';
-// import GlobalContext from '../context/GlobalContext';
 
-// criar data/detailRecipes.js ok
-// const detailRecipes = {
-//   id: '',
-//   drinkDetails: [],
-//   detailsRecipe: []
-// }
-
-// importar detailsRecipe em /data/index - pendente (ver com Bruno)
-
-// GlobalProvider - pendente ver estrutura das desestruturações com Bruno
-// inserir novas funções em GlobalProvader
-// setDrinkDetails: (value) => updateState('drinkDetails', value)
-// setDetailsRecipe: (value) => updateState('detailsRecipe', value)
-
-// export default function FoodDetails() {
-//   const context = useContext(GlobalContext);
-// desestruturar context
-// com id-da-receita,
-// e as fns que vão manipular o estado global de drinkDetails e detailsRecipe
-// inserir a const com id-da-receita dentros dos endpoints
-// const endpointFood = `https://www.themealdb.com/api/json/v1/1/lookup.php?i={$id-da-receita}`
-// const endpointDrink = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i={$id-da-receita}`;
-// const responseFood = useFetch(endpointFood);
-// const responseDrink = useFetch(endpointDrink);
-
-// useEffect(() => {
-//   setDrinkDetails(responseDrink);
-// }, [responseDrink]);
-
-// useEffect(() => {
-//   setDetailsRecipe(responseFood);
-// }, [responseFood]);
-
-//   return (
-//     <div>
-//       <div>
-//         <img
-//           src="imagem da receita"
-//           alt="imagem da receita"
-//           data-testid="recipe-photo"
-//         />
-//       </div>
-//       <div>
-//         <h1 data-testid="recipe-title">Titulo dinâmico da receita</h1>
-//         <button type="button" data-testid="share-btn">
-//           importar o icone de compartilhar
-//         </button>
-//         <button type="button" data-testid="favorite-btn">
-//           importar o icone de favoritar
-//         </button>
-//       </div>
-//       <div>
-//         <h3>informação de categoria deve ser dinâmica</h3>
-//       </div>
-//       <ul>
-//         Ingredients
-//         {/* data-testid={ `${index}-ingredient-name-and-measure` } */}
-//         <li>
-//           valor de retorno da fn
-//         </li>
-//         <li>
-//           valor de retorno da fn
-//         </li>
-//         <li>
-//           valor de retorno da fn
-//         </li>
-//         <li>
-//           valor de retorno da fn
-//         </li>
-//         <li>
-//           valor de retorno da fn
-//         </li>
-//       </ul>
-//       <div>
-//         <h3>Instructions</h3>
-//         <p>Lorem</p>
-//       </div>
-//       <div>
-//         {/* https://www.devmedia.com.br/html5-as-tags-audio-e-video/26018 */}
-//         {/* https://dequeuniversity.com/rules/axe/3.3/video-caption */}
-//         <video width="320" height="240" controls="controls">
-//           <source src="filme.mp4" type="video/mp4" data-testid="video" />
-//           <track
-//             src="captions_en.vtt"
-//             kind="captions"
-//             // srclang="en"
-//             label="english_captions"
-//           />
-//           seu navegador não suporta HTML5.
-//         </video>
-//       </div>
-//       <div>
-//         <h3>Recomendadas</h3>
-//         <div>
-//           <img src="" alt="" />
-//           <h5>category dinâmico</h5>
-//           <p>Nome da receita dinâmico</p>
-//         </div>
-//         <div>
-//           <img src="" alt="" />
-//           <h5>category dinâmico</h5>
-//           <p>Nome da receita dinâmico</p>
-//         </div>
-//       </div>
-//       <div>
-//         <button type="button" data-testid="start-recipe-btn">
-//           Iniciar Receita
-//         </button>
-//       </div>
-//     </div>
-//   );
-// }
+FoodDetails.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
+  history: PropTypes.shape({
+    location: PropTypes.shape({
+      pathname: PropTypes.string,
+    }),
+    push: PropTypes.func,
+  }).isRequired,
+};

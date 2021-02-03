@@ -21,6 +21,7 @@ export default function GlobalProvider({ children }) {
   const [title, setTitle] = useState('');
   const [searchButton, setSearchButton] = useState(true);
   const [searchBar, setSearchBar] = useState(false);
+  // const [searchTerm, setSearchTerm] = useState('');
   const [state, setState] = useState(geral);
   const [renderButtonExplore, setRenderButtonExplore] = useState('comidas');
   const [randomRecipeDetail, setRandomRecipeDetail] = useState({});
@@ -59,12 +60,14 @@ export default function GlobalProvider({ children }) {
       return data;
     }
   }, []);
-  function updateState(key, value) {
+
+  const updateState = (key, value) => {
     setState((prevState) => ({
       ...prevState,
       [key]: value,
     }));
-  }
+  };
+
   const history = useHistory();
   const redirect = (path) => {
     history.push({ pathname: path });
@@ -91,7 +94,6 @@ export default function GlobalProvider({ children }) {
       value={ {
         redirect,
         title,
-        setTitle,
         searchButton,
         setSearchButton,
         searchBar,
@@ -101,6 +103,69 @@ export default function GlobalProvider({ children }) {
         setUpSearchBar,
         selectedTypeFood,
         selectedTypeDrink,
+        dataFoods,
+        dataDrinks,
+        setTitle,
+
+        foodCategories,
+        setFoodCategories: useCallback((value) => {
+          const newInitialFoods = state.initialFoods;
+          newInitialFoods.foodCategories = value;
+          updateState('initialFoods', newInitialFoods);
+        }, [state.initialFoods]),
+
+        drinkCategories,
+        setDrinkCategories: useCallback((value) => {
+          const newInitialDrinks = state.initialDrinks;
+          newInitialDrinks.drinkCategories = value;
+          updateState('initialDrinks', newInitialDrinks);
+        }, [state.initialDrinks]),
+
+        setDataFoods: useCallback(() => {
+          fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
+            .then((response) => response.json())
+            .then(({ meals }) => {
+              const filter = () => {
+                const filteredResponse = [];
+                if (meals !== null) {
+                  Object.entries(meals).forEach((meal, index) => {
+                    const numberOfCards = 12;
+                    if (index < numberOfCards) {
+                      const { strMeal, strMealThumb } = meal[1];
+                      filteredResponse.push({ name: strMeal, image: strMealThumb });
+                    }
+                  });
+                }
+                return filteredResponse;
+              };
+              const newInitialFoods = state.initialFoods;
+              newInitialFoods.dataFoods = filter();
+              updateState('initialFoods', newInitialFoods);
+            }, []);
+        }, [state.initialFoods]),
+
+        setDataDrinks: useCallback(() => {
+          fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
+            .then((response) => response.json())
+            .then(({ drinks }) => {
+              const filter = () => {
+                const filteredResponse = [];
+                if (drinks !== null) {
+                  Object.entries(drinks).forEach((drink, index) => {
+                    const numberOfCards = 12;
+                    if (index < numberOfCards) {
+                      const { strDrink, strDrinkThumb } = drink[1];
+                      filteredResponse.push({ name: strDrink, image: strDrinkThumb });
+                    }
+                  });
+                }
+                return filteredResponse;
+              };
+              const newInitialDrinks = state.initialDrinks;
+              newInitialDrinks.dataDrinks = filter();
+              updateState('initialDrinks', newInitialDrinks);
+            }, []);
+        }, [state.initialDrinks]),
 
         email,
         password,
@@ -122,7 +187,7 @@ export default function GlobalProvider({ children }) {
         idRandom,
       } }
     >
-      { children }
+      {children}
     </GlobalContext.Provider>
   );
 }
