@@ -7,6 +7,21 @@ import {
 } from './index';
 
 function RecipeDetails({ recipes, id }) {
+  const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+  const setTextBtn = () => {
+    if (inProgressRecipes) {
+      if (recipes === 'comidas') {
+        const { meals } = inProgressRecipes;
+        const ids = Object.keys(meals);
+        return ids.find((key) => key === id);
+      }
+      const { cocktails } = inProgressRecipes;
+      const ids = Object.keys(cocktails);
+      return ids.find((key) => key === id);
+    }
+  };
+
   return (
     <div className="div-recipes-details">
       <ImageDetails recipes={ recipes } />
@@ -22,7 +37,7 @@ function RecipeDetails({ recipes, id }) {
       <ButtonDetails
         recipes={ recipes }
         id={ id }
-        textBtn="Iniciar Receita"
+        textBtn={ setTextBtn() ? 'Continuar Receita' : 'Iniciar Receita' }
         dataTestId="start-recipe-btn"
       />
     </div>
