@@ -4,6 +4,7 @@ import { getFav, desFav } from '../../services/saveLocal';
 import shareImg from '../../images/shareIcon.svg';
 import './style.css';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import Header from '../../common/Header';
 
 const FavoriteRecipe = () => {
   const [data, setData] = useState([]);
@@ -18,6 +19,7 @@ const FavoriteRecipe = () => {
   if (data && data.length !== zero) {
     return (
       <div>
+        <Header />
         <button
           type="button"
           onClick={ () => setFilter('comida') }
@@ -94,7 +96,12 @@ const FavoriteRecipe = () => {
     );
   }
 
-  return <h1>Nenhuma receita encontrada.</h1>;
+  return (
+    <div>
+      <Header />
+      <h1>Nenhuma receita encontrada.</h1>
+    </div>
+  );
 };
 
 export default FavoriteRecipe;
