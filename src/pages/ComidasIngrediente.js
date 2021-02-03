@@ -12,7 +12,7 @@ export default function ComidasIngrediente() {
   const {
     isFetching,
     setIsFetching,
-    setEndpoint,
+    setFilteredIngrCards,
   } = useContext(RecipesContext);
 
   const history = useHistory();
@@ -36,7 +36,10 @@ export default function ComidasIngrediente() {
   // Setando os cards com o ingrediente selecionado no estado global
 
   const handleClick = async ({ target }) => {
-    setEndpoint(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${target.alt}`);
+    const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${target.alt}`;
+    const { meals } = await fetch(endpoint).then((response) => response.json());
+    const twelveFilteredCards = meals.slice(zero, doze);
+    setFilteredIngrCards(twelveFilteredCards);
     history.push('/comidas');
   };
 

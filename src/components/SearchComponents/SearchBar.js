@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
 import { Form } from 'react-bootstrap';
 import RecipesContext from '../../context/RecipesContext';
-import SearchResult from './SearchResult';
-
 import SearchExecButton from './SearchExecButton';
+import SearchResult from './SearchResult';
 
 function SearchBar() {
   const {

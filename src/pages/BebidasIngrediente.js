@@ -12,7 +12,7 @@ export default function BebibasIngrediente() {
   const {
     isFetching,
     setIsFetching,
-    setEndpoint,
+    setFilteredIngrCards,
   } = useContext(RecipesContext);
 
   const history = useHistory();
@@ -37,7 +37,10 @@ export default function BebibasIngrediente() {
 
   const handleClick = async ({ target }) => {
     console.log(target.alt);
-    setEndpoint(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${target.alt}`);
+    const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${target.alt}`;
+    const { drinks } = await fetch(endpoint).then((response) => response.json());
+    const twelveFilteredCards = drinks.slice(zero, doze);
+    setFilteredIngrCards(twelveFilteredCards);
     history.push('/bebidas');
   };
 
