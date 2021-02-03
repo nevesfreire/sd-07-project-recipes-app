@@ -22,6 +22,8 @@ const AppProvider = ({ children }) => {
   const [chosenDrinkCategory, setChosenDrinkCategory] = useState('');
   const [isUsingSearchBar, setIsUsingSearchBar] = useState(false);
   const [inputStatus, setInputStatus] = useState({ searchInput: false });
+  const [doneRecipes, setDoneRecipes] = useState([]);
+  const [filteredDoneRecipes, setFilteredDoneRecipes] = useState([]);
 
   const onFetchMeals = async () => {
     const foodRes = await getMeals();
@@ -73,7 +75,13 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const saveDoneRecipes = (saveDoneRecipesFromStore) => {
+    setDoneRecipes(saveDoneRecipesFromStore);
+    setFilteredDoneRecipes(saveDoneRecipesFromStore);
+  };
+
   const filterByCategory = async (event, categoryType) => {
+    console.log(categoryType);
     const { name } = event.target;
     switch (categoryType) {
     case 'meals':
@@ -89,6 +97,15 @@ const AppProvider = ({ children }) => {
     case 'all-drinks':
       setFilteredDrinks(drinksData);
       setChosenDrinkCategory(categoryType);
+      break;
+    case 'food-done-recipes':
+      setFilteredDoneRecipes(doneRecipes.filter((item) => item.type === 'comida'));
+      break;
+    case 'drink-done-recipes':
+      setFilteredDoneRecipes(doneRecipes.filter((item) => item.type === 'bebida'));
+      break;
+    case 'all-done-recipes':
+      setFilteredDoneRecipes(doneRecipes);
       break;
     default:
     }
@@ -118,6 +135,9 @@ const AppProvider = ({ children }) => {
     setIsUsingSearchBar,
     inputStatus,
     setInputStatus,
+    saveDoneRecipes,
+    filteredDoneRecipes,
+    doneRecipes,
   };
 
   return (
