@@ -4,6 +4,7 @@ import { CustomCardFavoriteRecipe } from '../components';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { setStorage } from '../services';
+import CustomHeader from '../components/CustomHeader';
 
 class FavoriteRecipes extends Component {
   constructor() {
@@ -132,6 +133,7 @@ class FavoriteRecipes extends Component {
     const numerToComper = 0;
     return (
       <div>
+        <CustomHeader title="Receitas Favoritas" />
         {
           favorites.length === numerToComper
             ? <p>não há receitas favoritas ainda</p>

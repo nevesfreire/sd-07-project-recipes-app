@@ -15,7 +15,6 @@ class Foods extends Component {
   constructor() {
     super();
     this.handleRecipes = this.handleRecipes.bind(this);
-    this.redirectToRecipeDetail = this.redirectToRecipeDetail.bind(this);
     this.renderAlertError = this.renderAlertError.bind(this);
     this.renderRecipes = this.renderRecipes.bind(this);
     this.handleCategories = this.handleCategories.bind(this);
@@ -50,12 +49,11 @@ class Foods extends Component {
   handleRecipes() {
     const { meals, isFetching } = this.props;
     if (!meals.length && !isFetching) return this.renderAlertError();
-    if (meals.length === 1) return this.redirectToRecipeDetail();
+    if (meals.length === 1) return this.redirectToRecipeDetail(meals);
     return this.renderRecipes();
   }
 
-  redirectToRecipeDetail() {
-    const { meals } = this.props;
+  redirectToRecipeDetail(meals) {
     return <Redirect to={ `/comidas/${meals[0].idMeal}` } />;
   }
 

@@ -28,7 +28,7 @@ class CustomDropdown extends Component {
         >
           All
         </option>
-        {data.map((item, index) => (
+        { data && data.map((item, index) => (
           <option
             key={ index }
             data-testid={ `${item.strArea}-option` }
