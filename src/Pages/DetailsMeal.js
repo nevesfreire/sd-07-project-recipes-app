@@ -30,14 +30,16 @@ function DetailsMeal() {
     strInstructions,
   } = detailsRecipe.meals[0];
 
-  const allRecipe = Object.entries(detailsRecipe.meals[0]);
-  console.log('allrceipes', detailsRecipe.meals[0]);
-  const ingredients = allRecipe.filter(
-    (ingredient) => (ingredient[0].includes('strIngredient') && ingredient[1] !== ''),
-  );
-  const measures = allRecipe.filter(
-    (measure) => (measure[0].includes('strMeasure') && measure[1] !== ' '),
-  );
+  const meal = detailsRecipe.meals[0];
+  const keysMeal = Object.keys(meal);
+  const filterMeal = keysMeal
+    .filter((key) => key.toLowerCase().includes('ingredient'));
+  const filterMeasure = keysMeal
+    .filter((key) => key.toLowerCase().includes('measure'));
+  const allIngredients = filterMeal
+    .map((item, index) => ({
+      ingredient: meal[item], measure: meal[filterMeasure[index]],
+    })).filter((item) => item.ingredient !== '' && item.ingredient !== null);
 
   return (
     <div>
@@ -48,10 +50,11 @@ function DetailsMeal() {
       <p data-testid="recipe-category">{strCategory}</p>
       <ul>
         {
-          ingredients && measures && ingredients.map((ingredient, index) => (
-            <li key={ ingredient } data-testid={ `${index}-ingredient-name-and-measure` }>
-              {measures[index][1]}
-              { ingredient[1] }
+          allIngredients && allIngredients.map((item, index) => (
+            <li key={ item } data-testid={ `${index}-ingredient-name-and-measure` }>
+              {
+                `${index + 1} - ${item.ingredient}: ${item.measure}`
+              }
             </li>))
         }
       </ul>

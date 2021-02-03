@@ -30,14 +30,17 @@ function DetailsDrink() {
     strInstructions,
   } = detailsRecipe.drinks[0];
 
-  const allRecipe = Object.entries(detailsRecipe.drinks[0]);
-  console.log('allrceipes', detailsRecipe.drinks[0]);
-  const ingredients = allRecipe.filter(
-    (ingredient) => (ingredient[0].includes('strIngredient') && ingredient[1] !== null),
-  );
-  const measures = allRecipe.filter(
-    (measure) => (measure[0].includes('strMeasure') && measure[1] !== ' '),
-  );
+  const drink = detailsRecipe.drinks[0];
+  const keysDrink = Object.keys(drink);
+  const filterDrink = keysDrink
+    .filter((key) => key.toLowerCase().includes('ingredient'));
+  const filterMeasure = keysDrink.filter((key) => key
+    .toLowerCase().includes('measure'));
+  console.log(filterMeasure);
+  const allIngredients = filterDrink
+    .map((item, index) => ({
+      ingredient: drink[item], measure: drink[filterMeasure[index]],
+    })).filter((item) => item.ingredient !== '' && item.ingredient !== null);
 
   return (
     <div>
@@ -49,10 +52,11 @@ function DetailsDrink() {
       <p data-testid="recipe-category">{strAlcoholic}</p>
       <ul>
         {
-          ingredients && measures && ingredients.map((ingredient, index) => (
-            <li key={ ingredient } data-testid={ `${index}-ingredient-name-and-measure` }>
-              {measures[index][1]}
-              { ingredient[1] }
+          allIngredients && allIngredients.map((item, index) => (
+            <li key={ item } data-testid={ `${index}-ingredient-name-and-measure` }>
+              {
+                `${index + 1} - ${item.ingredient}: ${item.measure}`
+              }
             </li>))
         }
       </ul>
