@@ -1,0 +1,16 @@
+nav {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+
+  margin: auto;
+  width: 90%;
+}
+
+nav > p {
+  margin: 0;
+}
+
+header {
+  background-color: rgb(108, 159, 218);
+}

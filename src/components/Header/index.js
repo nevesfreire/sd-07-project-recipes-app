@@ -6,6 +6,7 @@ import SearchBar from '../SearchBar';
 
 import ProfileIcon from '../../images/profileIcon.svg';
 import SearchIcon from '../../images/searchIcon.svg';
+import './style.css';
 
 function Header({ history, search = false }) {
   const { location: { pathname } } = history;
