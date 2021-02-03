@@ -133,3 +133,17 @@ code {
   display: flex;
   flex-direction: column;
 }
+
+.buttons__profile {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 350px;
+  justify-content: space-between;
+  margin-top: 150px;
+}
+
+.buttons__profile button {
+  height: 60px;
+  width: 300px;
+}
