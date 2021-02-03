@@ -4,6 +4,19 @@ import Header2 from '../../components/header/Header2';
 import Footer from '../../components/footer/Footer';
 
 class BebidasExplorar extends React.Component {
+  constructor() {
+    super();
+    this.fetchData = this.fetchData.bind(this);
+  }
+
+  async fetchData() {
+    const { history } = this.props;
+    const responseAPI = await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php');
+    const recipe = await responseAPI.json();
+    const { idDrink } = recipe.drinks[0];
+    history.push(`/bebidas/${idDrink}`);
+  }
+
   render() {
     const { history } = this.props;
     return (
@@ -19,6 +32,7 @@ class BebidasExplorar extends React.Component {
         <button
           type="button"
           data-testid="explore-surprise"
+          onClick={ this.fetchData }
         >
           Me Surpreenda!
         </button>
