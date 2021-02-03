@@ -19,7 +19,7 @@ class TelaPrincipalReceitasBebidas extends Component {
   handlePagerediRection(item) {
     const { getDetailedDrinkDispatch, history } = this.props;
     getDetailedDrinkDispatch(item.idDrink);
-    history.push(`/comidas/${item.idDrink}`);
+    history.push(`/bebidas/${item.idDrink}`);
   }
 
   renderCategories(categories) {
