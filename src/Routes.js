@@ -16,6 +16,7 @@ import FoodExplore from './pages/Explore/FoodExplore';
 import FoodIngredients from './pages/Explore/FoodIngredients';
 import DrinkIngredients from './pages/Explore/DrinkIngredients';
 import FoodByArea from './pages/Explore/FoodByArea';
+import NotFound from './components/NotFound';
 
 const Router = () => (
   <Switch>
@@ -26,6 +27,7 @@ const Router = () => (
     <Route path="/comidas" component={ Foods } />
     <Route path="/bebidas" component={ Drinks } />
     <Route path="/explorar/comidas/area" component={ FoodByArea } />
+    <Route path="/explorar/bebidas/area" component={ NotFound } />
     <Route path="/explorar/comidas/ingredientes" component={ FoodIngredients } />
     <Route path="/explorar/bebidas/ingredientes" component={ DrinkIngredients } />
     <Route path="/explorar/comidas" component={ FoodExplore } />

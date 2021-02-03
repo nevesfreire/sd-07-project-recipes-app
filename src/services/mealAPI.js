@@ -10,6 +10,7 @@ const ENDPOINT = {
   ID: 'lookup.php?i=',
   random: 'random.php',
   listIngredient: 'list.php?i=list',
+  listArea: 'list.php?a=list',
 };
 
 async function getMeals(key, name) {
