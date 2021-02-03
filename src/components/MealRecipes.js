@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { fetchRecipes, fetchCategories } from '../actions';
+import { fetchRecipes, fetchCategories, setCategory } from '../actions';
 import Loading from './Loading';
 import '../css/recipe.css';
 
@@ -26,6 +26,9 @@ class MealRecipes extends Component {
     if (selectedCategory !== prevProps.selectedCategory && selectedCategory !== 'All') {
       this.fetchRecipesByCategory();
     }
+    // if (selectedCategory === prevProps.selectedCategory) {
+    //   selectCategory('All');
+    // }
   }
 
   async fetchRecipesByCategory() {
@@ -87,6 +90,7 @@ class MealRecipes extends Component {
 const mapDispatchToProps = (dispatch) => ({
   requestRecipes: (endPoint) => dispatch(fetchRecipes(endPoint)),
   requestCategories: (endPoint) => dispatch(fetchCategories(endPoint)),
+  selectCategory: (category) => dispatch(setCategory(category)),
 });
 
 const mapStateToProps = ({ recipesReducer, categoriesReducer }) => ({
@@ -100,9 +104,6 @@ MealRecipes.propTypes = {
   endPoint: PropTypes.string.isRequired,
   requestRecipes: PropTypes.func.isRequired,
   getRecipes: PropTypes.shape({
-    meals: PropTypes.arrayOf(PropTypes.object),
-  }).isRequired,
-  getCategories: PropTypes.shape({
     meals: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
   requestCategories: PropTypes.func.isRequired,
