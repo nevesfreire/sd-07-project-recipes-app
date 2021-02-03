@@ -40,14 +40,23 @@ class CocktailRecipeDetails extends Component {
   async fetchAPI() {
     const { match: { params: { id } } } = this.props;
     const results = await getCocktailsDetailsById(id);
+    const total = 15;
+    let arrayIngredients = [];
+    let arrayMeasures = [];
+    for (let i = 1; i <= total; i += 1) {
+      arrayIngredients = [...arrayIngredients, results.drinks[0][`strIngredient${i}`]];
+      arrayMeasures = [...arrayMeasures, results.drinks[0][`strMeasure${i}`]];
+    }
     this.setState({
+      ingredients: arrayIngredients,
+      measures: arrayMeasures,
       cocktails: results,
       isLoading: false,
     });
   }
 
   render() {
-    const { cocktails, isLoading, favorite } = this.state;
+    const { cocktails, isLoading, favorite, ingredients, measures } = this.state;
     if (isLoading) {
       return <p>Loading...</p>;
     }
@@ -57,14 +66,6 @@ class CocktailRecipeDetails extends Component {
       strDrink,
       strDrinkThumb,
       strAlcoholic,
-      strIngredient1,
-      strMeasure1,
-      strIngredient2,
-      strMeasure2,
-      strIngredient3,
-      strMeasure3,
-      strIngredient4,
-      strMeasure4,
       strInstructions,
     } = cocktails.drinks[0];
 
@@ -96,13 +97,13 @@ class CocktailRecipeDetails extends Component {
             </button>
             <button
               type="button"
-              data-testid="favorite-btn"
               onClick={ this.handleFavoriteButton }
               className="action-button"
             >
               <img
                 src={ (favorite) ? favIconEnabled : favIconDisabled }
                 alt="favorite"
+                data-testid="favorite-btn"
                 className="favorite-icon"
               />
             </button>
@@ -117,18 +118,18 @@ class CocktailRecipeDetails extends Component {
         <div>
           <h2>Ingredients</h2>
           <ul>
-            <li data-testid="0-ingredient-name-and-measure">
-              {`${strIngredient1} ${strMeasure1}`}
-            </li>
-            <li data-testid="1-ingredient-name-and-measure">
-              {`${strIngredient2} ${strMeasure2}`}
-            </li>
-            <li data-testid="2-ingredient-name-and-measure">
-              {`${strIngredient3} ${strMeasure3}`}
-            </li>
-            <li data-testid="3-ingredient-name-and-measure">
-              {`${strIngredient4} ${strMeasure4}`}
-            </li>
+            {
+              ingredients
+                .filter((item) => item !== '' && item !== null)
+                .map((item, index) => (
+                  <li
+                    key={ index }
+                    data-testid={ `${index}-ingredient-name-and-measure` }
+                  >
+                    {`${item} - ${measures[index]}`}
+                  </li>
+                ))
+            }
           </ul>
         </div>
         <div>

@@ -5,6 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Explorer from './pages/Explorer';
+import Meals from './pages/Meals';
 import MealRecipeDetails from './pages/MealRecipeDetails';
 import CocktailRecipeDetails from './pages/CocktailRecipeDetails';
 import MealsExplorer from './pages/MealsExplorer';

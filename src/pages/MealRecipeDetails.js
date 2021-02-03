@@ -15,6 +15,8 @@ class MealRecipeDetails extends Component {
       favorite: false,
       meals: '',
       isLoading: true,
+      ingredients: '',
+      measures: [],
     };
 
     this.handleFavoriteButton = this.handleFavoriteButton.bind(this);
@@ -40,14 +42,23 @@ class MealRecipeDetails extends Component {
   async fetchAPI() {
     const { match: { params: { id } } } = this.props;
     const results = await getMealsDetailsById(id);
+    const total = 20;
+    let arrayIngredients = [];
+    let arrayMeasures = [];
+    for (let i = 1; i <= total; i += 1) {
+      arrayIngredients = [...arrayIngredients, results.meals[0][`strIngredient${i}`]];
+      arrayMeasures = [...arrayMeasures, results.meals[0][`strMeasure${i}`]];
+    }
     this.setState({
+      ingredients: arrayIngredients,
+      measures: arrayMeasures,
       meals: results,
       isLoading: false,
     });
   }
 
   render() {
-    const { meals, isLoading, favorite } = this.state;
+    const { meals, isLoading, favorite, ingredients, measures } = this.state;
     if (isLoading) {
       return <p>Loading...</p>;
     }
@@ -56,24 +67,8 @@ class MealRecipeDetails extends Component {
       idMeal,
       strMealThumb,
       strMeal,
-      strCategory,
-      strIngredient1,
-      strMeasure1,
-      strIngredient2,
-      strMeasure2,
-      strIngredient3,
-      strMeasure3,
-      strIngredient4,
-      strMeasure4,
-      strIngredient5,
-      strMeasure5,
-      strIngredient6,
-      strMeasure6,
-      strIngredient7,
-      strMeasure7,
-      strIngredient8,
-      strMeasure8,
       strInstructions,
+      strCategory,
       strYoutube,
     } = meals.meals[0];
 
@@ -107,13 +102,13 @@ class MealRecipeDetails extends Component {
             </button>
             <button
               type="button"
-              data-testid="favorite-btn"
               onClick={ this.handleFavoriteButton }
               className="action-button"
             >
               <img
                 src={ (favorite) ? favIconEnabled : favIconDisabled }
                 alt="favorite"
+                data-testid="favorite-btn"
                 className="favorite-icon"
               />
             </button>
@@ -128,30 +123,18 @@ class MealRecipeDetails extends Component {
         <div>
           <h2>Ingredients</h2>
           <ul>
-            <li data-testid="0-ingredient-name-and-measure">
-              {`${strIngredient1} ${strMeasure1}`}
-            </li>
-            <li data-testid="1-ingredient-name-and-measure">
-              {`${strIngredient2} ${strMeasure2}`}
-            </li>
-            <li data-testid="2-ingredient-name-and-measure">
-              {`${strIngredient3} ${strMeasure3}`}
-            </li>
-            <li data-testid="3-ingredient-name-and-measure">
-              {`${strIngredient4} ${strMeasure4}`}
-            </li>
-            <li data-testid="4-ingredient-name-and-measure">
-              {`${strIngredient5} ${strMeasure5}`}
-            </li>
-            <li data-testid="5-ingredient-name-and-measure">
-              {`${strIngredient6} ${strMeasure6}`}
-            </li>
-            <li data-testid="6-ingredient-name-and-measure">
-              {`${strIngredient7} ${strMeasure7}`}
-            </li>
-            <li data-testid="7-ingredient-name-and-measure">
-              {`${strIngredient8} ${strMeasure8}`}
-            </li>
+            {
+              ingredients
+                .filter((item) => item !== '' && item !== null)
+                .map((item, index) => (
+                  <li
+                    key={ index }
+                    data-testid={ `${index}-ingredient-name-and-measure` }
+                  >
+                    {`${item} - ${measures[index]}`}
+                  </li>
+                ))
+            }
           </ul>
         </div>
         <div>
