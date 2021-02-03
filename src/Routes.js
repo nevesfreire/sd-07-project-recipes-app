@@ -13,6 +13,7 @@ import {
   FoodsOrigin,
   Profile,
   FavoriteRecipes,
+  RecipeInProgress,
 } from './pages';
 
 function Rotas() {
@@ -21,7 +22,9 @@ function Rotas() {
       <Route exact path="/" component={ Login } />
       <Route exact path="/comidas" component={ Foods } />
       <Route exact path="/bebidas" component={ Drinks } />
-      <Route path="/comidas/:id" component={ RecipeDetails } />
+      <Route exact path="/comidas/:id/in-progress" component={ RecipeInProgress } />
+      <Route exact path="/bebidas/:id/in-progress" component={ RecipeInProgress } />
+      <Route exact path="/comidas/:id" component={ RecipeDetails } />
       <Route path="/bebidas/:id" component={ RecipeDetails } />
       <Route exact path="/explorar" component={ Explore } />
       <Route exact path="/explorar/comidas" component={ ExploreFoods } />
@@ -35,10 +38,8 @@ function Rotas() {
       <Route exact path="/explorar/comidas/area" component={ FoodsOrigin } />
       <Route exact path="/perfil" component={ Profile } />
       <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
-      {/* <Route path="/comidas/id:/in-progress" component={  } />
-      <Route path="/bebidas/:id/in-progress" component={  } />
-      <Route path="/receitas-feitas" component={  } />
-      */}
+      {/* <Route path="/bebidas/:id/in-progress" component={  } />
+      <Route path="/receitas-feitas" component={  } /> */}
     </Switch>
   );
 }

@@ -1,3 +1,7 @@
+.ingredient {
+  text-decoration: line-through;
+}
+
 .footer {
   background-color: grey;
   bottom: 0;
