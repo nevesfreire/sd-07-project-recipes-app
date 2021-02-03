@@ -19,15 +19,13 @@ export default class CustomDetailsButton extends Component {
 
   handleStartButtonClick() {
     const { recipeType, recipeId } = this.props;
-    const { ingredientsList } = this.state;
-    this.getIngredientsList();
     this.localStorageSetUp();
     if (recipeType === 'comidas') {
       setStorage('inProgressRecipes', {
         ...getStorage('inProgressRecipes'),
         meals: {
           ...getStorage('inProgressRecipes').meals,
-          [recipeId]: ingredientsList,
+          [recipeId]: [],
         },
       });
     }
@@ -36,27 +34,11 @@ export default class CustomDetailsButton extends Component {
         ...getStorage('inProgressRecipes'),
         cocktails: {
           ...getStorage('inProgressRecipes').cocktails,
-          [recipeId]: ingredientsList,
+          [recipeId]: [],
         },
       });
     }
     this.setState({ isRedirect: true });
-  }
-
-  getIngredientsList() {
-    const { recipeType, recipe } = this.props;
-    const INITIAL_INDEX = 1;
-    const INDEX_FOOD = 20;
-    const INDEX_DRINK = 15;
-    const MAX_INDEX = (recipeType === 'comidas') ? INDEX_FOOD : INDEX_DRINK;
-    const ingredientsList = [];
-    for (let index = INITIAL_INDEX; index < MAX_INDEX; index += 1) {
-      ingredientsList
-        .push(recipe[`strIngredient${index}`]);
-    }
-    this.setState({
-      ingredientsList,
-    });
   }
 
   localStorageSetUp() {
@@ -98,5 +80,4 @@ export default class CustomDetailsButton extends Component {
 CustomDetailsButton.propTypes = {
   recipeType: PropTypes.string.isRequired,
   recipeId: PropTypes.number.isRequired,
-  recipe: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
