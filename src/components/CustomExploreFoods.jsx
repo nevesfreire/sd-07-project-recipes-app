@@ -5,7 +5,6 @@ import { randomFoodsApi } from '../services';
 export default class CustomExploreFoods extends Component {
   constructor(props) {
     super(props);
-
     this.state = { id: 0 };
   }
 

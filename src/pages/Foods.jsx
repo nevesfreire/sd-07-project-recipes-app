@@ -7,7 +7,7 @@ import {
   listFoodRecipes,
   updateFoodIsFetching,
   allCategoriesFoodsAction,
-} from '../redux/actions/foodRecipesAction';
+} from '../redux/actions';
 import { getAllFoodCategories, getFoodRecipes } from '../services';
 import { Redirect } from 'react-router-dom';
 

@@ -10,3 +10,5 @@ export { default as FoodsOrigin } from './FoodsOrigin';
 export { default as Profile } from './Profile';
 export { default as RecipeDetails } from './RecipeDetails';
 export { default as FavoriteRecipes } from './FavoriteRecipes';
+export { default as RecipeInProgress } from './RecipeInProgress';
+export { default as NotFound } from './NotFound';
