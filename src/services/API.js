@@ -100,11 +100,11 @@ export async function fetchRamdonDrink() {
 export async function fetchAllAreaOptions() {
   const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
   const list = await response.json();
-  if(list ) return list.meals;
+  if (list) return list.meals;
 }
 
 export async function fetchFoodByArea(area) {
-  const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`)
+  const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`);
   const list = await response.json();
   if (list) return list.meals;
 }

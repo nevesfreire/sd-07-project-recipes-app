@@ -40,7 +40,7 @@ const Routes = () => (
       component={ BebidasIngredientes }
     />
     <Route exact path="/explorar/comidas/area" component={ ComidasArea } />
-    <Route exact path="/explorar/bebidas/area" component={() => <h1>Not Found</h1>}/>
+    <Route exact path="/explorar/bebidas/area" component={ () => <h1>Not Found</h1> } />
     <Route exact path="/perfil" component={ Perfil } />
     <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
     <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
