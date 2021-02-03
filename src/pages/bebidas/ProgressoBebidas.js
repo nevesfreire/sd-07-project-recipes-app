@@ -67,7 +67,8 @@ export default class ProgressoBebidas extends React.Component {
     }
     const description = `${measure} of ${ingredient}`;
     return (
-      <li data-testid={ `${index}-ingredient-step` }>
+      <li data-testid={ `${index}-ingredient-step` } className="ingredient-step">
+        <input type="checkbox" />
         {description}
       </li>
     );
