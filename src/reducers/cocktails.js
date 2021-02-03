@@ -33,7 +33,7 @@ export default function cocktails(state = INITIAL_STATE, action) {
     return {
       ...state,
       isFetchingCategories: false,
-      cocktailsCategories: [...action.drinks],
+      cocktailsCategories: [...action.cocktails.drinks],
     };
   case COCKTAILS_CATEGORIES_FAILURE:
     return { ...state, isFetchingCategories: false, error: action.error };

@@ -23,7 +23,11 @@ function Header({ title, toggle, toggleAction }) {
           { title }
         </h1>
       </div>
-      {!title.includes('Explorar') && (
+      {(
+        title === 'Comidas'
+        || title === 'Bebidas'
+        || title.includes('Origem')
+      ) && (
         <div>
           <button
             type="button"

@@ -39,41 +39,47 @@ const searchByCocktails = (name, {
   }
 };
 
+const handleClick = (event, props) => {
+  event.preventDefault();
+  const { title } = props;
+  const { name, className } = event.target;
+  if (title === 'Comidas') {
+    if (className === 'selected') {
+      searchByMeals(ALL, props);
+      event.target.className = '';
+    } else {
+      searchByMeals(name, props);
+      event.target.className = 'selected';
+    }
+  }
+  if (title === 'Bebidas') {
+    if (className === 'selected') {
+      searchByCocktails(ALL, props);
+      event.target.className = '';
+    } else {
+      searchByCocktails(name, props);
+      event.target.className = 'selected';
+    }
+  }
+};
+
 function CategoriesBar(props) {
   const {
-    toggle,
     title,
     meals,
     cocktails,
     mealsCategories,
+    cocktailsCategories,
   } = props;
 
-  const handleClick = (event) => {
-    event.preventDefault();
-    const { name, className } = event.target;
-    if (title === 'Comidas') {
-      if (className === 'selected') {
-        searchByMeals(ALL, props);
-        event.target.className = '';
-      } else {
-        searchByMeals(name, props);
-        event.target.className = 'selected';
-      }
-    }
-    if (title === 'Bebidas') {
-      if (className === 'selected') {
-        searchByCocktails(ALL, props);
-        event.target.className = '';
-      } else {
-        searchByCocktails(name, props);
-        event.target.className = 'selected';
-      }
-    }
-  };
   const zero = 0;
   const maxLength = 5;
   return (
-    <div style={ { display: toggle ? 'none' : 'inline' } }>
+    <div
+      style={ {
+        display: title === 'Comidas' || title === 'Bebidas' ? 'inline' : 'none',
+      } }
+    >
       {meals.length === 1 && (
         <Redirect
           to={ { pathname: `/comidas/${meals[0].idMeal}` } }
@@ -91,28 +97,36 @@ function CategoriesBar(props) {
         >
           All
         </button>
-        { mealsCategories.slice(zero, maxLength).map((categorie, index) => (
-          <button
-            type="button"
-            key={ index }
-            data-testid={ `${categorie.strCategory}-category-filter` }
-            name={ categorie.strCategory }
-            onClick={ handleClick }
-          >
-            { categorie.strCategory }
-          </button>
-        ))}
+        { title === 'Comidas' && mealsCategories.slice(zero, maxLength)
+          .map((categorie, index) => (
+            <button
+              type="button"
+              key={ index }
+              data-testid={ `${categorie.strCategory}-category-filter` }
+              name={ categorie.strCategory }
+              onClick={ (event) => handleClick(event, props) }
+            >
+              { categorie.strCategory }
+            </button>
+          ))}
+        { title === 'Bebidas' && cocktailsCategories.slice(zero, maxLength)
+          .map((category, index) => (
+            <button
+              type="button"
+              key={ index }
+              data-testid={ `${category.strCategory}-category-filter` }
+              name={ category.strCategory }
+              onClick={ (event) => handleClick(event, props) }
+            >
+              { category.strCategory }
+            </button>
+          ))}
       </div>
     </div>
   );
 }
 
-CategoriesBar.propTypes = {
-  toggle: PropTypes.bool.isRequired,
-};
-
-const mapStateToProps = ({ searchToggleReducer, meals, cocktails }) => ({
-  toggle: searchToggleReducer,
+const mapStateToProps = ({ meals, cocktails }) => ({
   meals: meals.meals,
   mealsCategories: meals.mealsCategories,
   cocktails: cocktails.cocktails,
@@ -135,6 +149,7 @@ CategoriesBar.propTypes = {
   meals: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   cocktails: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   mealsCategories: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  cocktailsCategories: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategoriesBar);
