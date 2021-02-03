@@ -3,15 +3,17 @@ import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import SearchResult from '../components/SearchComponents/SearchResult';
 import RecipesContext from '../context/RecipesContext';
 
 export default function Comidas() {
   const [categories, setCategories] = useState([]);
-  const [filteredIngrCards, setFilteredIngrCards] = useState([]);
-  const [cards, setCards] = useState([]);
 
   const {
-    endpoint,
+    filteredIngrCards,
+    cards,
+    setCards,
+    searchCards,
   } = useContext(RecipesContext);
 
   const getCards = async () => {
@@ -32,50 +34,39 @@ export default function Comidas() {
     const finalIndex = 5;
     const arrSpliced = arr.splice(initialIndex, finalIndex);
     setCategories(arrSpliced);
-    console.log('qualquer coisa');
-    console.log(arrSpliced);
   }, [setCategories]);
 
   const filterByCategory = async ({ target }) => {
-    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${target.value}`);
-    const data = await response.json();
-    const arr = [...data.meals];
-    const initialIndex = 0;
-    const finalIndex = 12;
-    const filteredCards = arr.splice(initialIndex, finalIndex);
-    setCards(filteredCards);
-    // if (target.id === 'unclicked') {
-    //   const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${target.value}`);
-    //   const data = await response.json();
-    //   const arr = [...data.meals];
-    //   const initialIndex = 0;
-    //   const finalIndex = 12;
-    //   const filteredCards = arr.splice(initialIndex, finalIndex);
-    //   setCards(filteredCards);
-    //   target.id = 'clicked';
-    // } else {
-    //   getCards();
-    //   target.id = 'unclicked';
-    // }
+    if (target.id === 'unclicked') {
+      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${target.value}`);
+      const data = await response.json();
+      const arr = [...data.meals];
+      const initialIndex = 0;
+      const finalIndex = 12;
+      const filteredCards = arr.splice(initialIndex, finalIndex);
+      setCards(filteredCards);
+      target.id = 'clicked';
+    } else {
+      getCards();
+      target.id = 'unclicked';
+    }
   };
 
   useEffect(() => {
     getCategories();
     getCards();
-  }, [getCategories]);
+  }, []);
 
   const zero = 0;
-  const doze = 12;
-
-  useEffect(() => {
-    const getFilteredIngrCards = async () => {
-      const { meals } = await fetch(endpoint).then((response) => response.json());
-      const twelveFilteredCards = meals.slice(zero, doze);
-      setFilteredIngrCards(twelveFilteredCards);
-    };
-    getFilteredIngrCards();
-  }, [endpoint]);
-
+  if (searchCards > zero) {
+    return (
+      <div>
+        <Header />
+        <SearchResult />
+        <Footer />
+      </div>
+    );
+  }
   if (filteredIngrCards.length > zero) {
     return (
       <div>

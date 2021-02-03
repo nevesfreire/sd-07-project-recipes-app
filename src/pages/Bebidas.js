@@ -3,15 +3,17 @@ import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import SearchResult from '../components/SearchComponents/SearchResult';
 import RecipesContext from '../context/RecipesContext';
 
 export default function Bebidas() {
   const [categories, setCategories] = useState([]);
-  const [filteredIngrCards, setFilteredIngrCards] = useState([]);
-  const [cards, setCards] = useState([]);
 
   const {
-    endpoint,
+    filteredIngrCards,
+    cards,
+    setCards,
+    searchCards,
   } = useContext(RecipesContext);
 
   const getCards = async () => {
@@ -52,19 +54,19 @@ export default function Bebidas() {
   useEffect(() => {
     getCards();
     getCategories();
-  }, [getCategories]);
+  }, []);
 
   const zero = 0;
-  const doze = 12;
 
-  useEffect(() => {
-    const getFilteredIngrCards = async () => {
-      const { drinks } = await fetch(endpoint).then((response) => response.json());
-      const twelveFilteredCards = drinks.slice(zero, doze);
-      setFilteredIngrCards(twelveFilteredCards);
-    };
-    getFilteredIngrCards();
-  }, [endpoint]);
+  if (searchCards > zero) {
+    return (
+      <div>
+        <Header />
+        <SearchResult />
+        <Footer />
+      </div>
+    );
+  }
 
   if (filteredIngrCards.length > zero) {
     return (
@@ -72,7 +74,7 @@ export default function Bebidas() {
         <Header />
         {filteredIngrCards.map((drink, index) => (
           <Link
-            key={ index }
+            key={ drink.idDrink }
             to={ `/bebidas/${drink.idDrink}` }
           >
             <Card

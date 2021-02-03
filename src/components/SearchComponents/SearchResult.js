@@ -6,22 +6,21 @@ import RecipesContext from '../../context/RecipesContext';
 function SearchResult() {
   const {
     isFetching,
-    cards,
+    searchCards,
   } = useContext(RecipesContext);
 
   const history = useHistory();
-
   const path = history.location.pathname;
 
   // ParaComidas:
 
   if (path === '/comidas') {
-    if (!isFetching && cards.length === 1) {
-      return <Redirect to={ `/comidas/${cards[0].idMeal}` } />;
+    if (!isFetching && searchCards.length === 1) {
+      return <Redirect to={ `/comidas/${searchCards[0].idMeal}` } />;
     }
     return (
-      !isFetching && cards.map((meal, index) => (
-        <Link key={ index } to={ `/comidas/${meal.idMeal}` }>
+      !isFetching && searchCards.map((meal, index) => (
+        <Link key={ meal.idMeal } to={ `/comidas/${meal.idMeal}` }>
           <Card
             style={ { width: '18rem' } }
             data-testid={ `${index}-recipe-card` }
@@ -47,12 +46,12 @@ function SearchResult() {
   // Para Bebidas:
 
   if (path === '/bebidas') {
-    if (!isFetching && cards.length === 1) {
-      return <Redirect to={ `/bebidas/${cards[0].idDrink}` } />;
+    if (!isFetching && searchCards.length === 1) {
+      return <Redirect to={ `/bebidas/${searchCards[0].idDrink}` } />;
     }
     return (
-      !isFetching && cards.map((drink, index) => (
-        <Link key={ index } to={ `/comidas/${drink.idDrink}` }>
+      !isFetching && searchCards.map((drink, index) => (
+        <Link key={ drink.idDrink } to={ `/comidas/${drink.idDrink}` }>
           <Card
             style={ { width: '18rem' } }
             data-testid={ `${index}-recipe-card` }

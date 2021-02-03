@@ -9,6 +9,7 @@ function SearchExecButton() {
     inputSearch,
     setIsFetching,
     setCards,
+    setSearchCards,
   } = useContext(RecipesContext);
 
   const history = useHistory();
@@ -25,50 +26,65 @@ function SearchExecButton() {
   const drinkName = (path === urlBebidas && optionSearch === 'name');
   const drinkLetter = (path === urlBebidas && optionSearch === 'letter');
 
-  const handleExecSearchButton = async () => {
-    const failure = () => alert(
-      'Sinto muito, não encontramos nenhuma receita para esses filtros.',
-    );
-    if (optionSearch === 'letter' && inputSearch.length > 1) {
-      return alert('Sua busca deve conter somente 1 (um) caracter');
+  const verifyingMeals = (meals) => {
+    if (meals) {
+      const twelveCards = meals.slice(zero, doze);
+      setSearchCards(twelveCards);
+    } else {
+      alert(
+        'Sinto muito, não encontramos nenhuma receita para esses filtros.',
+      );
     }
+  };
+
+  const verifyingDrinks = (drinks) => {
+    if (drinks) {
+      const twelveCards = drinks.slice(zero, doze);
+      setSearchCards(twelveCards);
+    } else {
+      alert(
+        'Sinto muito, não encontramos nenhuma receita para esses filtros.',
+      );
+    }
+  };
+  const getMealResults = async () => {
     if (mealIngredient) {
       const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${inputSearch}`;
-      const { meals } = await fetch(endpoint).then((response) => response.json())
-        .catch(failure());
-      const twelveCards = meals.slice(zero, doze);
-      setCards(twelveCards);
+      const { meals } = await fetch(endpoint).then((response) => response.json());
+      verifyingMeals(meals);
     } else if (mealName) {
       const endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=${inputSearch}`;
-      const { meals } = await fetch(endpoint).then((response) => response.json())
-        .catch(failure());
-      const twelveCards = meals.slice(zero, doze);
-      setCards(twelveCards);
+      const { meals } = await fetch(endpoint).then((response) => response.json());
+      verifyingMeals(meals);
     } else if (mealLetter) {
       const endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${inputSearch[0]}`;
-      const { meals } = await fetch(endpoint).then((response) => response.json())
-        .catch(failure());
-      const twelveCards = meals.slice(zero, doze);
-      setCards(twelveCards);
-    } else if (drinkIngredient) {
+      const { meals } = await fetch(endpoint).then((response) => response.json());
+      verifyingMeals(meals);
+    }
+  };
+
+  const getDrinkResults = async () => {
+    if (drinkIngredient) {
       const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${inputSearch}`;
-      const { drinks } = await fetch(endpoint).then((response) => response.json())
-        .catch(failure());
-      const twelveCards = drinks.slice(zero, doze);
-      setCards(twelveCards);
+      const { drinks } = await fetch(endpoint).then((response) => response.json());
+      verifyingDrinks(drinks);
     } else if (drinkName) {
       const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${inputSearch}`;
-      const { drinks } = await fetch(endpoint).then((response) => response.json())
-        .catch(failure());
-      const twelveCards = drinks.slice(zero, doze);
-      setCards(twelveCards);
+      const { drinks } = await fetch(endpoint).then((response) => response.json());
+      verifyingDrinks(drinks);
     } else if (drinkLetter) {
       const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${inputSearch[0]}`;
-      const { drinks } = await fetch(endpoint).then((response) => response.json())
-        .catch(failure());
-      const twelveCards = drinks.slice(zero, doze);
-      setCards(twelveCards);
+      const { drinks } = await fetch(endpoint).then((response) => response.json());
+      verifyingDrinks(drinks);
     }
+  };
+  const handleExecSearchButton = async () => {
+    if (optionSearch === 'letter' && inputSearch.length > 1) {
+      alert('Sua busca deve conter somente 1 (um) caracter');
+    }
+    setCards([]);
+    getMealResults();
+    getDrinkResults();
     setIsFetching(false);
   };
 
