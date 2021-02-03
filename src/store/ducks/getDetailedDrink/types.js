@@ -2,6 +2,7 @@
 
 const DetailedDrinkTypes = {
   GET: 'detalhesDaReceitaBebida/GET',
+  GETRECOMMEND: 'detalhesDaReceitaBebida/GETRECOMMEND',
 };
 
 export default DetailedDrinkTypes;

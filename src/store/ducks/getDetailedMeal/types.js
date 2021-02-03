@@ -2,6 +2,7 @@
 
 const DetailedMealTypes = {
   GET: 'detalhesDaReceitaComida/GET',
+  GETRECOMMEND: 'detalhesDaReceitaComida/GETRECOMMEND',
 };
 
 export default DetailedMealTypes;

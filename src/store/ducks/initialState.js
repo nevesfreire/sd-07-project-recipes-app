@@ -16,10 +16,12 @@ export default {
   },
   detalhesDaReceitaBebida: {
     drink: '',
+    drinkRecommend: '',
     // Estados referentes aos detalhes da receita de bebida
   },
   detalhesDaReceitaComida: {
     meal: '',
+    mealRecommend: '',
   },
   exploreDrinks: {
     drinks: '',
