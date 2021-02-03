@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Container, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { sendDrinkRecipes, sendMealRecipes } from '../redux/actions';
 import { apiTheMealDB, apiTheCocktailDB } from '../services';
@@ -35,13 +36,12 @@ class Ingredientes extends React.Component {
     const { sendMealRecipesDispatch, sendDrinkRecipesDispatch, history } = this.props;
     if (type === 'comidas') {
       const response = await apiTheMealDB(`filter.php?i=${item.strIngredient}`);
-      await sendMealRecipesDispatch(response.meals);
+      sendMealRecipesDispatch(response.meals);
       history.push('/comidas');
     }
     if (type === 'bebidas') {
       const response = await apiTheCocktailDB(`filter.php?i=${item.strIngredient1}`);
-      await sendDrinkRecipesDispatch(response.drinks);
-      history.push('/bebidas');
+      sendDrinkRecipesDispatch(response.drinks);
     }
   }
 
@@ -56,6 +56,7 @@ class Ingredientes extends React.Component {
             <Row>
               {data ? data.map((item, index) => (
                 <div
+                  to="/comidas"
                   key={ index }
                   onClick={ () => this.saveToRedux(item, 'comidas') }
                   onKeyPress
@@ -74,19 +75,18 @@ class Ingredientes extends React.Component {
           {pathname === '/explorar/bebidas/ingredientes' && (
             <Row>
               {data ? data.map((item, index) => (
-                <div
+                <Link
+                  to="/bebidas"
                   key={ index }
                   onClick={ () => this.saveToRedux(item, 'bebidas') }
-                  onKeyPress
-                  role="link"
-                  tabIndex={ index }
                 >
                   <RecipesCards
+                    onClick={ () => this.saveToRedux(item, 'bebidas') }
                     recipe={ item }
                     search="ingredientsDrinks"
                     index={ index }
                   />
-                </div>
+                </Link>
               )) : <Loading />}
             </Row>
           )}
