@@ -134,6 +134,9 @@ class ProgressoComida extends React.Component {
         >
           Favoritar
         </button>
+        <button type="button" onClick={ this.renderToReceitasFeitas }>
+          Concluída
+        </button>
       </div>);
   }
 }

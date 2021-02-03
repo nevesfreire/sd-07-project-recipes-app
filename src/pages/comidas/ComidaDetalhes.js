@@ -30,6 +30,7 @@ class ComidaDetalhes extends React.Component {
   componentDidMount() {
     this.fetchData();
     this.isFavorite();
+    this.isDone();
   }
 
   isFavorite() {
@@ -117,6 +118,7 @@ class ComidaDetalhes extends React.Component {
 
   render() {
     const { recipe, copyClipboard, isFavorite, isDone } = this.state;
+    console.log(isDone);
     return (
       <div className="ComidaDetalhes">
         <img
@@ -156,7 +158,7 @@ class ComidaDetalhes extends React.Component {
         <button
           type="button"
           data-testid="start-recipe-btn"
-          className={ isDone
+          className={ isDone === false
             ? 'iniciar-receita-fixo' : 'iniciar-receita-fixo hidden-item' }
           onClick={ this.iniciarReceita }
         >

@@ -28,6 +28,7 @@ export default class BebidasDetalhes extends React.Component {
   componentDidMount() {
     this.fetchData();
     this.isFavorite();
+    this.isDone();
   }
 
   isFavorite() {
@@ -145,7 +146,7 @@ export default class BebidasDetalhes extends React.Component {
         <button
           type="button"
           data-testid="start-recipe-btn"
-          className={ isDone
+          className={ isDone === false
             ? 'iniciar-receita-fixo' : 'iniciar-receita-fixo hidden-item' }
           onClick={ this.iniciarReceita }
         >
