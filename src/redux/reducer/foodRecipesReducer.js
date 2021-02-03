@@ -6,6 +6,9 @@ import {
   RESQUEST_ALL_CATEGORIES_MEALS,
   FILTERED_FOOD_BY_CATEGORY,
   REQUEST_INGREDIENTS_FOODS,
+  REQUEST_AREA,
+  REQUEST_AREA_FAILED,
+  SELECT_AREA,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -44,6 +47,19 @@ const foodRecipesReducer = (state = INITIAL_STATE, action) => {
     return { ...state, error: true, isFetching: false };
   case UPDATE_FOOD_IS_FETCHING:
     return { ...state, isFetching: true };
+  case REQUEST_AREA:
+    return {
+      ...state,
+      isFetching: true,
+    };
+  case REQUEST_AREA_FAILED:
+    return { ...state, error: true };
+  case SELECT_AREA:
+    return {
+      ...state,
+      meals: action.meals,
+      isFetching: false,
+    };
   default:
     return state;
   case REQUEST_INGREDIENTS_FOODS:

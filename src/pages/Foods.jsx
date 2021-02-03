@@ -8,7 +8,7 @@ import {
   listFoodRecipes,
   updateFoodIsFetching,
   allCategoriesFoodsAction,
-} from '../redux/actions/foodRecipesAction';
+} from '../redux/actions';
 import { getAllFoodCategories, getFoodRecipes } from '../services';
 
 class Foods extends Component {
