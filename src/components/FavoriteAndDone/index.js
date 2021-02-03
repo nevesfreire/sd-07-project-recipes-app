@@ -27,76 +27,90 @@ function FavoriteAndDone({ data }) {
   }
   return (
     <div>
-      {
-        !filter ? 'Loading...' : (
+      {!filter ? (
+        'Loading...'
+      ) : (
+        <div>
           <div>
+            <button
+              type="button"
+              onClick={ () => handleFilter('All') }
+              data-testid="filter-by-all-btn"
+            >
+              All
+            </button>
 
-            <div>
-              <button
-                type="button"
-                onClick={ () => handleFilter('All') }
-                data-testid="filter-by-all-btn"
-              >
-                All
-              </button>
-              <button
-                type="button"
-                onClick={ () => handleFilter('Food') }
-                data-testid="filter-by-food-btn"
-              >
-                Food
-              </button>
-              <button
-                type="button"
-                onClick={ () => handleFilter('Drinks') }
-                data-testid="filter-by-drink-btn"
-              >
-                Drinks
-              </button>
-            </div>
-            <div>
-              { filter.map((item, index) => (
-                <div key={ index }>
-                  <Link to={ `/${item.type}s/${item.id}` }>
-                    <img
-                      data-testid={ `${index}-horizontal-image` }
-                      src={ item.image }
-                      alt={ item.name }
-                    />
-                  </Link>
-                  <h4
-                    data-testid={ `${index}-horizontal-top-text` }
-                  >
-                    {(item.area === '' ? item.alcoholicOrNot : (
-                      `${item.area} - ${item.category}`))}
-                  </h4>
-                  <Link to={ `/${item.type}s/${item.id}` }>
-                    <h2 data-testid={ `${index}-horizontal-name` }>{item.name}</h2>
-                  </Link>
-                  <span data-testid={ `${index}-horizontal-done-date` }>{}</span>
-                  <ShareButton
-                    testId={ `${index}-horizontal-` }
-                    id={ item.id }
-                    type={ item.type }
+            <button
+              type="button"
+              onClick={ () => handleFilter('Food') }
+              data-testid="filter-by-food-btn"
+            >
+              Food
+            </button>
+
+            <button
+              type="button"
+              onClick={ () => handleFilter('Drinks') }
+              data-testid="filter-by-drink-btn"
+            >
+              Drinks
+            </button>
+          </div>
+          <div>
+            {filter.map((item, index) => (
+              <div key={ index }>
+                <Link to={ `/${item.type}s/${item.id}` }>
+                  <img
+                    data-testid={ `${index}-horizontal-image` }
+                    src={ item.image }
+                    alt={ item.name }
                   />
-                  <button
-                    type="button"
-                    onClick={ () => handleClick(item.id) }
-                  >
+                </Link>
+
+                <h4 data-testid={ `${index}-horizontal-top-text` }>
+                  {item.area === ''
+                    ? item.alcoholicOrNot
+                    : `${item.area} - ${item.category}`}
+                </h4>
+
+                <Link to={ `/${item.type}s/${item.id}` }>
+                  <h2 data-testid={ `${index}-horizontal-name` }>{item.name}</h2>
+                </Link>
+
+                <span data-testid={ `${index}-horizontal-done-date` }>
+                  {item.doneDate}
+                </span>
+
+                <ShareButton
+                  testId={ `${index}-horizontal-` }
+                  id={ item.id }
+                  type={ item.type }
+                />
+
+                {window.location.pathname === '/receitas-favoritas' && (
+                  <button type="button" onClick={ () => handleClick(item.id) }>
                     <img
                       data-testid={ `${index}-horizontal-favorite-btn` }
                       src={ blackHeartIcon }
                       alt="descompartilhar"
                     />
                   </button>
-                </div>
-              ))}
-            </div>
+                )}
+
+                {window.location.pathname === '/receitas-feitas'
+                  && item.tags.map((tag) => (
+                    <span
+                      key={ tag }
+                      data-testid={ `${index}-${tag}-horizontal-tag` }
+                    >
+                      {tag}
+                    </span>
+                  ))}
+              </div>
+            ))}
           </div>
-
-        )
-      }
-
+        </div>
+      )}
     </div>
   );
 }
