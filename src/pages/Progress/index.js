@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button } from 'react-bootstrap';
-import copy from 'clipboard-copy';
 import PropTypes from 'prop-types';
 import { Context } from '../../context/Provider';
 import fetchApi from '../../services/api';
 import { initialize, getItem, saveItem } from '../../services/localStorage';
 import IngredientsTable from '../../components/IngredientsTable';
+import Actions from './Actions';
 import './style.css';
 
 function Progress({ history, match: { params: { id } } }) {
@@ -20,7 +19,18 @@ function Progress({ history, match: { params: { id } } }) {
   const [name, setName] = useState('');
   const [image, setImage] = useState('');
   const [done, setDone] = useState([]);
-  const [msg, setMsg] = useState('');
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [data, setData] = useState({
+    id: '',
+    name: '',
+    src: '',
+    category: '',
+    instructions: '',
+    ingredients: [],
+    video: '',
+    alcoholic: false,
+    area: '',
+  });
 
   useEffect(() => {
     initialize();
@@ -34,12 +44,51 @@ function Progress({ history, match: { params: { id } } }) {
   useEffect(() => {
     if (api === '') return;
     const firstFetch = async () => {
-      const data = await fetchApi(id, 'recipe', api);
-      if (!data) return;
-      setResult(data[0]);
+      const dat = await fetchApi(id, 'recipe', api);
+      if (!dat) return;
+      setResult(dat[0]);
     };
     firstFetch();
   }, [api, id, setResult]);
+
+  const getIngredients = (acc, curr) => (
+    curr[0].includes('strIngredient') && curr[1] !== '' && curr[1] !== null
+      ? [...acc, curr[1]]
+      : acc
+  );
+
+  const getMeasures = (acc, curr) => (
+    curr[0].includes('strMeasure') && curr[1] !== '' && curr[1] !== null
+      ? [...acc, curr[1]]
+      : acc
+  );
+
+  const getIngredientsList = (list) => {
+    const ing = Object.entries(list).reduce(getIngredients, []);
+    const meas = Object.entries(list).reduce(getMeasures, []);
+
+    const ingredientsList = [];
+
+    ing.forEach((_, index) => {
+      ingredientsList.push(`${ing[index]} - ${meas[index]}`);
+    });
+
+    return ingredientsList;
+  };
+
+  useEffect(() => {
+    setData({
+      id: result.idMeal || result.idDrink,
+      name: result.strMeal || result.strDrink,
+      src: result.strMealThumb || result.strDrinkThumb,
+      category: result.strCategory,
+      instructions: result.strInstructions,
+      video: result.strYoutube || '',
+      ingredients: getIngredientsList(result),
+      alcoholic: result.strAlcoholic !== undefined,
+      area: result.strArea,
+    });
+  }, [result]);
 
   useEffect(() => {
     if (api === '') return;
@@ -64,6 +113,12 @@ function Progress({ history, match: { params: { id } } }) {
     setIngredients(ing);
     setMeasures(meas);
     setDone(don);
+
+    const favoriteRecipesArray = getItem('favoriteRecipes') || [];
+    const isRecipeFavorite = favoriteRecipesArray
+      .some((recipe) => recipe.id === id);
+    if (isRecipeFavorite) setIsFavorite(true);
+    else setIsFavorite(false);
   }, [result, api, id]);
 
   useEffect(() => {
@@ -107,25 +162,11 @@ function Progress({ history, match: { params: { id } } }) {
       />
       <h2>instructions</h2>
       <p data-testid="instructions">{result.strInstructions}</p>
-      <div>{msg}</div>
-      <nav>
-        <Button data-testid="favorite-btn">
-          Favorite
-        </Button>
-        <Button
-          data-testid="share-btn"
-          onClick={ () => {
-            const recipe = (api === 'meal' ? 'comidas' : 'bebidas');
-            copy(`http://localhost:3000/${recipe}/${id}`);
-            setMsg('Link copiado!');
-          } }
-        >
-          Share
-        </Button>
-        <Button data-testid="finish-recipe-btn">
-          Finish
-        </Button>
-      </nav>
+      <Actions
+        data={ data }
+        isFavorite={ isFavorite }
+        setIsFavorite={ setIsFavorite }
+      />
     </div>
   );
 }
