@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Carousel from './CarouselBebida';
 import ShareIcon from '../../images/shareIcon.svg';
+import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
 const MAX_INGREDIENTS = 20;
 
@@ -11,12 +13,14 @@ export default class BebidasDetalhes extends React.Component {
     this.state = {
       recipe: {},
       copyClipboard: '',
+      isFavorite: false,
     };
     this.fetchData = this.fetchData.bind(this);
     this.renderIngredients = this.renderIngredients.bind(this);
     this.renderIngredient = this.renderIngredient.bind(this);
     this.iniciarReceita = this.iniciarReceita.bind(this);
     this.copyClipboard = this.copyClipboard.bind(this);
+    this.favoriteRecipe = this.favoriteRecipe.bind(this);
   }
 
   componentDidMount() {
@@ -47,6 +51,24 @@ export default class BebidasDetalhes extends React.Component {
     });
   }
 
+  favoriteRecipe() {
+    const { recipe, isFavorite } = this.state;
+    console.log('click');
+    this.setState({
+      isFavorite: !isFavorite,
+    });
+    const favorite = [{
+      id: recipe.idDrink,
+      type: 'bebida',
+      area: '',
+      category: recipe.strCategory,
+      alcoholicOrNot: recipe.strAlcoholic,
+      name: recipe.strDrink,
+      image: recipe.strDrinkThumb,
+    }];
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favorite));
+  }
+
   renderIngredient(index) {
     const { recipe } = this.state;
     const ingredient = recipe[`strIngredient${index + 1}`];
@@ -68,7 +90,8 @@ export default class BebidasDetalhes extends React.Component {
   }
 
   render() {
-    const { recipe, copyClipboard } = this.state;
+    const { recipe, copyClipboard, isFavorite } = this.state;
+    console.log(recipe);
     return (
       <div>
         <img data-testid="recipe-photo" src={ recipe.strDrinkThumb } alt="drink pic" />
@@ -86,8 +109,10 @@ export default class BebidasDetalhes extends React.Component {
         <button
           type="button"
           data-testid="favorite-btn"
+          onClick={ () => this.favoriteRecipe() }
+          src={ !isFavorite ? whiteHeartIcon : blackHeartIcon }
         >
-          Favoritar
+          <img src={ !isFavorite ? whiteHeartIcon : blackHeartIcon } alt="favorite" />
         </button>
         <p data-testid="recipe-category">{recipe.strAlcoholic}</p>
         <ul>{this.renderIngredients()}</ul>

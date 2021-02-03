@@ -58,10 +58,20 @@ class ComidaDetalhes extends React.Component {
   }
 
   favoriteRecipe() {
-    const { isFavorite } = this.state;
+    const { recipe, isFavorite } = this.state;
     this.setState({
       isFavorite: !isFavorite,
     });
+    const favorite = [{
+      id: recipe.idMeal,
+      type: 'comida',
+      area: recipe.strArea,
+      category: recipe.strCategory,
+      alcoholicOrNot: '',
+      name: recipe.strMeal,
+      image: recipe.strMealThumb,
+    }];
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favorite));
   }
 
   renderIngredients() {
@@ -86,7 +96,7 @@ class ComidaDetalhes extends React.Component {
 
   render() {
     const { recipe, copyClipboard, isFavorite } = this.state;
-    console.log(isFavorite);
+    console.log(recipe, isFavorite);
     return (
       <div className="ComidaDetalhes">
         <img
