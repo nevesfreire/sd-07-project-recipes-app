@@ -91,7 +91,6 @@ class ProgressoComida extends React.Component {
 
   render() {
     const { recipe, copyClipboard, isFavorite } = this.state;
-    console.log(recipe);
     return (
       <div>
         <img
