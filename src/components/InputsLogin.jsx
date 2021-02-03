@@ -5,7 +5,7 @@ import context from '../contextAPI/context';
 import '../css/login.css';
 
 const inputText = (onChange) => (
-  <div className="input-text">
+  <div className="input-email">
     <Input
       data-testid="email-input"
       type="email"
@@ -33,11 +33,11 @@ const buttonLogin = (onClick, enable) => (
     <Button
       data-testid="login-submit-btn"
       variant="contained"
-      collor="primary"
+      color="primary"
       disabled={ enable }
       onClick={ (e) => onClick(e) }
     >
-      Logar
+      Entrar
     </Button>
   </div>
 );
@@ -45,17 +45,26 @@ const buttonLogin = (onClick, enable) => (
 export default function InputLogin() {
   const { login, setLogin } = useContext(context);
   const history = useHistory();
-  const { state } = useContext(context);
+  const { state, setState } = useContext(context);
   const { isDisabled } = state;
 
   const loginChanges = ({ target: { name, value } }) => {
     setLogin({ ...login, [name]: value });
   };
 
-  const callRoute = () => history.push('/comidas');
+  const callRoute = () => {
+    setState((s) => ({
+      ...s,
+      profileButton: true,
+      title: 'Comidas',
+      searchButton: true,
+      toggleSearch: false,
+    }));
+    return history.push('/comidas');
+  };
 
   return (
-    <div>
+    <div className="input-login-controller">
       {inputText(loginChanges)}
       {inputPasswd(loginChanges)}
       {buttonLogin(callRoute, isDisabled)}

@@ -1,0 +1,19 @@
+.header {
+    display: flex;
+    flex-direction: row;
+}
+
+.header-container {
+    margin: 30px;
+}
+
+.header-container {
+    display: flex;
+}
+
+
+.header-buttons {
+    display: flex;
+    flex-direction: row;
+    margin-left: 40em;
+}

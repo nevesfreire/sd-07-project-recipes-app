@@ -3,20 +3,23 @@ import PropTypes from 'prop-types';
 import Context from '../contextAPI/context';
 
 function Provider({ children }) {
-  const [login, setLogin] = useState({})
+  const [login, setLogin] = useState({});
   const [state, setState] = useState({});
-   
+
   useEffect(() => {
-    setState(s => ({ isDisabled: true }));
-  },[])
+    setState((s) => ({ ...s, isDisabled: true }));
+  }, []);
 
   useEffect(() => {
     const NUM_PASSWORD = 5;
     const { user, passwd } = login;
     if (user && passwd) {
-      ((/^[^\s@]+@[^\s@]+\.[^\s@]+$/).test(user) && (passwd.length > NUM_PASSWORD)) && setState(s => ({...s, user, passwd, isDisabled: false}));
+      const emailTest = (/^[^\s@]+@[^\s@]+\.[^\s@]+$/).test(user);
+      const passLength = (passwd.length > NUM_PASSWORD);
+      if (emailTest && passLength) {
+        setState((s) => ({ ...s, user, passwd, isDisabled: false }));
+      }
     }
-  
   }, [login]);
 
   const context = {
