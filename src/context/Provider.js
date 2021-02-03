@@ -45,6 +45,10 @@ function Provider({ children }) {
       setFoods(searchFilterCategoryFoods);
     } else {
       searchFilterCategoryFoods = await apiFoods(`filter.php?c=${category}`);
+      if (searchFilterCategoryFoods.length === 1) {
+        searchFilterCategoryFoods[0] = { ...searchFilterCategoryFoods[0],
+          redirect: true };
+      }
       setFoods(searchFilterCategoryFoods);
     }
   };
@@ -56,6 +60,10 @@ function Provider({ children }) {
       setDrinks(searchFilterCategoryDrinks);
     } else {
       searchFilterCategoryDrinks = await apiDrinks(`filter.php?c=${category}`);
+      if (searchFilterCategoryDrinks.length === 1) {
+        searchFilterCategoryDrinks[0] = { ...searchFilterCategoryDrinks[0],
+          redirect: true };
+      }
       setDrinks(searchFilterCategoryDrinks);
     }
   };
