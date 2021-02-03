@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form, Carousel } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
-import ReactPlayer from 'react-player';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-
 
 export default function FoodDetails() {
   const [recipe, setRecipe] = useState({});
@@ -48,7 +46,7 @@ export default function FoodDetails() {
       <img
         data-testid="recipe-photo"
         alt="Foto da Receita"
-        src={ recipe.strMealThumb }
+        src={recipe.strMealThumb}
       />
 
       <h2 data-testid="recipe-title">{recipe.strMeal}</h2>
@@ -78,7 +76,7 @@ export default function FoodDetails() {
         data-testid="share-btn"
       >
         <img
-          src={ shareIcon }
+          src={shareIcon}
           alt="Share Icon"
         />
       </button>
@@ -88,18 +86,23 @@ export default function FoodDetails() {
         data-testid="favorite-btn"
       >
         <img
-          src={ whiteHeartIcon }
+          src={whiteHeartIcon}
           alt="Favorite Icon"
         />
       </button>
 
       <h3>Video</h3>
+      <iframe
+        data-testid="video"
+        className="width360"
+        title="video"
+        src={ recipe.strYoutube && recipe.strYoutube.replace('watch?v=', 'embed/') }
+        frameBorder="0"
+        allow="accelerometer; autoplay;
+            clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      />
 
-      <div data-testid="video">
-        <ReactPlayer
-          url={ recipe.strYoutube }
-        />
-      </div>
       <h3>Recomendadas</h3>
 
       <Carousel>
