@@ -128,9 +128,9 @@ function ShowRecommended(props) {
                   className="d-block w-100"
                 />
                 <h5
-                  data-testid={`${
+                  data-testid={ `${
                     index + carouselPartition
-                  }-recomendation-title`}
+                  }-recomendation-title` }
                 >
                   {item.strDrink !== undefined ? item.strDrink : item.strMeal}
                   {/* { item.strDrink } */}

@@ -135,7 +135,6 @@ export const fetchRecommendations = async (
   fnSetRecommendations2(getRecommendations2);
 };
 
-
 export const fetchRecommendationsMeals = async (
   fnSetRecommendations1,
   fnSetRecommendations2) => {
@@ -157,4 +156,4 @@ export const fetchRecommendationsMeals = async (
   );
   fnSetRecommendations1(getRecommendations1);
   fnSetRecommendations2(getRecommendations2);
-}
+};

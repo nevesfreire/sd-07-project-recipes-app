@@ -1,23 +1,6 @@
-import React, { createContext, useState } from 'react';
-import propTypes from 'prop-types';
+import { createContext } from 'react';
+import geral from '../data';
 
-const RecipeDetailsContext = createContext();
+const RecipeDetailsContext = createContext(geral);
 
-const RecipeProviderDetails = ({ children }) => {
-
-  const context = {
-    
-  };
-
-  return (
-    <RecipeDetailsContext.Provider value={ context }>
-      { children }
-    </RecipeDetailsContext.Provider>
-  );
-};
-
-export { RecipeDetailsContext, RecipeProviderDetails as ProviderDetails };
-
-RecipeProviderDetails.propTypes = {
-  children: propTypes.objectOf(),
-}.isRequired;
+export default RecipeDetailsContext;

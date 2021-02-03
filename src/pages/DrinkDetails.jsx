@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import GlobalContext from '../context/GlobalContext';
+import RecipeDetailsContext from '../context/RecipeContext';
 import likeIcon from '../images/whiteHeartIcon.svg';
 import fullLikeIcon from '../images/blackHeartIcon.svg';
 import ShareButton from '../components/ShareButton';
@@ -13,15 +14,17 @@ import {
 } from '../components/func_details';
 
 export default function DrinkDetails(props) {
-  const context = useContext(GlobalContext);
+  const contextGlobal = useContext(GlobalContext);
+  const { setTitle } = contextGlobal;
+  const context = useContext(RecipeDetailsContext);
   const [btnTitle, setBtnTitle] = useState('Iniciar Receita');
   const [btnImg, setBtnImg] = useState('');
   const [recommendations1, setRecommendations1] = useState([]);
   const [recommendations2, setRecommendations2] = useState([]);
-  const { getRecipeTitle, setRecipeTitle, getRecipeImage, setRecipeImage,
-    getRecipeArea, getRecipeAlc, setRecipeAlc, getRecipeCategory, setRecipeCategory,
-    getRecipeIngredients, setRecipeIngredients, getRecipeInstructions,
-    setRecipeInstructions, recipesInProgress, setRecipesInProgress } = context;
+  const { setRecipeTitle, setRecipeCategory, setRecipeInstructions, setRecipeImage,
+    setRecipeAlc, setRecipeIngredients, setRecipesInProgress, recipesInProgress,
+    getRecipeTitle, getRecipeImage, getRecipeArea, getRecipeAlc, getRecipeCategory,
+    getRecipeIngredients, getRecipeInstructions } = context;
   const { match, history: { location: { pathname } } } = props;
   const { params } = match;
   const { id } = params;
@@ -63,7 +66,7 @@ export default function DrinkDetails(props) {
       saveFavoriteRecipe();
     } else {
       setBtnImg(likeIcon);
-      unLikeRecipe();
+      unLikeRecipe(id);
     }
   };
 
@@ -145,6 +148,7 @@ export default function DrinkDetails(props) {
   };
 
   useEffect(() => {
+    setTitle('Drink Details');
     fetchDrinks();
     fetchRecommendationsMeals(setRecommendations1, setRecommendations2);
     setLikeImage(setBtnImg, id, fullLikeIcon, likeIcon);
