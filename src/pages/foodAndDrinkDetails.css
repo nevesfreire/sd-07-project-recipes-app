@@ -11,10 +11,10 @@
 }
 
 .recipe-details-name {
-  color: #fff6e5;
+  color: white;
   font-size: 40px;
   text-align: center;
-  text-shadow: #000 1px -1px, #000 -1px 1px, #000 1px 1px, #000 -1px -1px;
+  text-shadow: black 1px -1px , black -1px 1px , black 1px 1px , black -1px -1px;
 }
 
 .favorite-and-share-btn-container {
@@ -26,7 +26,7 @@
   border: none;
 }
 
-.d-block w-100 {
+.d-block {
   width: 50%;
 }
 
@@ -54,8 +54,8 @@
 }
 
 .recipe-details-video {
-  margin: 10px;
   border: 1px solid black;
+  margin: 10px;
 }
 
 .carousels-container {
@@ -74,6 +74,6 @@
   font-weight: bold;
   height: 55px;
   position: fixed;
-  text-shadow: #000 1px -1px, #000 -1px 1px, #000 1px 1px, #000 -1px -1px;
+  text-shadow: black 1px -1px , black -1px 1px , black 1px 1px , black -1px -1px;
   width: 150px;
 }
