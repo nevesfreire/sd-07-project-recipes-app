@@ -27,6 +27,8 @@ function DrinkProcess(props) {
     setRecipeImage,
     getRecipeArea,
     setRecipeArea,
+    getRecipeAlc,
+    setRecipeAlc,    
     getRecipeCategory,
     setRecipeCategory,
     getRecipeIngredients,
@@ -53,6 +55,24 @@ function DrinkProcess(props) {
     setIsLoading(false);
   };
 
+  const saveFavoriteRecipe = () => {
+    if (localStorage.getItem('favoriteRecipes') === null) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    }
+    const favoriteRecipes = {
+      id,
+      type: 'bebida',
+      area: '',
+      category: getRecipeCategory,
+      alcoholicOrNot: getRecipeAlc,
+      name: getRecipeTitle,
+      image: getRecipeImage,
+    };
+    const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    recipes.push(favoriteRecipes);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(recipes));
+  };
+
   const handleImage = () => {
     if (btnImg === likeIcon) {
       setBtnImg(fullLikeIcon);
@@ -61,6 +81,27 @@ function DrinkProcess(props) {
       setBtnImg(likeIcon);
       unLikeRecipe();
     }
+  };
+
+  const saveProgress = (ingredient) => {
+    const previousProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    console.log(previousProgress)
+    if (previousProgress.cocktails[id]) {
+      if (previousProgress.cocktails[id].includes(ingredient)) {
+        previousProgress.cocktails[id] = previousProgress.cocktails[id]
+          .filter((item) => item !== ingredient);
+      } else {
+        previousProgress.cocktails[id].push(ingredient);
+      }
+    } else {
+      previousProgress.cocktails[id] = [ingredient];
+    }
+    localStorage.setItem('inProgressRecipes', JSON.stringify(previousProgress));
+    setInProgressRecipes(previousProgress);
+  };
+
+  const handleChecked = ({ target: { name } }) => {
+    saveProgress(name);
   };
 
   const handleToogle = (item) => {
@@ -80,7 +121,7 @@ function DrinkProcess(props) {
   useEffect(() => {
     setTitle('Drink In Progress');
     fetchRecipe();
-    setLikeImage();
+    setLikeImage(setBtnImg, id, fullLikeIcon, likeIcon);
   }, [])
   return(
     <div className="recipe-details-container">
@@ -115,7 +156,6 @@ function DrinkProcess(props) {
             >
               <input
                 type="checkbox"
-                checked={ handleCheckedFromLocalStorage(item) }
                 name={ item }
                 id={ item }
                 onChange={ handleChecked }
@@ -133,8 +173,6 @@ function DrinkProcess(props) {
           type="button"
           data-testid="finish-recipe-btn"
           className="finish-recipe-btn"
-          disabled={ handleFinishRecipe(getRecipeIngredients.length) }
-          onClick={ handleDoneLocalStorage }
         >
           Finalizar receita
         </button>

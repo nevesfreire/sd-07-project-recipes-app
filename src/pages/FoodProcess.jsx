@@ -42,8 +42,8 @@ function FoodProcess(props) {
   const { id } = params;
 
   const fetchRecipe = async () => {
-    // const path = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=52771';
-    const path = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+    const path = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=52771';
+    // const path = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
     const getRecipe = await fetch(path);
     const result = await getRecipe.json();
     // console.log(result); chave meals interesse
@@ -54,6 +54,27 @@ function FoodProcess(props) {
     setRecipeArea(result.meals[0].strArea);
     ingredientsMount(setRecipeIngredients, result);
     setIsLoading(false);
+  };
+
+  const saveProgress = (ingredient) => {
+    const previousProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    console.log(previousProgress)
+    if (previousProgress.cocktails[id]) {
+      if (previousProgress.cocktails[id].includes(ingredient)) {
+        previousProgress.cocktails[id] = previousProgress.cocktails[id]
+          .filter((item) => item !== ingredient);
+      } else {
+        previousProgress.cocktails[id].push(ingredient);
+      }
+    } else {
+      previousProgress.cocktails[id] = [ingredient];
+    }
+    localStorage.setItem('inProgressRecipes', JSON.stringify(previousProgress));
+    setInProgressRecipes(previousProgress);
+  };
+
+  const handleChecked = ({ target: { name } }) => {
+    saveProgress(name);
   };
 
   const handleImage = () => {
@@ -90,7 +111,7 @@ function FoodProcess(props) {
   useEffect(() => {
     setTitle('Food In Progress');
     fetchRecipe();
-    setLikeImage();
+    setLikeImage(setBtnImg, id, fullLikeIcon, likeIcon);
   }, [])
   return(
     <div className="recipe-details-container">
@@ -125,7 +146,6 @@ function FoodProcess(props) {
             >
               <input
                 type="checkbox"
-                checked={ handleCheckedFromLocalStorage(item) }
                 name={ item }
                 id={ item }
                 onChange={ handleChecked }
@@ -143,8 +163,6 @@ function FoodProcess(props) {
           type="button"
           data-testid="finish-recipe-btn"
           className="finish-recipe-btn"
-          disabled={ handleFinishRecipe(getRecipeIngredients.length) }
-          onClick={ handleDoneLocalStorage }
         >
           Finalizar receita
         </button>
