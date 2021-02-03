@@ -75,7 +75,7 @@ function Ingredient({ recipes, inProgress, id }) {
               key={ key }
               data-testid={ `${index}-ingredient-name-and-measure` }
             >
-              { `- ${value} - 1/2 part` }
+              { `- ${value} - 1/2 part`}
             </p>
           ))}
         </div>
