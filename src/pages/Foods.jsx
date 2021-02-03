@@ -50,12 +50,13 @@ class Foods extends Component {
   handleRecipes() {
     const { meals, isFetching } = this.props;
     if (!meals.length && !isFetching) return this.renderAlertError();
+    if (meals.length === 1) return this.redirectToRecipeDetail();
     return this.renderRecipes();
   }
 
   redirectToRecipeDetail() {
     const { meals } = this.props;
-    return <Redirect to={ `/comidas/:${meals[0].idMeal}` } />;
+    return <Redirect to={ `/comidas/${meals[0].idMeal}` } />;
   }
 
   renderAlertError() {

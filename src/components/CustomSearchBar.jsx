@@ -29,7 +29,7 @@ class CustomSearchBar extends Component {
   }
 
   async handleButtonClick() {
-    const { dispatchFoodRecipes, dispatchDrinkRecipes, title } = this.props;
+    const { dispatchFoodRecipes, dispatchDrinkRecipes, title, meals } = this.props;
     const { searchHeader } = this.state;
     const { searchRadio, searchInput } = searchHeader;
     if (searchRadio === 'f' && searchInput.length > 1) {
@@ -37,6 +37,7 @@ class CustomSearchBar extends Component {
     }
     if (title === 'Comidas') await dispatchFoodRecipes(searchHeader);
     if (title === 'Bebidas') await dispatchDrinkRecipes(searchHeader);
+    console.log(meals)
   }
 
   render() {
