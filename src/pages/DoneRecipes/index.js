@@ -1,10 +1,11 @@
 import React from 'react';
-import { Header } from '../../components';
+import { Header, FavoriteAndDone } from '../../components';
 
 function DoneRecipes() {
   return (
     <div>
       <Header />
+      <FavoriteAndDone />
     </div>
   );
 }
