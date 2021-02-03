@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import Slider from 'react-slick';
+import "slick-carousel/slick/slick.css"; 
+import 'slick-carousel/slick/slick-theme.css';
 import { requestApiFoodDetails } from '../services/requestFood';
 import { recommendDrinksList } from '../services/requestDrink';
 
@@ -8,6 +11,14 @@ function DetalhesReceitas({ match: { params: { id } } }) {
   const [ingredientsAndMeasure, setIngredientsAndMeasure] = useState([]);
   const [videoLink, setVideoLink] = useState('');
   const [recommendedForThisFood, setRecommendedForThisFood] = useState([]);
+
+  const sliderSettings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 2,
+    slidesToScroll: 2,
+  };
 
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trim
 
@@ -38,6 +49,7 @@ function DetalhesReceitas({ match: { params: { id } } }) {
 
   const getVideoLink = () => {
     if (foodDetails.strYoutube) {
+      console.log(foodDetails.strYoutube)
       const splitLink = foodDetails.strYoutube.split('=');
       const endOfLink = splitLink[splitLink.length - 1];
       const expectedLink = `https://www.youtube.com/embed/${endOfLink}`;
@@ -126,6 +138,7 @@ function DetalhesReceitas({ match: { params: { id } } }) {
         fs="1"
       />
       <div>
+      <Slider { ...sliderSettings }>
         {
           recommendedForThisFood.map((drink, index) => (
             <div
@@ -137,11 +150,14 @@ function DetalhesReceitas({ match: { params: { id } } }) {
                   src={ drink.strDrinkThumb }
                   alt={ drink.strDrinkThumb }
                 />
-                <h3 data-testid={ `${index}-recomendation-title` }>{ drink.strDrink }</h3>
+                <h3 data-testid={ `${index}-recomendation-title` }>
+                  { drink.strDrink }
+                </h3>
               </div>
             </div>
           ))
         }
+      </Slider>
       </div>
     </div>
   );

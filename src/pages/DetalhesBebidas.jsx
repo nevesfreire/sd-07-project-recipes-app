@@ -1,17 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import Slider from 'react-slick';
+import "slick-carousel/slick/slick.css"; 
+import 'slick-carousel/slick/slick-theme.css';
 import { requestApiDrinkDetails } from '../services/requestDrink';
 import { recommendFoodsList } from '../services/requestFood';
+
+// https://github.com/tryber/sd-07-project-recipes-app/blob/main-group-23;
+// slick-carrousel;
 
 function DetalhesBebidas({ match: { params: { id } } }) {
   const [drinkDetails, setDrinkDetails] = useState([]);
   const [ingredientsAndMeasure, setIngredientsAndMeasure] = useState([]);
   const [recommendedForThisDrink, setRecommendedForThisDrink] = useState([]);
 
+  const sliderSettings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 2,
+    slidesToScroll: 2,
+  };
+
   const getIngredientsAndMeasure = () => {
     const ingredientRegex = /strIngredient/i;
     const measureRegex = /strMeasure/i;
     const detailsEntries = Object.entries(drinkDetails);
+    console.log(detailsEntries)
     const filteredIngredients = [];
     const filteredMeasure = [];
     const expectedArray = [];
@@ -100,22 +115,22 @@ function DetalhesBebidas({ match: { params: { id } } }) {
         </div>
       </div>
       <div>
-        {
-          recommendedForThisDrink.map((food, index) => (
-            <div
-              key={ food }
-              data-testid={ `${index}-recomendation-card` }
-            >
-              <div>
+        <Slider { ...sliderSettings }>
+          {
+            recommendedForThisDrink.map((food, index) => (
+              <div
+                key={ food }
+                data-testid={ `${index}-recomendation-card` }
+              >
                 <img
                   src={ food.strMealThumb }
                   alt={ food.strMealThumb }
                 />
                 <h3 data-testid={ `${index}-recomendation-title` }>{ food.strMeal }</h3>
               </div>
-            </div>
-          ))
-        }
+            ))
+          }
+        </Slider>
       </div>
     </div>
   );
