@@ -1,7 +1,10 @@
 import React from 'react';
+import Alert from 'react-bootstrap/Alert';
 
 export default function CopiedMSG() {
   return (
-    <span>Link copiado!</span>
+    <Alert variant="success">
+      Link copiado!
+    </Alert>
   );
 }

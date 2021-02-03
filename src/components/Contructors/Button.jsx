@@ -1,22 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Button from 'react-bootstrap/Button';
 
-export default function Button({ testid, icon, func, text, id, classBootstrap }) {
+export default function ButtonConstructor(
+  { testid, icon, func, text, id, classBootstrap },
+) {
   return (
-    <button
-      type="button"
+    <Button
+      variant={ classBootstrap || 'outline-primary' }
       id={ id }
-      className={ classBootstrap || 'btn btn-outline-primary' }
       data-testid={ testid }
       onClick={ func }
     >
       {!!text && text}
       {!!icon && <img src={ icon } alt="icone" />}
-    </button>
+    </Button>
   );
 }
 
-Button.defaultProps = {
+ButtonConstructor.defaultProps = {
   classBootstrap: '',
   text: '',
   id: '',
@@ -25,7 +27,7 @@ Button.defaultProps = {
   testid: '',
 };
 
-Button.propTypes = {
+ButtonConstructor.propTypes = {
   classBootstrap: PropTypes.string,
   testid: PropTypes.string,
   icon: PropTypes.string,

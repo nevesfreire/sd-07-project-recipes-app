@@ -1,7 +1,10 @@
 import React from 'react';
+import Alert from 'react-bootstrap/Alert';
 
 export default function NotFound() {
   return (
-    <h3>Not Found</h3>
+    <Alert variant="warning">
+      Not Found
+    </Alert>
   );
 }
