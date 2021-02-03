@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import SearchBar from '../SearchBar';
 import ProfileIcon from '../../images/profileIcon.svg';
 import SearchIcon from '../../images/searchIcon.svg';
-import FavoriteRecipes from '../../pages/FavoritesRecipes'
+import FavoriteRecipes from '../../pages/FavoritesRecipes';
 
 function Header({ history, search = false }) {
   const { location: { pathname } } = history;
