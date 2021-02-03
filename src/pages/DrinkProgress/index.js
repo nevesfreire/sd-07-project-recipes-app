@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import copy from 'clipboard-copy';
-import getMeals from '../../services/mealAPI';
 import getDrinks from '../../services/cockTailAPI';
 import Ingredients from './Ingredients';
 import { setStorage, getStorage } from '../../services/localStorage';
@@ -11,48 +10,49 @@ import { blackHeartIcon, whiteHeartIcon, shareIcon } from '../../images';
 function addFavorite(recipe) {
   let values = getStorage('favoriteRecipes');
   if (values === null) values = [];
+
   const value = [{
-    id: recipe.idMeal,
-    type: 'comida',
-    area: recipe.strArea,
+    id: recipe.idDrink,
+    type: 'bebida',
+    area: '',
     category: recipe.strCategory,
-    alcoholicOrNot: '',
-    name: recipe.strMeal,
-    image: recipe.strMealThumb,
+    alcoholicOrNot: recipe.strAlcoholic,
+    name: recipe.strDrink,
+    image: recipe.strDrinkThumb,
   }];
   const newValue = values.concat(value);
   setStorage('favoriteRecipes', newValue);
 }
 
-function removeFavorite(mealId) {
+function removeFavorite(drinkId) {
   const values = getStorage('favoriteRecipes');
   if (values === null) return null;
-  const newValue = values.filter((item) => item.id !== mealId);
+  const newValue = values.filter((item) => item.id !== drinkId);
   setStorage('favoriteRecipes', newValue);
 }
 
-function isFavorite(mealId) {
+function isFavorite(drinkId) {
   const values = getStorage('favoriteRecipes');
   if (values === null) return false;
-  return values.find((item) => item.id === mealId);
+  return values.find((item) => item.id === drinkId);
 }
 
-export default function FoodProgress() {
+export default function DrinkProgress() {
   const history = useHistory();
   const { id } = useParams();
-  const mealId = id;
+  const drinkId = id;
   const [data, setData] = useState([]);
   const [recomedation, setRecomedation] = useState([]);
-  const [favorite, setFavorite] = useState(isFavorite(mealId));
+  const [favorite, setFavorite] = useState(isFavorite(drinkId));
   const [isShared, setIsShared] = useState('');
 
   useEffect(() => {
-    async function fetchMeal() {
-      const response = await getMeals('ID', mealId);
-      setData(response.meals[0]);
+    async function fetchDrink() {
+      const response = await getDrinks('ID', drinkId);
+      setData(response.drinks[0]);
     }
-    fetchMeal();
-  }, [setData, mealId]);
+    fetchDrink();
+  }, [setData, drinkId]);
 
   useEffect(() => {
     async function fetchRecomedention() {
@@ -60,14 +60,14 @@ export default function FoodProgress() {
       setRecomedation(response.drinks);
     }
     fetchRecomedention();
-  }, [setRecomedation, mealId]);
+  }, [setRecomedation, drinkId]);
 
   function toggleFavorite() {
     if (!favorite) {
       addFavorite(data);
       setFavorite(true);
     } else {
-      removeFavorite(mealId);
+      removeFavorite(drinkId);
       setFavorite(false);
     }
   }
@@ -93,9 +93,9 @@ export default function FoodProgress() {
       <img
         alt="imagem da receita"
         data-testid="recipe-photo"
-        src={ data.strMealThumb }
+        src={ data.strDrinkThumb }
       />
-      <div data-testid="recipe-title">{ data.strMeal }</div>
+      <div data-testid="recipe-title">{ data.strDrink }</div>
       <button
         type="button"
         onClick={ () => copyToClipboard() }
@@ -118,7 +118,7 @@ export default function FoodProgress() {
           src={ favorite ? blackHeartIcon : whiteHeartIcon }
         />
       </button>
-      <p data-testid="recipe-category">{ data.strCategory }</p>
+      <p data-testid="recipe-category">{ data.strAlcoholic }</p>
       <Ingredients data={ data } />
       <p data-testid="instructions">{ data.strInstructions }</p>
 
