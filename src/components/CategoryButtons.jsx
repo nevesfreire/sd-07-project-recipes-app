@@ -33,7 +33,7 @@ export default function CategoryButtons({ number, drink }) {
                 text="All"
                 func={ submitCategory }
               />
-              {resultArr.filter((_, index) => index < number)
+              { resultArr && resultArr.filter((_, index) => index < number)
                 .map(({ strCategory }, i) => (
                   <Button
                     id={ strCategory }
