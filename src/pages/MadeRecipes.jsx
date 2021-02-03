@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import GlobalContext from '../context/GlobalContext';
 import Header from '../components/Header';
+import CategoriesButtons from '../components/CategoriesButtons';
 
 export default function MadeRecipes() {
   const { setTitle, setSearchButton } = useContext(GlobalContext);
@@ -11,6 +12,10 @@ export default function MadeRecipes() {
   }, [setTitle, setSearchButton]);
 
   return (
-    <Header />
+    <div>
+      <Header />
+      <CategoriesButtons />
+    </div>
+
   );
 }
