@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import RecipeContext from '../Context/Context';
 import useFetch from '../hooks/useFetch';
-import RecomandationCard from '../components/RecomandationCard';
+import RecomendationCardDrinks from '../components/RecomendationCardDrinks';
 
 function DetailsDrink() {
   const { detailsRecipe } = useContext(RecipeContext);
@@ -61,7 +61,7 @@ function DetailsDrink() {
         <source src={ strYoutube } type="video/mp4" />
         <track default kind="captions" srcLang="en" src={ strYoutube } />
       </video>
-      <RecomandationCard />
+      <RecomendationCardDrinks />
       <button type="button" data-testid="start-recipe-btn">Iniciar receita</button>
     </div>
   );
