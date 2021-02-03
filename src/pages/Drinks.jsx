@@ -4,7 +4,7 @@ import Footer from '../components/Footer';
 import { CardDrinks } from '../components/cards';
 import GlobalContext from '../context/GlobalContext';
 import { FoodsDrinks } from './style';
-import DrinkCategories from '../components/categories/FoodCategories';
+import DrinkCategories from '../components/categories/DrinkCategories';
 
 const { Container } = FoodsDrinks;
 
