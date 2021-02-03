@@ -56,20 +56,17 @@ class Ingredientes extends React.Component {
           {pathname === '/explorar/comidas/ingredientes' && (
             <Row>
               {data ? data.map((item, index) => (
-                <div
+                <Link
                   to="/comidas"
                   key={ index }
                   onClick={ () => this.saveToRedux(item, 'comidas') }
-                  onKeyPress
-                  role="link"
-                  tabIndex={ index }
                 >
                   <RecipesCards
                     recipe={ item }
                     search="ingredientsMeals"
                     index={ index }
                   />
-                </div>
+                </Link>
               )) : <Loading />}
             </Row>
           )}
@@ -104,10 +101,10 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Ingredientes.propTypes = {
-  location: PropTypes.shape({ pathname: PropTypes.func.isRequired }).isRequired,
+  location: PropTypes.shape({ pathname: PropTypes.string.isRequired }).isRequired,
   sendMealRecipesDispatch: PropTypes.func.isRequired,
   sendDrinkRecipesDispatch: PropTypes.func.isRequired,
-  history: PropTypes.func.isRequired,
+  history: PropTypes.shape(PropTypes.object).isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(Ingredientes);

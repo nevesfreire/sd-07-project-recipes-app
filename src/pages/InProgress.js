@@ -5,22 +5,22 @@ class MainRecipes extends React.Component {
   constructor() {
     super();
     this.state = {
-      recipes: [],
+      recipes: {},
+      recipesDrinks: {},
     };
     this.getRecipeMeal = this.getRecipeMeal.bind(this);
   }
 
   async componentDidMount() {
-    const { location: { pathname } } = this.props;
-    const { recipes } = this.state;
-    if (pathname === `/comidas/${recipes[0].idMeal}/in-progress`) {
-      await this.getRecipeMeal();
+    await this.getRecipeMeal();
   }
 
   async getRecipeMeal() {
-    const { inProgressRecipes } = this.props;
+    const { inProgressRecipes, inProgressRecipesDrink } = this.props;
     const recipes = await inProgressRecipes;
     this.setState({ recipes });
+    const recipesDrinks = await inProgressRecipesDrink;
+    this.setState({ recipesDrinks });
   }
 
   render() {
@@ -32,7 +32,7 @@ class MainRecipes extends React.Component {
   }
 }
 
-const mapStateToProps = ({ recipes: { inProgressRecipes } }) => (
+const mapStateToProps = ({ recipes: { inProgressRecipes, inProgressRecipesDrink } }) => (
   { inProgressRecipes }
 );
 

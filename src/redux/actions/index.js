@@ -28,6 +28,11 @@ export const startRecipe = (recipe) => ({
   recipe,
 });
 
+export const startRecipeDrink = (recipe) => ({
+  type: types.START_RECIPE_DRINK,
+  recipe,
+});
+
 // const isFetching = () => (
 //   {
 //     type: types.IS_FETCHING,
