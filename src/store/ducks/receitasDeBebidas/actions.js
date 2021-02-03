@@ -45,3 +45,10 @@ export const getByLetterDrinks = (firstLetter) => async (dispatch) => {
   const response = await request.json();
   dispatch(getDrinks(response));
 };
+
+export const getByCategorieDrinks = (categorie) => async (dispatch) => {
+  const URL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${categorie}`;
+  const request = await fetch(URL);
+  const response = await request.json();
+  dispatch(getDrinks(response));
+};

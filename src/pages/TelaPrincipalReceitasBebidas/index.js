@@ -6,22 +6,45 @@ import { HeaderS, CardC, Footer } from '../../components';
 import {
   loadDrinks,
   loadDrinksCategories,
+  getByCategorieDrinks,
 } from '../../store/ducks/receitasDeBebidas/actions';
 
 class TelaPrincipalReceitasBebidas extends Component {
+  constructor() {
+    super();
+    this.state = {
+      toggleFilter: false,
+      currentCategory: '',
+    };
+  }
+
   async componentDidMount() {
     const { loadDrinksDispatch, getCategoriesDispatch } = this.props;
     getCategoriesDispatch();
     await loadDrinksDispatch();
   }
 
+
   handlePagerediRection(item) {
     const { history } = this.props;
     history.push(`/bebidas/${item.idDrink}`);
+
+  async getDrinksCategorie(e) {
+    const drinkCategorie = e.target.innerHTML;
+    const { getByCategorieDrinksD, loadDrinksDispatch } = this.props;
+    const { toggleFilter, currentCategory } = this.state;
+    if (!toggleFilter || currentCategory !== drinkCategorie) {
+      await getByCategorieDrinksD(drinkCategorie);
+      this.setState({ toggleFilter: true, currentCategory: drinkCategorie });
+    } else {
+      await loadDrinksDispatch();
+      this.setState({ toggleFilter: false, currentCategory: '' });
+    }
   }
 
   renderCategories(categories) {
     const five = 5;
+    const { loadDrinksDispatch } = this.props;
     return (
       <div>
         {categories.map((categorie, index) => {
@@ -31,6 +54,7 @@ class TelaPrincipalReceitasBebidas extends Component {
                 type="button"
                 key={ categorie.strCategory }
                 data-testid={ `${categorie.strCategory}-category-filter` }
+                onClick={ (e) => this.getDrinksCategorie(e) }
               >
                 {categorie.strCategory}
               </button>
@@ -38,6 +62,13 @@ class TelaPrincipalReceitasBebidas extends Component {
           }
           return null;
         })}
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ () => loadDrinksDispatch() }
+        >
+          All
+        </button>
       </div>
     );
   }
@@ -94,6 +125,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   loadDrinksDispatch: () => dispatch(loadDrinks()),
   getCategoriesDispatch: () => dispatch(loadDrinksCategories()),
+  getByCategorieDrinksD: (categorie) => dispatch(getByCategorieDrinks(categorie)),
 });
 
 TelaPrincipalReceitasBebidas.propTypes = {
@@ -104,6 +136,7 @@ TelaPrincipalReceitasBebidas.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+  getByCategorieDrinksD: PropTypes.func.isRequired,
 };
 
 export default connect(
