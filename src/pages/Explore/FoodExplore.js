@@ -7,9 +7,8 @@ export default function FoodExplore() {
   async function randomRecipes() {
     const data = await getMeals('random', '');
     const { idMeal } = data.meals[0];
-    const newMeal = (history.location.pathname)
-      .replace('explorar/comidas', `comidas/${idMeal}`);
-    history.push(newMeal);
+    (history.location.pathname).replace('explorar/comidas', '');
+    history.push(`/comidas/${idMeal}`);
   }
 
   return (
