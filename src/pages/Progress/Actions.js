@@ -58,11 +58,11 @@ function Actions({ data, isFavorite, setIsFavorite }) {
   return (
     <nav>
       <Button
-        data-testid="favorite-btn"
+        // data-testid="favorite-btn"
         onClick={ setAsFavorite }
       >
         <img
-          // data-testid="favorite-btn"
+          data-testid="favorite-btn"
           src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
           alt="heartIcon"
         />

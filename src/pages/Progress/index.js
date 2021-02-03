@@ -114,7 +114,7 @@ function Progress({ history, match: { params: { id } } }) {
     setMeasures(meas);
     setDone(don);
 
-    const favoriteRecipesArray = getItem('favoriteRecipes') || [];
+    const favoriteRecipesArray = getItem('favoriteRecipes');
     const isRecipeFavorite = favoriteRecipesArray
       .some((recipe) => recipe.id === id);
     if (isRecipeFavorite) setIsFavorite(true);
@@ -132,7 +132,7 @@ function Progress({ history, match: { params: { id } } }) {
   }, [api]);
 
   useEffect(() => {
-    if (api === '') return;
+    if (api === '' || result === {}) return;
     const doneIngredients = done
       .map((ing, index) => {
         if (ing === true) return index;
