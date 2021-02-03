@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { Row } from 'react-bootstrap';
 import { apiTheMealDB, apiTheCocktailDB } from '../services';
@@ -17,8 +18,11 @@ class CategorySelector extends React.Component {
 
   async componentDidMount() {
     const magicZero = 0;
-    const { mealRecipes } = this.props;
-    if (mealRecipes.length === magicZero) {
+    const { mealRecipes, drinkRecipes, location: { pathname } } = this.props;
+    if (mealRecipes.length === magicZero && pathname === '/comidas') {
+      await this.updateItems('All');
+    }
+    if (drinkRecipes.length === magicZero && pathname === '/bebidas') {
       await this.updateItems('All');
     }
     await this.getCategories();
@@ -119,14 +123,16 @@ const mapDispatchToProps = (dispatch) => ({
   sendMealRecipesDispatch: (e) => dispatch(sendMealRecipes(e)),
   sendDrinkRecipesDispatch: (e) => dispatch(sendDrinkRecipes(e)),
 });
-const mapStateToProps = ({ recipes: { mealRecipes } }) => (
-  { mealRecipes }
+const mapStateToProps = ({ recipes: { mealRecipes, drinkRecipes } }) => (
+  { mealRecipes, drinkRecipes }
 );
 CategorySelector.propTypes = {
   search: PropTypes.string.isRequired,
   sendMealRecipesDispatch: PropTypes.func.isRequired,
   sendDrinkRecipesDispatch: PropTypes.func.isRequired,
   mealRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  drinkRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  location: PropTypes.shape({ pathname: PropTypes.string.isRequired }).isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CategorySelector);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CategorySelector));
