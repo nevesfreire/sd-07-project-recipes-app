@@ -41,8 +41,6 @@ function EmProgesso({
   }, []);
 
   const [isEnded, setisEnded] = useState(false);
-  console.log('history', history);
-  console.log('route', id);
   console.log('obj', meals);
   if (!meals[0] || !drinks[0]) return <p>Carregando...</p>;
 
@@ -58,13 +56,18 @@ function EmProgesso({
 
   return (
     <div>
-      emprogresso
+      Em progresso:
       <FoodThumb
         detailed={ route === 'comidas' ? meals : drinks }
         route={ route }
         id={ id }
       />
-      <TodoList ingredients={ ingredients } setisEnded={ setisEnded } />
+      <TodoList
+        ingredients={ ingredients }
+        setisEnded={ setisEnded }
+        route={ route }
+        id={ id }
+      />
       <p data-testid="instructions">
         {route === 'comidas'
           ? meals[0].strInstructions
