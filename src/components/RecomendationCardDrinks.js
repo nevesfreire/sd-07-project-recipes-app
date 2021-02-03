@@ -1,6 +1,9 @@
 import React, { useEffect, useContext, useState } from 'react';
+import Slider from 'react-slick';
 import useFetch from '../hooks/useFetch';
 import RecipeContext from '../Context/Context';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 function RecomendationDrinkCard() {
   const { detailsRecipe, recomendations } = useContext(RecipeContext);
@@ -12,26 +15,39 @@ function RecomendationDrinkCard() {
 
   useEffect(() => {
     recipeRecomendationsAPI(type)
-    .then(() => setLoadingRecomendation(false));
+      .then(() => setLoadingRecomendation(false));
   }, []);
 
   if (loadingRecomendation) {
     return (<div>Loading...</div>);
   }
-  
-  const zero = 0;
-  const seis = 6;
-      
+
+  const settings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 2,
+  };
+
   return (
     <div>
-      {recomendations.meals.slice(zero, seis).map((recomendation, index) => (
-        <div data-testid={ `${index}-recomendation-card` }>
-          <li data-testid={ `${index}-recomendation-title` } key={ index }>{recomendation.strMeal}</li>
-        </div>
-      ))}
+      <Slider { ...settings }>
+        {recomendations.map((recomendation, index) => (
+          <div key={ index } data-testid={ `${index}-recomendation-card` }>
+            <div data-testid={ `${index}-recomendation-title` }>
+              { recomendation.strMeal }
+              <img
+                alt={ recomendation.strMeal }
+                src={ recomendation.strMealThumb }
+                data-testid="recipe-photo"
+              />
+            </div>
+          </div>
+        ))}
+      </Slider>
     </div>
   );
 }
 
 export default RecomendationDrinkCard;
-

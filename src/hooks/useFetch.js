@@ -4,6 +4,7 @@ import RecipeContext from '../Context/Context';
 function useFetch() {
   const zero = 0;
   const cinco = 5;
+  const seis = 6;
   const {
     setRecipes,
     setCategoriesFood,
@@ -117,12 +118,16 @@ function useFetch() {
     if (type === 'drinks') {
       const results = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
         .then((response) => response.json());
-      await setRecomendations(results);
+      const length6 = results.meals.slice(zero, seis);
+      console.log('length', length6);
+      await setRecomendations(length6);
     }
     if (type === 'meals') {
       const results = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
         .then((response) => response.json());
-      await setRecomendations(results);
+      const length6 = results.drinks.slice(zero, seis);
+      console.log('length', length6);
+      await setRecomendations(length6);
     }
   }
 
