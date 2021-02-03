@@ -1,18 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
-import "slick-carousel/slick/slick.css"; 
+import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { requestApiDrinkDetails } from '../services/requestDrink';
 import { recommendFoodsList } from '../services/requestFood';
+import { loadState } from '../services/localStorage';
 
 // https://github.com/tryber/sd-07-project-recipes-app/blob/main-group-23;
 // slick-carrousel;
 
+const filterIngredientsAndMeasures = (
+  detailsEntries,
+  filteredMeasures,
+  filteredIngredients,
+) => {
+  const ingredientRegex = /strIngredient/i;
+  const measureRegex = /strMeasure/i;
+
+  detailsEntries.forEach((currentArray) => {
+    if (ingredientRegex.test(currentArray[0]) && currentArray[1] !== null) {
+      filteredIngredients.push(currentArray[1]);
+    }
+    if (measureRegex.test(currentArray[0]) && currentArray[1] !== null) {
+      filteredMeasures.push(currentArray[1]);
+    }
+  });
+};
+
 function DetalhesBebidas({ match: { params: { id } } }) {
   const [drinkDetails, setDrinkDetails] = useState([]);
-  const [ingredientsAndMeasure, setIngredientsAndMeasure] = useState([]);
+  const [ingredientsAndMeasure, setIngredientsAndMeasures] = useState([]);
   const [recommendedForThisDrink, setRecommendedForThisDrink] = useState([]);
+  const [startRecipeButton, setStartRecipeButton] = useState('Iniciar Receita');
 
   const sliderSettings = {
     dots: true,
@@ -23,28 +44,20 @@ function DetalhesBebidas({ match: { params: { id } } }) {
   };
 
   const getIngredientsAndMeasure = () => {
-    const ingredientRegex = /strIngredient/i;
-    const measureRegex = /strMeasure/i;
     const detailsEntries = Object.entries(drinkDetails);
-    console.log(detailsEntries)
-    const filteredIngredients = [];
-    const filteredMeasure = [];
     const expectedArray = [];
+    const filteredIngredients = [];
+    const filteredMeasures = [];
 
-    detailsEntries.forEach((currentArray) => {
-      if (ingredientRegex.test(currentArray[0]) && currentArray[1] !== null) {
-        filteredIngredients.push(currentArray[1]);
-      }
-      if (measureRegex.test(currentArray[0]) && currentArray[1] !== null) {
-        filteredMeasure.push(currentArray[1]);
-      }
+    filterIngredientsAndMeasures(detailsEntries, filteredMeasures, filteredIngredients);
+
+    filteredIngredients.forEach((ingredient, index) => {
+      expectedArray.push(`${ingredient} ${
+        filteredMeasures[index] ? filteredMeasures[index] : ''
+      }`);
     });
 
-    filteredMeasure.forEach((measure, index) => {
-      expectedArray.push(`${filteredIngredients[index]} ${measure}`);
-    });
-
-    setIngredientsAndMeasure(expectedArray);
+    setIngredientsAndMeasures(expectedArray);
   };
 
   const getTheRecommendedFood = async () => {
@@ -57,9 +70,19 @@ function DetalhesBebidas({ match: { params: { id } } }) {
     }
   };
 
+  const setStateOfStartRecipe = () => {
+    if (localStorage.getItem('inProgressRecipes')) {
+      const loadStorage = loadState('inProgressRecipes', '');
+      if (loadStorage.cocktails[id] !== undefined) {
+        setStartRecipeButton('Continuar Receita');
+      }
+    }
+  };
+
   useEffect(() => {
     getIngredientsAndMeasure();
     getTheRecommendedFood();
+    setStateOfStartRecipe();
   }, [drinkDetails]);
 
   const callMainApi = async () => {
@@ -131,6 +154,16 @@ function DetalhesBebidas({ match: { params: { id } } }) {
             ))
           }
         </Slider>
+      </div>
+      <div>
+        <Link to={ `bebidas/${id}/in-progress` }>
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+          >
+            { startRecipeButton }
+          </button>
+        </Link>
       </div>
     </div>
   );

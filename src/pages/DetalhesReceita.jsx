@@ -1,16 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
-import "slick-carousel/slick/slick.css"; 
+import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { loadState } from '../services/localStorage';
 import { requestApiFoodDetails } from '../services/requestFood';
 import { recommendDrinksList } from '../services/requestDrink';
+
+const filteredIngredientsAndMeasures = (
+  detailsEntries,
+  filteredIngredients,
+  filteredMeasures,
+) => {
+  const ingredientRegex = /strIngredient/i;
+  const measureRegex = /strMeasure/i;
+
+  detailsEntries.forEach((currentArray) => {
+    if (ingredientRegex.test(currentArray[0]) && currentArray[1].trim() !== '') {
+      filteredIngredients.push(currentArray[1]);
+    }
+
+    if (measureRegex.test(currentArray[0]) && currentArray[1].trim() !== '') {
+      filteredMeasures.push(currentArray[1]);
+    }
+  });
+};
 
 function DetalhesReceitas({ match: { params: { id } } }) {
   const [foodDetails, setFoodDetails] = useState([]);
   const [ingredientsAndMeasure, setIngredientsAndMeasure] = useState([]);
   const [videoLink, setVideoLink] = useState('');
   const [recommendedForThisFood, setRecommendedForThisFood] = useState([]);
+  const [startRecipeButton, setStartRecipeButton] = useState('Iniciar Receita');
 
   const sliderSettings = {
     dots: true,
@@ -23,24 +45,14 @@ function DetalhesReceitas({ match: { params: { id } } }) {
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trim
 
   const getIngredientsAndMeasure = () => {
-    const ingredientRegex = /strIngredient/i;
-    const measureRegex = /strMeasure/i;
     const detailsEntries = Object.entries(foodDetails);
     const filteredIngredients = [];
-    const filteredMeasure = [];
+    const filteredMeasures = [];
     const expectedArray = [];
 
-    detailsEntries.forEach((currentArray) => {
-      if (ingredientRegex.test(currentArray[0]) && currentArray[1].trim() !== '') {
-        filteredIngredients.push(currentArray[1]);
-      }
+    filteredIngredientsAndMeasures(detailsEntries, filteredIngredients, filteredMeasures);
 
-      if (measureRegex.test(currentArray[0]) && currentArray[1].trim() !== '') {
-        filteredMeasure.push(currentArray[1]);
-      }
-    });
-
-    filteredMeasure.forEach((measure, index) => {
+    filteredMeasures.forEach((measure, index) => {
       expectedArray.push(`${filteredIngredients[index]} ${measure}`);
     });
 
@@ -49,7 +61,7 @@ function DetalhesReceitas({ match: { params: { id } } }) {
 
   const getVideoLink = () => {
     if (foodDetails.strYoutube) {
-      console.log(foodDetails.strYoutube)
+      console.log(foodDetails.strYoutube);
       const splitLink = foodDetails.strYoutube.split('=');
       const endOfLink = splitLink[splitLink.length - 1];
       const expectedLink = `https://www.youtube.com/embed/${endOfLink}`;
@@ -67,10 +79,20 @@ function DetalhesReceitas({ match: { params: { id } } }) {
     }
   };
 
+  const setStateOfStartRecipe = () => {
+    if (localStorage.getItem('inProgressRecipes')) {
+      const loadStorage = loadState('inProgressRecipes', '');
+      if (loadStorage.meals[id] !== undefined) {
+        setStartRecipeButton('Continuar Receita');
+      }
+    }
+  };
+
   useEffect(() => {
     getIngredientsAndMeasure();
     getVideoLink();
     getTheRecommendedDrinks();
+    setStateOfStartRecipe();
   }, [foodDetails]);
 
   const callMainApi = async () => {
@@ -138,26 +160,36 @@ function DetalhesReceitas({ match: { params: { id } } }) {
         fs="1"
       />
       <div>
-      <Slider { ...sliderSettings }>
-        {
-          recommendedForThisFood.map((drink, index) => (
-            <div
-              key={ drink }
-              data-testid={ `${index}-recomendation-card` }
-            >
-              <div>
-                <img
-                  src={ drink.strDrinkThumb }
-                  alt={ drink.strDrinkThumb }
-                />
-                <h3 data-testid={ `${index}-recomendation-title` }>
-                  { drink.strDrink }
-                </h3>
+        <Slider { ...sliderSettings }>
+          {
+            recommendedForThisFood.map((drink, index) => (
+              <div
+                key={ drink }
+                data-testid={ `${index}-recomendation-card` }
+              >
+                <div>
+                  <img
+                    src={ drink.strDrinkThumb }
+                    alt={ drink.strDrinkThumb }
+                  />
+                  <h3 data-testid={ `${index}-recomendation-title` }>
+                    { drink.strDrink }
+                  </h3>
+                </div>
               </div>
-            </div>
-          ))
-        }
-      </Slider>
+            ))
+          }
+        </Slider>
+      </div>
+      <div>
+        <Link to={ `comidas/${id}/in-progress` }>
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+          >
+            { startRecipeButton }
+          </button>
+        </Link>
       </div>
     </div>
   );
