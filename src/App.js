@@ -11,6 +11,7 @@ import ExplorePage from './Pages/ExplorePage';
 import FoodInProgress from './Pages/FoodInProgress';
 import DrinksInProgress from './Pages/DrinksInProgress';
 import RecipesMade from './Pages/RecipesMade';
+import FavoritesRecipes from './Pages/FavoritesRecipes';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Route path="/perfil" component={ Profile } />
           <Route path="/bebidas" component={ DrinksRecipes } />
           <Route path="/explorar" component={ ExplorePage } />
+          <Route path="/comidas-favoritas" component={ FavoritesRecipes } />
 
         </Switch>
       </RecipeProvider>
