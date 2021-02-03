@@ -4,8 +4,14 @@ import PropTypes from 'prop-types';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import { RecomendationCard } from '../../components';
+import { getSpecificDrinkById } from '../../store/ducks/getDetailedDrink/actions';
 
 class TelaDetalheBebida extends Component {
+  async componentDidMount() {
+    const { match: { params: { id } } } = this.props;
+    const { getDetailedDrinkDispatch } = this.props;
+    await getDetailedDrinkDispatch(id);
+  }
 
   handleIngredients(drink) {
     const drinkArray = Object.entries(drink[0]);
@@ -76,8 +82,18 @@ const mapStateToProps = (state) => ({
   drinkDetailStore: state.detalhesDaReceitaBebida.drink.drinks,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  getDetailedDrinkDispatch: (id) => dispatch(getSpecificDrinkById(id)),
+});
+
 TelaDetalheBebida.propTypes = {
   drinkDetailStore: PropTypes.arrayOf(PropTypes.Object).isRequired,
+  getDetailedDrinkDispatch: PropTypes.func.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
-export default connect(mapStateToProps, null)(TelaDetalheBebida);
+export default connect(mapStateToProps, mapDispatchToProps)(TelaDetalheBebida);

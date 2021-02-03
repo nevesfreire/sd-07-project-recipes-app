@@ -7,6 +7,12 @@ import { RecomendationCard } from '../../components';
 import { getSpecificMealById } from '../../store/ducks/getDetailedMeal/actions';
 
 class TelaDetalheComida extends Component {
+  async componentDidMount() {
+    const { match: { params: { id } } } = this.props;
+    const { getDetailedMealDispatch } = this.props;
+    await getDetailedMealDispatch(id);
+  }
+
   handleIngredients(meal) {
     const drinkArray = Object.entries(meal[0]);
     const ingredientsArray = drinkArray.filter((element) => (
@@ -26,6 +32,7 @@ class TelaDetalheComida extends Component {
   renderDetails(meal) {
     const ingredientsArray = this.handleIngredients(meal);
     const measuresArray = this.handleMeasure(meal);
+    console.log(this.props);
 
     return (
       <>
@@ -67,12 +74,18 @@ class TelaDetalheComida extends Component {
     if (meal) {
       return this.renderDetails(meal);
     }
-    return null;
+    return <div>teste</div>;
   }
 }
 
 TelaDetalheComida.propTypes = {
   meal: PropTypes.arrayOf(PropTypes.Object).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+  getDetailedMealDispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

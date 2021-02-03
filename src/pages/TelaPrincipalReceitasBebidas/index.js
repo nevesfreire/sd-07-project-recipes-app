@@ -7,7 +7,6 @@ import {
   loadDrinks,
   loadDrinksCategories,
 } from '../../store/ducks/receitasDeBebidas/actions';
-import { getSpecificDrinkById } from '../../store/ducks/getDetailedDrink/actions';
 
 class TelaPrincipalReceitasBebidas extends Component {
   async componentDidMount() {
@@ -17,8 +16,7 @@ class TelaPrincipalReceitasBebidas extends Component {
   }
 
   handlePagerediRection(item) {
-    const { getDetailedDrinkDispatch, history } = this.props;
-    getDetailedDrinkDispatch(item.idDrink);
+    const { history } = this.props;
     history.push(`/bebidas/${item.idDrink}`);
   }
 
@@ -96,7 +94,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   loadDrinksDispatch: () => dispatch(loadDrinks()),
   getCategoriesDispatch: () => dispatch(loadDrinksCategories()),
-  getDetailedDrinkDispatch: (id) => dispatch(getSpecificDrinkById(id)),
 });
 
 TelaPrincipalReceitasBebidas.propTypes = {
@@ -104,7 +101,6 @@ TelaPrincipalReceitasBebidas.propTypes = {
   drinksStore: PropTypes.objectOf(PropTypes.string).isRequired,
   loadDrinksDispatch: PropTypes.func.isRequired,
   getCategoriesDispatch: PropTypes.func.isRequired,
-  getDetailedDrinkDispatch: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,

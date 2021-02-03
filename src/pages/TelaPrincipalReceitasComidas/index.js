@@ -17,9 +17,7 @@ class TelaPrincipalReceitasComidas extends Component {
   }
 
   async handlePagerediRection(item) {
-    const { getDetailedMealDispatch, history } = this.props;
-    await getDetailedMealDispatch(item.idMeal);
-    // const { history } = this.props;
+    const { history } = this.props;
     history.push(`/comidas/${item.idMeal}`);
   }
 
@@ -114,7 +112,6 @@ TelaPrincipalReceitasComidas.propTypes = {
   mealsStore: PropTypes.objectOf(PropTypes.string).isRequired,
   loadMealsDispatch: PropTypes.func.isRequired,
   getCategoriesDispatch: PropTypes.func.isRequired,
-  getDetailedMealDispatch: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
