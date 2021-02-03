@@ -3,7 +3,7 @@ import { Form, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 import { Context } from '../../context/Provider';
-import fetchApi from '../../services/api';
+import { fetchApi } from '../../services/api';
 
 function SearchBar({ history }) {
   const { api, setResults, setIsFetching } = useContext(Context);
@@ -14,7 +14,6 @@ function SearchBar({ history }) {
     e.preventDefault();
     const data = await fetchApi(search, filter, api);
     if (!data) return;
-    console.log(data);
     if (data.length === 1) {
       if (api === 'meal') history.push(`/comidas/${data[0].idMeal}`);
       else history.push(`/bebidas/${data[0].idDrink}`);

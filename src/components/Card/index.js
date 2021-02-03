@@ -1,7 +1,6 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Context } from '../../context/Provider';
 
 function Card({
   data: {
@@ -10,31 +9,31 @@ function Card({
     img,
   },
   index,
+  pathname,
 }) {
-  const { api } = useContext(Context);
-  const [path, setPath] = useState('');
-  useEffect(() => {
-    if (api === 'meal') {
-      setPath('comidas');
-    } else {
-      setPath('bebidas');
-    }
-  }, [api]);
+  const [shouldRedirect, setShouldRedirect] = useState(false);
+  if (shouldRedirect) {
+    return <Redirect to={ `${pathname}/${id}` } />;
+  }
+
   return (
-    <article data-testid={ `${index}-recipe-card` }>
+    <button
+      type="button"
+      data-testid={ `${index}-recipe-card` }
+      onClick={ () => setShouldRedirect(true) }
+    >
       <header>
-        <Link to={ `/${path}/${id}` }>
-          <img
-            data-testid={ `${index}-card-img` }
-            alt="thumbnail"
-            src={ img }
-          />
-        </Link>
+        <img
+          data-testid={ `${index}-card-img` }
+          alt="thumbnail"
+          src={ img }
+          width="100px"
+        />
       </header>
       <main>
         <p data-testid={ `${index}-card-name` }>{name}</p>
       </main>
-    </article>
+    </button>
   );
 }
 
@@ -45,6 +44,7 @@ Card.propTypes = {
     img: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
   }).isRequired,
+  pathname: PropTypes.string.isRequired,
 };
 
 export default Card;
