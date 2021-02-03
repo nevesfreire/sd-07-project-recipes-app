@@ -38,10 +38,7 @@ const Details = ({ type, recipe, recommend, ingredientes, id, medidas }) => {
 
   const handleCopy = () => {
     setCopied(true);
-    // const timeToFade = 2000;
-
     navigator.clipboard.writeText(`http://localhost:3000/${type}s/${id}`);
-    // setTimeout(() => setCopied(false), timeToFade);
   };
 
   return (
