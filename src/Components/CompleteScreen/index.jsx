@@ -20,13 +20,25 @@ const CompleteScreen = () => {
 
   return (
     <>
-      <button type="button" data-testid="filter-by-all-btn" onClick={ () => setFilter('') }>
+      <button
+        type="button"
+        data-testid="filter-by-all-btn"
+        onClick={ () => setFilter('') }
+      >
         All
       </button>
-      <button type="button" data-testid="filter-by-food-btn" onClick={ () => setFilter('comida') }>
+      <button
+        type="button"
+        data-testid="filter-by-food-btn"
+        onClick={ () => setFilter('comida') }
+      >
         Food
       </button>
-      <button type="button" data-testid="filter-by-drink-btn" onClick={ () => setFilter('bebida') }>
+      <button
+        type="button"
+        data-testid="filter-by-drink-btn"
+        onClick={ () => setFilter('bebida') }
+      >
         Drinks
       </button>
       {arrFilter.map((elem, index) => (
