@@ -121,8 +121,8 @@ export default function DrinkDetails(props) {
   );
 
   const fetchDrinks = async () => {
-    const path = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=178319';
-    // const path = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+    // const path = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=178319';
+    const path = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
     const response = await fetch(path);
     // console.log(response)
     const result = await response.json();

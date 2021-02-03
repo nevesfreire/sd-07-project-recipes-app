@@ -15,7 +15,6 @@ import {
   unLikeRecipe,
   setLikeImage,
   saveFavoriteRecipe,
-  fetchRecommendations,
 } from '../components/func_details';
 
 export default function FoodDetails(props) {
@@ -38,8 +37,8 @@ export default function FoodDetails(props) {
   const carouselPartition = 3;
 
   const fetchRecipe = async () => {
-    const path = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=52771';
-    // const path = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+    // const path = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=52771';
+    const path = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
     const getRecipe = await fetch(path);
     const result = await getRecipe.json();
     // console.log(result); chave meals interesse
@@ -50,6 +49,27 @@ export default function FoodDetails(props) {
     setRecipeArea(result.meals[0].strArea);
     videoMount(setRecipeVideo, result);
     ingredientsMount(setRecipeIngredients, result);
+  };
+
+  const fetchRecommendations = async () => {
+    const path = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+    const getRecipe = await fetch(path);
+    const result = await getRecipe.json();
+    // console.log(result) // chave drinks é o interesse Array(25)
+    const maximumRecommendations1 = 3;
+    const maximumRecommendations2 = 6;
+    const getRecommendations1 = result.drinks.filter(
+      (recommendation, index) => index < maximumRecommendations1 && recommendation,
+    );
+    // console.log(getRecommendations1) //array 3 objetos ok
+    const getRecommendations2 = result.drinks.filter(
+      (recommendation, index) => index >= maximumRecommendations1
+      && index < maximumRecommendations2
+      && recommendation,
+    );
+    // console.log(getRecommendations2) array 3 objetos ok
+    setRecommendations1(getRecommendations1);
+    setRecommendations2(getRecommendations2);
   };
 
   const handleImage = () => {
@@ -96,7 +116,7 @@ export default function FoodDetails(props) {
   useEffect(() => {
     setTitle('Food Details');
     fetchRecipe();
-    fetchRecommendations(setRecommendations1, setRecommendations2);
+    fetchRecommendations();
     setButtonTitle(setBtnTitle, id);
     setLikeImage(setBtnImg, id, fullLikeIcon, likeIcon);
   }, []);

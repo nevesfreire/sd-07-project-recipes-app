@@ -113,28 +113,6 @@ export const unLikeRecipe = (valueId) => {
   localStorage.setItem('favoriteRecipes', JSON.stringify(unSave));
 };
 
-export const fetchRecommendations = async (
-  fnSetRecommendations1, fnSetRecommendations2) => {
-  const path = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
-  const getRecipe = await fetch(path);
-  const result = await getRecipe.json();
-  // console.log(result) // chave drinks é o interesse Array(25)
-  const maximumRecommendations1 = 3;
-  const maximumRecommendations2 = 6;
-  const getRecommendations1 = result.drinks.filter(
-    (recommendation, index) => index < maximumRecommendations1 && recommendation,
-  );
-  // console.log(getRecommendations1) //array 3 objetos ok
-  const getRecommendations2 = result.drinks.filter(
-    (recommendation, index) => index >= maximumRecommendations1
-    && index < maximumRecommendations2
-    && recommendation,
-  );
-  // console.log(getRecommendations2) array 3 objetos ok
-  fnSetRecommendations1(getRecommendations1);
-  fnSetRecommendations2(getRecommendations2);
-};
-
 export const fetchRecommendationsMeals = async (
   fnSetRecommendations1,
   fnSetRecommendations2) => {
