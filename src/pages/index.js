@@ -7,6 +7,8 @@ import DrinkDetails from './DrinkDetails';
 import FoodDetails from './FoodDetails';
 import DrinkProgress from './DrinkProgress';
 import FoodProgress from './FoodProgress';
+import DrinkExplore from './DrinkExplore';
+import FoodExplore from './FoodExplore';
 
 export {
   Explore,
@@ -18,4 +20,6 @@ export {
   FoodDetails,
   DrinkProgress,
   FoodProgress,
+  DrinkExplore,
+  FoodExplore,
 };
