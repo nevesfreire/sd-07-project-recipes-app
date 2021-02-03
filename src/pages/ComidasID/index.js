@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
@@ -6,8 +6,14 @@ import ReactPlayer from 'react-player';
 
 import Recommended from './Recommended';
 import FoodThumb from '../../components/FoodThumb';
-import { fetchFoodById, fetchFoodByName } from '../../redux/actions/foodActions';
-import { fetchCocktailByName, fetchCocktailById } from '../../redux/actions/drinkActions';
+import {
+  fetchFoodById,
+  fetchFoodByName,
+} from '../../redux/actions/foodActions';
+import {
+  fetchCocktailByName,
+  fetchCocktailById,
+} from '../../redux/actions/drinkActions';
 import './styles.css';
 
 function ComidasID({
@@ -18,10 +24,18 @@ function ComidasID({
   fetchDrinkID,
   fetchMeals,
 }) {
+  const [winSize, setWinSize] = useState(document.documentElement.clientWidth);
+  const updateSize = () => {
+    setWinSize(document.documentElement.clientWidth);
+  };
+  window.addEventListener('resize', updateSize);
+
   const { route, id } = useParams();
 
   const nine = 9;
   const twoOne = 21;
+  const size = 2;
+  const multiplyer = 1.777777777778;
 
   let detailed;
   let suggestions;
@@ -38,7 +52,7 @@ function ComidasID({
     }
   }, []);
 
-  if (!meals[0] || !drinks[0]) return (<p>Carregando...</p>);
+  if (!meals || !drinks || !meals[0] || !drinks[0]) return <p>Carregando...</p>;
 
   if (route === 'comidas') {
     detailed = meals;
@@ -55,44 +69,51 @@ function ComidasID({
   return (
     <div>
       <FoodThumb detailed={ detailed } route={ route } id={ id } />
-      <ul>
-        Ingredientes:
-        {Object.keys(detailed[0]).map((key, index) => {
-          const ingredientIndex = key.match(/(\d+)/);
-          if (detailed[0][key] && key.includes('strIngredient')) {
-            const measure = `strMeasure${ingredientIndex[0]}`;
-            return (
-              <li
-                key={ `measure-${index}` }
-                data-testid={ `${index - indexDiff}-ingredient-name-and-measure` }
-              >
-                {`${detailed[0][key]} - ${detailed[0][measure]}`}
-              </li>
-            );
-          }
-          return null;
-        })}
-      </ul>
-      <p data-testid="instructions">{ detailed[0].strInstructions }</p>
+      <div className="ala">
+        <ul>
+          Ingredientes:
+          {Object.keys(detailed[0]).map((key, index) => {
+            const ingredientIndex = key.match(/(\d+)/);
+            if (detailed[0][key] && key.includes('strIngredient')) {
+              const measure = `strMeasure${ingredientIndex[0]}`;
+              return (
+                <li
+                  key={ `measure-${index}` }
+                  data-testid={ `${
+                    index - indexDiff
+                  }-ingredient-name-and-measure` }
+                >
+                  {`${detailed[0][key]} - ${detailed[0][measure]}`}
+                </li>
+              );
+            }
+            return null;
+          })}
+        </ul>
+        <p data-testid="instructions">{detailed[0].strInstructions}</p>
 
-      {video && <ReactPlayer
-        className="video"
-        width="340px"
-        data-testid="video"
-        url={ detailed[0].strYoutube }
-      />}
+        {video && (
+          <ReactPlayer
+            className="video"
+            height={ `${winSize / size}px` }
+            width={ `${(winSize / size) * multiplyer}px` }
+            data-testid="video"
+            url={ detailed[0].strYoutube }
+          />
+        )}
 
-      <Recommended suggestions={ suggestions } />
-      <p>
-        <Link
-          to={ `/${route}/${id}/in-progress` }
-          className="start-recipe-btn"
-          data-testid="start-recipe-btn"
-        >
-          Iniciar Receita
-          {/** esse botão desaparece caso receita já tenha sido feita */}
-        </Link>
-      </p>
+        <Recommended suggestions={ suggestions } />
+        <p>
+          <Link
+            to={ `/${route}/${id}/in-progress` }
+            className="start-recipe-btn"
+            data-testid="start-recipe-btn"
+          >
+            Iniciar Receita
+            {/** esse botão desaparece caso receita já tenha sido feita */}
+          </Link>
+        </p>
+      </div>
     </div>
   );
 }

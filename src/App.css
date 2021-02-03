@@ -5,8 +5,8 @@
   padding: 0;
 }
 
-body{
-  background: #F2F5FA;
+body {
+  background: #f2f5fa;
 }
 
 .meals {
@@ -17,6 +17,26 @@ body{
   height: 100vh;
   justify-content: center;
   width: 100%;
+}
+
+.loader {
+  animation: spin 0.5s linear infinite;
+  border: 16px solid #f2f5fa;
+  border-radius: 50%;
+  border-top: 8px solid #b3c6f1;
+  height: 90px;
+  width: 90px;
+}
+
+@keyframes spin {
+
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* .rocksGlass {

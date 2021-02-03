@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Footer from '../../components/Footer/index';
 import {
   fetchFoodByName,
@@ -16,22 +16,27 @@ function Comidas(props) {
   const [categories, setCategories] = useState([]);
   const [currentCategory, setCurrentCategory] = useState('');
   const [isSearchBarVisible, setIsSearchBarVisible] = useState(false);
-  const history = useHistory();
 
   function renderMeals() {
     const INITIAL_RETURN = 0;
     const MAX_RETURN = 12;
     const { foods } = props;
     const { meals, isFetching } = foods;
-    if (isFetching) return <div>Loading...</div>;
+    if (isFetching) {
+      return (
+        <div className="container-drinks">
+          <div className="loader" />
+        </div>
+      );
+    }
     if (meals === null) {
       return alert(
         'Sinto muito, não encontramos nenhuma receita para esses filtros.',
       );
     }
-    if (meals.length === 1) {
-      history.push(`/comidas/${meals[0].idMeal}`);
-    }
+    // if (meals.length === 1) {
+    //   history.push(`/comidas/${meals[0].idMeal}`);
+    // }
     const comida = meals.slice(INITIAL_RETURN, MAX_RETURN);
     return (
       <div className="container-foods">
@@ -47,7 +52,9 @@ function Comidas(props) {
               src={ item.strMealThumb }
               alt={ item.strMeal }
             />
-            <div data-testid={ `${index}-card-name` } className="df-name">{item.strMeal}</div>
+            <div data-testid={ `${index}-card-name` } className="df-name">
+              {item.strMeal}
+            </div>
           </Link>
         ))}
       </div>
@@ -123,7 +130,6 @@ function Comidas(props) {
       {isSearchBarVisible && <SearchBar foodType="comidas" />}
       {renderCategories()}
       {renderMeals()}
-
       <Footer />
     </div>
   );

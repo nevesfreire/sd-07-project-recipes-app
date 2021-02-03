@@ -1,24 +1,46 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import './styles.css';
 import {
   fetchFoodByIngredient,
   fetchFoodByName,
   fetchFoodByFirstLetter,
+  addFood,
 } from '../../redux/actions/foodActions';
 import {
   fetchCocktailByIngredient,
   fetchCocktailByName,
   fetchCocktailByFirstLetter,
+  addCocktail,
 } from '../../redux/actions/drinkActions';
 
-function SearchBar({ foodType, fi, fn, fl, ci, cn, cl }) {
+function SearchBar({ foodType, fi, fl, ci, cl, addDrinks, addMeals }) {
   const [type, setType] = useState('ingredient');
   const [searchTerm, setSearchTerm] = useState('');
   useEffect(() => {
-    console.log(type, searchTerm);
   }, [type, searchTerm]);
+
+  const history = useHistory();
+
+  const handleMealSearch = async () => {
+    const res = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchTerm}`);
+    const jsonRes = await res.json();
+    addMeals(jsonRes);
+    if (jsonRes.meals.length === 1) {
+      history.push(`/comidas/${jsonRes.meals[0].idMeal}`);
+    }
+  };
+
+  const handleDrinkSearch = async () => {
+    const res = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchTerm}`);
+    const jsonRes = await res.json();
+    addDrinks(jsonRes);
+    if (jsonRes.drinks.length === 1) {
+      history.push(`/bebidas/${jsonRes.drinks[0].idDrink}`);
+    }
+  };
 
   const handleStore = () => {
     if (foodType === 'comidas') {
@@ -27,7 +49,7 @@ function SearchBar({ foodType, fi, fn, fl, ci, cn, cl }) {
         fi(searchTerm);
         break;
       case 'name':
-        fn(searchTerm);
+        handleMealSearch();
         break;
       case 'primLetra':
         if (searchTerm.length > 1) {
@@ -47,7 +69,7 @@ function SearchBar({ foodType, fi, fn, fl, ci, cn, cl }) {
         ci(searchTerm);
         break;
       case 'name':
-        cn(searchTerm);
+        handleDrinkSearch();
         break;
       case 'primLetra':
         if (searchTerm.length > 1) {
@@ -121,10 +143,10 @@ function SearchBar({ foodType, fi, fn, fl, ci, cn, cl }) {
 SearchBar.propTypes = {
   ci: PropTypes.func.isRequired,
   cl: PropTypes.func.isRequired,
-  cn: PropTypes.func.isRequired,
   fi: PropTypes.func.isRequired,
   fl: PropTypes.func.isRequired,
-  fn: PropTypes.func.isRequired,
+  addDrinks: PropTypes.func.isRequired,
+  addMeals: PropTypes.func.isRequired,
   foodType: PropTypes.string.isRequired,
 };
 
@@ -143,6 +165,8 @@ const mapDispatchToProps = {
   ci: fetchCocktailByIngredient,
   cn: fetchCocktailByName,
   cl: fetchCocktailByFirstLetter,
+  addMeals: addFood,
+  addDrinks: addCocktail,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

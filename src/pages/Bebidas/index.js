@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Footer from '../../components/Footer/index';
 import Header from '../../components/Header';
 import SearchBar from '../../components/SearchBar';
@@ -16,14 +16,19 @@ function Bebidas(props) {
   const [categories, setCategories] = useState([]);
   const [currentCategory, setCurrentCategory] = useState('');
   const [isSearchBarVisible, setIsSearchBarVisible] = useState(false);
-  const history = useHistory();
 
   function renderDrinks() {
     const INITIAL_RETURN = 0;
     const MAX_RETURN = 12;
     const { drinks } = props;
     const { cocktails, isFetching } = drinks;
-    if (isFetching) return <div>Loading...</div>;
+    if (isFetching) {
+      return (
+        <div className="container-drinks">
+          <div className="loader" />
+        </div>
+      );
+    }
     if (cocktails === undefined) {
       return <p>wtf</p>;
     }
@@ -32,9 +37,9 @@ function Bebidas(props) {
         'Sinto muito, não encontramos nenhuma receita para esses filtros.',
       );
     }
-    if (cocktails.length === 1) {
-      history.push(`/bebidas/${cocktails[0].idDrink}`);
-    }
+    // if (cocktails.length === 1) {
+    //   history.push(`/bebidas/${cocktails[0].idDrink}`);
+    // }
 
     console.log(cocktails);
     const cocktail = cocktails.slice(INITIAL_RETURN, MAX_RETURN);
