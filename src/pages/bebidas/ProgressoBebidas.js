@@ -36,9 +36,7 @@ export default class ProgressoBebidas extends React.Component {
 
   async copyClipboard() {
     try {
-      console.log('copy clipboard');
       await navigator.clipboard.writeText(window.location.href);
-      console.log('copy clipboard write done');
       this.setState({
         copyClipboard: window.location.href,
       });
@@ -77,7 +75,6 @@ export default class ProgressoBebidas extends React.Component {
 
   render() {
     const { recipe, copyClipboard, isFavorite } = this.state;
-    console.log(recipe);
     return (
       <div>
         <img
