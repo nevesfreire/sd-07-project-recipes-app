@@ -5,24 +5,11 @@ import RecipeContext from '../context/RecipeContext';
 function SearchHeaderBar() {
   const [valueInput, setValueInput] = useState();
   const [valueRadio, setValueRadio] = useState();
-  const { location: { pathname }, push } = useHistory();
-  const { data, setData, getApi } = useContext(RecipeContext);
-
-  if (data.drink === null || data.food === null) {
-    return false;
-  }
+  const { location: { pathname } } = useHistory();
+  const { getApi } = useContext(RecipeContext);
 
   return (
-    <div>
-      {
-        data.drink === null && setData({ ...data, drink: [] })
-      }
-      {
-        (data.food.length === 1) && push(`/comidas/${data.food[0].idMeal}`)
-      }
-      {
-        (data.drink.length === 1) && push(`/bebidas/${data.drink[0].idDrink}`)
-      }
+    <div className="search-bar">
       <div>
         <label htmlFor="search-input">
           <input
