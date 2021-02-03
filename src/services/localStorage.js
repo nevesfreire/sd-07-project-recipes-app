@@ -14,29 +14,31 @@ const LS_KEYS = {
 
 export const loadState = (state) => {
   try {
-    Object.keys(LS_KEYS).forEach((KEY) => {
+    Object.values(LS_KEYS).forEach((KEY) => {
       const serializedStateKey = localStorage.getItem(KEY);
       const resultStateKey = JSON.parse(serializedStateKey);
       switch (KEY) {
-      case 'USER_KEY':
+      case LS_KEYS.USER_KEY:
         state.auth.user.email = resultStateKey ? resultStateKey.email : '';
         break;
-      case 'MEALS_TOKEN_KEY':
+      case LS_KEYS.MEALS_TOKEN_KEY:
         state.recipes.mealsToken = resultStateKey || 1;
         break;
-      case 'COCKTAILS_TOKEN_KEY':
+      case LS_KEYS.COCKTAILS_TOKEN_KEY:
         state.recipes.cocktailsToken = resultStateKey || 1;
         break;
-      case 'DONE_RECIPES_KEY':
+      case LS_KEYS.DONE_RECIPES_KEY:
         state.recipes.doneRecipes = resultStateKey || [];
         break;
-      case 'FAVORITE_RECIPES_KEY':
+      case LS_KEYS.FAVORITE_RECIPES_KEY:
         state.recipes.favoriteRecipes = resultStateKey || [];
         break;
-      case 'IN_PROGRESS_RECIPES_KEY':
+      case LS_KEYS.IN_PROGRESS_RECIPES_KEY:
         if (resultStateKey !== null) {
-          state.inProgressRecipes.cocktails = resultStateKey.cocktails || {};
-          state.inProgressRecipes.meals = resultStateKey.meals || {};
+          state.recipes.inProgressRecipes.cocktails = {
+            ...resultStateKey.cocktails } || {};
+          state.recipes.inProgressRecipes.meals = {
+            ...resultStateKey.meals } || {};
         }
         break;
       default:
