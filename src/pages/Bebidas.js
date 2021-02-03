@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import Header from '../components/Header';
 import CardList from '../components/CardList';
 import Footer from '../components/Footer';
@@ -24,37 +24,12 @@ function Bebidas() {
   const noFindRecipe = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
   const magicNumberZero = 0;
-
+  const location = useLocation();
   const history = useHistory();
 
   const redirectToDetails = () => {
     if (dataToRender.length === 1) history.push(`/bebidas/${dataToRender[0].idDrink}`);
   };
-
-  const getGlobalDrinkData = async () => {
-    const data = await fetchGlobalDrink();
-    setGlobalDrink(data);
-  };
-
-  const getCategoriesDrinkData = async () => {
-    const data = await fetchDrinkCategory();
-    setDrinkCategories(data);
-  };
-
-  useEffect(() => {
-    getGlobalDrinkData();
-    getCategoriesDrinkData();
-  }, []);
-
-  useEffect(() => {
-    async function getDrinksByCategory() {
-      const data = await fetchDrinkByCategory(category);
-      const dataDrinks = data;
-      if (dataDrinks.length > magicNumberZero) setFilteredByCategory(dataDrinks);
-    }
-
-    getDrinksByCategory();
-  }, [category]);
 
   const getEndPointAndFetch = async () => {
     setFilteredByCategory([]);
@@ -86,6 +61,43 @@ function Bebidas() {
     }
     }
   };
+
+  const getGlobalDrinkData = async () => {
+    const data = await fetchGlobalDrink();
+    setGlobalDrink(data);
+  };
+
+  const getCategoriesDrinkData = async () => {
+    const data = await fetchDrinkCategory();
+    setDrinkCategories(data);
+  };
+
+  useEffect(() => {
+    getEndPointAndFetch();
+  }, [typeOfFetch]);
+  useEffect(() => {
+    function getWhatToRender() {
+      if (location.state !== undefined) {
+        setValueToFetch(location.state);
+        setFetch('ingredient');
+      } else {
+        console.log('entrou no else');
+        getGlobalDrinkData();
+      }
+    }
+    getWhatToRender();
+    getCategoriesDrinkData();
+  }, []);
+
+  useEffect(() => {
+    async function getDrinksByCategory() {
+      const data = await fetchDrinkByCategory(category);
+      const dataDrinks = data;
+      if (dataDrinks.length > magicNumberZero) setFilteredByCategory(dataDrinks);
+    }
+
+    getDrinksByCategory();
+  }, [category]);
 
   useEffect(() => {
     const dataToRenderFunction = () => {
