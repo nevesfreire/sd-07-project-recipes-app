@@ -1,30 +1,30 @@
 import React, { useContext } from 'react';
 import { Input, Button } from '@material-ui/core';
 import context from '../contextAPI/context';
-// import UseChange from '../helpers/useChanges';
+import stateChanges from '../helpers/useChanges';
 import '../css/login.css';
 
 
-  const inputText = (stateChange) => (
+  const inputText = (onChange) => (
     <div className="input-text">
       <Input
         data-testid="email-input"
         type="email"
         name="user"
         placeholder="email@email.com"
-        onChange={ (e) => stateChange(e) }
+        onChange={ (e) => onChange(e) }
       />
     </div>
   );
 
-  const inputPasswd = (stateChange) => (
+  const inputPasswd = (onChange) => (
     <div className="input-senha">
       <Input
         data-testid="password-input"
         type="password"
         name="passwd"
         placeholder="sua senha aqui"
-        onChange={ (e) => stateChange(e) }
+        onChange={ (e) => onChange(e) }
       />
     </div>
   );
@@ -43,16 +43,17 @@ import '../css/login.css';
     </div>
   );
 export default function Render() {
-  const { state, setState } = useContext(context);
+  // const { state, setState } = useContext(context);
   
-  const stateChange = ({ target: { name, value } }) => {
-    setState({ ...state, [name]: value });
-  };
+  // const onChange = stateChanges()
+  // const stateChange = ({ target: { name, value } }) => {
+  //   setState({ ...state, [name]: value });
+  // };
 
   return (
     <div>
-      {inputText(stateChange)}
-      {inputPasswd(stateChange)}
+      {inputText(stateChanges())}
+      {inputPasswd(stateChanges())}
       {buttonLogin()}
     </div>
   );
