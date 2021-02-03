@@ -6,7 +6,8 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Loading from '../components/Loading';
-import readFavoriteLocalStorage from '../localStorage';
+import { favoriteDrinkLocalStorage } from '../localStorage/favoriteRecipes';
+import { doneDrinkLocalStorage } from '../localStorage/doneRecipes';
 import '../css/details.css';
 
 class DrinkDetails extends Component {
@@ -32,7 +33,8 @@ class DrinkDetails extends Component {
       match: { params: { id } } } = this.props;
     requestRecipes(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
     requestRecomendations('https://www.themealdb.com/api/json/v1/1/search.php?s=');
-    this.createFavoriteLocalStorage();
+    this.createFavoriteLocalStorage('favoriteRecipes');
+    this.createFavoriteLocalStorage('doneRecipes');
   }
 
   componentDidUpdate() {
@@ -71,15 +73,16 @@ class DrinkDetails extends Component {
     }),
     () => {
       const { drinks, favorite } = this.state;
-      readFavoriteLocalStorage(drinks, favorite);
+      favoriteDrinkLocalStorage(drinks, favorite, 'favoriteRecipes');
+      doneDrinkLocalStorage(drinks, favorite, 'doneRecipes');
     });
   }
 
-  createFavoriteLocalStorage() {
+  createFavoriteLocalStorage(keyStorage) {
     const { match: { params: { id } } } = this.props;
-    const read = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const read = JSON.parse(localStorage.getItem(keyStorage));
 
-    if (read && read.some((obj) => obj.idMeal === id)) {
+    if (read && read.some((obj) => obj.id === id)) {
       this.setState({
         favorite: true,
       });
@@ -87,7 +90,7 @@ class DrinkDetails extends Component {
       this.setState({
         favorite: false,
       },
-      () => localStorage.setItem('favoriteRecipes', JSON.stringify([])));
+      () => localStorage.setItem(keyStorage, JSON.stringify([])));
     }
   }
 
