@@ -1,0 +1,66 @@
+
+.main-container {
+    margin-top: 200px;
+    margin-left: 300px;
+    border: 1px solid rgba(0, 0, 0, 0.342);
+    background-color: rgba(33, 211, 224, 0.068);
+    border-radius: 19px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 600px;
+    height: 290px;
+}
+
+.main-input {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-top: 30px;
+}
+
+.input-email {
+    width: 400px;
+}
+
+.input-senha {
+    width: 400px;
+}
+
+.input-button {
+    margin-left: 150px;
+}
+
+@media screen and (max-width: 550px) {
+    .main-container {
+        margin-top: 100px;
+        margin-left: 0.01em;
+        border: 1px solid rgba(0, 0, 0, 0.342);
+        background-color: rgba(0, 0, 0, 0.171);
+        border-radius: 19px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 338px;
+        height: 290px;
+    }
+
+    .main-input {
+       margin-left: 6px;
+    }
+
+    .input-email {
+        /* margin-left: 30px; */
+        width: 300px;
+    }
+
+    .input-senha {
+        /* margin-left: 30px; */
+        width: 300px;
+    }
+
+    .input-button {
+        margin-left: 100px;
+    }
+
+}
