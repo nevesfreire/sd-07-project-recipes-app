@@ -7,7 +7,7 @@ import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import shareIcon from '../../images/shareIcon.svg';
 import { removeFavorite } from '../../services/localstorage';
 
-function ReceitasFeitas() {
+function ReceitasFavoritas() {
   const [filters, setFilter] = useState('');
   const [copiedAlert, setCopiedAlert] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
@@ -59,6 +59,7 @@ function ReceitasFeitas() {
 
   function renderFavoriteReceipes() {
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (!favorites) return <p>LocalStorage vazio!</p>;
     const renderFav = favorites.filter((favorite) => favorite.type.includes(filters));
     return renderFav.map((favorite, index) => (
       <div key={ index }>
@@ -168,4 +169,4 @@ function ReceitasFeitas() {
   );
 }
 
-export default ReceitasFeitas;
+export default ReceitasFavoritas;
