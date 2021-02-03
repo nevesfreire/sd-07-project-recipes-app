@@ -127,7 +127,6 @@ const mapStateToProps = (state) => ({
   categoriesStore: state.receitasDeBebidas.categories.drinks,
 });
 
-
 TelaPrincipalReceitasBebidas.propTypes = {
   categoriesStore: PropTypes.arrayOf(PropTypes.object).isRequired,
   drinksStore: PropTypes.objectOf(PropTypes.string).isRequired,
