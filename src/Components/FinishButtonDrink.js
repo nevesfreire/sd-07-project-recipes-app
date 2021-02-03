@@ -23,7 +23,7 @@ function FinishButtonDrink(props) {
         name: strDrink,
         image: strDrinkThumb,
         doneDate: new Date(),
-        tags: strTags || '',
+        tags: strTags.split(',') || '',
       }]));
       setFinnished(true);
       return true;
@@ -40,7 +40,7 @@ function FinishButtonDrink(props) {
           name: strDrink,
           image: strDrinkThumb,
           doneDate: new Date(),
-          tags: strTags || '',
+          tags: strTags.split(',') || '',
         },
       ]));
       setFinnished(true);

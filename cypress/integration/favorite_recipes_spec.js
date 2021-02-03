@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe.skip('Favorite recipes screen', () => {
+describe('Favorite recipes screen', () => {
   const favoriteRecipes = [
     {
       id: '52771',
@@ -36,7 +36,7 @@ describe.skip('Favorite recipes screen', () => {
     });
   });
 
-  describe.skip('60 - Implemente os elementos da tela de receitas favoritas (cumulativo com os atributos em comum com a tela de receitas feitas) respeitando os atributos descritos no protótipo', () => {
+  describe('60 - Implemente os elementos da tela de receitas favoritas (cumulativo com os atributos em comum com a tela de receitas feitas) respeitando os atributos descritos no protótipo', () => {
     it('Todos os data-testids, cumulativo com os atributos em comum com a tela de receitas feitas, estão disponíveis', () => {
       cy.get('[data-testid="filter-by-all-btn"]');
       cy.get('[data-testid="filter-by-food-btn"]');
@@ -135,7 +135,7 @@ describe.skip('Favorite recipes screen', () => {
     });
   });
 
-  describe.skip('65 - Implemente 2 botões que filtram as receitas por comida ou bebida e um terceiro que remove todos os filtros', () => {
+  describe('65 - Implemente 2 botões que filtram as receitas por comida ou bebida e um terceiro que remove todos os filtros', () => {
     it('Ao clicar no botão "Food" as receitas devem ser filtradas por comidas', () => {
       cy.get('[data-testid="filter-by-food-btn"]').click();
 

@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe.skip('Done recipes screen', () => {
+describe('Done recipes screen', () => {
   const doneRecipes = [
     {
       id: '52771',
@@ -40,7 +40,7 @@ describe.skip('Done recipes screen', () => {
     });
   });
 
-  describe.skip('54 - Implemente os elementos da tela de receitas feitas respeitando os atributos descritos no protótipo', () => {
+  describe('54 - Implemente os elementos da tela de receitas feitas respeitando os atributos descritos no protótipo', () => {
     it('Todos os data-testids estão disponíveis', () => {
       cy.get('[data-testid="filter-by-all-btn"]');
       cy.get('[data-testid="filter-by-food-btn"]');
@@ -108,7 +108,7 @@ describe.skip('Done recipes screen', () => {
     });
   });
 
-  describe.skip('58 - Implemente 2 botões que filtram as receitas por comida ou bebida e um terceiro que remove todos os filtros', () => {
+  describe('58 - Implemente 2 botões que filtram as receitas por comida ou bebida e um terceiro que remove todos os filtros', () => {
     it('Ao clicar no botão "Food" as receitas devem ser filtradas por comidas', () => {
       cy.get('[data-testid="filter-by-food-btn"]').click();
 
