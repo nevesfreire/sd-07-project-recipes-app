@@ -24,6 +24,7 @@ const FoodExploreIngredient = () => {
   };
 
   if (foodsRedirect) return <Redirect to="/comidas" />;
+
   return (
     <div>
       { ingredients.map(({ strIngredient: ingredient }, index) => (
