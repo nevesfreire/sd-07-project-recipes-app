@@ -63,7 +63,7 @@ const RecipeDetail = () => {
 
     getAPI().then((resolve) => setRecipeDetails(resolve));
 
-    fetchAllCocktails('', categoryFilterDrinks).then((arrayLimit) => dispatch({
+    fetchAllCocktails('', categoryFilterDrinks, 's').then((arrayLimit) => dispatch({
       type: 'SET_COCKTAILS',
       data: arrayLimit,
     }));
@@ -104,7 +104,7 @@ const RecipeDetail = () => {
     .slice(size, sizeEnd)
     .map(({ strDrinkThumb, strDrink, idDrink }, index) => (
       <RecomendationCard
-        data-testid={ `${index}-recomendation-title` }
+        data-testid={ `${index}-recomendation-card` }
         idFood={ idDrink }
         page={ page }
         key={ strDrink }

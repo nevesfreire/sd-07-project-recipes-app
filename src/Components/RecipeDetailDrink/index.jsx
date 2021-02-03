@@ -73,7 +73,7 @@ const RecipeDetailDrink = () => {
 
     getAPI().then((resolve) => setRecipeDetails(resolve));
 
-    fetchAllRecipes('', categoryFilterMeals).then((arrayLimit) => dispatch({
+    fetchAllRecipes('', categoryFilterMeals, 's').then((arrayLimit) => dispatch({
       type: 'SET_MEALS',
       data: arrayLimit,
     }));
