@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import copy from 'clipboard-copy';
-import { useHistory } from 'react-router';
+import PropTypes, { string } from 'prop-types';
 import { Link } from 'react-router-dom';
 import shareIcon from '../../images/shareIcon.svg';
 
@@ -72,3 +72,16 @@ const CardComplete = (props) => {
 };
 
 export default CardComplete;
+
+CardComplete.propTypes = {
+  num: PropTypes.string.isRequired,
+  img: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired,
+  nameRecipe: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
+  tags: PropTypes.arrayOf(string).isRequired,
+  area: PropTypes.string.isRequired,
+  alcoholicOrNot: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+};
