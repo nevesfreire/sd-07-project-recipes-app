@@ -10,6 +10,9 @@ const endPointDrinkName = 'https://www.thecocktaildb.com/api/json/v1/1/search.ph
 
 const endPonintDrinkFirstLetter = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=';
 
+const endPointIdFood = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
+
+
 export const getFoodIngredients = async (ingredients) => {
   try {
     const { meals } = await fetch(`${endPointFoodIngredients}${ingredients}`)
@@ -64,6 +67,16 @@ export const getDrinkFirstLetter = async (letter) => {
     const { drinks } = await fetch(`${endPonintDrinkFirstLetter}${letter}`)
       .then((result) => result.json());
     return drinks;
+  } catch (err) {
+    return 'erro';
+  }
+};
+
+export const getFoodId = async (id) => {
+  try {
+    const { meals } = await fetch(`${endPointIdFood}${id}`)
+      .then((result) => result.json());
+    return meals;
   } catch (err) {
     return 'erro';
   }
