@@ -33,10 +33,11 @@ class Ingredientes extends React.Component {
   }
 
   async saveToRedux(item, type) {
-    const { sendMealRecipesDispatch, sendDrinkRecipesDispatch } = this.props;
+    const { sendMealRecipesDispatch, sendDrinkRecipesDispatch, history } = this.props;
     if (type === 'comidas') {
       const response = await apiTheMealDB(`filter.php?i=${item.strIngredient}`);
       sendMealRecipesDispatch(response.meals);
+      history.push('/comidas');
     }
     if (type === 'bebidas') {
       const response = await apiTheCocktailDB(`filter.php?i=${item.strIngredient1}`);
@@ -54,17 +55,20 @@ class Ingredientes extends React.Component {
           {pathname === '/explorar/comidas/ingredientes' && (
             <Row>
               {data ? data.map((item, index) => (
-                <Link
+                <div
                   to="/comidas"
                   key={ index }
                   onClick={ () => this.saveToRedux(item, 'comidas') }
+                  onKeyPress
+                  role="link"
+                  tabIndex={ index }
                 >
                   <RecipesCards
                     recipe={ item }
                     search="ingredientsMeals"
                     index={ index }
                   />
-                </Link>
+                </div>
               )) : <Loading />}
             </Row>
           )}
@@ -102,6 +106,7 @@ Ingredientes.propTypes = {
   location: PropTypes.shape({ pathname: PropTypes.func.isRequired }).isRequired,
   sendMealRecipesDispatch: PropTypes.func.isRequired,
   sendDrinkRecipesDispatch: PropTypes.func.isRequired,
+  history: PropTypes.func.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(Ingredientes);
