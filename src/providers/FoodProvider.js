@@ -12,6 +12,11 @@ const FoodProvider = ({ children }) => {
   const [inputText, setInputText] = useState('');
   const [radioType, setRadioType] = useState('');
   const [data, setData] = useState([]);
+  const [currImgDetails, setCurrImgDetails] = useState('');
+  const [currNameDetails, setCurrNameDetails] = useState('');
+  const [currTextDetails, setCurrTextDetails] = useState('');
+  const [currIngredientsDetails, setCurrIngredientsDetails] = useState('');
+  const [currInstructionsDetails, setCurrInstructionsDetails] = useState('');
   const [repeatedButton, setRepeatedButton] = useState(
     { Beef: false,
       Breakfast: false,
@@ -96,6 +101,16 @@ const FoodProvider = ({ children }) => {
     categories,
     categoriesData,
     allButton,
+    currImgDetails,
+    setCurrImgDetails,
+    currNameDetails,
+    setCurrNameDetails,
+    currTextDetails,
+    setCurrTextDetails,
+    currIngredientsDetails,
+    setCurrIngredientsDetails,
+    currInstructionsDetails,
+    setCurrInstructionsDetails,
   };
 
   return (
