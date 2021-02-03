@@ -74,6 +74,6 @@ MealsCategoryFilter.propTypes = {
   requestCategories: PropTypes.func.isRequired,
   selectCategory: PropTypes.func.isRequired,
   getCategories: PropTypes.shape({
-    meals: PropTypes.arrayOf(PropTypes.object).isRequired,
+    meals: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
 };
