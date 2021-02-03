@@ -11,7 +11,7 @@ const ProgressDrink = ({ type, recipe, ingredientes, id }) => {
   const [favorited, setFavorite] = useState(false);
   const [copied, setCopied] = useState(false);
   const verifyLocalFav = localStorage.getItem('favoriteRecipes');
-  const [checked] = useState(false);
+  // const [checked] = useState(false);
 
   const iconFavorite = favorited ? blackHeartIcon : whiteHeartIcon;
   const name = type === 'comida' ? 'strMeal' : 'strDrink';
@@ -76,12 +76,12 @@ const ProgressDrink = ({ type, recipe, ingredientes, id }) => {
         </label>
       ))}
       <p data-testid="instructions">{recipe.strInstructions}</p>
-      { checked && (
-        <Link to="/receitas-feitas">
-          <button type="button" data-testid="finish-recipe-btn">
-            Finalizado!
-          </button>
-        </Link>) }
+
+      <Link to="/receitas-feitas">
+        <button type="button" data-testid="finish-recipe-btn">
+          Finalizado!
+        </button>
+      </Link>
     </div>
   );
 };

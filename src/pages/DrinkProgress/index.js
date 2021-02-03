@@ -25,9 +25,6 @@ const FoodProgress = ({ match: { params: { id } } }) => {
     .splice(initialMeasureCut, endCut)
     .filter((item) => item !== ' ');
 
-  console.log(currentRecipe);
-  console.log(ingredientes);
-
   return (
     <div>
       <ProgressDrink

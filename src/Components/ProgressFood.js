@@ -35,10 +35,7 @@ const ProgressFood = ({ type, recipe, ingredientes, id }) => {
 
   const handleCopy = () => {
     setCopied(true);
-    // const timeToFade = 2000;
-
     navigator.clipboard.writeText(`http://localhost:3000/${type}s/${id}`);
-    // setTimeout(() => setCopied(false), timeToFade);
   };
 
   return (
@@ -78,13 +75,6 @@ const ProgressFood = ({ type, recipe, ingredientes, id }) => {
           Finalizado!
         </button>
       </Link>
-
-      {/* <img data-testid="recipe-photo" src={ currImgDetails } alt="recipe thumb" />
-      <h3 data-testid="recipe-title">{currNameDetails}</h3>
-      <button type="button" onClick={ handleCopy }>
-        <img src={ ShareIcon } data-testid="share-btn" alt="thumbShare" />
-      </button>
-      { copied && <p className="copy-feedback">Link copiado!</p>} */}
     </div>
   );
 };
