@@ -2,12 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import HeaderNoSearch from '../components/HeaderNoSearch';
 import Footer from '../components/Footer';
-// import setEmailLocalStorage from '../services';
+import * as localStorageFunc from '../services/localStorageFunctions';
 
 function Profile(props) {
   const goDoneRecipes = () => props.history.push('/receitas-feitas');
   const goFavoriteRecipes = () => props.history.push('/receitas-favoritas');
-  const goLogin = () => props.history.push('/');
+  const goLogin = () => {
+    props.history.push('/');
+    localStorage.clear();
+  };
+  const { email } = localStorageFunc.getEmailLocalStorage();
   return (
     <div>
       <HeaderNoSearch title="Profile" />
@@ -17,7 +21,10 @@ function Profile(props) {
           type="email"
           id="email"
           data-testid="profile-email"
-        />
+        >
+          <strong>User:</strong>
+          {email}
+        </section>
         <button
           type="button"
           data-testid="profile-done-btn"
