@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import copy from 'clipboard-copy';
+import PropTypes from 'prop-types';
 import shareIcon from '../../images/shareIcon.svg';
 import './style.css';
 
-function ShareButton() {
+function ShareButton({ testId, id, type }) {
   const [shared, setShared] = useState(false);
 
   function sharedButton() {
@@ -16,15 +17,15 @@ function ShareButton() {
     <div className="share-button-container">
       <button
         type="button"
-        data-testid="share-btn"
         className="share-button-button"
         onClick={ () => {
           sharedButton();
-          copy(window.location.href);
+          copy(`${window.location.origin}/${type}s/${id}`);
         } }
       >
         {(shared) && <span>Link copiado!</span>}
         <img
+          data-testid={ (testId ? `${testId}share-btn` : 'share-btn') }
           src={ shareIcon }
           alt="Compartilhar"
           className="share-button-image"
@@ -33,5 +34,11 @@ function ShareButton() {
     </div>
   );
 }
+
+ShareButton.propTypes = {
+  testId: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+};
 
 export default ShareButton;
