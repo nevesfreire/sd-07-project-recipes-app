@@ -22,6 +22,7 @@ class Card extends Component {
           data-testid={ `${index}-card-img` }
         />
         <span data-testid={ `${index}-card-name` }>{name}</span>
+        <span data-testid={ `${index}-ingredient-card` } />
         {/* </div> */}
       </Link>
     );
