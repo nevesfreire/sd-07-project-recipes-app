@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Container, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { sendDrinkRecipes, sendMealRecipes } from '../redux/actions';
 import { apiTheMealDB, apiTheCocktailDB } from '../services';
@@ -37,11 +36,12 @@ class Ingredientes extends React.Component {
     if (type === 'comidas') {
       const response = await apiTheMealDB(`filter.php?i=${item.strIngredient}`);
       sendMealRecipesDispatch(response.meals);
-      history.push('/comidas')
+      history.push('/comidas');
     }
     if (type === 'bebidas') {
       const response = await apiTheCocktailDB(`filter.php?i=${item.strIngredient1}`);
       sendDrinkRecipesDispatch(response.drinks);
+      history.push('/bebidas');
     }
   }
 
@@ -75,18 +75,20 @@ class Ingredientes extends React.Component {
           {pathname === '/explorar/bebidas/ingredientes' && (
             <Row>
               {data ? data.map((item, index) => (
-                <Link
+                <div
                   to="/bebidas"
                   key={ index }
                   onClick={ () => this.saveToRedux(item, 'bebidas') }
+                  onKeyPress
+                  role="link"
+                  tabIndex={ index }
                 >
                   <RecipesCards
-                    onClick={ () => this.saveToRedux(item, 'bebidas') }
                     recipe={ item }
                     search="ingredientsDrinks"
                     index={ index }
                   />
-                </Link>
+                </div>
               )) : <Loading />}
             </Row>
           )}
@@ -106,6 +108,7 @@ Ingredientes.propTypes = {
   location: PropTypes.shape({ pathname: PropTypes.func.isRequired }).isRequired,
   sendMealRecipesDispatch: PropTypes.func.isRequired,
   sendDrinkRecipesDispatch: PropTypes.func.isRequired,
+  history: PropTypes.func.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(Ingredientes);

@@ -1,5 +1,6 @@
 import React from 'react';
-import apiTheMealDB from '../services/apiTheMealDB';
+import PropTypes from 'prop-types';
+import { apiTheMealDB, apiTheCocktailDB } from '../services';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
@@ -9,9 +10,11 @@ class ReceitaComida extends React.Component {
 
     this.state = {
       recipe: '',
+      drinkList: [],
     };
 
     this.callRecipeAPI = this.callRecipeAPI.bind(this);
+    // this.ingredientListHandle = this.ingredientListHandle.bind(this);
   }
 
   componentDidMount() {
@@ -19,17 +22,32 @@ class ReceitaComida extends React.Component {
   }
 
   async callRecipeAPI() {
-    // referência proxima linha: https://stackoverflow.com/questions/4758103/last-segment-of-url-in-jquery
+    // referência proxima linha: https://stackoverflow.com/questions/4758103/
     const urlParams = window.location.pathname.split('/').pop();
     const recipe = await apiTheMealDB(`lookup.php?i=${urlParams}`);
-    this.setState({ recipe: recipe.meals[0] });
+    const drinkList = await apiTheCocktailDB('search.php?s=');
+    this.setState({
+      recipe: recipe.meals[0],
+      drinkList: drinkList.drinks,
+    });
   }
 
+  // ingredientListHandle() {
+  //   const { recipe } = this.state;
+  //   const recipeArray = [{ ...recipe }];
+  //   const test = recipeArray
+  //     .map((e) => e.strIngredient1);
+  //   console.log(test);
+  // }
+
   render() {
-    const { recipe } = this.state;
+    const { history } = this.props;
+    const { recipe, drinkList } = this.state;
     if (recipe === '') {
       return <p>Loading...</p>;
     }
+    console.log(drinkList);
+    // this.ingredientListHandle();
 
     return (
       <div>
@@ -42,24 +60,40 @@ class ReceitaComida extends React.Component {
         />
         <h4 data-testid="recipe-title">{ recipe.strMeal }</h4>
         <p data-testid="recipe-category">{ recipe.strCategory }</p>
+        <ul>
+          <li data-testid="0-ingredient-name-and-measure">
+            {`${recipe.strIngredient1} - ${recipe.strMeasure1}`}
+          </li>
+          <li data-testid="1-ingredient-name-and-measure">
+            {`${recipe.strIngredient2} - ${recipe.strMeasure2}`}
+          </li>
+        </ul>
         <p data-testid="instructions">{ recipe.strInstructions}</p>
         <button type="button" data-testid="share-btn">
           <img src={ shareIcon } alt="Share" />
         </button>
-        <button type="button" data-testid="favorite-btn">
+        <button
+          type="button"
+          data-testid="favorite-btn"
+        >
           <img src={ whiteHeartIcon } alt="Favorite" />
         </button>
         <iframe
           title="youtube"
-          width="200"
-          height="200"
-          src={ recipe.strYoutube }
-          data-testid="instructions"
+          width="360"
+          height="360"
+          frameBorder="0"
+          allowFullScreen
+          // referência proxima linha: https://stackoverflow.com/questions/20498831/
+          src={ recipe.strYoutube.replace('watch?v=', 'embed/') }
+          data-testid="video"
         />
-        <p data-testid="{index}-recomendation-card">Recomendadas</p>
+        <p data-testid="0-recomendation-card">Recomendadas</p>
         <button
+          style={ { position: 'fixed', bottom: 0 } }
           type="button"
           data-testid="start-recipe-btn"
+          onClick={ () => history.push(`/comidas/${recipe.idMeal}/in-progress`) }
         >
           Iniciar receita
         </button>
@@ -67,5 +101,11 @@ class ReceitaComida extends React.Component {
     );
   }
 }
+
+ReceitaComida.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default ReceitaComida;
