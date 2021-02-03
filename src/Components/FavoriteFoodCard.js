@@ -10,9 +10,31 @@ function FavoriteFoodCard() {
       setfavRecipes(favoritesRecipesParse);
     }
   }, []);
+
+  function filterFood() {
+    const recipes = window.localStorage.getItem('favoriteRecipes');
+    const recipesParsed = JSON.parse(recipes);
+    const filteredFood = recipesParsed.filter((recipe) => recipe.type === 'comida');
+    setfavRecipes(filteredFood);
+  }
+
+  function fiterDrink() {
+    const recipes = window.localStorage.getItem('favoriteRecipes');
+    const recipesParsed = JSON.parse(recipes);
+    const filterDrink = recipesParsed.filter((recipe) => recipe.type !== 'comida');
+    setfavRecipes(filterDrink);
+  }
+  function filterAll() {
+    const recipes = window.localStorage.getItem('favoriteRecipes');
+    return setfavRecipes(JSON.parse(recipes));
+  }
+
   return (
     <div>
-      {favRecipes.map((favRecipe, index) => (
+      <button onClick={ filterAll } type="button" data-testid="filter-by-all-btn">All</button>
+      <button onClick={ filterFood } type="button" data-testid="filter-by-food-btn">Food</button>
+      <button onClick={ fiterDrink } type="button" data-testid="filter-by-drink-btn">Drinks</button>
+        {favRecipes.map((favRecipe, index) => (
         <section key={ favRecipe.id }>
           <img
             alt="favorites-"
