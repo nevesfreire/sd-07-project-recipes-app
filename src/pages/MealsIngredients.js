@@ -3,28 +3,27 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import MealCard from '../components/MealCard';
+import IngredientCard from '../components/IngredientCard';
 import {
   fetchMealsIngredients,
 } from '../actions/meals';
 
 class MealsIngredients extends Component {
   componentDidMount() {
-    const { searchMealsCategories, searchRandomMeals } = this.props;
-    searchRandomMeals();
-    searchMealsCategories();
+    const { searchMealsIngredients } = this.props;
+    searchMealsIngredients();
   }
 
   render() {
     const zero = 0;
     const maxLength = 12;
-    const { meals } = this.props;
-    const firstMeals = meals.slice(zero, maxLength);
+    const { ingredients } = this.props;
+    const firstIngredients = ingredients.slice(zero, maxLength);
     return (
       <div>
         <Header title="Comidas" />
-        { firstMeals.map((meal, index) => (
-          <MealCard key={ index } meals={ meal } index={ index } />
+        { firstIngredients.map((ingredient, index) => (
+          <IngredientCard key={ index } ingredients={ ingredient } index={ index } />
         ))}
         <Footer />
       </div>
@@ -32,19 +31,17 @@ class MealsIngredients extends Component {
   }
 }
 
-const mapStateToProps = ({ meals }) => ({
-  meals: meals.meals,
+const mapStateToProps = ({ ingredients }) => ({
+  ingredients: ingredients.ingredients,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  searchMealsCategories: () => dispatch(fetchMealsCategories()),
-  searchRandomMeals: () => dispatch(fetchRandomMeals()),
+  searchMealsCategories: () => dispatch(fetchMealsIngredients()),
 });
 
 MealsIngredients.propTypes = {
-  meals: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  searchMealsCategories: PropTypes.func.isRequired,
-  searchRandomMeals: PropTypes.func.isRequired,
+  ingredients: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  searchMealsIngredients: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MealsIngredients);
