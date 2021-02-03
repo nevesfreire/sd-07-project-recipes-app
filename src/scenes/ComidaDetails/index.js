@@ -17,7 +17,7 @@ const ComidaDetails = () => {
   useEffect(() => {
     const getData = async () => {
       const data = await mealById(id);
-      setMainDate(data.meals[0]);
+      setMainDate(data);
 
       const recomendations = await mealRecomendations();
       setRecomen(recomendations.drinks);

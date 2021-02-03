@@ -16,7 +16,7 @@ const BebidaDetails = () => {
   useEffect(() => {
     const getData = async () => {
       const data = await drinkById(id);
-      setMainDate(data.drinks[0]);
+      setMainDate(data);
 
       const recomendations = await drinkRecomendations();
       setRecomen(recomendations.meals);
@@ -98,6 +98,7 @@ const BebidaDetails = () => {
       </div>
     );
   }
+
   return <h1>carregando...</h1>;
 };
 
