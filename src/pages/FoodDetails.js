@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Form, Carousel } from 'react-bootstrap';
+
+import { Button, Carousel } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -15,6 +16,7 @@ export default function FoodDetails() {
   const cinco = 5;
   const seis = 6;
   const path = history.location.pathname;
+  const listIngredients = [];
 
   useEffect(() => {
     const getRecipe = async () => {
@@ -33,12 +35,20 @@ export default function FoodDetails() {
     setRecomendations(sixCards);
   };
 
+  const ingredientsList = () => {
+    const vinte = 20;
+    for (let i = 1; i <= vinte; i += 1) {
+      if (recipe[`strIngredient${i}`] !== '') {
+        listIngredients
+          .push(`${recipe[`strIngredient${i}`]} - ${recipe[`strMeasure${i}`]}`);
+      }
+    }
+    return true;
+  };
+
   useEffect(() => {
     getRecomendations();
   }, []);
-
-  console.log(recipe);
-  console.log(recomendations);
 
   return (
     <div>
@@ -53,20 +63,10 @@ export default function FoodDetails() {
       <h4 data-testid="recipe-category">{recipe.strCategory}</h4>
 
       <h3>Ingredientes</h3>
-
-      <Form>
-        {/* {ingredients.map((ingredient, index) => ( */}
-        <div key="index" className="mb-3">
-          <Form.Check
-            type="checkbox"
-            id="default-checkbox"
-            label="Ingrediente - Qtd"
-          />
-        </div>
-        {/* // ))} */}
-      </Form>
-
-      <div data-testid="0-ingredient-name-and-measure" />
+      { ingredientsList() }
+      <ul>
+        {listIngredients.map((ingredients, key) => <li key={ key }>{ingredients}</li>)}
+      </ul>
 
       <h3>Instruções</h3>
       <span data-testid="instructions">{recipe.strInstructions}</span>
@@ -96,7 +96,7 @@ export default function FoodDetails() {
         data-testid="video"
         className="width360"
         title="video"
-        src={ recipe.strYoutube && recipe.strYoutube.replace('watch?v=', 'embed/') }
+        src={recipe.strYoutube && recipe.strYoutube.replace('watch?v=', 'embed/')}
         frameBorder="0"
         allow="accelerometer; autoplay;
             clipboard-write; encrypted-media; gyroscope; picture-in-picture"
