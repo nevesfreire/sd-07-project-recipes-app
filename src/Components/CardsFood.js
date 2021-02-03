@@ -6,9 +6,9 @@ import './cards.css';
 function CardsFood() {
   const [redirect, setRedirect] = useState(false);
   const { foods, fetchFoods } = useContext(RecipesContext);
-
+  const zero = 0;
   useEffect(() => {
-    fetchFoods();
+    if (foods !== undefined && foods.length === zero) fetchFoods();
   }, []);
 
   useEffect(() => {
