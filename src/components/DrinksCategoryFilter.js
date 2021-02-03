@@ -16,9 +16,11 @@ class DrinksCategoryFilter extends Component {
   }
 
   handleClick(event) {
-    const { selectCategory } = this.props;
+    const { selectCategory, selectedCategory } = this.props;
     const category = event.target.value;
-    selectCategory(category);
+    if (category === selectedCategory) {
+      selectCategory('All');
+    } else selectCategory(category);
   }
 
   render() {
@@ -65,6 +67,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = ({ categoriesReducer }) => ({
   getCategories: categoriesReducer.categories,
+  selectedCategory: categoriesReducer.selectedCategory,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DrinksCategoryFilter);
@@ -73,6 +76,7 @@ DrinksCategoryFilter.propTypes = {
   endPoint: PropTypes.string.isRequired,
   requestCategories: PropTypes.func.isRequired,
   selectCategory: PropTypes.func.isRequired,
+  selectedCategory: PropTypes.string.isRequired,
   getCategories: PropTypes.shape({
     drinks: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
