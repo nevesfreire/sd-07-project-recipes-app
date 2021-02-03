@@ -31,7 +31,7 @@ export default function FavBtn({ mainData, type }) {
   case 'comida':
     recipe = {
       id: mainData.idMeal,
-      type: mainData.type,
+      type: 'comida',
       area: mainData.strArea,
       category: mainData.strCategory,
       alcoholicOrNot: mainData.alcoholicOrNot,

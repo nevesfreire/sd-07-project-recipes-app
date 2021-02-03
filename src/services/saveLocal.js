@@ -1,12 +1,18 @@
 const getFav = () => localStorage.getItem('favoriteRecipes');
 
+const desFav = (data, setData, id) => {
+  const newData = data.filter((e) => e.id !== id);
+  setData(newData);
+  localStorage.setItem('favoriteRecipes', JSON.stringify(newData));
+};
+
 const checkFav = (id) => {
-  let array = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  if (array === null) {
+  let arrayy = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  if (arrayy === null) {
     localStorage.setItem('favoriteRecipes', JSON.stringify([]));
-    array = [];
+    arrayy = [];
   }
-  if (!array.some((r) => r.id === id)) return true;
+  if (!arrayy.some((r) => r.id === id)) return true;
   return false;
 };
 
@@ -24,4 +30,4 @@ const toggleFav = (recipe) => {
   }
 };
 
-export { toggleFav, getFav, checkFav };
+export { toggleFav, getFav, checkFav, desFav };
