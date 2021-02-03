@@ -41,18 +41,18 @@ function Ingredient({ recipes, inProgress, id }) {
         <h3>Ingredient</h3>
         <div className="div-ingredient">
           {ingredients.map(([key, value], index) => (
-            <div key={key}>
+            <div key={ key }>
               <label
                 className=""
-                htmlFor={value}
-                data-testid={`${index}-ingredient-step`}
+                htmlFor={ value }
+                data-testid={ `${index}-ingredient-step` }
               >
                 <input
-                  onChange={(e) => handleChange(e, id, recipes)}
-                  name={value}
-                  id={value}
+                  onChange={ (e) => handleChange(e, id, recipes) }
+                  name={ value }
+                  id={ value }
                   type="checkbox"
-                  checked={toogleChecked(value)}
+                  checked={ toogleChecked(value) }
                 />
                 {value}
                 -
@@ -72,8 +72,8 @@ function Ingredient({ recipes, inProgress, id }) {
         <div className="div-ingredient">
           {ingredients.map(([key, value], index) => (
             <p
-              key={key}
-              data-testid={`${index}-ingredient-name-and-measure`}
+              key={ key }
+              data-testid={ `${index}-ingredient-name-and-measure` }
             >
               { `- ${value} - 1/2 part`}
             </p>
@@ -88,8 +88,8 @@ function Ingredient({ recipes, inProgress, id }) {
       <div className="div-ingredient">
         {ingredients.map(([key, value], index) => (
           <p
-            key={key}
-            data-testid={`${index}-ingredient-name-and-measure`}
+            key={ key }
+            data-testid={ `${index}-ingredient-name-and-measure` }
           >
             -
             { value}
