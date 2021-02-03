@@ -22,6 +22,8 @@ export default function reducer(state, action) {
       search: {
         ...state.search,
         categoryFilterDrinks: action.categoryName,
+        searchFilter: false,
+        searchType: 's',
       },
     };
 
@@ -31,6 +33,33 @@ export default function reducer(state, action) {
       search: {
         ...state.search,
         categoryFilterMeals: action.categoryName,
+        searchingFilter: false,
+        searchType: 's',
+      },
+    };
+
+  case 'SEARCH_FILTER':
+    return {
+      ...state,
+      search: {
+        ...state.search,
+        searchingFilter: true,
+        searchParam: action.value,
+        searchType: action.typeSearch,
+        categoryFilterDrinks: '',
+        categoryFilterMeals: '',
+      },
+    };
+
+  case 'SEARCH_INGREDIENT':
+    return {
+      ...state,
+      search: {
+        ...state.search,
+        searchParam: action.value,
+        searchType: action.typeSearch,
+        categoryFilterDrinks: '',
+        categoryFilterMeals: '',
       },
     };
   default:
