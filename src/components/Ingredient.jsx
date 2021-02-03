@@ -19,9 +19,10 @@ function Ingredient({ recipes, inProgress, id }) {
     if (recipes === 'comidas') {
       const { meals: mealsProgress } = inProgressRecipes;
       return mealsProgress[id] && mealsProgress[id].find((ingr) => ingr === ingredient);
+    } else {
+      const { cocktails } = inProgressRecipes;
+      return cocktails[id] && cocktails[id].find((ingr) => ingr === ingredient);
     }
-    const { cocktails } = inProgressRecipes;
-    return cocktails[id] && cocktails[id].find((ingr) => ingr === ingredient);
   };
 
   if (details) {
@@ -40,18 +41,18 @@ function Ingredient({ recipes, inProgress, id }) {
         <h3>Ingredient</h3>
         <div className="div-ingredient">
           {ingredients.map(([key, value], index) => (
-            <div key={ key }>
+            <div key={key}>
               <label
                 className=""
-                htmlFor={ value }
-                data-testid={ `${index}-ingredient-step` }
+                htmlFor={value}
+                data-testid={`${index}-ingredient-step`}
               >
                 <input
-                  onChange={ (e) => handleChange(e, id, recipes) }
-                  name={ value }
-                  id={ value }
+                  onChange={(e) => handleChange(e, id, recipes)}
+                  name={value}
+                  id={value}
                   type="checkbox"
-                  checked={ toogleChecked(value) }
+                  checked={toogleChecked(value)}
                 />
                 {value}
                 -
@@ -70,8 +71,8 @@ function Ingredient({ recipes, inProgress, id }) {
       <div className="div-ingredient">
         {ingredients.map(([key, value], index) => (
           <p
-            key={ key }
-            data-testid={ `${index}-ingredient-name-and-measure` }
+            key={key}
+            data-testid={`${index}-ingredient-name-and-measure`}
           >
             -
             { value}
