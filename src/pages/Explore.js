@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Footer from '../components/Footer';
+import Header from '../components/Header';
 import '../css/recipe.css';
 
 class Explore extends Component {
@@ -8,7 +9,23 @@ class Explore extends Component {
     const { history } = this.props;
     return (
       <div>
-        Explorar
+        <Header title="Explorar" history={ history } />
+        <div>
+          <button
+            type="button"
+            data-testid="explore-food"
+            onClick={ () => history.push('/explorar/comidas') }
+          >
+            Explorar Comidas
+          </button>
+          <button
+            type="button"
+            data-testid="explore-drinks"
+            onClick={ () => history.push('/explorar/bebidas') }
+          >
+            Explorar Bebidas
+          </button>
+        </div>
         <Footer history={ history } />
       </div>
     );
