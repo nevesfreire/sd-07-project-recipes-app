@@ -3,14 +3,11 @@ import { cleanup, render, fireEvent } from '@testing-library/react';
 import renderWithRouter from '../renderWithRouter';
 import Login from '../pages/Login';
 
-
 const LOGIN_DATA = {
-  'email': 'email-input',
-  'senha': 'password-input',
-  'botao': 'login-submit-btn'
+  email: 'email-input',
+  senha: 'password-input',
+  botao: 'login-submit-btn',
 };
-
-
 
 const EMAIL_IMPUT = 'email-input';
 const PASSWORD_IMPUT = 'password-input';

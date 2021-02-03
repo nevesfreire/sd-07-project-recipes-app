@@ -1,29 +1,36 @@
 import React from 'react';
-import {cleanup, fireEvent, render } from '@testing-library/react';
+import { fireEvent } from '@testing-library/react';
+import { Provider } from 'react-redux';
 import renderWithRouter from '../renderWithRouter';
 import Header from '../components/header/Header';
-import Login from '../pages/Login';
-import Comidas from '../pages/comidas/Comidas';
+import store from '../redux/store';
 
-afterEach(cleanup);
+describe('Testar os headers', () => {
+  test('Verificar se possui os data-Testid do page, profile e search exigidos', () => {
+    const { getByTestId } = renderWithRouter(
+      <Provider store={ store }>
+        <Header />
+      </Provider>,
+    );
+    const h1 = getByTestId('page-title');
+    expect(h1).toBeInTheDocument();
 
-describe('Verificar atributos no Header', () => {
-  test('Não deve ter header na tela de login', () => {
-    const { queryByTestId } = render(<Login />);
-    expect(queryByTestId('Header')).toBeNull();
+    const searchInput = getByTestId('search-top-btn');
+    expect(searchInput).toBeInTheDocument();
+
+    const profileButton = getByTestId('profile-top-btn');
+    expect(profileButton).toBeInTheDocument();
   });
+  test('Verificar se  input de busca aparece após clicar no ícone de buscar', () => {
+    const { getByTestId } = renderWithRouter(
+      <Provider store={ store }>
+        <Header />
+      </Provider>,
+    );
+    const searchButton = getByTestId('search-top-btn');
+    fireEvent.click(searchButton);
 
-  test('Não tem header na tela de receita em processo de bebida', () => {
-    const { queryByTestId } = render(<ProcessoBebidas />);
-    expect(queryByTestId('Header')).toBeNull();
+    const profileTopBtn = getByTestId('profile-top-btn');
+    expect(profileTopBtn).toBeInTheDocument();
   });
-/*
-    test('A pagina deve ter os ícones corretos na tela de principal de receitas de bebidas', () => {
-    });
-    
-    test('Não deve ter header na tela de detalhes de uma receita de comida', () => {
-    });
-    test('Não teve ter header na tela de detalhes de uma receita de bebida', () => {
-    });
-*/
 });
