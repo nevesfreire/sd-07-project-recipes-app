@@ -78,7 +78,7 @@ export default function DrinkProgress() {
   //   alert('Copied the text: ', shareLink);
   // }
   function copyToClipboard() {
-    const shareLink = `http://localhost:3000${history.location.pathname}`;
+    const shareLink = (`http://localhost:3000${history.location.pathname}`).replace('/in-progress', '');
     // await navigator.clipboard.writeText(shareLink);
     copy(shareLink);
     // setIsShared(false);
