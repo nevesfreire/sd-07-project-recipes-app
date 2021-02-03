@@ -6,7 +6,9 @@ class ReceitasFeitas extends React.Component {
     return (
       <div>
         <Header2 title="Receitas Feitas" />
-        <p>TelaReceitasFeitas</p>
+        <button type="button" data-testid="filter-by-all-btn">All</button>
+        <button type="button" data-testid="filter-by-food-btn">Food</button>
+        <button type="button" data-testid="filter-by-drink-btn">Drinks</button>
       </div>
     );
   }
