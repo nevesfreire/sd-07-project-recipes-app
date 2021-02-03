@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../css/food.css';
 import shareIcon from '../images/shareIcon.svg';
 import '../css/recipe.css';
 
@@ -18,6 +17,8 @@ class DoneRecipe extends Component {
         <button type="button" data-testid="filter-by-drink-btn">
           Drinks
         </button>
+
+
         <div data-testid={`${index}-horizontal-image`}>
           <img data-testid={`${index}-horizontal-image`} src={shareIcon} />
           <h2 data-testid={`${index}-horizontal-top-text`}>Categoria</h2>
@@ -26,6 +27,7 @@ class DoneRecipe extends Component {
           <h1 data-testid={`${index}-horizontal-name`}>Nome da receita</h1>
           <tag data-testid={`${index}-${tagName}-horizontal-tag`}>tag</tag>
         </div>
+        
       </div>
     );
   }
