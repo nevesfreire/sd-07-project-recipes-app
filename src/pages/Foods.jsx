@@ -89,7 +89,7 @@ function Foods() {
             <Link
               to={ `/comidas/${item.idMeal}` }
               key={ item.strMeal }
-              onClick={ () => console.log(item.idMeal) }
+              onClick={ () => console.log('teste') }
               className="card col-6"
               style={ { width: '8rem' } }
             >

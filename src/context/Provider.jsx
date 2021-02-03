@@ -3,16 +3,26 @@ import PropTypes from 'prop-types';
 
 import RecipesContext from './RecipesContext';
 import TitleContext from './TitleContext';
-import getMealWithId from '../services/RecipesAPI';
+import getMealWithId, { getDrinkWithId } from '../services/RecipesAPI';
 
 function Provider({ children }) {
   const [mealDescription, setMealDescription] = useState({});
   const [foodsOrDrinksList, setFoodsOrDrinksList] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
-  const fetchMealId = async (id = '52772') => {
-    const x = await getMealWithId(id);
+
+  const fetchMealId = async (id, tipo = undefined) => {
+    if (tipo === 'comida') {
+      console.log();
+      const x = await getMealWithId(id);
+      setMealDescription(() => x);
+      setIsFetching(() => false);
+      return false;
+    }
+    const x = await getDrinkWithId(id);
+    console.log(id);
     setMealDescription(() => x);
     setIsFetching(() => false);
+    return false;
   };
 
   const contextValue = {
@@ -21,6 +31,7 @@ function Provider({ children }) {
     fetchMealId,
     isFetching,
     mealDescription,
+    setIsFetching,
   };
 
   return (
