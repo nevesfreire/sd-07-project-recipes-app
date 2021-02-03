@@ -15,7 +15,7 @@ function Profile() {
           <button type="button">
             <img
               data-testid="profile-top-btn"
-              src={ perfilIcon }
+              src={perfilIcon}
               alt="perfil"
             />
           </button>
@@ -37,7 +37,7 @@ function Profile() {
         <button
           type="button"
           data-testid="profile-logout-btn"
-          onClick={ () => localStorage.clear() }
+          onClick={() => localStorage.clear()}
         >
           Sair
         </button>
