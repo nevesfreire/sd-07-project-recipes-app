@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import RecipesContext from '../context/recipesContext';
+import './cards.css';
 
 function CardsDrinks() {
   const { drinks, fetchDrinks } = useContext(RecipesContext);
@@ -10,13 +10,15 @@ function CardsDrinks() {
   }, []);
 
   return (
-    <div>
+    <div className="Container__Cards">
       { drinks.map(({ strDrink, strDrinkThumb, idDrink }, index) => (
-        <Link
+        <a
+          className="cards__results"
           key={ strDrink }
-          to={ `/bebidas/${idDrink}` }
+          href={ `/bebidas/${idDrink}` }
+          data-testid={ `${index}-recipe-card` }
         >
-          <div data-testid={ `${index}-recipe-card` }>
+          <div>
             <img
               data-testid={ `${index}-card-img` }
               src={ strDrinkThumb }
@@ -25,7 +27,7 @@ function CardsDrinks() {
             />
             <p data-testid={ `${index}-card-name` }>{ strDrink }</p>
           </div>
-        </Link>
+        </a>
       ))}
     </div>
   );

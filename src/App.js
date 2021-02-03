@@ -16,9 +16,11 @@ import Explorar from './pages/Explorar';
 import DetalhesComidas from './pages/DetalhesComidas';
 import DetalhesBebidas from './pages/DetalhesBebidas';
 import ExplorarComidasArea from './pages/ExplorarComidasArea';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (

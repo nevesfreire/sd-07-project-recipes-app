@@ -1,6 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap') ;
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 body {
+  padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -52,7 +53,8 @@ code {
   flex-direction: row;
   height: 58px;
   justify-content: space-around;
-  position: absolute;
+  position: fixed;
+  top: 0;
   width: 100%;
 }
 
@@ -72,7 +74,7 @@ code {
   flex-wrap: wrap;
   position: absolute;
   top: 59px;
-  width: 400px;
+  width: 350px;
   align-items: center;
   justify-content: center;
 }
@@ -80,4 +82,33 @@ code {
 .Container__Category__Btns button {
   padding: 5px;
   margin: 5px;
+}
+
+.Recomeded__Cards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 250px;
+  height: 250px;
+}
+
+
+.Recipe__Recomended {
+  margin: 8px;
+  border: 5px, solid, black;
+}
+
+.Recipes__Start__Btn {
+  position: fixed;
+  width: 95%;
+  height: 76px;
+  bottom: 0;
+  left: 0;
+  background: #6CE34F;
+  margin: 11px;
+  font-family: Roboto, sans-serif;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 35px;
 }

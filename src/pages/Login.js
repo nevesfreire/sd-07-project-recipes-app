@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 
-function Login({ history }) {
+function Login(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isDisable, setIsDisable] = useState(true);
+  const [redirect, setRedirect] = useState(false);
 
   const verifyData = () => {
     const six = 6;
     const regex = /\S+@\S+\.\S+/;
     if (regex.test(email) && password.length > six) setIsDisable(false);
+    else setIsDisable(true);
   };
 
   useEffect(() => {
@@ -20,7 +23,7 @@ function Login({ history }) {
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
     localStorage.setItem('user', JSON.stringify({ email }));
-    history.push('/comidas');
+    setRedirect(true);
   };
 
   return (
@@ -50,6 +53,7 @@ function Login({ history }) {
       >
         Entrar
       </button>
+      { redirect && <Redirect to="/comidas" />}
     </form>
   );
 }
