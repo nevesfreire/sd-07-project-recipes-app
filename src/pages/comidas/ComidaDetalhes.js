@@ -22,10 +22,15 @@ class ComidaDetalhes extends React.Component {
     this.iniciarReceita = this.iniciarReceita.bind(this);
     this.copyClipboard = this.copyClipboard.bind(this);
     this.favoriteRecipe = this.favoriteRecipe.bind(this);
+    this.isFavorite = this.isFavorite.bind(this);
   }
 
   componentDidMount() {
     this.fetchData();
+    this.isFavorite();
+  }
+
+  isFavorite() {
     const setFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (setFavorite) {
       this.setState({
