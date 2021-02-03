@@ -26,11 +26,13 @@ export default function GlobalProvider({ children }) {
   const [renderButtonExplore, setRenderButtonExplore] = useState('comidas');
   const [randomRecipeDetail, setRandomRecipeDetail] = useState({});
   const [idRandom, setIdRandom] = useState('');
+  const [emailLocalStorage, setEmailLocalStorage] = useState({});
   const [upSearchBar, setUpSearchBar] = useState('');
   const [data, setData] = useState([]);
   const {
     initialState: { email, password },
   } = state;
+
   const selectedTypeFood = useCallback(async (chooseType) => {
     switch (chooseType) {
     case 'initial':
@@ -89,9 +91,16 @@ export default function GlobalProvider({ children }) {
     }
   }, [renderButtonExplore]);
 
+  const getStorage = useCallback((key) => JSON.parse(localStorage.getItem(key)), []);
+  const clearStorage = () => localStorage.clear();
+
   return (
     <GlobalContext.Provider
       value={ {
+        getStorage,
+        clearStorage,
+        emailLocalStorage,
+        setEmailLocalStorage,
         redirect,
         title,
         searchButton,
@@ -103,18 +112,14 @@ export default function GlobalProvider({ children }) {
         setUpSearchBar,
         selectedTypeFood,
         selectedTypeDrink,
-        dataFoods,
-        dataDrinks,
         setTitle,
 
-        foodCategories,
         setFoodCategories: useCallback((value) => {
           const newInitialFoods = state.initialFoods;
           newInitialFoods.foodCategories = value;
           updateState('initialFoods', newInitialFoods);
         }, [state.initialFoods]),
 
-        drinkCategories,
         setDrinkCategories: useCallback((value) => {
           const newInitialDrinks = state.initialDrinks;
           newInitialDrinks.drinkCategories = value;

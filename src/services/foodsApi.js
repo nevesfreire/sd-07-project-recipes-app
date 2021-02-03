@@ -1,4 +1,3 @@
-const cinco = 5;
 const doze = 12;
 
 export async function foodByName(name) {
