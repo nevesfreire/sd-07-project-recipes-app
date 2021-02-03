@@ -1,8 +1,8 @@
 import React from 'react';
 import '../components/components.css';
 import PropTypes from 'prop-types';
-import { shareIcon, whiteHeartIcon } from '../images';
-import { Button, CardsFactory, LoadingCard,
+import {
+  Button, CardsFactory, LoadingCard, ShareButton, FavoriteFoodButton,
 } from '../components';
 import { useFetchApi } from '../hooks';
 
@@ -10,9 +10,16 @@ const filterMeals = (arr, str) => Object.entries(arr).filter((key) => (
   key[0].includes(str) && !!key[1]
 ));
 
-export default function DetailsFood({ history, match }) {
+const getLink = (idFood) => (
+  Number.isNaN(Number(idFood))
+    ? 'https://www.themealdb.com/api/json/v1/1/random.php'
+    : `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idFood}`
+);
+
+export default function DetailsFood({
+  history: { push }, match }) {
   const { params: { idFood } } = match;
-  const URL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idFood}`;
+  const URL = getLink(idFood);
   const [loading, { meals }] = useFetchApi(URL);
   return (
     loading
@@ -23,16 +30,8 @@ export default function DetailsFood({ history, match }) {
           <div>
             <div>
               <h3 data-testid="recipe-title">{meals[0].strMeal}</h3>
-              <Button
-                testid="data-testid=`share-btn`"
-                icon={ shareIcon }
-                func={ () => { history.push(`/comidas/${idFood}`); } }
-              />
-              <Button
-                testid="favorite-btn"
-                icon={ whiteHeartIcon }
-                func={ () => { history.push(`/comidas/${idFood}`); } }
-              />
+              <ShareButton />
+              <FavoriteFoodButton foodArr={ meals[0] } />
             </div>
             <h5 data-testid="recipe-category">{meals[0].strCategory}</h5>
             <div>
@@ -82,7 +81,7 @@ export default function DetailsFood({ history, match }) {
             <Button
               testid="start-recipe-btn"
               text="Iniciar Receita"
-              func={ () => { history.push(`/comidas/${idFood}/in-progress`); } }
+              func={ () => { push(`/comidas/${idFood}/in-progress`); } }
             />
           </div>
         </div>
@@ -92,7 +91,9 @@ export default function DetailsFood({ history, match }) {
 }
 
 DetailsFood.propTypes = {
-  history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({ idFood: PropTypes.string.isRequired }).isRequired,
   }).isRequired,

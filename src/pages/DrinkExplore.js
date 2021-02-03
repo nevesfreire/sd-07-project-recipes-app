@@ -15,7 +15,7 @@ export default function DrinkExplore() {
       <Button
         testid="explore-surprise"
         text="Me Surpreenda!"
-        func={ () => { push('/explorar/comidas'); } }
+        func={ () => { push('/bebidas/random'); } }
       />
       <Footer />
     </div>

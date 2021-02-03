@@ -1,8 +1,7 @@
 import React from 'react';
 import '../components/components.css';
 import PropTypes from 'prop-types';
-import { shareIcon, whiteHeartIcon } from '../images';
-import { Button, CardsFactory, LoadingCard,
+import { Button, CardsFactory, LoadingCard, ShareButton, FavoriteDrinkButton,
 } from '../components';
 import { useFetchApi } from '../hooks';
 
@@ -10,9 +9,15 @@ const filterDrinks = (arr, str) => Object.entries(arr).filter((key) => (
   key[0].includes(str) && !!key[1]
 ));
 
+const getLink = (idDrink) => (
+  Number.isNaN(Number(idDrink))
+    ? 'https://www.thecocktaildb.com/api/json/v1/1/random.php'
+    : `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idDrink}`
+);
+
 export default function DetailsDrink({ history, match }) {
   const { params: { idDrink } } = match;
-  const URL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idDrink}`;
+  const URL = getLink(idDrink);
   const [loading, { drinks }] = useFetchApi(URL);
   return (
     loading
@@ -23,16 +28,8 @@ export default function DetailsDrink({ history, match }) {
           <div>
             <div>
               <h3 data-testid="recipe-title">{drinks[0].strDrink}</h3>
-              <Button
-                testid="data-testid=`share-btn`"
-                icon={ shareIcon }
-                func={ () => { history.push(`/comidas/${idDrink}`); } }
-              />
-              <Button
-                testid="favorite-btn"
-                icon={ whiteHeartIcon }
-                func={ () => { history.push(`/comidas/${idDrink}`); } }
-              />
+              <ShareButton />
+              <FavoriteDrinkButton drinksArr={ drinks[0] } />
             </div>
             <h5 data-testid="recipe-category">{drinks[0].strAlcoholic}</h5>
             <div>
@@ -46,7 +43,7 @@ export default function DetailsDrink({ history, match }) {
                         data-testid={ `${i}-ingredient-name-and-measure` }
                         key={ i }
                       >
-                        {`${key[1]} - ${measures[i][1]}`}
+                        {`${key && key[1]} - ${measures[i] && measures[i][1]}`}
                       </li>
                     );
                   })
