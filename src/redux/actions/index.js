@@ -38,3 +38,12 @@ export {
   FILTERED_DRINK_BY_CATEGORY,
   REQUEST_INGREDIENTS_DRINKS,
 } from './drinkRecipesAction';
+
+export {
+  requestArea,
+  requestAreaFailed,
+  selectedArea,
+  REQUEST_AREA,
+  REQUEST_AREA_FAILED,
+  SELECT_AREA,
+} from './areasAction';

@@ -12,7 +12,7 @@ class DrinksIngredients extends Component {
     this.renderIngredients = this.renderIngredients.bind(this);
     this.handleIngredients = this.handleIngredients.bind(this);
     this.state = {
-      drinks: '',
+      drinks: [],
       isLoading: true,
     };
   }
@@ -23,10 +23,12 @@ class DrinksIngredients extends Component {
 
   async handleIngredients() {
     const { drinks } = await getIngredientsDrink();
-    this.setState({
-      drinks,
-      isLoading: false,
-    });
+    if (drinks) {
+      this.setState({
+        drinks,
+        isLoading: false,
+      });
+    }
   }
 
   renderIngredients() {
@@ -51,6 +53,7 @@ class DrinksIngredients extends Component {
 
   render() {
     const { isLoading } = this.state;
+    if (isLoading) return <p>Carregando</p>;
     return (
       <div>
         <CustomHeader
@@ -58,8 +61,7 @@ class DrinksIngredients extends Component {
           Explorar Ingredientes"
           showSearchTopBtn={ false }
         />
-        { isLoading ? <p>Carregando</p>
-          : this.renderIngredients()}
+        {this.renderIngredients()}
         <CustomFooter />
       </div>
     );
@@ -72,9 +74,9 @@ const mapDispatchToProps = (dispatch) => ({
 
 DrinksIngredients.propTypes = {
   dispatchIngredients: PropTypes.func.isRequired,
-  meals: PropTypes.shape({
-    length: PropTypes.number.isRequired,
-    slice: PropTypes.func.isRequired,
-  }).isRequired,
+  // meals: PropTypes.shape({
+  //   length: PropTypes.number.isRequired,
+  //   slice: PropTypes.func.isRequired,
+  // }).isRequired,
 };
 export default connect(null, mapDispatchToProps)(DrinksIngredients);

@@ -14,6 +14,7 @@ import {
   Profile,
   FavoriteRecipes,
   RecipeInProgress,
+  NotFound,
 } from './pages';
 
 function Rotas() {
@@ -35,6 +36,7 @@ function Rotas() {
         path="/explorar/bebidas/ingredientes"
         component={ DrinksIngredients }
       />
+      <Route exact path="/explorar/bebidas/area" component={ NotFound } />
       <Route exact path="/explorar/comidas/area" component={ FoodsOrigin } />
       <Route exact path="/perfil" component={ Profile } />
       <Route path="/receitas-favoritas" component={ FavoriteRecipes } />

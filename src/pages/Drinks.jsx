@@ -40,9 +40,11 @@ class Drinks extends Component {
 
   async handleCategories() {
     const { drinks } = await getAllDrinksCategories();
-    this.setState({
-      drinksCategories: Object.values(drinks),
-    });
+    if (drinks) {
+      this.setState({
+        drinksCategories: Object.values(drinks),
+      });
+    }
   }
 
   handleRecipes() {

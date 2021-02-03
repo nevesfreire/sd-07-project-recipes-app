@@ -5,13 +5,11 @@ import { randomFoodsApi } from '../services';
 export default class CustomExploreFoods extends Component {
   constructor(props) {
     super(props);
-
     this.state = { id: 0 };
   }
 
   async componentDidMount() {
     const { meals } = await randomFoodsApi();
-    console.log(meals);
     this.fetchFoodsRandom(meals[0].idMeal);
   }
 
