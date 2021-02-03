@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Input, Button } from '@material-ui/core';
 import context from '../contextAPI/context';
-// import stateChanges from '../helpers/stateChanges';
 import '../css/login.css';
 
 const inputText = (onChange) => (
@@ -28,35 +28,37 @@ const inputPasswd = (onChange) => (
   </div>
 );
 
-const buttonLogin = () => (
+const buttonLogin = (onClick, enable) => (
   <div className="input-button">
     <Button
       data-testid="login-submit-btn"
       variant="contained"
       collor="primary"
-      // disable={ xablau }
-      // onClick={ }
+      disabled={ enable }
+      onClick={ (e) => onClick(e) }
     >
       Logar
     </Button>
   </div>
 );
-export default function Render() {
+
+export default function InputLogin() {
   const { login, setLogin } = useContext(context);
+  const history = useHistory();
+  const { state } = useContext(context);
+  const { isDisabled } = state;
 
   const loginChanges = ({ target: { name, value } }) => {
     setLogin({ ...login, [name]: value });
   };
 
+  const callRoute = () => history.push('/comidas');
+
   return (
     <div>
       {inputText(loginChanges)}
       {inputPasswd(loginChanges)}
-      {buttonLogin()}
+      {buttonLogin(callRoute, isDisabled)}
     </div>
   );
 }
-
-/* O input de email deve possuir o atributo data-testid="email-input";
-O input de senha deve possuir o atributo data-testid="password-input";
-O botão "Entrar" deve possuir o atributo data-testid="login-submit-btn". */
