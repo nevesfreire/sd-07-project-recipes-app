@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import apiTheMealDB from '../services/apiTheMealDB';
-import apiTheCocktailDB from '../services/apiTheCocktailDB';
+import { Row } from 'react-bootstrap';
+import { apiTheMealDB, apiTheCocktailDB } from '../services';
 import { sendDrinkRecipes, sendMealRecipes } from '../redux/actions';
 
 class CategorySelector extends React.Component {
@@ -17,11 +18,14 @@ class CategorySelector extends React.Component {
 
   async componentDidMount() {
     const magicZero = 0;
-    const { mealRecipes } = this.props;
-    await this.getCategories();
-    if (mealRecipes.length === magicZero) {
+    const { mealRecipes, drinkRecipes, location: { pathname } } = this.props;
+    if (mealRecipes.length === magicZero && pathname === '/comidas') {
       await this.updateItems('All');
     }
+    if (drinkRecipes.length === magicZero && pathname === '/bebidas') {
+      await this.updateItems('All');
+    }
+    await this.getCategories();
   }
 
   async getCategories() {
@@ -43,7 +47,7 @@ class CategorySelector extends React.Component {
   async updateItems(currentCategory) {
     let apiSearchPath;
     if (currentCategory === 'All') {
-      apiSearchPath = '/search.php?s=';
+      apiSearchPath = 'search.php?s=';
     } else {
       apiSearchPath = `filter.php?c=${currentCategory}`;
     }
@@ -88,26 +92,28 @@ class CategorySelector extends React.Component {
 
     return (
       <div className="categories">
-        <button
-          className={ (currentCategory === 'All' ? 'current' : '') }
-          key="all"
-          type="button"
-          data-testid="All-category-filter"
-          onClick={ () => this.selectCategory('All') }
-        >
-          All
-        </button>
-        {categories.map((category) => (
+        <Row style={ { margin: 30 } }>
           <button
-            className={ (currentCategory === category.strCategory ? 'current' : '') }
-            key={ category.strCategory }
+            className={ (currentCategory === 'All' ? 'current' : '') }
+            key="all"
             type="button"
-            data-testid={ `${category.strCategory}-category-filter` }
-            onClick={ () => this.selectCategory(category.strCategory) }
+            data-testid="All-category-filter"
+            onClick={ () => this.selectCategory('All') }
           >
-            {category.strCategory}
+            All
           </button>
-        ))}
+          {categories.map((category) => (
+            <button
+              className={ (currentCategory === category.strCategory ? 'current' : '') }
+              key={ category.strCategory }
+              type="button"
+              data-testid={ `${category.strCategory}-category-filter` }
+              onClick={ () => this.selectCategory(category.strCategory) }
+            >
+              {category.strCategory}
+            </button>
+          ))}
+        </Row>
       </div>
     );
   }
@@ -117,14 +123,16 @@ const mapDispatchToProps = (dispatch) => ({
   sendMealRecipesDispatch: (e) => dispatch(sendMealRecipes(e)),
   sendDrinkRecipesDispatch: (e) => dispatch(sendDrinkRecipes(e)),
 });
-const mapStateToProps = ({ recipes: { mealRecipes } }) => (
-  { mealRecipes }
+const mapStateToProps = ({ recipes: { mealRecipes, drinkRecipes } }) => (
+  { mealRecipes, drinkRecipes }
 );
 CategorySelector.propTypes = {
   search: PropTypes.string.isRequired,
   sendMealRecipesDispatch: PropTypes.func.isRequired,
   sendDrinkRecipesDispatch: PropTypes.func.isRequired,
-  mealRecipes: PropTypes.string.isRequired,
+  mealRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  drinkRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  location: PropTypes.shape({ pathname: PropTypes.string.isRequired }).isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CategorySelector);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CategorySelector));

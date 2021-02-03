@@ -72,7 +72,6 @@ class RecipesCard extends React.Component {
                 text="dark"
               >
                 <Card.Img
-                  style={ { width: 30 } }
                   src={ `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png` }
                   alt={ strIngredient1 }
                   data-testid={ `${index}-card-img` }
@@ -95,7 +94,6 @@ class RecipesCard extends React.Component {
                 text="dark"
               >
                 <Card.Img
-                  style={ { width: 30 } }
                   src={ `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png` }
                   alt={ strIngredient }
                   data-testid={ `${index}-card-img` }

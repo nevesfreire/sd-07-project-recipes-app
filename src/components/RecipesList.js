@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Row } from 'react-bootstrap';
 import RecipesCard from './RecipesCard';
 
 class RecipesList extends React.Component {
@@ -13,39 +14,42 @@ class RecipesList extends React.Component {
     if (search === 'drinks') {
       return (
         <div className="recipes-list">
-          {drinkRecipes.slice(startList, maxNumber).map((recipe, index) => (
-            <Link
-              key={ recipe.idDrink }
-              data-testid={ `${index}-recipe-card` }
-              to={ `/bebidas/${recipe.idDrink}` }
-            >
-              <RecipesCard
-                recipe={ recipe }
-                index={ index }
-                search="drinks"
-              />
-            </Link>
-          ))}
+          <Row>
+            {drinkRecipes.slice(startList, maxNumber).map((recipe, index) => (
+              <Link
+                key={ recipe.idDrink }
+                to={ `/bebidas/${recipe.idDrink}` }
+              >
+                <RecipesCard
+                  key={ recipe.idDrink }
+                  recipe={ recipe }
+                  index={ index }
+                  search="drinks"
+                />
+              </Link>
+            ))}
+          </Row>
         </div>
       );
     }
 
     return (
       <div className="recipes-list">
-        {mealRecipes.slice(startList, maxNumber).map((recipe, index) => (
-          <Link
-            key={ recipe.idMeal }
-            data-testid={ `${index}-recipe-card` }
-            to={ `/comidas/${recipe.idMeal}` }
-          >
-            <RecipesCard
+        <Row>
+          {mealRecipes.slice(startList, maxNumber).map((recipe, index) => (
+            <Link
               key={ recipe.idMeal }
-              recipe={ recipe }
-              index={ index }
-              search="meals"
-            />
-          </Link>
-        ))}
+              to={ `/comidas/${recipe.idMeal}` }
+            >
+              <RecipesCard
+                key={ recipe.idMeal }
+                recipe={ recipe }
+                index={ index }
+                search="meals"
+              />
+            </Link>
+          ))}
+        </Row>
       </div>
     );
   }
