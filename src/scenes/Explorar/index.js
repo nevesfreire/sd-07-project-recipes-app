@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
 import Header from '../../common/Header';
+import ExploreFoodButton from './components/ExploreFoodButton';
+import ExploreDrinksButton from './components/ExploreDrinksButton';
 
 export default function index() {
   return (
@@ -11,26 +11,10 @@ export default function index() {
       </header>
       <main>
         <div>
-          <Link to="/explorar/comidas">
-            <Button
-              data-testid="explore-food"
-              placeholder="Explorar Comidas"
-            >
-              Explorar Comidas
-
-            </Button>
-          </Link>
+          <ExploreFoodButton />
         </div>
         <div>
-          <Link to="/explorar/bebidas">
-            <Button
-              data-testid="explore-drinks"
-              placeholder="Bebidas"
-            >
-              Explorar Bebidas
-
-            </Button>
-          </Link>
+          <ExploreDrinksButton />
         </div>
       </main>
     </div>
