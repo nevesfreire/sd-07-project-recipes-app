@@ -123,3 +123,13 @@ code {
   font-weight: 500;
   line-height: 35px;
 }
+
+.button-explore {
+  margin-top: 100px;
+  height: 50px;
+}
+
+.container__explore__btn {
+  display: flex;
+  flex-direction: column;
+}
