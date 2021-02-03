@@ -10,6 +10,7 @@ import Perfil from './scenes/Perfil';
 import Explorar from './scenes/Explorar';
 import ReceitasFeitas from './scenes/ReceitasFeitas';
 import FavoriteRecipe from './scenes/FavoriteRecipe';
+import ExplorarReceitas from './scenes/ExplorarReceitas';
 
 export default function Routes() {
   return (
@@ -25,8 +26,8 @@ export default function Routes() {
         <Route path="/comidas/{id-da-receita}/in-progress" exact component={ Perfil } />
         <Route path="/bebidas/{id-da-receita}/in-progress" exact component={ Perfil } />
         <Route path="/explorar" exact component={ Explorar } />
-        <Route path="/explorar/comidas" exact component={ Perfil } />
-        <Route path="/explorar/bebidas" exact component={ Perfil } />
+        <Route path="/explorar/comidas" exact component={ ExplorarReceitas } />
+        <Route path="/explorar/bebidas" exact component={ ExplorarReceitas } />
         <Route path="/explorar/comidas/ingredientes" exact component={ Perfil } />
         <Route path="/explorar/bebidas/ingredientes" exact component={ Perfil } />
         <Route path="/explorar/comidas/area" exact component={ Perfil } />
