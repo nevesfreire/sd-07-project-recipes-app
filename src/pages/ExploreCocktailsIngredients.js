@@ -66,4 +66,3 @@ function ExploreCocktailsIngredients() {
 }
 
 export default ExploreCocktailsIngredients;
- 
