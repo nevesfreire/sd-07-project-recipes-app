@@ -15,6 +15,8 @@ class DrinkInProgress extends Component {
     super(props);
 
     this.handleState = this.handleState.bind(this);
+    this.handleButtonEnabled = this.handleButtonEnabled.bind(this);
+    this.handleCheckbox = this.handleCheckbox.bind(this);
     this.changeFavorite = this.changeFavorite.bind(this);
     this.createFavoriteLocalStorage = this.createFavoriteLocalStorage.bind(this);
 
@@ -24,6 +26,7 @@ class DrinkInProgress extends Component {
       measurement: [],
       request: true,
       favorite: false,
+      button: true,
     };
   }
 
@@ -65,6 +68,26 @@ class DrinkInProgress extends Component {
     });
   }
 
+  handleButtonEnabled() {
+    const doneIngredients = document.querySelectorAll('input:checked');
+    const allIngredients = document.getElementsByClassName('form-check-input');
+    const button = document.getElementsByClassName('finish-button-recipe');
+    console.log(button);
+    if (doneIngredients.length === allIngredients.length) {
+      this.setState({
+        button: false,
+      });
+    } else {
+      this.setState({
+        button: true,
+      });
+    }
+  }
+
+  handleCheckbox() {
+    this.handleButtonEnabled();
+  }
+
   changeFavorite() {
     this.setState((prevState) => ({
       favorite: !prevState.favorite,
@@ -94,7 +117,7 @@ class DrinkInProgress extends Component {
 
   render() {
     const { history } = this.props;
-    const { drinks, ingredients, favorite, measurement } = this.state;
+    const { drinks, ingredients, favorite, measurement, button } = this.state;
     const { strDrinkThumb, strDrink, strInstructions, strAlcoholic } = drinks;
 
     if (!strDrinkThumb) return <Loading />;
@@ -170,6 +193,7 @@ class DrinkInProgress extends Component {
             data-testid="finish-recipe-btn"
             onClick={ () => history.push('/receitas-feitas') }
             className="finish-button-recipe"
+            disabled={ button }
           >
             Finalizar Receita
           </button>

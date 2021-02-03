@@ -15,8 +15,9 @@ class FoodInProgress extends Component {
     super(props);
 
     this.handleState = this.handleState.bind(this);
-    this.changeFavorite = this.changeFavorite.bind(this);
+    this.handleButtonEnabled = this.handleButtonEnabled.bind(this);
     this.handleCheckbox = this.handleCheckbox.bind(this);
+    this.changeFavorite = this.changeFavorite.bind(this);
     this.createFavoriteLocalStorage = this.createFavoriteLocalStorage.bind(this);
 
     this.state = {
@@ -25,6 +26,7 @@ class FoodInProgress extends Component {
       measurement: [],
       request: true,
       favorite: false,
+      button: true,
     };
   }
 
@@ -66,8 +68,24 @@ class FoodInProgress extends Component {
     });
   }
 
-  handleCheckbox({ target }) {
-    console.log(target);
+  handleButtonEnabled() {
+    const doneIngredients = document.querySelectorAll('input:checked');
+    const allIngredients = document.getElementsByClassName('form-check-input');
+    const button = document.getElementsByClassName('finish-button-recipe');
+    console.log(button);
+    if (doneIngredients.length === allIngredients.length) {
+      this.setState({
+        button: false,
+      });
+    } else {
+      this.setState({
+        button: true,
+      });
+    }
+  }
+
+  handleCheckbox() {
+    this.handleButtonEnabled();
   }
 
   changeFavorite() {
@@ -99,7 +117,7 @@ class FoodInProgress extends Component {
 
   render() {
     const { history } = this.props;
-    const { meal, ingredients, favorite, measurement } = this.state;
+    const { meal, ingredients, favorite, measurement, button } = this.state;
     const { strMealThumb, strMeal, strCategory, strInstructions } = meal;
     if (!strMealThumb) return <Loading />;
 
@@ -176,6 +194,7 @@ class FoodInProgress extends Component {
             data-testid="finish-recipe-btn"
             onClick={ () => history.push('/receitas-feitas') }
             className="finish-button-recipe"
+            disabled={ button }
           >
             Finalizar Receita
           </button>
