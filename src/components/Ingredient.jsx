@@ -12,6 +12,7 @@ function Ingredient({ recipes, inProgress, id }) {
   const { drinks } = detailRecipe;
   const details = recipes === 'comidas' ? meals : drinks;
   const zero = 0;
+  const two = 2;
   let ingredients = [];
   let measures = [];
 
@@ -64,6 +65,23 @@ function Ingredient({ recipes, inProgress, id }) {
     );
   }
 
+  if (measures.length <= two) {
+    return (
+      <div>
+        <h3>Ingredient</h3>
+        <div className="div-ingredient">
+          {ingredients.map(([key, value], index) => (
+            <p
+              key={ key }
+              data-testid={ `${index}-ingredient-name-and-measure` }
+            >
+              { `- ${value} - 1/2 part` }
+            </p>
+          ))}
+        </div>
+      </div>
+    );
+  }
   return (
     <div>
       <h3>Ingredient</h3>

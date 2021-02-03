@@ -106,7 +106,6 @@ function TitleDetails({ recipes, pathname, id }) {
             <p>{copy && 'Link copiado!'}</p>
           </button>
         </CopyToClipboard>
-
         <button
           type="button"
           onClick={ () => handleClickFavorite(drinks, recipes, id) }

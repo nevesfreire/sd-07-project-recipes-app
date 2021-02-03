@@ -1,0 +1,69 @@
+.div-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.div-buttons button {
+  background-color: #be1003;
+  border: none;
+  border-radius: 5px;
+  color: aliceblue;
+  font-size: 12pt;
+  margin-left: 10px;
+  margin-top: 15px;
+  padding: 5px 2px;
+  width: 10%;
+}
+
+.div-buttons-share-favorite {
+  bottom: 60px;
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  right: 40px;
+}
+
+.div-buttons-share-favorite button {
+  background-color: white;
+  border-style: none;
+  display: flex;
+  margin-left: 20px;
+  z-index: 0;
+
+}
+
+.div-favorite {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.div-recipes-favorite {
+  display: flex;
+}
+
+.div-favorite-div {
+  background: white;
+  border: 1px solid hsl(0, 44%, 95%);
+  border-radius: 6px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 143px;
+  margin-top: 10px;
+  width: 330px;
+}
+
+.div-recipes-favorite .div-span-p {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+}
+
+.div-favorite .img-favorite {
+  border-radius: 4px 0 0 4px;
+  height: 143px;
+  width: 165px;
+}
