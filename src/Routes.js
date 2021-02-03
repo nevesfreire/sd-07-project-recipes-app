@@ -10,6 +10,12 @@ import DrinkDetail from './pages/DrinkDetail';
 import Favorites from './pages/Favorites';
 import FoodProgress from './pages/FoodProgress';
 import DrinkProgress from './pages/DrinkProgress';
+import Explore from './pages/Explore';
+import DrinkExplore from './pages/Explore/DrinkExplore';
+import FoodExplore from './pages/Explore/FoodExplore';
+import FoodIngredients from './pages/Explore/FoodIngredients';
+import DrinkIngredients from './pages/Explore/DrinkIngredients';
+import FoodByArea from './pages/Explore/FoodByArea';
 
 const Router = () => (
   <Switch>
@@ -19,12 +25,12 @@ const Router = () => (
     <Route path="/bebidas/:id" component={ DrinkDetail } />
     <Route path="/comidas" component={ Foods } />
     <Route path="/bebidas" component={ Drinks } />
-    {/* <Route path="/explorar" component={ Explore } /> */}
-    {/* <Route path="/explorar/comidas" component={ FoodExplore } /> */}
-    {/* <Route path="/explorar/bebidas" component={ DrinkExplore } /> */}
-    {/* <Route path="/explorar/comidas/ingredientes" component={ FoodIngredients } /> */}
-    {/* <Route path="/explorar/bebidas/ingredientes" component={ DrinkIngredients } /> */}
-    {/* <Route path="/explorar/comidas/area" component={ FoodByArea } /> */}
+    <Route path="/explorar/comidas/area" component={ FoodByArea } />
+    <Route path="/explorar/comidas/ingredientes" component={ FoodIngredients } />
+    <Route path="/explorar/bebidas/ingredientes" component={ DrinkIngredients } />
+    <Route path="/explorar/comidas" component={ FoodExplore } />
+    <Route path="/explorar/bebidas" component={ DrinkExplore } />
+    <Route path="/explorar" component={ Explore } />
     <Route path="/perfil" component={ Profile } />
     <Route path="/receitas-feitas" component={ RecipesDone } />
     <Route path="/receitas-favoritas" component={ Favorites } />
