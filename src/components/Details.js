@@ -11,6 +11,7 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import CardList from './CardList';
 import checksUnited from './checksUnited';
+import shareIcon from '../images/shareIcon.svg';
 
 const copy = require('clipboard-copy');
 
@@ -147,26 +148,21 @@ function Details({ itemId, mealType }) {
         tagName="img"
       />
       <h3 data-testid="recipe-title">{details[`str${mealType}`]}</h3>
-      <button
-        type="button"
+      <img 
         data-testid="share-btn"
         onClick={ () => copyLink() }
-      >
-        Compartilhar
-      </button>
-      <button
-        type="button"
-        data-testid="favorite-btn"
-        onClick={ () => addToFavorites() }
-        src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-        tabIndex="0"
-      >
+        src={shareIcon}
+        alt="shareIcon"
+        width="50px"
+      />
+
         <img
           src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
           alt="heartIcon"
+          data-testid="favorite-btn"
+        onClick={ () => addToFavorites() }
+        width="50px"
         />
-        Favoritar
-      </button>
       <h5 hidden={ showMessage }>Link copiado!</h5>
       <h5 width="90%" data-testid="recipe-category">
         {
