@@ -1,34 +1,19 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import RecipeContext from '../context/RecipeContext';
+import { getFoodId } from '../services/Api';
 
 function DetailsFood() {
-  const [load, setLoad] = useState(false);
-  const { data, setData } = useContext(RecipeContext);
-  const { food } = data;
+  const [dataFood, setDataFood] = useState([]);
   const history = useHistory();
   const path = history.location.pathname;
   const idPathName = path.split('/');
-  const endPointIdFood = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
-
-  const getFoodId = async (id) => {
-    try {
-      const { meals } = await fetch(`${endPointIdFood}${id}`)
-        .then((result) => result.json());
-      return setData({
-        ...data,
-        food: meals });
-    } catch (err) {
-      return 'erro';
-    }
-  };
+  const ZERO = 0;
 
   useEffect(() => {
     async function calledIdFood() {
-      await getFoodId(idPathName[2]);
-      setLoad(true);
+      setDataFood(await getFoodId(idPathName[2]));
     }
     calledIdFood();
   }, []);
@@ -36,11 +21,12 @@ function DetailsFood() {
   const cardFood = () => (
     <div>
       <img
-        src={ food[0].strMealThumb }
+        style={ { width: '30%' } }
+        src={ dataFood[0].strMealThumb }
         alt="imagem da receita"
         data-testid="recipe-photo"
       />
-      <h1 data-testid="recipe-title">{ food[0].strMeal }</h1>
+      <h1 data-testid="recipe-title">{ dataFood[0].strMeal }</h1>
       <label htmlFor="shareBtn">
         <input
           type="image"
@@ -59,40 +45,40 @@ function DetailsFood() {
           id="favoriteBtn"
         />
       </label>
-      <p data-testid="recipe-category">{ food[0].strCategory }</p>
+      <p data-testid="recipe-category">{ dataFood[0].strCategory }</p>
       <h2>
         Ingredientes
       </h2>
       <p data-testid="0-ingredient-name-and-measure">
-        {food[0].strIngredient1}
+        {dataFood[0].strIngredient1}
         :
-        {food[0].strMeasure1}
+        {dataFood[0].strMeasure1}
       </p>
       <p data-testid="1-ingredient-name-and-measure">
-        {food[0].strIngredient2}
+        {dataFood[0].strIngredient2}
         :
-        {food[0].strMeasure2}
+        {dataFood[0].strMeasure2}
       </p>
       <p data-testid="2-ingredient-name-and-measure">
-        {food[0].strIngredient3}
+        {dataFood[0].strIngredient3}
         :
-        {food[0].strMeasure3}
+        {dataFood[0].strMeasure3}
       </p>
       <p data-testid="3-ingredient-name-and-measure">
-        {food[0].strIngredient4}
+        {dataFood[0].strIngredient4}
         :
-        {food[0].strMeasure4}
+        {dataFood[0].strMeasure4}
       </p>
       <p data-testid="4-ingredient-name-and-measure">
-        {food[0].strIngredient5}
+        {dataFood[0].strIngredient5}
         :
-        {food[0].strMeasure5}
+        {dataFood[0].strMeasure5}
       </p>
       <h2>Instruções</h2>
-      <p data-testid="instructions">{ food[0].strInstructions }</p>
+      <p data-testid="instructions">{ dataFood[0].strInstructions }</p>
       <iframe
         data-testid="video"
-        src={ food[0].strYoutube }
+        src={ dataFood[0].strYoutube }
         title="Vídeo da receita"
       />
       <div data-testid="0-recomendation-card">
@@ -109,9 +95,7 @@ function DetailsFood() {
   return (
     <div>
       {
-        load
-          ? cardFood()
-          : 'Carregando...'
+        dataFood.length > ZERO ? cardFood() : 'Carregando...'
       }
     </div>
   );
