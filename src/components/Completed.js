@@ -19,11 +19,6 @@ function Completed() {
   };
 
   useEffect(() => {
-    // const getListFromLocal = (setFinishedList) => {
-    //   const list = JSON.parse(localStorage.getItem('doneRecipes'));
-    //   if (list) setFinishedList(list);
-    //   console.log(list);
-    // };
     getListFromLocal(setFinishedList);
   }, []);
 
