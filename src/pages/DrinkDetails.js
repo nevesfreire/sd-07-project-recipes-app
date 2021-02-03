@@ -1,22 +1,26 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
+import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import RecipesContext from '../context/RecipesContext';
 import { fetchAPI, handleIngredients,
-  SIX, TWENTY_ONE, THIRTY_SIX, FIFTY_ONE } from '../services/helpers';
+  TWO_THOUSAND, SIX, TWENTY_ONE, THIRTY_SIX, FIFTY_ONE } from '../services/helpers';
 import '../style/recipeDetail.css';
 
 function DrinkDetails() {
+  const [recipeDetailDrink, setRecipeDetailDrink] = useState({});
   const [recommendation, setRecommendation] = useState(['']);
+  const [copyText, setCopyText] = useState('');
+  const [favorited, setFavorited] = useState();
   const history = useHistory();
   const { pathname } = history.location;
   const drinkRecipeId = pathname.split('/')[2];
 
   const {
-    recipeDetailDrink,
     setDrinkRecipeId,
     setMealRecipeId,
-    setRecipeDetailDrink,
   } = useContext(RecipesContext);
 
   useEffect(() => {
@@ -39,7 +43,45 @@ function DrinkDetails() {
   }, []);
 
   const handleCopyClick = () => {
-    copy(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinkRecipeId}`);
+    copy(window.location.href);
+    setCopyText('Link copiado!');
+    setInterval(() => setCopyText(''), TWO_THOUSAND);
+  };
+
+  useEffect(() => {
+    if (!localStorage.favoriteRecipes) {
+      localStorage.favoriteRecipes = JSON.stringify([]);
+    }
+    const favoriteStorage = JSON.parse(localStorage.favoriteRecipes)
+      .filter((item) => item.id === drinkRecipeId);
+    if (favoriteStorage.length >= 1) {
+      setFavorited(blackHeartIcon);
+    } else {
+      setFavorited(whiteHeartIcon);
+    }
+  }, [drinkRecipeId]);
+
+  const handleFavoriteClick = () => {
+    if (favorited === whiteHeartIcon) {
+      setFavorited(blackHeartIcon);
+      const favoriteFood = {
+        id: recipeDetailDrink.idDrink,
+        type: 'bebida',
+        area: '',
+        category: recipeDetailDrink.strCategory,
+        alcoholicOrNot: recipeDetailDrink.strAlcoholic,
+        name: recipeDetailDrink.strDrink,
+        image: recipeDetailDrink.strDrinkThumb,
+      };
+      const recipes = JSON.parse(localStorage.favoriteRecipes);
+      const AllFavorites = recipes.concat(favoriteFood);
+      localStorage.favoriteRecipes = JSON.stringify(AllFavorites);
+    } else {
+      setFavorited(whiteHeartIcon);
+      const recipes = JSON.parse(localStorage.favoriteRecipes);
+      const AllFavorites = recipes.filter((recipe) => recipe.id !== drinkRecipeId);
+      localStorage.favoriteRecipes = JSON.stringify(AllFavorites);
+    }
   };
 
   return (
@@ -50,14 +92,13 @@ function DrinkDetails() {
         alt="drink"
       />
       <h2 data-testid="recipe-title">{recipeDetailDrink.strDrink}</h2>
-      <button
-        type="button"
-        data-testid="share-btn"
-        onClick={ handleCopyClick }
-      >
-        Share
+      <button type="button" onClick={ handleCopyClick }>
+        <img data-testid="share-btn" src={ shareIcon } alt="share" />
       </button>
-      <button type="button" data-testid="favorite-btn">Favorite</button>
+      <button type="button" onClick={ handleFavoriteClick }>
+        <img data-testid="favorite-btn" src={ favorited } alt="favorite" />
+      </button>
+      <p>{copyText}</p>
       <p data-testid="recipe-category">{recipeDetailDrink.strAlcoholic}</p>
       <ul>
         {handleIngredients(recipeDetailDrink, TWENTY_ONE, THIRTY_SIX, FIFTY_ONE)}
