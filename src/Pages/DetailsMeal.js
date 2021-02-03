@@ -64,7 +64,8 @@ function DetailsMeal() {
         <track default kind="captions" srcLang="en" src={ strYoutube } />
       </video>
 
-      <RecomandationCard />
+      <RecomendationCardMeal />
+      <br />
       <Link to={ `/comidas/${newUrlId}/in-progress` }>
         <button type="button" data-testid="start-recipe-btn">Iniciar receita</button>
       </Link>
