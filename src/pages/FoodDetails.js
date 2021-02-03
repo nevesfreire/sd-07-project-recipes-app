@@ -46,7 +46,7 @@ export default function FoodDetails() {
       <img
         data-testid="recipe-photo"
         alt="Foto da Receita"
-        src={recipe.strMealThumb}
+        src={ recipe.strMealThumb }
       />
 
       <h2 data-testid="recipe-title">{recipe.strMeal}</h2>
@@ -76,7 +76,7 @@ export default function FoodDetails() {
         data-testid="share-btn"
       >
         <img
-          src={shareIcon}
+          src={ shareIcon }
           alt="Share Icon"
         />
       </button>
@@ -86,7 +86,7 @@ export default function FoodDetails() {
         data-testid="favorite-btn"
       >
         <img
-          src={whiteHeartIcon}
+          src={ whiteHeartIcon }
           alt="Favorite Icon"
         />
       </button>
@@ -110,17 +110,17 @@ export default function FoodDetails() {
         {recomendations.map((item, index) => (
 
           <Carousel.Item
-            key={item.idDrink}
-            data-testid={`${index}-recomendation-card`}
+            key={ item.idDrink }
+            data-testid={ `${index}-recomendation-card` }
           >
             <img
               className="d-block w-100"
-              src={item.strDrinkThumb}
-              alt={item.strDrink}
+              src={ item.strDrinkThumb }
+              alt={ item.strDrink }
             />
             <Carousel.Caption>
               <h3
-                data-testid={`${index}-recomendation-title`}
+                data-testid={ `${index}-recomendation-title` }
               >
                 {item.strDrink}
               </h3>

@@ -26,11 +26,11 @@ function SearchExecButton() {
   const drinkLetter = (path === urlBebidas && optionSearch === 'letter');
 
   const handleExecSearchButton = async () => {
-    const failure = () => alert(
+    const failure = () => customAlert(
       'Sinto muito, não encontramos nenhuma receita para esses filtros.',
     );
     if (optionSearch === 'letter' && inputSearch.length > 1) {
-      return alert('Sua busca deve conter somente 1 (um) caracter');
+      return (customAlert('Sua busca deve conter somente 1 (um) caracter'));
     }
     if (mealIngredient) {
       const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${inputSearch}`;
