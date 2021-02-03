@@ -148,7 +148,7 @@ export default function RecipesDone() {
   if (recipes.length < 1) {
     return (
       <div>
-        <Header title="Receitas Favoritas" />
+        <Header title="Receitas Feitas" />
         <h2>
           Sem receitas prontas =(
         </h2>
