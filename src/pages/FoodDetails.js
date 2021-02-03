@@ -1,26 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Form, Carousel } from 'react-bootstrap';
+import React, { useContext, useEffect, useState } from 'react';
+
+import { Button, Carousel } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
-// import RecipesContext from '../context/RecipesContext';
+import RecipesContext from '../context/RecipesContext';
 import FavButton from '../components/DetailsComponents/FavButton';
 import ShareButton from '../components/DetailsComponents/ShareButton';
 
 export default function FoodDetails() {
-  const [recipe, setRecipe] = useState({});
   const [recomendations, setRecomendations] = useState([]);
-  // const [ingredients, setIngredients] = useState([]);
-  // const [measures, setMeasures] = useState([]);
 
-  // const {
-  //   favorite,
-  //   done,
-  // } = useContext(RecipesContext);
+  const {
+    recipe,
+    setRecipe,
+  } = useContext(RecipesContext);
 
   const history = useHistory();
   const zero = 0;
   const cinco = 5;
   const seis = 6;
   const path = history.location.pathname;
+  const listIngredients = [];
 
   useEffect(() => {
     const getRecipe = async () => {
@@ -39,37 +38,36 @@ export default function FoodDetails() {
     setRecomendations(sixCards);
   };
 
+  const ingredientsList = () => {
+    const vinte = 20;
+    for (let i = 1; i <= vinte; i += 1) {
+      if (recipe[`strIngredient${i}`] !== '') {
+        listIngredients
+          .push(`${recipe[`strIngredient${i}`]} - ${recipe[`strMeasure${i}`]}`);
+      }
+    }
+    return true;
+  };
+
   useEffect(() => {
     getRecomendations();
   }, []);
 
-  console.log(recomendations);
-
   useEffect(() => {
-    localStorage.setItem('favoriteRecipes', JSON.stringify([{
-      id: '',
-      type: 'comida',
-      area: '',
-      category: '',
-      alcoholicOrNot: '',
-      name: '',
-      image: '',
-    }]));
-    localStorage.setItem('doneRecipes', JSON.stringify([{
-      id: '',
-      type: 'comida',
-      area: '',
-      category: '',
-      alcoholicOrNot: '',
-      name: '',
-      image: '',
-      doneDate: '',
-      tags: '',
-    }]));
+    const dataFav = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (dataFav) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([...dataFav]));
+    } else { localStorage.setItem('favoriteRecipes', JSON.stringify([])); }
+
+    const dataDone = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (dataDone) {
+      localStorage.setItem('doneRecipes', JSON.stringify([...dataDone]));
+    } else { localStorage.setItem('doneRecipes', JSON.stringify([])); }
+    localStorage.setItem('doneRecipes', JSON.stringify([]));
   }, []);
 
   const handleStartRecipeBtn = () => {
-    history.push('/comidas/:id/in-progress');
+    history.push(`/comidas/${recipe.idMeal}/in-progress`);
   };
 
   return (
@@ -85,20 +83,16 @@ export default function FoodDetails() {
       <h4 data-testid="recipe-category">{recipe.strCategory}</h4>
 
       <h3>Ingredientes</h3>
-
-      <Form>
-        {/* {ingredients.map((ingredient, index) => ( */}
-        <div key="index" className="mb-3">
-          <Form.Check
-            type="checkbox"
-            id="default-checkbox"
-            label="Ingrediente - Qtd"
-          />
-        </div>
-        {/* // ))} */}
-      </Form>
-
-      <div data-testid="0-ingredient-name-and-measure" />
+      { ingredientsList() }
+      <ul>
+        {listIngredients.map((ingredients, key) => (
+          <li
+            key={ key }
+            data-testid={ `${key}-ingredient-name-and-measure` }
+          >
+            {ingredients}
+          </li>))}
+      </ul>
 
       <h3>Instruções</h3>
       <span data-testid="instructions">{recipe.strInstructions}</span>

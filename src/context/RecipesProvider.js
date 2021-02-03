@@ -23,6 +23,7 @@ function Provider({ children }) {
   const [searchCards, setSearchCards] = useState([]);
   const [favorite, setFavorite] = useState(false);
   const [done, setDone] = useState(false);
+  const [recipe, setRecipe] = useState({});
 
   return (
     <RecipesContext.Provider
@@ -65,7 +66,9 @@ function Provider({ children }) {
           favorite,
           setFavorite,
           done,
-          setDone }
+          setDone,
+          recipe,
+          setRecipe }
       }
     >
       { children }
