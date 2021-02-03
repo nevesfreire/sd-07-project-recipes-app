@@ -66,11 +66,11 @@ function DetailsDrink() {
         <track default kind="captions" srcLang="en" src={ strYoutube } />
       </video>
 
-      <RecomandationCard />
+      <RecomendationCardDrinks />
+      <br />
       <Link to={ `/bebidas/${newUrlId}/in-progress` }>
         <button type="button" data-testid="start-recipe-btn">Iniciar receita</button>
       </Link>
-
 
     </div>
   );
