@@ -31,10 +31,25 @@ function FavoriteFoodCard() {
 
   return (
     <div>
-      <button onClick={ filterAll } type="button" data-testid="filter-by-all-btn">All</button>
-      <button onClick={ filterFood } type="button" data-testid="filter-by-food-btn">Food</button>
-      <button onClick={ fiterDrink } type="button" data-testid="filter-by-drink-btn">Drinks</button>
-        {favRecipes.map((favRecipe, index) => (
+      <button
+        onClick={ filterAll }
+        type="button"
+        data-testid="filter-by-all-btn">
+        All
+      </button>
+      <button
+        onClick={ filterFood }
+        type="button"
+        data-testid="filter-by-food-btn">
+        Food
+      </button>
+      <button
+        onClick={ fiterDrink }
+        type="button"
+        data-testid="filter-by-drink-btn">
+        Drinks
+      </button>
+      {favRecipes.map((favRecipe, index) => (
         <section key={ favRecipe.id }>
           <img
             alt="favorites-"
