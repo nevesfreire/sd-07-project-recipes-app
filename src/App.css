@@ -111,11 +111,11 @@ button {
 .recipe-card {
   background-color: white;
   border-radius: 5px;
-  margin: 5px;
   box-shadow: 4px 4px 4px grey;
   height: 210px;
-  width: 160px;
+  margin: 5px;
   overflow: hidden;
+  width: 160px;
 }
 
 .recipe-card img {
@@ -132,8 +132,8 @@ button {
 .categories {
   display: flex;
   flex-direction: row;
-  justify-content: center;
   flex-wrap: wrap;
+  justify-content: center;
   margin-bottom: 30px;
 }
 
