@@ -6,7 +6,7 @@ button, input {
 }
 
 .login-page {
-  background-image: url('https://pixabay.com/get/g15c6ba1be95b8e8c501a513323a22e6c7271d1c7bf21ab6adb9890285e881f7224a6329f1c3b064e07fc17d200b6e3c8_640.jpg');
+  background-image: url('../images/background.jpg');
   box-sizing: border-box ;
   font-family: Josefin Sans;
   height: 100vh;

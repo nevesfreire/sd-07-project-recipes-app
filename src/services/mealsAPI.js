@@ -35,7 +35,7 @@ export const getMealsCategories = () => new Promise((resolve, reject) => {
 });
 
 export const getMealsDetailsById = (id) => new Promise((resolve, reject) => {
-  axios.get(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
-    .then((response) => resolve(response.data))
+  fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
+    .then((response) => response.json().then((data) => resolve(data)))
     .catch((error) => reject(error));
 });

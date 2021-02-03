@@ -3,12 +3,9 @@ import {
   getMealsByIngredient,
   getMealsByName,
   getRandomMeals,
-<<<<<<< HEAD
   getMealsDetailsById,
-=======
   getMealsByCategory,
   getMealsCategories,
->>>>>>> 426daa446015cfac0b6abe7c8eb4758fd4535be8
 } from '../services/mealsAPI';
 
 export const REQUEST_MEALS = 'REQUEST_MEALS';
@@ -64,14 +61,12 @@ export const fetchRandomMeals = () => (dispatch) => {
     .catch((error) => dispatch(setMealsFailure(error)));
 };
 
-<<<<<<< HEAD
 export const fetchMealsDetailsById = () => (dispatch) => {
   dispatch(requestMeals());
   return getMealsDetailsById()
     .then((response) => dispatch(setMealsSuccess(response)))
     .catch((error) => dispatch(setMealsFailure(error)));
 };
-=======
 export const fetchMealsByCategory = (category) => (dispatch) => {
   dispatch(requestMeals());
   return getMealsByCategory(category)
@@ -85,4 +80,3 @@ export const fetchMealsCategories = () => (dispatch) => {
     .then((response) => dispatch(setMealsCategoriesSuccess(response)))
     .catch((error) => dispatch(setMealsCategoriesFailure(error)));
 };
->>>>>>> 426daa446015cfac0b6abe7c8eb4758fd4535be8

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { getMealsDetailsById } from '../services/mealsAPI';
 import shareIcon from '../images/shareIcon.svg';
 import favIconEnabled from '../images/blackHeartIcon.svg';
@@ -52,6 +53,7 @@ class MealRecipeDetails extends Component {
     }
 
     const {
+      idMeal,
       strMealThumb,
       strMeal,
       strCategory,
@@ -125,29 +127,29 @@ class MealRecipeDetails extends Component {
         </span>
         <div>
           <h2>Ingredients</h2>
-          <ul data-testid="0-ingredient-name-and-measure">
-            <li>
+          <ul>
+            <li data-testid="0-ingredient-name-and-measure">
               {`${strIngredient1} ${strMeasure1}`}
             </li>
-            <li>
+            <li data-testid="1-ingredient-name-and-measure">
               {`${strIngredient2} ${strMeasure2}`}
             </li>
-            <li>
+            <li data-testid="2-ingredient-name-and-measure">
               {`${strIngredient3} ${strMeasure3}`}
             </li>
-            <li>
+            <li data-testid="3-ingredient-name-and-measure">
               {`${strIngredient4} ${strMeasure4}`}
             </li>
-            <li>
+            <li data-testid="4-ingredient-name-and-measure">
               {`${strIngredient5} ${strMeasure5}`}
             </li>
-            <li>
+            <li data-testid="5-ingredient-name-and-measure">
               {`${strIngredient6} ${strMeasure6}`}
             </li>
-            <li>
+            <li data-testid="6-ingredient-name-and-measure">
               {`${strIngredient7} ${strMeasure7}`}
             </li>
-            <li>
+            <li data-testid="7-ingredient-name-and-measure">
               {`${strIngredient8} ${strMeasure8}`}
             </li>
           </ul>
@@ -202,13 +204,13 @@ class MealRecipeDetails extends Component {
           </div>
         </div>
         <div className="start-btn">
-          <button
-            type="submit"
+          <Link
             data-testid="start-recipe-btn"
             className="start-recipe-btn"
+            to={ `${idMeal}/in-progress` }
           >
             Iniciar receita
-          </button>
+          </Link>
         </div>
       </div>
     );

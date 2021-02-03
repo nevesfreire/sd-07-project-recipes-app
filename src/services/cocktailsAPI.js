@@ -35,7 +35,7 @@ export const getCocktailsCategories = () => new Promise((resolve, reject) => {
 });
 
 export const getCocktailsDetailsById = (id) => new Promise((resolve, reject) => {
-  axios.get(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
-    .then((response) => resolve(response.data))
+  fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
+    .then((response) => response.json().then((data) => resolve(data)))
     .catch((error) => reject(error));
 });

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { getCocktailsDetailsById } from '../services/cocktailsAPI';
 import shareIcon from '../images/shareIcon.svg';
 import favIconEnabled from '../images/blackHeartIcon.svg';
@@ -52,9 +53,10 @@ class CocktailRecipeDetails extends Component {
     }
 
     const {
+      idDrink,
       strDrink,
       strDrinkThumb,
-      strCategory,
+      strAlcoholic,
       strIngredient1,
       strMeasure1,
       strIngredient2,
@@ -110,21 +112,21 @@ class CocktailRecipeDetails extends Component {
           data-testid="recipe-category"
           className="recipe-category"
         >
-          { strCategory }
+          { strAlcoholic }
         </span>
         <div>
           <h2>Ingredients</h2>
-          <ul data-testid="0-ingredient-name-and-measure">
-            <li>
+          <ul>
+            <li data-testid="0-ingredient-name-and-measure">
               {`${strIngredient1} ${strMeasure1}`}
             </li>
-            <li>
+            <li data-testid="1-ingredient-name-and-measure">
               {`${strIngredient2} ${strMeasure2}`}
             </li>
-            <li>
+            <li data-testid="2-ingredient-name-and-measure">
               {`${strIngredient3} ${strMeasure3}`}
             </li>
-            <li>
+            <li data-testid="3-ingredient-name-and-measure">
               {`${strIngredient4} ${strMeasure4}`}
             </li>
           </ul>
@@ -161,13 +163,13 @@ class CocktailRecipeDetails extends Component {
           </div>
         </div>
         <div className="start-btn">
-          <button
-            type="submit"
+          <Link
             data-testid="start-recipe-btn"
             className="start-recipe-btn"
+            to={ `${idDrink}/in-progress` }
           >
             Iniciar receita
-          </button>
+          </Link>
         </div>
       </div>
     );
