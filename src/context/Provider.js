@@ -12,8 +12,6 @@ function Provider({ children }) {
   const [getSearchBtn, setSearchBtn] = useState(false);
   const [mealRecipeId, setMealRecipeId] = useState('');
   const [drinkRecipeId, setDrinkRecipeId] = useState('');
-  const [recipeDetailFood, setRecipeDetailFood] = useState({});
-  const [recipeDetailDrink, setRecipeDetailDrink] = useState({});
   const [btnFilter, setBtnFilter] = useState(false);
   const [initialRecipes, setInitialRecipes] = useState();
 
@@ -31,8 +29,6 @@ function Provider({ children }) {
   const context = {
     mealRecipeId,
     drinkRecipeId,
-    recipeDetailFood,
-    recipeDetailDrink,
     filterSearch,
     searchRender,
     searchInput,
@@ -47,8 +43,6 @@ function Provider({ children }) {
     setSearchRender,
     setMealRecipeId,
     setDrinkRecipeId,
-    setRecipeDetailFood,
-    setRecipeDetailDrink,
     setBtnFilter,
     setInitialRecipes,
   };

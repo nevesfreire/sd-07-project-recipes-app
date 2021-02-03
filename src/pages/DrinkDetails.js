@@ -10,18 +10,17 @@ import { fetchAPI, handleIngredients,
 import '../style/recipeDetail.css';
 
 function DrinkDetails() {
+  const [recipeDetailDrink, setRecipeDetailDrink] = useState({});
   const [recommendation, setRecommendation] = useState(['']);
   const [copyText, setCopyText] = useState('');
-  const [like, setLiked] = useState();
+  const [favorited, setFavorited] = useState();
   const history = useHistory();
   const { pathname } = history.location;
   const drinkRecipeId = pathname.split('/')[2];
 
   const {
-    recipeDetailDrink,
     setDrinkRecipeId,
     setMealRecipeId,
-    setRecipeDetailDrink,
   } = useContext(RecipesContext);
 
   useEffect(() => {
@@ -56,11 +55,34 @@ function DrinkDetails() {
     const favoriteStorage = JSON.parse(localStorage.favoriteRecipes)
       .filter((item) => item.id === drinkRecipeId);
     if (favoriteStorage.length >= 1) {
-      setLiked(blackHeartIcon);
+      setFavorited(blackHeartIcon);
     } else {
-      setLiked(whiteHeartIcon);
+      setFavorited(whiteHeartIcon);
     }
   }, [drinkRecipeId]);
+
+  const handleFavoriteClick = () => {
+    if (favorited === whiteHeartIcon) {
+      setFavorited(blackHeartIcon);
+      const favoriteFood = {
+        id: recipeDetailDrink.idDrink,
+        type: 'bebida',
+        area: '',
+        category: recipeDetailDrink.strCategory,
+        alcoholicOrNot: recipeDetailDrink.strAlcoholic,
+        name: recipeDetailDrink.strDrink,
+        image: recipeDetailDrink.strDrinkThumb,
+      };
+      const recipes = JSON.parse(localStorage.favoriteRecipes);
+      const AllFavorites = recipes.concat(favoriteFood);
+      localStorage.favoriteRecipes = JSON.stringify(AllFavorites);
+    } else {
+      setFavorited(whiteHeartIcon);
+      const recipes = JSON.parse(localStorage.favoriteRecipes);
+      const AllFavorites = recipes.filter((recipe) => recipe.id !== drinkRecipeId);
+      localStorage.favoriteRecipes = JSON.stringify(AllFavorites);
+    }
+  };
 
   return (
     <div>
@@ -73,8 +95,8 @@ function DrinkDetails() {
       <button type="button" onClick={ handleCopyClick }>
         <img data-testid="share-btn" src={ shareIcon } alt="share" />
       </button>
-      <button type="button">
-        <img data-testid="favorite-btn" src={ like } alt="favorite" />
+      <button type="button" onClick={ handleFavoriteClick }>
+        <img data-testid="favorite-btn" src={ favorited } alt="favorite" />
       </button>
       <p>{copyText}</p>
       <p data-testid="recipe-category">{recipeDetailDrink.strAlcoholic}</p>

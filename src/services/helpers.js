@@ -18,6 +18,7 @@ export const handleIngredients = (recipe, initial, middle, end) => {
     ));
 };
 
+export const ZERO = 0;
 export const SIX = 6;
 export const NINE = 9;
 export const TWELVE = 12;
