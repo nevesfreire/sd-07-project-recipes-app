@@ -7,7 +7,6 @@ import 'slick-carousel/slick/slick-theme.css';
 
 function RecomendationCard() {
   const { detailsRecipe, recomendations } = useContext(RecipeContext);
-  console.log('recomendation card', recomendations);
   const { recipeRecomendationsAPI } = useFetch();
   const [loadingRecomendation, setLoadingRecomendation] = useState(true);
   const type = Object.keys(detailsRecipe)[0];

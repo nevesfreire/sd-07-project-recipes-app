@@ -119,14 +119,12 @@ function useFetch() {
       const results = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
         .then((response) => response.json());
       const length6 = results.meals.slice(zero, seis);
-      console.log('length', length6);
       await setRecomendations(length6);
     }
     if (type === 'meals') {
       const results = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
         .then((response) => response.json());
       const length6 = results.drinks.slice(zero, seis);
-      console.log('length', length6);
       await setRecomendations(length6);
     }
   }
