@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { requestApiFoodDetails } from '../services/requestFood';
+import { recommendDrinksList } from '../services/requestDrink';
 
 function DetalhesReceitas({ match: { params: { id } } }) {
   const [foodDetails, setFoodDetails] = useState([]);
   const [ingredientsAndMeasure, setIngredientsAndMeasure] = useState([]);
   const [videoLink, setVideoLink] = useState('');
+  const [recommendedForThisFood, setRecommendedForThisFood] = useState([]);
 
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trim
 
@@ -18,11 +20,13 @@ function DetalhesReceitas({ match: { params: { id } } }) {
     const expectedArray = [];
 
     detailsEntries.forEach((currentArray) => {
-      if (ingredientRegex.test(currentArray[0]) && currentArray[1].trim() !== '')
-      filteredIngredients.push(currentArray[1]);
+      if (ingredientRegex.test(currentArray[0]) && currentArray[1].trim() !== '') {
+        filteredIngredients.push(currentArray[1]);
+      }
 
-      if (measureRegex.test(currentArray[0]) && currentArray[1].trim() !== '')
-      filteredMeasure.push(currentArray[1]);
+      if (measureRegex.test(currentArray[0]) && currentArray[1].trim() !== '') {
+        filteredMeasure.push(currentArray[1]);
+      }
     });
 
     filteredMeasure.forEach((measure, index) => {
@@ -33,7 +37,7 @@ function DetalhesReceitas({ match: { params: { id } } }) {
   };
 
   const getVideoLink = () => {
-    if ( foodDetails.strYoutube ) {
+    if (foodDetails.strYoutube) {
       const splitLink = foodDetails.strYoutube.split('=');
       const endOfLink = splitLink[splitLink.length - 1];
       const expectedLink = `https://www.youtube.com/embed/${endOfLink}`;
@@ -41,9 +45,20 @@ function DetalhesReceitas({ match: { params: { id } } }) {
     }
   };
 
+  const getTheRecommendedDrinks = async () => {
+    if (foodDetails) {
+      const firstIndex = 0;
+      const lastIndex = 6;
+      const recommendedDrinksArray = await recommendDrinksList();
+      const expectedArray = recommendedDrinksArray.drinks.slice(firstIndex, lastIndex);
+      setRecommendedForThisFood(expectedArray);
+    }
+  };
+
   useEffect(() => {
     getIngredientsAndMeasure();
     getVideoLink();
+    getTheRecommendedDrinks();
   }, [foodDetails]);
 
   const callMainApi = async () => {
@@ -69,7 +84,7 @@ function DetalhesReceitas({ match: { params: { id } } }) {
           <h2 data-testid="recipe-title">
             { foodDetails.strMeal }
           </h2>
-          <hr/>
+          <hr />
           <span data-testid="recipe-category">
             { foodDetails.strCategory }
           </span>
@@ -102,12 +117,42 @@ function DetalhesReceitas({ match: { params: { id } } }) {
         title="video"
         width="100%"
         height="360"
-        allow="accelerometer"
+        allow="accelerometer;
+        autoplay;
+        clipboard-write;
+        encrypted-media;
+        gyroscope;
+        picture-in-picture"
+        fs="1"
       />
+      <div>
+        {
+          recommendedForThisFood.map((drink, index) => (
+            <div
+              key={ drink }
+              data-testid={ `${index}-recomendation-card` }
+            >
+              <div>
+                <img
+                  src={ drink.strDrinkThumb }
+                  alt={ drink.strDrinkThumb }
+                />
+                <h3 data-testid={ `${index}-recomendation-title` }>{ drink.strDrink }</h3>
+              </div>
+            </div>
+          ))
+        }
+      </div>
     </div>
   );
 }
 
-DetalhesReceitas.propTypes = { id: PropTypes.number.isRequired };
+DetalhesReceitas.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+    }).isRequired,
+  }).isRequired,
+};
 
 export default DetalhesReceitas;
