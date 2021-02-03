@@ -5,14 +5,26 @@ import PropTypes from 'prop-types';
 import { Header, Footer } from '../../components';
 
 class Perfil extends Component {
+  constructor(props) {
+    super(props);
+    this.history = props.history;
+    this.handleLogout = this.handleLogout.bind(this);
+  }
+
+  handleLogout() {
+    localStorage.clear();
+    this.history.push('/');
+  }
+
   render() {
     const title = 'Perfil';
-    const { history } = this.props;
+    const emailNovo = (JSON.parse(localStorage.getItem('user'))).email;
+
     return (
       <div>
         <Header title={ title } />
         <Container>
-          <h1 data-testid="profile-email">email@email</h1>
+          <h4 data-testid="profile-email">{emailNovo}</h4>
         </Container>
         <Container>
           <Button
@@ -20,7 +32,7 @@ class Perfil extends Component {
             block
             size="lg"
             data-testid="profile-done-btn"
-            onClick={ () => history.push('/receitas-feitas') }
+            onClick={ () => this.history.push('/receitas-feitas') }
           >
             Receitas Feitas
           </Button>
@@ -29,7 +41,7 @@ class Perfil extends Component {
             block
             size="lg"
             data-testid="profile-favorite-btn"
-            onClick={ () => history.push('/receitas-favoritas') }
+            onClick={ () => this.history.push('/receitas-favoritas') }
           >
             Receitas Favoritas
           </Button>
@@ -38,7 +50,7 @@ class Perfil extends Component {
             block
             size="lg"
             data-testid="profile-logout-btn"
-            onClick={ () => history.push('/') }
+            onClick={ this.handleLogout }
           >
             Sair
           </Button>
