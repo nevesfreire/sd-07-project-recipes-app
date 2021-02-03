@@ -22,7 +22,11 @@ const RecipeDetail = () => {
   const endPoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
 
   const like = () => {
-    localStorage.setItem('favoriteRecipes', JSON.stringify(`${id}`));
+    localStorage.setItem(
+      'favoriteRecipes',
+      JSON.stringify([{ favoriteRecipes: `${id}` }]),
+    );
+
     if (isFavorite === false) {
       setIsFavorite(true);
     } else {
@@ -30,6 +34,25 @@ const RecipeDetail = () => {
       localStorage.removeItem('favoriteRecipes');
     }
   };
+
+  useEffect(() => {
+    const checkFavorite = () => {
+      const favoriteLocalStorage = JSON.parse(
+        localStorage.getItem('favoriteRecipes'),
+      );
+      if (favoriteLocalStorage !== null) {
+        const ocurrencies = favoriteLocalStorage.map((actual) => Object.entries(actual));
+        const isFavored = ocurrencies.map(
+          (actualItem, index) => actualItem[index][1].includes(id),
+        );
+        if (isFavored[0] === true) {
+          setIsFavorite(true);
+        }
+      }
+    };
+
+    checkFavorite();
+  }, [id]);
 
   useEffect(() => {
     const getAPI = async () => {
@@ -97,7 +120,6 @@ const RecipeDetail = () => {
 
   const shareLink = () => {
     const url = window.location.href;
-    console.log(url);
     navigator.clipboard.writeText(url);
     const cont = document.getElementById('result');
     cont.innerHTML = 'Link copiado!';
@@ -116,16 +138,21 @@ const RecipeDetail = () => {
         <h2 className="recipe-title" data-testid="recipe-title">
           {recipeDetails.meals[0].strMeal}
         </h2>
-        <button data-testid="favorite-btn" type="button" onClick={ () => like() }>
+        <button type="button" onClick={ () => like() }>
           <img
+            data-testid="favorite-btn"
             src={ isFavorite === false ? likeIcon : likeIconBlack }
             alt="favorite"
           />
         </button>
-        <button data-testid="share-btn" type="button" onClick={ () => shareLink() }>
+        <button
+          data-testid="share-btn"
+          type="button"
+          onClick={ () => shareLink() }
+        >
           <img src={ shareIcon } alt="share" />
-          <span id="result" />
         </button>
+        <span id="result" />
       </div>
       <div className="container-text">
         <div className="category" data-testid="recipe-category">
