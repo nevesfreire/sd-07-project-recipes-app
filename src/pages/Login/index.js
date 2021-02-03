@@ -42,6 +42,7 @@ const Login = () => {
           onChange={ handleChange }
         />
         <input
+          type="password"
           data-testid="password-input"
           name="password"
           onChange={ handleChange }

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { fetchCategories, setFilterByCategory } from '../../store/ducks/recipes';
-
+import { fetchCategories, setFilter } from '../../store/ducks/recipes';
+import { FILTER_TYPES } from '../../services/recipeAPI';
 import { StyledButtonGroup, StyledToggleButton } from './styles';
 
 const RecipeCategoryFilter = () => {
@@ -12,20 +12,19 @@ const RecipeCategoryFilter = () => {
   const dispatch = useDispatch();
 
   const setToggleButton = (value) => {
-    setCheckedValue(value === checkedValue ? '' : value);
+    if (value === checkedValue) {
+      setCheckedValue('');
+      dispatch(setFilter(FILTER_TYPES.NAME));
+    } else {
+      setCheckedValue(value);
+      dispatch(setFilter(FILTER_TYPES.CATEGORY, value));
+    }
   };
 
   useEffect(() => {
-    const getCategories = async (type) => dispatch(await fetchCategories(type));
+    const getCategories = (type) => dispatch(fetchCategories(type));
     getCategories(pathname);
   }, [dispatch, pathname]);
-
-  useEffect(() => {
-    const setFilter = async (category) => (
-      dispatch(await setFilterByCategory(category))
-    );
-    setFilter(checkedValue);
-  }, [dispatch, checkedValue]);
 
   return (
     <StyledButtonGroup toggle>
