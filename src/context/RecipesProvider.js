@@ -21,6 +21,8 @@ function Provider({ children }) {
   const [clickSearchIcon, setClickSearchIcon] = useState(zero);
   const [idDetail, setIdDetail] = useState();
   const [searchCards, setSearchCards] = useState([]);
+  const [favorite, setFavorite] = useState(false);
+  const [done, setDone] = useState(false);
 
   return (
     <RecipesContext.Provider
@@ -59,7 +61,11 @@ function Provider({ children }) {
           idDetail,
           setIdDetail,
           searchCards,
-          setSearchCards }
+          setSearchCards,
+          favorite,
+          setFavorite,
+          done,
+          setDone }
       }
     >
       { children }

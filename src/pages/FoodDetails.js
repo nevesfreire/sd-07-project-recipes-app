@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form, Carousel } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+// import RecipesContext from '../context/RecipesContext';
+import FavButton from '../components/DetailsComponents/FavButton';
+import ShareButton from '../components/DetailsComponents/ShareButton';
 
 export default function FoodDetails() {
   const [recipe, setRecipe] = useState({});
   const [recomendations, setRecomendations] = useState([]);
   // const [ingredients, setIngredients] = useState([]);
   // const [measures, setMeasures] = useState([]);
+
+  // const {
+  //   favorite,
+  //   done,
+  // } = useContext(RecipesContext);
 
   const history = useHistory();
   const zero = 0;
@@ -37,8 +43,34 @@ export default function FoodDetails() {
     getRecomendations();
   }, []);
 
-  console.log(recipe);
   console.log(recomendations);
+
+  useEffect(() => {
+    localStorage.setItem('favoriteRecipes', JSON.stringify([{
+      id: '',
+      type: 'comida',
+      area: '',
+      category: '',
+      alcoholicOrNot: '',
+      name: '',
+      image: '',
+    }]));
+    localStorage.setItem('doneRecipes', JSON.stringify([{
+      id: '',
+      type: 'comida',
+      area: '',
+      category: '',
+      alcoholicOrNot: '',
+      name: '',
+      image: '',
+      doneDate: '',
+      tags: '',
+    }]));
+  }, []);
+
+  const handleStartRecipeBtn = () => {
+    history.push('/comidas/:id/in-progress');
+  };
 
   return (
     <div>
@@ -71,25 +103,9 @@ export default function FoodDetails() {
       <h3>Instruções</h3>
       <span data-testid="instructions">{recipe.strInstructions}</span>
 
-      <button
-        type="button"
-        data-testid="share-btn"
-      >
-        <img
-          src={ shareIcon }
-          alt="Share Icon"
-        />
-      </button>
+      <ShareButton />
 
-      <button
-        type="button"
-        data-testid="favorite-btn"
-      >
-        <img
-          src={ whiteHeartIcon }
-          alt="Favorite Icon"
-        />
-      </button>
+      <FavButton />
 
       <h3>Video</h3>
       <iframe
@@ -130,7 +146,14 @@ export default function FoodDetails() {
         ))}
       </Carousel>
 
-      <Button variant="success" data-testid="start-recipe-btn">Iniciar Receita</Button>
+      <Button
+        variant="success"
+        data-testid="start-recipe-btn"
+        className="startRecipeBtn"
+        onClick={ handleStartRecipeBtn }
+      >
+        Iniciar Receita
+      </Button>
 
     </div>
 
