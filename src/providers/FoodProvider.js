@@ -93,6 +93,7 @@ const FoodProvider = ({ children }) => {
     inputText,
     setInputText,
     data,
+    setData,
     categories,
     categoriesData,
     allButton,
