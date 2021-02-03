@@ -24,6 +24,7 @@ const DrinkExploreIngredient = () => {
   };
 
   if (drinksRedirect) return <Redirect to="/bebidas" />;
+
   return (
     <div>
       { ingredients.map(({ strIngredient1: ingredient }, index) => (

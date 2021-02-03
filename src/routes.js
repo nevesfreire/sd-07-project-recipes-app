@@ -34,6 +34,7 @@ const Routes = () => (
       <Route path="/comidas/:id/in-progress" component={ FoodProgress } />
       <Route path="/bebidas/:id/in-progress" component={ DrinkProgress } />
       <Route path="/perfil" component={ Perfil } />
+      <Route path="*" component={ () => <h1>Not Found</h1> } />
     </Switch>
   </Router>
 );
