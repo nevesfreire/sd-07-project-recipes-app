@@ -116,17 +116,17 @@ class TelaPrincipalReceitasBebidas extends Component {
     );
   }
 }
+const mapDispatchToProps = (dispatch) => ({
+  loadDrinksDispatch: () => dispatch(loadDrinks()),
+  getCategoriesDispatch: () => dispatch(loadDrinksCategories()),
+  getByCategorieDrinksD: (categorie) => dispatch(getByCategorieDrinks(categorie)),
+});
 
 const mapStateToProps = (state) => ({
   drinksStore: state.receitasDeBebidas.drinks.drinks,
   categoriesStore: state.receitasDeBebidas.categories.drinks,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  loadDrinksDispatch: () => dispatch(loadDrinks()),
-  getCategoriesDispatch: () => dispatch(loadDrinksCategories()),
-  getByCategorieDrinksD: (categorie) => dispatch(getByCategorieDrinks(categorie)),
-});
 
 TelaPrincipalReceitasBebidas.propTypes = {
   categoriesStore: PropTypes.arrayOf(PropTypes.object).isRequired,
