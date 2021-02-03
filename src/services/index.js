@@ -1,5 +1,9 @@
 const categoryMealUrl = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
 const categoryDrinkUrl = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+const foodDetail = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
+const drinkDetail = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
+const mealIngredientsUrl = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+const drinkIngredientsUrl = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
 
 const auxFunc = (term, type, url) => {
   if (term && type) {
@@ -56,6 +60,45 @@ export const categoryDrinkApi = async () => {
     const categoryDrink = await response.json();
 
     return categoryDrink;
+  } catch (error) {
+    return error.message;
+  }
+};
+
+export const detailApi = async (id, pathname) => {
+  let url = '';
+  if (pathname === 'comidas') {
+    url = `${foodDetail}${id}`;
+  } else {
+    url = `${drinkDetail}${id}`;
+  }
+  try {
+    const response = await fetch(url);
+    const recipeDetailData = await response.json();
+
+    return recipeDetailData;
+  } catch (error) {
+    return error.message;
+  }
+};
+
+export const mealIngredientsAPI = async () => {
+  try {
+    const response = await fetch(mealIngredientsUrl);
+    const ingredients = await response.json();
+
+    return ingredients;
+  } catch (error) {
+    return error.message;
+  }
+};
+
+export const drinkIngredientsAPI = async () => {
+  try {
+    const response = await fetch(drinkIngredientsUrl);
+    const ingredients = await response.json();
+
+    return ingredients;
   } catch (error) {
     return error.message;
   }

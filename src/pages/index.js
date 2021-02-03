@@ -11,3 +11,4 @@ export { default as DoneRecipes } from './DoneRecipes';
 export { default as FavoriteRecipes } from './FavoriteRecipes';
 export { default as FoodDetails } from './FoodDetails';
 export { default as DrinkDetails } from './DrinkDetails';
+export { default as InProgressRecipes } from './InProgressRecipes';

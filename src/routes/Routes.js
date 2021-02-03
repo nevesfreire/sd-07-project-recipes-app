@@ -14,6 +14,7 @@ import {
   FavoriteRecipes,
   FoodDetails,
   DrinkDetails,
+  InProgressRecipes,
 } from '../pages';
 
 function Routes() {
@@ -28,7 +29,7 @@ function Routes() {
         <Route
           exact
           path="/comidas"
-          render={ (props) => <Food { ...props } /> }
+          component={ Food }
         />
         <Route
           exact
@@ -71,12 +72,14 @@ function Routes() {
           component={ Profile }
         />
         <Route
+          exact
           path="/comidas/:id"
-          render={ (props) => <FoodDetails { ...props } /> }
+          component={ FoodDetails }
         />
         <Route
+          exact
           path="/bebidas/:id"
-          render={ (props) => <DrinkDetails { ...props } /> }
+          component={ DrinkDetails }
         />
         <Route
           exact
@@ -87,6 +90,11 @@ function Routes() {
           exact
           path="/receitas-favoritas"
           component={ FavoriteRecipes }
+        />
+        <Route
+          exact
+          path="/:recipe/:id/in-progress"
+          component={ InProgressRecipes }
         />
       </Switch>
     </BrowserRouter>

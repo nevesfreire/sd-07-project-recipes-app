@@ -8,8 +8,9 @@ import '../styles/header.css';
 import SearchBar from './SearchBar';
 import FoodAppContext from '../context/FoodAppContext';
 
-function Header({ title, isSearchable, props }) {
+function Header({ title, isSearchable }) {
   const { showSearch, setShowSearch } = useContext(FoodAppContext);
+
   const handleSearchClick = () => {
     setShowSearch(!showSearch);
   };
@@ -43,13 +44,12 @@ function Header({ title, isSearchable, props }) {
         <h1 className="title" data-testid="page-title">{title}</h1>
         {isSearchable && renderSearchIcon()}
       </header>
-      { showSearch && <SearchBar title={ title } props={ props } />}
+      { showSearch && <SearchBar title={ title } />}
     </div>
   );
 }
 
 Header.propTypes = {
-  props: PropTypes.shape({}).isRequired,
   title: PropTypes.string.isRequired,
   isSearchable: PropTypes.bool.isRequired,
 };
