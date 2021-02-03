@@ -3,6 +3,15 @@ import { cleanup, render, fireEvent } from '@testing-library/react';
 import renderWithRouter from '../renderWithRouter';
 import Login from '../pages/Login';
 
+
+const LOGIN_DATA = {
+  'email': 'email-input',
+  'senha': 'password-input',
+  'botao': 'login-submit-btn'
+};
+
+
+
 const EMAIL_IMPUT = 'email-input';
 const PASSWORD_IMPUT = 'password-input';
 const LOGIN_SUBMIT_BTN = 'login-submit-btn';
@@ -10,14 +19,22 @@ const LOGIN_SUBMIT_BTN = 'login-submit-btn';
 afterEach(cleanup);
 
 describe('Testando arquivo Login.js', () => {
-  test('A pagina deve pussuir um imput para email,senha e botão "entrar"', () => {
+  test('A pagina deve possuir um input para email, senha e botão "entrar"', () => {
     const { getByTestId } = render(<Login />);
+
+    Object.keys(LOGIN_DATA).forEach((key) => {
+      const attrName = getByTestId(LOGIN_DATA[key]);
+      expect(attrName).toBeInTheDocument();
+    });
+
+    /*
     const email = getByTestId(EMAIL_IMPUT);
     const senha = getByTestId(PASSWORD_IMPUT);
     const botão = getByTestId(LOGIN_SUBMIT_BTN);
     expect(email).toBeInTheDocument();
     expect(senha).toBeInTheDocument();
     expect(botão).toBeInTheDocument();
+    */
   });
   test('O botão deve estar desabilitado se o e-mail for inválido', () => {
     const { getByTestId } = render(<Login />);
@@ -33,7 +50,7 @@ describe('Testando arquivo Login.js', () => {
     fireEvent.change(senha, { target: { value: '12345' } });
     expect(botão).toHaveAttribute('disabled');
   });
-  test('Ao prenecher email e senha válidos o botão deve estar habilitado', () => {
+  test('Ao preencher email e senha válidos o botão deve estar habilitado', () => {
     const { getByTestId } = render(<Login />);
     const email = getByTestId(EMAIL_IMPUT);
     const senha = getByTestId(PASSWORD_IMPUT);
@@ -42,7 +59,7 @@ describe('Testando arquivo Login.js', () => {
     fireEvent.change(email, { target: { value: 'teste@test.com' } });
     expect(botão).not.toHaveAttribute('disabled');
   });
-  test('Se ao clicar o botão a pessoa deve ser direcionada para "/comidas"', () => {
+  test('Se ao clicar o botão a pessoa deve ser direcionada para "/Comidas"', () => {
     const { getByTestId, history } = renderWithRouter(<Login />);
     const email = getByTestId(EMAIL_IMPUT);
     const senha = getByTestId(PASSWORD_IMPUT);
@@ -51,6 +68,6 @@ describe('Testando arquivo Login.js', () => {
     fireEvent.change(email, { target: { value: 'teste@test.com' } });
     fireEvent.click(botão);
     const { pathname } = history.location;
-    expect(pathname).toBe('/comidas');
+    expect(pathname).toBe('/Comidas');
   });
 });

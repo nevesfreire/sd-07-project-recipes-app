@@ -26,7 +26,7 @@ export default class Login extends React.Component {
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
-    history.push('/comidas');
+    history.push('/Comidas');
   }
 
   isDisable() {
