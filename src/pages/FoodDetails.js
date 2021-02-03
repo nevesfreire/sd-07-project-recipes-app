@@ -49,8 +49,8 @@ export default function FoodDetails() {
         src={ recipe.strMealThumb }
       />
 
-      <h2 data-testid="recipe-title">{ recipe.strMeal }</h2>
-      <h4 data-testid="recipe-category">{ recipe.strCategory }</h4>
+      <h2 data-testid="recipe-title">{recipe.strMeal}</h2>
+      <h4 data-testid="recipe-category">{recipe.strCategory}</h4>
 
       <h3>Ingredientes</h3>
 
@@ -69,7 +69,7 @@ export default function FoodDetails() {
       <div data-testid="0-ingredient-name-and-measure" />
 
       <h3>Instruções</h3>
-      <span data-testid="instructions">{ recipe.strInstructions }</span>
+      <span data-testid="instructions">{recipe.strInstructions}</span>
 
       <button
         type="button"
@@ -92,8 +92,16 @@ export default function FoodDetails() {
       </button>
 
       <h3>Video</h3>
-
-      <div data-testid="video" />
+      <iframe
+        data-testid="video"
+        className="width360"
+        title="video"
+        src={ recipe.strYoutube && recipe.strYoutube.replace('watch?v=', 'embed/') }
+        frameBorder="0"
+        allow="accelerometer; autoplay;
+            clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      />
 
       <h3>Recomendadas</h3>
 
@@ -114,9 +122,9 @@ export default function FoodDetails() {
               <h3
                 data-testid={ `${index}-recomendation-title` }
               >
-                { item.strDrink }
+                {item.strDrink}
               </h3>
-              <h4>{ item.strAlcoholic }</h4>
+              <h4>{item.strAlcoholic}</h4>
             </Carousel.Caption>
           </Carousel.Item>
         ))}

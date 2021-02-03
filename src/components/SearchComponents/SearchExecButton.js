@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import React, { useContext } from 'react';
 import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
