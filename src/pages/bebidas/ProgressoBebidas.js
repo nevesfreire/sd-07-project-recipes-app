@@ -17,6 +17,7 @@ export default class ProgressoBebidas extends React.Component {
     this.fetchData = this.fetchData.bind(this);
     this.renderIngredients = this.renderIngredients.bind(this);
     this.renderIngredient = this.renderIngredient.bind(this);
+    this.copyClipboard = this.copyClipboard.bind(this);
   }
 
   componentDidMount() {

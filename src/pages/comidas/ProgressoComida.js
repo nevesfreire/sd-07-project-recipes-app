@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import copy from 'clipboard-copy';
 import ShareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
@@ -11,12 +12,14 @@ class ProgressoComida extends React.Component {
     super();
     this.state = {
       recipe: {},
-      copyClipboard: '',
+      copyClipboard: false,
       isFavorite: false,
     };
     this.fetchData = this.fetchData.bind(this);
     this.renderIngredients = this.renderIngredients.bind(this);
     this.renderIngredient = this.renderIngredient.bind(this);
+    this.copyingClipboard = this.copyingClipboard.bind(this);
+    this.renderToReceitasFeitas = this.renderToReceitasFeitas.bind(this);
   }
 
   componentDidMount() {
@@ -33,17 +36,11 @@ class ProgressoComida extends React.Component {
     });
   }
 
-  async copyClipboard() {
-    try {
-      console.log('copy clipboard');
-      await navigator.clipboard.writeText(window.location.href);
-      console.log('copy clipboard write done');
-      this.setState({
-        copyClipboard: window.location.href,
-      });
-    } catch (e) {
-      console.error(e);
-    }
+  async copyingClipboard() {
+    copy(window.location.href);
+    this.setState({
+      copyClipboard: true,
+    });
   }
 
   favoriteRecipe() {
@@ -74,6 +71,11 @@ class ProgressoComida extends React.Component {
     );
   }
 
+  renderToReceitasFeitas() {
+    const { history } = this.props;
+    history.push('/receitas-feitas');
+  }
+
   render() {
     const { recipe, copyClipboard, isFavorite } = this.state;
     console.log(recipe);
@@ -90,7 +92,7 @@ class ProgressoComida extends React.Component {
           <button
             type="button"
             data-testid="share-btn"
-            onClick={ this.copyClipboard }
+            onClick={ this.copyingClipboard }
           >
             <img src={ ShareIcon } alt="compartilhar" />
           </button>
