@@ -186,7 +186,7 @@ function Details({ itemId, mealType }) {
           <iframe
             title="video"
             data-testid="video"
-            src={ details.strYoutube && details.strYoutube.replace('watch?v=', 'embed/') }
+            src={ details.strYoutube }
             width="100%"
           />
         )}
