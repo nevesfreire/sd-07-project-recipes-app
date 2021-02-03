@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import RecipeContext from '../Context/Context';
 import useFetch from '../hooks/useFetch';
 import RecomendationCardDrinks from '../components/RecomendationCardDrinks';
+import '../css/Button.css';
 
 function DetailsDrink() {
   const { detailsRecipe } = useContext(RecipeContext);
@@ -69,7 +70,7 @@ function DetailsDrink() {
       <RecomendationCardDrinks />
       <br />
       <Link to={ `/bebidas/${newUrlId}/in-progress` }>
-        <button type="button" data-testid="start-recipe-btn">Iniciar receita</button>
+        <button className="buttn-bottom" type="button" data-testid="start-recipe-btn">Iniciar receita</button>
       </Link>
 
     </div>
