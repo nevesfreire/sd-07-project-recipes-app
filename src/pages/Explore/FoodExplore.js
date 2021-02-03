@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import getMeals from '../../services/mealAPI';
+import Header from '../../components/Header';
 
 export default function FoodExplore() {
   const history = useHistory();
@@ -13,6 +14,7 @@ export default function FoodExplore() {
 
   return (
     <div>
+      <Header title="Explorar Comidas" />
       <button
         type="button"
         data-testid="explore-by-ingredient"

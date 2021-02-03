@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import getDrinks from '../../services/cockTailAPI';
+import Header from '../../components/Header';
 
 export default function DrinkExplore() {
   const history = useHistory();
@@ -13,6 +14,7 @@ export default function DrinkExplore() {
   }
   return (
     <div>
+      <Header title="Explorar Bebidas" />
       <button
         type="button"
         data-testid="explore-by-ingredient"
