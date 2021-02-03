@@ -73,7 +73,20 @@ class ProgressoComida extends React.Component {
 
   renderToReceitasFeitas() {
     const { history } = this.props;
+    const { recipe } = this.state;
     history.push('/receitas-feitas');
+    const doneRecipes = [{
+      id: recipe.idMeal,
+      type: 'comida',
+      area: recipe.strArea,
+      category: recipe.strCategory,
+      alcoholicOrNot: '',
+      name: recipe.strMeal,
+      image: recipe.strMealThumb,
+      doneDate: '22/6/2020',
+      tags: recipe.strTags,
+    }];
+    localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
   }
 
   render() {
