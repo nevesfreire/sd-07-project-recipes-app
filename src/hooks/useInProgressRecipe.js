@@ -71,7 +71,7 @@ function useInProgressRecipe() {
     setInitialLocalStorage();
   }, []);
 
-  return [handleChange];
+  return [handleChange, inProgressRecipes];
 }
 
 export default useInProgressRecipe;

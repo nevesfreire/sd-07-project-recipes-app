@@ -7,13 +7,22 @@ import useInProgressRecipe from '../hooks/useInProgressRecipe';
 
 function Ingredient({ recipes, inProgress, id }) {
   const { detailRecipe } = useContext(FoodAppContext);
-  const [handleChange] = useInProgressRecipe();
+  const [handleChange, inProgressRecipes] = useInProgressRecipe();
   const { meals } = detailRecipe;
   const { drinks } = detailRecipe;
   const details = recipes === 'comidas' ? meals : drinks;
   const zero = 0;
   let ingredients = [];
   let measures = [];
+
+  const toogleChecked = (ingredient) => {
+    if (recipes === 'comidas') {
+      const { meals: mealsProgress } = inProgressRecipes;
+      return mealsProgress[id] && mealsProgress[id].find((ingr) => ingr === ingredient);
+    }
+    const { cocktails } = inProgressRecipes;
+    return cocktails[id] && cocktails[id].find((ingr) => ingr === ingredient);
+  };
 
   if (details) {
     const keyAndValueArray = Object.entries(details[0]);
@@ -42,6 +51,7 @@ function Ingredient({ recipes, inProgress, id }) {
                   name={ value }
                   id={ value }
                   type="checkbox"
+                  checked={ toogleChecked(value) }
                 />
                 {value}
                 -
