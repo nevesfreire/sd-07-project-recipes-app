@@ -12,6 +12,9 @@ import {
   FoodProgress,
   DrinkExplore,
   FoodExplore,
+  DrinkExploreIngredient,
+  FoodExploreIngredient,
+  FoodExploreArea,
 } from './pages';
 
 const Routes = () => (
@@ -23,8 +26,11 @@ const Routes = () => (
       <Route exact path="/explorar" component={ Explore } />
       <Route exact path="/comidas/:id" component={ FoodDetails } />
       <Route exact path="/bebidas/:id" component={ DrinkDetails } />
-      <Route path="/explorar/comidas" component={ FoodExplore } />
-      <Route path="/explorar/bebidas" component={ DrinkExplore } />
+      <Route exact path="/explorar/comidas" component={ FoodExplore } />
+      <Route exact path="/explorar/bebidas" component={ DrinkExplore } />
+      <Route path="/explorar/bebidas/ingredientes" component={ DrinkExploreIngredient } />
+      <Route path="/explorar/comidas/ingredientes" component={ FoodExploreIngredient } />
+      <Route path="/explorar/comidas/area" component={ FoodExploreArea } />
       <Route path="/comidas/:id/in-progress" component={ FoodProgress } />
       <Route path="/bebidas/:id/in-progress" component={ DrinkProgress } />
       <Route path="/perfil" component={ Perfil } />
