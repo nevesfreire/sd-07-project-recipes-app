@@ -30,12 +30,12 @@ const Routes = () => (
       <Route exact path="/bebidas/:id-receita" component={ BebidaDetailPage } />
       <Route
         exact
-        path="/comidas/:id-receita/in-progress"
+        path="/comidas/:idreceita/in-progress"
         component={ ProgressComidaPage }
       />
       <Route
         exact
-        path="/bebidas/:id-receita/in-progress"
+        path="/bebidas/:idreceita/in-progress"
         component={ ProgressBebidaPage }
       />
       <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
