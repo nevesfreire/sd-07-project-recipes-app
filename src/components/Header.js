@@ -23,7 +23,7 @@ function Header() {
   };
 
   return (
-    <div>
+    <div className="header">
       <Link to="/perfil">
         <img
           src={ profileIcon }

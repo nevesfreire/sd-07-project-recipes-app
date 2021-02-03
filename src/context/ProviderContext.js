@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import RecipeContext from './RecipeContext';
 import {
@@ -13,6 +13,16 @@ import {
 function ProviderContext({ children }) {
   const [showBtn, setShowBtn] = useState(false);
   const [data, setData] = useState({ food: [], drink: [] });
+
+  useEffect(() => {
+    const getApiFoodDrink = async () => {
+      setData({ ...data,
+        food: await getFoodName('rice'),
+        drink: await getDrinkName('martini'),
+      });
+    };
+    getApiFoodDrink();
+  }, []);
 
   const searchClick = () => (
     showBtn === true ? setShowBtn(false) : setShowBtn(true)

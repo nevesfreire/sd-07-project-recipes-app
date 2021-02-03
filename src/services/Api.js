@@ -2,13 +2,13 @@ const endPointFoodIngredients = 'https://www.themealdb.com/api/json/v1/1/filter.
 
 const endPointFoodName = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 
-const endPonintFoodFirstLetter = 'https://www.themealdb.com/api/json/v1/1/search.php?f=';
+const endPointFoodFirstLetter = 'https://www.themealdb.com/api/json/v1/1/search.php?f=';
 
 const endPointDrinkIngredients = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
 
 const endPointDrinkName = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 
-const endPonintDrinkFirstLetter = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=';
+const endPointDrinkFirstLetter = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=';
 
 export const getFoodIngredients = async (ingredients) => {
   try {
@@ -32,7 +32,7 @@ export const getFoodName = async (name) => {
 
 export const getFoodFirstLetter = async (letter) => {
   try {
-    const { meals } = await fetch(`${endPonintFoodFirstLetter}${letter}`)
+    const { meals } = await fetch(`${endPointFoodFirstLetter}${letter}`)
       .then((result) => result.json());
     return meals;
   } catch (err) {
@@ -61,7 +61,7 @@ export const getDrinkName = async (name) => {
 };
 export const getDrinkFirstLetter = async (letter) => {
   try {
-    const { drinks } = await fetch(`${endPonintDrinkFirstLetter}${letter}`)
+    const { drinks } = await fetch(`${endPointDrinkFirstLetter}${letter}`)
       .then((result) => result.json());
     return drinks;
   } catch (err) {
