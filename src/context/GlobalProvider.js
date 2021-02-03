@@ -8,6 +8,7 @@ export default function GlobalProvider({ children }) {
   const [title, setTitle] = useState('');
   const [searchButton, setSearchButton] = useState(true);
   const [searchBar, setSearchBar] = useState(false);
+  // const [searchTerm, setSearchTerm] = useState('');
   const [state, setState] = useState(geral);
   const [renderButtonExplore, setRenderButtonExplore] = useState('comidas');
   const [randomRecipeDetail, setRandomRecipeDetail] = useState({});
@@ -19,12 +20,12 @@ export default function GlobalProvider({ children }) {
     initialDrinks: { dataDrinks, drinkCategories },
   } = state;
 
-  function updateState(key, value) {
+  const updateState = (key, value) => {
     setState((prevState) => ({
       ...prevState,
       [key]: value,
     }));
-  }
+  };
 
   const history = useHistory();
 
@@ -61,11 +62,13 @@ export default function GlobalProvider({ children }) {
         setEmailLocalStorage,
         redirect,
         title,
-        setTitle,
         searchButton,
         setSearchButton,
         searchBar,
         setSearchBar,
+        dataFoods,
+        dataDrinks,
+        setTitle,
 
         foodCategories,
         setFoodCategories: useCallback((value) => {
@@ -81,7 +84,6 @@ export default function GlobalProvider({ children }) {
           updateState('initialDrinks', newInitialDrinks);
         }, [state.initialDrinks]),
 
-        dataFoods,
         setDataFoods: useCallback(() => {
           fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
             .then((response) => response.json())
@@ -105,7 +107,6 @@ export default function GlobalProvider({ children }) {
             }, []);
         }, [state.initialFoods]),
 
-        dataDrinks,
         setDataDrinks: useCallback(() => {
           fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
             .then((response) => response.json())
@@ -149,7 +150,7 @@ export default function GlobalProvider({ children }) {
         idRandom,
       } }
     >
-      { children }
+      {children}
     </GlobalContext.Provider>
   );
 }
