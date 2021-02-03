@@ -11,7 +11,7 @@ const ProgressDrink = ({ type, recipe, ingredientes, id }) => {
   const [favorited, setFavorite] = useState(false);
   const [copied, setCopied] = useState(false);
   const verifyLocalFav = localStorage.getItem('favoriteRecipes');
-  const [checked, setChecked] = useState(false);
+  const [checked] = useState(false);
 
   const iconFavorite = favorited ? blackHeartIcon : whiteHeartIcon;
   const name = type === 'comida' ? 'strMeal' : 'strDrink';
