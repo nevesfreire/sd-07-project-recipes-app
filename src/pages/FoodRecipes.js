@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import Category from '../components/Category';
 import SearchInput from '../components/SearchInput';
 import RecipesContext from '../context/RecipesContext';
@@ -73,13 +74,14 @@ function FoodRecipes() {
           >
             <img
               data-testid={ `${index}-card-img` }
-              width="200px"
+              width="163px"
               alt="receitas"
               src={ recipe.strMealThumb }
             />
           </Link>
         </button>
       ))}
+      <Footer />
     </div>
   );
 }
