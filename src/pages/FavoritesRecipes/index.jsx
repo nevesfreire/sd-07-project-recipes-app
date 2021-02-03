@@ -3,7 +3,8 @@ import { Header, FavoriteCard } from '../../components';
 import { RecipesContext } from '../../context';
 
 export default function FavoritesRecipes() {
-  const { favorites } = useContext(RecipesContext);
+  const { favorites, setFavorites } = useContext(RecipesContext);
+  const favoriteDefault = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
   return (
     <div>
@@ -12,18 +13,29 @@ export default function FavoritesRecipes() {
         <button
           type="button"
           data-testid="filter-by-all-btn"
+          onClick={ () => setFavorites(favoriteDefault) }
         >
           All
         </button>
         <button
           type="button"
           data-testid="filter-by-food-btn"
+          onClick={ () => {
+            setFavorites(
+              favoriteDefault.filter((recipe) => recipe.type === 'comida'),
+            );
+          } }
         >
           Food
         </button>
         <button
           type="button"
           data-testid="filter-by-drink-btn"
+          onClick={ () => {
+            setFavorites(
+              favoriteDefault.filter((recipe) => recipe.type === 'bebida'),
+            );
+          } }
         >
           Drink
         </button>

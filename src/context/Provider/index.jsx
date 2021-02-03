@@ -10,6 +10,7 @@ function Provider({ children }) {
   const [meals, setMeals] = useState([]);
   const [drinks, setDrinks] = useState([]);
   const [favorites, setFavorites] = useState([]);
+
   useEffect(() => {
     const favoriteList = localStorage.getItem('favoriteRecipes');
     if (!favoriteList) {
