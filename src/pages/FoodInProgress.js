@@ -71,8 +71,6 @@ class FoodInProgress extends Component {
   handleButtonEnabled() {
     const doneIngredients = document.querySelectorAll('input:checked');
     const allIngredients = document.getElementsByClassName('form-check-input');
-    const button = document.getElementsByClassName('finish-button-recipe');
-    console.log(button);
     if (doneIngredients.length === allIngredients.length) {
       this.setState({
         button: false,
