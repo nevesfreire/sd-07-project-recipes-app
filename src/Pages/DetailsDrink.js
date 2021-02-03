@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import RecipeContext from '../Context/Context';
 import useFetch from '../hooks/useFetch';
-import RecomandationCard from '../components/RecomandationCard';
+import RecomendationCardDrinks from '../components/RecomendationCardDrinks';
 
 function DetailsDrink() {
   const { detailsRecipe } = useContext(RecipeContext);
@@ -65,10 +65,12 @@ function DetailsDrink() {
         <source src={ strYoutube } type="video/mp4" />
         <track default kind="captions" srcLang="en" src={ strYoutube } />
       </video>
+
       <RecomandationCard />
       <Link to={ `/bebidas/${newUrlId}/in-progress` }>
         <button type="button" data-testid="start-recipe-btn">Iniciar receita</button>
       </Link>
+
 
     </div>
   );
