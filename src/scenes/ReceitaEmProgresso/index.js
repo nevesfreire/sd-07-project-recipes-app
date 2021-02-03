@@ -18,18 +18,16 @@ const ReceitaEmProgresso = () => {
     .filter((e) => e.includes('strIngredient')
     && mainData[e] !== null && mainData[e] !== '');
   const mapOl = (e, i) => (
-    <li key={ i }>
-      <input
-        type="checkbox"
-        name={ mainData[e] }
-        id={ mainData[e] }
-        data-testid="ingredient-step"
-      />
+    <li key={ i } data-testid={ `${i}-ingredient-step` }>
       <label
         htmlFor={ mainData[e] }
       >
+        <input
+          type="checkbox"
+          value={ mainData[e] }
+          id={ mainData[e] }
+        />
         { mainData[e] }
-
       </label>
 
     </li>);
@@ -66,7 +64,7 @@ const ReceitaEmProgresso = () => {
         >
           <img data-testid="share-btn" src={ shareImg } alt="compartilhar" />
         </button>
-        <h1>{copyOK && 'Link copiado!'}</h1>
+        <h5>{copyOK && 'Link copiado!'}</h5>
         <FavBtn
           mainData={ mainData }
           type={ mainFunction === mealById ? 'comida' : 'bebida' }
@@ -78,7 +76,7 @@ const ReceitaEmProgresso = () => {
         </ul>
         <h2>Instruções:</h2>
         <p data-testid="instructions">{mainData.strInstructions}</p>
-        <button type="button" data-testid="finish-recipe-btn">Finaliza</button>
+        <button type="button" data-testid="finish-recipe-btn">Finalizar</button>
       </>
     );
   }
