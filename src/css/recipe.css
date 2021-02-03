@@ -8,11 +8,24 @@
   width: 100%;
 }
 
+.header-food-container h1 {
+  color: white;
+}
+
 .header-food-container button {
   background: rgb(242, 103, 62);
   border: none;
   cursor: pointer;
   padding: 3px;
+}
+
+.link-categories img {
+  border-radius: 20px 20px 0 0;
+  width: 100%;
+}
+
+.header-food-container button img {
+  filter: invert(100%);
 }
 
 .filter-radio-buttons-container {
@@ -78,11 +91,6 @@
   margin: 4vw auto;
   text-align: center;
   width: 40vw;
-}
-
-.link-categories img {
-  border-radius: 20px 20px 0 0;
-  width: 100%;
 }
 
 .link-categories h1 {

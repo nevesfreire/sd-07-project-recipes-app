@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchDetails, fetchRecipes } from '../actions';
+import { fetchRecipes } from '../actions';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Loading from '../components/Loading';
-import readFavoriteLocalStorage from '../localStorage';
+import { favoriteMealLocalStorage } from '../localStorage/favoriteRecipes';
+import { doneMealLocalStorage } from '../localStorage/doneRecipes';
 // import '../css/details.css';
 
 class FoodInProgress extends Component {
@@ -31,7 +32,8 @@ class FoodInProgress extends Component {
     const { requestRecipes,
       match: { params: { id } } } = this.props;
     requestRecipes(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
-    this.createFavoriteLocalStorage();
+    this.createFavoriteLocalStorage('favoriteRecipes');
+    this.createFavoriteLocalStorage('doneRecipes');
   }
 
   componentDidUpdate() {
@@ -74,15 +76,16 @@ class FoodInProgress extends Component {
     }),
     () => {
       const { meal, favorite } = this.state;
-      readFavoriteLocalStorage(meal, favorite);
+      favoriteMealLocalStorage(meal, favorite, 'favoriteRecipes');
+      doneMealLocalStorage(meal, favorite, 'doneRecipes');
     });
   }
 
-  createFavoriteLocalStorage() {
+  createFavoriteLocalStorage(keyStorage) {
     const { match: { params: { id } } } = this.props;
-    const read = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const read = JSON.parse(localStorage.getItem(keyStorage));
 
-    if (read && read.some((obj) => obj.idMeal === id)) {
+    if (read && read.some((obj) => obj.id === id)) {
       this.setState({
         favorite: true,
       });
@@ -90,7 +93,7 @@ class FoodInProgress extends Component {
       this.setState({
         favorite: false,
       },
-      () => localStorage.setItem('favoriteRecipes', JSON.stringify([])));
+      () => localStorage.setItem(keyStorage, JSON.stringify([])));
     }
   }
 
@@ -182,13 +185,11 @@ class FoodInProgress extends Component {
   }
 }
 
-const mapStateToProps = ({ recipesReducer, recomendationsReducer }) => ({
+const mapStateToProps = ({ recipesReducer }) => ({
   mealsRecipes: recipesReducer.recipes,
-  recomendations: recomendationsReducer.recomendations,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  requestRecomendations: (endpoint) => dispatch(fetchDetails(endpoint)),
   requestRecipes: (endpoint) => dispatch(fetchRecipes(endpoint)),
 });
 
@@ -197,9 +198,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(FoodInProgress);
 FoodInProgress.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
-  }).isRequired,
-  recomendations: PropTypes.shape({
-    drinks: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
   mealsRecipes: PropTypes.shape({
     meals: PropTypes.arrayOf(PropTypes.object),

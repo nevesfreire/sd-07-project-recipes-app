@@ -17,3 +17,7 @@
   cursor: pointer;
   padding: 3px;
 }
+
+.footer-container button img {
+  filter: invert(100%);
+}

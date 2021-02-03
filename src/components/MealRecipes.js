@@ -102,9 +102,6 @@ MealRecipes.propTypes = {
   getRecipes: PropTypes.shape({
     meals: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
-  getCategories: PropTypes.shape({
-    meals: PropTypes.arrayOf(PropTypes.object),
-  }).isRequired,
   requestCategories: PropTypes.func.isRequired,
   selectedCategory: PropTypes.string.isRequired,
 };
