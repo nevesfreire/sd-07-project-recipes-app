@@ -21,7 +21,6 @@ class CustomCartegory extends Component {
         type="button"
         data-testid={ `${category.strCategory}-category-filter` }
         onClick={ () => {
-          console.log(category);
           if (currentCategoryFood === category.strCategory
             || currentCategoryDrink === category.strCategory
           ) {

@@ -10,7 +10,6 @@ export default class CustomExploreFoods extends Component {
 
   async componentDidMount() {
     const { meals } = await randomFoodsApi();
-    console.log(meals);
     this.fetchFoodsRandom(meals[0].idMeal);
   }
 

@@ -22,12 +22,16 @@ export default class CustomExploreDrinks extends Component {
     return (
       <div>
         <Link to="/explorar/bebidas/ingredientes" data-testid="explore-by-ingredient">
-          <button type="button">
+          <button
+            type="button"
+          >
             Por Ingredientes
           </button>
         </Link>
         <Link to={ `/bebidas/${id}` } data-testid="explore-surprise">
-          <button type="button">
+          <button
+            type="button"
+          >
             Me Surpreenda!
           </button>
         </Link>

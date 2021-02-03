@@ -128,7 +128,7 @@ export default class RecipeDetails extends Component {
 
     if (isLoading) return <div> Loading... </div>;
     return (
-      <div>
+      <div data-testid="0-recipe-card">
         <img
           data-testid="recipe-photo"
           src={ (recipeType === 'comidas') ? recipe.strMealThumb : recipe.strDrinkThumb }

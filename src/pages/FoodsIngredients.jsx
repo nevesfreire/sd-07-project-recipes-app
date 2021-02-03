@@ -23,10 +23,12 @@ class FoodsIngredients extends Component {
 
   async handleIngredients() {
     const { meals } = await getIngredientsFood();
-    this.setState({
-      meals,
-      isLoading: false,
-    });
+    if (meals) {
+      this.setState({
+        meals,
+        isLoading: false,
+      });
+    }
   }
 
   renderIngredients() {
@@ -73,7 +75,7 @@ const mapDispatchToProps = (dispatch) => ({
 FoodsIngredients.propTypes = {
   dispatchIngredients: PropTypes.func.isRequired,
   meals: PropTypes.shape({
-    length: PropTypes.number.isRequired,
+    // length: PropTypes.number.isRequired,
     slice: PropTypes.func.isRequired,
   }).isRequired,
 };
