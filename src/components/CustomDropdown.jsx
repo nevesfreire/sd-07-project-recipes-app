@@ -26,7 +26,7 @@ class CustomDropdown extends Component {
           data-testid="All-option"
           value="all"
         >
-          ALL
+          All
         </option>
         {data.map((item, index) => (
           <option
@@ -50,4 +50,5 @@ export default connect(null, mapDispatchToProps)(CustomDropdown);
 CustomDropdown.propTypes = {
   data: PropTypes.func.isRequired,
   dispatchArea: PropTypes.func.isRequired,
+  allFoods: PropTypes.func.isRequired,
 };

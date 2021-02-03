@@ -10,7 +10,7 @@ export const requestAreaFailed = (error) => ({
   type: REQUEST_AREA_FAILED,
   error,
 });
-export const selectedArea = (area) => ({
+export const selectedArea = (meals) => ({
   type: SELECT_AREA,
-  area,
+  meals,
 });

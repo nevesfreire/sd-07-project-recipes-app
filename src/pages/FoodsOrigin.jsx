@@ -48,13 +48,13 @@ class ExploreArea extends Component {
   }
 
   renderRecipes() {
-    const { meals, areaSelect } = this.props;
+    const { meals } = this.props;
     const LENGTH = 12;
     const INITIAL_LENGTH = 0;
     const MAX_LENGTH = meals.length > LENGTH ? LENGTH : meals.length;
     return (
       <div>
-        {(!areaSelect.length ? meals : areaSelect)
+        {meals
           .slice(INITIAL_LENGTH, MAX_LENGTH)
           .map((meal, index) => (
             <CustomCardFood key={ meal.idMeal } index={ index } meal={ meal } />
@@ -95,7 +95,7 @@ class ExploreArea extends Component {
 const mapStateToProps = (state) => ({
   isFetching: state.foodRecipesReducer.isFetching,
   meals: state.foodRecipesReducer.meals,
-  areaSelect: state.areaReducer.area,
+
 });
 const mapDispatchToProps = (dispatch) => ({
   dispatchFoodRecipes: (searchHeader) => dispatch(getFoodRecipes(searchHeader)),
@@ -105,7 +105,6 @@ const mapDispatchToProps = (dispatch) => ({
 ExploreArea.propTypes = {
   dispatchUpdateFoodIsFetching: PropTypes.func.isRequired,
   dispatchFoodRecipes: PropTypes.func.isRequired,
-  areaSelect: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
   meals: PropTypes.shape({
     length: PropTypes.number.isRequired,
