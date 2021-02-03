@@ -9,7 +9,7 @@ describe('Testa App.js', () => {
     expect(pathname).toBe('/');
   });
 
-  test('Crie um local para que o usuário insira seu email e senha', () => {
+  it('Crie um local para que o usuário insira seu email e senha', () => {
     const { getByTestId } = renderWithRouter(<App />, '/');
     const email = getByTestId('email-input');
     const senha = getByTestId('password-input');
