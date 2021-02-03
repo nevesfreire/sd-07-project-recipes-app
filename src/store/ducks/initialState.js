@@ -20,7 +20,7 @@ export default {
   },
   detalhesDaReceitaComida: {
     meal: '',
-    // Estados referentes aos detalhes da receita de comida
+  },
   exploreDrinks: {
     drinks: '',
   },

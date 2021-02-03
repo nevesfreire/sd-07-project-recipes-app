@@ -24,10 +24,10 @@ class TelaPrincipalReceitasBebidas extends Component {
     await loadDrinksDispatch();
   }
 
-
   handlePagerediRection(item) {
     const { history } = this.props;
     history.push(`/bebidas/${item.idDrink}`);
+  }
 
   async getDrinksCategorie(e) {
     const drinkCategorie = e.target.innerHTML;

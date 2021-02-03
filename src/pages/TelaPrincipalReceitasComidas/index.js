@@ -25,10 +25,10 @@ class TelaPrincipalReceitasComidas extends Component {
     await getCategoriesDispatch();
   }
 
-
   async handlePagerediRection(item) {
     const { history } = this.props;
     history.push(`/comidas/${item.idMeal}`);
+  }
 
   async getMealsCategorie(e) {
     const mealCategorie = e.target.innerHTML;
@@ -41,7 +41,6 @@ class TelaPrincipalReceitasComidas extends Component {
       this.setState({ toggleFilter: false, currentCategory: '' });
       await loadMealsDispatch();
     }
-
   }
 
   renderMeals(meals) {
@@ -148,7 +147,6 @@ TelaPrincipalReceitasComidas.propTypes = {
     push: PropTypes.func.isRequired,
   }).isRequired,
   // categoriesStore: PropTypes.objectOf(PropTypes.string).isRequired,
-  categoriesStore: PropTypes.objectOf(PropTypes.string).isRequired,
   getByCategorieMealsD: PropTypes.func.isRequired,
 };
 
