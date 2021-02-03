@@ -33,3 +33,9 @@ export const getMealsCategories = () => new Promise((resolve, reject) => {
     .then((response) => response.json().then((data) => resolve(data)))
     .catch((error) => reject(error));
 });
+
+export const getMealsIngredients = () => new Promise((resolve, reject) => {
+  fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list')
+    .then((response) => response.json().then((data) => resolve(data)))
+    .catch((error) => reject(error));
+});

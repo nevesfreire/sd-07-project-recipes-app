@@ -5,6 +5,7 @@ import {
   getRandomMeals,
   getMealsByCategory,
   getMealsCategories,
+  getMealsIngredients,
 } from '../services/mealsAPI';
 
 export const REQUEST_MEALS = 'REQUEST_MEALS';
@@ -14,6 +15,10 @@ export const REQUEST_MEALS_FAILURE = 'REQUEST_MEALS_FAILURE ';
 export const REQUEST_MEALS_CATEGORIES = 'REQUEST_MEALS_CATEGORIES';
 export const REQUEST_MEALS_CATEGORIES_SUCCESS = 'REQUEST_MEALS_CATEGORIES_SUCCESS';
 export const REQUEST_MEALS_CATEGORIES_FAILURE = 'REQUEST_MEALS_CATEGORIES_FAILURE ';
+
+export const REQUEST_MEALS_INGREDIENTS = 'REQUEST_MEALS_INGREDIENTS';
+export const REQUEST_MEALS_INGREDIENTS_SUCCESS = 'REQUEST_MEALS_INGREDIENTS_SUCCESS';
+export const REQUEST_MEALS_INGREDIENTS_FAILURE = 'REQUEST_MEALS_INGREDIENTS_FAILURE ';
 
 const requestMeals = () => ({ type: REQUEST_MEALS });
 
@@ -30,6 +35,16 @@ const setMealsCategoriesSuccess = (categories) => ({
 
 const setMealsCategoriesFailure = (error) => ({
   type: REQUEST_MEALS_CATEGORIES_FAILURE, error,
+});
+
+const requestMealsIngredients = () => ({ type: REQUEST_MEALS_INGREDIENTS });
+
+const setMealsIngredientsSuccess = (ingredients) => ({
+  type: REQUEST_MEALS_INGREDIENTS_SUCCESS, ingredients,
+});
+
+const setMealsIngredientsFailure = (error) => ({
+  type: REQUEST_MEALS_INGREDIENTS_FAILURE, error,
 });
 
 export const fetchMealsByIngredient = (i) => (dispatch) => {
@@ -72,4 +87,11 @@ export const fetchMealsCategories = () => (dispatch) => {
   return getMealsCategories()
     .then((response) => dispatch(setMealsCategoriesSuccess(response)))
     .catch((error) => dispatch(setMealsCategoriesFailure(error)));
+};
+
+export const fetchMealsIngredients = () => (dispatch) => {
+  dispatch(requestMealsIngredients());
+  return getMealsIngredients()
+    .then((response) => dispatch(setMealsIngredientsSuccess(response)))
+    .catch((error) => dispatch(setMealsIngredientsFailure(error)));
 };

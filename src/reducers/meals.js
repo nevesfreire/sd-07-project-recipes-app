@@ -5,13 +5,18 @@ import {
   REQUEST_MEALS_CATEGORIES,
   REQUEST_MEALS_CATEGORIES_SUCCESS,
   REQUEST_MEALS_CATEGORIES_FAILURE,
+  REQUEST_MEALS_INGREDIENTS,
+  REQUEST_MEALS_INGREDIENTS_SUCCESS,
+  REQUEST_MEALS_INGREDIENTS_FAILURE,
 } from '../actions';
 
 const INITIAL_STATE = {
   meals: [],
   mealsCategories: [],
+  mealsIngredients: [],
   isFetchingMeals: false,
   isFetchingCategories: false,
+  isFetchingIngredients: false,
   error: '',
 };
 
@@ -33,6 +38,16 @@ export default function meals(state = INITIAL_STATE, action) {
     };
   case REQUEST_MEALS_CATEGORIES_FAILURE:
     return { ...state, isFetchingCategories: false, error: action.error };
+  case REQUEST_MEALS_INGREDIENTS:
+    return { ...state, isFetchingIngredients: true };
+  case REQUEST_MEALS_INGREDIENTS_SUCCESS:
+    return {
+      ...state,
+      isFetchingIngredients: false,
+      mealsIngredients: [...action.ingredients.meals],
+    };
+  case REQUEST_MEALS_INGREDIENTS_FAILURE:
+    return { ...state, isFetchingIngredients: false, error: action.error };
   default:
     return state;
   }
