@@ -68,3 +68,23 @@ export const getDrinkFirstLetter = async (letter) => {
     return 'erro';
   }
 };
+
+export const getCategoryFoods = async () => {
+  try {
+    const { meals } = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list')
+      .then((result) => result.json());
+    return meals;
+  } catch (error) {
+    return 'error';
+  }
+};
+
+export const getCategoryDrinks = async () => {
+  try {
+    const { drinks } = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list')
+      .then((result) => result.json());
+    return drinks;
+  } catch (error) {
+    return 'error';
+  }
+};

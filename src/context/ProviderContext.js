@@ -17,8 +17,8 @@ function ProviderContext({ children }) {
   useEffect(() => {
     const getApiFoodDrink = async () => {
       setData({ ...data,
-        food: await getFoodName('rice'),
-        drink: await getDrinkName('martini'),
+        food: await getFoodName(''),
+        drink: await getDrinkName(''),
       });
     };
     getApiFoodDrink();
