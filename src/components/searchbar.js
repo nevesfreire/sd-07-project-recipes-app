@@ -58,7 +58,6 @@ class Searchbar extends Component {
     default:
       break;
     }
-    console.log(object);
     setreceitas(object);
   }
 
