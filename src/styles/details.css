@@ -119,3 +119,7 @@ body {
   top: 1px;
   width: 360px;
 }
+
+.checkedIngredient {
+  text-decoration: line-through;
+}
