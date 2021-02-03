@@ -14,3 +14,4 @@ export { default as ButtonDetails } from './ButtonDetails';
 export { default as Favorite } from './Favorite';
 export { default as ButtonsFavorite } from './ButtonsFavorite';
 export { default as Loading } from './Loading';
+export { default as Item } from './Item';
