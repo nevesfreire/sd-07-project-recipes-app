@@ -8,7 +8,7 @@ import {
 } from '../actions';
 
 const INITIAL_STATE = {
-  meals: [],
+  meals: [{}, {}],
   mealsCategories: [],
   isFetchingMeals: false,
   isFetchingCategories: false,
@@ -20,7 +20,11 @@ export default function meals(state = INITIAL_STATE, action) {
   case REQUEST_MEALS:
     return { ...state, isFetchingMeals: true };
   case REQUEST_MEALS_SUCCESS:
-    return { ...state, isFetchingMeals: false, meals: [...action.meals.meals] };
+    return {
+      ...state,
+      isFetchingMeals: false,
+      meals: action.meals.meals !== null ? [...action.meals.meals] : [],
+    };
   case REQUEST_MEALS_FAILURE:
     return { ...state, isFetchingMeals: false, error: action.error };
   case REQUEST_MEALS_CATEGORIES:
