@@ -15,7 +15,7 @@ function CardsDrinks() {
     if (drinks === undefined) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
-    if (drinks && drinks.length === 1) setRedirect(true);
+    if (drinks && drinks.length === 1 && !('redirect' in drinks[0])) setRedirect(true);
   }, [drinks]);
 
   if (redirect) return <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />;
