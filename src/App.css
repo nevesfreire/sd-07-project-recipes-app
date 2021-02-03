@@ -103,8 +103,7 @@ button {
 
 .recipes-list {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
   justify-content: center;
 }
 
@@ -131,8 +130,7 @@ button {
 
 .categories {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: row wrap ;
   justify-content: center;
   margin-bottom: 30px;
 }
