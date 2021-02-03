@@ -42,10 +42,7 @@ class Ingredientes extends React.Component {
     if (type === 'bebidas') {
       const response = await apiTheCocktailDB(`filter.php?i=${item.strIngredient1}`);
       sendDrinkRecipesDispatch(response.drinks);
-<<<<<<< HEAD
       history.push('/bebidas');
-=======
->>>>>>> f93aa17c... Resolvendo o requisito 77
     }
   }
 
