@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Header, FavoriteCard } from '../../components';
+import { RecipesContext } from '../../context';
 
 export default function FavoritesRecipes() {
-  const favoriteList = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const { favorites } = useContext(RecipesContext);
 
   return (
     <div>
@@ -26,9 +27,12 @@ export default function FavoritesRecipes() {
         >
           Drink
         </button>
-        { favoriteList && favoriteList.map((recipe, index) => (
-          <FavoriteCard index={ index } key={ index } recipe={ recipe } />
-        ))}
+        {
+          favorites ? favorites.map((recipe, index) => (
+            <FavoriteCard index={ index } key={ index } recipe={ recipe } />
+          ))
+            : <p>Nao há receitas favoritas</p>
+        }
       </main>
     </div>
   );

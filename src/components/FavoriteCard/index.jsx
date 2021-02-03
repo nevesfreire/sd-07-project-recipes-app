@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
+import removeFromFavorites from '../../services/localStorage';
+import { RecipesContext } from '../../context';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import shareIcon from '../../images/shareIcon.svg';
 
 export default function FavoriteCard({ recipe, index }) {
   const { name, image, type, alcoholicOrNot, category, area, id } = recipe;
   const [showCopied, setShowCopied] = useState(false);
+  const { setFavorites } = useContext(RecipesContext);
 
   const renderTopText = () => {
     if (type === 'comida') {
@@ -30,6 +33,11 @@ export default function FavoriteCard({ recipe, index }) {
     }).then(setShowCopied(true));
   };
 
+  const disfavor = () => {
+    removeFromFavorites(id);
+    setFavorites((prevState) => prevState.filter((element) => element.id !== id));
+  };
+
   return (
     <div>
       <img
@@ -42,17 +50,18 @@ export default function FavoriteCard({ recipe, index }) {
         <h3 data-testid={ `${index}-horizontal-name` }>{ name }</h3>
         <button type="button" onClick={ copyLink }>
           <img
-            id={ id }
             src={ shareIcon }
             alt="share"
             data-testid={ `${index}-horizontal-share-btn` }
           />
         </button>
-        <img
-          src={ blackHeartIcon }
-          alt="heart"
-          data-testid={ `${index}-horizontal-favorite-btn` }
-        />
+        <button type="button" onClick={ disfavor }>
+          <img
+            src={ blackHeartIcon }
+            alt="heart"
+            data-testid={ `${index}-horizontal-favorite-btn` }
+          />
+        </button>
       </div>
       { showCopied && <p>Link copiado!</p> }
     </div>

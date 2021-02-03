@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import RecipesContext from '../RecipesContext';
 
@@ -9,6 +9,15 @@ function Provider({ children }) {
   const [inputValues, setInputValues] = useState({ radio: 'Nome', input: '' });
   const [meals, setMeals] = useState([]);
   const [drinks, setDrinks] = useState([]);
+  const [favorites, setFavorites] = useState([]);
+  useEffect(() => {
+    const favoriteList = localStorage.getItem('favoriteRecipes');
+    if (!favoriteList) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    } else {
+      setFavorites(JSON.parse(favoriteList));
+    }
+  }, []);
 
   const contextValue = {
     login,
@@ -17,12 +26,14 @@ function Provider({ children }) {
     drinks,
     searchBarVisible,
     inputValues,
+    favorites,
     setLogin,
     setDisabled,
     setMeals,
     setDrinks,
     setSearchBarVisible,
     setInputValues,
+    setFavorites,
   };
 
   return (
