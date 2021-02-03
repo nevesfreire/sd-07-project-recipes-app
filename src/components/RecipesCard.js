@@ -17,48 +17,44 @@ class RecipesCard extends React.Component {
       <div>
         {
           index < maxNumber && search === 'meals' ? (
-            <div data-testid={ `${index}-recipe-card` }>
-              <Card
-                style={ { width: '10rem' } }
-                bg="warning"
-                text="dark"
-              >
-                <Card.Img
-                  variant="top"
-                  src={ strMealThumb }
-                  alt={ strMeal }
-                  data-testid={ `${index}-card-img` }
-                />
-                <Card.Body>
-                  <Card.Text data-testid={ `${index}-card-name` }>
-                    {strMeal}
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </div>
+            <Card
+              style={ { width: '10rem' } }
+              bg="warning"
+              text="dark"
+            >
+              <Card.Img
+                variant="top"
+                src={ strMealThumb }
+                alt={ strMeal }
+                data-testid={ `${index}-card-img` }
+              />
+              <Card.Body>
+                <Card.Text data-testid={ `${index}-card-name` }>
+                  {strMeal}
+                </Card.Text>
+              </Card.Body>
+            </Card>
           ) : null
         }
         {
           index < maxNumber && search === 'drinks' ? (
-            <div data-testid={ `${index}-recipe-card` }>
-              <Card
-                style={ { width: '10rem' } }
-                bg="warning"
-                text="dark"
-              >
-                <Card.Img
-                  variant="top"
-                  src={ strDrinkThumb }
-                  alt={ strDrink }
-                  data-testid={ `${index}-card-img` }
-                />
-                <Card.Body>
-                  <Card.Text data-testid={ `${index}-card-name` }>
-                    {strDrink}
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </div>
+            <Card
+              style={ { width: '10rem' } }
+              bg="warning"
+              text="dark"
+            >
+              <Card.Img
+                variant="top"
+                src={ strDrinkThumb }
+                alt={ strDrink }
+                data-testid={ `${index}-card-img` }
+              />
+              <Card.Body>
+                <Card.Text data-testid={ `${index}-card-name` }>
+                  {strDrink}
+                </Card.Text>
+              </Card.Body>
+            </Card>
           ) : null
         }
         {
@@ -72,7 +68,7 @@ class RecipesCard extends React.Component {
                 text="dark"
               >
                 <Card.Img
-                  style={ { width: 30 } }
+                  // style={ { width: 30 } }
                   src={ `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png` }
                   alt={ strIngredient1 }
                   data-testid={ `${index}-card-img` }
@@ -95,7 +91,7 @@ class RecipesCard extends React.Component {
                 text="dark"
               >
                 <Card.Img
-                  style={ { width: 30 } }
+                  // style={ { width: 30 } }
                   src={ `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png` }
                   alt={ strIngredient }
                   data-testid={ `${index}-card-img` }

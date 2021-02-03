@@ -5,8 +5,6 @@
   flex-direction: column;
   font-family: sans-serif;
   justify-content: center;
-  margin-bottom: 40px;
-  margin-top: 57px;
   width: 100%;
 }
 
@@ -30,7 +28,7 @@ button {
   background: #fcef3b;
   display: flex;
   justify-content: space-evenly;
-  position: fixed;
+  position: relative;
   top: 0;
   width: 100%;
 }
