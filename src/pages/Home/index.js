@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { fetchRecipes, fetchRecipesByCategory } from '../../store/ducks/recipes';
-import { RecipeCardList, RecipeCategoryFilter } from '../../components';
+import { Footer, RecipeCardList, RecipeCategoryFilter } from '../../components';
 
 const Home = () => {
   const recipes = useSelector((state) => state.recipes.data);
@@ -33,6 +33,7 @@ const Home = () => {
       <RecipeCategoryFilter />
       { recipes
         && <RecipeCardList recipeList={ recipes.slice(START_INDEX, END_INDEX) } /> }
+      <Footer />
     </>
   );
 };
