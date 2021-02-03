@@ -101,7 +101,7 @@ class FoodInProgress extends Component {
     const { history } = this.props;
     const { meal, ingredients, favorite, measurement } = this.state;
     const { strMealThumb, strMeal, strCategory, strInstructions } = meal;
-    if (!ingredients) return <Loading />;
+    if (!strMealThumb) return <Loading />;
 
     return (
       <div className="main-container">

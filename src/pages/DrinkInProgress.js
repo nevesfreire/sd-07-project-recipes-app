@@ -97,7 +97,7 @@ class DrinkInProgress extends Component {
     const { drinks, ingredients, favorite, measurement } = this.state;
     const { strDrinkThumb, strDrink, strInstructions, strAlcoholic } = drinks;
 
-    if (!ingredients) return <Loading />;
+    if (!strDrinkThumb) return <Loading />;
     return (
       <div className="main-container">
         <img
