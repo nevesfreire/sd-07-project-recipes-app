@@ -15,7 +15,6 @@ const ProgressFood = ({ type, recipe, ingredientes, id }) => {
   const iconFavorite = favorited ? blackHeartIcon : whiteHeartIcon;
   const name = type === 'comida' && 'strMeal';
   const image = `${name}Thumb`;
-  console.log(recipe[image]);
 
   useEffect(() => {
     if (verifyLocalFav) {

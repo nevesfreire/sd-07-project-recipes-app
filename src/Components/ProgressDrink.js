@@ -11,7 +11,7 @@ const ProgressDrink = ({ type, recipe, ingredientes, id }) => {
   const [favorited, setFavorite] = useState(false);
   const [copied, setCopied] = useState(false);
   const verifyLocalFav = localStorage.getItem('favoriteRecipes');
-  // const [checked] = useState(false);
+  const [allChecked, setAllChecked] = useState(false);
 
   const iconFavorite = favorited ? blackHeartIcon : whiteHeartIcon;
   const name = type === 'comida' ? 'strMeal' : 'strDrink';
@@ -24,11 +24,13 @@ const ProgressDrink = ({ type, recipe, ingredientes, id }) => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   if (checkbox.checked) {
-  //     setChecked(true);
-  //   }
-  // }, [checkbox]);
+  const checkedIsTreu = () => {
+    const nodeListForAllCheckeBox = document.querySelectorAll('input');
+    const arrayForAllCheckeBox = [];
+    nodeListForAllCheckeBox.forEach((item) => arrayForAllCheckeBox.push(item));
+    if (arrayForAllCheckeBox.every((elem) => elem.checked === true)) setAllChecked(true);
+    else setAllChecked(false);
+  };
 
   const handleFavorite = () => {
     if (!favorited) {
@@ -46,7 +48,6 @@ const ProgressDrink = ({ type, recipe, ingredientes, id }) => {
 
   return (
     <div>
-
       <img
         data-testid="recipe-photo"
         src={ recipe[image] }
@@ -71,17 +72,19 @@ const ProgressDrink = ({ type, recipe, ingredientes, id }) => {
           <input
             type="checkbox"
             id={ `${index}-ingredient-step` }
+            name={ ingrediente }
+            onClick={ () => checkedIsTreu() }
           />
           {ingrediente}
         </label>
       ))}
       <p data-testid="instructions">{recipe.strInstructions}</p>
-
-      <Link to="/receitas-feitas">
-        <button type="button" data-testid="finish-recipe-btn">
-          Finalizado!
-        </button>
-      </Link>
+      { allChecked && (
+        <Link to="/receitas-feitas">
+          <button type="button" data-testid="finish-recipe-btn">
+            Finalizado!
+          </button>
+        </Link>) }
     </div>
   );
 };
