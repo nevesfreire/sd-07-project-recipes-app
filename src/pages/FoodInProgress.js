@@ -8,7 +8,6 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Loading from '../components/Loading';
 import { favoriteMealLocalStorage } from '../localStorage/favoriteRecipes';
 import { doneMealLocalStorage } from '../localStorage/doneRecipes';
-// import '../css/details.css';
 
 class FoodInProgress extends Component {
   constructor(props) {

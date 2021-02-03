@@ -8,7 +8,6 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Loading from '../components/Loading';
 import { favoriteDrinkLocalStorage } from '../localStorage/favoriteRecipes';
 import { doneDrinkLocalStorage } from '../localStorage/doneRecipes';
-import '../css/details.css';
 
 class DrinkInProgress extends Component {
   constructor(props) {
