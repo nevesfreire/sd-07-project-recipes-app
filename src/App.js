@@ -11,12 +11,13 @@ import Recipes from './pages/Recipes';
 import Details from './pages/Details';
 import Progress from './pages/Progress';
 import Profile from './pages/Profile';
+import DoneRecipes from './pages/DoneRecipes';
 
 function App() {
   return (
     <Provider>
       <Switch>
-        <Route path="/receitas-feitas" component={ Recipes } />
+        <Route path="/receitas-feitas" component={ DoneRecipes } />
         <Route path="/receitas-favoritas" component={ Recipes } />
         <Route
           path="/explorar/comidas/area"
