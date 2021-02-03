@@ -6,7 +6,7 @@ import RecipeDetail from '../../Components/RecipeDetail';
 const FoodDetailPage = () => (
   <div className="container-over">
     <div className="container-int">
-      <Header title="Detalhe da Comida" />
+      {/* <Header title="Detalhe da Comida" /> */}
       <RecipeDetail />
     </div>
   </div>
