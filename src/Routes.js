@@ -20,9 +20,9 @@ const Router = () => (
     <Route path="/bebidas" component={ Drinks } />
     {/* <Route path="/comidas/:id/in-progress" component={ FoodProgress } /> */}
     {/* <Route path="/bebidas/:id/in-progress" component={ DrinkProgress } /> */}
-    <Route path="/explorar" component={ Explore } />
     <Route path="/explorar/comidas" component={ FoodExplore } />
     <Route path="/explorar/bebidas" component={ DrinkExplore } />
+    <Route path="/explorar" component={ Explore } />
     {/* <Route path="/explorar/comidas/ingredientes" component={ FoodIngredients } /> */}
     {/* <Route path="/explorar/bebidas/ingredientes" component={ DrinkIngredients } /> */}
     {/* <Route path="/explorar/comidas/area" component={ FoodByArea } /> */}
