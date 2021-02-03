@@ -116,7 +116,7 @@ class TelaPrincipalReceitasComidas extends Component {
 
   render() {
     const title = 'Comidas';
-    const { mealsStore/* , categoriesStore */ } = this.props;
+    const { mealsStore, categoriesStore } = this.props;
     return (
       <div>
         <HeaderS title={ title } />
@@ -146,7 +146,7 @@ TelaPrincipalReceitasComidas.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
-  // categoriesStore: PropTypes.objectOf(PropTypes.string).isRequired,
+  categoriesStore: PropTypes.objectOf(PropTypes.string).isRequired,
   getByCategorieMealsD: PropTypes.func.isRequired,
 };
 
