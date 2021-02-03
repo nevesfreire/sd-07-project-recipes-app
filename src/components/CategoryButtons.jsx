@@ -12,13 +12,13 @@ const getLink = (drink) => {
 };
 
 export default function CategoryButtons({ number, drink }) {
-  const { dispatchFilter } = useContext(CupNodesContext);
+  const { dispatchFilter, filterDates } = useContext(CupNodesContext);
   const URL = getLink(drink);
   const [loading, result] = useFetchApi(URL);
   const resultArr = drink ? result.drinks : result.meals;
   if (loading && !!resultArr) return (<NotFound />);
   const submitCategory = ({ target: { id } }) => {
-    dispatchFilter({ type: CLEAR_ALL_FILTERS });
+    if (filterDates.category === id) return dispatchFilter({ type: CLEAR_ALL_FILTERS });
     dispatchFilter({ type: SUBMIT_CATEGORY, payload: id });
   };
   return (
@@ -29,6 +29,7 @@ export default function CategoryButtons({ number, drink }) {
           : (
             <div className="btn-group" role="group" aria-label="Basic example">
               <Button
+                testid="All-category-filter"
                 classBootstrap="btn btn-secondary"
                 text="All"
                 func={ submitCategory }

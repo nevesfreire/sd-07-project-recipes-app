@@ -7,7 +7,7 @@ function factoryCard(arr, number, drink, parameters) {
   const str = `str${text}`;
   const Thumb = `str${text}Thumb`;
   const id = `id${text}`;
-  return arr.filter((_, index) => index < number)
+  return arr && arr.filter((_, index) => index < number)
     .map((element, i) => (
       <Card
         key={ i }

@@ -36,7 +36,7 @@ export default function Foods() {
   return (
     <div>
       <Header title="Comidas" />
-      <CategoryButtons number={ 15 } drink={ false } />
+      <CategoryButtons number={ 5 } drink={ false } />
       {whatchCards(category, search)}
       <Footer />
     </div>

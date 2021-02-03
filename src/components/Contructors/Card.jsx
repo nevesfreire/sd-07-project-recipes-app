@@ -7,8 +7,8 @@ export default function Card({
   title, img, testidImg, testidCard, testidTitle, link, callback,
 }) {
   return (
-    <Link to={ link } onClick={ callback }>
-      <div className="card" data-testid={ testidCard }>
+    <Link to={ link } onClick={ callback } data-testid={ testidCard }>
+      <div className="card">
         <img src={ img } className="card-img-top" alt="foto" data-testid={ testidImg } />
         <div className="card-body">
           <h5 className="card-title" data-testid={ testidTitle }>{title}</h5>
