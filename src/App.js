@@ -12,6 +12,7 @@ import DrinksExplorer from './pages/DrinksExplorer';
 import MealsIngredients from './pages/MealsIngredients';
 import DrinksIngredients from './pages/DrinksIngredients';
 import MealsOrigin from './pages/MealsOrigin';
+import Cocktails from './pages/Cocktails';
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
       <Route exact path="/" component={ Login } />
       <Route exact path="/profile" component={ Profile } />
       <Route exact path="/explorar" component={ Explorer } />
+      <Route exact path="/comidas" component={ Meals } />
+      <Route exact path="/bebidas" component={ Cocktails } />
       <Route exact path="/comidas/:id" component={ MealRecipeDetails } />
       <Route exact path="/bebidas/:id" component={ CocktailRecipeDetails } />
       <Route exact path="/explorar/comidas" component={ MealsExplorer } />
