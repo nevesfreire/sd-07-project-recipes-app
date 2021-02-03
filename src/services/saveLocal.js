@@ -7,12 +7,12 @@ const desFav = (data, setData, id) => {
 };
 
 const checkFav = (id) => {
-  let array = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  if (array === null) {
+  let arrayy = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  if (arrayy === null) {
     localStorage.setItem('favoriteRecipes', JSON.stringify([]));
-    array = [];
+    arrayy = [];
   }
-  if (!array.some((r) => r.id === id)) return true;
+  if (!arrayy.some((r) => r.id === id)) return true;
   return false;
 };
 
