@@ -5,6 +5,7 @@ const RECIPES_INITIAL_STATE = {
   // recipes: [],
   mealRecipes: [],
   drinkRecipes: [],
+  inProgressRecipes: [],
 };
 
 const recipes = (state = RECIPES_INITIAL_STATE, action) => {
@@ -29,6 +30,11 @@ const recipes = (state = RECIPES_INITIAL_STATE, action) => {
     return ({
       ...state,
       drinkRecipes: [...action.payload],
+    });
+  case types.START_RECIPE:
+    return ({
+      ...state,
+      inProgressRecipes: [...state.inProgressRecipes, action.recipe],
     });
   default:
     return state;
