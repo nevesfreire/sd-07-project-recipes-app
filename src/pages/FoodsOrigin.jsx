@@ -2,72 +2,73 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { CustomFooter, CustomDropdown } from '../components';
+import { CustomFooter, CustomDropdown, CustomCardFood } from '../components';
 import CustomHeader from '../components/CustomHeader';
-import CustomDropCategory from '../components/CustomDropCategory';
-import {
-  requestArea,
-  requestAreaFailed,
-  allCategoriesFoodsAction,
-  listFoodRecipes,
-  updateFoodIsFetching,
-} from '../redux/actions';
-import { getAllFoodCategories, getFoodRecipes, getAllOrigin } from '../services';
+import { updateFoodIsFetching } from '../redux/actions';
+import { getFoodRecipes, getAllOrigin } from '../services';
 
 class ExploreArea extends Component {
   constructor() {
     super();
     this.getOrigin = this.getOrigin.bind(this);
-    this.renderCategories = this.renderCategories.bind(this);
     this.renderAlertError = this.renderAlertError.bind(this);
+    this.renderRecipes = this.renderRecipes.bind(this);
+    this.allFoods = this.allFoods.bind(this);
+
     this.state = {
       data: [],
       loading: true,
-      mealsCategories: [],
     };
   }
 
   componentDidMount() {
-    const { dispatchFoodRecipes, currentCategoryFood } = this.props;
-    if (currentCategoryFood === 'all') {
-      dispatchFoodRecipes({});
-    } else {
-      const ingredientsObj = {
-        searchInput: currentCategoryFood,
-        searchRadio: 'i',
-      };
-      dispatchFoodRecipes(ingredientsObj);
-    }
-    this.handleCategories();
     this.getOrigin();
+    this.allFoods();
   }
 
-  async handleCategories() {
-    const { meals } = await getAllFoodCategories();
-    this.setState({
-      mealsCategories: Object.values(meals),
-    });
+  handleRecipes() {
+    const { meals, isFetching } = this.props;
+    const numberToComper = 1;
+    if (meals.length === numberToComper) {
+      return <Redirect to={ `/comidas/${meals[0].idMeal}` } />;
+    }
+    if (!meals.length && !isFetching) return this.renderAlertError();
+    if (meals.length === 1) return this.redirectToRecipeDetail();
+    return this.renderRecipes();
   }
 
   async getOrigin() {
     const { meals } = await getAllOrigin();
-    this.setState({ data: meals,
-      loading: false });
+    this.setState({ data: meals, loading: false });
+  }
+
+  allFoods() {
+    const { dispatchFoodRecipes } = this.props;
+    dispatchFoodRecipes({});
+  }
+
+  renderRecipes() {
+    const { meals, areaSelect } = this.props;
+    const LENGTH = 12;
+    const INITIAL_LENGTH = 0;
+    const MAX_LENGTH = meals.length > LENGTH ? LENGTH : meals.length;
+    return (
+      <div>
+        {(!areaSelect.length ? meals : areaSelect)
+          .slice(INITIAL_LENGTH, MAX_LENGTH)
+          .map((meal, index) => (
+            <CustomCardFood key={ meal.idMeal } index={ index } meal={ meal } />
+          ))}
+      </div>
+    );
   }
 
   renderAlertError() {
     const { dispatchUpdateFoodIsFetching } = this.props;
     dispatchUpdateFoodIsFetching();
-    return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-  }
-
-  renderCategories() {
-    const { mealsCategories } = this.state;
-    if (mealsCategories !== undefined) {
-      return (
-        <CustomDropCategory mealsCategories={ mealsCategories } />
-      );
-    }
+    return alert(
+      'Sinto muito, não encontramos nenhuma receita para esses filtros.',
+    );
   }
 
   render() {
@@ -75,8 +76,16 @@ class ExploreArea extends Component {
     return (
       <div>
         <CustomHeader title="Explorar Origem" />
-        {loading ? <p>Loadinggg</p> : <CustomDropdown data={ data } /> }
-        {loading ? <p>Loadinggg</p> : this.renderCategories() }
+        {loading ? (
+          <p>Loadinggg</p>
+        ) : (
+          <CustomDropdown
+            data={ data }
+            allFoods={ this.allFoods }
+          />
+        )}
+        {this.handleRecipes()}
+
         <CustomFooter />
       </div>
     );
@@ -86,24 +95,17 @@ class ExploreArea extends Component {
 const mapStateToProps = (state) => ({
   isFetching: state.foodRecipesReducer.isFetching,
   meals: state.foodRecipesReducer.meals,
-  categories: state.foodRecipesReducer.categories,
+  areaSelect: state.areaReducer.area,
 });
-
 const mapDispatchToProps = (dispatch) => ({
   dispatchFoodRecipes: (searchHeader) => dispatch(getFoodRecipes(searchHeader)),
-  dispatchAllCategories: (allCategories) => {
-    dispatch(allCategoriesFoodsAction(allCategories));
-  },
-  dispatchInitialCards: (JSONRequestAllCAtegories) => {
-    dispatch(listFoodRecipes(JSONRequestAllCAtegories));
-  },
   dispatchUpdateFoodIsFetching: () => dispatch(updateFoodIsFetching()),
 });
 
 ExploreArea.propTypes = {
-  currentCategoryFood: PropTypes.string.isRequired,
   dispatchUpdateFoodIsFetching: PropTypes.func.isRequired,
   dispatchFoodRecipes: PropTypes.func.isRequired,
+  areaSelect: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
   meals: PropTypes.shape({
     length: PropTypes.number.isRequired,

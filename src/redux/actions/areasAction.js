@@ -11,6 +11,6 @@ export const requestAreaFailed = (error) => ({
   error,
 });
 export const selectedArea = (area) => ({
-  type: REQUEST_AREA,
+  type: SELECT_AREA,
   area,
 });
