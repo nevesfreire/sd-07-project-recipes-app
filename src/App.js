@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Provider from './provider';
 import Login from './pages/login';
-import MainRecipes from './pages/mainRecipes';
+import Food from './pages/food';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -11,7 +11,7 @@ function App() {
     <Switch>
       <Provider>
         <Route exact path="/" component={ Login } />
-        <Route path="/mainrecipes" component={ MainRecipes } />
+        <Route path="/comidas" component={ Food } />
       </Provider>
     </Switch>
   );

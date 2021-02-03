@@ -1,6 +1,6 @@
 import React from 'react';
 
-function MainRecipes() {
+function Comidas() {
   return (
     <section className="main-container">
       <div className="main-input">
@@ -10,4 +10,4 @@ function MainRecipes() {
   );
 }
 
-export default MainRecipes;
+export default Comidas;

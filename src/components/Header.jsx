@@ -1,32 +1,33 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchRecipes from './SearchRecipes';
 
-const renderProfileTopBtn = (profileButton) => {
+const profileTopBtn = (profileButton, history) => {
   if (profileButton) {
     return (
-      <Link to="/perfil" replace>
-        <button type="button">
-          <img
-            src={ profileIcon }
-            alt="profile-icon"
-            data-testid="profile-top-btn"
-          />
-        </button>
-      </Link>
+      <button
+        type="button"
+        onClick={ () => history.push('/perfil') }
+      >
+        <img
+          src={ profileIcon }
+          alt="profile-icon"
+          data-testid="profile-top-btn"
+        />
+      </button>
     );
   }
 };
 
-const renderPageTitle = (title) => (
+const pageTitle = (title) => (
 
   <h1 data-testid="page-title">{title}</h1>
 
 );
 
-const renderSearchBtn = (searchButton, toggleSearch, setToggleSearch) => {
+const searchBtn = (searchButton, toggleSearch, setToggleSearch) => {
   if (searchButton) {
     return (
       <button
@@ -44,7 +45,7 @@ const renderSearchBtn = (searchButton, toggleSearch, setToggleSearch) => {
   }
 };
 
-const renderSearchRecipeComponent = (pathname, toggleSearch, title) => (
+const searchRecipeComponent = (pathname, toggleSearch, title) => (
   toggleSearch ? (
     <SearchRecipes
       title={ title }
@@ -56,23 +57,18 @@ const renderSearchRecipeComponent = (pathname, toggleSearch, title) => (
 export default function Header({ pathname, componentConfig }) {
   const [toggleSearch, setToggleSearch] = useState(false);
   const { title, profileButton, searchButton } = componentConfig;
+  const history = useHistory();
 
   const render = () => (
     <div className="header">
-      <div className="header_content">
-        {renderProfileTopBtn()}
-        {renderPageTitle()}
-        {renderSearchBtn()}
-        {renderSearchRecipeComponent()}
-      </div>
-
       <div className="header-buttons">
-        {renderProfileTopBtn(profileButton)}
-        {renderPageTitle(title)}
-        {renderSearchBtn(searchButton, toggleSearch, setToggleSearch)}
-        {renderSearchRecipeComponent(pathname)}
+        {profileTopBtn(profileButton, history)}
+        {pageTitle(title)}
+        {searchBtn(searchButton, toggleSearch, setToggleSearch)}
+        {searchRecipeComponent(pathname)}
       </div>
     </div>
   );
+
   return render();
 }
