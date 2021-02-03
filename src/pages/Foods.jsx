@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { CustomCardFood, CustomFooter, CustomCartegory } from '../components';
 import CustomHeader from '../components/CustomHeader';
 import {
@@ -9,7 +10,6 @@ import {
   allCategoriesFoodsAction,
 } from '../redux/actions';
 import { getAllFoodCategories, getFoodRecipes } from '../services';
-import { Redirect } from 'react-router-dom';
 
 class Foods extends Component {
   constructor() {

@@ -30,19 +30,24 @@ export default function CustomHeader({
       >
         <img src={ profile } alt="profile" />
       </button>
-      {showSearchTopBtn ? (
-        <div>
-          <button
-            type="button"
-            data-testid="search-top-btn"
-            onClick={ () => showSearchBar() }
-            src={ search }
-          >
-            <img src={ search } alt="buscar" />
-          </button>
-          {show && <CustomSearchBar title={ title } />}
-        </div>
-      ) : null}
+      {showSearchTopBtn
+      && title !== 'Explorar'
+      && title !== 'Receitas Favoritas'
+      && title !== 'Receitas Feitas'
+        ? (
+          <div>
+            <button
+              type="button"
+              data-testid="search-top-btn"
+              onClick={ () => showSearchBar() }
+              src={ search }
+            >
+              <img src={ search } alt="buscar" />
+            </button>
+            {show && <CustomSearchBar title={ title } />}
+          </div>
+        )
+        : null}
     </header>
   );
 }
