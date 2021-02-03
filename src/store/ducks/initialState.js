@@ -17,7 +17,10 @@ const INITIAL_STATE = {
     data: [],
     error: '',
     categories: [],
-    filterByCategory: '',
+    filter: {
+      type: '', // name, category, ingredient, firstLetter, area, random
+      term: '', // term of search or filter
+    },
   },
 };
 

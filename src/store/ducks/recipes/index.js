@@ -1,11 +1,10 @@
 import recipes from './reducers';
 
 export { default as recipesTypes } from './types';
-export { setFilterByCategory } from './actions';
+export { setFilter } from './actions';
 export {
-  fetchRecipes,
+  fetchRecipesByFilter,
   fetchCategories,
-  fetchRecipesByCategory,
 } from './operations';
 
 export default recipes;
