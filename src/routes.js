@@ -8,6 +8,8 @@ import BebidaDetails from './scenes/BebidaDetails';
 import Bebidas from './scenes/Bebidas';
 import Perfil from './scenes/Perfil';
 import Explorar from './scenes/Explorar';
+import ReceitasFeitas from './scenes/ReceitasFeitas';
+import FavoriteRecipe from './scenes/FavoriteRecipe';
 
 export default function Routes() {
   return (
@@ -29,8 +31,8 @@ export default function Routes() {
         <Route path="/explorar/bebidas/ingredientes" exact component={ Perfil } />
         <Route path="/explorar/comidas/area" exact component={ Perfil } />
         <Route path="/perfil" exact component={ Perfil } />
-        <Route path="/receitas-feitas" exact component={ Perfil } />
-        <Route path="/receitas-favoritas" exact component={ Perfil } />
+        <Route path="/receitas-feitas" exact component={ ReceitasFeitas } />
+        <Route path="/receitas-favoritas" exact component={ FavoriteRecipe } />
         <Route path="/test" exact component={ Test } />
       </Switch>
     </BrowserRouter>
