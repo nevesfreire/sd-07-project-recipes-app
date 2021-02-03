@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { StorageContext } from '../providers/AllProviders';
 import ShareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -10,6 +11,7 @@ const ProgressDrink = ({ type, recipe, ingredientes, id }) => {
   const [favorited, setFavorite] = useState(false);
   const [copied, setCopied] = useState(false);
   const verifyLocalFav = localStorage.getItem('favoriteRecipes');
+  const [checked, setChecked] = useState(false);
 
   const iconFavorite = favorited ? blackHeartIcon : whiteHeartIcon;
   const name = type === 'comida' ? 'strMeal' : 'strDrink';
@@ -21,6 +23,12 @@ const ProgressDrink = ({ type, recipe, ingredientes, id }) => {
       setFavorite(searchFav);
     }
   }, []);
+
+  // useEffect(() => {
+  //   if (checkbox.checked) {
+  //     setChecked(true);
+  //   }
+  // }, [checkbox]);
 
   const handleFavorite = () => {
     if (!favorited) {
@@ -56,21 +64,24 @@ const ProgressDrink = ({ type, recipe, ingredientes, id }) => {
       <h3 data-testid="recipe-category">{ recipe.strAlcoholic || recipe.strCategory}</h3>
       {ingredientes.map((ingrediente, index) => (
         <label
-          htmlFor="ingredienteProgress"
+          htmlFor={ `${index}-ingredient-step` }
           key={ ingrediente }
           data-testid={ `${index}-ingredient-step` }
         >
           <input
             type="checkbox"
-            name="ingredienteProgress"
+            id={ `${index}-ingredient-step` }
           />
           {ingrediente}
         </label>
       ))}
       <p data-testid="instructions">{recipe.strInstructions}</p>
-      <button type="button" data-testid="finish-recipe-btn">
-        Finalizado!
-      </button>
+      { checked && (
+        <Link to="/receitas-feitas">
+          <button type="button" data-testid="finish-recipe-btn">
+            Finalizado!
+          </button>
+        </Link>) }
     </div>
   );
 };

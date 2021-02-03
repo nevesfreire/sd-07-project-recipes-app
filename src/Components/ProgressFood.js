@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { StorageContext } from '../providers/AllProviders';
 import ShareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -60,21 +61,23 @@ const ProgressFood = ({ type, recipe, ingredientes, id }) => {
       <h3 data-testid="recipe-category">{ recipe.strAlcoholic || recipe.strCategory}</h3>
       {ingredientes.map((ingrediente, index) => (
         <label
-          htmlFor="ingredienteProgress"
+          htmlFor={ `${index}-ingredient-step` }
           key={ ingrediente }
           data-testid={ `${index}-ingredient-step` }
         >
           <input
             type="checkbox"
-            name="ingredienteProgress"
+            id={ `${index}-ingredient-step` }
           />
           {ingrediente}
         </label>
       ))}
       <p data-testid="instructions">{recipe.strInstructions}</p>
-      <button type="button" data-testid="finish-recipe-btn">
-        Finalizado!
-      </button>
+      <Link to="/receitas-feitas">
+        <button type="button" data-testid="finish-recipe-btn">
+          Finalizado!
+        </button>
+      </Link>
 
       {/* <img data-testid="recipe-photo" src={ currImgDetails } alt="recipe thumb" />
       <h3 data-testid="recipe-title">{currNameDetails}</h3>
