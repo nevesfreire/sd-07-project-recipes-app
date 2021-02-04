@@ -86,7 +86,6 @@ function FavoriteRecipes() {
           Drinks
         </button>
       </div>
-      <h2>Favorite Recipes:</h2>
       {
         favorited
           .filter((element) => element.type.includes(type)).map((food, index) => (
