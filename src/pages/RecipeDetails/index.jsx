@@ -6,6 +6,7 @@ import WhiteHeartIcon from '../../images/whiteHeartIcon.svg';
 
 export default function RecipeDetails({ history, match: { params: { id } } }) {
   const [recipeDetails, setRecipeDetails] = useState([]);
+  const [recomendationList, setRecomendationList] = useState([]);
   const fetchMealDetails = async () => {
     try {
       let endpoint = '';
@@ -26,15 +27,59 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
     }
   };
 
+  const fetchRecomendations = async () => {
+    try {
+      let endpoint = '';
+      const { location: { pathname } } = history;
+      const path = pathname.split('/')[1];
+      console.log(path);
+      if (path === 'comidas') {
+        endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+      } else {
+        endpoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+      }
+      const results = await fetch(endpoint)
+        .then((response) => response.json())
+        .then((details) => (details.meals ? details.meals : details.drinks));
+      setRecomendationList(results);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const recomendations = () => (
+    recomendationList.map((item) => (
+      <div
+        key={ item.index }
+        className="container-title-image"
+        data-testid={ `${item.index}-recomendation-card` }
+      >
+        <img
+          className="recipe-photo"
+          data-testid="recipe-photo"
+          src={ item.strMealThumb || item.strDrinkThumb }
+          alt="imagem do produto"
+          width="200"
+        />
+        <h1 data-testid="recipe-title">
+          { item.strMeal || item.strDrink }
+        </h1>
+        <h4
+          className="recipe-category"
+          data-testid="recipe-category"
+        >
+          { item.strAlcoholic || item.strCategory }
+        </h4>
+      </div>
+    ))
+  );
+
   const {
-    idMeal,
     strMealThumb,
     strMeal,
     strCategory,
     strInstructions,
-    strDrinkAlternate,
     strYoutube,
-    idDrink,
     strDrink,
     strAlcoholic,
     strDrinkThumb,
@@ -66,6 +111,7 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
 
   useEffect(() => {
     fetchMealDetails();
+    fetchRecomendations();
   }, []);
 
   return (
@@ -91,7 +137,7 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
           className="recipe-category"
           data-testid="recipe-category"
         >
-          { strCategory || strAlcoholic }
+          { strAlcoholic || strCategory }
         </h4>
       </div>
       <ul className="container-ingredients">
@@ -105,9 +151,7 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
         { strInstructions }
       </p>
       { strYoutube && url() }
-      <div data-testid={ `${idMeal || idDrink}-recomendation-card` }>
-        { strDrinkAlternate }
-      </div>
+      { recomendations() }
       <button type="button" data-testid="start-recipe-btn">
         Iniciar Receita
       </button>
