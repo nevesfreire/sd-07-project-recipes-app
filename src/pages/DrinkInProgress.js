@@ -163,7 +163,7 @@ class DrinkInProgress extends Component {
   }
 
   render() {
-    const { history, valueCopied, match: { params: { id } } } = this.props;
+    const { valueCopied, match: { params: { id } } } = this.props;
     const { drinks, ingredients, favorite, measurement, button } = this.state;
     const { strDrinkThumb, strDrink, strInstructions, strAlcoholic } = drinks;
 
