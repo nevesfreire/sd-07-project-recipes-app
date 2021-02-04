@@ -58,7 +58,7 @@ function FoodProcess(props) {
 
   const saveProgress = (ingredient) => {
     const previousProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    console.log(previousProgress)
+    // console.log(previousProgress)
     if (previousProgress.cocktails[id]) {
       if (previousProgress.cocktails[id].includes(ingredient)) {
         previousProgress.cocktails[id] = previousProgress.cocktails[id]
@@ -74,6 +74,7 @@ function FoodProcess(props) {
   };
 
   const handleChecked = ({ target: { name } }) => {
+    console.log(name);
     saveProgress(name);
   };
 
@@ -95,24 +96,42 @@ function FoodProcess(props) {
   };
 
   const handleToogle = (item) => {
-    if (localStorage.getItem('inProgressRecipes')) {
-      const prevLocalStorage = JSON
-        .parse(localStorage.getItem('inProgressRecipes'));
-      console.log(prevLocalStorage);
-      const onHere = prevLocalStorage.meals[id]
-        .find((currentItem) => currentItem === item);
-      if (onHere) {
+    console.log(item);
+    // if (localStorage.getItem('inProgressRecipes')) {
+    //   const prevLocalStorage = JSON
+    //     .parse(localStorage.getItem('inProgressRecipes'));
+    //   // console.log(prevLocalStorage);
+    //   const onHere = prevLocalStorage.meals[id]
+    //     .find((currentItem) => currentItem === item);
+    //   if (onHere) {
+    //     return 'is-checked';
+    //   }
+    // }
         return 'is-checked';
-      }
-    }
-    return 'is-not-checked';
+    // return 'is-not-checked';
   };
+
+  const addCkeckedSymbol = () => {
+    const list = document.querySelectorAll('label');
+    console.log(document.querySelectorAll('label'))
+    // list.addEventListener('click', function (event) {
+    //   if (event.target.tagName === 'label') {
+    //     event.target.classList.toogle('ckecked');
+    //   }
+    // })
+  }
+
+  useEffect(() => {
+    handleToogle();
+    addCkeckedSymbol();
+  })
 
   useEffect(() => {
     setTitle('Food In Progress');
     fetchRecipe();
     setLikeImage(setBtnImg, id, fullLikeIcon, likeIcon);
   }, [])
+
   return(
     <div className="recipe-details-container">
       <img
