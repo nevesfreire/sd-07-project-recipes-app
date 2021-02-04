@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import copiedLink from 'clipboard-copy';
 import { StorageContext } from '../providers/AllProviders';
 import ShareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -37,8 +38,9 @@ const Details = ({ type, recipe, recommend, ingredientes, id, medidas }) => {
   };
 
   const handleCopy = () => {
-    setCopied(true);
-    navigator.clipboard.writeText(`http://localhost:3000/${type}s/${id}`);
+    copiedLink(`http://localhost:3000/${type}s/${id}`);
+    if (copied) setCopied(false);
+    else setCopied(true);
   };
 
   return (

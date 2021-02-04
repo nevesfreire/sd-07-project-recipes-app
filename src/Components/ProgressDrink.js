@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import copiedLink from 'clipboard-copy';
 import { StorageContext } from '../providers/AllProviders';
 import ShareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -42,8 +43,9 @@ const ProgressDrink = ({ type, recipe, ingredientes, id }) => {
   };
 
   const handleCopy = () => {
-    setCopied(true);
-    navigator.clipboard.writeText(`http://localhost:3000/${type}s/${id}`);
+    copiedLink(`http://localhost:3000/${type}s/${id}`);
+    if (copied) setCopied(false);
+    else setCopied(true);
   };
 
   return (
@@ -56,8 +58,8 @@ const ProgressDrink = ({ type, recipe, ingredientes, id }) => {
       />
       <h2 data-testid="recipe-title">{recipe[name]}</h2>
       { copied && <p className="copy-feedback">Link copiado!</p>}
-      <button type="button" onClick={ handleCopy }>
-        <img src={ ShareIcon } data-testid="share-btn" alt="thumbShare" />
+      <button type="button" data-testid="share-btn" onClick={ handleCopy }>
+        <img src={ ShareIcon } alt="thumbShare" />
       </button>
       <button type="button" onClick={ handleFavorite }>
         <img src={ iconFavorite } data-testid="favorite-btn" alt="thumbFavorite" />
