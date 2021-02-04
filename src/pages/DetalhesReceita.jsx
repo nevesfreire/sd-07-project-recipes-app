@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -9,6 +9,7 @@ import '../styles/components/footer.css';
 import shareIcon from '../images/shareIcon.svg';
 import { loadState } from '../services/localStorage';
 import FavoriteHeart from '../components/FavoriteHeart';
+import CoffeAndCodeContext from '../context/CoffeeAndCodeContext';
 import { requestApiFoodDetails } from '../services/requestFood';
 import { recommendDrinksList } from '../services/requestDrink';
 
@@ -35,12 +36,16 @@ const filteredIngredientsAndMeasures = (
 
 function DetalhesReceitas({ match: { params: { id } } }) {
   const [foodDetails, setFoodDetails] = useState([]);
-  const [ingredientsAndMeasure, setIngredientsAndMeasure] = useState([]);
   const [videoLink, setVideoLink] = useState('');
   const [recommendedForThisFood, setRecommendedForThisFood] = useState([]);
   const [startRecipeButton, setStartRecipeButton] = useState('Iniciar Receita');
   const [startButtonVisibility, setStartButtonVisibility] = useState({});
   const [copyVisibility, setCopyVisibility] = useState('hidden');
+
+  const {
+    ingredientsAndMeasures,
+    setIngredientsAndMeasures,
+  } = useContext(CoffeAndCodeContext);
 
   const sliderSettings = {
     dots: true,
@@ -52,7 +57,7 @@ function DetalhesReceitas({ match: { params: { id } } }) {
 
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trim
 
-  const getIngredientsAndMeasure = () => {
+  const getIngredientsAndMeasures = () => {
     const detailsEntries = Object.entries(foodDetails);
     const filteredIngredients = [];
     const filteredMeasures = [];
@@ -64,7 +69,7 @@ function DetalhesReceitas({ match: { params: { id } } }) {
       expectedArray.push(`${filteredIngredients[index]} ${measure}`);
     });
 
-    setIngredientsAndMeasure(expectedArray);
+    setIngredientsAndMeasures(expectedArray);
   };
 
   const getVideoLink = () => {
@@ -105,7 +110,7 @@ function DetalhesReceitas({ match: { params: { id } } }) {
   };
 
   useEffect(() => {
-    getIngredientsAndMeasure();
+    getIngredientsAndMeasures();
     getVideoLink();
     getTheRecommendedDrinks();
     setStateOfStartRecipe();
@@ -158,7 +163,7 @@ function DetalhesReceitas({ match: { params: { id } } }) {
         <p>Ingredients</p>
         <div>
           {
-            ingredientsAndMeasure.map((element, index) => (
+            ingredientsAndMeasures.map((element, index) => (
               <p
                 data-testid={ `${index}-ingredient-name-and-measure` }
                 key={ `ingredient${index}` }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -8,6 +8,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import '../styles/components/footer.css';
 import shareIcon from '../images/shareIcon.svg';
 import FavoriteHeart from '../components/FavoriteHeart';
+import CoffeAndCodeContext from '../context/CoffeeAndCodeContext';
 import { requestApiDrinkDetails } from '../services/requestDrink';
 import { recommendFoodsList } from '../services/requestFood';
 import { loadState } from '../services/localStorage';
@@ -35,11 +36,15 @@ const filterIngredientsAndMeasures = (
 
 function DetalhesBebidas({ match: { params: { id } } }) {
   const [drinkDetails, setDrinkDetails] = useState([]);
-  const [ingredientsAndMeasure, setIngredientsAndMeasures] = useState([]);
   const [recommendedForThisDrink, setRecommendedForThisDrink] = useState([]);
   const [startRecipeButton, setStartRecipeButton] = useState('Iniciar Receita');
   const [startButtonVisibility, setStartButtonVisibility] = useState({});
   const [copyVisibility, setCopyVisibility] = useState('hidden');
+
+  const {
+    ingredientsAndMeasures,
+    setIngredientsAndMeasures,
+  } = useContext(CoffeAndCodeContext);
 
   const sliderSettings = {
     dots: true,
@@ -49,7 +54,7 @@ function DetalhesBebidas({ match: { params: { id } } }) {
     slidesToScroll: 2,
   };
 
-  const getIngredientsAndMeasure = () => {
+  const getIngredientsAndMeasures = () => {
     const detailsEntries = Object.entries(drinkDetails);
     const expectedArray = [];
     const filteredIngredients = [];
@@ -94,7 +99,7 @@ function DetalhesBebidas({ match: { params: { id } } }) {
   };
 
   useEffect(() => {
-    getIngredientsAndMeasure();
+    getIngredientsAndMeasures();
     getTheRecommendedFood();
     setStateOfStartRecipe();
     testRecipeDone();
@@ -148,7 +153,7 @@ function DetalhesBebidas({ match: { params: { id } } }) {
         <p>Ingredients</p>
         <div>
           {
-            ingredientsAndMeasure.map((element, index) => (
+            ingredientsAndMeasures.map((element, index) => (
               <p
                 data-testid={ `${index}-ingredient-name-and-measure` }
                 key={ `ingredient${index}` }
