@@ -41,7 +41,7 @@ function ExploreFood() {
             Me Surpreenda!
 
           </button>
-           </Link>
+        </Link>
         }
       </div>
       <FooterMenu />

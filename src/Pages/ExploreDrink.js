@@ -37,7 +37,7 @@ function ExploreDrink() {
             Me Surpreenda!
 
           </button>
-           </Link>
+        </Link>
         }
       </div>
       <FooterMenu />
