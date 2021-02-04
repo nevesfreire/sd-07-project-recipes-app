@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import { getDrinkId } from '../services/Api';
+import FoodRecom from '../components/FoodRecom';
 
 function DetailsDrink() {
   const [dataDrink, setDataDrink] = useState([]);
@@ -45,7 +46,8 @@ function DetailsDrink() {
           id="favoriteBtn"
         />
       </label>
-      <p data-testid="recipe-category">{ dataDrink[0].strCategory }</p>
+      <h2 data-testid="recipe-category">{ dataDrink[0].strCategory }</h2>
+      <h2 data-testid="recipe-category">{ dataDrink[0].strAlcoholic }</h2>
       <h2>
         Ingredientes
       </h2>
@@ -71,10 +73,13 @@ function DetailsDrink() {
       </p>
       <h2>Instruções</h2>
       <p data-testid="instructions">{ dataDrink[0].strInstructions }</p>
-      <div data-testid="0-recomendation-card">
+      <div>
         <h2>Recomendadas</h2>
+        {FoodRecom()}
       </div>
       <button
+        style={ { position: 'fixed', bottom: 0 } }
+        className="startRecipeBtn"
         type="button"
         data-testid="start-recipe-btn"
       >
