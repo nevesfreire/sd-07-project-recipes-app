@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import RecipeContext from '../Context/Context';
 import useFetch from '../hooks/useFetch';
 import RecomendationCardDrinks from '../components/RecomendationCardDrinks';
@@ -6,9 +7,10 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import detailsDidMount from '../components/DetailsDidMount';
+import '../css/Button.css';
 
 function DetailsDrink() {
-  const { detailsRecipe } = useContext(RecipeContext);
+  const { detailsRecipe, drinkStateButton } = useContext(RecipeContext);
   const [loading, setLoading] = useState(true);
   const { recipeDetailsAPI } = useFetch();
   const [favoriteRecipe, setFavoriteRecipe] = useState(false);
@@ -18,6 +20,10 @@ function DetailsDrink() {
   const url = document.URL;
   const newUrlId = url.split('/')[4];
   const newUrlType = url.split('/')[3];
+  // const localStorageRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  // const lengthIngredients = localStorageRecipes.cocktails[newUrlId].length
+  // console.log('loalstorage',localStorageRecipes.cocktails[newUrlId].length)
+  // console.log('ingredientes',detailsRecipe.drinks[0])
 
   useEffect(() => {
     recipeDetailsAPI(newUrlId, newUrlType)
@@ -27,6 +33,14 @@ function DetailsDrink() {
   if (loading) {
     return (<div>Loading...</div>);
   }
+
+  // function getLengthOfIngredients() {
+  //   const localStorageRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  //   if (localStorageRecipes.cocktails[newUrlId].length === undefined) {
+  //     return 0
+  //   }
+  //   return localStorageRecipes.cocktails[newUrlId].length
+  // }
 
   const { strCategory,
     idDrink,
@@ -51,6 +65,17 @@ function DetailsDrink() {
   const measures = allRecipe.filter(
     (measure) => (measure[0].includes('strMeasure') && measure[1] !== ' '),
   );
+
+  const drink = detailsRecipe.drinks[0];
+  const keysDrink = Object.keys(drink);
+  const filterDrink = keysDrink
+    .filter((key) => key.toLowerCase().includes('ingredient'));
+  const filterMeasure = keysDrink.filter((key) => key
+    .toLowerCase().includes('measure'));
+  const allIngredients = filterDrink
+    .map((item, index) => ({
+      ingredient: drink[item], measure: drink[filterMeasure[index]],
+    })).filter((item) => item.ingredient !== '' && item.ingredient !== null);
 
   function copyToClipBoard(text) {
     navigator.clipboard.writeText(text);
@@ -120,11 +145,11 @@ function DetailsDrink() {
       <p data-testid="recipe-category">{strAlcoholic}</p>
       <ul>
         {
-          ingredients && measures && ingredients.map((ingredient, index) => (
-            <li key={ ingredient } data-testid={ `${index}-ingredient-name-and-measure` }>
-              {measures[index][1]}
-              of
-              { ingredient[1] }
+          allIngredients && allIngredients.map((item, index) => (
+            <li key={ item } data-testid={ `${index}-ingredient-name-and-measure` }>
+              {
+                `${index + 1} - ${item.ingredient}: ${item.measure}`
+              }
             </li>))
         }
       </ul>
@@ -133,8 +158,27 @@ function DetailsDrink() {
         <source src={ strYoutube } type="video/mp4" />
         <track default kind="captions" srcLang="en" src={ strYoutube } />
       </video>
+
       <RecomendationCardDrinks />
-      <button type="button" data-testid="start-recipe-btn">Iniciar receita</button>
+      <br />
+      { drinkStateButton && (
+        <Link to={ `/bebidas/${newUrlId}/in-progress` }>
+          <button
+            className="buttn-bottom"
+            type="button"
+            data-testid="start-recipe-btn"
+          >
+            Iniciar receita
+          </button>
+        </Link>
+      )}
+      {/* { getLengthOfIngredients() > 0
+      ? drinkStateButton && <Link to={ `/bebidas/${newUrlId}/in-progress` }>
+        <button className="buttn-bottom" type="button" data-testid="start-recipe-btn">Iniciar receita</button>
+      </Link>
+      : drinkStateButton && <Link to={ `/bebidas/${newUrlId}/in-progress` }>
+      <button className="buttn-bottom" type="button" data-testid="start-recipe-btn">Continuar Receita</button>
+    </Link> } */}
     </div>
   );
 }

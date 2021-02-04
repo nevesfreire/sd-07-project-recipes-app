@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import RecipeContext from '../Context/Context';
 import useFetch from '../hooks/useFetch';
 import RecomendationCardMeal from '../components/RecomendationCardMeal';
@@ -6,9 +7,10 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import detailsDidMount from '../components/DetailsDidMount';
+import '../css/Button.css';
 
 function DetailsMeal() {
-  const { detailsRecipe } = useContext(RecipeContext);
+  const { detailsRecipe, mealStateButton } = useContext(RecipeContext);
   const [loading, setLoading] = useState(true);
   const { recipeDetailsAPI } = useFetch();
   const [favoriteRecipe, setFavoriteRecipe] = useState(false);
@@ -22,7 +24,6 @@ function DetailsMeal() {
   useEffect(() => {
     recipeDetailsAPI(newUrlId, newUrlType)
       .then(() => setLoading(false));
-    // .then(() => favoriteWhenPageLoad());
   }, []);
 
   if (loading) {
@@ -51,6 +52,17 @@ function DetailsMeal() {
   const measures = allRecipe.filter(
     (measure) => (measure[0].includes('strMeasure') && measure[1] !== ' '),
   );
+
+  const meal = detailsRecipe.meals[0];
+  const keysMeal = Object.keys(meal);
+  const filterMeal = keysMeal
+    .filter((key) => key.toLowerCase().includes('ingredient'));
+  const filterMeasure = keysMeal
+    .filter((key) => key.toLowerCase().includes('measure'));
+  const allIngredients = filterMeal
+    .map((item, index) => ({
+      ingredient: meal[item], measure: meal[filterMeasure[index]],
+    })).filter((item) => item.ingredient !== '' && item.ingredient !== null);
 
   function copyToClipBoard(text) {
     navigator.clipboard.writeText(text);
@@ -118,11 +130,11 @@ function DetailsMeal() {
       <p data-testid="recipe-category">{strCategory}</p>
       <ul>
         {
-          ingredients && measures && ingredients.map((ingredient, index) => (
-            <li key={ ingredient } data-testid={ `${index}-ingredient-name-and-measure` }>
-              {measures[index][1]}
-              of
-              { ingredient[1] }
+          allIngredients && allIngredients.map((item, index) => (
+            <li key={ item } data-testid={ `${index}-ingredient-name-and-measure` }>
+              {
+                `${index + 1} - ${item.ingredient}: ${item.measure}`
+              }
             </li>))
         }
       </ul>
@@ -131,8 +143,21 @@ function DetailsMeal() {
         <source src={ strYoutube } type="video/mp4" />
         <track default kind="captions" srcLang="en" src={ strYoutube } />
       </video>
+
       <RecomendationCardMeal />
-      <button type="button" data-testid="start-recipe-btn">Iniciar receita</button>
+      <br />
+      { mealStateButton && (
+        <Link to={ `/comidas/${newUrlId}/in-progress` }>
+          <button
+            className="buttn-bottom"
+            type="button"
+            data-testid="start-recipe-btn"
+          >
+            Iniciar receita
+          </button>
+        </Link>
+      )}
+
     </div>
   );
 }
