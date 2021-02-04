@@ -24,6 +24,11 @@ class TelaPrincipalReceitasBebidas extends Component {
     await loadDrinksDispatch();
   }
 
+  handlePagerediRection(item) {
+    const { history } = this.props;
+    history.push(`/bebidas/${item.idDrink}`);
+  }
+
   async getDrinksCategorie(e) {
     const drinkCategorie = e.target.innerHTML;
     const { getByCategorieDrinksD, loadDrinksDispatch } = this.props;
@@ -83,6 +88,10 @@ class TelaPrincipalReceitasBebidas extends Component {
                 className="col-6 justify-content-md-center"
                 key={ item.strDrink }
                 data-testid={ `${index}-recipe-card` }
+                onClick={ () => this.handlePagerediRection(item) }
+                onKeyDown={ () => this.handlePagerediRection(item) }
+                role="button"
+                tabIndex={ 0 }
               >
                 <CardC card={ item } indexDrink={ index } />
               </div>
@@ -107,16 +116,15 @@ class TelaPrincipalReceitasBebidas extends Component {
     );
   }
 }
-
-const mapStateToProps = (state) => ({
-  drinksStore: state.receitasDeBebidas.drinks.drinks,
-  categoriesStore: state.receitasDeBebidas.categories.drinks,
-});
-
 const mapDispatchToProps = (dispatch) => ({
   loadDrinksDispatch: () => dispatch(loadDrinks()),
   getCategoriesDispatch: () => dispatch(loadDrinksCategories()),
   getByCategorieDrinksD: (categorie) => dispatch(getByCategorieDrinks(categorie)),
+});
+
+const mapStateToProps = (state) => ({
+  drinksStore: state.receitasDeBebidas.drinks.drinks,
+  categoriesStore: state.receitasDeBebidas.categories.drinks,
 });
 
 TelaPrincipalReceitasBebidas.propTypes = {
@@ -124,6 +132,9 @@ TelaPrincipalReceitasBebidas.propTypes = {
   drinksStore: PropTypes.objectOf(PropTypes.string).isRequired,
   loadDrinksDispatch: PropTypes.func.isRequired,
   getCategoriesDispatch: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
   getByCategorieDrinksD: PropTypes.func.isRequired,
 };
 
