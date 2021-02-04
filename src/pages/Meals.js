@@ -25,7 +25,7 @@ class Meals extends Component {
       <div>
         <Header title="Comidas" />
         { firstMeals.map((meal, index) => (
-          <MealCard key={ index } meals={ meal } index={ index } />
+          <MealCard key={ index } meals={ meal } index={ index } testid="recipe-card" />
         ))}
         <Footer />
       </div>

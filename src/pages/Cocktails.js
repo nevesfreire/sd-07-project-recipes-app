@@ -25,7 +25,12 @@ class Cocktails extends Component {
       <div>
         <Header title="Bebidas" />
         { firstCocktails.map((cocktail, index) => (
-          <CocktailCard key={ index } cocktail={ cocktail } index={ index } />
+          <CocktailCard
+            key={ index }
+            cocktail={ cocktail }
+            index={ index }
+            testid="recipe-card"
+          />
         ))}
         <Footer />
       </div>

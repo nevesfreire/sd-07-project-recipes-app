@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { getMealsDetailsById } from '../services/mealsAPI';
+import { fetchRandomCocktails } from '../actions/cocktails';
+import CocktailCard from '../components/CocktailCard';
 import shareIcon from '../images/shareIcon.svg';
 import favIconEnabled from '../images/blackHeartIcon.svg';
 import favIconDisabled from '../images/whiteHeartIcon.svg';
-import '../styles/recipeDetails.css';
+import '../styles/recipes.css';
 
 class MealRecipeDetails extends Component {
   constructor() {
@@ -21,22 +24,56 @@ class MealRecipeDetails extends Component {
 
     this.handleFavoriteButton = this.handleFavoriteButton.bind(this);
     this.fetchAPI = this.fetchAPI.bind(this);
+    this.setStorage = this.setStorage.bind(this);
   }
 
   componentDidMount() {
+    const { searchRandomCocktails } = this.props;
+    searchRandomCocktails();
     this.fetchAPI();
   }
 
   handleFavoriteButton() {
     const { favorite } = this.state;
     if (!favorite) {
-      return this.setState({
-        favorite: true,
-      });
+      this.setState({ favorite: true });
+    } else {
+      this.setState({ favorite: false });
     }
-    return this.setState({
-      favorite: false,
-    });
+    this.setStorage();
+  }
+
+  setStorage() {
+    const { meals, favorite } = this.state;
+    const {
+      idMeal,
+      strArea,
+      strCategory,
+      strMeal,
+      strMealThumb,
+    } = meals.meals[0];
+    const mealFavorite = {
+      id: idMeal,
+      type: 'comida',
+      alcoholicOrNot: '',
+      area: strArea,
+      category: strCategory,
+      name: strMeal,
+      image: strMealThumb,
+    };
+    if (favorite) {
+      localStorage.removeItem('favoriteRecipes');
+    } else {
+      const storage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      if (storage) {
+        localStorage.setItem(
+          'favoriteRecipes',
+          JSON.stringify([...storage, mealFavorite]),
+        );
+      } else {
+        localStorage.setItem('favoriteRecipes', JSON.stringify([mealFavorite]));
+      }
+    }
   }
 
   async fetchAPI() {
@@ -73,6 +110,11 @@ class MealRecipeDetails extends Component {
     } = meals.meals[0];
 
     const youtubeId = strYoutube.substring(strYoutube.indexOf('=') + 1);
+
+    const zero = 0;
+    const maxLength = 6;
+    const { cocktails } = this.props;
+    const firstCocktails = cocktails.slice(zero, maxLength);
 
     return (
       <div className="recipe-details">
@@ -160,31 +202,14 @@ class MealRecipeDetails extends Component {
           />
         </div>
         <div>
-          <h2
-            data-testid="0-recomendation-card"
-          >
-            Receitas recomendadas
-          </h2>
-          <div
-            data-testid="0-recomendation-card"
-          >
-            Receita 1
-          </div>
-          <div
-            data-testid="0-recomendation-card"
-          >
-            Receita 2
-          </div>
-          <div
-            data-testid="0-recomendation-card"
-          >
-            Receita 3
-          </div>
-          <div
-            data-testid="0-recomendation-card"
-          >
-            Receita 4
-          </div>
+          { firstCocktails.map((cocktail, index) => (
+            <CocktailCard
+              key={ index }
+              cocktail={ cocktail }
+              index={ index }
+              testid="recomendation-card"
+            />
+          ))}
         </div>
         <div className="start-btn">
           <Link
@@ -200,12 +225,22 @@ class MealRecipeDetails extends Component {
   }
 }
 
+const mapStateToProps = ({ cocktails }) => ({
+  cocktails: cocktails.cocktails,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  searchRandomCocktails: () => dispatch(fetchRandomCocktails()),
+});
+
 MealRecipeDetails.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
+  searchRandomCocktails: PropTypes.func.isRequired,
+  cocktails: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 };
 
-export default MealRecipeDetails;
+export default connect(mapStateToProps, mapDispatchToProps)(MealRecipeDetails);
