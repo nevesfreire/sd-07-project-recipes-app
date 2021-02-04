@@ -8,6 +8,7 @@ import {
   loadMealsCategories,
   getByCategorieMeals,
 } from '../../store/ducks/receitasDeComidas/actions';
+import { getSpecificMealById } from '../../store/ducks/getDetailedMeal/actions';
 
 class TelaPrincipalReceitasComidas extends Component {
   constructor() {
@@ -22,6 +23,11 @@ class TelaPrincipalReceitasComidas extends Component {
     const { loadMealsDispatch, getCategoriesDispatch } = this.props;
     loadMealsDispatch();
     await getCategoriesDispatch();
+  }
+
+  async handlePagerediRection(item) {
+    const { history } = this.props;
+    history.push(`/comidas/${item.idMeal}`);
   }
 
   async getMealsCategorie(e) {
@@ -43,6 +49,7 @@ class TelaPrincipalReceitasComidas extends Component {
       const { idMeal } = meals[0];
       return <Redirect to={ `/comidas/${idMeal}` } />;
     }
+
     return (
       <div className="row">
         {meals.map((item, index) => {
@@ -53,6 +60,10 @@ class TelaPrincipalReceitasComidas extends Component {
                 className="col-6 justify-content-md-center"
                 data-testid={ `${index}-recipe-card` }
                 key={ item.strMeals }
+                onClick={ () => this.handlePagerediRection(item) }
+                onKeyDown={ () => this.handlePagerediRection(item) }
+                role="button"
+                tabIndex={ 0 }
               >
                 <CardC card={ item } indexMeal={ index } />
               </div>
@@ -124,6 +135,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   loadMealsDispatch: () => dispatch(loadMeals()),
   getCategoriesDispatch: () => dispatch(loadMealsCategories()),
+  getDetailedMealDispatch: (id) => dispatch(getSpecificMealById(id)),
   getByCategorieMealsD: (categorie) => dispatch(getByCategorieMeals(categorie)),
 });
 
@@ -131,6 +143,9 @@ TelaPrincipalReceitasComidas.propTypes = {
   mealsStore: PropTypes.objectOf(PropTypes.string).isRequired,
   loadMealsDispatch: PropTypes.func.isRequired,
   getCategoriesDispatch: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
   categoriesStore: PropTypes.objectOf(PropTypes.string).isRequired,
   getByCategorieMealsD: PropTypes.func.isRequired,
 };

@@ -3,6 +3,8 @@ import { BrowserRouter } from 'react-router-dom';
 import Routes from './routes';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'slick-carousel/slick/slick-theme.css';
+import 'slick-carousel/slick/slick.css';
 
 function App() {
   return (
