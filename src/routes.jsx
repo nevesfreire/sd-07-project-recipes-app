@@ -5,8 +5,8 @@ import LoginPage from './Pages/LoginPage';
 import HomePage from './Pages/HomePage';
 import ExplorarPage from './Pages/ExplorarPage';
 import PerfilPage from './Pages/PerfilPage';
-import ComidaDetailPage from './Pages/FoodDetailPage';
-import BebidaDetailPage from './Pages/DrinkDetailPage';
+import FoodDetailPage from './Pages/FoodDetailPage';
+import DrinkDetailPage from './Pages/DrinkDetailPage';
 import ProgressComidaPage from './Pages/ProgressFoodPage';
 import ProgressBebidaPage from './Pages/ProgressBebidasPage';
 import ExplorarComidas from './Pages/ExploreFoodPage';
@@ -26,16 +26,16 @@ const Routes = () => (
       <Route exact path="/bebidas" component={ DrinkPage } />
       <Route exact path="/explorar" component={ ExplorarPage } />
       <Route exact path="/perfil" component={ PerfilPage } />
-      <Route exact path="/comidas/:id-receita" component={ ComidaDetailPage } />
-      <Route exact path="/bebidas/:id-receita" component={ BebidaDetailPage } />
+      <Route exact path="/comidas/:id" component={ FoodDetailPage } />
+      <Route exact path="/bebidas/:id" component={ DrinkDetailPage } />
       <Route
         exact
-        path="/comidas/:id-receita/in-progress"
+        path="/comidas/:id/in-progress"
         component={ ProgressComidaPage }
       />
       <Route
         exact
-        path="/bebidas/:id-receita/in-progress"
+        path="/bebidas/:id/in-progress"
         component={ ProgressBebidaPage }
       />
       <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
