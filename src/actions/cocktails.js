@@ -5,6 +5,7 @@ import {
   getRandomCocktails,
   getCocktailsByCategory,
   getCocktailsCategories,
+  getCocktailsIngredients,
 } from '../services/cocktailsAPI';
 
 export const REQUEST_COCKTAILS = 'REQUEST_COCKTAILS';
@@ -14,6 +15,10 @@ export const REQUEST_COCKTAILS_FAILURE = 'REQUEST_COCKTAILS_FAILURE ';
 export const REQUEST_COCKTAILS_CATEGORIES = 'REQUEST_COCKTAILS_CATEGORIES';
 export const COCKTAILS_CATEGORIES_SUCCESS = 'COCKTAILS_CATEGORIES_SUCCESS';
 export const COCKTAILS_CATEGORIES_FAILURE = 'COCKTAILS_CATEGORIES_FAILURE';
+
+export const REQUEST_COCKTAILS_INGREDIENTS = 'REQUEST_COCKTAILS_INGREDIENTS';
+export const COCKTAILS_INGREDIENTS_SUCCESS = 'COCKTAILS_INGREDIENTS_SUCCESS';
+export const COCKTAILS_INGREDIENTS_FAILURE = 'COCKTAILS_INGREDIENTS_FAILURE';
 
 const requestCocktails = () => ({ type: REQUEST_COCKTAILS });
 
@@ -29,6 +34,14 @@ const setCocktailsCategoriesSuccess = (cocktails) => (
 
 const setCocktailsCategoriesFailure = (error) => (
   { type: COCKTAILS_CATEGORIES_FAILURE, error });
+
+const requestCocktailsIngredients = () => ({ type: REQUEST_COCKTAILS_INGREDIENTS });
+
+const setCocktailsIngredientsSuccess = (ingredients) => (
+  { type: COCKTAILS_INGREDIENTS_SUCCESS, ingredients });
+  
+const setCocktailsIngredientsFailure = (error) => (
+  { type: COCKTAILS_INGREDIENTS_FAILURE, error });
 
 export const fetchCocktailsByIngredient = (i) => (dispatch) => {
   dispatch(requestCocktails());
@@ -70,4 +83,11 @@ export const fetchCocktailsCategories = () => (dispatch) => {
   return getCocktailsCategories()
     .then((response) => dispatch(setCocktailsCategoriesSuccess(response)))
     .catch((error) => dispatch(setCocktailsCategoriesFailure(error)));
+};
+
+export const fetchCocktailsIngredients = () => (dispatch) => {
+  dispatch(requestCocktailsIngredients());
+  return getCocktailsIngredients()
+    .then((response) => dispatch(setCocktailsIngredientsSuccess(response)))
+    .catch((error) => dispatch(setCocktailsIngredientsFailure(error)));
 };

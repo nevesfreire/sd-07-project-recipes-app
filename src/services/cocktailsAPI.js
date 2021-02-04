@@ -33,3 +33,9 @@ export const getCocktailsCategories = () => new Promise((resolve, reject) => {
     .then((response) => response.json().then((data) => resolve(data)))
     .catch((error) => reject(error));
 });
+
+export const getCocktailsIngredients = () => new Promise((resolve, reject) => {
+  fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list')
+    .then((response) => response.json().then((data) => resolve(data)))
+    .catch((error) => reject(error));
+});

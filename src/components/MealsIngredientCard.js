@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class IngredientCard extends Component {
+class MealsIngredientCard extends Component {
   render() {
     const { ingredient: { idIngredient, strIngredient }, index } = this.props;
     return (
@@ -14,7 +14,7 @@ class IngredientCard extends Component {
   }
 }
 
-IngredientCard.propTypes = {
+MealsIngredientCard.propTypes = {
   ingredient: PropTypes.shape({
     idIngredient: PropTypes.number.isRequired,
     strIngredient: PropTypes.string.isRequired,
@@ -22,4 +22,4 @@ IngredientCard.propTypes = {
   index: PropTypes.number.isRequired,
 };
 
-export default IngredientCard;
+export default MealsIngredientCard;

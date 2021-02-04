@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import IngredientCard from '../components/IngredientCard';
+import MealsIngredientCard from '../components/MealsIngredientCard';
 import {
   fetchMealsIngredients,
 } from '../actions/meals';
@@ -23,7 +23,7 @@ class MealsIngredients extends Component {
       <div>
         <Header title="Comidas" />
         { firstIngredients.map((ingredient, index) => (
-          <IngredientCard key={ index } ingredient={ ingredient } index={ index } />
+          <MealsIngredientCard key={ index } ingredient={ ingredient } index={ index } />
         ))}
         <Footer />
       </div>

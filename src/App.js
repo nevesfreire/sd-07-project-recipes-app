@@ -11,7 +11,7 @@ import CocktailRecipeDetails from './pages/CocktailRecipeDetails';
 import MealsExplorer from './pages/MealsExplorer';
 import DrinksExplorer from './pages/DrinksExplorer';
 import MealsIngredients from './pages/MealsIngredients';
-import DrinksIngredients from './pages/DrinksIngredients';
+import CocktailsIngredients from './pages/CocktailsIngredients';
 import MealsOrigin from './pages/MealsOrigin';
 import Cocktails from './pages/Cocktails';
 
@@ -32,7 +32,7 @@ function App() {
       <Route
         exact
         path="/explorar/bebidas/ingredientes"
-        component={ DrinksIngredients }
+        component={ CocktailsIngredients }
       />
       <Route exact path="/explorar/comidas/area" component={ MealsOrigin } />
     </Switch>
