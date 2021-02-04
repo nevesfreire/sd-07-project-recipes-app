@@ -14,8 +14,7 @@ function Profile(props) {
   const { email } = localStorageFunc.getEmailLocalStorage();
   return (
     <div>
-      <HeaderNoSearch title="Profile" />
-      <Footer />
+      <HeaderNoSearch title="Perfil" />
       <div>
         <section
           type="email"
@@ -47,6 +46,7 @@ function Profile(props) {
           Sair
         </button>
       </div>
+      <Footer />
     </div>
   );
 }

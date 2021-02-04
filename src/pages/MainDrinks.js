@@ -10,7 +10,9 @@ import RecipesContext from '../context/RecipesContext';
 function MainDrinks(props) {
   const { location } = props;
   const { pathname } = location;
-  const { setPathName, setRedirectByIngredients } = useContext(RecipesContext);
+  const { setPathName, setRedirectByIngredients, usedSearchBar } = useContext(
+    RecipesContext,
+  );
   const { drinksToRender, setDrinksToRender, drinkData } = useContext(RecipesContext);
   const [allFiltersToRender, setAllFiltersToRender] = useState([]);
   const [filtersToRender, setFiltersToRender] = useState([]);
@@ -38,7 +40,7 @@ function MainDrinks(props) {
     if (array === null) {
       return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
-    if (array.length === 1) {
+    if ((array.length === 1) && usedSearchBar) {
       return <Redirect to={ `/bebidas/${array[0].idDrink}` } />;
     }
     const eleven = 11;
@@ -105,7 +107,7 @@ function MainDrinks(props) {
 
   return (
     <div>
-      <Header title="Comidas" />
+      <Header title="Bebidas" />
       {filtersToRender === undefined ? (
         <p>Loading</p>
       ) : (

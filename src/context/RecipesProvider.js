@@ -18,6 +18,7 @@ function RecipesProvider({ children }) {
   const [foodData, setFoodData] = useState([]);
   const [drinkData, setDrinkData] = useState([]);
   const [redirectByIngredients, setRedirectByIngredients] = useState(false);
+  const [usedSearchBar, setUsedSearchBar] = useState(false);
   useEffect(() => {
     foodApiFunctions.fetchAllFoodRecipes().then((response) => setFoodData(response));
   }, []);
@@ -38,10 +39,12 @@ function RecipesProvider({ children }) {
       foodApiFunctions
         .fetchFoodByIngredient(value)
         .then((response) => setFoodsToRender(response.meals));
+      setUsedSearchBar(true);
     } else {
       drinkApiFunctions
         .fetchDrinkByIngredient(value)
         .then((response) => setDrinksToRender(response.drinks));
+      setUsedSearchBar(true);
     }
   };
   const fetchInIngredientCard = (ingredient, path) => {
@@ -61,10 +64,12 @@ function RecipesProvider({ children }) {
       foodApiFunctions
         .fetchFoodByName(value)
         .then((response) => setFoodsToRender(response.meals));
+      setUsedSearchBar(true);
     } else {
       drinkApiFunctions
         .fetchDrinkByName(value)
         .then((response) => setDrinksToRender(response.drinks));
+      setUsedSearchBar(true);
     }
   };
   const fetchByFirstLetter = (value) => {
@@ -72,10 +77,12 @@ function RecipesProvider({ children }) {
       foodApiFunctions
         .fetchFoodByFirstLetter(value)
         .then((response) => setFoodsToRender(response.meals));
+      setUsedSearchBar(true);
     } else {
       drinkApiFunctions
         .fetchDrinkByFirstLetter(value)
         .then((response) => setDrinksToRender(response.drinks));
+      setUsedSearchBar(true);
     }
   };
 
@@ -106,6 +113,8 @@ function RecipesProvider({ children }) {
     fetchInIngredientCard,
     setRedirectByIngredients,
     redirectByIngredients,
+    setUsedSearchBar,
+    usedSearchBar,
   };
   return (
     <div>

@@ -6,19 +6,26 @@ import searchIcon from '../images/searchIcon.svg';
 import RecipesContext from '../context/RecipesContext';
 import HeaderSearchBar from './HeaderSearchBar';
 
-function Header({ title }) {
+function Header(props) {
+  const { title } = props;
   const { toggleSearchBar, showSearchBar } = useContext(RecipesContext);
   return (
     <div>
       <header>
-        <Link to="/perfil">
-          <img
-            className="title"
-            src={ profileIcon }
-            alt="Imagem do profile"
-            data-testid="perfil-top-btn"
-          />
-        </Link>
+        {/* <Link to="/perfil">
+          <button type="button">
+            <img
+              className="title"
+              src={ profileIcon }
+              alt="Imagem do profile"
+              data-testid="profile-top-btn"
+            />
+          </button>
+        </Link> */}
+        <Link to="/perfil"               className="title"
+              src={ profileIcon }
+              alt="Imagem do profile"
+              data-testid="profile-top-btn"/>
         <title
           className="title"
           data-testid="page-title"
