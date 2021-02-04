@@ -17,7 +17,8 @@ function CardAll({ FoodOrDrink }) {
 
   const handleDeslike = (id) => {
     if (favorited) {
-      const newFavorite = getDrinkOrFood.filter((foodsOrDrinks) => foodsOrDrinks.id !== id);
+      const newFavorite = getDrinkOrFood
+        .filter((foodsOrDrinks) => foodsOrDrinks.id !== id);
       setDrinkOrFood(newFavorite);
       localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorite));
       return setFavorite(false);

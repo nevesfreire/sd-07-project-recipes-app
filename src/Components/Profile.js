@@ -9,20 +9,22 @@ function Profile() {
     history.push('/receitas-feitas');
   };
 
-  const handleFavoritRecipe = () => {
-    history.push('/receitas-favoritas');
-  };
-
   const handleOut = () => {
     history.push('/');
     localStorage.clear();
   };
 
+  const handleFavoritRecipe = () => {
+    history.push('/receitas-favoritas');
+  };
+
   return (
     <div>
-      <div data-testid="profile-email">
-        <span>{email.email}</span>
-      </div>
+      { email && (
+        <h4 data-testid="profile-email">
+          {email.email}
+        </h4>
+      ) }
       <button
         type="button"
         onClick={ doneRecipes }

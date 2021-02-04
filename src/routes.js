@@ -12,6 +12,8 @@ import {
   FoodProgress,
   DrinkProgress,
   FavoriteRecipes,
+  DrinkExplore,
+  FoodExplore,
 } from './pages';
 
 const Routes = () => (
@@ -22,11 +24,13 @@ const Routes = () => (
       <Route exact path="/bebidas" component={ Drink } />
       <Route path="/receitas-feitas" component={ DoneRecipes } />
       <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
+      <Route exact path="/explorar" component={ Explore } />
       <Route exact path="/comidas/:id" component={ FoodDetails } />
       <Route exact path="/bebidas/:id" component={ DrinkDetails } />
+      <Route path="/explorar/comidas" component={ FoodExplore } />
+      <Route path="/explorar/bebidas" component={ DrinkExplore } />
       <Route path="/comidas/:id/in-progress" component={ FoodProgress } />
       <Route path="/bebidas/:id/in-progress" component={ DrinkProgress } />
-      <Route path="/explorar" component={ Explore } />
       <Route path="/perfil" component={ Perfil } />
     </Switch>
   </Router>
