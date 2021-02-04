@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import './FavoriteCards.css';
 
 const copy = require('clipboard-copy');
 
@@ -31,8 +32,8 @@ function FavoriteCard({ favorites }) {
   };
 
   return (
-    <div>
-      { copyLink && <p>Link copiado!</p>}
+    <div className="container__favoriteCards">
+      { copyLink && <p className="aaaa">Link copiado!</p>}
       {favoritesRender && favoritesRender.map(({
         name,
         image,
@@ -53,14 +54,26 @@ function FavoriteCard({ favorites }) {
               src={ image }
               width="200px"
             />
-            <p
-              data-testid={ `${index}-horizontal-top-text` }
-            >
-              { type === 'comida' ? `${area} - ${category}` : alcoholicOrNot }
-            </p>
-            <h4 data-testid={ `${index}-horizontal-name` }>{ name }</h4>
           </a>
+          <p
+            data-testid={ `${index}-horizontal-top-text` }
+          >
+            { type === 'comida' ? `${area} - ${category}` : alcoholicOrNot }
+          </p>
+          <a
+            key={ id }
+            href={ `/${type}s/${id}` }
+          >
+            <h4
+              className="Favorite___card__name"
+              data-testid={ `${index}-horizontal-name` }
+            >
+              { name }
+            </h4>
+          </a>
+
           <button
+            className="aaaa"
             type="button"
             data-testid={ `${index}-horizontal-share-btn` }
             onClick={ () => shareRecipe(id, type) }
@@ -69,9 +82,11 @@ function FavoriteCard({ favorites }) {
             <img
               alt="share"
               src={ shareIcon }
+              width="50px"
             />
           </button>
           <button
+            className="aaaa"
             type="button"
             data-testid={ `${index}-horizontal-favorite-btn` }
             onClick={ () => disfavorRecipe(id) }
@@ -80,6 +95,7 @@ function FavoriteCard({ favorites }) {
             <img
               alt="favorite"
               src={ blackHeartIcon }
+              width="50px"
             />
           </button>
         </div>

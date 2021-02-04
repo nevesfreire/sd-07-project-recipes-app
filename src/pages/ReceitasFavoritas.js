@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../Components/Header';
 import FavoriteCards from '../Components/FavoriteCards';
+import './ReceitasFavoritas.css';
 
 function ReceitasFavoritas() {
   const [favoriteFoods, setFavoriteFoods] = useState([]);
@@ -33,7 +34,7 @@ function ReceitasFavoritas() {
   return (
     <div>
       <Header text="Receitas Favoritas" search={ false } />
-      <div className="buttons__profile">
+      <div className="buttons__recipes_favorite">
         <button
           data-testid="filter-by-all-btn"
           type="button"

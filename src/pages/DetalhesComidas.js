@@ -35,7 +35,7 @@ function DetalhesComidas({ match: { params: { id } }, history }) {
 
   const zero = 0;
   const six = 6;
-  if (detailMeal.length === zero) return (<h1>Carregando...</h1>);
+  if (detailMeal && detailMeal.length === zero) return (<h1>Carregando...</h1>);
 
   const {
     strMealThumb,
@@ -128,6 +128,7 @@ function DetalhesComidas({ match: { params: { id } }, history }) {
       <h4 data-testid="recipe-title">{ strMeal }</h4>
       <h6 data-testid="recipe-category">{ strCategory }</h6>
       <button
+        className="aaaa"
         data-testid="share-btn"
         type="button"
         onClick={ () => setCopyLink(handleClick(history)) }
@@ -135,10 +136,12 @@ function DetalhesComidas({ match: { params: { id } }, history }) {
         <img
           src={ shareIcon }
           alt="share"
+          width="30px"
         />
       </button>
       {copyLink && <p>Link copiado!</p>}
       <button
+        className="aaaa"
         data-testid="favorite-btn"
         type="button"
         src={ !isFavorite ? whiteHeartIcon : blackHeartIcon }
@@ -147,6 +150,7 @@ function DetalhesComidas({ match: { params: { id } }, history }) {
         <img
           src={ !isFavorite ? whiteHeartIcon : blackHeartIcon }
           alt="whiteHeart"
+          width="50px"
         />
       </button>
       <h6><b>Ingredientes</b></h6>

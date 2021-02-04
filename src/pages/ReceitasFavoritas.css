@@ -1,0 +1,12 @@
+.buttons__recipes_favorite {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 80px;
+}
+
+.buttons__recipes_favorite button {
+  background-color: green;
+  color: white;
+  min-height: 35px;
+  min-width: 68px;
+}

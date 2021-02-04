@@ -52,7 +52,7 @@ function Login() {
       >
         Entrar
       </button>
-      { redirect && <Redirect to="/comidas" /> }
+      { redirect && <Redirect to="/comidas" />}
     </form>
   );
 }
