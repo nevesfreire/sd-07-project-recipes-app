@@ -78,6 +78,7 @@ function RecipesProvider({ children }) {
         .then((response) => setDrinksToRender(response.drinks));
     }
   };
+
   const context = {
     login,
     setLogin,
@@ -118,3 +119,31 @@ RecipesProvider.propTypes = {
   children: PropTypes.oneOfType([PropTypes.object]).isRequired,
 };
 export default RecipesProvider;
+// import * as localStorageFunctions from '../services/localStorageFunctions';
+// const doneRecipe1 = {
+//   id: '52772',
+//   type: 'comidas',
+//   area: 'Japanese',
+//   category: 'Chicken',
+//   alcoholicOrNot: '',
+//   name: 'Teriyaki Chicken Casserole',
+//   image: 'https://www.themealdb.com/images/media/meals/wvpsxx1468256321.jpg',
+//   doneDate: '03-02-2021',
+//   tags: ['Meat', 'Casserole'],
+// };
+// const doneRecipe2 = {
+//   id: '11007',
+//   type: 'bebidas',
+//   area: '',
+//   category: 'Ordinary Drink',
+//   alcoholicOrNot: 'Alcoholic',
+//   name: 'Margarita',
+//   image:
+//     'https://www.thecocktaildb.com/images/media/drink/5noda61589575158.jpg',
+//   doneDate: '03-02-2021',
+//   tags: ['IBA', 'ContemporaryClassic'],
+// };
+// useEffect(() => {
+//   localStorageFunctions.putDoneRecipesLocalStorage(doneRecipe1);
+//   localStorageFunctions.putDoneRecipesLocalStorage(doneRecipe2);
+// });
