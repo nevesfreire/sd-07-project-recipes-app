@@ -4,12 +4,12 @@ import '../../App.css';
 import ProgressScreen from '../../Components/ProgressScreen';
 
 const ProgresDrink = () => {
-  const { idreceita } = useParams();
+  const { id } = useParams();
   return (
     <div className="container-over">
       <div className="container-int">
         {/* <Header title="Progresso Bebidas" /> */}
-        <ProgressScreen idReceita={ idreceita } />
+        <ProgressScreen idReceita={ id } />
       </div>
     </div>
   );

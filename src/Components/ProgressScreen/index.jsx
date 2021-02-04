@@ -20,7 +20,7 @@ const ProgressScreen = (props) => {
   const [complete, setComplete] = useState(true);
 
   useEffect(() => {
-    const stringStorage = localStorage.getItem('inProgressRecipe');
+    const stringStorage = localStorage.getItem('inProgressRecipes');
     const jsonStorage = JSON.parse(stringStorage);
 
     if (location.pathname.includes('comidas')) {
@@ -42,7 +42,7 @@ const ProgressScreen = (props) => {
 
   useEffect(() => {
     const path = location.pathname.includes('comidas') ? 'meals' : 'cocktails';
-    const stringStorage = localStorage.getItem('inProgressRecipe');
+    const stringStorage = localStorage.getItem('inProgressRecipes');
     const jsonStorage = JSON.parse(stringStorage);
     if (ingredients.every((elem) => elem[1] === true)) {
       setComplete(false);
@@ -55,10 +55,10 @@ const ProgressScreen = (props) => {
     };
 
     if (jsonStorage === null) {
-      localStorage.setItem('inProgressRecipe', JSON.stringify(objectStorage));
+      localStorage.setItem('inProgressRecipes', JSON.stringify(objectStorage));
     } else {
       jsonStorage[path][idReceita] = ingredients;
-      localStorage.setItem('inProgressRecipe', JSON.stringify(jsonStorage));
+      localStorage.setItem('inProgressRecipes', JSON.stringify(jsonStorage));
     }
   }, [ingredients, idReceita, location.pathname]);
 
