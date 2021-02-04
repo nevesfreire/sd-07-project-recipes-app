@@ -14,6 +14,7 @@ import {
   DoneRecipes,
   FavoritesRecipes,
   RecipeDetails,
+  NotFound,
 } from '../pages';
 
 const Routes = () => (
@@ -79,6 +80,10 @@ const Routes = () => (
     <Route
       path="/bebidas/:id"
       component={ RecipeDetails }
+    />
+    <Route
+      path="*"
+      component={ NotFound }
     />
   </Switch>
 );
