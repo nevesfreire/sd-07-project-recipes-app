@@ -45,14 +45,6 @@ function DetailsMeal() {
   // verifica se a página já carrega como favorito
   detailsDidMount(buttonClicked, favoriteRecipe, setFavoriteRecipe, currentRecipe);
 
-  const allRecipe = Object.entries(detailsRecipe.meals[0]);
-  const ingredients = allRecipe.filter(
-    (ingredient) => (ingredient[0].includes('strIngredient') && ingredient[1] !== ''),
-  );
-  const measures = allRecipe.filter(
-    (measure) => (measure[0].includes('strMeasure') && measure[1] !== ' '),
-  );
-
   const meal = detailsRecipe.meals[0];
   const keysMeal = Object.keys(meal);
   const filterMeal = keysMeal
