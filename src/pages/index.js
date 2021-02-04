@@ -11,6 +11,9 @@ import DrinkProgress from './DrinkProgress';
 import FoodProgress from './FoodProgress';
 import DrinkExplore from './DrinkExplore';
 import FoodExplore from './FoodExplore';
+import DrinkExploreIngredient from './DrinkExploreIngredient';
+import FoodExploreIngredient from './FoodExploreIngredient';
+import FoodExploreArea from './FoodExploreArea';
 
 export {
   Explore,
@@ -26,4 +29,7 @@ export {
   FoodProgress,
   DrinkExplore,
   FoodExplore,
+  DrinkExploreIngredient,
+  FoodExploreIngredient,
+  FoodExploreArea,
 };
