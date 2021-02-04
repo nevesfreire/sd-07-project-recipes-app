@@ -32,8 +32,8 @@ function FavoriteRecipes() {
   const removeFavorite = (id) => {
     const atualRenderArray = atualFavoriteRecipes;
     const newRenderArray = atualRenderArray.filter((item) => item.id !== id);
-    const newArrayInString = JSON.stringify(newRenderArray);
-    localStorage.setItem('favoriteRecipes', newArrayInString);
+    const arrayInString = JSON.stringify(newRenderArray);
+    localStorage.setItem('favoriteRecipes', arrayInString);
     setInitialFavoriteRecipes(newRenderArray);
   };
 
