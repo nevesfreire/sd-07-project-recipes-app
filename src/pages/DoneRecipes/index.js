@@ -6,7 +6,7 @@ function DoneRecipes() {
   const [getRecipe, setRecipe] = useState(filtrar);
   const [FoodOrDrink, setRenderAll] = useState(getRecipe);
 
-  useEffect(() => { setRecipe(FoodOrDrink); }, [getRecipe, FoodOrDrink]);
+  useEffect(() => { setRecipe(FoodOrDrink); }, [FoodOrDrink]);
 
   const handleDrink = () => {
     const drink = filtrar.filter(
