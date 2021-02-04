@@ -13,7 +13,7 @@ import {
 const INITIAL_STATE = {
   meals: [],
   mealsCategories: [],
-  mealsIngredients: [],
+  ingredients: [],
   isFetchingMeals: false,
   isFetchingCategories: false,
   isFetchingIngredients: false,
@@ -44,7 +44,7 @@ export default function meals(state = INITIAL_STATE, action) {
     return {
       ...state,
       isFetchingIngredients: false,
-      mealsIngredients: [...action.ingredients.meals],
+      ingredients: [...action.ingredients.ingredients],
     };
   case REQUEST_MEALS_INGREDIENTS_FAILURE:
     return { ...state, isFetchingIngredients: false, error: action.error };

@@ -43,7 +43,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Meals.propTypes = {
-  meals: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  meals: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   searchMealsCategories: PropTypes.func.isRequired,
   searchRandomMeals: PropTypes.func.isRequired,
 };

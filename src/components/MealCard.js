@@ -16,7 +16,7 @@ class MealCard extends Component {
 
 MealCard.propTypes = {
   meals: PropTypes.shape({
-    idMeal: PropTypes.number.isRequired,
+    idMeal: PropTypes.string.isRequired,
     strMealThumb: PropTypes.string.isRequired,
     strMeal: PropTypes.string.isRequired,
   }).isRequired,

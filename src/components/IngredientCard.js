@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 class IngredientCard extends Component {
   render() {
-    const { meals: { strIngredient, idIngredient }, index } = this.props;
+    const { ingredients: { idIngredient, strIngredient }, index } = this.props;
     return (
       <div>
-        <div data-testid={ `${index}-recipe-card` }>{ idIngredient }</div>
+        <div data-testid={ `${index}-ingredient-card` }>{ idIngredient }</div>
         <img src={ `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png` } alt={ strIngredient } data-testid={ `${index}-card-img` } />
         <p data-testid={ `${index}-card-name` }>{ strIngredient }</p>
       </div>
@@ -15,7 +15,7 @@ class IngredientCard extends Component {
 }
 
 IngredientCard.propTypes = {
-  meals: PropTypes.shape({
+  ingredients: PropTypes.shape({
     idIngredient: PropTypes.number.isRequired,
     strIngredient: PropTypes.string.isRequired,
   }).isRequired,

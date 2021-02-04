@@ -36,7 +36,7 @@ const mapStateToProps = ({ ingredients }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  searchMealsCategories: () => dispatch(fetchMealsIngredients()),
+  searchMealsIngredients: () => dispatch(fetchMealsIngredients()),
 });
 
 MealsIngredients.propTypes = {
