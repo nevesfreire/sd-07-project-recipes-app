@@ -32,13 +32,33 @@ function RecipesMade() {
     const doneRecipesLocal = getItemsFromStorage();
     setDoneRecipes(doneRecipesLocal);
   }, []);
-  console.log("receitas feitas", doneRecipes)
+  console.log('receitas feitas', doneRecipes);
   return (
     <div>
-      <button type="button" data-testid="filter-by-all-btn" onClick={ () => { handleFilter('all'); } }>All</button>
-      <button type="button" data-testid="filter-by-food-btn" onClick={ () => { handleFilter('food'); } }>Food</button>
-      <button type="button" data-testid="filter-by-drink-btn" onClick={ () => { handleFilter('drink'); } }>Drinks</button>
-      {doneRecipes.map((doneRecipe, index) => <CardMadeRecipes key={ doneRecipe.id } recipe={ doneRecipe } index={index} />)}
+      <button
+        type="button"
+        data-testid="filter-by-all-btn"
+        onClick={ () => { handleFilter('all'); } }
+      >
+        All
+      </button>
+      <button
+        type="button"
+        data-testid="filter-by-food-btn"
+        onClick={ () => { handleFilter('food'); } }
+      >
+        Food
+      </button>
+      <button
+        type="button"
+        data-testid="filter-by-drink-btn"
+        onClick={ () => { handleFilter('drink'); } }
+      >
+        Drinks
+      </button>
+      {doneRecipes.map((doneRecipe, index) => (
+        <CardMadeRecipes key={ doneRecipe.id } recipe={ doneRecipe } index={ index } />
+      ))}
 
     </div>
   );

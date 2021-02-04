@@ -1,44 +1,118 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import shareIcon from '../images/shareIcon.svg';
 
 function CardMadeRecipes({ recipe, index }) {
   const [spanHidden, setSpanHidden] = useState(false);
-   console.log(recipe, 'recipe')
+  console.log(recipe, 'recipe');
 
-  const urlComidas = `http://localhost:3000/comidas/${recipe.id}`
-  const urlBebidas = `http://localhost:3000/bebidas/${recipe.id}`
+  const {
+    tags,
+    id,
+    name,
+    area,
+    category,
+    type,
+    alcoholicOrNot,
+    image,
+    doneDate,
+  } = recipe;
 
-   function copyToClipBoard(text) {
+  const urlComidas = `http://localhost:3000/comidas/${id}`;
+  const urlBebidas = `http://localhost:3000/bebidas/${id}`;
+
+  function copyToClipBoard(text) {
     navigator.clipboard.writeText(text);
     setSpanHidden(true);
-  }  
+  }
 
   return (
     <div>
-      {recipe.tags && <div data-testid={ `${index}-${recipe.tags[0]}-horizontal-tag` }><p>{recipe.tags[0]}</p></div>}
-      {recipe.tags && <div data-testid={ `${index}-${recipe.tags[1]}-horizontal-tag` }><p>{recipe.tags[1]}</p></div>}
-      <Link to={ `/comidas/${recipe.id}` }>
-      <div data-testid={ `${index}-horizontal-name` }><p>{recipe.name}</p></div>
+      {tags
+        && (
+          <div data-testid={ `${index}-${tags[0]}-horizontal-tag` }>
+            <p>{tags[0]}</p>
+          </div>
+        )}
+
+      {tags
+        && (
+          <div data-testid={ `${index}-${tags[1]}-horizontal-tag` }>
+            <p>{tags[1]}</p>
+          </div>
+        )}
+
+      <Link to={ `/comidas/${id}` }>
+        <div data-testid={ `${index}-horizontal-name` }><p>{name}</p></div>
       </Link>
-      {recipe.type === "comida" 
-      ? <div data-testid={ `${index}-horizontal-top-text` }><p>{recipe.area} - {recipe.category}</p></div>
-      :<div data-testid={ `${index}-horizontal-top-text` }><p>{recipe.alcoholicOrNot}</p></div>}
-      <div data-testid={ `${index}-horizontal-done-date` }><p>{recipe.doneDate}</p></div>
-      <Link to={ `/comidas/${recipe.id}` }>
-      <img data-testid={`${index}-horizontal-image`} alt="recipeImg" src={ recipe.image } />
+
+      {type === 'comida'
+        ? (
+          <div data-testid={ `${index}-horizontal-top-text` }>
+            <p>
+              {area}
+              -
+              {category}
+            </p>
+          </div>
+        )
+        : (
+          <div data-testid={ `${index}-horizontal-top-text` }>
+            <p>{alcoholicOrNot}</p>
+          </div>
+        )}
+
+      <div data-testid={ `${index}-horizontal-done-date` }><p>{doneDate}</p></div>
+
+      <Link to={ `/comidas/${id}` }>
+        <img
+          data-testid={ `${index}-horizontal-image` }
+          alt="recipeImg"
+          src={ image }
+        />
       </Link>
-      {recipe.type === "comida" ? <button type="button" onClick={ () => copyToClipBoard(urlComidas) }>
-        <img data-testid={`${index}-horizontal-share-btn`} src={ shareIcon } alt="img " />
-      </button>
-      : <button type="button" onClick={ () => copyToClipBoard(urlBebidas) }>
-      <img data-testid={`${index}-horizontal-share-btn`} src={ shareIcon } alt="img " />
-    </button>}
+
+      {type === 'comida'
+        ? (
+          <button type="button" onClick={ () => copyToClipBoard(urlComidas) }>
+            <img
+              data-testid={ `${index}-horizontal-share-btn` }
+              src={ shareIcon }
+              alt="img "
+            />
+          </button>
+        )
+        : (
+          <button type="button" onClick={ () => copyToClipBoard(urlBebidas) }>
+            <img
+              data-testid={ `${index}-horizontal-share-btn` }
+              src={ shareIcon }
+              alt="img "
+            />
+          </button>
+        )}
+
       <span hidden={ !spanHidden }>Link copiado!</span>
     </div>
 
   );
 }
+
+CardMadeRecipes.propTypes = {
+  index: PropTypes.number.isRequired,
+  recipe: PropTypes.objectOf({
+    tags: PropTypes.string,
+    id: PropTypes.number,
+    name: PropTypes.string,
+    area: PropTypes.string,
+    category: PropTypes.string,
+    type: PropTypes.string,
+    alcoholicOrNot: PropTypes.string,
+    image: PropTypes.string,
+    doneDate: PropTypes.number,
+  }).isRequired,
+};
 
 export default CardMadeRecipes;
