@@ -24,12 +24,15 @@
 }
 
 .div-buttons-share-favorite button {
-  background-color: white;
-  border-style: none;
-  display: flex;
-  margin-left: 20px;
-  z-index: 0;
+  background: none;
+  border: none;
+  outline: none;
+  padding: 0;
 
+}
+
+.div-buttons-share-favorite img {
+  z-index: 0;
 }
 
 .div-favorite {

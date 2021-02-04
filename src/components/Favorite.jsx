@@ -32,7 +32,7 @@ function Favorite({ recipesStorage, setRecipesStorage }) {
   return (
     <div className="div-favorite">
       <p>{copy && 'Link copiado!'}</p>
-      {recipesStorage.map(
+      {recipesStorage && recipesStorage.map(
         ({ id, type, area, category, image, alcoholicOrNot, name }, index) => (
           <div
             key={ id }
