@@ -7,7 +7,6 @@ import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import { RecomendationCardMeal } from '../../components';
 import {
   getSpecificMealById,
-  // getRecommendatedMeals,
 } from '../../store/ducks/getDetailedMeal/actions';
 import { getRecommendatedDrinks } from '../../store/ducks/getDetailedDrink/actions';
 
@@ -19,7 +18,6 @@ class TelaDetalheComida extends Component {
       },
     } = this.props;
     const { getDetailedMealDispatch, getRecommendationDrinks } = this.props;
-    // await getRecommendationMeals();
     await getRecommendationDrinks();
     await getDetailedMealDispatch(id);
   }
@@ -44,16 +42,15 @@ class TelaDetalheComida extends Component {
     const ingredientsArray = this.handleIngredients(meal);
     const measuresArray = this.handleMeasure(meal);
     const six = 6;
-    // const { mealsRecommendStore } = this.props;
     const { drinksRecommendStore } = this.props;
     const settings = {
       dots: true,
-      infinite: true,
+      infinite: false,
       speed: 500,
       slidesToShow: 2,
       slidesToScroll: 2,
     };
-    // console.log(mealsRecommendStore);
+
     return (
       <>
         <img
@@ -136,20 +133,16 @@ TelaDetalheComida.propTypes = {
   getDetailedMealDispatch: PropTypes.func.isRequired,
   drinksRecommendStore: PropTypes.arrayOf(PropTypes.Object).isRequired,
   getRecommendationDrinks: PropTypes.func.isRequired,
-  // mealsRecommendStore: PropTypes.arrayOf(PropTypes.Object).isRequired,
-  // getRecommendationMeals: PropTypes.arrayOf(PropTypes.Object).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   meal: state.detalhesDaReceitaComida.meal.meals,
   drinksRecommendStore: state.detalhesDaReceitaBebida.drinkRecommend.drinks,
-  // mealsRecommendStore: state.detalhesDaReceitaComida.mealRecommend.meals,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getDetailedMealDispatch: (id) => dispatch(getSpecificMealById(id)),
   getRecommendationDrinks: () => dispatch(getRecommendatedDrinks()),
-  // getRecommendationMeals: () => dispatch(getRecommendatedMeals()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TelaDetalheComida);

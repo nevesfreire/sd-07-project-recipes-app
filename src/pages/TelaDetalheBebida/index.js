@@ -7,7 +7,6 @@ import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import { RecomendationCardDrink } from '../../components';
 import {
   getSpecificDrinkById,
-  // getRecommendatedDrinks,
 } from '../../store/ducks/getDetailedDrink/actions';
 import { getRecommendatedMeals } from '../../store/ducks/getDetailedMeal/actions';
 
@@ -19,7 +18,6 @@ class TelaDetalheBebida extends Component {
       },
     } = this.props;
     const { getDetailedDrinkDispatch, getRecommendationMeals } = this.props;
-    // await getRecommendationDrinks();
     await getRecommendationMeals();
     await getDetailedDrinkDispatch(id);
   }
@@ -47,12 +45,12 @@ class TelaDetalheBebida extends Component {
     const six = 6;
     const settings = {
       dots: true,
-      infinite: true,
+      infinite: false,
       speed: 500,
       slidesToShow: 2,
       slidesToScroll: 2,
     };
-    // console.log(drinksRecommendStore);
+
     return (
       <div>
         <img
@@ -88,9 +86,9 @@ class TelaDetalheBebida extends Component {
         <Slider { ...settings }>
           {mealsRecommendStore.map((element, index) => {
             if (index < six) {
+              console.log(index);
               return (<RecomendationCardDrink
                 key={ element }
-                data-testid={ `${index}-recomendation-card` }
                 mealRecommended={ element }
                 mealIndex={ index }
               />);
@@ -115,21 +113,17 @@ class TelaDetalheBebida extends Component {
 
 const mapStateToProps = (state) => ({
   drinkDetailStore: state.detalhesDaReceitaBebida.drink.drinks,
-  // drinksRecommendStore: state.detalhesDaReceitaBebida.drinkRecommend.drinks,
   mealsRecommendStore: state.detalhesDaReceitaComida.mealRecommend.meals,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getDetailedDrinkDispatch: (id) => dispatch(getSpecificDrinkById(id)),
   getRecommendationMeals: () => dispatch(getRecommendatedMeals()),
-  // getRecommendationDrinks: () => dispatch(getRecommendatedDrinks()),
 });
 
 TelaDetalheBebida.propTypes = {
   drinkDetailStore: PropTypes.arrayOf(PropTypes.Object).isRequired,
   getDetailedDrinkDispatch: PropTypes.func.isRequired,
-  // drinksRecommendStore: PropTypes.arrayOf(PropTypes.Object).isRequired,
-  // getRecommendationDrinks: PropTypes.func.isRequired,
   mealsRecommendStore: PropTypes.arrayOf(PropTypes.Object).isRequired,
   getRecommendationMeals: PropTypes.arrayOf(PropTypes.Object).isRequired,
   match: PropTypes.shape({

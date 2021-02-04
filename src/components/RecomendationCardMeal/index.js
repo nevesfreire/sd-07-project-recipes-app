@@ -4,12 +4,14 @@ import PropTypes from 'prop-types';
 class RecomendationCardDrink extends React.Component {
   render() {
     const { drinkRecommended, drinkIndex } = this.props;
-    console.log(drinkRecommended);
+    console.log(drinkIndex);
     return (
       <div
         data-testid={ `${drinkIndex}-recomendation-card` }
       >
-        <h3>{drinkRecommended.strDrink}</h3>
+        <h3 data-testid={ `${drinkIndex}-recomendation-title` }>
+          {drinkRecommended.strDrink}
+        </h3>
         <h4>{drinkRecommended.strCategory}</h4>
         <img
           src={ drinkRecommended.strDrinkThumb }
