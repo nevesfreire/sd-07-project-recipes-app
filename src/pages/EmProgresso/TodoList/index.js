@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { arrayOf } from 'prop-types';
 
 export default function TodoList({ id, route, ingredients, setisEnded }) {
   const progressStatus = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -11,7 +11,8 @@ export default function TodoList({ id, route, ingredients, setisEnded }) {
 
   if (progressStatus && progressStatus[key][id]) {
     const newChecks = progressStatus[key][id];
-    setChecks(newChecks);
+    console.log(newChecks)
+    // setChecks(newChecks);
   }
 
   // console.log('ingr:', ingredients);
@@ -23,10 +24,12 @@ export default function TodoList({ id, route, ingredients, setisEnded }) {
     };
 
     progressObj[key][id] = checks;
+    console.log(progressObj);
     localStorage.setItem('inProgressRecipes', JSON.stringify(progressObj));
   };
   const isDone = (e) => {
     checkStatus[e.target.id] = !checkStatus[e.target.id];
+    setChecks(checkStatus);
     updateStorage();
     const a = checkStatus.filter((ingredient) => !ingredient);
     const ZERO = 0;
@@ -51,6 +54,6 @@ export default function TodoList({ id, route, ingredients, setisEnded }) {
 }
 
 TodoList.propTypes = {
-  ingredients: PropTypes.string.isRequired,
+  ingredients: arrayOf(PropTypes.string).isRequired,
   setisEnded: PropTypes.func.isRequired,
 };

@@ -52,7 +52,6 @@ function EmProgesso({
     }
     return false;
   });
-  console.log('ing', ingredients);
 
   return (
     <div>
