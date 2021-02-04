@@ -28,8 +28,20 @@ export const getMealsByCategory = (category) => new Promise((resolve, reject) =>
     .catch((error) => reject(error));
 });
 
+export const getMealsByArea = (area) => new Promise((resolve, reject) => {
+  fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`)
+    .then((response) => response.json().then((data) => resolve(data)))
+    .catch((error) => reject(error));
+});
+
 export const getMealsCategories = () => new Promise((resolve, reject) => {
   fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list')
+    .then((response) => response.json().then((data) => resolve(data)))
+    .catch((error) => reject(error));
+});
+
+export const getMealsAreas = () => new Promise((resolve, reject) => {
+  fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list')
     .then((response) => response.json().then((data) => resolve(data)))
     .catch((error) => reject(error));
 });

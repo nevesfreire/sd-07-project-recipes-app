@@ -16,6 +16,7 @@ import MealsOrigin from './pages/MealsOrigin';
 import Cocktails from './pages/Cocktails';
 
 function App() {
+  const notFount = () => <div>Not Found</div>;
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
@@ -35,6 +36,7 @@ function App() {
         component={ DrinksIngredients }
       />
       <Route exact path="/explorar/comidas/area" component={ MealsOrigin } />
+      <Route exact path="/explorar/bebidas/area" component={ () => notFount() } />
     </Switch>
   );
 }
