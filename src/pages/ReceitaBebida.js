@@ -14,6 +14,7 @@ class ReceitaBebida extends React.Component {
     };
 
     this.callRecipeAPI = this.callRecipeAPI.bind(this);
+    this.ingredientListHandle = this.ingredientListHandle.bind(this);
   }
 
   componentDidMount() {
@@ -31,6 +32,20 @@ class ReceitaBebida extends React.Component {
     });
   }
 
+  ingredientListHandle() {
+    const { recipe } = this.state;
+    const array = [];
+    const sixteen = 16;
+    for (let index = 1; index < sixteen; index += 1) {
+      const strIngredient = `strIngredient${[index]}`;
+      const strMeasure = `strMeasure${[index]}`;
+      if (recipe[strIngredient] !== null && recipe[strIngredient] !== '') {
+        array.push(`${recipe[strIngredient]} - ${recipe[strMeasure]}`);
+      }
+    }
+    return array;
+  }
+
   // startRecipeButton() {
   //   const { history } = this.props;
   //   const id = window.location.pathname.split('/').pop();
@@ -40,6 +55,7 @@ class ReceitaBebida extends React.Component {
   render() {
     const { history } = this.props;
     const { recipe, mealList } = this.state;
+    const ingredientsArray = this.ingredientListHandle();
     if (recipe === '') {
       return <p>Loading...</p>;
     }
@@ -57,12 +73,11 @@ class ReceitaBebida extends React.Component {
         <h4 data-testid="recipe-title">{ recipe.strDrink }</h4>
         <p data-testid="recipe-category">{ recipe.strAlcoholic }</p>
         <ul>
-          <li data-testid="0-ingredient-name-and-measure">
-            {`${recipe.strIngredient1} - ${recipe.strMeasure1}`}
-          </li>
-          <li data-testid="1-ingredient-name-and-measure">
-            {`${recipe.strIngredient2} - ${recipe.strMeasure2}`}
-          </li>
+          { ingredientsArray.map((e, index) => (
+            <li key={ e } data-testid={ `${[index]}-ingredient-name-and-measure` }>
+              {e}
+            </li>
+          )) }
         </ul>
         <p data-testid="instructions">{ recipe.strInstructions}</p>
         <button type="button" data-testid="share-btn">
