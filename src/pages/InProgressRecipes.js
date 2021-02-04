@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import {
   Ingredient,
-  ImageDetails, TitleDetails, Instructions, ButtonDetails,
+  ImageDetails, TitleDetails, Instructions, ButtonRecipeDone,
 } from '../components/index';
 import FoodAppContext from '../context/FoodAppContext';
 
@@ -29,7 +29,7 @@ function InProgressRecipes({ match }) {
       />
       <Ingredient recipes={ recipes } inProgress id={ id } />
       <Instructions recipes={ recipes } />
-      <ButtonDetails
+      <ButtonRecipeDone
         recipes={ recipes }
         id={ id }
         textBtn="Finalizar Receita"
