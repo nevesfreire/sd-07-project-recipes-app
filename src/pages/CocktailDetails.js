@@ -90,7 +90,7 @@ function CocktailDetails() {
       <p data-testid="instructions">{instructions}</p>
       <h3>Recomendações</h3>
       <Recommendations api={ mealsRecommendations } />
-      <ButtonStart id={ params.id } ingredients={ ingredMeasures } />
+      <ButtonStart data={ { key: 'cocktail', recipeId, ingredMeasures } } />
     </div>
   );
 }

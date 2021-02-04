@@ -100,7 +100,7 @@ function MealDetails() {
 
       <h3>Recomendações</h3>
       <Recommendations api={ cocktailsRecommendations } />
-      <ButtonStart id={ params.id } ingredients={ ingredMeasures } />
+      <ButtonStart data={ { key: 'meal', recipeId, ingredMeasures } } />
     </div>
   );
 }

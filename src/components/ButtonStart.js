@@ -3,35 +3,50 @@ import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { handleClickMeals } from '../functions/DetailPages';
 
-function ButtonStart({ id, ingredients }) {
+function ButtonStart({ data }) {
   const history = useHistory();
-  const [buttonVisibility, setButtonVisibility] = useState('');
+  const [buttonVisibility, setButtonVisibility] = useState(false);
   const [buttonStatus, setButtonStatus] = useState('Iniciar Receita');
 
   useEffect(() => {
+    const { recipeId } = data;
     const getDone = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-    const meals = Object.values(getDone) || [];
-    const findRecipe = meals.find((recipe) => recipe.id === id);
+    const meals = getDone.map((recipe) => recipe.id);
+    const findRecipe = meals.find((recipe) => recipe === recipeId);
     if (findRecipe) {
       setButtonVisibility(false);
     } else {
       setButtonVisibility(true);
     }
-  }, [id]);
+  }, [data]);
 
   useEffect(() => {
-    const getStarted = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
-    const recipesIds = Object.keys(getStarted.meals);
-    const findRecipe = recipesIds.find((element) => element === id);
-    if (findRecipe) {
+    const { recipeId, key } = data;
+    let findRecipe = [];
+    if (key === 'meal') {
+      const getStarted = JSON.parse(localStorage.getItem('inProgressRecipes'))
+      || { meals: {} };
+      const recipesIds = Object.keys(getStarted.meals);
+      findRecipe = recipesIds.find((element) => element === recipeId);
+    } else if (key === 'cocktail') {
+      const getStarted = JSON.parse(localStorage.getItem('inProgressRecipes'))
+      || { cocktails: {} };
+      const recipesIds = Object.keys(getStarted.cocktails);
+      findRecipe = recipesIds.find((element) => element === recipeId);
+    }
+    if (findRecipe !== undefined) {
       setButtonStatus('Continuar Receita');
     }
-  }, [id]);
+  }, [data]);
 
   const handleClick = () => {
-    history.push(`/comidas/${id}/in-progress`);
-    console.log(id);
-    handleClickMeals(id, ingredients);
+    const { recipeId, ingredMeasures, key } = data;
+    if (key === 'meal') {
+      history.push(`/comidas/${recipeId}/in-progress`);
+    } else {
+      history.push(`/bebidas/${recipeId}/in-progress`);
+    }
+    handleClickMeals(recipeId, ingredMeasures);
   };
 
   const showButton = () => (
@@ -53,8 +68,11 @@ function ButtonStart({ id, ingredients }) {
 }
 
 ButtonStart.propTypes = {
-  id: PropTypes.string.isRequired,
-  ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
+  data: PropTypes.shape({
+    recipeId: PropTypes.string.isRequired,
+    ingredMeasures: PropTypes.arrayOf(PropTypes.string).isRequired,
+    key: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default ButtonStart;
