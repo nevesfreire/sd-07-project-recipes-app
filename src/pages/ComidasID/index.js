@@ -80,7 +80,9 @@ function ComidasID({
       <div className="ala">
         <div className="text-container">
           <ul className="ingredient-list">
-            Ingredientes:
+            <span className="list-title">
+              Ingredientes:
+            </span>
             {Object.keys(detailed[0]).map((key, index) => {
               const ingredientIndex = key.match(/(\d+)/);
               if (detailed[0][key] && key.includes('strIngredient')) {
