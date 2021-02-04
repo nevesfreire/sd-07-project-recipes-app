@@ -12,7 +12,7 @@ const favorite = 'favorite-btn';
 const instructionsData = 'instructions';
 const category = 'recipe-category';
 
-describe('Testa o comportamente do compornente Detaiis.js', () => {
+describe('Testa o comportamente do componente Detaiis.js', () => {
   it('Testa que os elementos são referentes a página e a receita.', async () => {
     renderWithRouter(<Details itemId={ itemIdMeal } mealType="Meal" />);
     const imgMeal = await screen.findByTestId(photo);
