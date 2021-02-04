@@ -11,6 +11,7 @@ import {
   saveIngredient,
   getMealsByIngredient,
   getDrinksByIngredient,
+  getAreas,
 } from './mainpage';
 
 export default {
@@ -23,4 +24,5 @@ export default {
   saveIngredient,
   getMealsByIngredient,
   getDrinksByIngredient,
+  getAreas,
 };

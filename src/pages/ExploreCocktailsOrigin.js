@@ -12,7 +12,10 @@ function ExploreCocktailsOrigin() {
   }, [dispatch]);
 
   return (
-    <Header />
+    <div>
+      <Header />
+      <p>Not Found</p>
+    </div>
   );
 }
 

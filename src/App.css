@@ -72,6 +72,11 @@
   font-weight: 900;
 }
 
+.startRecipe {
+  bottom: 0;
+  position: fixed;
+}
+
 @keyframes shake {
 
   0% {
