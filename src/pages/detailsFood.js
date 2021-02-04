@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import { getFoodId } from '../services/Api';
+import DrinkRecom from '../components/DrinkRecom';
 
 function DetailsFood() {
   const [dataFood, setDataFood] = useState([]);
@@ -74,15 +75,31 @@ function DetailsFood() {
         :
         {dataFood[0].strMeasure5}
       </p>
+      <p data-testid="5-ingredient-name-and-measure">
+        {dataFood[0].strIngredient6}
+        :
+        {dataFood[0].strMeasure6}
+      </p>
+      <p data-testid="6-ingredient-name-and-measure">
+        {dataFood[0].strIngredient7}
+        :
+        {dataFood[0].strMeasure7}
+      </p>
+      <p data-testid="7-ingredient-name-and-measure">
+        {dataFood[0].strIngredient8}
+        :
+        {dataFood[0].strMeasure8}
+      </p>
       <h2>Instruções</h2>
       <p data-testid="instructions">{ dataFood[0].strInstructions }</p>
-      <iframe
+      <embed
         data-testid="video"
+        type="video/quicktime"
         src={ dataFood[0].strYoutube }
-        title="Vídeo da receita"
       />
       <div data-testid="0-recomendation-card">
         <h2>Recomendadas</h2>
+        {DrinkRecom()}
       </div>
       <button
         type="button"
