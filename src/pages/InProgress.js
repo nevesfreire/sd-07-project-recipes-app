@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import InProgressMeals from '../components/InProgressMeals';
+import Loading from '../components/Loading';
 
 class MainRecipes extends React.Component {
   constructor() {
@@ -24,16 +26,19 @@ class MainRecipes extends React.Component {
   }
 
   render() {
+    const { location : { pathname }, inProgressRecipes: { idMeal } } = this.props;
+    console.log(idMeal)
+    console.log(pathname)
     return (
       <div>
-        <h1>Receita em Processo</h1>
+        { pathname === `/comidas/${idMeal}/in-progress` ? <InProgressMeals /> : <Loading /> }
       </div>
     );
   }
 }
 
 const mapStateToProps = ({ recipes: { inProgressRecipes, inProgressRecipesDrink } }) => (
-  { inProgressRecipes }
+  { inProgressRecipes, inProgressRecipesDrink }
 );
 
 export default connect(mapStateToProps)(MainRecipes);
