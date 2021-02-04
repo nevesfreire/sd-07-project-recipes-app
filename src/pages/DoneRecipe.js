@@ -4,7 +4,6 @@ import { copyButton } from '../actions';
 import shareIcon from '../images/shareIcon.svg';
 import '../css/recipe.css';
 
-
 class DoneRecipe extends Component {
   constructor(props) {
     super(props);
@@ -14,13 +13,12 @@ class DoneRecipe extends Component {
     };
   }
 
-  handleClipBoard() {
+  handleClipBoard(type, id) {
     const {
-      executeCopy,
-      location: { pathname },
+      executeCopy
     } = this.props;
     const copy = require('clipboard-copy');
-    copy(`http://localhost:3000${pathname}`);
+    copy(`http://localhost:3000/${type}s/${id}`);
     executeCopy('Link copiado!');
   }
 
@@ -59,12 +57,11 @@ class DoneRecipe extends Component {
                   {card.alcoholicOrNot}
                 </h2>
               )}
-
               <p data-testid={ `${index}-horizontal-done-date` }>
                 {card.doneDate}
               </p>
-              <p>{ valueCopied }</p>
-              <button type="button" onClick={ this.handleClipBoard }>
+              <p>{valueCopied}</p>
+              <button type="button" onClick={ () => this.handleClipBoard(card.type, card.id) }>
                 <img
                   data-testid={ `${index}-horizontal-share-btn` }
                   alt="icone de compartilhamento"
@@ -75,8 +72,8 @@ class DoneRecipe extends Component {
               <h1 data-testid={ `${index}-horizontal-name` }>{card.name}</h1>
               {console.log(card.tags)}
               {/* Para funcionar com a API tem que descomentar a linha abaixo e comentar a seguinte */}
-              {/* {card.tags.map((cardTag, indexTag) => ( */}
-              {card.tags.split(',').map((cardTag, indexTag) => (
+              {/* {card.tags.split(',').map((cardTag, indexTag) => ( */}
+              {card.tags.map((cardTag, indexTag) => (
                 <p
                   data-testid={ `${index}-${cardTag}-horizontal-tag` }
                   key={ indexTag }

@@ -16,16 +16,9 @@ class DrinkInProgress extends Component {
 
     this.handleState = this.handleState.bind(this);
     this.changeFavorite = this.changeFavorite.bind(this);
-<<<<<<< HEAD
-    this.changeDone = this.changeDone.bind(this);
-    this.createFavoriteLocalStorage = this.createFavoriteLocalStorage.bind(
-      this,
-    );
-=======
     this.createFavoriteLocalStorage = this.createFavoriteLocalStorage.bind(this);
     this.handleCopy = this.handleCopy.bind(this);
     this.changeDone = this.changeDone.bind(this);
->>>>>>> 4d237a7f0fff493b35c3d0c2a6bb88382eb3f438
 
     this.state = {
       drinks: [],
@@ -146,10 +139,7 @@ class DrinkInProgress extends Component {
   }
 
   render() {
-<<<<<<< HEAD
-=======
-    const { history, valueCopied } = this.props;
->>>>>>> 4d237a7f0fff493b35c3d0c2a6bb88382eb3f438
+    const { valueCopied } = this.props;
     const { drinks, ingredients, favorite, measurement } = this.state;
     const { strDrinkThumb, strDrink, strInstructions, strAlcoholic } = drinks;
 

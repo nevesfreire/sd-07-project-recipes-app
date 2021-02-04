@@ -119,7 +119,7 @@ class DrinkDetails extends Component {
   }
 
   render() {
-    const { match: { params: { id } }, recomendations, history, valueCopied } = this.props;
+    const { recomendations, valueCopied } = this.props;
     const { drinks, ingredients, favorite, measurement } = this.state;
     const { strDrinkThumb, strDrink, strInstructions, strAlcoholic } = drinks;
     const MEAL_LENGTH = 6;
