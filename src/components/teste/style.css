@@ -1,0 +1,13 @@
+.container {
+  background-color: red;
+  /* width: 600px; */
+  /* height: 600px; */
+  padding: 0px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.disp {
+  display: flex;
+}

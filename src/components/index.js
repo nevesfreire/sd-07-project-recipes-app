@@ -1,4 +1,5 @@
 export { default as Card } from './Card';
+export { default as Carousel } from './teste';
 export { default as DetailsHeader } from './DetailsHeader';
 export { default as FavoriteButton } from './FavoriteButton';
 export { default as Filters } from './Filters';

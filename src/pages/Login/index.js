@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { setStorage } from '../../services/localStorage';
+import { Carousel } from '../../components';
 
 function Login() {
   const initialState = {
@@ -67,6 +68,7 @@ function Login() {
           </button>
         </Link>
       </form>
+      <Carousel />
     </div>
   );
 }
