@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchAPI, TWELVE } from '../services/helpers';
+import perfilIcon from '../images/profileIcon.svg';
+import search from '../images/searchIcon.svg';
 import RecipesContext from '../context/RecipesContext';
+import Footer from '../components/Footer';
 
 function FoodArea() {
   const [areas, setAreas] = useState([]);
   const [foodList, setFoodList] = useState([]);
-
-  const { setMealRecipeId } = useContext(RecipesContext);
+  const { setMealRecipeId, setSearchRender, searchRender } = useContext(RecipesContext);
 
   useEffect(() => {
     const getAPI = async () => {
@@ -44,10 +46,32 @@ function FoodArea() {
       setFoodList(data.meals);
     }
   };
+  const stateSearchInput = (stateInput) => {
+    setSearchRender(!stateInput);
+  };
 
   return (
     <div>
       <header>
+        <h1 data-testid="page-title">
+          Explorar Origem
+        </h1>
+        <Link to="/perfil">
+          <button type="button">
+            <img
+              data-testid="profile-top-btn"
+              src={ perfilIcon }
+              alt="perfil"
+            />
+          </button>
+        </Link>
+        <button type="button" onClick={ () => stateSearchInput(searchRender) }>
+          <img
+            data-testid="search-top-btn"
+            src={ search }
+            alt="busca"
+          />
+        </button>
         <select data-testid="explore-by-area-dropdown" onChange={ handleChange }>
           <option name="area" data-testid="All-option">All</option>
           {areas.map((area, index) => (
@@ -62,7 +86,7 @@ function FoodArea() {
         </select>
       </header>
       <div>
-        { foodList
+        {foodList
           .filter((_, indexFilter) => indexFilter < TWELVE)
           .map((recipe, index) => (
             <button
@@ -88,6 +112,7 @@ function FoodArea() {
               </Link>
             </button>
           ))}
+        <Footer />
       </div>
     </div>
   );

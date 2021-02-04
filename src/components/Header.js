@@ -1,8 +1,7 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import perfilIcon from '../images/profileIcon.svg';
 import search from '../images/searchIcon.svg';
-import history from '../history/history';
 import RecipesContext from '../context/RecipesContext';
 import requestApi from '../services/functions';
 
@@ -28,32 +27,34 @@ function Header() {
     requestApi(filter, inputSearch, setFilter);
   };
 
-  const checkLocation = history.location.pathname;
+  const history = useHistory();
+  const { location } = history;
+  const checkLocation = location.pathname;
 
   return (
     <header>
-      <h1 data-testid="page-title">
-        Receitas de
-        {' '}
-        {' '}
-        {checkLocation === '/bebidas' ? 'Bebidas' : 'Comidas'}
-      </h1>
-      <button type="button">
+      <div>
         <Link to="/perfil">
-          <img
-            data-testid="profile-top-btn"
-            src={ perfilIcon }
-            alt="perfil"
-          />
+          <button type="button">
+            <img
+              data-testid="profile-top-btn"
+              src={ perfilIcon }
+              alt="perfil"
+            />
+          </button>
+
         </Link>
-      </button>
-      <button type="button" onClick={ () => stateSearchInput(searchRender) }>
-        <img
-          data-testid="search-top-btn"
-          src={ search }
-          alt="busca"
-        />
-      </button>
+        <h1 data-testid="page-title">
+          {checkLocation === '/bebidas' ? 'Bebidas' : 'Comidas'}
+        </h1>
+        <button type="button" onClick={ () => stateSearchInput(searchRender) }>
+          <img
+            data-testid="search-top-btn"
+            src={ search }
+            alt="busca"
+          />
+        </button>
+      </div>
 
       <label htmlFor="ingredient">
         <input
@@ -88,6 +89,7 @@ function Header() {
         />
         Primeira Letra
       </label>
+
       <button
         onClick={ () => searchButton(filterSearch,
           searchInput,

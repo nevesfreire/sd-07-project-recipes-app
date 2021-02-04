@@ -2,6 +2,8 @@ import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import { fetchAPI } from '../services/helpers';
+import perfilIcon from '../images/profileIcon.svg';
+import Footer from '../components/Footer';
 
 function ExploreFood() {
   const { mealRecipeId, setMealRecipeId } = useContext(RecipesContext);
@@ -16,6 +18,20 @@ function ExploreFood() {
 
   return (
     <div>
+      <header>
+        <h1 data-testid="page-title">
+          Explorar Comidas
+        </h1>
+        <Link to="/perfil">
+          <button type="button">
+            <img
+              data-testid="profile-top-btn"
+              src={ perfilIcon }
+              alt="perfil"
+            />
+          </button>
+        </Link>
+      </header>
       <h2>Explorar Comidas por:</h2>
       <Link to="/explorar/comidas/ingredientes">
         <button
@@ -31,6 +47,7 @@ function ExploreFood() {
       <Link to={ `/comidas/${mealRecipeId}` }>
         <button type="button" data-testid="explore-surprise">Me Surpreenda!</button>
       </Link>
+      <Footer />
     </div>
   );
 }

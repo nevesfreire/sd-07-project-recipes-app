@@ -12,9 +12,9 @@ import ExploreFood from './pages/ExploreFood';
 import ExploreDrink from './pages/ExploreDrink';
 import FoodIngredient from './pages/FoodIngredient';
 import DrinkIngredient from './pages/DrinkIngredient';
-import FoodArea from './pages/FoodArea';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import DrinkArea from './pages/DrinkArea';
+import FoodArea from './pages/FoodArea';
 
 function App() {
   return (

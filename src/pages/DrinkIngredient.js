@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { fetchAPI, TWELVE } from '../services/helpers';
+import Footer from '../components/Footer';
+import perfilIcon from '../images/profileIcon.svg';
 
 function DrinkIngredient() {
   const [ingredientsList, setIngredientsList] = useState([]);
@@ -14,6 +17,20 @@ function DrinkIngredient() {
   }, []);
   return (
     <div>
+      <header>
+        <h1 data-testid="page-title">
+          Explorar Ingredientes
+        </h1>
+        <Link to="/perfil">
+          <button type="button">
+            <img
+              data-testid="profile-top-btn"
+              src={ perfilIcon }
+              alt="perfil"
+            />
+          </button>
+        </Link>
+      </header>
       {
         ingredientsList.filter((_, indexFilter) => indexFilter < TWELVE)
           .map((ingredient, index) => (
@@ -33,6 +50,7 @@ function DrinkIngredient() {
             </div>
           ))
       }
+      <Footer />
     </div>
   );
 }
