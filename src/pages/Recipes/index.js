@@ -55,7 +55,6 @@ function Recipes({ history, search = false }) {
       window.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
   }, [isFetching, results, setIsFetching]);
-  console.log(slicedResults);
   return (
     <>
       <Header history={ history } search={ search } />

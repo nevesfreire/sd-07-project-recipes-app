@@ -142,7 +142,6 @@ describe('Favorite recipes screen', () => {
       cy.get('[data-testid="0-horizontal-name"]').contains(favoriteRecipes[0].name);
       cy.get('[data-testid="1-horizontal-name"]').should('not.exist');
     });
-
     it('Ao clicar no botão "Drinks" as receitas devem ser filtradas por bebidas', () => {
       cy.get('[data-testid="filter-by-drink-btn"]').click();
       cy.get('[data-testid="0-horizontal-name"]').contains(favoriteRecipes[1].name);
