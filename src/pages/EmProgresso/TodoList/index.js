@@ -1,14 +1,45 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import PropTypes, { arrayOf } from 'prop-types';
 
-export default function TodoList({ ingredients, setisEnded }) {
-  console.log(ingredients);
-  const checkStatus = ingredients.map(() => false);
-  console.log(checkStatus);
+export default function TodoList({ id, route, ingredients, setisEnded }) {
+  const progressStatus = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  let key = 'meals';
+  if (route === 'bebidas') key = 'cocktails';
+  const checkEmpty = ingredients.map(() => false);
+
+  const [checks, setChecks] = useState(
+    progressStatus && progressStatus[key][id]
+      ? progressStatus[key][id]
+      : checkEmpty,
+  );
+  const [update, setUpdate] = useState(false);
+
+  // if (progressStatus && progressStatus[key][id]) {
+  //   newChecks = progressStatus[key][id];
+  //   setChecks(newChecks);
+  // }
+
+  // console.log('ingr:', ingredients);
+
+  const updateStorage = () => {
+    const initialObj = {
+      meals: {},
+      cocktails: {},
+    };
+    let progressObj = initialObj;
+    if (progressStatus) progressObj = progressStatus;
+    progressObj[key][id] = checks;
+    console.log(progressObj);
+    localStorage.setItem('inProgressRecipes', JSON.stringify(progressObj));
+  };
 
   const isDone = (e) => {
+    console.log(checks);
+    const checkStatus = checks;
     checkStatus[e.target.id] = !checkStatus[e.target.id];
-    console.log(checkStatus);
+    setUpdate(!update);
+    setChecks(checkStatus);
+    updateStorage();
     const a = checkStatus.filter((ingredient) => !ingredient);
     const ZERO = 0;
     if (a.length === ZERO) {
@@ -17,21 +48,28 @@ export default function TodoList({ ingredients, setisEnded }) {
     return setisEnded(false);
   };
 
-  return (
-    <div>
-      <form onChange={ isDone }>
-        {ingredients.map((ing, index) => (
-          <div key={ index } data-testid={ `${index}-ingredient-step` }>
-            <input id={ index } type="checkbox" />
-            <label htmlFor={ index }>{ing[1]}</label>
-          </div>
-        ))}
-      </form>
-    </div>
+  const renderForm = () => (
+    <form>
+      {ingredients.map((ing, index) => (
+        <div key={ index } data-testid={ `${index}-ingredient-step` }>
+          <input
+            id={ index }
+            type="checkbox"
+            checked={ checks[index] }
+            onClick={ isDone }
+          />
+          <label htmlFor={ index }>{ing[1]}</label>
+        </div>
+      ))}
+    </form>
   );
+
+  return <div>{renderForm()}</div>;
 }
 
 TodoList.propTypes = {
-  ingredients: PropTypes.string.isRequired,
+  ingredients: arrayOf(PropTypes.string).isRequired,
   setisEnded: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
+  route: PropTypes.string.isRequired,
 };

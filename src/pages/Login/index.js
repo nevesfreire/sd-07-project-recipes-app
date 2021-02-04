@@ -19,6 +19,11 @@ export default function Login() {
     ) {
       setisValid(true);
       if (isClicked) {
+        const initialObj = {
+          meals: {},
+          cocktails: {},
+        };
+        localStorage.setItem('inProgressRecipes', JSON.stringify(initialObj));
         localStorage.setItem('mealsToken', 1);
         localStorage.setItem('cocktailsToken', 1);
         localStorage.setItem('user', JSON.stringify({ email }));
