@@ -5,6 +5,7 @@ export const StorageContext = createContext();
 
 const StorageProvider = ({ children }) => {
   const [favRecipes, setFavRecipes] = useState([]);
+  const [objetct, setObject] = useState({});
   const verifyLocalFav = localStorage.getItem('favoriteRecipes');
 
   useEffect(() => {
@@ -12,7 +13,6 @@ const StorageProvider = ({ children }) => {
   }, [verifyLocalFav]);
 
   const addFavorite = (keyName, recipe, { name, id, type, doneDate, tags }) => {
-    const [objetct, setObject] = useState({});
     if (keyName === 'favoriteRecipes') {
       setObject({
         id,
