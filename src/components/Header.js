@@ -12,7 +12,7 @@ function Header(props) {
   return (
     <div>
       <header>
-        {/* <Link to="/perfil">
+        <Link to="/perfil">
           <button type="button">
             <img
               className="title"
@@ -21,11 +21,7 @@ function Header(props) {
               data-testid="profile-top-btn"
             />
           </button>
-        </Link> */}
-        <Link to="/perfil"               className="title"
-              src={ profileIcon }
-              alt="Imagem do profile"
-              data-testid="profile-top-btn"/>
+        </Link>
         <title
           className="title"
           data-testid="page-title"
