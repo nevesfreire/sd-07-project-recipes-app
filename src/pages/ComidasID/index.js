@@ -111,7 +111,7 @@ function ComidasID({
         )}
 
         <Recommended suggestions={ suggestions } />
-        <p>
+        <div className="btn-container">
           <Link
             to={ `/${route}/${id}/in-progress` }
             className="start-recipe-btn"
@@ -119,7 +119,7 @@ function ComidasID({
           >
             { startBtnText }
           </Link>
-        </p>
+        </div>
       </div>
     </div>
   );

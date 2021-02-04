@@ -1,6 +1,20 @@
+.btn-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .start-recipe-btn {
+  background-color: blue;
   bottom: 0;
+  color: white;
+  font-size: 20px;
+  padding: 4px 20px;
   position: fixed;
+  text-align: center;
+  text-decoration: none;
+  width: 100vw;
 }
 
 .recommended-img {
@@ -9,6 +23,7 @@
 
 .slider {
   height: auto;
+  padding-bottom: 12vh;
   width: 100%;
 }
 
