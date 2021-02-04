@@ -1,14 +1,21 @@
 import React from 'react';
+import { useParams } from 'react-router';
 import '../../App.css';
-import RecipeDetailDrink from '../../Components/RecipeDetailDrink';
+import DetailScreen from '../../Components/DetailScreen';
+// import RecipeDetailDrink from '../../Components/RecipeDetailDrink';
 
-const DrinkDetailPage = () => (
-  <div className="container-over">
-    <div className="container-int">
-      {/* <Header title="Detalhe da bebida" /> */}
-      <RecipeDetailDrink />
+const DrinkDetailPage = () => {
+  const { id } = useParams();
+
+  return (
+    <div className="container-over">
+      <div className="container-int">
+        {/* <Header title="Detalhe da bebida" /> */}
+        {/* <RecipeDetailDrink /> */}
+        <DetailScreen page="bebidas" id={ id } />
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default DrinkDetailPage;
