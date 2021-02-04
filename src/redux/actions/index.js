@@ -23,15 +23,19 @@ export const sendDrinkRecipes = (payload) => (
   }
 );
 
-export const startRecipe = (recipe) => ({
-  type: types.START_RECIPE,
-  recipe,
-});
+export const startRecipe = (recipe) => (
+  {
+    type: types.START_RECIPE,
+    recipe,
+  }
+);
 
-export const startRecipeDrink = (recipe) => ({
-  type: types.START_RECIPE_DRINK,
-  recipe,
-});
+export const startRecipeDrink = (recipe) => (
+  {
+    type: types.START_RECIPE_DRINK,
+    recipe,
+  }
+);
 
 // const isFetching = () => (
 //   {
@@ -39,18 +43,18 @@ export const startRecipeDrink = (recipe) => ({
 //   }
 // );
 
-// const mealRequestSuccess = (payload) => (
+// const drinkRequestSuccess = (payload) => (
 //   {
 //     type: types.REQUEST_SUCCESS,
 //     payload,
 //   }
 // );
-//
-// export function fetchMealRecipes(e) {
+
+// export function fetchDrinkRecipes(e) {
 //   return async (dispatch) => {
 //     dispatch(isFetching());
-//     const mealRecipes = await apiTheMealDB(e);
-//     dispatch(mealRequestSuccess(mealRecipes));
+//     const drinkRecipes = await apiTheCocktailDB(e);
+//     dispatch(drinkRequestSuccess(drinkRecipes));
 //   };
 // }
 

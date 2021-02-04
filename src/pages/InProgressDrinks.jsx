@@ -1,31 +1,47 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { Container, Col, Row } from 'react-bootstrap';
+import { Container, Col, Row, Form } from 'react-bootstrap';
+import apiTheCocktailDB from '../services/apiTheCocktailDB';
 
 class InProgressDrinks extends React.Component {
   constructor() {
     super();
     this.state = {
+      recipe: '',
       ingredientsList: [],
       ingrentsMeasuresList: [],
     };
     this.maracutaia = this.maracutaia.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    await this.callRecipeAPI();
     this.maracutaia();
   }
 
+  async callRecipeAPI() {
+    const magicThree = 3;
+    const localData = localStorage.getItem('inProgressDrinkRecipe');
+    if (localData === null) {
+      const urlParams = window.location.pathname.split('/', magicThree).pop();
+      const recipe = await apiTheCocktailDB(`lookup.php?i=${urlParams}`);
+      this.setState({
+        recipe: recipe.drinks[0],
+      });
+      return localStorage
+        .setItem('inProgressDrinkRecipe', JSON.stringify(recipe.drinks[0]));
+    }
+    this.setState({ recipe: JSON.parse(localData) });
+  }
+
   maracutaia() {
-    const { inProgressRecipesDrink } = this.props;
+    const { recipe } = this.state;
     const ingredientsList = [];
     const ingrentsMeasuresList = [];
-    Object.entries(inProgressRecipesDrink).filter((item) => (
+    Object.entries(recipe).filter((item) => (
       (item[0].includes('strIngredient') && item[1] !== '' && item[1] !== null)
       && ingredientsList.push(item[1])
     ));
-    Object.entries(inProgressRecipesDrink).filter((item) => (
+    Object.entries(recipe).filter((item) => (
       (item[0].includes('strMeasure') && item[1] !== ' ' && item[1] !== null)
        && ingrentsMeasuresList.push(item[1])
     ));
@@ -33,43 +49,49 @@ class InProgressDrinks extends React.Component {
   }
 
   render() {
-    const { inProgressRecipesDrink } = this.props;
+    const { recipe } = this.state;
+    if (recipe === '') {
+      return <p>Loading...</p>;
+    }
     const { ingredientsList, ingrentsMeasuresList } = this.state;
     return (
       <Container fluid>
         <Col>
           <img
-            src={ inProgressRecipesDrink.strMealThumb }
+            src={ recipe.strDrinkThumb }
             style={ { width: '20%' } }
             data-testid="recipe-photo"
-            alt="someAlt"
+            alt="soDrinkt"
           />
         </Col>
         <h3
           data-testid="recipe-title"
         >
-          {inProgressRecipesDrink.strMeal}
+          {recipe.strDrink}
         </h3>
         <p
           data-testid="recipe-category"
         >
-          {inProgressRecipesDrink.strArea}
+          {recipe.strArea}
         </p>
         <Col>
           <Row>
-            { ingredientsList.map((item, index) => (
-              <Col
-                data-testid={ `${index}-ingredient-step` }
-                key={ index }
-              >
-                <p>
-                  {`${item} 
-                  ${ingrentsMeasuresList[index] ? ingrentsMeasuresList[index] : ''}`}
-                </p>
-              </Col>
-            ))}
+            <div>
+              { ingredientsList.map((item, index) => (
+                <Row key={ index }>
+                  <label
+                    data-testid={ `${index}-ingredient-step` }
+                    htmlFor="maracutaia"
+                  >
+                    <input type="checkbox" />
+                    {`${item}${ingrentsMeasuresList[index]
+                      ? ingrentsMeasuresList[index] : ''}` }
+                  </label>
+                </Row>
+              ))}
+            </div>
             <span data-testid="instructions">
-              {inProgressRecipesDrink.strInstructions}
+              {recipe.strInstructions}
             </span>
             <button
               type="button"
@@ -96,12 +118,4 @@ class InProgressDrinks extends React.Component {
   }
 }
 
-const mapStateToProps = ({ recipes: { inProgressRecipesDrink } }) => (
-  { inProgressRecipesDrink }
-);
-
-InProgressDrinks.propTypes = {
-  inProgressRecipesDrink: PropTypes.shape(PropTypes.object).isRequired,
-};
-
-export default connect(mapStateToProps)(InProgressDrinks);
+export default InProgressDrinks;

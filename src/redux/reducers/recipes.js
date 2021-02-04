@@ -1,3 +1,4 @@
+// import { apiTheCocktailDB, apiTheMealDB } from '../../services';
 import types from '../actions/types';
 
 const RECIPES_INITIAL_STATE = {
@@ -20,7 +21,7 @@ const recipes = (state = RECIPES_INITIAL_STATE, action) => {
   //   return ({
   //     ...state,
   //     isFetching: false,
-  //     recipes: action.payload,
+  //     drinkRecipes: [...action.payload.drinks],
   //   });
   case types.MEAL_RECIPES_RESULTS:
     return ({

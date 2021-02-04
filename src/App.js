@@ -8,7 +8,6 @@ import {
   Bebidas,
   ReceitaComida,
   ReceitaBebida,
-  InProgress,
   Explorar,
   Ingredientes,
   ExplorarComidasArea,
@@ -16,6 +15,8 @@ import {
   ReceitasFeitas,
   ReceitasFavoritas,
   ExplorarBebidasOuComidas,
+  InProgressDrinks,
+  InProgressMeals,
 } from './pages';
 import NotFound from './pages/NotFound';
 
@@ -25,10 +26,10 @@ function App() {
       <Switch>
         <Route exact path="/" component={ Login } />
         <Route exact path="/comidas" component={ Comidas } />
-        <Route exact path="/comidas/:id/in-progress" component={ InProgress } />
+        <Route exact path="/comidas/:id/in-progress" component={ InProgressMeals } />
         <Route exact path="/comidas/:id" component={ ReceitaComida } />
         <Route exact path="/bebidas" component={ Bebidas } />
-        <Route exact path="/bebidas/:id/in-progress" component={ InProgress } />
+        <Route exact path="/bebidas/:id/in-progress" component={ InProgressDrinks } />
         <Route exact path="/bebidas/:id" component={ ReceitaBebida } />
         <Route exact path="/explorar" component={ Explorar } />
         <Route exact path="/explorar/comidas" component={ ExplorarBebidasOuComidas } />
