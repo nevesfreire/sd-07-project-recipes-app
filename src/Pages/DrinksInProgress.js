@@ -2,16 +2,23 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import RecipeContext from '../Context/Context';
 import useFetch from '../hooks/useFetch';
+import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import useHandleFavorite from '../hooks/useHandleFavorite';
 
 function DrinksInProgress() {
   const {
     detailsRecipe,
     drinkStateButton,
     setDrinkStateButton,
+    favoriteDrink,
   } = useContext(RecipeContext);
   const [loading, setLoading] = useState(true);
   const { recipeDetailsAPI } = useFetch();
+  const { handleFavDrink, drinkDidMount } = useHandleFavorite();
   const [checked] = useState([]);
+  const [spanHidden, setSpanHidden] = useState(false);
 
   const url = document.URL;
   const newUrlId = url.split('/')[4];
@@ -100,6 +107,12 @@ function DrinksInProgress() {
     strInstructions,
   } = detailsRecipe.drinks[0];
 
+  const currentRecipe = {
+    name: strDrink,
+  };
+
+  drinkDidMount(currentRecipe);
+
   const drink = detailsRecipe.drinks[0];
   const keysDrink = Object.keys(drink);
   const filterDrink = keysDrink
@@ -111,12 +124,33 @@ function DrinksInProgress() {
       ingredient: drink[item], measure: drink[filterMeasure[index]],
     })).filter((item) => item.ingredient !== '' && item.ingredient !== null);
 
+  function copyToClipBoard(text) {
+    navigator.clipboard.writeText(text);
+    setSpanHidden(true);
+  }
+
   return (
     <div onLoad={ enableButton }>
       <img src={ strDrinkThumb } data-testid="recipe-photo" alt={ strDrink } />
       <h1 data-testid="recipe-title">{strDrink}</h1>
-      <button type="button" data-testid="share-btn">Compartilhar</button>
-      <button type="button" data-testid="favorite-btn">Favoritar</button>
+      <button
+        onClick={ () => copyToClipBoard(document.URL) }
+        type="button"
+      >
+        <img
+          src={ shareIcon }
+          alt="icone de coração, para favoritar receita"
+          data-testid="share-btn"
+        />
+      </button>
+      <span hidden={ !spanHidden }>Link copiado!</span>
+      <button onClick={ () => handleFavDrink() } type="button">
+        <img
+          src={ favoriteDrink ? blackHeartIcon : whiteHeartIcon }
+          alt="icone de coração, para favoritar receita"
+          data-testid="favorite-btn"
+        />
+      </button>
       <p data-testid="recipe-category">{strCategory}</p>
       <div id="ingredients-div">
         {allIngredients && allIngredients

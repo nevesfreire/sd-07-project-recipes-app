@@ -2,16 +2,25 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import RecipeContext from '../Context/Context';
 import useFetch from '../hooks/useFetch';
+import useHandleFavorite from '../hooks/useHandleFavorite';
+import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function FoodInProgress() {
   const {
     detailsRecipe,
     mealStateButton,
     setMealStateButton,
+    favoriteMeal,
   } = useContext(RecipeContext);
   const [loading, setLoading] = useState(true);
   const { recipeDetailsAPI } = useFetch();
   const [checked] = useState([]);
+  const [buttonClicked, setButtonClicked] = useState(false);
+  const [favoriteRecipe, setFavoriteRecipe] = useState(false);
+  const [spanHidden, setSpanHidden] = useState(false);
+  const { handleFavFood, mealDidMount } = useHandleFavorite();
 
   const url = document.URL;
   const newUrlId = url.split('/')[4];
@@ -100,6 +109,12 @@ function FoodInProgress() {
     strInstructions,
   } = detailsRecipe.meals[0];
 
+  const currentRecipe = {
+    name: strMeal,
+  };
+
+  mealDidMount(currentRecipe);
+
   const meal = detailsRecipe.meals[0];
   const keysMeal = Object.keys(meal);
   const filterMeal = keysMeal
@@ -111,12 +126,35 @@ function FoodInProgress() {
       ingredient: meal[item], measure: meal[filterMeasure[index]],
     })).filter((item) => item.ingredient !== '' && item.ingredient !== null);
 
+  // verifica se a página já carrega como favorito
+
+  function copyToClipBoard(text) {
+    navigator.clipboard.writeText(text);
+    setSpanHidden(true);
+  }
+
   return (
     <div onLoad={ enableButton }>
       <img src={ strMealThumb } data-testid="recipe-photo" alt={ strMeal } />
       <h1 data-testid="recipe-title">{strMeal}</h1>
-      <button type="button" data-testid="share-btn">Compartilhar</button>
-      <button type="button" data-testid="favorite-btn">Favoritar</button>
+      <button
+        onClick={ () => copyToClipBoard(document.URL) }
+        type="button"
+      >
+        <img
+          src={ shareIcon }
+          alt="icone de coração, para favoritar receita"
+          data-testid="share-btn"
+        />
+      </button>
+      <span hidden={ !spanHidden }>Link copiado!</span>
+      <button onClick={ () => handleFavFood() } type="button">
+        <img
+          src={ favoriteMeal ? blackHeartIcon : whiteHeartIcon }
+          alt="icone de coração, para favoritar receita"
+          data-testid="favorite-btn"
+        />
+      </button>
       <p data-testid="recipe-category">{strCategory}</p>
       <div id="ingredients-div">
         {allIngredients && allIngredients
