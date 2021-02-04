@@ -5,8 +5,11 @@ import profileIcon from '../images/profileIcon.svg';
 
 function Profile() {
   const findEmail = () => {
-    const { email } = JSON.parse(localStorage.getItem('user'));
-    return email;
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user === null) {
+      return null;
+    }
+    return user.email;
   };
 
   return (
