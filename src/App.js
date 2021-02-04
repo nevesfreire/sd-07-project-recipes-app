@@ -18,6 +18,7 @@ import RecipesDone from './pages/RecipesDone';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 
 function App() {
+  const notFount = () => <div>Not Found</div>;
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
@@ -39,6 +40,7 @@ function App() {
         component={ DrinksIngredients }
       />
       <Route exact path="/explorar/comidas/area" component={ MealsOrigin } />
+      <Route exact path="/explorar/bebidas/area" component={ () => notFount() } />
     </Switch>
   );
 }
