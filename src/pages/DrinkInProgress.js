@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import copy from 'clipboard-copy';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchRecipes, copyButton } from '../actions';
@@ -9,6 +8,7 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Loading from '../components/Loading';
 import { favoriteDrinkLocalStorage } from '../localStorage/favoriteRecipes';
 import { doneDrinkLocalStorage } from '../localStorage/doneRecipes';
+import { handleCopy } from '../functions';
 import {
   checkProgressDrinkLocalStorage,
   setIngredientDrinkLocalStorage,
@@ -22,7 +22,6 @@ class DrinkInProgress extends Component {
     this.handleCheckbox = this.handleCheckbox.bind(this);
     this.changeFavorite = this.changeFavorite.bind(this);
     this.createFavoriteLocalStorage = this.createFavoriteLocalStorage.bind(this);
-    this.handleCopy = this.handleCopy.bind(this);
     this.changeDone = this.changeDone.bind(this);
     this.state = {
       drinks: [],
@@ -92,12 +91,6 @@ class DrinkInProgress extends Component {
     });
   }
 
-  handleCopy() {
-    const { executeCopy, location: { pathname } } = this.props;
-    copy(`http://localhost:3000${pathname}`);
-    executeCopy('Link copiado!');
-  }
-
   handleButtonEnabled() {
     const doneIngredients = document.querySelectorAll('input:checked');
     const allIngredients = document.getElementsByClassName('form-check-input');
@@ -163,7 +156,7 @@ class DrinkInProgress extends Component {
   }
 
   render() {
-    const { valueCopied, match: { params: { id } } } = this.props;
+    const { executeCopy, valueCopied, match: { params: { id } } } = this.props;
     const { drinks, ingredients, favorite, measurement, button } = this.state;
     const { strDrinkThumb, strDrink, strInstructions, strAlcoholic } = drinks;
 
@@ -185,7 +178,7 @@ class DrinkInProgress extends Component {
             <p>{ valueCopied }</p>
             <button
               type="button"
-              onClick={ this.handleCopy }
+              onClick={ () => handleCopy(executeCopy) }
             >
               <img
                 data-testid="share-btn"

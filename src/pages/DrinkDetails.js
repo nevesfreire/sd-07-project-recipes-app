@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import copy from 'clipboard-copy';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchDetails, fetchRecipes, copyButton } from '../actions';
@@ -8,6 +7,7 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Loading from '../components/Loading';
 import { favoriteDrinkLocalStorage } from '../localStorage/favoriteRecipes';
+import { handleCopy, showButton } from '../functions';
 import '../css/details.css';
 
 class DrinkDetails extends Component {
@@ -18,8 +18,6 @@ class DrinkDetails extends Component {
     this.createFavoriteLocalStorage = this.createFavoriteLocalStorage.bind(
       this,
     );
-    this.handleCopy = this.handleCopy.bind(this);
-    this.showButton = this.showButton.bind(this);
     this.state = {
       drinks: [],
       ingredients: [],
@@ -87,15 +85,6 @@ class DrinkDetails extends Component {
     });
   }
 
-  handleCopy() {
-    const {
-      executeCopy,
-      location: { pathname },
-    } = this.props;
-    copy(`http://localhost:3000${pathname}`);
-    executeCopy('Link copiado!');
-  }
-
   changeFavorite() {
     this.setState(
       (prevState) => ({
@@ -130,49 +119,12 @@ class DrinkDetails extends Component {
     }
   }
 
-  showButton() {
-    const getDoneStorage = JSON.parse(localStorage.getItem('doneRecipes'));
-    const getProgressRecipeStorage = JSON.parse(
-      localStorage.getItem('inProgressRecipes'),
-    );
-    const {
-      match: {
-        params: { id },
-      },
-      history,
-    } = this.props;
-    if (!getDoneStorage.length) {
-      return (
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-          onClick={ () => history.push(`/bebidas/${id}/in-progress`) }
-          className="finish-button-recipe"
-        >
-          Iniciar Receita
-        </button>
-      );
-    }
-    if (getProgressRecipeStorage) {
-      return (
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-          onClick={ () => history.push(`/bebidas/${id}/in-progress`) }
-          className="finish-button-recipe"
-        >
-          Continuar Receita
-        </button>
-      );
-    }
-  }
-
   render() {
-    const { recomendations, valueCopied } = this.props;
+    const { match: { params: { id } }, history,
+      recomendations, valueCopied, executeCopy } = this.props;
     const { drinks, ingredients, favorite, measurement } = this.state;
     const { strDrinkThumb, strDrink, strInstructions, strAlcoholic } = drinks;
     const MEAL_LENGTH = 6;
-    // console.log(recomendations);
     if (!recomendations.meals) return <Loading />;
     return (
       <div className="main-container">
@@ -189,7 +141,7 @@ class DrinkDetails extends Component {
           </div>
           <div className="images-container">
             <p>{valueCopied}</p>
-            <button type="button" onClick={ this.handleCopy }>
+            <button type="button" onClick={ () => handleCopy(executeCopy) }>
               <img data-testid="share-btn" src={ shareIcon } alt="shareIcon" />
             </button>
             <button type="button" onClick={ this.changeFavorite }>
@@ -241,7 +193,7 @@ class DrinkDetails extends Component {
               ))}
           </div>
         </div>
-        <div className="finish-button-container">{this.showButton()}</div>
+        <div className="finish-button-container">{ showButton(id, history) }</div>
       </div>
     );
   }

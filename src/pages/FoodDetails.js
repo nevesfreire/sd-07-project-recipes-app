@@ -1,26 +1,21 @@
 import React, { Component } from 'react';
-import copy from 'clipboard-copy';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchDetails, fetchRecipes, copyButton } from '../actions';
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Loading from '../components/Loading';
+import TitleBar from '../components/TitleBar';
 import { favoriteMealLocalStorage } from '../localStorage/favoriteRecipes';
+import { handleCopy, showButton } from '../functions';
 import '../css/details.css';
 
 class FoodDetails extends Component {
   constructor(props) {
     super(props);
-
     this.handleState = this.handleState.bind(this);
     this.changeFavorite = this.changeFavorite.bind(this);
     this.createFavoriteLocalStorage = this.createFavoriteLocalStorage.bind(
       this,
     );
-    this.handleCopy = this.handleCopy.bind(this);
-    this.showButton = this.showButton.bind(this);
 
     this.state = {
       meal: [],
@@ -36,10 +31,7 @@ class FoodDetails extends Component {
     const {
       requestRecipes,
       requestRecomendations,
-      match: {
-        params: { id },
-      },
-    } = this.props;
+      match: { params: { id } } } = this.props;
     requestRecipes(
       `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`,
     );
@@ -60,12 +52,7 @@ class FoodDetails extends Component {
   }
 
   handleState() {
-    const {
-      match: {
-        params: { id },
-      },
-      mealsRecipes,
-    } = this.props;
+    const { match: { params: { id } }, mealsRecipes } = this.props;
     const filterRecipe = mealsRecipes.meals.find(
       (recipe) => recipe.idMeal === id,
     );
@@ -92,15 +79,6 @@ class FoodDetails extends Component {
       hashYoutube: filterRecipe.strYoutube.split('=')[1],
       request: false,
     });
-  }
-
-  handleCopy() {
-    const {
-      executeCopy,
-      location: { pathname },
-    } = this.props;
-    copy(`http://localhost:3000${pathname}`);
-    executeCopy('Link copiado!');
   }
 
   createFavoriteLocalStorage(keyStorage) {
@@ -137,55 +115,14 @@ class FoodDetails extends Component {
     );
   }
 
-  showButton() {
-    const getDoneStorage = JSON.parse(localStorage.getItem('doneRecipes'));
-    const getProgressRecipeStorage = JSON.parse(
-      localStorage.getItem('inProgressRecipes'),
-    );
-    const {
-      match: {
-        params: { id },
-      },
-      history,
-    } = this.props;
-    if (!getDoneStorage.length) {
-      return (
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-          onClick={ () => history.push(`/comidas/${id}/in-progress`) }
-          className="finish-button-recipe"
-        >
-          Iniciar Receita
-        </button>
-      );
-    }
-    if (getProgressRecipeStorage) {
-      return (
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-          onClick={ () => history.push(`/comidas/${id}/in-progress`) }
-          className="finish-button-recipe"
-        >
-          Continuar Receita
-        </button>
-      );
-    }
-  }
-
   render() {
-    const { recomendations, valueCopied } = this.props;
+    const { match: { params: { id } }, history,
+      recomendations, valueCopied, executeCopy } = this.props;
     const {
-      meal,
-      hashYoutube,
-      ingredients,
-      favorite,
-      measurement,
-    } = this.state;
+      meal, hashYoutube, ingredients,
+      favorite, measurement } = this.state;
     const { strMealThumb, strMeal, strCategory, strInstructions } = meal;
     const DRINK_LENGTH = 6;
-    // console.log(recomendations);
     if (!recomendations.drinks) return <Loading />;
     return (
       <div className="main-container">
@@ -195,25 +132,15 @@ class FoodDetails extends Component {
           data-testid="recipe-photo"
           className="main-image"
         />
-        <div className="title-container">
-          <div className="title-subcontainer">
-            <h1 data-testid="recipe-title">{strMeal}</h1>
-            <h3 data-testid="recipe-category">{strCategory}</h3>
-          </div>
-          <div className="images-container">
-            <p>{valueCopied}</p>
-            <button type="button" onClick={ this.handleCopy }>
-              <img data-testid="share-btn" src={ shareIcon } alt="shareIcon" />
-            </button>
-            <button type="button" onClick={ this.changeFavorite }>
-              <img
-                data-testid="favorite-btn"
-                src={ favorite ? blackHeartIcon : whiteHeartIcon }
-                alt="whiteHeartIcon"
-              />
-            </button>
-          </div>
-        </div>
+        <TitleBar
+          strRecipe={ strMeal }
+          strCategory={ strCategory }
+          handleCopy={ handleCopy }
+          executeCopy={ executeCopy }
+          changeFavorite={ this.changeFavorite }
+          valueCopied={ valueCopied }
+          favorite={ favorite }
+        />
         <div className="ingredients-container">
           <h1>Ingredientes</h1>
           <ul className="list-container">
@@ -264,7 +191,7 @@ class FoodDetails extends Component {
               ))}
           </div>
         </div>
-        <div className="finish-button-container">{this.showButton()}</div>
+        <div className="finish-button-container">{ showButton(id, history) }</div>
       </div>
     );
   }

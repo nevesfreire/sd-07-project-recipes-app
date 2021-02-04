@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import copy from 'clipboard-copy';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchRecipes, copyButton } from '../actions';
@@ -9,6 +8,7 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Loading from '../components/Loading';
 import { favoriteMealLocalStorage } from '../localStorage/favoriteRecipes';
 import { doneMealLocalStorage } from '../localStorage/doneRecipes';
+import { handleCopy } from '../functions';
 import {
   checkProgressFoodLocalStorage,
   setIngredientFoodLocalStorage,
@@ -26,7 +26,6 @@ class FoodInProgress extends Component {
     this.createFavoriteLocalStorage = this.createFavoriteLocalStorage.bind(
       this,
     );
-    this.handleCopy = this.handleCopy.bind(this);
     this.changeDone = this.changeDone.bind(this);
 
     this.state = {
@@ -122,15 +121,6 @@ class FoodInProgress extends Component {
     this.handleButtonEnabled();
   }
 
-  handleCopy() {
-    const {
-      executeCopy,
-      location: { pathname },
-    } = this.props;
-    copy(`http://localhost:3000${pathname}`);
-    executeCopy('Link copiado!');
-  }
-
   changeFavorite() {
     this.setState(
       (prevState) => ({
@@ -180,7 +170,7 @@ class FoodInProgress extends Component {
   }
 
   render() {
-    const { valueCopied, match: { params: { id } } } = this.props;
+    const { executeCopy, valueCopied, match: { params: { id } } } = this.props;
     const { meal, ingredients, favorite, measurement, button } = this.state;
     const { strMealThumb, strMeal, strCategory, strInstructions } = meal;
     if (!strMealThumb) return <Loading />;
@@ -200,7 +190,7 @@ class FoodInProgress extends Component {
           </div>
           <div className="images-container">
             <p>{valueCopied}</p>
-            <button type="button" onClick={ this.handleCopy }>
+            <button type="button" onClick={ handleCopy(executeCopy) }>
               <img data-testid="share-btn" src={ shareIcon } alt="shareIcon" />
             </button>
             <button type="button" onClick={ this.changeFavorite }>
