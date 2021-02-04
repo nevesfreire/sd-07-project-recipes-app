@@ -21,7 +21,7 @@ function FoodProcess(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [inProgressRecipes, setInProgressRecipes] = useState(true);
   const [btnImg, setBtnImg] = useState('');
-  const { 
+  const {
     getRecipeTitle,
     setRecipeTitle,
     getRecipeImage,
@@ -41,9 +41,20 @@ function FoodProcess(props) {
   const { params } = match;
   const { id } = params;
 
+  const tagsMount = (valueTags) => {
+    const tags = valueTags.meals[0].strTags;
+    if (tags) {
+      if (tags.split(',').length === 1) {
+        setRecipeTags(tags.split(','));
+      } else {
+        setRecipeTags([tags.split(',')[0], tags.split(',')[1]]);
+      }
+    }
+  };
+
   const fetchRecipe = async () => {
-    const path = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=52771';
-    // const path = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+    // const path = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=52771';
+    const path = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
     const getRecipe = await fetch(path);
     const result = await getRecipe.json();
     // console.log(result); chave meals interesse
@@ -52,30 +63,74 @@ function FoodProcess(props) {
     setRecipeImage(result.meals[0].strMealThumb);
     setRecipeInstructions(result.meals[0].strInstructions);
     setRecipeArea(result.meals[0].strArea);
+    tagsMount(result);
     ingredientsMount(setRecipeIngredients, result);
     setIsLoading(false);
   };
 
-  const saveProgress = (ingredient) => {
+  const handleFinishRecipe = (ingredientsLength) => {
+    if (JSON.parse(localStorage.getItem('inProgressRecipes'))) {
+      const ingredientsInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      if (ingredientsLength === ingredientsInProgress.meals[id].length) {
+        return false;
+      }
+      return true;
+    }
+  };
+
+  const saveProgress = (valueIngredient) => {
     const previousProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
     // console.log(previousProgress)
     if (previousProgress.cocktails[id]) {
-      if (previousProgress.cocktails[id].includes(ingredient)) {
+      if (previousProgress.cocktails[id].includes(valueIngredient)) {
         previousProgress.cocktails[id] = previousProgress.cocktails[id]
-          .filter((item) => item !== ingredient);
+          .filter((item) => item !== valueIngredient);
       } else {
-        previousProgress.cocktails[id].push(ingredient);
+        previousProgress.cocktails[id].push(valueIngredient);
       }
     } else {
-      previousProgress.cocktails[id] = [ingredient];
+      previousProgress.cocktails[id] = [valueIngredient];
     }
     localStorage.setItem('inProgressRecipes', JSON.stringify(previousProgress));
     setInProgressRecipes(previousProgress);
   };
 
   const handleChecked = ({ target: { name } }) => {
-    console.log(name);
     saveProgress(name);
+  };
+
+  const handleCheckedFromLocalStorage = (item) => {
+    if (localStorage.getItem('inProgressRecipes')) {
+      const previousLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      return previousLocalStorage.meals[id].find((currentItem) => currentItem === item);
+    }
+    return false;
+  };
+
+  const handleToogle = (item) => {
+    if (localStorage.getItem('inProgressRecipes')) {
+      const previousLocalStorage = JSON
+        .parse(localStorage.getItem('inProgressRecipes'));
+      const isThere = previousLocalStorage.cocktails[id]
+        .find((currentItem) => currentItem === item);
+      if (isThere) {
+        return 'is-checked';
+      }
+    }
+    return 'is-not-checked';
+  };
+
+  const recheckLocalStorage = () => {
+    if (!JSON.parse(localStorage.getItem('inProgressRecipes'))) {
+      const inProgressRecipesPattern = {
+        cocktails: {
+          [id]: [],
+        },
+        meals: {},
+      };
+      localStorage.setItem('inProgressRecipes', JSON
+        .stringify(inProgressRecipesPattern));
+    }
   };
 
   const handleImage = () => {
@@ -95,52 +150,77 @@ function FoodProcess(props) {
     }
   };
 
-  const handleToogle = (item) => {
-    console.log(item);
-    // if (localStorage.getItem('inProgressRecipes')) {
-    //   const prevLocalStorage = JSON
-    //     .parse(localStorage.getItem('inProgressRecipes'));
-    //   // console.log(prevLocalStorage);
-    //   const onHere = prevLocalStorage.meals[id]
-    //     .find((currentItem) => currentItem === item);
-    //   if (onHere) {
-    //     return 'is-checked';
-    //   }
-    // }
-        return 'is-checked';
-    // return 'is-not-checked';
+  const getFormattedDate = () => {
+    const monthCorrection = 1;
+    const twoDecimalPlaces = 10;
+    const date = new Date();
+    const day = date.getDate();
+    const month = date.getMonth() + monthCorrection;
+    const year = date.getFullYear();
+
+    let formatterDay;
+    if (day < twoDecimalPlaces) {
+      formatterDay = `0${day}`;
+    } else {
+      formatterDay = day;
+    }
+
+    let formatterMonth;
+    if (month < twoDecimalPlaces) {
+      formatterMonth = `0${month}`;
+    } else {
+      formatterMonth = month;
+    }
+
+    return `${formatterDay}/${formatterMonth}/${year}`;
   };
 
-  const addCkeckedSymbol = () => {
-    const list = document.querySelectorAll('label');
-    console.log(document.querySelectorAll('label'))
-    // list.addEventListener('click', function (event) {
-    //   if (event.target.tagName === 'label') {
-    //     event.target.classList.toogle('ckecked');
-    //   }
-    // })
-  }
+  const handleDoneLocalStorage = () => {
+    if (!localStorage.getItem('doneRecipes')) {
+      localStorage.setItem('doneRecipes', JSON.stringify([]));
+    }
+    const previousDoneData = JSON.parse(localStorage.getItem('doneRecipes'));
+    const newDoneData = [
+      ...previousDoneData,
+      {
+        id,
+        type: 'comida',
+        area: getRecipeArea,
+        category: getRecipeCategory,
+        alcoholicOrNot: '',
+        name: getRecipeTitle,
+        image: getRecipeImage,
+        doneDate: getFormattedDate(),
+        tags: getRecipeTags,
+      },
+    ];
+
+    localStorage.setItem('doneRecipes', JSON.stringify(newDoneData));
+  };
 
   useEffect(() => {
     handleToogle();
-    addCkeckedSymbol();
-  })
+  });
 
   useEffect(() => {
     setTitle('Food In Progress');
     fetchRecipe();
     setLikeImage(setBtnImg, id, fullLikeIcon, likeIcon);
+    recheckLocalStorage();
   }, [])
 
-  return(
-    <div className="recipe-details-container">
+  useEffect(() => {
+  }, [inProgressRecipes]);
+
+  return (
+    <div className="recipe-in-progress-container">
       <img
         src={ getRecipeImage }
         alt={ getRecipeTitle }
         data-testid="recipe-photo"
-        className="recipe-details-image"
+        className="recipe-in-progress-image"
       />
-      <h1 data-testid="recipe-title" className="recipe-details-name">
+      <h1 data-testid="recipe-title" className="recipe-in-progress-name">
         { getRecipeTitle }
       </h1>
       <div className="favorite-and-share-btn-container">
@@ -151,10 +231,10 @@ function FoodProcess(props) {
       </div>
       <h3 className="recipe-in-progress-category">
         Category-
-        <span data-testid="recipe-category">{getRecipeCategory}</span>
+        <span data-testid="recipe-category">{ getRecipeCategory }</span>
       </h3>
       <ul className="ingredients-checklist">
-      { !isLoading && getRecipeIngredients.map((item, index) => (
+        { !isLoading && getRecipeIngredients.map((item, index) => (
           <li
             key={ item }
             data-testid={ `${index}-ingredient-step` }
@@ -165,6 +245,7 @@ function FoodProcess(props) {
             >
               <input
                 type="checkbox"
+                checked={ handleCheckedFromLocalStorage(item) }
                 name={ item }
                 id={ item }
                 onChange={ handleChecked }
@@ -174,7 +255,7 @@ function FoodProcess(props) {
           </li>
         ))}
       </ul>
-      <p data-testid="instructions" className="recipe-details-instructions">
+      <p data-testid="instructions" className="recipe-in-progress-instructions">
         {getRecipeInstructions}
       </p>
       <Link to="/receitas-feitas">
@@ -182,14 +263,15 @@ function FoodProcess(props) {
           type="button"
           data-testid="finish-recipe-btn"
           className="finish-recipe-btn"
+          disabled={ handleFinishRecipe(getRecipeIngredients.length) }
+          onClick={ handleDoneLocalStorage }
         >
           Finalizar receita
         </button>
       </Link>
     </div>
-  )
+  );
 }
-
 
 FoodProcess.propTypes = {
   match: PropTypes.shape({
