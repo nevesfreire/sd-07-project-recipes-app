@@ -1,6 +1,6 @@
 import React from 'react';
 import { createBrowserHistory } from 'history';
-import renderWithRouter from '../renderWithRouter';
+import store from '../redux/store';
 import Header from '../components/header/Header';
 import { render, fireEvent, screen } from './test-utils';
 import * as action from '../redux/actionsSearchBar';
@@ -13,16 +13,14 @@ const newHistory = createBrowserHistory();
 
 describe('Testar o componente Header.', () => {
   test('Tem os data-testids profile-top-btn, page-title e search-top-btn', () => {
-    renderWithRouter(
-      <Header title="" history={ createBrowserHistory() } />, { initialState: { } });
+    render(<Header title="" history={ createBrowserHistory() } />, { initialState: { } });
     expect(screen.getByTestId('page-title')).toBeInTheDocument();
     expect(screen.getByTestId('search-top-btn')).toBeInTheDocument();
     expect(screen.getByTestId('profile-top-btn')).toBeInTheDocument();
   });
 
   test('Verificar se  input de busca aparece após clicar no ícone de buscar', () => {
-    renderWithRouter(
-      <Header title="" history={ createBrowserHistory() } />, { initialState: { } });
+    render(<Header title="" history={ createBrowserHistory() } />, { initialState: { } });
     const searchButton = screen.getByTestId('search-top-btn');
     fireEvent.click(searchButton);
     const profileTopBtn = screen.getByTestId('profile-top-btn');
@@ -36,22 +34,23 @@ describe('Testar o componente Header.', () => {
   test('Não tem header na tela de detalhes de uma receita de comida', () => {
     const { queryByTestId } = render(
       <ComidasDetalhes
-        match={ { params: { id: 0 } } } history={ createBrowserHistory() } />,
+        match={ { params:'0' } }
+        history={ createBrowserHistory() } />,
     );
     expect(queryByTestId('Header')).toBeNull();
   });
   test('Não tem header na tela de detalhes de uma receita de bebidas', () => {
     const { queryByTestId } = render(
-      <BebidasDetalhes match={ { params: { id: 11011 } } } history={ createBrowserHistory() } />,
-    );
-    expect(queryByTestId('Header')).toBeNull();
-    });
-  /*  
-test('Não tem header na tela de receita em processo de bebida', () => {
-    const { queryByTestId } = render(
-      <ProgressoBebidas match={ { params: { id: 11011 } } } history={ createBrowserHistory() } />,
+      <BebidasDetalhes match={ { params: '0' } } history={ createBrowserHistory() } />,
     );
     expect(queryByTestId('Header')).toBeNull();
   });
-  */
+
+  test('Não tem header na tela de receita em processo de bebida', () => {
+    const { queryByTestId } = render(
+      <ProgressoBebidas match={ { params: { id: 11011 } } },
+        history={ createBrowserHistory() } />,
+    );
+    expect(queryByTestId('Header')).toBeNull();
+  });
 });

@@ -3,6 +3,7 @@ import { render as rtlRender } from '@testing-library/react';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import store from '../redux/store';
+import Header from '../components/header/Header';
 
 const reducer = store;
 
