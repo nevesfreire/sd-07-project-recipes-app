@@ -16,13 +16,12 @@ class ExplorarBebidasIng extends Component {
   render() {
     const title = 'Explorar Ingredientes';
     const { ingredientsDrinkStore } = this.props;
-    console.log('test');
-    console.log(ingredientsDrinkStore);
+    console.log('test', ingredientsDrinkStore);
     return (
       <div>
         <Header title={ title } />
         <div className="row">
-          {ingredientsDrinkStore.map((item, index) => {
+          {ingredientsDrinkStore.drinks.map((item, index) => {
             const twelve = 12;
             if (index < twelve) {
               return (
@@ -54,7 +53,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 ExplorarBebidasIng.propTypes = {
   loadIngredientsDrink: PropTypes.func.isRequired,
-  // ingredientsDrinkStore: PropTypes.objectOf(PropTypes.string).isRequired,
+  ingredientsDrinkStore: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExplorarBebidasIng);
