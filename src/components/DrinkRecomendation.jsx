@@ -28,7 +28,6 @@ export default function DrinkRecomendation() {
               rightChevron={ <button type="button">{'>'}</button> }
               outsideChevron
               alwaysShowChevrons
-              infiniteLoop
               chevronWidth={ chevronWidth }
             >
               {drinks && drinks.filter((_, index) => index < SIX)

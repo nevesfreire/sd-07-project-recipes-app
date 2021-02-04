@@ -27,14 +27,14 @@ export default function FoodRecomendation() {
               leftChevron={ <button type="button">{'<'}</button> }
               rightChevron={ <button type="button">{'>'}</button> }
               outsideChevron
+              enablePlaceholder
               alwaysShowChevrons
-              infiniteLoop
               chevronWidth={ chevronWidth }
             >
               {meals && meals.filter((_, index) => index < SIX)
                 .map(({ idMeal, strArea, strMeal, strMealThumb }, i) => (
                   <Link
-                    to={ `/bebidas/${idMeal}` }
+                    to={ `/comidas/${idMeal}` }
                     key={ i }
                     data-testid={ `${i}-recomendation-card` }
                   >
