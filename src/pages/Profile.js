@@ -4,7 +4,7 @@ import Footer from '../components/Footer';
 import perfilIcon from '../images/profileIcon.svg';
 
 function Profile() {
-  const { email } = JSON.parse(localStorage.getItem('user'));
+  const { email } = JSON.parse(localStorage.getItem('user') || JSON.stringify({email :''}));
   return (
     <div>
       <header>
