@@ -1,32 +1,31 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import GlobalContext from '../context/GlobalContext';
 
 function SearchHeader() {
-  const [dataFiltered, setDataFiltered] = useState([]);
+  const { pathname } = useLocation();
   const [type, setType] = useState('nome');
   const {
-    data,
     upSearchBar,
     setUpSearchBar,
     selectedTypeFood,
-    // selectedTypeDrink,
+    selectedTypeDrink,
   } = useContext(
     GlobalContext,
   );
-  useEffect(() => {
-    selectedTypeFood(type);
-  }, [selectedTypeFood, type]);
-  useEffect(() => {
-    const maxNumbCard = 12;
-    if (data) setDataFiltered(data.filter((food, index) => index < maxNumbCard));
-  }, [data]);
+
   const handleClick = () => {
-    if (type === 'letra' && type.length > 1) {
+    console.log(upSearchBar);
+    if (type === 'firstLetter' && upSearchBar.length > 1) {
       return alert('Sua busca deve conter somente 1 (um) caracter');
     }
-    return selectedTypeFood(type);
+    if (pathname === '/comidas') {
+      return selectedTypeFood(type);
+    }
+    return selectedTypeDrink(type);
   };
   const handleChange = (e) => setType(e.target.value);
+
   return (
     <form>
       <div>
@@ -38,7 +37,6 @@ function SearchHeader() {
           value={ upSearchBar }
           onChange={ ({ target }) => setUpSearchBar(target.value) }
         />
-        {console.log(setUpSearchBar)}
       </div>
       <div>
         <label htmlFor="ingredients">
@@ -86,16 +84,6 @@ function SearchHeader() {
         >
           Buscar
         </button>
-        {dataFiltered.map((food) => (
-          <>
-            <h3>{food.strMeal}</h3>
-            <img
-              src={ food.strMealThumb }
-              width="50"
-              alt={ `${food.strMeal} thumb` }
-            />
-          </>
-        ))}
       </div>
     </form>
   );

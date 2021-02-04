@@ -14,6 +14,7 @@ export async function foodByIngredient(ingredients) {
 }
 export async function foodByLetter(firstLetter) {
   const endpoint = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${firstLetter}`);
+  console.log(firstLetter);
   const response = await endpoint.json();
   const { meals } = response;
   return meals;
