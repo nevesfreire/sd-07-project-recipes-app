@@ -60,7 +60,7 @@ function FavoriteRecipes() {
   };
   return (
     <div>
-      <HeaderNoSearch title="Receitas favoritas" />
+      <HeaderNoSearch title="Receitas Favoritas" />
       <button
         type="button"
         data-testid="filter-by-all-btn"

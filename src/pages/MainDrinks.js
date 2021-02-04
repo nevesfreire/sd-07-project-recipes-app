@@ -105,7 +105,7 @@ function MainDrinks(props) {
 
   return (
     <div>
-      <Header title="Comidas" />
+      <Header title="Bebidas" />
       {filtersToRender === undefined ? (
         <p>Loading</p>
       ) : (
