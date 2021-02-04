@@ -7,7 +7,7 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Loading from '../components/Loading';
 import { favoriteDrinkLocalStorage } from '../localStorage/favoriteRecipes';
-import { doneDrinkLocalStorage } from '../localStorage/doneRecipes';
+// import { doneDrinkLocalStorage } from '../localStorage/doneRecipes';
 import '../css/details.css';
 
 class DrinkDetails extends Component {
@@ -74,7 +74,7 @@ class DrinkDetails extends Component {
     () => {
       const { drinks, favorite } = this.state;
       favoriteDrinkLocalStorage(drinks, favorite, 'favoriteRecipes');
-      doneDrinkLocalStorage(drinks, favorite, 'doneRecipes');
+      // doneDrinkLocalStorage(drinks, favorite, 'doneRecipes');
     });
   }
 

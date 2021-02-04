@@ -16,7 +16,10 @@ class DrinkInProgress extends Component {
 
     this.handleState = this.handleState.bind(this);
     this.changeFavorite = this.changeFavorite.bind(this);
-    this.createFavoriteLocalStorage = this.createFavoriteLocalStorage.bind(this);
+    this.changeDone = this.changeDone.bind(this);
+    this.createFavoriteLocalStorage = this.createFavoriteLocalStorage.bind(
+      this,
+    );
 
     this.state = {
       drinks: [],
@@ -28,9 +31,15 @@ class DrinkInProgress extends Component {
   }
 
   componentDidMount() {
-    const { requestRecipes,
-      match: { params: { id } } } = this.props;
-    requestRecipes(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+    const {
+      requestRecipes,
+      match: {
+        params: { id },
+      },
+    } = this.props;
+    requestRecipes(
+      `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`,
+    );
     this.createFavoriteLocalStorage('favoriteRecipes');
     this.createFavoriteLocalStorage('doneRecipes');
   }
@@ -45,16 +54,29 @@ class DrinkInProgress extends Component {
   }
 
   handleState() {
-    const { match: { params: { id } }, drinksRecipes } = this.props;
-    const filterRecipe = drinksRecipes.drinks.find((recipe) => recipe.idDrink === id);
+    const {
+      match: {
+        params: { id },
+      },
+      drinksRecipes,
+    } = this.props;
+    const filterRecipe = drinksRecipes.drinks.find(
+      (recipe) => recipe.idDrink === id,
+    );
     const ingredients = Object.entries(filterRecipe)
-      .filter((array) => array[0]
-        .includes('strIngredient') && array[1] !== null && array[1] !== '')
+      .filter(
+        (array) => array[0].includes('strIngredient')
+          && array[1] !== null
+          && array[1] !== '',
+      )
       .map((array2) => array2[1]);
 
     const measurement = Object.entries(filterRecipe)
-      .filter((array) => array[0]
-        .includes('strMeasure') && array[1] !== null && array[1] !== '')
+      .filter(
+        (array) => array[0].includes('strMeasure')
+          && array[1] !== null
+          && array[1] !== '',
+      )
       .map((array2) => array2[1]);
 
     this.setState({
@@ -66,18 +88,38 @@ class DrinkInProgress extends Component {
   }
 
   changeFavorite() {
-    this.setState((prevState) => ({
-      favorite: !prevState.favorite,
-    }),
-    () => {
-      const { drinks, favorite } = this.state;
-      favoriteDrinkLocalStorage(drinks, favorite, 'favoriteRecipes');
-      doneDrinkLocalStorage(drinks, favorite, 'doneRecipes');
-    });
+    this.setState(
+      (prevState) => ({
+        favorite: !prevState.favorite,
+      }),
+      () => {
+        const { drinks, favorite } = this.state;
+        favoriteDrinkLocalStorage(drinks, favorite, 'favoriteRecipes');
+      },
+    );
+  }
+
+  changeDone() {
+    this.setState(
+      (prevState) => ({
+        done: !prevState.done,
+      }),
+      () => {
+        const { drinks, done } = this.state;
+        const { history } = this.props;
+        console.log(done);
+        doneDrinkLocalStorage(drinks, done, 'doneRecipes');
+        history.push('/receitas-feitas');
+      },
+    );
   }
 
   createFavoriteLocalStorage(keyStorage) {
-    const { match: { params: { id } } } = this.props;
+    const {
+      match: {
+        params: { id },
+      },
+    } = this.props;
     const read = JSON.parse(localStorage.getItem(keyStorage));
 
     if (read && read.some((obj) => obj.id === id)) {
@@ -85,15 +127,16 @@ class DrinkInProgress extends Component {
         favorite: true,
       });
     } else if (!read) {
-      this.setState({
-        favorite: false,
-      },
-      () => localStorage.setItem(keyStorage, JSON.stringify([])));
+      this.setState(
+        {
+          favorite: false,
+        },
+        () => localStorage.setItem(keyStorage, JSON.stringify([])),
+      );
     }
   }
 
   render() {
-    const { history } = this.props;
     const { drinks, ingredients, favorite, measurement } = this.state;
     const { strDrinkThumb, strDrink, strInstructions, strAlcoholic } = drinks;
 
@@ -112,19 +155,10 @@ class DrinkInProgress extends Component {
             <h3 data-testid="recipe-category">{strAlcoholic}</h3>
           </div>
           <div className="images-container">
-            <button
-              type="button"
-            >
-              <img
-                data-testid="share-btn"
-                src={ shareIcon }
-                alt="shareIcon"
-              />
+            <button type="button">
+              <img data-testid="share-btn" src={ shareIcon } alt="shareIcon" />
             </button>
-            <button
-              type="button"
-              onClick={ this.changeFavorite }
-            >
+            <button type="button" onClick={ this.changeFavorite }>
               <img
                 data-testid="favorite-btn"
                 src={ favorite ? blackHeartIcon : whiteHeartIcon }
@@ -136,27 +170,23 @@ class DrinkInProgress extends Component {
         <div className="ingredients-container">
           <h1>Ingredientes</h1>
           <div className="list-container">
-            {ingredients
-              .map((ingredient, index) => (
-                <div
-                  className="form-check"
-                  data-testid={ `${index}-ingredient-step` }
-                  key={ ingredient }
-                >
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    id={ ingredient }
-                    onClick={ this.handleCheckbox }
-                  />
-                  <label
-                    className="form-check-label"
-                    htmlFor={ ingredient }
-                  >
-                    {`${ingredient} - ${measurement[index]}`}
-                  </label>
-                </div>
-              ))}
+            {ingredients.map((ingredient, index) => (
+              <div
+                className="form-check"
+                data-testid={ `${index}-ingredient-step` }
+                key={ ingredient }
+              >
+                <input
+                  type="checkbox"
+                  className="form-check-input"
+                  id={ ingredient }
+                  onClick={ this.handleCheckbox }
+                />
+                <label className="form-check-label" htmlFor={ ingredient }>
+                  {`${ingredient} - ${measurement[index]}`}
+                </label>
+              </div>
+            ))}
           </div>
         </div>
         <div className="instructions-container">
@@ -168,7 +198,7 @@ class DrinkInProgress extends Component {
           <button
             type="button"
             data-testid="finish-recipe-btn"
-            onClick={ () => history.push('/receitas-feitas') }
+            onClick={ this.changeDone }
             className="finish-button-recipe"
           >
             Finalizar Receita

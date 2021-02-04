@@ -17,7 +17,10 @@ class FoodInProgress extends Component {
     this.handleState = this.handleState.bind(this);
     this.changeFavorite = this.changeFavorite.bind(this);
     this.handleCheckbox = this.handleCheckbox.bind(this);
-    this.createFavoriteLocalStorage = this.createFavoriteLocalStorage.bind(this);
+    this.changeDone = this.changeDone.bind(this);
+    this.createFavoriteLocalStorage = this.createFavoriteLocalStorage.bind(
+      this,
+    );
 
     this.state = {
       meal: [],
@@ -25,13 +28,20 @@ class FoodInProgress extends Component {
       measurement: [],
       request: true,
       favorite: false,
+      done: false,
     };
   }
 
   componentDidMount() {
-    const { requestRecipes,
-      match: { params: { id } } } = this.props;
-    requestRecipes(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+    const {
+      requestRecipes,
+      match: {
+        params: { id },
+      },
+    } = this.props;
+    requestRecipes(
+      `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`,
+    );
     this.createFavoriteLocalStorage('favoriteRecipes');
     this.createFavoriteLocalStorage('doneRecipes');
   }
@@ -46,16 +56,29 @@ class FoodInProgress extends Component {
   }
 
   handleState() {
-    const { match: { params: { id } }, mealsRecipes } = this.props;
-    const filterRecipe = mealsRecipes.meals.find((recipe) => recipe.idMeal === id);
+    const {
+      match: {
+        params: { id },
+      },
+      mealsRecipes,
+    } = this.props;
+    const filterRecipe = mealsRecipes.meals.find(
+      (recipe) => recipe.idMeal === id,
+    );
     const ingredients = Object.entries(filterRecipe)
-      .filter((array) => array[0]
-        .includes('strIngredient') && array[1] !== null && array[1] !== '')
+      .filter(
+        (array) => array[0].includes('strIngredient')
+          && array[1] !== null
+          && array[1] !== '',
+      )
       .map((array2) => array2[1]);
 
     const measurement = Object.entries(filterRecipe)
-      .filter((array) => array[0]
-        .includes('strMeasure') && array[1] !== null && array[1] !== '')
+      .filter(
+        (array) => array[0].includes('strMeasure')
+          && array[1] !== null
+          && array[1] !== '',
+      )
       .map((array2) => array2[1]);
 
     this.setState({
@@ -71,18 +94,38 @@ class FoodInProgress extends Component {
   }
 
   changeFavorite() {
-    this.setState((prevState) => ({
-      favorite: !prevState.favorite,
-    }),
-    () => {
-      const { meal, favorite } = this.state;
-      favoriteMealLocalStorage(meal, favorite, 'favoriteRecipes');
-      doneMealLocalStorage(meal, favorite, 'doneRecipes');
-    });
+    this.setState(
+      (prevState) => ({
+        favorite: !prevState.favorite,
+      }),
+      () => {
+        const { meal, favorite } = this.state;
+        favoriteMealLocalStorage(meal, favorite, 'favoriteRecipes');
+      },
+    );
+  }
+
+  changeDone() {
+    this.setState(
+      (prevState) => ({
+        done: !prevState.done,
+      }),
+      () => {
+        const { meal, done } = this.state;
+        const { history } = this.props;
+        console.log(done);
+        doneMealLocalStorage(meal, done, 'doneRecipes');
+        history.push('/receitas-feitas');
+      },
+    );
   }
 
   createFavoriteLocalStorage(keyStorage) {
-    const { match: { params: { id } } } = this.props;
+    const {
+      match: {
+        params: { id },
+      },
+    } = this.props;
     const read = JSON.parse(localStorage.getItem(keyStorage));
 
     if (read && read.some((obj) => obj.id === id)) {
@@ -90,15 +133,16 @@ class FoodInProgress extends Component {
         favorite: true,
       });
     } else if (!read) {
-      this.setState({
-        favorite: false,
-      },
-      () => localStorage.setItem(keyStorage, JSON.stringify([])));
+      this.setState(
+        {
+          favorite: false,
+        },
+        () => localStorage.setItem(keyStorage, JSON.stringify([])),
+      );
     }
   }
 
   render() {
-    const { history } = this.props;
     const { meal, ingredients, favorite, measurement } = this.state;
     const { strMealThumb, strMeal, strCategory, strInstructions } = meal;
     if (!ingredients) return <Loading />;
@@ -113,23 +157,14 @@ class FoodInProgress extends Component {
         />
         <div className="title-container">
           <div className="title-subcontainer">
-            <h1 data-testid="recipe-title">{strMeal }</h1>
+            <h1 data-testid="recipe-title">{strMeal}</h1>
             <h3 data-testid="recipe-category">{strCategory}</h3>
           </div>
           <div className="images-container">
-            <button
-              type="button"
-            >
-              <img
-                data-testid="share-btn"
-                src={ shareIcon }
-                alt="shareIcon"
-              />
+            <button type="button">
+              <img data-testid="share-btn" src={ shareIcon } alt="shareIcon" />
             </button>
-            <button
-              type="button"
-              onClick={ this.changeFavorite }
-            >
+            <button type="button" onClick={ this.changeFavorite }>
               <img
                 data-testid="favorite-btn"
                 src={ favorite ? blackHeartIcon : whiteHeartIcon }
@@ -141,27 +176,23 @@ class FoodInProgress extends Component {
         <div className="ingredients-container">
           <h1>Ingredientes</h1>
           <div className="list-container">
-            {ingredients
-              .map((ingredient, index) => (
-                <div
-                  className="form-check"
-                  data-testid={ `${index}-ingredient-step` }
-                  key={ ingredient }
-                >
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    id={ ingredient }
-                    onClick={ this.handleCheckbox }
-                  />
-                  <label
-                    className="form-check-label"
-                    htmlFor={ ingredient }
-                  >
-                    {`${ingredient} - ${measurement[index]}`}
-                  </label>
-                </div>
-              ))}
+            {ingredients.map((ingredient, index) => (
+              <div
+                className="form-check"
+                data-testid={ `${index}-ingredient-step` }
+                key={ ingredient }
+              >
+                <input
+                  type="checkbox"
+                  className="form-check-input"
+                  id={ ingredient }
+                  onClick={ this.handleCheckbox }
+                />
+                <label className="form-check-label" htmlFor={ ingredient }>
+                  {`${ingredient} - ${measurement[index]}`}
+                </label>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -174,7 +205,7 @@ class FoodInProgress extends Component {
           <button
             type="button"
             data-testid="finish-recipe-btn"
-            onClick={ () => history.push('/receitas-feitas') }
+            onClick={ this.changeDone }
             className="finish-button-recipe"
           >
             Finalizar Receita
