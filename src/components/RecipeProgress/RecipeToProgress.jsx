@@ -123,8 +123,6 @@ const RecipeToProgress = ({ id, area, image, name, category,
   );
 };
 
-// Recipe.defaultProps = { alcoholic: null };
-
 RecipeToProgress.propTypes = {
   id: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
