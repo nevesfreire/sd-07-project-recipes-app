@@ -24,3 +24,13 @@
 .explore-btn + .explore-btn {
   margin-bottom: 1rem;
 }
+
+.explore-surprise-btn {
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: -1px 2px 4px 0 black;
+  color: black;
+  font-size: 1.5rem;
+  padding: 0.5rem 0 0.5rem 1rem;
+  text-align: start;
+}

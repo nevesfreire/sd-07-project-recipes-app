@@ -11,5 +11,8 @@ export { default as Instructions } from './Instructions';
 export { default as Video } from './Video';
 export { default as Recomendations } from './Recomendations';
 export { default as ButtonDetails } from './ButtonDetails';
+export { default as Favorite } from './Favorite';
+export { default as ButtonsFavorite } from './ButtonsFavorite';
 export { default as Loading } from './Loading';
 export { default as Item } from './Item';
+export { default as ExploreArea } from './ExploreArea';

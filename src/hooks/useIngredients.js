@@ -1,7 +1,10 @@
-import { useState } from 'react';
-import { mealIngredientsAPI, drinkIngredientsAPI } from '../services';
+import { useContext, useState } from 'react';
 
-function useIngredients() {
+import { mealIngredientsAPI, drinkIngredientsAPI } from '../services';
+import FoodAppContext from '../context/FoodAppContext';
+
+function useIngredients(history, pathname) {
+  const { setMealsData, setDrinksData, mealsAPI, drinksAPI } = useContext(FoodAppContext);
   const [ingredients, setIngredients] = useState([]);
   const maximumOfIngredients = 12;
   const minimumOfIngredients = 0;
@@ -44,7 +47,21 @@ function useIngredients() {
     }
   };
 
-  return [ingredients, getIngredients];
+  const handleOnClick = async ({ target }) => {
+    if (pathname.includes('comidas')) {
+      const { name } = target;
+      const { meals } = await mealsAPI(name, 'i');
+      setMealsData(meals);
+      history.push('/comidas');
+    } else {
+      const { name } = target;
+      const { drinks } = await drinksAPI(name, 'i');
+      setDrinksData(drinks);
+      history.push('/bebidas');
+    }
+  };
+
+  return [ingredients, getIngredients, handleOnClick];
 }
 
 export default useIngredients;

@@ -1,10 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import '../styles/Explore.css';
+import useRandomRecipe from '../hooks/useRandomRecipe';
 
-function ExploreDrinks() {
+function ExploreDrinks({ history }) {
+  const type = 'bebidas';
+  const [getRandomRecipe] = useRandomRecipe();
+
+  const handleClick = async () => {
+    const valor = await getRandomRecipe(type);
+
+    history.push(`/bebidas/${valor}`);
+  };
+
   return (
     <>
       <Header title="Explorar Bebidas" isSearchable={ false } />
@@ -16,16 +27,24 @@ function ExploreDrinks() {
         >
           Por Ingredientes
         </Link>
-        <Link
+        <button
+          type="button"
           data-testid="explore-surprise"
-          to="/"
-          className="explore-btn"
+          onClick={ () => handleClick() }
+          className="explore-surprise-btn"
         >
           Me Surpreenda!
-        </Link>
+        </button>
       </div>
       <Footer />
     </>
   );
 }
+
+ExploreDrinks.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
 export default ExploreDrinks;

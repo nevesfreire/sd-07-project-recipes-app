@@ -5,11 +5,17 @@ function Item({ index, name, imageSrc, handleOnClick }) {
   return (
     <button
       type="button"
-      onClick={ () => handleOnClick(name) }
+      name={ name }
+      onClick={ handleOnClick }
       data-testid={ `${index}-ingredient-card` }
     >
-      <img src={ imageSrc } alt={ name } data-testid={ `${index}-card-img` } />
-      <p data-testid={ `${index}-card-name` }>{name}</p>
+      <img
+        src={ imageSrc }
+        name={ name }
+        alt={ name }
+        data-testid={ `${index}-card-img` }
+      />
+      <p name={ name } data-testid={ `${index}-card-name` }>{name}</p>
     </button>
   );
 }
