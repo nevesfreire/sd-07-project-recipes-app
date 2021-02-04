@@ -8,6 +8,7 @@ import {
   foodByName,
   foodByLetter,
   getInitialFood,
+  getFoodCategories,
 } from '../services/foodsApi';
 
 import {
@@ -15,6 +16,7 @@ import {
   drinkByLetter,
   drinkByName,
   getInitialDrink,
+  getDrinkCategories,
 } from '../services/drinksApi';
 
 export default function GlobalProvider({ children }) {
@@ -40,7 +42,8 @@ export default function GlobalProvider({ children }) {
     return setData(newData);
   }, []);
 
-  const selectedTypeFood = useCallback(async (chooseType) => {
+  const selectedTypeFood = useCallback(async (chooseType, func) => {
+
     switch (chooseType) {
     case 'initial':
       return setData(await getInitialFood(''));
@@ -50,12 +53,14 @@ export default function GlobalProvider({ children }) {
       return checkData(await foodByName(upSearchBar));
     case 'firstLetter':
       return setData(await foodByLetter(upSearchBar));
+    case 'categories':
+      return setData(await getFoodCategories(func));
     default:
       return data;
     }
   }, [upSearchBar]);
 
-  const selectedTypeDrink = useCallback(async (chooseType) => {
+  const selectedTypeDrink = useCallback(async (chooseType, func) => {
     switch (chooseType) {
     case 'initial':
       return setData(await getInitialDrink(''));
@@ -65,6 +70,8 @@ export default function GlobalProvider({ children }) {
       return checkData(await drinkByName(upSearchBar));
     case 'firstLetter':
       return setData(await drinkByLetter(upSearchBar));
+    case 'categories':
+      return setData(await getDrinkCategories(func));
     default:
       return data;
     }
@@ -132,53 +139,6 @@ export default function GlobalProvider({ children }) {
           newInitialDrinks.drinkCategories = value;
           updateState('initialDrinks', newInitialDrinks);
         }, [state.initialDrinks]),
-
-        setDataFoods: useCallback(() => {
-          fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
-            .then((response) => response.json())
-            .then(({ meals }) => {
-              const filter = () => {
-                const filteredResponse = [];
-                if (meals !== null) {
-                  Object.entries(meals).forEach((meal, index) => {
-                    const numberOfCards = 12;
-                    if (index < numberOfCards) {
-                      const { strMeal, strMealThumb } = meal[1];
-                      filteredResponse.push({ name: strMeal, image: strMealThumb });
-                    }
-                  });
-                }
-                return filteredResponse;
-              };
-              const newInitialFoods = state.initialFoods;
-              newInitialFoods.dataFoods = filter();
-              updateState('initialFoods', newInitialFoods);
-            }, []);
-        }, [state.initialFoods]),
-
-        setDataDrinks: useCallback(() => {
-          fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
-            .then((response) => response.json())
-            .then(({ drinks }) => {
-              const filter = () => {
-                const filteredResponse = [];
-                if (drinks !== null) {
-                  Object.entries(drinks).forEach((drink, index) => {
-                    const numberOfCards = 12;
-                    if (index < numberOfCards) {
-                      const { strDrink, strDrinkThumb } = drink[1];
-                      filteredResponse.push({ name: strDrink, image: strDrinkThumb });
-                    }
-                  });
-                }
-                return filteredResponse;
-              };
-              const newInitialDrinks = state.initialDrinks;
-              newInitialDrinks.dataDrinks = filter();
-              updateState('initialDrinks', newInitialDrinks);
-            }, []);
-        }, [state.initialDrinks]),
-
         email,
         password,
         setEmail: (text) => {

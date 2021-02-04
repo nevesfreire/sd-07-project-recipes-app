@@ -1,21 +1,39 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useContext } from 'react';
+import GlobalContext from '../../context/GlobalContext';
 import Styles from './Styles';
+import { zero, five } from '../../services/numbers';
 
 const { BtnBar, Btn } = Styles;
-const cinco = 5;
 
 export default function DrinkCategories() {
+  const { selectedTypeDrink } = useContext(GlobalContext);
+  const [toggle, setToggle] = useState({});
   const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const newToggle = {};
+    for (let index = zero; index < categories.length; index += 1) {
+      newToggle[index] = false;
+    }
+    setToggle(newToggle);
+  }, [categories.length]);
+
+  const triggerToggle = (index) => {
+    const newToggle = toggle;
+    newToggle[index] = !toggle[index];
+    setToggle(newToggle);
+  };
+
   const fnFetchCategories = useCallback(async () => {
     const endpoint = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
     const response = await endpoint.json();
     const filtered = [];
     Object.entries(response).forEach((category) => {
       category[1].forEach(({ strCategory }, index) => {
-        if (index < cinco) filtered.push(strCategory);
+        if (index < five) filtered.push(strCategory);
       });
     });
-    console.log(filtered);
+    filtered.push('All');
     setCategories(filtered);
   }, []);
 
@@ -25,10 +43,20 @@ export default function DrinkCategories() {
 
   return (
     <BtnBar>
-      {categories.map((cat, key) => (
+      {categories.map((cat, index) => (
         <Btn
+          toggle={ toggle[index] }
           data-testid={ `${cat}-category-filter` }
-          key={ `${cat}-${key}-category-filter` }
+          key={ `${cat}-${index}-category-filter` }
+          id={ `${cat}` }
+          onClick={ ({ target }) => {
+            triggerToggle(index);
+            if (index !== five) {
+              selectedTypeDrink(!toggle[index] ? 'initial' : 'categories', target.id);
+            } else {
+              selectedTypeDrink('initial');
+            }
+          } }
         >
           {cat}
         </Btn>))}

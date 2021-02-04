@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import GeralContext from '../../context/GlobalContext';
 import Styles from './Styles';
 
@@ -29,6 +30,8 @@ export default function Cards() {
         </Content>,
       );
     }
-  });
+      </Link>,
+    );
+          });
   return listOfCards;
 }
