@@ -78,27 +78,36 @@ function ComidasID({
     <div>
       <FoodThumb detailed={ detailed } route={ route } id={ id } />
       <div className="ala">
-        <ul>
-          Ingredientes:
-          {Object.keys(detailed[0]).map((key, index) => {
-            const ingredientIndex = key.match(/(\d+)/);
-            if (detailed[0][key] && key.includes('strIngredient')) {
-              const measure = `strMeasure${ingredientIndex[0]}`;
-              return (
-                <li
-                  key={ `measure-${index}` }
-                  data-testid={ `${
-                    index - indexDiff
-                  }-ingredient-name-and-measure` }
-                >
-                  {`${detailed[0][key]} - ${detailed[0][measure]}`}
-                </li>
-              );
-            }
-            return null;
-          })}
-        </ul>
-        <p data-testid="instructions">{detailed[0].strInstructions}</p>
+        <div className="text-container">
+          <ul className="ingredient-list">
+            Ingredientes:
+            {Object.keys(detailed[0]).map((key, index) => {
+              const ingredientIndex = key.match(/(\d+)/);
+              if (detailed[0][key] && key.includes('strIngredient')) {
+                const measure = `strMeasure${ingredientIndex[0]}`;
+                return (
+                  <li
+                    key={ `measure-${index}` }
+                    data-testid={ `${
+                      index - indexDiff
+                    }-ingredient-name-and-measure` }
+                  >
+                    {`${detailed[0][key]} - ${detailed[0][measure]}`}
+                  </li>
+                );
+              }
+              return null;
+            })}
+          </ul>
+        </div>
+        <div className="text-container">
+          <p
+            className="instructions"
+            data-testid="instructions"
+          >
+            {detailed[0].strInstructions}
+          </p>
+        </div>
 
         {video && (
           <ReactPlayer

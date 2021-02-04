@@ -10,7 +10,7 @@
   bottom: 0;
   color: white;
   font-size: 20px;
-  padding: 4px 20px;
+  padding: 4px 0;
   position: fixed;
   text-align: center;
   text-decoration: none;
@@ -28,7 +28,7 @@
 }
 
 .slide-img {
-  width: 180px;
+  width: 50vw;
 }
 
 .recipe-thumbnail {
@@ -37,4 +37,26 @@
 
 .ala {
   margin: 0 8px;
+}
+
+.text-container {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 5px 5px 5px gray;
+  margin: 25px auto;
+  padding: 4vh 5vh;
+  width: 90vw;
+}
+
+.ingredient-list {
+  font-weight: bold;
+  list-style-type: none;
+}
+
+.instructions {
+  font-weight: 600;
+}
+
+.video {
+  margin: 0 auto;
 }

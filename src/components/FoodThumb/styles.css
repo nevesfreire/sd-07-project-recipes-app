@@ -5,6 +5,10 @@
   margin-bottom: 7vh;
 }
 
+.thumb-title {
+  padding: 0 6vw;
+}
+
 .thumb-icons {
   display: flex;
   justify-content: space-between;
