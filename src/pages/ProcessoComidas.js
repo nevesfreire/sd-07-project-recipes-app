@@ -1,7 +1,7 @@
 import React from 'react';
 
 function ProcessoComidas() {
-  return <p>AQUI É comidas em processo</p>;
+  return <p>AQUI são as bebidas em processo</p>;
 }
 
 export default ProcessoComidas;

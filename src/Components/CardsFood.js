@@ -4,8 +4,9 @@ import RecipesContext from '../context/recipesContext';
 import './cards.css';
 
 function CardsFood() {
-  const [redirect, setRedirect] = useState(false);
   const { foods, fetchFoods } = useContext(RecipesContext);
+  const [redirect, setRedirect] = useState(false);
+
   const zero = 0;
   useEffect(() => {
     if (foods !== undefined && foods.length === zero) fetchFoods();

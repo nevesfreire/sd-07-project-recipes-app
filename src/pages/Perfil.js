@@ -9,7 +9,7 @@ function Perfil() {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
-    setEmail(user.email);
+    if (user) setEmail(user.email);
   }, []);
 
   const logout = () => {
@@ -21,7 +21,7 @@ function Perfil() {
     <div>
       <Header text="Perfil" search={ false } />
       <div className="buttons__profile">
-        <h3 data-testid="profile-email">{email}</h3>
+        <h3 data-testid="profile-email">{ email }</h3>
         <button
           type="button"
           data-testid="profile-done-btn"

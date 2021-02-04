@@ -5,10 +5,10 @@ import Footer from '../Components/Footer';
 import CategoriesFoods from '../Components/CategoriesFood';
 
 function Comidas() {
-  const isTrue = true;
+  const isTruth = true;
   return (
     <div>
-      <Header text="Comidas" search={ isTrue } />
+      <Header text="Comidas" search={ isTruth } />
       <CategoriesFoods />
       <CardsFood />
       <Footer />
