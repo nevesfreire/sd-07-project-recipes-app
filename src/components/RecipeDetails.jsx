@@ -8,6 +8,9 @@ import {
 
 function RecipeDetails({ recipes, id }) {
   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+
+  const enableBtn = () => doneRecipes && doneRecipes.find((recipe) => recipe.id === id);
 
   const setTextBtn = () => {
     if (inProgressRecipes) {
@@ -34,12 +37,12 @@ function RecipeDetails({ recipes, id }) {
       <Instructions recipes={ recipes } />
       { recipes === 'comidas' ? <Video /> : ''}
       <Recomendations recipes={ recipes } />
-      <ButtonDetails
+      {enableBtn() ? null : <ButtonDetails
         recipes={ recipes }
         id={ id }
         textBtn={ setTextBtn() ? 'Continuar Receita' : 'Iniciar Receita' }
         dataTestId="start-recipe-btn"
-      />
+      />}
     </div>
   );
 }

@@ -8,10 +8,12 @@ function ButtonRecipeDone({ recipes, textBtn, dataTestId }) {
   const [, /* handleChange */,
     /* inProgressRecipes */
     handleClick,
+    disable,
   ] = useInProgressRecipe();
   return (
     <div className="div-button-details">
       <button
+        disabled={ disable }
         data-testid={ dataTestId }
         type="button"
         onClick={ () => handleClick(detailRecipe, recipes) }
