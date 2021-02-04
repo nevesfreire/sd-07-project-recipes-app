@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import copy from 'clipboard-copy';
 import ShareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
@@ -18,10 +19,21 @@ export default class ProgressoBebidas extends React.Component {
     this.renderIngredients = this.renderIngredients.bind(this);
     this.renderIngredient = this.renderIngredient.bind(this);
     this.copyClipboard = this.copyClipboard.bind(this);
+    this.isFavorite = this.isFavorite.bind(this);
   }
 
   componentDidMount() {
     this.fetchData();
+    this.isFavorite();
+  }
+
+  isFavorite() {
+    const setFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (setFavorite) {
+      this.setState({
+        isFavorite: true,
+      });
+    }
   }
 
   async fetchData() {
@@ -35,21 +47,33 @@ export default class ProgressoBebidas extends React.Component {
   }
 
   async copyClipboard() {
-    try {
-      await navigator.clipboard.writeText(window.location.href);
-      this.setState({
-        copyClipboard: window.location.href,
-      });
-    } catch (e) {
-      console.error(e);
-    }
+    const url = window.location.href;
+    const newURL = url.split('/in-progress');
+    copy(newURL[0]);
+    this.setState({
+      copyClipboard: true,
+    });
   }
 
   favoriteRecipe() {
-    const { isFavorite } = this.state;
+    const { recipe, isFavorite } = this.state;
     this.setState({
       isFavorite: !isFavorite,
     });
+    const favorite = [{
+      id: recipe.idDrink,
+      type: 'bebida',
+      area: '',
+      category: recipe.strCategory,
+      alcoholicOrNot: recipe.strAlcoholic,
+      name: recipe.strDrink,
+      image: recipe.strDrinkThumb,
+    }];
+    if (isFavorite) {
+      localStorage.removeItem('favoriteRecipes');
+    } else {
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favorite));
+    }
   }
 
   renderIngredients() {
