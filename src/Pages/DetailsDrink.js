@@ -5,6 +5,7 @@ import RecomendationCardDrinks from '../components/RecomendationCardDrinks';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import detailsDidMount from '../components/DetailsDidMount';
 
 function DetailsDrink() {
   const { detailsRecipe } = useContext(RecipeContext);
