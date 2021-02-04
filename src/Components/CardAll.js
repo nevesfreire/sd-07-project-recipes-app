@@ -16,8 +16,9 @@ function CardAll({ FoodOrDrink, setRenderAll }) {
 
   const handleDeslike = (id) => {
     if (favorited) {
-      const newFavorite = FoodOrDrink
-        .filter((foodsOrDrinks) => foodsOrDrinks.id !== id);
+      const newFavorite = FoodOrDrink.filter(
+        (foodsOrDrinks) => foodsOrDrinks.id !== id,
+      );
       setRenderAll(newFavorite);
       localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorite));
       return setFavorite(false);
@@ -56,7 +57,16 @@ function CardAll({ FoodOrDrink, setRenderAll }) {
           <div data-testid={ `${index}-horizontal-done-date` }>
             Salva:
             {' '}
-            {foodAndDrink.date}
+            {foodAndDrink.doneDate}
+          </div>
+          <div>
+            {foodAndDrink.tags
+              && foodAndDrink.tags.map((tag) => (
+                <span data-testid={ `${index}-${tag}-horizontal-tag` }>
+                  {' - '}
+                  {tag}
+                </span>
+              ))}
           </div>
         </Link>
         <div>
