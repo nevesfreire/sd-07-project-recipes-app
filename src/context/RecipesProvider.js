@@ -139,11 +139,11 @@ export default RecipesProvider;
 //   alcoholicOrNot: 'Alcoholic',
 //   name: 'Margarita',
 //   image:
-//     'https://www.thecocktaildb.com/images/media/drink/5noda61589575158.jpg',
+//   'https://www.thecocktaildb.com/images/media/drink/5noda61589575158.jpg',
 //   doneDate: '03-02-2021',
 //   tags: ['IBA', 'ContemporaryClassic'],
 // };
 // useEffect(() => {
-//   localStorageFunctions.putDoneRecipesLocalStorage(doneRecipe1);
-//   localStorageFunctions.putDoneRecipesLocalStorage(doneRecipe2);
+//   localStorageFunctions.putFavoriteRecipesLocalStorage(doneRecipe1);
+//   localStorageFunctions.putFavoriteRecipesLocalStorage(doneRecipe2);
 // });
