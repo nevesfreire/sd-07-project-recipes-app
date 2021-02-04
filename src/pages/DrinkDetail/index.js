@@ -5,7 +5,7 @@ import getMeals from '../../services/mealAPI';
 import getDrinks from '../../services/cockTailAPI';
 import Ingredients from './Ingredients';
 import RecomedendationList from './RecomendationList';
-import { setStorage, getStorage } from '../../services/localStorage';
+import { setStorage, getStorage, resumeRecipe } from '../../services/localStorage';
 import { blackHeartIcon, whiteHeartIcon, shareIcon } from '../../images';
 
 function addFavorite(recipe) {
@@ -142,7 +142,7 @@ export default function FoodDetail() {
         className="button-start-recipe"
         onClick={ () => history.push(`/bebidas/${drinkId}/in-progress`) }
       >
-        Iniciar Receita
+        { resumeRecipe(data) ? 'Continuar Receita' : 'Iniciar Receita' }
       </button>
     </div>
   );

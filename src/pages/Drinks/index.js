@@ -12,6 +12,7 @@ export default function Drinks() {
     control,
     fetchDrinks,
     setRecipes,
+    filteredRecipes,
   } = useContext(RecipesContext);
 
   const zero = 0;
@@ -27,8 +28,8 @@ export default function Drinks() {
       filter = value;
       break;
     }
-    if (filter !== '') fetchDrinks('category', filter);
-    if (filter === '') fetchDrinks('searchName', filter);
+    if (filter !== '') fetchDrinks('category', filter, true);
+    if (filter === '') fetchDrinks('searchName', filter, true);
   };
 
   const pageLoading = (
@@ -37,6 +38,7 @@ export default function Drinks() {
       <h2>
         Carregando...
       </h2>
+      <Footer />
     </div>
   );
 
@@ -93,11 +95,26 @@ export default function Drinks() {
     </div>
   );
 
+  const filteredMap = () => {
+    if (!filteredRecipes.drinks
+      || filteredRecipes.drinks.length === zero) {
+      return null;
+    } return (
+      filteredRecipes.drinks.map((recipe, index) => {
+        if (control) {
+          return <Card recipe={ recipe } index={ index } key={ index } />;
+        }
+        return null;
+      })
+    );
+  };
+
   useEffect(() => {
-    fetchDrinks('searchName', '');
+    fetchDrinks('searchName', '', false);
   }, []);
 
-  if (!recipes.drinks || recipes.drinks.length === zero) {
+  if (!recipes.drinks
+    || recipes.drinks.length === zero) {
     return pageLoading;
   }
 
@@ -106,14 +123,15 @@ export default function Drinks() {
       <Header title="Bebidas" />
       { categoryButtons }
       { recipes.drinks.map((recipe, index) => {
-        if (control && index < twelve) {
-          return <Card recipe={ recipe } index={ index } key={ index } />;
+        if (control) {
+          return null;
         }
         if (index < twelve) {
           return <Card recipe={ recipe } index={ index } key={ index } />;
         }
         return null;
       })}
+      { filteredMap() }
       <Footer />
     </div>
   );

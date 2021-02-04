@@ -8,14 +8,14 @@ export default function SearchBar() {
   const { fetchMeals, fetchDrinks } = useContext(RecipesContext);
 
   const searchMeals = async () => {
-    const meal = await fetchMeals(filterType, searchInput);
+    const meal = await fetchMeals(filterType, searchInput, true);
     if (!meal) return null;
     const id = meal.result.meals[0].idMeal;
     if (meal.redirect) return window.location.replace(`/comidas/${id}`);
   };
 
   const searchDrinks = async () => {
-    const drink = await fetchDrinks(filterType, searchInput);
+    const drink = await fetchDrinks(filterType, searchInput, true);
     if (!drink) return null;
     const id = drink.result.drinks[0].idDrink;
     if (drink.redirect) return window.location.replace(`/bebidas/${id}`);
@@ -26,7 +26,7 @@ export default function SearchBar() {
   const handleSearch = () => {
     if (filterType === 'firstLetter' && searchInput.length > 1) {
       alert('Sua busca deve conter somente 1 (um) caracter');
-    } else if (pathname === '/comidas') {
+    } else if (pathname === '/comidas' || pathname === '/explorar/comidas/area') {
       searchMeals();
     } else if (pathname === '/bebidas') {
       searchDrinks();

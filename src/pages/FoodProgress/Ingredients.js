@@ -24,8 +24,8 @@ export default function Ingredients({ data }) {
 
   function selectIngredient(event) {
     const parentLabel = event.target.parentNode;
-    addRecipeProgress(data.idMeal, event.target.name);
-    if (ingredientIsSelected(data.idMeal, event.target.name)) {
+    addRecipeProgress(data, event.target.name);
+    if (ingredientIsSelected(data, event.target.name)) {
       parentLabel.classList.add('checked');
       event.target.setAttribute('checked', 'true');
       recipeIsDone();
@@ -37,10 +37,9 @@ export default function Ingredients({ data }) {
   }
 
   function resumeRecipeProgress() {
-    console.log(ingredients);
     ingredients.forEach((item) => {
       const label = document.getElementById(item);
-      if (ingredientIsSelected(data.idMeal, item)) {
+      if (ingredientIsSelected(data, item)) {
         label.classList.add('checked');
         label.children[0].setAttribute('checked', 'true');
       } else {

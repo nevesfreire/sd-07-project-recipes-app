@@ -144,7 +144,7 @@ export default function FoodDetail() {
         className="button-start-recipe"
         onClick={ () => history.push(`/comidas/${mealId}/in-progress`) }
       >
-        { resumeRecipe(mealId) ? 'Continuar Receita' : 'Iniciar Receita' }
+        { resumeRecipe(data) ? 'Continuar Receita' : 'Iniciar Receita' }
       </button>
     </div>
   );
