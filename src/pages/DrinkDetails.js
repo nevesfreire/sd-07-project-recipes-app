@@ -11,6 +11,8 @@ import '../style/recipeDetail.css';
 
 function DrinkDetails() {
   const [recipeDetailDrink, setRecipeDetailDrink] = useState({});
+  const [buttonClassName, setButtonClassName] = useState('fixedbutton');
+  const [buttonText] = useState('Iniciar Receita');
   const [recommendation, setRecommendation] = useState(['']);
   const [copyText, setCopyText] = useState('');
   const [favorited, setFavorited] = useState();
@@ -58,6 +60,19 @@ function DrinkDetails() {
       setFavorited(blackHeartIcon);
     } else {
       setFavorited(whiteHeartIcon);
+    }
+  }, [drinkRecipeId]);
+
+  useEffect(() => {
+    if (!localStorage.doneRecipes) {
+      localStorage.doneRecipes = JSON.stringify([]);
+    }
+    const doneStorage = JSON.parse(localStorage.doneRecipes)
+      .filter((item) => item.id === drinkRecipeId);
+    if (doneStorage.length >= 1) {
+      setButtonClassName('fixedbutton hidden');
+    } else {
+      setButtonClassName('fixedbutton');
     }
   }, [drinkRecipeId]);
 
@@ -137,11 +152,11 @@ function DrinkDetails() {
       </div>
       <Link to={ `/bebidas/${drinkRecipeId}/in-progress` }>
         <button
-          className="fixedbutton"
+          className={ buttonClassName }
           type="button"
           data-testid="start-recipe-btn"
         >
-          Start Recipe
+          {buttonText}
         </button>
       </Link>
     </div>
