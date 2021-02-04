@@ -138,13 +138,16 @@ class FoodDetails extends Component {
   }
 
   showButton() {
+    const getDoneStorage = JSON.parse(localStorage.getItem('doneRecipes'));
+    const getProgressRecipeStorage = JSON.parse(
+      localStorage.getItem('inProgressRecipes'),
+    );
     const {
       match: {
         params: { id },
       },
       history,
     } = this.props;
-    const getDoneStorage = JSON.parse(localStorage.getItem('doneRecipes'));
     if (!getDoneStorage.length) {
       return (
         <button
@@ -154,6 +157,18 @@ class FoodDetails extends Component {
           className="finish-button-recipe"
         >
           Iniciar Receita
+        </button>
+      );
+    }
+    if (getProgressRecipeStorage) {
+      return (
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          onClick={ () => history.push(`/comidas/${id}/in-progress`) }
+          className="finish-button-recipe"
+        >
+          Continuar Receita
         </button>
       );
     }

@@ -280,4 +280,5 @@ DrinkInProgress.propTypes = {
   }).isRequired,
   executeCopy: PropTypes.func.isRequired,
   valueCopied: PropTypes.string.isRequired,
+
 };

@@ -14,7 +14,9 @@ class DrinkDetails extends Component {
     super(props);
     this.handleState = this.handleState.bind(this);
     this.changeFavorite = this.changeFavorite.bind(this);
-    this.createFavoriteLocalStorage = this.createFavoriteLocalStorage.bind(this);
+    this.createFavoriteLocalStorage = this.createFavoriteLocalStorage.bind(
+      this,
+    );
     this.handleCopy = this.handleCopy.bind(this);
     this.showButton = this.showButton.bind(this);
     this.state = {
@@ -27,11 +29,19 @@ class DrinkDetails extends Component {
   }
 
   componentDidMount() {
-    const { requestRecipes,
+    const {
+      requestRecipes,
       requestRecomendations,
-      match: { params: { id } } } = this.props;
-    requestRecipes(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
-    requestRecomendations('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+      match: {
+        params: { id },
+      },
+    } = this.props;
+    requestRecipes(
+      `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`,
+    );
+    requestRecomendations(
+      'https://www.themealdb.com/api/json/v1/1/search.php?s=',
+    );
     this.createFavoriteLocalStorage('favoriteRecipes');
     this.createFavoriteLocalStorage('doneRecipes');
   }
@@ -45,15 +55,28 @@ class DrinkDetails extends Component {
   }
 
   handleState() {
-    const { match: { params: { id } }, drinksRecipes } = this.props;
-    const filterRecipe = drinksRecipes.drinks.find((recipe) => recipe.idDrink === id);
+    const {
+      match: {
+        params: { id },
+      },
+      drinksRecipes,
+    } = this.props;
+    const filterRecipe = drinksRecipes.drinks.find(
+      (recipe) => recipe.idDrink === id,
+    );
     const ingredients = Object.entries(filterRecipe)
-      .filter((array) => array[0]
-        .includes('strIngredient') && array[1] !== null && array[1] !== '')
+      .filter(
+        (array) => array[0].includes('strIngredient')
+          && array[1] !== null
+          && array[1] !== '',
+      )
       .map((array2) => array2[1]);
     const measurement = Object.entries(filterRecipe)
-      .filter((array) => array[0]
-        .includes('strMeasure') && array[1] !== null && array[1] !== '')
+      .filter(
+        (array) => array[0].includes('strMeasure')
+          && array[1] !== null
+          && array[1] !== '',
+      )
       .map((array2) => array2[1]);
     this.setState({
       drinks: filterRecipe,
@@ -64,24 +87,33 @@ class DrinkDetails extends Component {
   }
 
   handleCopy() {
-    const { executeCopy, location: { pathname } } = this.props;
+    const {
+      executeCopy,
+      location: { pathname },
+    } = this.props;
     const copy = require('clipboard-copy');
     copy(`http://localhost:3000${pathname}`);
     executeCopy('Link copiado!');
   }
 
   changeFavorite() {
-    this.setState((prevState) => ({
-      favorite: !prevState.favorite,
-    }),
-    () => {
-      const { drinks, favorite } = this.state;
-      favoriteDrinkLocalStorage(drinks, favorite, 'favoriteRecipes');
-    });
+    this.setState(
+      (prevState) => ({
+        favorite: !prevState.favorite,
+      }),
+      () => {
+        const { drinks, favorite } = this.state;
+        favoriteDrinkLocalStorage(drinks, favorite, 'favoriteRecipes');
+      },
+    );
   }
 
   createFavoriteLocalStorage(keyStorage) {
-    const { match: { params: { id } } } = this.props;
+    const {
+      match: {
+        params: { id },
+      },
+    } = this.props;
     const read = JSON.parse(localStorage.getItem(keyStorage));
 
     if (read && read.some((obj) => obj.id === id)) {
@@ -89,16 +121,26 @@ class DrinkDetails extends Component {
         favorite: true,
       });
     } else if (!read) {
-      this.setState({
-        favorite: false,
-      },
-      () => localStorage.setItem(keyStorage, JSON.stringify([])));
+      this.setState(
+        {
+          favorite: false,
+        },
+        () => localStorage.setItem(keyStorage, JSON.stringify([])),
+      );
     }
   }
 
   showButton() {
-    const { match: { params: { id } }, history } = this.props;
     const getDoneStorage = JSON.parse(localStorage.getItem('doneRecipes'));
+    const getProgressRecipeStorage = JSON.parse(
+      localStorage.getItem('inProgressRecipes'),
+    );
+    const {
+      match: {
+        params: { id },
+      },
+      history,
+    } = this.props;
     if (!getDoneStorage.length) {
       return (
         <button
@@ -108,6 +150,18 @@ class DrinkDetails extends Component {
           className="finish-button-recipe"
         >
           Iniciar Receita
+        </button>
+      );
+    }
+    if (getProgressRecipeStorage) {
+      return (
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          onClick={ () => history.push(`/bebidas/${id}/in-progress`) }
+          className="finish-button-recipe"
+        >
+          Continuar Receita
         </button>
       );
     }
@@ -134,21 +188,11 @@ class DrinkDetails extends Component {
             <h3 data-testid="recipe-category">{strAlcoholic}</h3>
           </div>
           <div className="images-container">
-            <p>{ valueCopied }</p>
-            <button
-              type="button"
-              onClick={ this.handleCopy }
-            >
-              <img
-                data-testid="share-btn"
-                src={ shareIcon }
-                alt="shareIcon"
-              />
+            <p>{valueCopied}</p>
+            <button type="button" onClick={ this.handleCopy }>
+              <img data-testid="share-btn" src={ shareIcon } alt="shareIcon" />
             </button>
-            <button
-              type="button"
-              onClick={ this.changeFavorite }
-            >
+            <button type="button" onClick={ this.changeFavorite }>
               <img
                 data-testid="favorite-btn"
                 src={ favorite ? blackHeartIcon : whiteHeartIcon }
@@ -160,15 +204,14 @@ class DrinkDetails extends Component {
         <div className="ingredients-container">
           <h1>Ingredientes</h1>
           <ul className="list-container">
-            {ingredients
-              .map((ingredient, index) => (
-                <li
-                  key={ ingredient }
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {`${ingredient} - ${measurement[index]}`}
-                </li>
-              ))}
+            {ingredients.map((ingredient, index) => (
+              <li
+                key={ ingredient }
+                data-testid={ `${index}-ingredient-name-and-measure` }
+              >
+                {`${ingredient} - ${measurement[index]}`}
+              </li>
+            ))}
           </ul>
         </div>
         <div className="instructions-container">
@@ -178,33 +221,27 @@ class DrinkDetails extends Component {
         <div className="recomendations-container">
           <h1>Recomendadas</h1>
           <div className="div-recomendations">
-            {
-              recomendations.meals
-                .filter((_meal, index) => index < MEAL_LENGTH)
-                .map((meal, index) => (
-                  <div
+            {recomendations.meals
+              .filter((_meal, index) => index < MEAL_LENGTH)
+              .map((meal, index) => (
+                <div
+                  key={ meal.strMeal }
+                  className="div-recomendations-children"
+                  data-testid={ `${index}-recomendation-card` }
+                >
+                  <img src={ meal.strMealThumb } alt={ meal.strMeal } />
+                  <h6 key={ meal.strCategory }>{meal.strCategory}</h6>
+                  <h4
                     key={ meal.strMeal }
-                    className="div-recomendations-children"
-                    data-testid={ `${index}-recomendation-card` }
+                    data-testid={ `${index}-recomendation-title` }
                   >
-                    <img src={ meal.strMealThumb } alt={ meal.strMeal } />
-                    <h6 key={ meal.strCategory }>{ meal.strCategory }</h6>
-                    <h4
-                      key={ meal.strMeal }
-                      data-testid={ `${index}-recomendation-title` }
-                    >
-                      { meal.strMeal }
-                    </h4>
-                  </div>
-                ))
-            }
+                    {meal.strMeal}
+                  </h4>
+                </div>
+              ))}
           </div>
         </div>
-        <div className="finish-button-container">
-          {
-            this.showButton()
-          }
-        </div>
+        <div className="finish-button-container">{this.showButton()}</div>
       </div>
     );
   }
