@@ -8,13 +8,18 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Loading from '../components/Loading';
 import { favoriteDrinkLocalStorage } from '../localStorage/favoriteRecipes';
 import { doneDrinkLocalStorage } from '../localStorage/doneRecipes';
-import '../css/details.css';
+import {
+  checkProgressDrinkLocalStorage,
+  setIngredientDrinkLocalStorage,
+  checkedDrinkIngredients } from '../localStorage/inProgressRecipes';
 
 class DrinkInProgress extends Component {
   constructor(props) {
     super(props);
 
     this.handleState = this.handleState.bind(this);
+    this.handleButtonEnabled = this.handleButtonEnabled.bind(this);
+    this.handleCheckbox = this.handleCheckbox.bind(this);
     this.changeFavorite = this.changeFavorite.bind(this);
     this.createFavoriteLocalStorage = this.createFavoriteLocalStorage.bind(this);
 
@@ -24,6 +29,7 @@ class DrinkInProgress extends Component {
       measurement: [],
       request: true,
       favorite: false,
+      button: true,
     };
   }
 
@@ -33,6 +39,7 @@ class DrinkInProgress extends Component {
     requestRecipes(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
     this.createFavoriteLocalStorage('favoriteRecipes');
     this.createFavoriteLocalStorage('doneRecipes');
+    checkProgressDrinkLocalStorage(id);
   }
 
   componentDidUpdate() {
@@ -65,6 +72,26 @@ class DrinkInProgress extends Component {
     });
   }
 
+  handleButtonEnabled() {
+    const doneIngredients = document.querySelectorAll('input:checked');
+    const allIngredients = document.getElementsByClassName('form-check-input');
+    if (doneIngredients.length === allIngredients.length) {
+      this.setState({
+        button: false,
+      });
+    } else {
+      this.setState({
+        button: true,
+      });
+    }
+  }
+
+  handleCheckbox({ target: { id: ingredient } }) {
+    const { match: { params: { id } } } = this.props;
+    setIngredientDrinkLocalStorage(id, ingredient);
+    this.handleButtonEnabled();
+  }
+
   changeFavorite() {
     this.setState((prevState) => ({
       favorite: !prevState.favorite,
@@ -93,11 +120,11 @@ class DrinkInProgress extends Component {
   }
 
   render() {
-    const { history } = this.props;
-    const { drinks, ingredients, favorite, measurement } = this.state;
+    const { history, match: { params: { id } } } = this.props;
+    const { drinks, ingredients, favorite, measurement, button } = this.state;
     const { strDrinkThumb, strDrink, strInstructions, strAlcoholic } = drinks;
 
-    if (!ingredients) return <Loading />;
+    if (!strDrinkThumb) return <Loading />;
     return (
       <div className="main-container">
         <img
@@ -148,6 +175,7 @@ class DrinkInProgress extends Component {
                     className="form-check-input"
                     id={ ingredient }
                     onClick={ this.handleCheckbox }
+                    checked={ checkedDrinkIngredients(id, ingredient) }
                   />
                   <label
                     className="form-check-label"
@@ -170,6 +198,7 @@ class DrinkInProgress extends Component {
             data-testid="finish-recipe-btn"
             onClick={ () => history.push('/receitas-feitas') }
             className="finish-button-recipe"
+            disabled={ button }
           >
             Finalizar Receita
           </button>
