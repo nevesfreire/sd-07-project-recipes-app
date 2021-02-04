@@ -13,7 +13,7 @@ const profileTopBtn = (profileButton, history) => {
       <Button
         type="button"
         variant="contained"
-        color="primary"
+        // color="primary"
         onClick={ () => history.push('/perfil') }
       >
         <img
@@ -43,7 +43,7 @@ const searchBtn = (searchButton, toggleSearch, onClick) => {
         type="button"
         data-testid="header_search_bar"
         variant="contained"
-        color="primary"
+        // color="primary"
         onClick={ (e) => onClick(e) }
       >
         <img
@@ -73,23 +73,10 @@ export default function Header() {
 
   const render = () => (
     <div className="header">
-      <div className="profile-title">
-        {pageTitle(title)}
-      </div>
-
-      <div className="header-buttons">
-        <div className="profile-search">
-          {searchBtn(searchButton, toggleSearch, callSearch)}
-        </div>
-        <div className="profile-btn">
-          {profileTopBtn(profileButton, history)}
-        </div>
-      </div>
-
-      <div className="profile-slash">
-        {searchRecipeComponent(pathname, toggleSearch, title)}
-      </div>
-
+      {pageTitle(title)}
+      {searchBtn(searchButton, toggleSearch, callSearch)}
+      {profileTopBtn(profileButton, history)}
+      {searchRecipeComponent(pathname, toggleSearch, title)}
     </div>
   );
 

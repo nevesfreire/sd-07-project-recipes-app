@@ -4,10 +4,7 @@
 }
 
 .header-container {
-    margin: 30px;
-}
-
-.header-container {
+    border: 1px  solid black;
     display: flex;
 }
 

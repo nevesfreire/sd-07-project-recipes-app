@@ -52,6 +52,12 @@ export default function InputLogin() {
     setLogin({ ...login, [name]: value });
   };
 
+  const setLocalStorageData = () => {
+    localStorage.setItem('mealsToken', JSON.stringify(1));
+    localStorage.setItem('cocktailsToken', JSON.stringify(1));
+    localStorage.setItem('user', JSON.stringify({ email: state.user }));
+  };
+
   const callRoute = () => {
     setState((s) => ({
       ...s,
@@ -60,6 +66,7 @@ export default function InputLogin() {
       searchButton: true,
       toggleSearch: false,
     }));
+    setLocalStorageData();
     return history.push('/comidas');
   };
 

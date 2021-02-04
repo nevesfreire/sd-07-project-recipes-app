@@ -14,14 +14,14 @@ function Footer() {
   const callFood = () => (history.push('/comidas'));
 
   return (
-    <footer data-testid="footer">
-      <Button onClick={ callDrinks }>
+    <footer data-testid="footer" className="footer footer-container">
+      <Button onClick={ callDrinks } className="footer-buttons">
         <img data-testid="drinks-bottom-btn" src={ drinkIcon } alt="drink" />
       </Button>
-      <Button onClick={ callExplore }>
+      <Button onClick={ callExplore } className="footer-buttons">
         <img data-testid="explore-bottom-btn" src={ exploreIcon } alt="explore" />
       </Button>
-      <Button onClick={ callFood }>
+      <Button onClick={ callFood } className="footer-buttons">
         <img data-testid="food-bottom-btn" src={ mealIcon } alt="food" />
       </Button>
     </footer>

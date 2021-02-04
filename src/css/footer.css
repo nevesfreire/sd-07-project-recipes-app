@@ -1,0 +1,16 @@
+.footer {
+  display: flex;
+  flex-direction: row;
+}
+
+.footer-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 30px;
+  width: 100%;
+}
+
+.footer-buttons {
+  display: flex;
+}
