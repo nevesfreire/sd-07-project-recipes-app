@@ -37,19 +37,19 @@ describe('Testar o componente Header.', () => {
   });
   test('Não tem header na tela de detalhes de uma receita de comida', () => {
     const { queryByTestId } = render(
-      <ComidasDetalhes  match={params:id:15997} } history={ createBrowserHistory() } />,
+      <ComidasDetalhes match={ { params:{id:11011}} } history={ createBrowserHistory() } />,
     );
     expect(queryByTestId('Header')).toBeNull();
   });
   test('Não tem header na tela de detalhes de uma receita de bebidas', () => {
     const { queryByTestId } = render(
-      <BebidasDetalhes history={ createBrowserHistory() } />,
+      <BebidasDetalhes match={ { params:{id:11011}} } history={ createBrowserHistory() } />,
     );
     expect(queryByTestId('Header')).toBeNull();
   });
   test('Não tem header na tela de receita em processo de bebida', () => {
     const { queryByTestId } = render(
-      <ProgressoBebidas history={ createBrowserHistory() } />,
+      <ProgressoBebidas match={ { params:{id:11011}} } history={ createBrowserHistory() } />,
     );
     expect(queryByTestId('Header')).toBeNull();
   });
