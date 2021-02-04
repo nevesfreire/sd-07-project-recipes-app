@@ -9,6 +9,8 @@ function RecipeProvider({ children }) {
   const [detailsRecipe, setDetailsRecipe] = useState([]);
   const [typeAndIdDetails, setTypeAndIdDetails] = useState({});
   const [recomendations, setRecomendations] = useState({});
+  const [drinkStateButton, setDrinkStateButton] = useState(true);
+  const [mealStateButton, setMealStateButton] = useState(true);
 
   const context = {
     recipes,
@@ -23,6 +25,10 @@ function RecipeProvider({ children }) {
     setTypeAndIdDetails,
     setRecomendations,
     recomendations,
+    drinkStateButton,
+    setDrinkStateButton,
+    mealStateButton,
+    setMealStateButton,
   };
 
   return (
