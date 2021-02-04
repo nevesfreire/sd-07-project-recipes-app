@@ -35,13 +35,14 @@ const filterIngredientsAndMeasures = (
 };
 
 function DetalhesBebidas({ match: { params: { id } } }) {
-  const [drinkDetails, setDrinkDetails] = useState([]);
   const [recommendedForThisDrink, setRecommendedForThisDrink] = useState([]);
   const [startRecipeButton, setStartRecipeButton] = useState('Iniciar Receita');
   const [startButtonVisibility, setStartButtonVisibility] = useState({});
   const [copyVisibility, setCopyVisibility] = useState('hidden');
 
   const {
+    drinkDetails,
+    setDrinkDetails,
     ingredientsAndMeasures,
     setIngredientsAndMeasures,
   } = useContext(CoffeAndCodeContext);
@@ -145,7 +146,7 @@ function DetalhesBebidas({ match: { params: { id } } }) {
             <img src={ shareIcon } alt="Share icon" />
           </button>
         </CopyToClipboard>
-        <FavoriteHeart id={ id } drinkDetails={ drinkDetails } />
+        <FavoriteHeart id={ id } drink />
         <small style={ { visibility: copyVisibility } }>Link copiado!</small>
         {/* </div> */}
       </div>

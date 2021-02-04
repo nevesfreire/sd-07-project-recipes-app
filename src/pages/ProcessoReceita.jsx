@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
+import CoffeAndCodeContext from '../context/CoffeeAndCodeContext';
 
-function ProcessoReceita() {
-  return <div>oi</div>;
+function ProcessoReceita({ match: { params: { id } }, history }) {
+  const {
+    ingredientsAndMeasures,
+    foodDetails,
+  } = useContext(CoffeAndCodeContext)
+  return (
+    <div>
+
+    </div>
+  );
 }
 
 export default ProcessoReceita;
