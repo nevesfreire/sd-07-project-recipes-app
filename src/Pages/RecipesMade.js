@@ -32,7 +32,7 @@ function RecipesMade() {
     const doneRecipesLocal = getItemsFromStorage();
     setDoneRecipes(doneRecipesLocal);
   }, []);
-
+  console.log("receitas feitas", doneRecipes)
   return (
     <div>
       <button type="button" data-testid="filter-by-all-btn" onClick={ () => { handleFilter('all'); } }>All</button>
