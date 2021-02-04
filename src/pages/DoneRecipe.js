@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import copy from 'clipboard-copy';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { copyButton } from '../actions';
@@ -13,7 +14,6 @@ class DoneRecipe extends Component {
 
   handleClipBoard(type, id) {
     const { executeCopy } = this.props;
-    const copy = require('clipboard-copy');
     copy(`http://localhost:3000/${type}s/${id}`);
     executeCopy('Link copiado!');
   }

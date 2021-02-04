@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import copy from 'clipboard-copy';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchRecipes, copyButton } from '../actions';
@@ -93,7 +94,6 @@ class DrinkInProgress extends Component {
 
   handleCopy() {
     const { executeCopy, location: { pathname } } = this.props;
-    const copy = require('clipboard-copy');
     copy(`http://localhost:3000${pathname}`);
     executeCopy('Link copiado!');
   }
