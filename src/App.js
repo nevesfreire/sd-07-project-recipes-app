@@ -13,6 +13,8 @@ import ExploreDrink from './pages/ExploreDrink';
 import FoodIngredient from './pages/FoodIngredient';
 import DrinkIngredient from './pages/DrinkIngredient';
 import FoodArea from './pages/FoodArea';
+import DrinkInProgress from './pages/DrinkInProgress';
+import FoodInProgress from './pages/FoodInProgress';
 
 function App() {
   const stringPath = '/explorar/bebidas/ingredientes';
@@ -22,8 +24,8 @@ function App() {
         <Route exact path="/" component={ Login } />
         <Route exact path="/comidas" component={ FoodRecipes } />
         <Route exact path="/bebidas" component={ DrinkRecipes } />
-        <Route path="/comidas/:id" component={ FoodDetails } />
-        <Route path="/bebidas/:id" component={ DrinkDetails } />
+        <Route exact path="/comidas/:id" component={ FoodDetails } />
+        <Route exact path="/bebidas/:id" component={ DrinkDetails } />
         <Route exact path="/perfil" component={ Profile } />
         <Route exact path="/explorar" component={ Explore } />
         <Route exact path="/explorar/comidas" component={ ExploreFood } />
@@ -31,6 +33,8 @@ function App() {
         <Route exact path="/explorar/comidas/ingredientes" component={ FoodIngredient } />
         <Route exact path={ stringPath } component={ DrinkIngredient } />
         <Route exact path="/explorar/comidas/area" component={ FoodArea } />
+        <Route path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
+        <Route path="/comidas/:id/in-progress" component={ FoodInProgress } />
       </BrowserRouter>
     </Provider>
   );
