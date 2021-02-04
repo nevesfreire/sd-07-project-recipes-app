@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Container, Col, Row } from 'react-bootstrap';
 
-class InProgressMeals extends React.Component {
+class InProgressDrinks extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -18,13 +18,14 @@ class InProgressMeals extends React.Component {
   }
 
   maracutaia() {
-    const { inProgressRecipes } = this.props;
+    const { inProgressRecipesDrink } = this.props;
     const ingredientsList = [];
     const ingrentsMeasuresList = [];
-    Object.entries(inProgressRecipes).filter((item) => (
-      item[0].includes('strIngredient') && item[1] !== '' && ingredientsList.push(item[1])
+    Object.entries(inProgressRecipesDrink).filter((item) => (
+      (item[0].includes('strIngredient') && item[1] !== '' && item[1] !== null)
+      && ingredientsList.push(item[1])
     ));
-    Object.entries(inProgressRecipes).filter((item) => (
+    Object.entries(inProgressRecipesDrink).filter((item) => (
       (item[0].includes('strMeasure') && item[1] !== ' ' && item[1] !== null)
        && ingrentsMeasuresList.push(item[1])
     ));
@@ -32,13 +33,13 @@ class InProgressMeals extends React.Component {
   }
 
   render() {
-    const { inProgressRecipes } = this.props;
+    const { inProgressRecipesDrink } = this.props;
     const { ingredientsList, ingrentsMeasuresList } = this.state;
     return (
       <Container fluid>
         <Col>
           <img
-            src={ inProgressRecipes.strMealThumb }
+            src={ inProgressRecipesDrink.strMealThumb }
             style={ { width: '20%' } }
             data-testid="recipe-photo"
             alt="someAlt"
@@ -47,12 +48,12 @@ class InProgressMeals extends React.Component {
         <h3
           data-testid="recipe-title"
         >
-          {inProgressRecipes.strMeal}
+          {inProgressRecipesDrink.strMeal}
         </h3>
         <p
           data-testid="recipe-category"
         >
-          {inProgressRecipes.strArea}
+          {inProgressRecipesDrink.strArea}
         </p>
         <Col>
           <Row>
@@ -62,12 +63,13 @@ class InProgressMeals extends React.Component {
                 key={ index }
               >
                 <p>
-                  {`${item} ${ingrentsMeasuresList[index]}`}
+                  {`${item} 
+                  ${ingrentsMeasuresList[index] ? ingrentsMeasuresList[index] : ''}`}
                 </p>
               </Col>
             ))}
             <span data-testid="instructions">
-              {inProgressRecipes.strInstructions}
+              {inProgressRecipesDrink.strInstructions}
             </span>
             <button
               type="button"
@@ -94,12 +96,12 @@ class InProgressMeals extends React.Component {
   }
 }
 
-const mapStateToProps = ({ recipes: { inProgressRecipes } }) => (
-  { inProgressRecipes }
+const mapStateToProps = ({ recipes: { inProgressRecipesDrink } }) => (
+  { inProgressRecipesDrink }
 );
 
-InProgressMeals.propTypes = {
-  inProgressRecipes: PropTypes.shape(PropTypes.object).isRequired,
+InProgressDrinks.propTypes = {
+  inProgressRecipesDrink: PropTypes.shape(PropTypes.object).isRequired,
 };
 
-export default connect(mapStateToProps)(InProgressMeals);
+export default connect(mapStateToProps)(InProgressDrinks);

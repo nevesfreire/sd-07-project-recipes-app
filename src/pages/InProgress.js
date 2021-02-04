@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import InProgressDrinks from '../components/InProgressDrinks';
 import InProgressMeals from '../components/InProgressMeals';
 import Loading from '../components/Loading';
 
@@ -26,12 +27,12 @@ class MainRecipes extends React.Component {
   }
 
   render() {
-    const { location : { pathname }, inProgressRecipes: { idMeal } } = this.props;
-    console.log(idMeal)
-    console.log(pathname)
+    const { location : { pathname }, inProgressRecipes, inProgressRecipesDrink } = this.props;
     return (
       <div>
-        { pathname === `/comidas/${idMeal}/in-progress` ? <InProgressMeals /> : <Loading /> }
+        {(inProgressRecipes
+          && pathname === `/comidas/${inProgressRecipes.idMeal}/in-progress`) ? (
+            <InProgressMeals />) : <InProgressDrinks /> }
       </div>
     );
   }
