@@ -77,8 +77,8 @@ body {
 }
 
 .card-my-recipes {
-  max-width: 350px;
   max-height: 250px;
+  max-width: 350px;
 }
 
 .card-combined-itens {
@@ -86,8 +86,8 @@ body {
 }
 
 .card-img-done {
-  width: 100px;
   height: 100px;
+  width: 100px;
 }
 
 .footer-nav {
