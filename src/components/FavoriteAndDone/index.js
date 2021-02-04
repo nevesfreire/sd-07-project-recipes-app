@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import ShareButton from '../ShareButton';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import { setStorage, getStorage } from '../../services/localStorage';
+import './style.css';
 
 function FavoriteAndDone({ data }) {
   const [filter, setFilter] = useState(undefined);
@@ -61,6 +62,7 @@ function FavoriteAndDone({ data }) {
               <div key={ index }>
                 <Link to={ `/${item.type}s/${item.id}` }>
                   <img
+                    className="favorite-and-done-image"
                     data-testid={ `${index}-horizontal-image` }
                     src={ item.image }
                     alt={ item.name }

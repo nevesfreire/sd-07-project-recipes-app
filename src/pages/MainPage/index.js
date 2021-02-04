@@ -81,6 +81,9 @@ function MainPage(props) {
           name={ (isMeal) ? item.strMeal : item.strDrink }
           thumb={ (isMeal) ? item.strMealThumb : item.strDrinkThumb }
           recipeType={ (isMeal) ? 'comidas' : 'bebidas' }
+          testIdCard={ `${index}-recipe-card` }
+          testIdThumb={ `${index}-card-img` }
+          testIdTitle={ `${index}-card-name` }
         />
       ))
     );
