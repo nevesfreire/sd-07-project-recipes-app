@@ -44,6 +44,7 @@ export const singleMeal = async (idMeal) => {
   const tags = resolveJson.meals[0].strTags === null
     ? []
     : resolveJson.meals[0].strTags.split(',');
+
   const objectModel = {
     idRecipe: resolveJson.meals[0].idMeal,
     nameRecipe: resolveJson.meals[0].strMeal,
