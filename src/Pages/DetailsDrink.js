@@ -41,7 +41,6 @@ function DetailsDrink() {
   //   }
   //   return localStorageRecipes.cocktails[newUrlId].length
   // }
-
   const { strCategory,
     idDrink,
     strDrink,
@@ -56,15 +55,6 @@ function DetailsDrink() {
   };
   // verifica se a página já carrega como favorito
   detailsDidMount(buttonClicked, favoriteRecipe, setFavoriteRecipe, currentRecipe);
-
-  const allRecipe = Object.entries(detailsRecipe.drinks[0]);
-  console.log('allrceipes', detailsRecipe.drinks[0]);
-  const ingredients = allRecipe.filter(
-    (ingredient) => (ingredient[0].includes('strIngredient') && ingredient[1] !== ''),
-  );
-  const measures = allRecipe.filter(
-    (measure) => (measure[0].includes('strMeasure') && measure[1] !== ' '),
-  );
 
   const drink = detailsRecipe.drinks[0];
   const keysDrink = Object.keys(drink);
