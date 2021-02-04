@@ -49,8 +49,9 @@ const Details = ({ type, recipe, recommend, ingredientes, id, medidas }) => {
 
   const handleStartRecipe = () => {
     const today = new Date();
-    const doneDate = `${today.getDay()}/${today.getMonth}/${today.getFullYear}`;
-    const tags = ['Pasta', 'Curry']; // strTags
+    const doneDate = `${today.getDay()}/${today.getMonth()}/${today.getFullYear()}`;
+    const novatag = recipe.strTags;
+    const tags = novatag && novatag.split(',');
     const atributes = { name, id, type, doneDate, tags };
     history.push(`/${type}s/${id}/in-progress`);
     addFavorite('doneRecipes', recipe, atributes);
@@ -156,6 +157,7 @@ Details.propTypes = {
     strInstructions: PropTypes.string,
     strYoutube: PropTypes.string,
     strArea: PropTypes.string,
+    strTags: PropTypes.string,
   }).isRequired,
   recommend: PropTypes.arrayOf(PropTypes.object).isRequired,
   ingredientes: PropTypes.arrayOf(PropTypes.string).isRequired,
