@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '../styles/components/footer.css';
+import shareIcon from '../images/shareIcon.svg';
 import { loadState } from '../services/localStorage';
 import { requestApiFoodDetails } from '../services/requestFood';
 import { recommendDrinksList } from '../services/requestDrink';
@@ -37,6 +39,7 @@ function DetalhesReceitas({ match: { params: { id } } }) {
   const [recommendedForThisFood, setRecommendedForThisFood] = useState([]);
   const [startRecipeButton, setStartRecipeButton] = useState('Iniciar Receita');
   const [startButtonVisibility, setStartButtonVisibility] = useState({});
+  const [copyVisibility, setCopyVisibility] = useState('hidden');
 
   const sliderSettings = {
     dots: true,
@@ -136,6 +139,18 @@ function DetalhesReceitas({ match: { params: { id } } }) {
             { foodDetails.strCategory }
           </span>
         </div>
+      </div>
+      <div>
+        <CopyToClipboard text={ window.location.href }>
+          <button
+            type="button"
+            data-testid="share-btn"
+            onClick={ () => setCopyVisibility('visible') }
+          >
+            <img src={ shareIcon } alt="Share icon" />
+          </button>
+        </CopyToClipboard>
+        <small style={ { visibility: copyVisibility } }>Link copiado!</small>
       </div>
       <div>
         <p>Ingredients</p>
