@@ -12,7 +12,10 @@ import {
   setLikeImage,
 } from '../components/func_details';
 
-function DrinkProcess(props) {
+function DrinkProcess({
+  match: { params: { id } },
+  history: { location: { pathname } },
+}) {
   const contextGlobal = useContext(GlobalContext);
   const { setTitle } = contextGlobal;
   const context = useContext(RecipeDetailsContext);
@@ -33,11 +36,8 @@ function DrinkProcess(props) {
     getRecipeInstructions,
     setRecipeInstructions,
   } = context;
-  const { match, history: { location: { pathname } } } = props;
-  const { params } = match;
-  const { id } = params;
 
-  const ingredientsMount = (fnSetRecipeIngredients, value) => {
+  const ingredientsMount = (value) => {
     const initialIndex = 0;
     const halfIndex = 2;
     const ingredients = Object.entries(value.drinks[0])
@@ -54,20 +54,21 @@ function DrinkProcess(props) {
         `${ingredients[i]} - ${ingredients[i + ingredients.length / halfIndex]}`,
       );
     }
-    fnSetRecipeIngredients(ingredientsMeasures);
+    setRecipeIngredients(ingredientsMeasures);
   };
 
   const fetchRecipe = async () => {
-    // const path = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=178319';
-    const path = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+    const path = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=178319';
+    // const path = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
     const getRecipe = await fetch(path);
-    const result = await getRecipe.json();
-    setRecipeTitle(result.drinks[0].strDrink);
-    setRecipeCategory(result.drinks[0].strCategory);
-    setRecipeImage(result.drinks[0].strDrinkThumb);
-    setRecipeInstructions(result.drinks[0].strInstructions);
-    setRecipeAlc(result.drinks[0].strAlcoholic);
-    ingredientsMount(setRecipeIngredients, result);
+    const jsonRecipe = await getRecipe.json();
+    console.log(jsonRecipe);
+    setRecipeTitle(jsonRecipe.drinks[0].strDrink);
+    setRecipeCategory(jsonRecipe.drinks[0].strCategory);
+    setRecipeImage(jsonRecipe.drinks[0].strDrinkThumb);
+    setRecipeInstructions(jsonRecipe.drinks[0].strInstructions);
+    setRecipeAlc(jsonRecipe.drinks[0].strAlcoholic);
+    ingredientsMount(jsonRecipe);
     setIsLoading(false);
   };
 
@@ -138,14 +139,13 @@ function DrinkProcess(props) {
     }
   };
 
-  const handleToogle = (item) => {
+  const handleClass = (item) => {
     if (localStorage.getItem('inProgressRecipes')) {
-      const prevLocalStorage = JSON
+      const previousLocalStorage = JSON
         .parse(localStorage.getItem('inProgressRecipes'));
-      // console.log(prevLocalStorage);
-      const onHere = prevLocalStorage.meals[id]
+      const isThere = previousLocalStorage.cocktails[id]
         .find((currentItem) => currentItem === item);
-      if (onHere) {
+      if (isThere) {
         return 'is-checked';
       }
     }
@@ -223,43 +223,52 @@ function DrinkProcess(props) {
   useEffect(() => {
   }, [inProgressRecipes]);
 
-  return(
-    <div className="recipe-details-container">
+  return (
+    <div className="recipe-in-progress-container">
       <img
+        data-testid="recipe-photo"
+        className="recipe-in-progress-image"
         src={ getRecipeImage }
         alt={ getRecipeTitle }
-        data-testid="recipe-photo"
-        className="recipe-details-image"
       />
-      <h1 data-testid="recipe-title" className="recipe-in-progress-name">
+      <h1
+        data-testid="recipe-title"
+        className="recipe-in-progress-name"
+      >
         { getRecipeTitle }
       </h1>
       <div className="favorite-and-share-btn-container">
-        <button type="button" onClick={ handleImage } className="favorite-btn">
-          <img src={ btnImg } alt="like" data-testid="favorite-btn" />
+        <button type="button" onClick={ handleImage } className="favorite-btn" data-testid="share-btn">
+          <img
+            src={ btnImg }
+            alt="like"
+            data-testid="favorite-btn"
+          />
         </button>
         <ShareButton path={ pathname } />
       </div>
       <h3 className="recipe-in-progress-category">
         Category-
-        <span data-testid="recipe-category">{getRecipeCategory}</span>
+        <span data-testid="recipe-category">
+          { getRecipeCategory }
+        </span>
       </h3>
       <ul className="ingredients-checklist">
         { !isLoading && getRecipeIngredients.map((item, index) => (
           <li
-            key={ item }
-            data-testid={ `${index}-ingredient-step` }
+            key={ index }
+            data-testid="ingredient-step"
           >
             <label
               htmlFor={ item }
-              className={ handleToogle(item) }
+              className={ handleClass(item) }
             >
               <input
                 type="checkbox"
-                checked={ handleCheckedFromLocalStorage(item) }
+                // checked={ handleCheckedFromLocalStorage(item) }
                 name={ item }
                 id={ item }
-                onChange={ handleChecked }
+                // onChange={ handleChecked }
               />
               { item }
             </label>
@@ -267,15 +276,15 @@ function DrinkProcess(props) {
         ))}
       </ul>
       <p data-testid="instructions" className="recipe-in-progress-instructions">
-        {getRecipeInstructions}
+        { getRecipeInstructions }
       </p>
       <Link to="/receitas-feitas">
         <button
           type="button"
           data-testid="finish-recipe-btn"
           className="finish-recipe-btn"
-          disabled={ handleFinishRecipe(getRecipeIngredients.length) }
-          onClick={ handleDoneLocalStorage }
+          // disabled={ handleFinishRecipe(getRecipeIngredients.length) }
+          // onClick={ handleDoneLocalStorage }
         >
           Finalizar receita
         </button>
