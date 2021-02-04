@@ -22,7 +22,7 @@ function Provider({ children }) {
   const [idDetail, setIdDetail] = useState();
   const [searchCards, setSearchCards] = useState([]);
   const [favorite, setFavorite] = useState(false);
-  const [done, setDone] = useState(false);
+  const [done, setDone] = useState([]);
   const [recipe, setRecipe] = useState({});
 
   return (

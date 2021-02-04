@@ -76,3 +76,7 @@
   bottom: 0;
   position: fixed;
 }
+
+.progress-ingr-list {
+  list-style: none;
+}

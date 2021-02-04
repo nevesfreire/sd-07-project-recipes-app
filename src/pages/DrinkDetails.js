@@ -40,7 +40,7 @@ export default function DrinkDetails() {
 
   const ingredientsList = () => {
     for (let i = 1; i <= quinze; i += 1) {
-      if (recipe[`strIngredient${i}`] !== '') {
+      if (recipe[`strIngredient${i}`] !== null && recipe[`strIngredient${i}`] !== '') {
         listIngredients
           .push(`${recipe[`strIngredient${i}`]} - ${recipe[`strMeasure${i}`]}`);
       }

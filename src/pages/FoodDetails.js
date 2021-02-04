@@ -41,7 +41,7 @@ export default function FoodDetails() {
   const ingredientsList = () => {
     const vinte = 20;
     for (let i = 1; i <= vinte; i += 1) {
-      if (recipe[`strIngredient${i}`] !== '') {
+      if (recipe[`strIngredient${i}`] !== null && recipe[`strIngredient${i}`] !== '') {
         listIngredients
           .push(`${recipe[`strIngredient${i}`]} - ${recipe[`strMeasure${i}`]}`);
       }
@@ -80,6 +80,7 @@ export default function FoodDetails() {
       />
 
       <h2 data-testid="recipe-title">{recipe.strMeal}</h2>
+
       <h4 data-testid="recipe-category">{recipe.strCategory}</h4>
 
       <h3>Ingredientes</h3>
