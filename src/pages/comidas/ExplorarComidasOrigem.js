@@ -94,8 +94,7 @@ export default class ExplorarComidasOrigem extends React.Component {
   }
 
   render() {
-    const { recipes, areas, optionArea } = this.state;
-    console.log(recipes);
+    const { areas, optionArea } = this.state;
     return (
       <div>
         <Header title="Explorar Origem" />

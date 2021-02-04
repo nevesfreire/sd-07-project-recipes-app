@@ -20,10 +20,21 @@ class ProgressoComida extends React.Component {
     this.renderIngredient = this.renderIngredient.bind(this);
     this.copyingClipboard = this.copyingClipboard.bind(this);
     this.renderToReceitasFeitas = this.renderToReceitasFeitas.bind(this);
+    this.isFavorite = this.isFavorite.bind(this);
   }
 
   componentDidMount() {
     this.fetchData();
+    this.isFavorite();
+  }
+
+  isFavorite() {
+    const setFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (setFavorite) {
+      this.setState({
+        isFavorite: true,
+      });
+    }
   }
 
   async fetchData() {
@@ -36,18 +47,34 @@ class ProgressoComida extends React.Component {
     });
   }
 
-  async copyingClipboard() {
-    copy(window.location.href);
+  copyingClipboard() {
+    const url = window.location.href;
+    const newURL = url.split('/in-progress');
+    copy(newURL[0]);
     this.setState({
       copyClipboard: true,
     });
   }
 
   favoriteRecipe() {
-    const { isFavorite } = this.state;
+    const { recipe, isFavorite } = this.state;
     this.setState({
       isFavorite: !isFavorite,
     });
+    const favorite = [{
+      id: recipe.idMeal,
+      type: 'comida',
+      area: recipe.strArea,
+      category: recipe.strCategory,
+      alcoholicOrNot: '',
+      name: recipe.strMeal,
+      image: recipe.strMealThumb,
+    }];
+    if (isFavorite) {
+      localStorage.removeItem('favoriteRecipes');
+    } else {
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favorite));
+    }
   }
 
   renderIngredients() {
@@ -122,7 +149,6 @@ class ProgressoComida extends React.Component {
             <img src={ !isFavorite ? whiteHeartIcon : blackHeartIcon } alt="favorite" />
           </button>
         </div>
-        <p data-testid="recipe-category"> Texto</p>
         <p data-testid="recipe-category">{recipe.strCategory}</p>
         <ul>{this.renderIngredients()}</ul>
         <p data-testid="instructions">{recipe.strInstructions}</p>
