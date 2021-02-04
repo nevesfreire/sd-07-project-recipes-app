@@ -14,6 +14,7 @@ const INITIAL_STATE = {
   cocktails: [],
   cocktailsCategories: [],
   cocktailsIngredients: [],
+  ingredientCurrency: '',
   isFetchingCocktails: false,
   isFetchingCategories: false,
   isFetchingIngredients: false,

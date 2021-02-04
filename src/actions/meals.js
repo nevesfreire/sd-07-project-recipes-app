@@ -20,6 +20,8 @@ export const REQUEST_MEALS_INGREDIENTS = 'REQUEST_MEALS_INGREDIENTS';
 export const REQUEST_MEALS_INGREDIENTS_SUCCESS = 'REQUEST_MEALS_INGREDIENTS_SUCCESS';
 export const REQUEST_MEALS_INGREDIENTS_FAILURE = 'REQUEST_MEALS_INGREDIENTS_FAILURE ';
 
+export const MEALS_INGREDIENT_CURRENCY = 'MEALS_INGREDIENT_CURRENCY';
+
 const requestMeals = () => ({ type: REQUEST_MEALS });
 
 const setMealsSuccess = (meals) => (
@@ -45,6 +47,10 @@ const setMealsIngredientsSuccess = (ingredients) => ({
 
 const setMealsIngredientsFailure = (error) => ({
   type: REQUEST_MEALS_INGREDIENTS_FAILURE, error,
+});
+
+export const setMealsIngredientCurrency = (ingredient) => ({
+  type: MEALS_INGREDIENT_CURRENCY, ingredient,
 });
 
 export const fetchMealsByIngredient = (i) => (dispatch) => {

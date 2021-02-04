@@ -8,12 +8,14 @@ import {
   REQUEST_MEALS_INGREDIENTS,
   REQUEST_MEALS_INGREDIENTS_SUCCESS,
   REQUEST_MEALS_INGREDIENTS_FAILURE,
+  MEALS_INGREDIENT_CURRENCY,
 } from '../actions';
 
 const INITIAL_STATE = {
   meals: [],
   mealsCategories: [],
   mealsIngredients: [],
+  ingredientCurrency: '',
   isFetchingMeals: false,
   isFetchingCategories: false,
   isFetchingIngredients: false,
@@ -48,6 +50,8 @@ export default function meals(state = INITIAL_STATE, action) {
     };
   case REQUEST_MEALS_INGREDIENTS_FAILURE:
     return { ...state, isFetchingIngredients: false, error: action.error };
+  case MEALS_INGREDIENT_CURRENCY:
+    return { ...state, ingredientCurrency: action.ingredient };
   default:
     return state;
   }

@@ -39,7 +39,7 @@ const requestCocktailsIngredients = () => ({ type: REQUEST_COCKTAILS_INGREDIENTS
 
 const setCocktailsIngredientsSuccess = (ingredients) => (
   { type: COCKTAILS_INGREDIENTS_SUCCESS, ingredients });
-  
+
 const setCocktailsIngredientsFailure = (error) => (
   { type: COCKTAILS_INGREDIENTS_FAILURE, error });
 

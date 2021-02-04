@@ -23,7 +23,11 @@ class CocktailsIngredients extends Component {
       <div>
         <Header title="Bebidas" />
         { firstIngredients.map((ingredient, index) => (
-          <CocktailsIngredientCard key={ index } ingredient={ ingredient } index={ index } />
+          <CocktailsIngredientCard
+            key={ index }
+            ingredient={ ingredient }
+            index={ index }
+          />
         ))}
         <Footer />
       </div>

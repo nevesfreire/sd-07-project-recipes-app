@@ -7,6 +7,7 @@ import {
   fetchMealsByFirstLetter,
   fetchMealsByIngredient,
   fetchMealsByName,
+  setMealsIngredientCurrency,
 } from '../actions/meals';
 
 import {
@@ -57,7 +58,7 @@ const searchByCocktails = (options, word, {
 
 function SearchBar(props) {
   const {
-    toggle, title, meals, cocktails,
+    toggle, title, meals, cocktails, ingredientMealCur, sendMealsIngredientsCurrency,
   } = props;
 
   const [word, setWord] = useState('');
@@ -74,6 +75,12 @@ function SearchBar(props) {
     if (title === 'Comidas') searchByMeals(options, word, props);
     if (title === 'Bebidas') searchByCocktails(options, word, props);
   };
+
+  if (title === 'Comidas' && ingredientMealCur !== '') {
+    searchByMeals(INGREDIENT, ingredientMealCur, props);
+    sendMealsIngredientsCurrency('');
+    console.log('Stop');
+  }
 
   return (
     <div style={ { display: toggle ? 'inline' : 'none' } }>
@@ -153,6 +160,7 @@ const mapStateToProps = ({ searchToggleReducer, meals, cocktails }) => ({
   toggle: searchToggleReducer,
   meals: meals.meals,
   cocktails: cocktails.cocktails,
+  ingredientMealCur: meals.ingredientCurrency,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -162,6 +170,8 @@ const mapDispatchToProps = (dispatch) => ({
   searchCocktailByIngredient: (i) => dispatch(fetchCocktailsByIngredient(i)),
   searchCocktailByName: (name) => dispatch(fetchCocktailsByName(name)),
   searchCocktailByFirstLetter: (letter) => dispatch(fetchCocktailsByFirstLetter(letter)),
+  sendMealsIngredientsCurrency:
+    (ingredient) => dispatch(setMealsIngredientCurrency(ingredient)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

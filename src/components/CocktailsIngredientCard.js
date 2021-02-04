@@ -7,7 +7,11 @@ class CocktailsIngredientCard extends Component {
     return (
       <div>
         <div data-testid={ `${index}-ingredient-card` }>{ index + 1 }</div>
-        <img src={ `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png` } alt={ strIngredient1 } data-testid={ `${index}-card-img` } />
+        <img
+          src={ `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png` }
+          alt={ strIngredient1 }
+          data-testid={ `${index}-card-img` }
+        />
         <p data-testid={ `${index}-card-name` }>{ strIngredient1 }</p>
       </div>
     );
