@@ -2,7 +2,8 @@ import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 function Profile() {
-  const email = localStorage.getItem('user');
+  const email = Object.values(JSON.parse(localStorage.getItem('user')));
+  // const email = localStorage.getItem('user');
   const history = useHistory();
 
   const logOut = () => {
