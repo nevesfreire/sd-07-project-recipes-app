@@ -1,15 +1,10 @@
 import React from 'react';
 import { createBrowserHistory } from 'history';
-import store from '../redux/store';
 import Header from '../components/header/Header';
 import { render, fireEvent, screen } from './test-utils';
-import * as action from '../redux/actionsSearchBar';
 import Login from '../pages/Login';
 import ComidasDetalhes from '../pages/comidas/ComidaDetalhes';
 import BebidasDetalhes from '../pages/bebidas/BebidasDetalhes';
-import ProgressoBebidas from '../pages/bebidas/ProgressoBebidas';
-
-const newHistory = createBrowserHistory();
 
 describe('Testar o componente Header.', () => {
   test('Tem os data-testids profile-top-btn, page-title e search-top-btn', () => {
@@ -34,22 +29,15 @@ describe('Testar o componente Header.', () => {
   test('Não tem header na tela de detalhes de uma receita de comida', () => {
     const { queryByTestId } = render(
       <ComidasDetalhes
-        match={ { params:'0' } }
-        history={ createBrowserHistory() } />,
+        match={ { params: '0' } }
+        history={ createBrowserHistory() }
+      />,
     );
     expect(queryByTestId('Header')).toBeNull();
   });
   test('Não tem header na tela de detalhes de uma receita de bebidas', () => {
     const { queryByTestId } = render(
       <BebidasDetalhes match={ { params: '0' } } history={ createBrowserHistory() } />,
-    );
-    expect(queryByTestId('Header')).toBeNull();
-  });
-
-  test('Não tem header na tela de receita em processo de bebida', () => {
-    const { queryByTestId } = render(
-      <ProgressoBebidas match={ { params: { id: 11011 } } },
-        history={ createBrowserHistory() } />,
     );
     expect(queryByTestId('Header')).toBeNull();
   });
