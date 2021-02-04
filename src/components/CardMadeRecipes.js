@@ -44,17 +44,22 @@ function CardMadeRecipes({ recipe, index }) {
           </div>
         )}
 
-      <Link to={ `/comidas/${id}` }>
-        <div data-testid={ `${index}-horizontal-name` }><p>{name}</p></div>
-      </Link>
+      {type === 'comida'
+        ? (
+          <Link to={ `/comidas/${id}` }>
+            <div data-testid={ `${index}-horizontal-name` }><p>{name}</p></div>
+          </Link>)
+        : (
+          <Link to={ `/bebidas/${id}` }>
+            <div data-testid={ `${index}-horizontal-name` }><p>{name}</p></div>
+          </Link>
+        )}
 
       {type === 'comida'
         ? (
           <div data-testid={ `${index}-horizontal-top-text` }>
             <p>
-              {area}
-              -
-              {category}
+              {`${area} - ${category}`}
             </p>
           </div>
         )
@@ -66,13 +71,25 @@ function CardMadeRecipes({ recipe, index }) {
 
       <div data-testid={ `${index}-horizontal-done-date` }><p>{doneDate}</p></div>
 
-      <Link to={ `/comidas/${id}` }>
-        <img
-          data-testid={ `${index}-horizontal-image` }
-          alt="recipeImg"
-          src={ image }
-        />
-      </Link>
+      {type === 'bebida'
+        ? (
+          <Link to={ `/bebidas/${id}` }>
+            <img
+              data-testid={ `${index}-horizontal-image` }
+              alt="recipeImg"
+              src={ image }
+            />
+          </Link>
+        )
+        : (
+          <Link to={ `/comidas/${id}` }>
+            <img
+              data-testid={ `${index}-horizontal-image` }
+              alt="recipeImg"
+              src={ image }
+            />
+          </Link>
+        )}
 
       {type === 'comida'
         ? (
