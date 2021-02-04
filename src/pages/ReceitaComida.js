@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { apiTheMealDB, apiTheCocktailDB } from '../services';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-// import copy from '../helper/Require';
+import copy from '../helper/Require';
 
 class ReceitaComida extends React.Component {
   constructor() {
@@ -82,7 +82,7 @@ class ReceitaComida extends React.Component {
           data-testid="share-btn"
           onClick={ () => {
             this.setState({ copied: !copied });
-            // copy(`${recipe.strSource}`);
+            copy(`http://localhost:3000/comidas/${recipe.idMeal}`);
           } }
         >
           <img src={ shareIcon } alt="Share" />

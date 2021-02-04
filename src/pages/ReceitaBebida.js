@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { apiTheCocktailDB, apiTheMealDB } from '../services';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import copy from '../helper/Require';
 
 class ReceitaBebida extends React.Component {
   constructor() {
@@ -11,6 +12,7 @@ class ReceitaBebida extends React.Component {
     this.state = {
       recipe: '',
       mealList: [],
+      copied: false,
     };
 
     this.callRecipeAPI = this.callRecipeAPI.bind(this);
@@ -54,7 +56,7 @@ class ReceitaBebida extends React.Component {
 
   render() {
     const { history } = this.props;
-    const { recipe, mealList } = this.state;
+    const { recipe, copied, mealList } = this.state;
     const ingredientsArray = this.ingredientListHandle();
     if (recipe === '') {
       return <p>Loading...</p>;
@@ -80,9 +82,17 @@ class ReceitaBebida extends React.Component {
           )) }
         </ul>
         <p data-testid="instructions">{ recipe.strInstructions}</p>
-        <button type="button" data-testid="share-btn">
+        <button
+          type="button"
+          data-testid="share-btn"
+          onClick={ () => {
+            this.setState({ copied: !copied });
+            copy(`http://localhost:3000/bebidas/${recipe.idDrink}`);
+          } }
+        >
           <img src={ shareIcon } alt="Share" />
         </button>
+        {copied ? <span style={ { color: 'red' } }>Link copiado!</span> : null}
         <button type="button" data-testid="favorite-btn">
           <img src={ whiteHeartIcon } alt="Favorite" />
         </button>
