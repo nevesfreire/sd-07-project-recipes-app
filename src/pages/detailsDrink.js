@@ -73,11 +73,13 @@ function DetailsDrink() {
       </p>
       <h2>Instruções</h2>
       <p data-testid="instructions">{ dataDrink[0].strInstructions }</p>
-      <div data-testid="0-recomendation-card">
+      <div>
         <h2>Recomendadas</h2>
         {FoodRecom()}
       </div>
       <button
+        style={ { position: 'fixed', bottom: 0 } }
+        className="startRecipeBtn"
         type="button"
         data-testid="start-recipe-btn"
       >

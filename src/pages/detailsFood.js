@@ -97,11 +97,13 @@ function DetailsFood() {
         type="video/quicktime"
         src={ dataFood[0].strYoutube }
       />
-      <div data-testid="0-recomendation-card">
+      <div>
         <h2>Recomendadas</h2>
         {DrinkRecom()}
       </div>
       <button
+        style={ { position: 'fixed', bottom: 0 } }
+        className="startRecipeBtn"
         type="button"
         data-testid="start-recipe-btn"
       >
