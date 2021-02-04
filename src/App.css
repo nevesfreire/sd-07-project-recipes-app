@@ -86,3 +86,8 @@ body {
   position: fixed;
   width: 360px;
 }
+
+.recipes-start {
+  bottom: 0;
+  position: fixed;
+}

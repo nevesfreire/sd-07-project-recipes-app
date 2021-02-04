@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 
 import RecipesContext from './RecipesContext';
 import TitleContext from './TitleContext';
-import getMealWithId, { getDrinkWithId, getRecomendationDrink, getRecomendationMeal } from '../services/RecipesAPI';
+import getMealWithId, {
+  getDrinkWithId,
+  getRecomendationDrink,
+  getRecomendationMeal,
+} from '../services/RecipesAPI';
 
 function Provider({ children }) {
   const [mealDescription, setMealDescription] = useState({});
@@ -20,7 +24,7 @@ function Provider({ children }) {
       const recomend = await getRecomendationMeal();
       setRecomendation(recomend);
     }
-  }
+  };
 
   const fetchMealId = async (id, tipo = undefined) => {
     if (tipo === 'comida') {

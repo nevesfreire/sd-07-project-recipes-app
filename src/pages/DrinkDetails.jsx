@@ -1,4 +1,6 @@
 import React, { useEffect, useContext } from 'react';
+import PropTypes from 'prop-types';
+import { Carousel } from 'react-bootstrap';
 import RecipesContext from '../context/RecipesContext';
 
 export default function DrinkDetails(props) {
@@ -8,6 +10,9 @@ export default function DrinkDetails(props) {
     mealDescription: { drinks },
     recomendation: { meals },
   } = useContext(RecipesContext);
+
+  const zero = 0;
+  const seis = 6;
 
   useEffect(() => {
     const { id } = props.match.params;
@@ -19,7 +24,10 @@ export default function DrinkDetails(props) {
     const mealsReceived = drinks[0];
 
     for (let index = 1; mealsReceived[`strIngredient${index}`] !== null; index += 1) {
-      list.push(`${mealsReceived[`strIngredient${index}`]} - ${mealsReceived[`strMeasure${index}`]}`);
+      list
+        .push(`
+        ${mealsReceived[`strIngredient${index}`]} - ${mealsReceived[`strMeasure${index}`]}
+        `);
     }
     return list;
   };
@@ -61,16 +69,31 @@ export default function DrinkDetails(props) {
           src={ drinks[0].strYoutube }
           frameBorder="0"
         />
-        <div>
+        <Carousel>
           {meals.map((mealRecomendation, index) => (
-            <div key={ index } data-testid={ `${index}-recomendation-card` }>
-              <img alt="Recomendation Photo" src={mealRecomendation.strMealThumb}/>
-              <p data-testid={`${index}-recomendation-title`}>{mealRecomendation.strMeal}</p>
-            </div>
-          )).slice(0, 6)}
-        </div>
-        <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
+            <Carousel.Item key={ index } data-testid={ `${index}-recomendation-card` }>
+              <img alt="Recomendation" src={ mealRecomendation.strMealThumb } />
+              <Carousel.Caption>
+                <p
+                  data-testid={ `${index}-recomendation-title` }
+                >
+                  {mealRecomendation.strMeal}
+                </p>
+              </Carousel.Caption>
+            </Carousel.Item>
+          )).slice(zero, seis)}
+        </Carousel>
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          className="recipes-start"
+        >
+          Iniciar receita
+        </button>
       </div>
     </div>
   );
 }
+DrinkDetails.propTypes = {
+  match: PropTypes.elementType.isRequired,
+};
