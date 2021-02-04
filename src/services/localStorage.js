@@ -28,10 +28,10 @@ export const loadState = (state) => {
         state.recipes.cocktailsToken = resultStateKey || 1;
         break;
       case LS_KEYS.DONE_RECIPES_KEY:
-        state.recipes.doneRecipes = resultStateKey || [];
+        // state.recipes.doneRecipes = resultStateKey || []; // Comentei para iniciar com as informações na store
         break;
       case LS_KEYS.FAVORITE_RECIPES_KEY:
-        state.recipes.favoriteRecipes = resultStateKey || [];
+        // state.recipes.favoriteRecipes = resultStateKey || []; // Comentei para iniciar com as informações na store
         break;
       case LS_KEYS.IN_PROGRESS_RECIPES_KEY:
         if (resultStateKey !== null) {
