@@ -167,3 +167,7 @@ h1 {
   position: fixed;
   width: 100%;
 }
+
+.finish-button-recipe:disabled {
+  background: gray;
+}

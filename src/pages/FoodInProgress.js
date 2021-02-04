@@ -8,16 +8,23 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Loading from '../components/Loading';
 import { favoriteMealLocalStorage } from '../localStorage/favoriteRecipes';
 import { doneMealLocalStorage } from '../localStorage/doneRecipes';
-// import '../css/details.css';
+import {
+  checkProgressFoodLocalStorage,
+  setIngredientFoodLocalStorage,
+  checkedFoodIngredients,
+} from '../localStorage/inProgressRecipes';
 
 class FoodInProgress extends Component {
   constructor(props) {
     super(props);
 
     this.handleState = this.handleState.bind(this);
-    this.changeFavorite = this.changeFavorite.bind(this);
+    this.handleButtonEnabled = this.handleButtonEnabled.bind(this);
     this.handleCheckbox = this.handleCheckbox.bind(this);
-    this.createFavoriteLocalStorage = this.createFavoriteLocalStorage.bind(this);
+    this.changeFavorite = this.changeFavorite.bind(this);
+    this.createFavoriteLocalStorage = this.createFavoriteLocalStorage.bind(
+      this,
+    );
     this.handleCopy = this.handleCopy.bind(this);
     this.changeDone = this.changeDone.bind(this);
 
@@ -28,6 +35,7 @@ class FoodInProgress extends Component {
       request: true,
       favorite: false,
       done: false,
+      button: true,
     };
   }
 
@@ -43,6 +51,7 @@ class FoodInProgress extends Component {
     );
     this.createFavoriteLocalStorage('favoriteRecipes');
     this.createFavoriteLocalStorage('doneRecipes');
+    checkProgressFoodLocalStorage(id);
   }
 
   componentDidUpdate() {
@@ -88,37 +97,64 @@ class FoodInProgress extends Component {
     });
   }
 
-  handleCheckbox({ target }) {
-    console.log(target);
+  handleButtonEnabled() {
+    const doneIngredients = document.querySelectorAll('input:checked');
+    const allIngredients = document.getElementsByClassName('form-check-input');
+    if (doneIngredients.length === allIngredients.length) {
+      this.setState({
+        button: false,
+      });
+    } else {
+      this.setState({
+        button: true,
+      });
+    }
+  }
+
+  handleCheckbox({ target: { id: ingredient } }) {
+    const {
+      match: {
+        params: { id },
+      },
+    } = this.props;
+    setIngredientFoodLocalStorage(id, ingredient);
+    this.handleButtonEnabled();
   }
 
   handleCopy() {
-    const { executeCopy, location: { pathname } } = this.props;
+    const {
+      executeCopy,
+      location: { pathname },
+    } = this.props;
     const copy = require('clipboard-copy');
     copy(`http://localhost:3000${pathname}`);
     executeCopy('Link copiado!');
   }
 
   changeFavorite() {
-    this.setState((prevState) => ({
-      favorite: !prevState.favorite,
-    }),
-    () => {
-      const { meal, favorite } = this.state;
-      favoriteMealLocalStorage(meal, favorite, 'favoriteRecipes');
-    });
+    this.setState(
+      (prevState) => ({
+        favorite: !prevState.favorite,
+      }),
+      () => {
+        const { meal, favorite } = this.state;
+        favoriteMealLocalStorage(meal, favorite, 'favoriteRecipes');
+      },
+    );
   }
 
   changeDone() {
-    this.setState((prevState) => ({
-      done: !prevState.done,
-    }),
-    () => {
-      const { history } = this.props;
-      const { meal, done } = this.state;
-      doneMealLocalStorage(meal, done, 'doneRecipes');
-      history.push('/receitas-feitas');
-    });
+    this.setState(
+      (prevState) => ({
+        done: !prevState.done,
+      }),
+      () => {
+        const { history } = this.props;
+        const { meal, done } = this.state;
+        doneMealLocalStorage(meal, done, 'doneRecipes');
+        history.push('/receitas-feitas');
+      },
+    );
   }
 
   createFavoriteLocalStorage(keyStorage) {
@@ -144,10 +180,10 @@ class FoodInProgress extends Component {
   }
 
   render() {
-    const { valueCopied } = this.props;
-    const { meal, ingredients, favorite, measurement } = this.state;
+    const { valueCopied, match: { params: { id } } } = this.props;
+    const { meal, ingredients, favorite, measurement, button } = this.state;
     const { strMealThumb, strMeal, strCategory, strInstructions } = meal;
-    if (!ingredients) return <Loading />;
+    if (!strMealThumb) return <Loading />;
 
     return (
       <div className="main-container">
@@ -163,16 +199,9 @@ class FoodInProgress extends Component {
             <h3 data-testid="recipe-category">{strCategory}</h3>
           </div>
           <div className="images-container">
-            <p>{ valueCopied }</p>
-            <button
-              type="button"
-              onClick={ this.handleCopy }
-            >
-              <img
-                data-testid="share-btn"
-                src={ shareIcon }
-                alt="shareIcon"
-              />
+            <p>{valueCopied}</p>
+            <button type="button" onClick={ this.handleCopy }>
+              <img data-testid="share-btn" src={ shareIcon } alt="shareIcon" />
             </button>
             <button type="button" onClick={ this.changeFavorite }>
               <img
@@ -197,6 +226,7 @@ class FoodInProgress extends Component {
                   className="form-check-input"
                   id={ ingredient }
                   onClick={ this.handleCheckbox }
+                  checked={ checkedFoodIngredients(id, ingredient) }
                 />
                 <label className="form-check-label" htmlFor={ ingredient }>
                   {`${ingredient} - ${measurement[index]}`}
@@ -217,6 +247,7 @@ class FoodInProgress extends Component {
             data-testid="finish-recipe-btn"
             onClick={ this.changeDone }
             className="finish-button-recipe"
+            disabled={ button }
           >
             Finalizar Receita
           </button>

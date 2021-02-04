@@ -8,12 +8,17 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Loading from '../components/Loading';
 import { favoriteDrinkLocalStorage } from '../localStorage/favoriteRecipes';
 import { doneDrinkLocalStorage } from '../localStorage/doneRecipes';
-import '../css/details.css';
+import {
+  checkProgressDrinkLocalStorage,
+  setIngredientDrinkLocalStorage,
+  checkedDrinkIngredients } from '../localStorage/inProgressRecipes';
 
 class DrinkInProgress extends Component {
   constructor(props) {
     super(props);
     this.handleState = this.handleState.bind(this);
+    this.handleButtonEnabled = this.handleButtonEnabled.bind(this);
+    this.handleCheckbox = this.handleCheckbox.bind(this);
     this.changeFavorite = this.changeFavorite.bind(this);
     this.createFavoriteLocalStorage = this.createFavoriteLocalStorage.bind(this);
     this.handleCopy = this.handleCopy.bind(this);
@@ -24,7 +29,7 @@ class DrinkInProgress extends Component {
       measurement: [],
       request: true,
       favorite: false,
-      done: false,
+      button: true,
     };
   }
 
@@ -40,6 +45,7 @@ class DrinkInProgress extends Component {
     );
     this.createFavoriteLocalStorage('favoriteRecipes');
     this.createFavoriteLocalStorage('doneRecipes');
+    checkProgressDrinkLocalStorage(id);
   }
 
   componentDidUpdate() {
@@ -92,6 +98,26 @@ class DrinkInProgress extends Component {
     executeCopy('Link copiado!');
   }
 
+  handleButtonEnabled() {
+    const doneIngredients = document.querySelectorAll('input:checked');
+    const allIngredients = document.getElementsByClassName('form-check-input');
+    if (doneIngredients.length === allIngredients.length) {
+      this.setState({
+        button: false,
+      });
+    } else {
+      this.setState({
+        button: true,
+      });
+    }
+  }
+
+  handleCheckbox({ target: { id: ingredient } }) {
+    const { match: { params: { id } } } = this.props;
+    setIngredientDrinkLocalStorage(id, ingredient);
+    this.handleButtonEnabled();
+  }
+
   changeFavorite() {
     this.setState((prevState) => ({
       favorite: !prevState.favorite,
@@ -137,11 +163,11 @@ class DrinkInProgress extends Component {
   }
 
   render() {
-    const { valueCopied } = this.props;
-    const { drinks, ingredients, favorite, measurement } = this.state;
+    const { history, valueCopied, match: { params: { id } } } = this.props;
+    const { drinks, ingredients, favorite, measurement, button } = this.state;
     const { strDrinkThumb, strDrink, strInstructions, strAlcoholic } = drinks;
 
-    if (!ingredients) return <Loading />;
+    if (!strDrinkThumb) return <Loading />;
     return (
       <div className="main-container">
         <img
@@ -179,23 +205,28 @@ class DrinkInProgress extends Component {
         <div className="ingredients-container">
           <h1>Ingredientes</h1>
           <div className="list-container">
-            {ingredients.map((ingredient, index) => (
-              <div
-                className="form-check"
-                data-testid={ `${index}-ingredient-step` }
-                key={ ingredient }
-              >
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  id={ ingredient }
-                  onClick={ this.handleCheckbox }
-                />
-                <label className="form-check-label" htmlFor={ ingredient }>
-                  {`${ingredient} - ${measurement[index]}`}
-                </label>
-              </div>
-            ))}
+            {ingredients
+              .map((ingredient, index) => (
+                <div
+                  className="form-check"
+                  data-testid={ `${index}-ingredient-step` }
+                  key={ ingredient }
+                >
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    id={ ingredient }
+                    onClick={ this.handleCheckbox }
+                    checked={ checkedDrinkIngredients(id, ingredient) }
+                  />
+                  <label
+                    className="form-check-label"
+                    htmlFor={ ingredient }
+                  >
+                    {`${ingredient} - ${measurement[index]}`}
+                  </label>
+                </div>
+              ))}
           </div>
         </div>
         <div className="instructions-container">
@@ -209,6 +240,7 @@ class DrinkInProgress extends Component {
             data-testid="finish-recipe-btn"
             onClick={ this.changeDone }
             className="finish-button-recipe"
+            disabled={ button }
           >
             Finalizar Receita
           </button>
