@@ -1,0 +1,8 @@
+.start-recipe {
+  bottom: 0;
+  position: fixed;
+}
+
+.copy-feedback {
+  color: green;
+}

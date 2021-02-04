@@ -32,7 +32,6 @@ const Food = () => {
         onClick={ allButton }
       >
         All
-
       </button>
       {renderCards()}
       <Footer />
