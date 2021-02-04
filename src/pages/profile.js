@@ -42,7 +42,7 @@ function Profile() {
           <button
             data-testid="profile-logout-btn"
             type="button"
-            onClick={() => localStorage.clear()}
+            onClick={ () => localStorage.clear() }
           >
             Sair
           </button>
