@@ -2,15 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { CardAll, Header } from '../../Components';
 
 function FavoriteRecipes() {
-  const [getRecipe, setRecipe] = useState(JSON.parse(localStorage.getItem('favoriteRecipes')));
+  const [getRecipe, setRecipe] = useState(
+    JSON.parse(localStorage.getItem('favoriteRecipes')),
+  );
   const [FoodOrDrink, setRenderAll] = useState(getRecipe);
 
-  useEffect(() => {
-
-  }, [getRecipe]);
+  useEffect(() => {}, [getRecipe]);
 
   const handleDrink = () => {
-    const drink = getRecipe.filter((selectFood) => selectFood.type === 'bebida');
+    const drink = getRecipe.filter(
+      (selectFood) => selectFood.type === 'bebida',
+    );
     setRenderAll(drink);
   };
   const handleFood = () => {
