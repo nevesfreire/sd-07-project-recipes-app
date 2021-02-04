@@ -9,6 +9,7 @@ function Provider({ children }) {
   const [cardDrink, setCardDrink] = useState([]);
   const [categoriesButtonDrink, setCategoriesButtonDrink] = useState([]);
   const [categoriesButtonFood, setCategoriesButtonFood] = useState([]);
+  const [ingredientsAndMeasures, setIngredientsAndMeasures] = useState([]);
 
   const contextValue = {
     email,
@@ -23,6 +24,8 @@ function Provider({ children }) {
     categoriesButtonFood,
     setCategoriesButtonDrink,
     setCategoriesButtonFood,
+    ingredientsAndMeasures,
+    setIngredientsAndMeasures,
   };
 
   return (
