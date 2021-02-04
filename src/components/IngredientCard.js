@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class IngredientCard extends Component {
   render() {
-    const { ingredients: { idIngredient, strIngredient }, index } = this.props;
+    const { ingredient: { idIngredient, strIngredient }, index } = this.props;
     return (
       <div>
         <div data-testid={ `${index}-ingredient-card` }>{ idIngredient }</div>
@@ -15,7 +15,7 @@ class IngredientCard extends Component {
 }
 
 IngredientCard.propTypes = {
-  ingredients: PropTypes.shape({
+  ingredient: PropTypes.shape({
     idIngredient: PropTypes.number.isRequired,
     strIngredient: PropTypes.string.isRequired,
   }).isRequired,

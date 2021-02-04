@@ -17,13 +17,13 @@ class MealsIngredients extends Component {
   render() {
     const zero = 0;
     const maxLength = 12;
-    const { ingredients } = this.props;
-    const firstIngredients = ingredients.slice(zero, maxLength);
+    const { mealsIngredients } = this.props;
+    const firstIngredients = mealsIngredients.slice(zero, maxLength);
     return (
       <div>
         <Header title="Comidas" />
         { firstIngredients.map((ingredient, index) => (
-          <IngredientCard key={ index } ingredients={ ingredient } index={ index } />
+          <IngredientCard key={ index } ingredient={ ingredient } index={ index } />
         ))}
         <Footer />
       </div>
@@ -31,8 +31,8 @@ class MealsIngredients extends Component {
   }
 }
 
-const mapStateToProps = ({ ingredients }) => ({
-  ingredients: ingredients.ingredients,
+const mapStateToProps = ({ meals }) => ({
+  mealsIngredients: meals.mealsIngredients,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -40,7 +40,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 MealsIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  mealsIngredients: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   searchMealsIngredients: PropTypes.func.isRequired,
 };
 
