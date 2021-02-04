@@ -1,7 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 function useInProgressRecipe() {
-  let inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const [inProgressRecipes, setInProgressRecipes] = useState(
+    JSON.parse(localStorage.getItem('inProgressRecipes')),
+  );
 
   const removeIngredient = (type, id, ingredient) => {
     if (type === 'comidas') {
@@ -27,7 +29,7 @@ function useInProgressRecipe() {
         },
       }));
     }
-    inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    setInProgressRecipes(JSON.parse(localStorage.getItem('inProgressRecipes')));
   };
 
   const addIngredient = (type, id, ingredient) => {
@@ -48,7 +50,7 @@ function useInProgressRecipe() {
         },
       }));
     }
-    inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    setInProgressRecipes(JSON.parse(localStorage.getItem('inProgressRecipes')));
   };
 
   const handleChange = ({ target }, id, type) => {

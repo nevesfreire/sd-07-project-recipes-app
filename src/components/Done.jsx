@@ -8,7 +8,9 @@ function Done({ recipesStorage }) {
   const [copy, setCopy] = useState(false);
 
   const copyLink = () => {
+    const delay = 2000;
     setCopy(true);
+    setTimeout(() => setCopy(false), delay);
   };
 
   return (
@@ -33,11 +35,11 @@ function Done({ recipesStorage }) {
                   { `${area === '' ? '' : area} - ${alcoholicOrNot === ''
                     ? category : alcoholicOrNot}`}
                 </span>
-                <p
+                <h5
                   data-testid={ `${index}-horizontal-name` }
                 >
                   <Link to={ `${type}s/${id}` }>{ name }</Link>
-                </p>
+                </h5>
                 <h6
                   data-testid={ `${index}-horizontal-done-date` }
                 >

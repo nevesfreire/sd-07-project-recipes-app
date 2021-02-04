@@ -44,7 +44,7 @@ function ButtonsFavorite({ setRecipesStorage, localRecipes }) {
 }
 
 ButtonsFavorite.propTypes = {
-  setRecipesStorage: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
+  setRecipesStorage: PropTypes.func.isRequired,
   localRecipes: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
 };
 

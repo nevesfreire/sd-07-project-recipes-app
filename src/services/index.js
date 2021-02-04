@@ -5,6 +5,8 @@ const drinkDetail = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
 const mealIngredientsUrl = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
 const drinkIngredientsUrl = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
 const areaExplore = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+const randomMealUrl = 'https://www.themealdb.com/api/json/v1/1/random.php';
+const randomDrinkUrl = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
 
 const auxFunc = (term, type, url) => {
   if (term && type) {
@@ -111,6 +113,28 @@ export const areaExplorerAPI = async () => {
     const areas = await response.json();
 
     return areas;
+  } catch (error) {
+    return error.message;
+  }
+};
+
+export const randomMealAPI = async () => {
+  try {
+    const response = await fetch(randomMealUrl);
+    const meal = await response.json();
+
+    return meal;
+  } catch (error) {
+    return error.message;
+  }
+};
+
+export const randomDrinkAPI = async () => {
+  try {
+    const response = await fetch(randomDrinkUrl);
+    const drink = await response.json();
+
+    return drink;
   } catch (error) {
     return error.message;
   }
