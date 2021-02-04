@@ -4,6 +4,7 @@ import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { TWO_THOUSAND } from '../services/helpers';
+import perfilIcon from '../images/profileIcon.svg';
 
 function FavoriteRecipes() {
   const [favorited, setFavorited] = useState([]);
@@ -33,6 +34,20 @@ function FavoriteRecipes() {
 
   return (
     <div>
+      <header>
+        <h1 data-testid="page-title">
+          Receitas Favoritas
+        </h1>
+        <Link to="/perfil">
+          <button type="button">
+            <img
+              data-testid="profile-top-btn"
+              src={ perfilIcon }
+              alt="perfil"
+            />
+          </button>
+        </Link>
+      </header>
       <div>
         <h2>Filter by:</h2>
         <button
