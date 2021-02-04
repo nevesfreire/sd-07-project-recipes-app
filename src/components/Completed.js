@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import filtro from './filtro';
+import getListFromLocal from './getListFromLocal';
 // import addToFavorites from './addToFavorites';
 
 const copy = require('clipboard-copy');
 
 function Completed() {
+  const zero = 0;
   const [finishedList, setFinishedList] = useState([]);
   const [showMessage, setShowMessage] = useState('hidden');
   const tresMil = 3000;
@@ -16,26 +19,18 @@ function Completed() {
   };
 
   useEffect(() => {
-    const getListFromLocal = () => {
-      const list = JSON.parse(localStorage.getItem('doneRecipes'));
-      if (list) setFinishedList(list);
-      console.log(list);
-    };
-    getListFromLocal();
+    // const getListFromLocal = (setFinishedList) => {
+    //   const list = JSON.parse(localStorage.getItem('doneRecipes'));
+    //   if (list) setFinishedList(list);
+    //   console.log(list);
+    // };
+    getListFromLocal(setFinishedList);
   }, []);
-
-  const filtro = (type) => {
-    let favList = JSON.parse(localStorage.getItem('doneRecipes'));
-    if (type === 'all') { setFinishedList(favList); } else {
-      favList = favList.filter((item) => item.type === type);
-      setFinishedList(favList);
-    }
-  };
 
   return (
     <div>
       <button
-        onClick={ () => filtro('comida') }
+        onClick={ () => filtro('comida', setFinishedList) }
         type="button"
         data-testid="filter-by-food-btn"
       >
@@ -43,7 +38,7 @@ function Completed() {
       </button>
 
       <button
-        onClick={ () => filtro('bebida') }
+        onClick={ () => filtro('bebida', setFinishedList) }
         type="button"
         data-testid="filter-by-drink-btn"
       >
@@ -51,7 +46,7 @@ function Completed() {
       </button>
 
       <button
-        onClick={ () => filtro('all') }
+        onClick={ () => filtro('all', setFinishedList) }
         type="button"
         data-testid="filter-by-all-btn"
       >
@@ -59,64 +54,71 @@ function Completed() {
       </button>
 
       {
-        finishedList.map((receita, index) => (
-          <div key={ `receita-${index}` }>
-            <a href={ `http://localhost:3000/${receita.type === 'comida' ? 'comidas' : 'bebidas'}/${receita.id}` }>
-              <img
-                src={ receita.image }
-                width="100%"
-                alt="foto de uma comida"
-                data-testid={ `${index}-horizontal-image` }
-              />
-            </a>
-            <a href={ `http://localhost:3000/${receita.type === 'comida' ? 'comidas' : 'bebidas'}/${receita.id}` }>
-              <p
-                data-testid={ `${index}-horizontal-name` }
-              >
-                {receita.name}
-              </p>
-            </a>
-
-            <p
-              data-testid={ `${index}-horizontal-top-text` }
-            >
-              {receita.type === 'Drink' ? null
-                : `${receita.area} - ${receita.category}`}
-            </p>
-
-            { receita.type === 'Meal'
-              ? null
-              : (
+        finishedList.length === zero
+          ? <h3>Nenhuma Receita Finalizada =]</h3>
+          : finishedList.map((receita, index) => (
+            <div key={ `receita-${index}` }>
+              <a href={ `http://localhost:3000/${receita.type === 'comida' ? 'comidas' : 'bebidas'}/${receita.id}` }>
+                <img
+                  src={ receita.image }
+                  width="100%"
+                  alt="foto de uma comida"
+                  data-testid={ `${index}-horizontal-image` }
+                />
+              </a>
+              <a href={ `http://localhost:3000/${receita.type === 'comida' ? 'comidas' : 'bebidas'}/${receita.id}` }>
                 <p
-                  data-testid={ `${index}-horizontal-top-text` }
+                  data-testid={ `${index}-horizontal-name` }
                 >
-                  {receita.alcoholicOrNot}
-                </p>)}
-            <p data-testid={ `${index}-horizontal-done-date` }>
-              {receita.doneDate}
-            </p>
-            <button
-              type="button"
-              data-testid={ `${index}-horizontal-share-btn` }
-              src="../src/images/shareIcon.svg"
-              onClick={ () => copyLink(receita.id, receita.type) }
-            >
-              Compartilhar
-            </button>
+                  {receita.name}
+                </p>
+              </a>
 
-            <button
-              type="button"
-              data-testid={ `${index}-horizontal-favorite-btn` }
-              src="../src/images/blackHeartIcon.svg"
+              <p
+                data-testid={ `${index}-horizontal-top-text` }
+              >
+                {receita.type === 'Drink' ? null
+                  : `${receita.area} - ${receita.category}`}
+              </p>
+
+              { receita.type === 'Meal'
+                ? null
+                : (
+                  <p
+                    data-testid={ `${index}-horizontal-top-text` }
+                  >
+                    {receita.alcoholicOrNot}
+                  </p>)}
+              <p data-testid={ `${index}-horizontal-done-date` }>
+                {receita.doneDate}
+              </p>
+              <button
+                type="button"
+                data-testid={ `${index}-horizontal-share-btn` }
+                src="../src/images/shareIcon.svg"
+                onClick={ () => copyLink(receita.id, receita.type) }
+              >
+                Compartilhar
+              </button>
+
+              <button
+                type="button"
+                data-testid={ `${index}-horizontal-favorite-btn` }
+                src="../src/images/blackHeartIcon.svg"
               // onClick={ () => addToFavorites(itemId, receita.type, details) }
-            >
-              Favoritar
-            </button>
-            <h4 hidden={ showMessage }>Link copiado!</h4>
-            {receita.tags.map((item) => (
-              <p key={ item } data-testid={ `${index}-${item}-horizontal-tag` }>{item}</p>
-            ))}
-          </div>))
+              >
+                Favoritar
+              </button>
+              <h4 hidden={ showMessage }>Link copiado!</h4>
+              {receita.tags.map((item) => (
+                <p
+                  key={ item }
+                  data-testid={ `${index}-${item}-horizontal-tag` }
+                >
+                  {item}
+                </p>
+              ))}
+            </div>))
       }
     </div>
   );

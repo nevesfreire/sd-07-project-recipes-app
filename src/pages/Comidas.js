@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import CardList from '../components/CardList';
@@ -13,6 +13,9 @@ import { fetchGlobalMeal,
   fetchMealByFirstLetter } from '../services/API';
 
 function Comidas() {
+  const history = useHistory();
+  const location = useLocation();
+
   const [globalMeal, setGlobalMeal] = useState([]);
   const [mealCategories, setmealCategories] = useState([]);
   const [category, setCategory] = useState('');
@@ -25,8 +28,6 @@ function Comidas() {
   const noFindRecipe = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
   const magicNumberZero = 0;
-
-  const history = useHistory();
 
   const redirectToDetails = () => {
     if (dataToRender.length === 1 && category === '') {
@@ -43,18 +44,6 @@ function Comidas() {
     const data = await fetchMealCategory();
     setmealCategories(data);
   };
-
-  useEffect(() => {
-    getGlobalMealData();
-    getCategoriesMealData();
-  }, []);
-
-  useEffect(() => {
-    async function getMealsByCategory() {
-      if (category) setFilteredByCategory(await fetchMealByCategory(category));
-    }
-    getMealsByCategory();
-  }, [category]);
 
   const getEndPointAndFetch = async () => {
     setFilteredByCategory([]);
@@ -86,6 +75,31 @@ function Comidas() {
     }
     }
   };
+
+  useEffect(() => {
+    getEndPointAndFetch();
+  }, [typeOfFetch]);
+  useEffect(() => {
+    function getWhatToRender() {
+      if (location.state !== undefined) {
+        setValueToFetch(location.state);
+        setFetch('ingredient');
+      } else {
+        console.log('entrou no else');
+        getGlobalMealData();
+      }
+    }
+    getWhatToRender();
+    getCategoriesMealData();
+  }, []);
+
+  useEffect(() => {
+    async function getMealsByCategory() {
+      if (category) setFilteredByCategory(await fetchMealByCategory(category));
+    }
+    getMealsByCategory();
+  }, [category]);
+
   useEffect(() => {
     const dataToRenderFunction = () => {
       if ((filteredByCategory.length === magicNumberZero || category === '')
