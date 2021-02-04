@@ -7,7 +7,8 @@ import { getMeals,
   getMealsByCategories,
   getDrinksByCategories,
   filterByDrinkIngredient,
-  filterByMealIngredient } from '../services/API';
+  filterByMealIngredient,
+} from '../services/API';
 
 const AppContext = createContext();
 

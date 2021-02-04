@@ -209,6 +209,20 @@ const filterByMealIngredient = async (ingredient) => {
   }
 };
 
+const fetchMeal = async (key) => {
+  const url = `https://www.themealdb.com/api/json/v1/1/random.php${key}`;
+  const result = await fetch(url);
+  const data = await result.json();
+  return data;
+};
+
+const fetchDrink = async (key) => {
+  const url = `https://www.thecocktaildb.com/api/json/v1/1/random.php${key}`;
+  const result = await fetch(url);
+  const data = await result.json();
+  return data;
+};
+
 export {
   getCategories,
   searchGeneral,
@@ -222,6 +236,8 @@ export {
   mealRecomendations,
   drinkById,
   drinkRecomendations,
+  fetchMeal,
+  fetchDrink,
   getMealIngredients,
   getDrinkIngredients,
   filterByDrinkIngredient,
