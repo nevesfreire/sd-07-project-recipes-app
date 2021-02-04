@@ -16,13 +16,13 @@ function Provider({ children }) {
 
   const searchAll = 'search.php?s=';
 
-  const fetchFoods = async () => {
-    const searchFoods = await apiFoods(searchAll);
+  const fetchFoods = async (endPoint = searchAll) => {
+    const searchFoods = await apiFoods(endPoint);
     setFoods(searchFoods);
   };
 
-  const fetchDrinks = async () => {
-    const searchDrinks = await apiDrinks(searchAll);
+  const fetchDrinks = async (endPoint = searchAll) => {
+    const searchDrinks = await apiDrinks(endPoint);
     setDrinks(searchDrinks);
   };
 
@@ -45,6 +45,10 @@ function Provider({ children }) {
       setFoods(searchFilterCategoryFoods);
     } else {
       searchFilterCategoryFoods = await apiFoods(`filter.php?c=${category}`);
+      if (searchFilterCategoryFoods.length === 1) {
+        searchFilterCategoryFoods[0] = { ...searchFilterCategoryFoods[0],
+          redirect: true };
+      }
       setFoods(searchFilterCategoryFoods);
     }
   };
@@ -56,6 +60,10 @@ function Provider({ children }) {
       setDrinks(searchFilterCategoryDrinks);
     } else {
       searchFilterCategoryDrinks = await apiDrinks(`filter.php?c=${category}`);
+      if (searchFilterCategoryDrinks.length === 1) {
+        searchFilterCategoryDrinks[0] = { ...searchFilterCategoryDrinks[0],
+          redirect: true };
+      }
       setDrinks(searchFilterCategoryDrinks);
     }
   };
@@ -102,6 +110,8 @@ function Provider({ children }) {
     filterCategoryFoods,
     filterCategoryDrinks,
     filterSearchBar,
+    setFoods,
+    setDrinks,
     fetchFoods,
     fetchDrinks,
     fetchCategoriesFoods,

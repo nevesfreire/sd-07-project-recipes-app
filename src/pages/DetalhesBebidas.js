@@ -34,7 +34,7 @@ function DetalhesBebidas({ match: { params: { id } }, history }) {
 
   const zero = 0;
   const six = 6;
-  if (detailDrink.length === zero) return (<h1>Carregando...</h1>);
+  if (detailDrink && detailDrink.length === zero) return (<h1>Carregando...</h1>);
 
   const {
     strDrinkThumb,

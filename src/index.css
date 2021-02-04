@@ -123,3 +123,27 @@ code {
   font-weight: 500;
   line-height: 35px;
 }
+
+.button-explore {
+  margin-top: 100px;
+  height: 50px;
+}
+
+.container__explore__btn {
+  display: flex;
+  flex-direction: column;
+}
+
+.buttons__profile {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 350px;
+  justify-content: space-between;
+  margin-top: 150px;
+}
+
+.buttons__profile button {
+  height: 60px;
+  width: 300px;
+}

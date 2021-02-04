@@ -4,18 +4,19 @@ import RecipesContext from '../context/recipesContext';
 import './cards.css';
 
 function CardsFood() {
-  const [redirect, setRedirect] = useState(false);
   const { foods, fetchFoods } = useContext(RecipesContext);
+  const [redirect, setRedirect] = useState(false);
 
+  const zero = 0;
   useEffect(() => {
-    fetchFoods();
+    if (foods !== undefined && foods.length === zero) fetchFoods();
   }, []);
 
   useEffect(() => {
     if (foods === undefined) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
-    if (foods && foods.length === 1) setRedirect(true);
+    if (foods && foods.length === 1 && !('redirect' in foods[0])) setRedirect(true);
   }, [foods]);
 
   if (redirect) return <Redirect to={ `/comidas/${foods[0].idMeal}` } />;
