@@ -29,7 +29,6 @@ function DetailsDrink() {
 
   const { strCategory,
     idDrink,
-    srtArea,
     strDrink,
     strDrinkThumb,
     strAlcoholic,
@@ -41,16 +40,7 @@ function DetailsDrink() {
     name: strDrink,
   };
   // verifica se a página já carrega como favorito
-  if (localStorage.getItem('favoriteRecipes') !== null
-    && buttonClicked === false && favoriteRecipe === false) {
-    const favoriteLS = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    favoriteLS.filter((recipe) => {
-      if (recipe.name === currentRecipe.name) {
-        setFavoriteRecipe(true);
-      }
-      return null;
-    });
-  }
+  detailsDidMount(buttonClicked, favoriteRecipe, setFavoriteRecipe, currentRecipe);
 
   const allRecipe = Object.entries(detailsRecipe.drinks[0]);
   console.log('allrceipes', detailsRecipe.drinks[0]);

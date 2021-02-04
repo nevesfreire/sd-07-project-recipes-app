@@ -5,6 +5,7 @@ import RecomendationCardMeal from '../components/RecomendationCardMeal';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import detailsDidMount from '../components/DetailsDidMount';
 
 function DetailsMeal() {
   const { detailsRecipe } = useContext(RecipeContext);
@@ -41,16 +42,7 @@ function DetailsMeal() {
     name: strMeal,
   };
   // verifica se a página já carrega como favorito
-  if (localStorage.getItem('favoriteRecipes') !== null
-    && buttonClicked === false && favoriteRecipe === false) {
-    const favoriteLS = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    favoriteLS.filter((recipe) => {
-      if (recipe.name === currentRecipe.name) {
-        setFavoriteRecipe(true);
-      }
-      return null;
-    });
-  }
+  detailsDidMount(buttonClicked, favoriteRecipe, setFavoriteRecipe, currentRecipe);
 
   const allRecipe = Object.entries(detailsRecipe.meals[0]);
   const ingredients = allRecipe.filter(
