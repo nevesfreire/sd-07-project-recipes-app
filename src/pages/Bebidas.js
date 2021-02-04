@@ -1,13 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
+import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import SearchBar from '../components/SearchBar';
-import SearchButton from '../components/SearchButton';
+import SearchResult from '../components/SearchComponents/SearchResult';
+import RecipesContext from '../context/RecipesContext';
 
 export default function Bebidas() {
-  const [cards, setCards] = useState([]);
   const [categories, setCategories] = useState([]);
+
+  const {
+    filteredIngrCards,
+    cards,
+    setCards,
+    searchCards,
+  } = useContext(RecipesContext);
 
   const getCards = async () => {
     const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
@@ -19,14 +26,14 @@ export default function Bebidas() {
     setCards(splicedCards);
   };
 
-  const getCategories = async () => {
+  const getCategories = (useCallback(async () => {
     const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
     const data = await response.json();
     const arr = [...data.drinks];
     const initialIndex = 0;
     const finalIndex = 5;
     setCategories(arr.splice(initialIndex, finalIndex));
-  };
+  }, [setCategories]));
 
   const filterByCategory = async ({ target }) => {
     if (target.id === 'unclicked') {
@@ -49,11 +56,55 @@ export default function Bebidas() {
     getCategories();
   }, []);
 
+  const zero = 0;
+
+  if (searchCards > zero) {
+    return (
+      <div>
+        <Header />
+        <SearchResult />
+        <Footer />
+      </div>
+    );
+  }
+
+  if (filteredIngrCards.length > zero) {
+    return (
+      <div>
+        <Header />
+        {filteredIngrCards.map((drink, index) => (
+          <Link
+            key={ drink.idDrink }
+            to={ `/bebidas/${drink.idDrink}` }
+          >
+            <Card
+              key={ index }
+              style={ { width: '18rem' } }
+              data-testid={ `${index}-recipe-card` }
+            >
+              <Card.Img
+                variant="top"
+                src={ drink.strDrinkThumb }
+                data-testid={ `${index}-card-img` }
+              />
+              <Card.Body>
+                <Card.Title
+                  data-testid={ `${index}-card-name` }
+                >
+                  { drink.strDrink }
+                </Card.Title>
+              </Card.Body>
+            </Card>
+          </Link>
+        ))}
+        <Footer />
+      </div>
+    );
+  }
+
   return (
     <div>
       <Header />
-      <SearchButton />
-      <SearchBar />
       <button
         type="button"
         data-testid="All-category-filter"

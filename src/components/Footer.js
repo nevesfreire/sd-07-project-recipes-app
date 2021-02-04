@@ -1,33 +1,59 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 
 function Footer() {
+  const history = useHistory();
+
+  const handleDrink = () => {
+    history.push('/bebidas');
+  };
+
+  const handleExplore = () => {
+    history.push('/explorar');
+  };
+
+  const handleMeal = () => {
+    history.push('/comidas');
+  };
+
   return (
     <footer className="footer" data-testid="footer">
-      <Link to="/bebidas">
+
+      <button
+        type="button"
+        onClick={ handleDrink }
+      >
         <img
           src={ drinkIcon }
           alt="drink-icon"
           data-testid="drinks-bottom-btn"
         />
-      </Link>
-      <Link to="/explorar">
+      </button>
+
+      <button
+        type="button"
+        onClick={ handleExplore }
+      >
         <img
           src={ exploreIcon }
           alt="explore-icon"
           data-testid="explore-bottom-btn"
         />
-      </Link>
-      <Link to="/comidas">
+      </button>
+
+      <button
+        type="button"
+        onClick={ handleMeal }
+      >
         <img
           src={ mealIcon }
           alt="meal-icon"
           data-testid="food-bottom-btn"
         />
-      </Link>
+      </button>
     </footer>
   );
 }

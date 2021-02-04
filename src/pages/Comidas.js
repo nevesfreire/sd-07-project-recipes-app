@@ -1,13 +1,20 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
+import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import SearchBar from '../components/SearchBar';
-import SearchButton from '../components/SearchButton';
+import SearchResult from '../components/SearchComponents/SearchResult';
+import RecipesContext from '../context/RecipesContext';
 
 export default function Comidas() {
-  const [cards, setCards] = useState([]);
   const [categories, setCategories] = useState([]);
+
+  const {
+    filteredIngrCards,
+    cards,
+    setCards,
+    searchCards,
+  } = useContext(RecipesContext);
 
   const getCards = async () => {
     const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
@@ -25,7 +32,8 @@ export default function Comidas() {
     const arr = [...data.meals];
     const initialIndex = 0;
     const finalIndex = 5;
-    setCategories(arr.splice(initialIndex, finalIndex));
+    const arrSpliced = arr.splice(initialIndex, finalIndex);
+    setCategories(arrSpliced);
   }, [setCategories]);
 
   const filterByCategory = async ({ target }) => {
@@ -47,14 +55,55 @@ export default function Comidas() {
   useEffect(() => {
     getCategories();
     getCards();
-    console.log(categories);
-  }, [getCategories]);
+  }, []);
+
+  const zero = 0;
+  if (searchCards > zero) {
+    return (
+      <div>
+        <Header />
+        <SearchResult />
+        <Footer />
+      </div>
+    );
+  }
+  if (filteredIngrCards.length > zero) {
+    return (
+      <div>
+        <Header />
+        {filteredIngrCards.map((meal, index) => (
+          <Link
+            key={ index }
+            to={ `/comidas/${meal.idMeal}` }
+          >
+            <Card
+              key={ index }
+              style={ { width: '18rem' } }
+              data-testid={ `${index}-recipe-card` }
+            >
+              <Card.Img
+                variant="top"
+                src={ meal.strMealThumb }
+                data-testid={ `${index}-card-img` }
+              />
+              <Card.Body>
+                <Card.Title
+                  data-testid={ `${index}-card-name` }
+                >
+                  { meal.strMeal }
+                </Card.Title>
+              </Card.Body>
+            </Card>
+          </Link>
+        ))}
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div>
       <Header />
-      <SearchButton />
-      <SearchBar />
       <button
         type="button"
         data-testid="All-category-filter"
@@ -62,18 +111,19 @@ export default function Comidas() {
       >
         All
       </button>
-      {categories.map((category) => (
+      {categories.map(({ strCategory: category }) => (
         <button
           type="button"
-          key={ category.id }
+          key={ category }
           id="unclicked"
-          data-testid={ `${category.strCategory}-category-filter` }
-          value={ category.strCategory }
+          data-testid={ `${category}-category-filter` }
+          value={ category }
           onClick={ (event) => filterByCategory(event) }
         >
-          {category.strCategory}
+          {category}
         </button>
       ))}
+
       {cards.map((card, index) => (
         <Link key={ card.id } to={ `/comidas/${card.idMeal}` }>
           <div data-testid={ `${index}-recipe-card` }>

@@ -1,20 +1,62 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import profileIcon from '../images/profileIcon.svg';
+import SearchIconButton from './SearchComponents/SearchIconButton';
 
 function Header() {
   const {
-    titleByUrl,
-    handleUrlChange,
+    setTitle,
+    title,
   } = useContext(RecipesContext);
 
-  return (
-    <header>
-      <Link to="/perfil">
+  const history = useHistory();
+
+  const handleProfile = () => {
+    history.push('/perfil');
+  };
+
+  const { pathname } = history.location;
+
+  useEffect(() => {
+    switch (pathname) {
+    case '/':
+      return setTitle('Login');
+    case '/comidas':
+      return setTitle('Comidas');
+    case '/bebidas':
+      return setTitle('Bebidas');
+    case '/explorar':
+      return setTitle('Explorar');
+    case '/explorar/comidas':
+      return setTitle('Explorar Comidas');
+    case '/explorar/bebidas':
+      return setTitle('Explorar Bebidas');
+    case '/explorar/comidas/ingredientes':
+      return setTitle('Explorar Ingredientes');
+    case '/explorar/bebidas/ingredientes':
+      return setTitle('Explorar Ingredientes');
+    case '/explorar/comidas/area':
+      return setTitle('Explorar Origem');
+    case '/perfil':
+      return setTitle('Perfil');
+    case '/receitas-feitas':
+      return setTitle('Receitas Feitas');
+    case '/receitas-favoritas':
+      return setTitle('Receitas Favoritas');
+    default:
+      return setTitle('');
+    }
+  }, [pathname, setTitle]);
+
+  if (title === 'Comidas'
+    || title === 'Bebidas'
+    || title === 'Explorar Origem') {
+    return (
+      <header>
         <button
           type="button"
-          onClick={ handleUrlChange() }
+          onClick={ handleProfile }
         >
           <img
             data-testid="profile-top-btn"
@@ -22,8 +64,25 @@ function Header() {
             alt="profile-icon"
           />
         </button>
-      </Link>
-      <h2 data-testid="page-title">{ titleByUrl() }</h2>
+        <h2 data-testid="page-title">{ title }</h2>
+        <SearchIconButton />
+      </header>
+    );
+  }
+
+  return (
+    <header>
+      <button
+        type="button"
+        onClick={ handleProfile }
+      >
+        <img
+          data-testid="profile-top-btn"
+          src={ profileIcon }
+          alt="profile-icon"
+        />
+      </button>
+      <h2 data-testid="page-title">{ title }</h2>
     </header>
   );
 }
