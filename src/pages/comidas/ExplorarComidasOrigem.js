@@ -41,7 +41,8 @@ export default class ExplorarComidasOrigem extends React.Component {
   async fetchRecipes() {
     const responseAPI = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
     const data = await responseAPI.json();
-    const recipes = data.meals.splice(ZERO, TWELVE);
+    const copyData = [...data.meals];
+    const recipes = copyData.splice(ZERO, TWELVE);
     this.setState({
       recipes,
     });
