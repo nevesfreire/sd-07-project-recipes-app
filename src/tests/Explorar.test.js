@@ -50,4 +50,13 @@ describe('Testa o comportamente do componente TelaExplorar.js', () => {
 
         expect(pathname).toBe('/explorar/comidas');
     });
+    it('Verifica a mudança de rota para \'/explorar/bebidas\'', async() => {
+        const { history } = renderWithRouter(<Explorar />);
+        const { pathname } = history.location;
+        const exploreDrinks = await screen.findByTestId('explore-drinks');
+        
+        fireEvent.click(exploreDrinks);
+
+        expect(pathname).toBe('/explorar/bebidas');
+    });
 });
