@@ -25,9 +25,8 @@ function ExplorarBebidasIngredientes(props) {
 
   function handleIngredient({ target }) {
     const { request, fetchDrinksIngredient } = props;
-    const result = target.alt.replace(' ', '_');
     request();
-    fetchDrinksIngredient(result);
+    fetchDrinksIngredient(target.alt);
   }
 
   function renderDrinks() {
