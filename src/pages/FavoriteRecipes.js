@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import { TWO_THOUSAND } from '../services/helpers';
+import { TWO_THOUSAND, ZERO } from '../services/helpers';
 
 function FavoriteRecipes() {
   const [favorited, setFavorited] = useState([]);
@@ -30,6 +30,17 @@ function FavoriteRecipes() {
     localStorage.favoriteRecipes = JSON.stringify(AllFavorites);
     setFavorited(recipes.filter((recipe) => recipe.id !== target.name));
   };
+
+  if (favorited.length === ZERO) {
+    return (
+      <div>
+        <h2>You have no favorite recipes</h2>
+        <Link to="/comidas">
+          <button type="button">Go Back</button>
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div>
