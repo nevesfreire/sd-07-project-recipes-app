@@ -14,12 +14,12 @@ const streakIngredient = (key, event, page, id, index) => {
   }
   const lS = JSON.parse(localStorage.getItem('inProgressRecipes'));
   // eslint-disable-line
-  if (lS.[type].[idd].[index].[elementText] === false) {
+  if (lS[type][idd][index][elementText] === false) {
     // eslint-disable-line
-    lS.[type].[idd].[index].[elementText] = true;
+    lS[type][idd][index][elementText] = true;
   } else {
     // eslint-disable-line
-    lS.[type].[idd].[index].[elementText] = false;
+    lS[type][idd][index][elementText] = false;
   }
   const output = JSON.stringify(lS);
   localStorage.setItem('inProgressRecipes', output);
