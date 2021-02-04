@@ -6,13 +6,17 @@ import RecomendationCardDrinks from '../components/RecomendationCardDrinks';
 import '../css/Button.css';
 
 function DetailsDrink() {
-  const { detailsRecipe } = useContext(RecipeContext);
+  const { detailsRecipe, drinkStateButton } = useContext(RecipeContext);
   const [loading, setLoading] = useState(true);
   const { recipeDetailsAPI } = useFetch();
 
   const url = document.URL;
   const newUrlId = url.split('/')[4];
   const newUrlType = url.split('/')[3];
+  // const localStorageRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  // const lengthIngredients = localStorageRecipes.cocktails[newUrlId].length
+  // console.log('loalstorage',localStorageRecipes.cocktails[newUrlId].length)
+  // console.log('ingredientes',detailsRecipe.drinks[0])
 
   useEffect(() => {
     recipeDetailsAPI(newUrlId, newUrlType)
@@ -22,6 +26,14 @@ function DetailsDrink() {
   if (loading) {
     return (<div>Loading...</div>);
   }
+
+  // function getLengthOfIngredients() {
+  //   const localStorageRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  //   if (localStorageRecipes.cocktails[newUrlId].length === undefined) {
+  //     return 0
+  //   }
+  //   return localStorageRecipes.cocktails[newUrlId].length
+  // }
 
   const { strCategory,
     strDrink,
@@ -42,6 +54,7 @@ function DetailsDrink() {
     .map((item, index) => ({
       ingredient: drink[item], measure: drink[filterMeasure[index]],
     })).filter((item) => item.ingredient !== '' && item.ingredient !== null);
+  console.log('todos os ingredientes', allIngredients);
 
   return (
     <div>
@@ -69,10 +82,24 @@ function DetailsDrink() {
 
       <RecomendationCardDrinks />
       <br />
-      <Link to={ `/bebidas/${newUrlId}/in-progress` }>
+      { drinkStateButton && (
+        <Link to={ `/bebidas/${newUrlId}/in-progress` }>
+          <button
+            className="buttn-bottom"
+            type="button"
+            data-testid="start-recipe-btn"
+          >
+            Iniciar receita
+          </button>
+        </Link>
+      )}
+      {/* { getLengthOfIngredients() > 0
+      ? drinkStateButton && <Link to={ `/bebidas/${newUrlId}/in-progress` }>
         <button className="buttn-bottom" type="button" data-testid="start-recipe-btn">Iniciar receita</button>
       </Link>
-
+      : drinkStateButton && <Link to={ `/bebidas/${newUrlId}/in-progress` }>
+      <button className="buttn-bottom" type="button" data-testid="start-recipe-btn">Continuar Receita</button>
+    </Link> } */}
     </div>
   );
 }

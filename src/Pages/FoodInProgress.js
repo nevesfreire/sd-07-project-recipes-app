@@ -4,11 +4,14 @@ import RecipeContext from '../Context/Context';
 import useFetch from '../hooks/useFetch';
 
 function FoodInProgress() {
-  const { detailsRecipe } = useContext(RecipeContext);
+  const {
+    detailsRecipe,
+    mealStateButton,
+    setMealStateButton,
+  } = useContext(RecipeContext);
   const [loading, setLoading] = useState(true);
   const { recipeDetailsAPI } = useFetch();
   const [checked] = useState([]);
-  const [stateButton, setStateButton] = useState(true);
 
   const url = document.URL;
   const newUrlId = url.split('/')[4];
@@ -27,15 +30,16 @@ function FoodInProgress() {
       localStorage.setItem('inProgressRecipes', JSON.stringify(recipesInProgress));
     }
   }
+  console.log('checks', document.getElementsByClassName('check'));
 
   function enableButton() {
-    setStateButton(true);
+    setMealStateButton(true);
     const markedCheckboxes = document.querySelectorAll('input:checked');
     const checkboxes = document.getElementsByClassName('check');
     console.log('check1', markedCheckboxes.length);
     console.log('check2', checkboxes.length);
     if (checkboxes.length === markedCheckboxes.length) {
-      setStateButton(false);
+      setMealStateButton(false);
     }
   }
 
@@ -108,7 +112,7 @@ function FoodInProgress() {
     })).filter((item) => item.ingredient !== '' && item.ingredient !== null);
 
   return (
-    <div>
+    <div onLoad={ enableButton }>
       <img src={ strMealThumb } data-testid="recipe-photo" alt={ strMeal } />
       <h1 data-testid="recipe-title">{strMeal}</h1>
       <button type="button" data-testid="share-btn">Compartilhar</button>
@@ -147,7 +151,7 @@ function FoodInProgress() {
         <button
           type="button"
           data-testid="finish-recipe-btn"
-          disabled={ stateButton }
+          disabled={ mealStateButton }
           onClick={ handleClickEnd }
         >
           Finalizar receita

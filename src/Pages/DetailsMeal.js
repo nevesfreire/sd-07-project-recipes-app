@@ -6,7 +6,7 @@ import RecomendationCardMeal from '../components/RecomendationCardMeal';
 import '../css/Button.css';
 
 function DetailsMeal() {
-  const { detailsRecipe } = useContext(RecipeContext);
+  const { detailsRecipe, mealStateButton } = useContext(RecipeContext);
   const [loading, setLoading] = useState(true);
   const { recipeDetailsAPI } = useFetch();
 
@@ -67,9 +67,17 @@ function DetailsMeal() {
 
       <RecomendationCardMeal />
       <br />
-      <Link to={ `/comidas/${newUrlId}/in-progress` }>
-        <button className="buttn-bottom" type="button" data-testid="start-recipe-btn">Iniciar receita</button>
-      </Link>
+      { mealStateButton && (
+        <Link to={ `/comidas/${newUrlId}/in-progress` }>
+          <button
+            className="buttn-bottom"
+            type="button"
+            data-testid="start-recipe-btn"
+          >
+            Iniciar receita
+          </button>
+        </Link>
+      )}
 
     </div>
   );
