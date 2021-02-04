@@ -35,9 +35,9 @@ function FavoriteRecipes() {
   if (favorited.length === ZERO) {
     return (
       <div>
-        <h2>You have no favorite recipes</h2>
+        <h2>Você não tem receitas favoritas</h2>
         <Link to="/comidas">
-          <button type="button">Go Back</button>
+          <button type="button">Voltar</button>
         </Link>
       </div>
     );
@@ -60,7 +60,7 @@ function FavoriteRecipes() {
         </Link>
       </header>
       <div>
-        <h2>Filter by:</h2>
+        <h2>Filtrar por:</h2>
         <button
           type="button"
           data-testid="filter-by-all-btn"
