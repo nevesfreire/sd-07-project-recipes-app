@@ -1,0 +1,14 @@
+.Container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 200px;
+  position: fixed;
+  width: 400px;
+}
+
+.Container__Input {
+  display: flex;
+  justify-content: space-around;
+  margin-left: 10px;
+  padding-left: 10px;
+}

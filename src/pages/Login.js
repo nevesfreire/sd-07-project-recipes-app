@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 
-function Login(props) {
+function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isDisable, setIsDisable] = useState(true);
@@ -57,9 +56,5 @@ function Login(props) {
     </form>
   );
 }
-
-Login.propTypes = {
-  history: PropTypes.func.isRequired,
-};
 
 export default Login;

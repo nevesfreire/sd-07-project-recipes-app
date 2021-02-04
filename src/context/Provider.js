@@ -12,6 +12,7 @@ function Provider({ children }) {
   const [categoriesDrinks, setCategoriesDrinks] = useState([]);
   const [filterCategoryFoods, setFilterCategoryFoods] = useState('All');
   const [filterCategoryDrinks, setFilterCategoryDrinks] = useState('All');
+  const [filterSearchBar, setFilterSearchBar] = useState({});
 
   const searchAll = 'search.php?s=';
 
@@ -59,6 +60,40 @@ function Provider({ children }) {
     }
   };
 
+  const fecthFilterBySearchBarMeals = async () => {
+    let filterFoods;
+    switch (filterSearchBar.typeSearch) {
+    case 'ingredient':
+      filterFoods = await apiFoods(`filter.php?i=${filterSearchBar.text}`);
+      break;
+    case 'name':
+      filterFoods = await apiFoods(`search.php?s=${filterSearchBar.text}`);
+      break;
+    case 'first-letter':
+      filterFoods = await apiFoods(`search.php?f=${filterSearchBar.text}`);
+      break;
+    default: filterFoods = await apiFoods(searchAll);
+    }
+    setFoods(filterFoods);
+  };
+
+  const fecthFilterBySearchBarDrinks = async () => {
+    let filterDrinks;
+    switch (filterSearchBar.typeSearch) {
+    case 'ingredient':
+      filterDrinks = await apiDrinks(`filter.php?i=${filterSearchBar.text}`);
+      break;
+    case 'name':
+      filterDrinks = await apiDrinks(`search.php?s=${filterSearchBar.text}`);
+      break;
+    case 'first-letter':
+      filterDrinks = await apiDrinks(`search.php?f=${filterSearchBar.text}`);
+      break;
+    default: filterDrinks = await apiDrinks(searchAll);
+    }
+    setDrinks(filterDrinks);
+  };
+
   const valueProvider = {
     foods,
     drinks,
@@ -66,6 +101,7 @@ function Provider({ children }) {
     categoriesDrinks,
     filterCategoryFoods,
     filterCategoryDrinks,
+    filterSearchBar,
     fetchFoods,
     fetchDrinks,
     fetchCategoriesFoods,
@@ -74,6 +110,9 @@ function Provider({ children }) {
     fetchFilterCategoryDrinks,
     setFilterCategoryDrinks,
     setFilterCategoryFoods,
+    setFilterSearchBar,
+    fecthFilterBySearchBarMeals,
+    fecthFilterBySearchBarDrinks,
   };
 
   return (
