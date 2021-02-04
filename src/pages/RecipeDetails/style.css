@@ -1,5 +1,7 @@
-img {
-  width: 200px;
+.recipe-details-container {
+  display: flex;
+  flex-direction: column;
+  margin: 12px;
 }
 
 .footer-button {
