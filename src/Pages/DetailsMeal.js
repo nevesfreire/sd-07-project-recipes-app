@@ -12,6 +12,7 @@ function DetailsMeal() {
   const { recipeDetailsAPI } = useFetch();
   const [favoriteRecipe, setFavoriteRecipe] = useState(false);
   const [spanHidden, setSpanHidden] = useState(false);
+  const [buttonClicked, setButtonClicked] = useState(false);
 
   const url = document.URL;
   const newUrlId = url.split('/')[4];
@@ -20,6 +21,7 @@ function DetailsMeal() {
   useEffect(() => {
     recipeDetailsAPI(newUrlId, newUrlType)
       .then(() => setLoading(false));
+    // .then(() => favoriteWhenPageLoad());
   }, []);
 
   if (loading) {
@@ -32,8 +34,23 @@ function DetailsMeal() {
     strYoutube,
     strInstructions,
     idMeal,
-    srtArea,
+    strArea,
   } = detailsRecipe.meals[0];
+
+  const currentRecipe = {
+    name: strMeal,
+  };
+  // verifica se a página já carrega como favorito
+  if (localStorage.getItem('favoriteRecipes') !== null
+    && buttonClicked === false && favoriteRecipe === false) {
+    const favoriteLS = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    favoriteLS.filter((recipe) => {
+      if (recipe.name === currentRecipe.name) {
+        setFavoriteRecipe(true);
+      }
+      return null;
+    });
+  }
 
   const allRecipe = Object.entries(detailsRecipe.meals[0]);
   const ingredients = allRecipe.filter(
@@ -49,12 +66,13 @@ function DetailsMeal() {
   }
 
   function handleFavorite() {
+    setButtonClicked(true);
     const newRecipe = {
       id: idMeal,
       type: 'comida',
-      area: srtArea,
+      area: strArea,
       category: strCategory,
-      alcoholicOrNot: 'not',
+      alcoholicOrNot: '',
       name: strMeal,
       image: strMealThumb,
     };
@@ -64,7 +82,6 @@ function DetailsMeal() {
         localStorage.setItem('favoriteRecipes', JSON.stringify([newRecipe]));
       } else {
         const favoriteLocalStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
-        console.log('favLS', favoriteLocalStorage);
         const newFavoriteList = [
           ...favoriteLocalStorage,
           newRecipe,
@@ -89,12 +106,15 @@ function DetailsMeal() {
       <img src={ strMealThumb } data-testid="recipe-photo" alt={ strMeal } />
       <h1 data-testid="recipe-title">{strMeal}</h1>
       <button
-        aria-label="shareIcon"
-        data-testid="share-btn"
-        src={ shareIcon }
         onClick={ () => copyToClipBoard(document.URL) }
         type="button"
-      />
+      >
+        <img
+          src={ shareIcon }
+          alt="icone de coração, para favoritar receita"
+          data-testid="share-btn"
+        />
+      </button>
       <span hidden={ !spanHidden }>Link copiado!</span>
       <button onClick={ handleFavorite } type="button">
         <img

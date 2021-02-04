@@ -12,6 +12,7 @@ function DetailsDrink() {
   const { recipeDetailsAPI } = useFetch();
   const [favoriteRecipe, setFavoriteRecipe] = useState(false);
   const [spanHidden, setSpanHidden] = useState(false);
+  const [buttonClicked, setButtonClicked] = useState(false);
 
   const url = document.URL;
   const newUrlId = url.split('/')[4];
@@ -36,6 +37,21 @@ function DetailsDrink() {
     strInstructions,
   } = detailsRecipe.drinks[0];
 
+  const currentRecipe = {
+    name: strDrink,
+  };
+  // verifica se a página já carrega como favorito
+  if (localStorage.getItem('favoriteRecipes') !== null
+    && buttonClicked === false && favoriteRecipe === false) {
+    const favoriteLS = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    favoriteLS.filter((recipe) => {
+      if (recipe.name === currentRecipe.name) {
+        setFavoriteRecipe(true);
+      }
+      return null;
+    });
+  }
+
   const allRecipe = Object.entries(detailsRecipe.drinks[0]);
   console.log('allrceipes', detailsRecipe.drinks[0]);
   const ingredients = allRecipe.filter(
@@ -51,10 +67,11 @@ function DetailsDrink() {
   }
 
   function handleFavorite() {
+    setButtonClicked(true);
     const newRecipe = {
       id: idDrink,
       type: 'bebida',
-      area: srtArea,
+      area: '',
       category: strCategory,
       alcoholicOrNot: strAlcoholic,
       name: strDrink,
@@ -91,30 +108,23 @@ function DetailsDrink() {
       <img src={ strDrinkThumb } data-testid="recipe-photo" alt={ strDrink } />
       <h1 data-testid="recipe-title">{strDrink}</h1>
       <button
-        aria-label="shareIcon"
-        data-testid="share-btn"
         onClick={ () => copyToClipBoard(document.URL) }
         type="button"
-      />
+      >
+        <img
+          src={ shareIcon }
+          alt="icone de coração, para favoritar receita"
+          data-testid="share-btn"
+        />
+      </button>
       <span hidden={ !spanHidden }>Link copiado!</span>
-      {/* <div
-        aria-label="shareIcon"
-        tabIndex={ 0 }
-        src={ shareIcon }
-        data-testid="share-btn"
-        onClick={ () => copyURL() }
-        role="button"
-        onKeyDown={ copyURL }
-      /> */}
-      <button
-        aria-label="favoriteIcon"
-        tabIndex={ 0 }
-        src={ favoriteRecipe ? blackHeartIcon : whiteHeartIcon }
-        data-testid="favorite-btn"
-        onClick={ handleFavorite }
-        type="button"
-        onKeyDown={ handleFavorite }
-      />
+      <button onClick={ handleFavorite } type="button">
+        <img
+          src={ favoriteRecipe ? blackHeartIcon : whiteHeartIcon }
+          alt="icone de coração, para favoritar receita"
+          data-testid="favorite-btn"
+        />
+      </button>
       <p data-testid="recipe-category">{strCategory}</p>
       <p data-testid="recipe-category">{strAlcoholic}</p>
       <ul>
