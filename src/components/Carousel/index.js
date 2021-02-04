@@ -1,79 +1,114 @@
-import React from 'react';
-// import Carousel from 'react-bootstrap/Carousel';
-// import image1 from '../../images/whiteHeartIcon.svg';
-// import image2 from '../../images/blackHeartIcon.svg';
-// import image3 from '../../images/drinkIcon.svg';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import Card from '../Card';
+import RequestData from '../../services/RequestAPI';
 import './style.css';
 
 function Carousel() {
-  // const [index, setIndex] = useState(0);
+  const { category } = useParams();
+  const [recomendation, setRecomendation] = useState([]);
+  // console.log(recomendation);
 
-  // const handleSelect = (selectedIndex, e) => {
-  //   setIndex(selectedIndex);
-  // };
+  useEffect(() => {
+    if (category === 'comidas') {
+      RequestData(
+        'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
+      ).then((response) => {
+        setRecomendation(response.drinks);
+      });
+    } else { // if (category === 'bebidas') {
+      RequestData(
+        'https://www.themealdb.com/api/json/v1/1/search.php?s=',
+      ).then((response) => {
+        setRecomendation(response.meals);
+      });
+    }
+  }, [category]);
 
-  return (
-    <div className="teste">
-      <h2>Our Certifications</h2>
-      <div className="row mx-auto my-auto">
-        <div id="recipeCarousel" className="carousel slide w-100" data-ride="carousel">
-          <div className="carousel-inner w-100" role="listbox">
-            <div className="carousel-item active">
-              <img width="900" height="1200" className="d-block col-4 img-fluid" src="https://cdn.shopify.com/s/files/1/2304/9095/files/NMSDC.png?10873" />
-            </div>
-            <div className="carousel-item">
-              <img className="d-block col-4 img-fluid" src="https://cdn.shopify.com/s/files/1/2304/9095/files/DBE-ACDBE-logo.png?10873" />
-            </div>
-            <div className="carousel-item">
-              <img className="d-block col-4 img-fluid" src="https://cdn.shopify.com/s/files/1/2304/9095/files/MBE_LOGO.png?10873" />
-            </div>
-            <div className="carousel-item">
-              <img className="d-block col-4 img-fluid" src="https://cdn.shopify.com/s/files/1/2304/9095/files/2018_WBENC_logo_text_gray.png?10873" />
-            </div>
-            <div className="carousel-item">
-              <img className="d-block col-4 img-fluid" src="http://novel-mg.com/assets/cert_logo.png" />
-            </div>
-            <div className="carousel-item">
-              <img className="d-block col-4 img-fluid" src="https://www.kriaanet.com/wp-content/uploads/2019/02/300ppi-feat-logo_feat_logo-EDWOSB.png" />
-            </div>
-          </div>
-          <a className="carousel-control-prev" href="#recipeCarousel" role="button" data-slide="prev">
-            <span className="carousel-control-prev-icon" aria-hidden="true" />
-            <span className="sr-only">Previous</span>
-          </a>
-          <a className="carousel-control-next" href="#recipeCarousel" role="button" data-slide="next">
-            <span className="carousel-control-next-icon" aria-hidden="true" />
-            <span className="sr-only">Next</span>
-          </a>
+  const images = (item1, item2, index) => {
+    const active = !(index - 1) ? 'active' : '';
+    return (
+      <div key={ index } className={ `carousel-item ${active}` }>
+        <div className="col-xs-4 disp">
+          <Card
+            key={ index - 1 }
+            index={ index - 1 }
+            id={ (category !== 'comidas') ? item1.idMeal : item1.idDrink }
+            name={ (category !== 'comidas') ? item1.strMeal : item1.strDrink }
+            thumb={ (category !== 'comidas') ? item1.strMealThumb : item1.strDrinkThumb }
+            recipeType={ (category !== 'comidas') ? 'comidas' : 'bebidas' }
+            testIdCard={ `${index - 1}-recomendation-card` }
+            testIdThumb=""
+            testIdTitle={ `${index - 1}-recomendation-title` }
+          />
+          <Card
+            key={ index }
+            index={ index }
+            id={ (category !== 'comidas') ? item2.idMeal : item2.idDrink }
+            name={ (category !== 'comidas') ? item2.strMeal : item2.strDrink }
+            thumb={ (category !== 'comidas') ? item2.strMealThumb : item2.strDrinkThumb }
+            recipeType={ (category !== 'comidas') ? 'comidas' : 'bebidas' }
+            testIdCard={ `${index}-recomendation-card` }
+            testIdThumb=""
+            testIdTitle={ `${index}-recomendation-title` }
+          />
         </div>
       </div>
-    </div>
+    );
+  };
 
-  // </div>
+  const zero = 0;
+  const cardsPerPage = 6;
+  if (!recomendation) return (<span>Carregando...</span>);
+  return (
+    <div className="container">
+      <div
+        id="carouselExampleIndicators"
+        className="carousel slide"
+        data-bs-ride="carousel"
+      >
+        <ol className="carousel-indicators">
+          <li
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="0"
+            className="active"
+          />
+          <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" />
+          <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" />
+        </ol>
+        <div className="carousel-inner">
+          {
+            recomendation.slice(zero, cardsPerPage).map((item, index, array) => {
+              const even = 2;
+              if (index % even !== zero) {
+                return images(array[index - 1], item, index);
+              }
+              return false;
+            })
+          }
+        </div>
+        <a
+          className="carousel-control-prev"
+          href="#carouselExampleIndicators"
+          role="button"
+          data-bs-slide="prev"
+        >
+
+          <span className="carousel-control-prev-icon" aria-hidden="true" />
+          <span className="visually-hidden">Previous</span>
+        </a>
+        <a
+          className="carousel-control-next"
+          href="#carouselExampleIndicators"
+          role="button"
+          data-bs-slide="next"
+        >
+          <span className="carousel-control-next-icon" aria-hidden="true" />
+          <span className="visually-hidden">Next</span>
+        </a>
+      </div>
+    </div>
   );
 }
-
-// render(<ControlledCarousel />);
-
-// function CarouselComponent() {
-//   return (
-//     <div className="teste">
-//       <div className="teste1">
-//         <div className="teste11">
-//           aaa
-//         </div>
-//         <div className="teste12">
-//           111
-//         </div>
-//       </div>
-//       <div className="teste2">
-//         bbb
-//       </div>
-//       <div className="teste2">
-//         ccc
-//       </div>
-//     </div>
-//   );
-// }
 
 export default Carousel;

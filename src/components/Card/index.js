@@ -5,23 +5,24 @@ import './style.css';
 
 class Card extends Component {
   render() {
-    const { name, thumb, index, id, recipeType } = this.props;
+    const {
+      name, thumb, id, recipeType, testIdCard, testIdThumb, testIdTitle,
+    } = this.props;
     return (
       <Link
         className="card-container"
-        data-testid={ `${index}-recipe-card` }
+        data-testid={ testIdCard }
         to={ {
           pathname: `/${recipeType}/${id}`,
         } }
       >
-        {/* <div className="card-container" data-testid={ `${index}-recipe-card` }> */}
         <img
           className="image-content"
           src={ thumb }
           alt="Thumb"
-          data-testid={ `${index}-card-img` }
+          data-testid={ testIdThumb }
         />
-        <span data-testid={ `${index}-card-name` }>{name}</span>
+        <span data-testid={ testIdTitle }>{name}</span>
         {/* </div> */}
       </Link>
     );
@@ -31,9 +32,11 @@ class Card extends Component {
 Card.propTypes = {
   name: PropTypes.string.isRequired,
   thumb: PropTypes.string.isRequired,
-  index: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
   recipeType: PropTypes.string.isRequired,
+  testIdCard: PropTypes.string.isRequired,
+  testIdThumb: PropTypes.string.isRequired,
+  testIdTitle: PropTypes.string.isRequired,
 };
 
 export default Card;
