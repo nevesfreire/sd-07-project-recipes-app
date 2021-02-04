@@ -145,5 +145,4 @@ RecipeToProgress.propTypes = {
   }).isRequired,
 };
 
-
 export default RecipeToProgress;
