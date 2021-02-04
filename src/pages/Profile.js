@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import HeaderNoSearch from '../components/HeaderNoSearch';
+// import * as localStorageFunc from '../services/localStorageFunctions';
 import Footer from '../components/Footer';
 import RecipesContext from '../context/RecipesContext';
 

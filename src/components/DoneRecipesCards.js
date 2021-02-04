@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import clipboardCopy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
+import './donerecipes.css';
 
 function DoneRecipesCards({
   thumb,
@@ -51,7 +52,7 @@ function DoneRecipesCards({
       />
       {copyMessage}
       <Link to={ `/${url(type)}/${id}` }>
-        <div>
+        <div className="img_recipes">
           <img
             src={ thumb }
             alt="Imagem do profile"

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 
-function Header({ title }) {
+function HeaderNoSearch({ title }) {
   return (
     <header>
       <Link to="/perfil">
@@ -26,8 +26,8 @@ function Header({ title }) {
   );
 }
 
-Header.propTypes = {
+HeaderNoSearch.propTypes = {
   title: PropTypes.string.isRequired,
 };
 
-export default Header;
+export default HeaderNoSearch;

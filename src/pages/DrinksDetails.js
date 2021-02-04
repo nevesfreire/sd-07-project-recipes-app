@@ -1,4 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import Slider from 'react-slick';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import clipboardCopy from 'clipboard-copy';
@@ -26,6 +29,13 @@ function DrinksDetails(props) {
   const zero = 0;
   const six = 6;
   const fifty = 50;
+  const settings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 2,
+    slidesToScroll: 2,
+  };
 
   const handlerFavorite = () => {
     const favoriteRec = {
@@ -79,7 +89,7 @@ function DrinksDetails(props) {
   }, [drinkDetail]);
 
   return (
-    <div>
+    <div className="main_recipe">
       {console.log(drinkDetail.idDrink)}
       <img
         data-testid="recipe-photo"
@@ -134,20 +144,30 @@ function DrinksDetails(props) {
       >
         {drinkDetail.strInstructions}
       </p>
-      <div>
-        Receitas recomendadas
-        {
-          recomended.map(
-            (item, index) => (
-              <span
-                data-testid={ `${index}-recomendation-card` }
-                key={ index }
-              >
-                <img alt="recomendadas" src={ item.strMealThumb } />
-              </span>
-            ),
-          )
-        }
+      Receitas recomendadas
+      <div className="slider">
+        <Slider { ...settings }>
+          {
+            recomended.map(
+              (item, index) => {
+                if (index > six) return null;
+                return (
+                  <div
+                    key={ index }
+                    data-testid={ `${index}-recomendation-card` }
+                  >
+                    <img alt="imagem" src={ item.strMealThumb } />
+                    <p
+                      data-testid={ `${index}-recomendation-title` }
+                    >
+                      {item.strMeal}
+                    </p>
+                  </div>
+                );
+              },
+            )
+          }
+        </Slider>
       </div>
       <Link to={ `/bebidas/${id}/in-progress` }>
         <button
