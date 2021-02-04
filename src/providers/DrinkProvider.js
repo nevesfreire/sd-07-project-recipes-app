@@ -55,6 +55,7 @@ const DrinkProvider = ({ children }) => {
 
   const searchWithFilter = () => {
     async function requestByIngredient() {
+      console.log(inputText);
       const results = await RequestDrinkAPI(inputText);
       if (!results) return alertMessage();
       setData(results);
@@ -96,6 +97,7 @@ const DrinkProvider = ({ children }) => {
     inputText,
     setInputText,
     data,
+    setData,
     categories,
     categoriesData,
     allButton,
