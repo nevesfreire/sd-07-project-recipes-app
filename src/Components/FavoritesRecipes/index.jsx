@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import useCopyToClipboard from '../../Hooks/useCopyToClipboard';
 import shareIcon from '../../images/shareIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
-import './FavoritesRecipes.css';
+import './FavoriteRecipe.css';
 
 const FavoritesRecipes = () => {
   const timeoutTextCopy = 3000;
