@@ -3,23 +3,35 @@ import PropTypes from 'prop-types';
 
 import RecipesContext from './RecipesContext';
 import TitleContext from './TitleContext';
-import getMealWithId, { getDrinkWithId } from '../services/RecipesAPI';
+import getMealWithId, { getDrinkWithId, getRecomendationDrink, getRecomendationMeal } from '../services/RecipesAPI';
 
 function Provider({ children }) {
   const [mealDescription, setMealDescription] = useState({});
   const [foodsOrDrinksList, setFoodsOrDrinksList] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
+  const [recomendation, setRecomendation] = useState({});
+
+  const fetchRecomendation = async (tipo = undefined) => {
+    if (tipo === 'comida') {
+      const recomend = await getRecomendationDrink();
+      console.log(recomend);
+      setRecomendation(recomend);
+    } else {
+      const recomend = await getRecomendationMeal();
+      setRecomendation(recomend);
+    }
+  }
 
   const fetchMealId = async (id, tipo = undefined) => {
     if (tipo === 'comida') {
-      console.log();
       const x = await getMealWithId(id);
+      await fetchRecomendation(tipo);
       setMealDescription(() => x);
       setIsFetching(() => false);
       return false;
     }
     const x = await getDrinkWithId(id);
-    console.log(id);
+    await fetchRecomendation();
     setMealDescription(() => x);
     setIsFetching(() => false);
     return false;
@@ -32,6 +44,7 @@ function Provider({ children }) {
     isFetching,
     mealDescription,
     setIsFetching,
+    recomendation,
   };
 
   return (

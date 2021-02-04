@@ -6,6 +6,7 @@ export default function DrinkDetails(props) {
     fetchMealId,
     isFetching,
     mealDescription: { drinks },
+    recomendation: { meals },
   } = useContext(RecipesContext);
 
   useEffect(() => {
@@ -16,10 +17,9 @@ export default function DrinkDetails(props) {
   const listIgredient = () => {
     const list = [];
     const mealsReceived = drinks[0];
-    const zero = 0;
 
-    for (let index = zero; mealsReceived[`strIngredient${index}`] !== null; index += 1) {
-      list.push(`${mealsReceived[`strIngredient${index}`]}`);
+    for (let index = 1; mealsReceived[`strIngredient${index}`] !== null; index += 1) {
+      list.push(`${mealsReceived[`strIngredient${index}`]} - ${mealsReceived[`strMeasure${index}`]}`);
     }
     return list;
   };
@@ -37,12 +37,12 @@ export default function DrinkDetails(props) {
       <div>
         <button data-testid="share-btn" type="button">Compartilhar</button>
         <button data-testid="favorite-btn" type="button">Favoritar</button>
-        <p data-testid="recipe-category">{drinks[0].strCategory}</p>
+        <p data-testid="recipe-category">{drinks[0].strAlcoholic}</p>
         <ol className="list-ingredients">
           {listIgredient().map((content, index) => (
             <li
               key={ index }
-              data-testid={ `${index + 1}-ingredient-name-and-measure` }
+              data-testid={ `${index}-ingredient-name-and-measure` }
             >
               {content}
             </li>
@@ -61,6 +61,15 @@ export default function DrinkDetails(props) {
           src={ drinks[0].strYoutube }
           frameBorder="0"
         />
+        <div>
+          {meals.map((mealRecomendation, index) => (
+            <div key={ index } data-testid={ `${index}-recomendation-card` }>
+              <img alt="Recomendation Photo" src={mealRecomendation.strMealThumb}/>
+              <p data-testid={`${index}-recomendation-title`}>{mealRecomendation.strMeal}</p>
+            </div>
+          )).slice(0, 6)}
+        </div>
+        <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
       </div>
     </div>
   );

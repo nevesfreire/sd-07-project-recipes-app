@@ -6,6 +6,7 @@ export default function FoodDetails(props) {
     fetchMealId,
     isFetching,
     mealDescription: { meals },
+    recomendation: { drinks },
   } = useContext(RecipesContext);
 
   useEffect(() => {
@@ -16,10 +17,9 @@ export default function FoodDetails(props) {
   const listIgredient = () => {
     const list = [];
     const mealsReceived = meals[0];
-    const zero = 0;
 
-    for (let index = zero; mealsReceived[`strIngredient${index}`] !== ''; index += 1) {
-      list.push(`${mealsReceived[`strIngredient${index}`]}`);
+    for (let index = 1; mealsReceived[`strIngredient${index}`] !== ''; index += 1) {
+      list.push(`${mealsReceived[`strIngredient${index}`]} - ${mealsReceived[`strMeasure${index}`]}`);
     }
     return list;
   };
@@ -42,7 +42,7 @@ export default function FoodDetails(props) {
           {listIgredient().map((content, index) => (
             <li
               key={ index }
-              data-testid={ `${index + 1}-ingredient-name-and-measure` }
+              data-testid={ `${index}-ingredient-name-and-measure` }
             >
               {content}
             </li>
@@ -61,6 +61,15 @@ export default function FoodDetails(props) {
           src={ meals[0].strYoutube }
           frameBorder="0"
         />
+        <div>
+          {drinks.map((drinkRecomendation, index) => (
+            <div key={ index } data-testid={ `${index}-recomendation-card` }>
+              <img alt="Recomendation Photo" src={drinkRecomendation.strDrinkThumb}/>
+              <p data-testid={`${index}-recomendation-title`}>{drinkRecomendation.strDrink}</p>
+            </div>
+          )).slice(0, 6)}
+        </div>
+        <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
       </div>
     </div>
   );
