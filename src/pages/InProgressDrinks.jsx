@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Col, Row, Form } from 'react-bootstrap';
+import { Container, Col, Row } from 'react-bootstrap';
 import apiTheCocktailDB from '../services/apiTheCocktailDB';
 
 class InProgressDrinks extends React.Component {
@@ -9,6 +9,7 @@ class InProgressDrinks extends React.Component {
       recipe: '',
       ingredientsList: [],
       ingrentsMeasuresList: [],
+      checkBox: {},
     };
     this.maracutaia = this.maracutaia.bind(this);
   }
@@ -18,9 +19,23 @@ class InProgressDrinks extends React.Component {
     this.maracutaia();
   }
 
+  async handleInputChange({ target }) {
+    const { value, name } = target;
+    const { checkBox } = this.state;
+
+    const response = target.type === 'checkbox' ? target.checked : value;
+    await this.setState({
+      checkBox: {
+        ...checkBox, [name]: response,
+      },
+    });
+    localStorage.setItem('checkedItensDrinks', JSON.stringify(this.state.checkBox));
+  }
+
   async callRecipeAPI() {
     const magicThree = 3;
     const localData = localStorage.getItem('inProgressDrinkRecipe');
+    const checkedItens = localStorage.getItem('checkedItensDrinks');
     if (localData === null) {
       const urlParams = window.location.pathname.split('/', magicThree).pop();
       const recipe = await apiTheCocktailDB(`lookup.php?i=${urlParams}`);
@@ -30,7 +45,7 @@ class InProgressDrinks extends React.Component {
       return localStorage
         .setItem('inProgressDrinkRecipe', JSON.stringify(recipe.drinks[0]));
     }
-    this.setState({ recipe: JSON.parse(localData) });
+    this.setState({ recipe: JSON.parse(localData), checkBox: JSON.parse(checkedItens) });
   }
 
   maracutaia() {
@@ -53,7 +68,7 @@ class InProgressDrinks extends React.Component {
     if (recipe === '') {
       return <p>Loading...</p>;
     }
-    const { ingredientsList, ingrentsMeasuresList } = this.state;
+    const { ingredientsList, ingrentsMeasuresList, checkBox } = this.state;
     return (
       <Container fluid>
         <Col>
@@ -83,7 +98,13 @@ class InProgressDrinks extends React.Component {
                     data-testid={ `${index}-ingredient-step` }
                     htmlFor="maracutaia"
                   >
-                    <input type="checkbox" />
+                    <input
+                      name={ item }
+                      type="checkbox"
+                      value={ item }
+                      checked={ checkBox ? checkBox[item] : false }
+                      onClick={ (e) => this.handleInputChange(e) }
+                    />
                     {`${item}${ingrentsMeasuresList[index]
                       ? ingrentsMeasuresList[index] : ''}` }
                   </label>

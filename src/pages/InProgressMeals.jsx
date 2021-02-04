@@ -9,6 +9,7 @@ class InProgressMeals extends React.Component {
       recipe: '',
       ingredientsList: [],
       ingrentsMeasuresList: [],
+      checkBox: {},
     };
     this.maracutaia = this.maracutaia.bind(this);
     this.callRecipeAPI = this.callRecipeAPI.bind(this);
@@ -19,9 +20,23 @@ class InProgressMeals extends React.Component {
     this.maracutaia();
   }
 
+  async handleInputChange({ target }) {
+    const { value, name } = target;
+    const { checkBox } = this.state;
+
+    const response = target.type === 'checkbox' ? target.checked : value;
+    await this.setState({
+      checkBox: {
+        ...checkBox, [name]: response,
+      },
+    });
+    localStorage.setItem('checkedItens', JSON.stringify(this.state.checkBox));
+  }
+
   async callRecipeAPI() {
     const magicThree = 3;
     const localData = localStorage.getItem('inProgressMealRecipe');
+    const checkedItens = localStorage.getItem('checkedItens');
     console.log(localData);
     if (localData === null) {
       const urlParams = window.location.pathname.split('/', magicThree).pop();
@@ -32,7 +47,7 @@ class InProgressMeals extends React.Component {
       return localStorage
         .setItem('inProgressMealRecipe', JSON.stringify(recipe.meals[0]));
     }
-    this.setState({ recipe: JSON.parse(localData) });
+    this.setState({ recipe: JSON.parse(localData), checkBox: JSON.parse(checkedItens) });
   }
 
   maracutaia() {
@@ -51,7 +66,7 @@ class InProgressMeals extends React.Component {
   }
 
   render() {
-    const { ingredientsList, ingrentsMeasuresList, recipe } = this.state;
+    const { ingredientsList, ingrentsMeasuresList, recipe, checkBox } = this.state;
     if (recipe === '') {
       return <p>Loading...</p>;
     }
@@ -84,7 +99,13 @@ class InProgressMeals extends React.Component {
                     data-testid={ `${index}-ingredient-step` }
                     htmlFor="maracutaia"
                   >
-                    <input type="checkbox" />
+                    <input
+                      name={ item }
+                      type="checkbox"
+                      value={ item }
+                      checked={ checkBox ? checkBox[item] : false }
+                      onClick={ (e) => this.handleInputChange(e) }
+                    />
                     {`${item}${ingrentsMeasuresList[index]
                       ? ingrentsMeasuresList[index] : ''}` }
                   </label>
