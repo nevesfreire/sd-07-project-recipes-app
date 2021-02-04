@@ -8,6 +8,7 @@ import {
   REQUEST_COCKTAILS_INGREDIENTS,
   COCKTAILS_INGREDIENTS_SUCCESS,
   COCKTAILS_INGREDIENTS_FAILURE,
+  COCKTAILS_INGREDIENT_CURRENCY,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -53,6 +54,8 @@ export default function cocktails(state = INITIAL_STATE, action) {
     };
   case COCKTAILS_INGREDIENTS_FAILURE:
     return { ...state, iisFetchingIngredients: false, error: action.error };
+  case COCKTAILS_INGREDIENT_CURRENCY:
+    return { ...state, ingredientCurrency: action.ingredient };
   default:
     return state;
   }

@@ -6,12 +6,24 @@ import Footer from '../components/Footer';
 import CocktailsIngredientCard from '../components/CocktailsIngredientCard';
 import {
   fetchCocktailsIngredients,
+  setCocktailsIngredientCurrency,
 } from '../actions/cocktails';
 
 class CocktailsIngredients extends Component {
+  constructor(props) {
+    super(props);
+    this.sendIngredient = this.sendIngredient.bind(this);
+  }
+
   componentDidMount() {
     const { searchCocktailsIngredients } = this.props;
     searchCocktailsIngredients();
+  }
+
+  sendIngredient(event, ingredient) {
+    const { sendCocktailsIngredientsCurrency, history } = this.props;
+    sendCocktailsIngredientsCurrency(ingredient.strIngredient1);
+    history.push('/bebidas');
   }
 
   render() {
@@ -23,11 +35,17 @@ class CocktailsIngredients extends Component {
       <div>
         <Header title="Bebidas" />
         { firstIngredients.map((ingredient, index) => (
-          <CocktailsIngredientCard
+          <button
+            type="button"
             key={ index }
-            ingredient={ ingredient }
-            index={ index }
-          />
+            onClick={ (event) => this.sendIngredient(event, ingredient) }
+          >
+            <CocktailsIngredientCard
+              key={ index }
+              ingredient={ ingredient }
+              index={ index }
+            />
+          </button>
         ))}
         <Footer />
       </div>
@@ -41,11 +59,15 @@ const mapStateToProps = ({ cocktails }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   searchCocktailsIngredients: () => dispatch(fetchCocktailsIngredients()),
+  sendCocktailsIngredientsCurrency:
+    (ingredient) => dispatch(setCocktailsIngredientCurrency(ingredient)),
 });
 
 CocktailsIngredients.propTypes = {
   cocktailsIngredients: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   searchCocktailsIngredients: PropTypes.func.isRequired,
+  sendCocktailsIngredientsCurrency: PropTypes.func.isRequired,
+  history: PropTypes.shape().isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CocktailsIngredients);

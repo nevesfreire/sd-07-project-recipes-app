@@ -7,13 +7,14 @@ import {
   fetchMealsByFirstLetter,
   fetchMealsByIngredient,
   fetchMealsByName,
-  setMealsIngredientCurrency,
+  // setMealsIngredientCurrency,
 } from '../actions/meals';
 
 import {
   fetchCocktailsByFirstLetter,
   fetchCocktailsByIngredient,
   fetchCocktailsByName,
+  // setCocktailsIngredientCurrency,
 } from '../actions/cocktails';
 
 const INGREDIENT = 'ingredient';
@@ -58,7 +59,14 @@ const searchByCocktails = (options, word, {
 
 function SearchBar(props) {
   const {
-    toggle, title, meals, cocktails, ingredientMealCur, sendMealsIngredientsCurrency,
+    toggle,
+    title,
+    meals,
+    cocktails,
+    ingredientMealCur,
+    // sendMealsIngredientsCurrency,
+    ingredientCocktailCur,
+    // sendCocktailsIngredientsCurrency,
   } = props;
 
   const [word, setWord] = useState('');
@@ -78,8 +86,10 @@ function SearchBar(props) {
 
   if (title === 'Comidas' && ingredientMealCur !== '') {
     searchByMeals(INGREDIENT, ingredientMealCur, props);
-    sendMealsIngredientsCurrency('');
-    console.log('Stop');
+  }
+
+  if (title === 'Bebidas' && ingredientCocktailCur !== '') {
+    searchByCocktails(INGREDIENT, ingredientCocktailCur, props);
   }
 
   return (
@@ -154,6 +164,10 @@ SearchBar.propTypes = {
   title: PropTypes.string.isRequired,
   meals: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   cocktails: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  ingredientMealCur: PropTypes.string.isRequired,
+  // sendMealsIngredientsCurrency: PropTypes.shape().isRequired,
+  ingredientCocktailCur: PropTypes.string.isRequired,
+  // sendCocktailsIngredientsCurrency: PropTypes.shape().isRequired,
 };
 
 const mapStateToProps = ({ searchToggleReducer, meals, cocktails }) => ({
@@ -161,6 +175,7 @@ const mapStateToProps = ({ searchToggleReducer, meals, cocktails }) => ({
   meals: meals.meals,
   cocktails: cocktails.cocktails,
   ingredientMealCur: meals.ingredientCurrency,
+  ingredientCocktailCur: cocktails.ingredientCurrency,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -170,8 +185,6 @@ const mapDispatchToProps = (dispatch) => ({
   searchCocktailByIngredient: (i) => dispatch(fetchCocktailsByIngredient(i)),
   searchCocktailByName: (name) => dispatch(fetchCocktailsByName(name)),
   searchCocktailByFirstLetter: (letter) => dispatch(fetchCocktailsByFirstLetter(letter)),
-  sendMealsIngredientsCurrency:
-    (ingredient) => dispatch(setMealsIngredientCurrency(ingredient)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

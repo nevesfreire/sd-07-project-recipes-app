@@ -7,13 +7,22 @@ import CocktailCard from '../components/CocktailCard';
 import {
   fetchRandomCocktails,
   fetchCocktailsCategories,
+  setCocktailsIngredientCurrency,
 } from '../actions/cocktails';
 
 class Cocktails extends Component {
   componentDidMount() {
-    const { searchCocktailsCategories, searchRandomCocktails } = this.props;
-    searchRandomCocktails();
-    searchCocktailsCategories();
+    const {
+      searchCocktailsCategories,
+      searchRandomCocktails,
+      ingredientCurrency,
+      sendCocktailsIngredientsCurrency,
+    } = this.props;
+    if (ingredientCurrency !== '') sendCocktailsIngredientsCurrency('');
+    else {
+      searchRandomCocktails();
+      searchCocktailsCategories();
+    }
   }
 
   render() {
@@ -35,17 +44,22 @@ class Cocktails extends Component {
 
 const mapStateToProps = ({ cocktails }) => ({
   cocktails: cocktails.cocktails,
+  ingredientCurrency: cocktails.ingredientCurrency,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   searchCocktailsCategories: () => dispatch(fetchCocktailsCategories()),
   searchRandomCocktails: () => dispatch(fetchRandomCocktails()),
+  sendCocktailsIngredientsCurrency:
+    (ingredient) => dispatch(setCocktailsIngredientCurrency(ingredient)),
 });
 
 Cocktails.propTypes = {
   cocktails: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   searchCocktailsCategories: PropTypes.func.isRequired,
   searchRandomCocktails: PropTypes.func.isRequired,
+  ingredientCurrency: PropTypes.string.isRequired,
+  sendCocktailsIngredientsCurrency: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cocktails);

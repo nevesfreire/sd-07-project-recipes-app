@@ -20,6 +20,8 @@ export const REQUEST_COCKTAILS_INGREDIENTS = 'REQUEST_COCKTAILS_INGREDIENTS';
 export const COCKTAILS_INGREDIENTS_SUCCESS = 'COCKTAILS_INGREDIENTS_SUCCESS';
 export const COCKTAILS_INGREDIENTS_FAILURE = 'COCKTAILS_INGREDIENTS_FAILURE';
 
+export const COCKTAILS_INGREDIENT_CURRENCY = 'COCKTAILS_INGREDIENT_CURRENCY';
+
 const requestCocktails = () => ({ type: REQUEST_COCKTAILS });
 
 const setCocktailsSuccess = (cocktails) => (
@@ -42,6 +44,10 @@ const setCocktailsIngredientsSuccess = (ingredients) => (
 
 const setCocktailsIngredientsFailure = (error) => (
   { type: COCKTAILS_INGREDIENTS_FAILURE, error });
+
+export const setCocktailsIngredientCurrency = (ingredient) => ({
+  type: COCKTAILS_INGREDIENT_CURRENCY, ingredient,
+});
 
 export const fetchCocktailsByIngredient = (i) => (dispatch) => {
   dispatch(requestCocktails());
