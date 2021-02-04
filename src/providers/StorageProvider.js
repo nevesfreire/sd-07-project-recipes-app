@@ -12,28 +12,28 @@ const StorageProvider = ({ children }) => {
   }, [verifyLocalFav]);
 
   const addFavorite = (keyName, recipe, { name, id, type, doneDate, tags }) => {
-    const [objetct, setObject ] = useState({};)
+    const [objetct, setObject] = useState({});
     if (keyName === 'favoriteRecipes') {
       setObject({
-          id,
-          type,
-          area: recipe.strArea ? recipe.strArea : '',
-          category: recipe.strCategory ? recipe.strCategory : '',
-          alcoholicOrNot: recipe.strAlcoholic ? recipe.strAlcoholic : '',
-          name: recipe[name],
-          image: recipe[`${name}Thumb`],
+        id,
+        type,
+        area: recipe.strArea ? recipe.strArea : '',
+        category: recipe.strCategory ? recipe.strCategory : '',
+        alcoholicOrNot: recipe.strAlcoholic ? recipe.strAlcoholic : '',
+        name: recipe[name],
+        image: recipe[`${name}Thumb`],
       });
     } else {
       setObject({
-          id,
-          type,
-          area: recipe.strArea ? recipe.strArea : '',
-          category: recipe.strCategory ? recipe.strCategory : '',
-          alcoholicOrNot: recipe.strAlcoholic ? recipe.strAlcoholic : '',
-          name: recipe[name],
-          image: recipe[`${name}Thumb`],
-          doneDate,
-          tags,
+        id,
+        type,
+        area: recipe.strArea ? recipe.strArea : '',
+        category: recipe.strCategory ? recipe.strCategory : '',
+        alcoholicOrNot: recipe.strAlcoholic ? recipe.strAlcoholic : '',
+        name: recipe[name],
+        image: recipe[`${name}Thumb`],
+        doneDate,
+        tags,
       });
     }
 
