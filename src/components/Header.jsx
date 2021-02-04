@@ -56,7 +56,6 @@ const searchBtn = (searchButton, toggleSearch, onClick) => {
   }
 };
 
-// ? Header ({componentConfig})
 export default function Header() {
   const { state, setState } = useContext(context);
 

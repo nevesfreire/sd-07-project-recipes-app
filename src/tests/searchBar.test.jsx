@@ -1,18 +1,24 @@
 import React from 'react';
 // import fireEvent from '@testing-library/user-event';
-import Login from '../pages/login';
+import SearchButton from '../pages/login';
 
 describe('Testa se Search Bar é renerizada na página do App de receitas:', () => {
   test('Verifica TextBox', () => {
+    const { getByRole } = renderWithRouter(<SearchButton />);
 
-    getByRole('textbox');
+    const INPUTSEARCH = getByRole('textbox');
+    expect(INPUTSEARCH).toBeInTheDocument();
   });
   test('Verifica Options', () => {
+    const { getByRole } = renderWithRouter(<SearchButton />);
 
-    getByRole('radiogroup', { name: /option/i });
+    const RADIOGROUP = getByRole('radiogroup', { name: /option/i });
+    expect(RADIOGROUP).toBeInTheDocument();
   });
   test('Verifica botão Busca:', () => {
+    const { getByRole } = renderWithRouter(<SearchButton />);
 
-    getByRole('button', { name: /buscar/i });
+    const SEARCHBTN = getByRole('button', { name: /buscar/i });
+    expect(SEARCHBTN).toBeInTheDocument();
   });
 });
