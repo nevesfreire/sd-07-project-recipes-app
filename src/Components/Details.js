@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import copiedLink from 'clipboard-copy';
 import { StorageContext } from '../providers/AllProviders';
@@ -10,6 +10,7 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import './Details.css';
 
 const Details = ({ type, recipe, recommend, ingredientes, id, medidas }) => {
+  const history = useHistory();
   const { addFavorite, removeFavorite } = useContext(StorageContext);
   const [favorited, setFavorite] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -23,17 +24,20 @@ const Details = ({ type, recipe, recommend, ingredientes, id, medidas }) => {
 
   useEffect(() => {
     if (verifyLocalFav) {
-      const searchFav = JSON.parse(verifyLocalFav).some(({ id: favId }) => favId === id);
+      const searchFav = JSON.parse(verifyLocalFav).some(
+        ({ id: favId }) => favId === id,
+      );
       setFavorite(searchFav);
     }
   }, []);
 
   const handleFavorite = () => {
     if (!favorited) {
-      addFavorite(recipe, name, id, type);
+      const atributes = { name, id, type };
+      addFavorite('favoriteRecipes', recipe, atributes);
       return setFavorite(true);
     }
-    removeFavorite(id);
+    removeFavorite('favoriteRecipes', id);
     return setFavorite(false);
   };
 
@@ -41,6 +45,16 @@ const Details = ({ type, recipe, recommend, ingredientes, id, medidas }) => {
     copiedLink(`http://localhost:3000/${type}s/${id}`);
     if (copied) setCopied(false);
     else setCopied(true);
+  };
+
+  const handleStartRecipe = () => {
+    const today = new Date();
+    const doneDate = `${today.getDay()}/${today.getMonth}/${today.getFullYear}`;
+    const tags = ['Pasta', 'Curry']; // strTags
+    const atributes = { name, id, type, doneDate, tags };
+    history.push(`/${type}s/${id}/in-progress`);
+    addFavorite('doneRecipes', recipe, atributes);
+    // removeFavorite('doneRecipes', ids);
   };
 
   return (
@@ -52,57 +66,79 @@ const Details = ({ type, recipe, recommend, ingredientes, id, medidas }) => {
         width="400"
       />
       <h2 data-testid="recipe-title">{recipe[name]}</h2>
-      { copied && <p className="copy-feedback">Link copiado!</p>}
+      {copied && <p className="copy-feedback">Link copiado!</p>}
       <button type="button" onClick={ handleCopy }>
         <img src={ ShareIcon } data-testid="share-btn" alt="thumbShare" />
       </button>
       <button type="button" onClick={ handleFavorite }>
-        <img src={ iconFavorite } data-testid="favorite-btn" alt="thumbFavorite" />
+        <img
+          src={ iconFavorite }
+          data-testid="favorite-btn"
+          alt="thumbFavorite"
+        />
       </button>
-      <h3 data-testid="recipe-category">{ recipe.strAlcoholic || recipe.strCategory}</h3>
+      <h3 data-testid="recipe-category">
+        {recipe.strAlcoholic || recipe.strCategory}
+      </h3>
       {ingredientes.map((ingrediente, index) => (
-        <p key={ ingrediente } data-testid={ `${index}-ingredient-name-and-measure` }>
+        <p
+          key={ ingrediente }
+          data-testid={ `${index}-ingredient-name-and-measure` }
+        >
           {ingrediente}
-        </p>))}
+        </p>
+      ))}
       {medidas.map((medida, index) => (
         <p key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
           {medida}
-        </p>))}
+        </p>
+      ))}
       <p data-testid="instructions">{recipe.strInstructions}</p>
-      {type === 'comida' && <iframe
-        data-testid="video"
-        title="recipe"
-        width="560"
-        height="315"
-        src={ recipe.strYoutube && recipe.strYoutube.replace('watch?v=', 'embed/') }
-        frameBorder="0"
-        allowFullScreen
-      />}
+      {type === 'comida' && (
+        <iframe
+          data-testid="video"
+          title="recipe"
+          width="560"
+          height="315"
+          src={
+            recipe.strYoutube && recipe.strYoutube.replace('watch?v=', 'embed/')
+          }
+          frameBorder="0"
+          allowFullScreen
+        />
+      )}
       <Carousel>
-        { recommend.map((card, index) => (
+        {recommend.map((card, index) => (
           <Carousel.Item key={ card[rcmdName] }>
             <div data-testid={ `${index}-recomendation-card` }>
               <img src={ card[rcmdImg] } alt="Recommended thumb" width="70" />
-              <p data-testid={ `${index}-recomendation-title` }>{ card[rcmdName] }</p>
+              <p data-testid={ `${index}-recomendation-title` }>
+                {card[rcmdName]}
+              </p>
             </div>
-            { !index && (
+            {!index && (
               <div data-testid="1-recomendation-title">
-                <img src={ recommend[1][rcmdImg] } alt="Recommended thumb" width="70" />
-                <p data-testid="1-recomendation-title">{ recommend[1][rcmdName] }</p>
+                <img
+                  src={ recommend[1][rcmdImg] }
+                  alt="Recommended thumb"
+                  width="70"
+                />
+                <p data-testid="1-recomendation-title">
+                  {recommend[1][rcmdName]}
+                </p>
               </div>
             )}
           </Carousel.Item>
         ))}
       </Carousel>
-      <Link to={ `/${type}s/${id}/in-progress` }>
-        <button
-          data-testid="start-recipe-btn"
-          type="button"
-          className="start-recipe"
-        >
-          Iniciar receita
-        </button>
-      </Link>
+      <button
+        data-testid="start-recipe-btn"
+        type="button"
+        className="start-recipe"
+        onClick={ handleStartRecipe }
+      >
+        Iniciar receita
+      </button>
     </div>
   );
 };
