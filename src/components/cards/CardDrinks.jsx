@@ -9,11 +9,13 @@ export default function Cards() {
   const { data } = useContext(GeralContext);
 
   const listOfCards = [];
-  data.forEach(({ strDrink, strDrinkThumb, idDrink }, index) => {
-    listOfCards.push(
-      <Link to={ `/bebidas/${idDrink}` } key={ `${index}-recipe-card` }>
+  const maxNumberCard = 12;
+  data.forEach(({ strDrink, strDrinkThumb }, index) => {
+    if (index < maxNumberCard) {
+      listOfCards.push(
         <Content
           data-testid={ `${index}-recipe-card` }
+          key={ `${index}-recipe-card` }
         >
           <Image
             data-testid={ `${index}-card-img` }
@@ -25,9 +27,11 @@ export default function Cards() {
               {strDrink}
             </Name>
           </NameContainer>
-        </Content>
+        </Content>,
+      );
+    }
       </Link>,
     );
-  });
+          });
   return listOfCards;
 }

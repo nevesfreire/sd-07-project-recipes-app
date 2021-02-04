@@ -35,14 +35,22 @@ export default function GlobalProvider({ children }) {
     initialState: { email, password },
   } = state;
 
+  const checkData = useCallback((newData) => {
+    if (!newData) {
+      return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
+    return setData(newData);
+  }, []);
+
   const selectedTypeFood = useCallback(async (chooseType, func) => {
+
     switch (chooseType) {
     case 'initial':
       return setData(await getInitialFood(''));
     case 'ingredients':
-      return setData(await foodByIngredient(upSearchBar));
+      return checkData(await foodByIngredient(upSearchBar));
     case 'name':
-      return setData(await foodByName(upSearchBar));
+      return checkData(await foodByName(upSearchBar));
     case 'firstLetter':
       return setData(await foodByLetter(upSearchBar));
     case 'categories':
@@ -50,16 +58,16 @@ export default function GlobalProvider({ children }) {
     default:
       return data;
     }
-  }, []);
+  }, [upSearchBar]);
 
   const selectedTypeDrink = useCallback(async (chooseType, func) => {
     switch (chooseType) {
     case 'initial':
       return setData(await getInitialDrink(''));
     case 'ingredients':
-      return setData(await drinkByIngredient(upSearchBar));
+      return checkData(await drinkByIngredient(upSearchBar));
     case 'name':
-      return setData(await drinkByName(upSearchBar));
+      return checkData(await drinkByName(upSearchBar));
     case 'firstLetter':
       return setData(await drinkByLetter(upSearchBar));
     case 'categories':
@@ -67,7 +75,7 @@ export default function GlobalProvider({ children }) {
     default:
       return data;
     }
-  }, []);
+  }, [upSearchBar]);
 
   const updateState = (key, value) => {
     setState((prevState) => ({
