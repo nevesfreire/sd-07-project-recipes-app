@@ -1,7 +1,11 @@
 import React from 'react';
 
-function DetalhesBebidas() {
-  return <div>oi</div>;
+function DetalhesBebidas({ match: { params: { id } } }) {
+  return (
+    <div>
+
+    </div>
+  );
 }
 
 export default DetalhesBebidas;
