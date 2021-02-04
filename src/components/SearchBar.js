@@ -7,14 +7,12 @@ import {
   fetchMealsByFirstLetter,
   fetchMealsByIngredient,
   fetchMealsByName,
-  // setMealsIngredientCurrency,
 } from '../actions/meals';
 
 import {
   fetchCocktailsByFirstLetter,
   fetchCocktailsByIngredient,
   fetchCocktailsByName,
-  // setCocktailsIngredientCurrency,
 } from '../actions/cocktails';
 
 const INGREDIENT = 'ingredient';
@@ -64,9 +62,7 @@ function SearchBar(props) {
     meals,
     cocktails,
     ingredientMealCur,
-    // sendMealsIngredientsCurrency,
     ingredientCocktailCur,
-    // sendCocktailsIngredientsCurrency,
   } = props;
 
   const [word, setWord] = useState('');
@@ -165,9 +161,7 @@ SearchBar.propTypes = {
   meals: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   cocktails: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   ingredientMealCur: PropTypes.string.isRequired,
-  // sendMealsIngredientsCurrency: PropTypes.shape().isRequired,
   ingredientCocktailCur: PropTypes.string.isRequired,
-  // sendCocktailsIngredientsCurrency: PropTypes.shape().isRequired,
 };
 
 const mapStateToProps = ({ searchToggleReducer, meals, cocktails }) => ({
