@@ -61,8 +61,8 @@ function CardAll({ FoodOrDrink, setRenderAll }) {
           </div>
           <div>
             {foodAndDrink.tags
-              && foodAndDrink.tags.map((tag) => (
-                <span data-testid={ `${index}-${tag}-horizontal-tag` }>
+              && foodAndDrink.tags.map((tag, indexs) => (
+                <span key={ indexs } data-testid={ `${index}-${tag}-horizontal-tag` }>
                   {' - '}
                   {tag}
                 </span>
