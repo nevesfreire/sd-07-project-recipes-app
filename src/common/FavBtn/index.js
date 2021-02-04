@@ -31,17 +31,16 @@ export default function FavBtn({ mainData, type }) {
   case 'comida':
     recipe = {
       id: mainData.idMeal,
-      type: 'comida',
+      type: mainData.type ? mainData.type : 'comida',
       area: mainData.strArea,
       category: mainData.strCategory,
-      alcoholicOrNot: mainData.alcoholicOrNot,
+      alcoholicOrNot: mainData.alcoholicOrNot ? mainData.alcoholicOrNot : '',
       name: mainData.strMeal,
       image: mainData.strMealThumb,
     };
     break;
   default: return null;
   }
-
   return (
     <button
       type="button"

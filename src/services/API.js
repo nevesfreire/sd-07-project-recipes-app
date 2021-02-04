@@ -31,18 +31,18 @@ const mealRecomendations = async () => {
 
 const mealById = async (ID) => {
   console.log('rodando mealById');
-  const data = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${ID}`)
+  const { meals } = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${ID}`)
     .then((dataJson) => dataJson.json())
     .catch((err) => console.log(err));
-  return data;
+  return meals[0];
 };
 
 const drinkById = async (ID) => {
   console.log('rodando drinkById');
-  const data = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${ID}`)
+  const { drinks } = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${ID}`)
     .then((dataJson) => dataJson.json())
     .catch((err) => console.log(err));
-  return data;
+  return drinks[0];
 };
 
 const drinkRecomendations = async () => {
