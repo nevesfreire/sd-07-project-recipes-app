@@ -2,16 +2,20 @@ import React from 'react';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
+import { useHistory } from 'react-router-dom';
 
 function Footer() {
+
+  const history = useHistory();
+
   return (
     <section className="footer" data-testid="footer">
       <a data-testid="drinks-bottom-btn" href="/bebidas" src={ drinkIcon }>
         <img src={ drinkIcon } alt="drink icon" />
       </a>
-      <a data-testid="explore-bottom-btn" href="/explorar" src={ exploreIcon }>
+      <button data-testid="explore-bottom-btn" onClick = {() => history.push('/explorar')}>
         <img src={ exploreIcon } alt="explore icon" />
-      </a>
+      </button>
       <a data-testid="food-bottom-btn" href="/comidas" src={ mealIcon }>
         <img src={ mealIcon } alt="food icon" />
       </a>

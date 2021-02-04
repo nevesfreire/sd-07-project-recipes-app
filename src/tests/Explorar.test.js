@@ -6,16 +6,16 @@ import Explorar from '../pages/Explorar';
 
 
 
-describe('Testa o comportamente do componente TelaExplorar.js', () => {
+describe('Testa o comportamente do componente Explorar.js', () => {
     it('Verifica a mudança de rota para \'explorar\'', async () => {
         const { history } = renderWithRouter(<Comidas />);
-        const { pathname } = history.location;
         const explorarIcon = await screen.findByTestId('explore-bottom-btn');
-
+        
         expect(explorarIcon).toBeInTheDocument();
-
+        
         fireEvent.click(explorarIcon);
-        expect(pathname).toBe('/explorar');
+
+        expect(history.location.pathname).toBe('/explorar');
     });
     
     it('Verifica os elementos na tela', async() => {
@@ -43,20 +43,18 @@ describe('Testa o comportamente do componente TelaExplorar.js', () => {
     });
     it('Verifica a mudança de rota para \'/explorar/comidas\'', async() => {
         const { history } = renderWithRouter(<Explorar />);
-        const { pathname } = history.location;
         const exploreFoods = await screen.findByTestId('explore-food');
         
         fireEvent.click(exploreFoods);
 
-        expect(pathname).toBe('/explorar/comidas');
+        expect(history.location.pathname).toBe('/explorar/comidas');
     });
     it('Verifica a mudança de rota para \'/explorar/bebidas\'', async() => {
         const { history } = renderWithRouter(<Explorar />);
-        const { pathname } = history.location;
         const exploreDrinks = await screen.findByTestId('explore-drinks');
         
         fireEvent.click(exploreDrinks);
 
-        expect(pathname).toBe('/explorar/bebidas');
+        expect(history.location.pathname).toBe('/explorar/bebidas');
     });
 });
