@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import copy from 'clipboard-copy';
 import { connect } from 'react-redux';
 import { fetchDetails, fetchRecipes, copyButton } from '../actions';
 import shareIcon from '../images/shareIcon.svg';
@@ -70,7 +71,6 @@ class DrinkDetails extends Component {
 
   handleCopy() {
     const { executeCopy, location: { pathname } } = this.props;
-    const copy = require('clipboard-copy');
     copy(`http://localhost:3000${pathname}`);
     executeCopy('Link copiado!');
   }
@@ -102,6 +102,7 @@ class DrinkDetails extends Component {
   }
 
   showButton() {
+    const { match: { params: { id } }, history } = this.props;
     const getDoneStorage = JSON.parse(localStorage.getItem('doneRecipes'));
     const getProgressRecipeStorage = JSON.parse(localStorage
       .getItem('inProgressRecipes'));
@@ -113,9 +114,9 @@ class DrinkDetails extends Component {
           onClick={ () => history.push(`/bebidas/${id}/in-progress`) }
           className="finish-button-recipe"
         >
-          'Iniciar Receita'
+          Iniciar Receita
         </button>
-      )
+      );
     }
     if (getProgressRecipeStorage) {
       return (
@@ -125,15 +126,14 @@ class DrinkDetails extends Component {
           onClick={ () => history.push(`/bebidas/${id}/in-progress`) }
           className="finish-button-recipe"
         >
-          'Continuar Receita'
+          Continuar Receita
         </button>
-      )
+      );
     }
   }
 
   render() {
-    const { match: { params: { id } }, recomendations,
-      history, valueCopied } = this.props;
+    const { recomendations, valueCopied } = this.props;
     const { drinks, ingredients, favorite, measurement } = this.state;
     const { strDrinkThumb, strDrink, strInstructions, strAlcoholic } = drinks;
     const MEAL_LENGTH = 6;
