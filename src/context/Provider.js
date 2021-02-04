@@ -7,6 +7,10 @@ function Provider({ children }) {
   const [isFetching, setIsFetching] = useState(false);
   const [api, setApi] = useState('');
   const [results, setResults] = useState([]);
+  const [searchByExplore, setSearchByexplore] = useState('');
+  const [filterByExplore, setFilterByExplore] = useState('ingrendient');
+  const [recipesByExplore, setByExplore] = useState(false);
+
   const context = {
     api,
     setApi,
@@ -14,6 +18,12 @@ function Provider({ children }) {
     setResults,
     isFetching,
     setIsFetching,
+    searchByExplore,
+    setSearchByexplore,
+    filterByExplore,
+    setFilterByExplore,
+    recipesByExplore,
+    setByExplore,
   };
   return (
     <Context.Provider value={ context }>

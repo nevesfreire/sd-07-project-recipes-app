@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-import Feed from '../../components/Explorers/Feed';
-import Meals from '../../components/Explorers/Meals';
-import Drinks from '../../components/Explorers/Drinks';
+import { Feed, Meals, Drinks, Ingredients } from '../../components/Explorers';
 
 function Explore({ history, search = false }) {
   const { location: { pathname } } = history;
@@ -19,8 +17,10 @@ function Explore({ history, search = false }) {
     <>
       <Header history={ history } search={ search } />
       {path === '/explorar' && <Feed />}
-      {path === '/explorar/comidas' && <Meals path={ path } history={ history } />}
-      {path === '/explorar/bebidas' && <Drinks path={ path } history={ history } />}
+      {path === '/explorar/comidas' && <Meals path={ path } />}
+      {path === '/explorar/bebidas' && <Drinks path={ path } />}
+      {path === '/explorar/comidas/ingredientes' && <Ingredients path={ path } />}
+      {path === '/explorar/bebidas/ingredientes' && <Ingredients path={ path } />}
       <Footer />
     </>
   );
