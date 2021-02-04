@@ -23,16 +23,36 @@ const inicializateInProgress = (type, id) => {
     localStorage.setItem('inProgressRecipes', JSON.stringify(blanckProgress));
   } else {
     const { meals, cocktails } = recipesInProgress;
-    if (Object.keys((meals).length === empity
-     || meals.id === undefined) && type === 'meals') {
+    const mealsLength = Object.keys((meals)).length;
+    const cocktailsLength = Object.keys((cocktails)).length;
+    if ((mealsLength === empity && meals.id === undefined) && type === 'meals') {
       meals[id] = [];
       localStorage.setItem('inProgressRecipes', JSON.stringify(recipesInProgress));
-    } else if (Object.keys((cocktails).length === empity
-   || cocktails.id === undefined) && type === 'cocktails') {
+    } else if (cocktailsLength === empity
+        && cocktails.id === undefined && type === 'cocktails') {
       cocktails[id] = [];
       localStorage.setItem('inProgressRecipes', JSON.stringify(recipesInProgress));
     }
   }
+};
+
+const insertOrRemoveIngredient = (type, id, ingredient) => {
+  const recipesInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const recipeArray = recipesInProgress[type][id];
+  if (recipeArray.includes(ingredient)) {
+    // remove ingredient
+    recipeArray.splice(recipeArray.indexOf(ingredient), 1);
+    localStorage.setItem('inProgressRecipes', JSON.stringify(recipesInProgress));
+  } else {
+    // insert ingredient
+    recipesInProgress[type][id] = [...recipeArray, ingredient];
+    localStorage.setItem('inProgressRecipes', JSON.stringify(recipesInProgress));
+  }
+};
+
+const ingredientList = (type, id) => {
+  const recipesInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  return recipesInProgress[type][id];
 };
 
 const toggleFav = (recipe) => {
@@ -49,4 +69,11 @@ const toggleFav = (recipe) => {
   }
 };
 
-export { toggleFav, getFav, checkFav, inicializateInProgress };
+export {
+  toggleFav,
+  getFav,
+  checkFav,
+  inicializateInProgress,
+  insertOrRemoveIngredient,
+  ingredientList,
+};

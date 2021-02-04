@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import copy from 'clipboard-copy';
 import { useParams, useHistory } from 'react-router-dom';
 import shareImg from '../../images/shareIcon.svg';
-import { inicializateInProgress } from '../../services/saveLocal';
+import {
+  inicializateInProgress,
+  insertOrRemoveIngredient,
+  ingredientList,
+} from '../../services/saveLocal';
 import FavBtn from '../../common/FavBtn';
 import { mealById, drinkById } from '../../services/API';
 import './style.css';
@@ -12,6 +16,7 @@ const ReceitaEmProgresso = () => {
   const [mainData, setMainData] = useState({});
   const [copyOK, setCopyOK] = useState(false);
   const [isloading, setIsLoading] = useState(true);
+  const [listIngredient, setListIngredient] = useState([]);
   const { pathname } = history.location;
   const { id } = useParams();
   const mainFunction = pathname.includes('comida') ? mealById : drinkById;
@@ -24,14 +29,19 @@ const ReceitaEmProgresso = () => {
       <label
         htmlFor={ mainData[e] }
       >
+        {console.log(listIngredient)}
         <input
           type="checkbox"
           value={ mainData[e] }
           id={ mainData[e] }
+          onChange={ ({ target }) => {
+            insertOrRemoveIngredient(type, id, target.value);
+            setListIngredient(ingredientList(type, id));
+          } }
+          checked={ listIngredient ? listIngredient.includes(mainData[e]) : false }
         />
         { mainData[e] }
       </label>
-
     </li>);
   useEffect(() => {
     const getData = async () => {
@@ -39,9 +49,11 @@ const ReceitaEmProgresso = () => {
       setMainData(data);
       setIsLoading(false);
       inicializateInProgress(type, id);
+      setListIngredient(ingredientList(type, id));
     };
     getData();
   }, [id, mainFunction, type]);
+
   if (!isloading) {
     return (
       <>
