@@ -10,7 +10,7 @@ import Footer from '../components/Footer';
 import RecipesContext from '../context/RecipesContext';
 
 function Drinks() {
-  const { foodsOrDrinksList } = useContext(RecipesContext);
+  const { foodsOrDrinksList, isUse, setIsUse } = useContext(RecipesContext);
   const [apiCategoriesDrinks, setApiCategoriesDrinks] = useState([]);
   const [filterByCategory, setFilterByCategory] = useState([]);
   const [buttonClicked, setButtonClicked] = useState(false);
@@ -25,8 +25,11 @@ function Drinks() {
   };
 
   useEffect(() => {
-    getApiDrinks();
-    getApiCategoriesDrinks();
+    if (!isUse) {
+      getApiDrinks();
+      getApiCategoriesDrinks();
+    }
+    setIsUse(false);
   }, []);
 
   useEffect(() => {

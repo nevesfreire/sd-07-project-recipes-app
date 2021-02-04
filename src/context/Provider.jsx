@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import RecipesContext from './RecipesContext';
 import TitleContext from './TitleContext';
 import getMealWithId from '../services/RecipesAPI';
+import { fetchFoodsIngredients, fetchDrinksIngredients } from '../services/api';
 
 function Provider({ children }) {
   const [mealDescription, setMealDescription] = useState({});
   const [foodsOrDrinksList, setFoodsOrDrinksList] = useState([]);
+  const [foodsIngredientsList, setFoodsIngredientsList] = useState([]);
+  const [drinksIngredientsList, setDrinksIngredientsList] = useState([]);
+  const [isUse, setIsUse] = useState(false);
   const [isFetching, setIsFetching] = useState(true);
   const fetchMealId = async (id = '52772') => {
     const x = await getMealWithId(id);
@@ -15,12 +19,28 @@ function Provider({ children }) {
     setIsFetching(() => false);
   };
 
+  async function fetchIngredients() {
+    const foodIngredients = await fetchFoodsIngredients();
+    setFoodsIngredientsList(foodIngredients);
+
+    const drinksIngredients = await fetchDrinksIngredients();
+    setDrinksIngredientsList(drinksIngredients);
+  }
+
+  useEffect(() => {
+    fetchIngredients();
+  }, []);
+
   const contextValue = {
     foodsOrDrinksList,
     setFoodsOrDrinksList,
     fetchMealId,
     isFetching,
     mealDescription,
+    foodsIngredientsList,
+    drinksIngredientsList,
+    isUse,
+    setIsUse,
   };
 
   return (

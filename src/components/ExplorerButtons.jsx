@@ -4,9 +4,10 @@ import { Link, useHistory } from 'react-router-dom';
 function ExplorerButtons() {
   const [render, setRender] = useState();
   const path = useHistory().location.pathname;
+  const urlFoods = '/explorar/comidas';
 
   useEffect(() => {
-    if (path === '/explorar/comidas') {
+    if (path === urlFoods) {
       setRender(true);
     } else {
       setRender(false);
@@ -15,7 +16,7 @@ function ExplorerButtons() {
 
   return (
     <div>
-      <Link to={ `${path}/ingredientes` }>
+      <Link to={ path === urlFoods ? `${path}/ingredientes` : `${path}/ingredientes` }>
         <button
           data-testid="explore-by-ingredient"
           type="button"
@@ -25,13 +26,23 @@ function ExplorerButtons() {
       </Link>
       {render ? (
         <Link to={ `${path}/area` }>
-          <button data-testid="explore-by-area" type="button">Por Local de Origem</button>
+          <button
+            data-testid="explore-by-area"
+            type="button"
+          >
+            Por Local de Origem
+          </button>
         </Link>
       ) : (
         <span />
       )}
-      <Link to={ `${path}/:{id-da-receita}` }>
-        <button data-testid="explore-surprise" type="button">Me Surpreenda!</button>
+      <Link to={ path === urlFoods ? 'comidas/:{id}' : 'bebidas/:{id}' }>
+        <button
+          data-testid="explore-surprise"
+          type="button"
+        >
+          Me Surpreenda!
+        </button>
       </Link>
     </div>
   );
