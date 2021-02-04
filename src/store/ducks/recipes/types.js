@@ -4,7 +4,9 @@ const recipesTypes = {
   GET_RECIPES: 'recipes/GET_RECIPES',
   GET_CATEGORIES: 'recipes/GET_CATEGORIES',
   SET_FILTER_BY_CATEGORY: 'recipes/SET_FILTER_BY_CATEGORY',
+  SET_FILTER_BY_INGREDIENT: 'recipes/SET_FILTER_BY_INGREDIENT',
   SET_RECIPE_DETAILS: 'recipes/SET_RECIPE_DETAILS',
+  SET_AREAS: 'recipes/SET_AREAS',
 };
 
 export default recipesTypes;

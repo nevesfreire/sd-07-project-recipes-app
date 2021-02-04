@@ -45,6 +45,12 @@ const recipes = (state = INITIAL_STATE, action) => {
       filterByCategory: action.payload,
     };
 
+  case recipesTypes.SET_FILTER_BY_INGREDIENT:
+    return {
+      ...state,
+      filterByIngredient: action.payload,
+    };
+
   case recipesTypes.SET_RECIPE_DETAILS:
     return {
       ...state,

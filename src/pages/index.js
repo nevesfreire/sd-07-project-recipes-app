@@ -4,3 +4,5 @@ export { default as RecipeDetails } from './RecipeDetails';
 export { default as RecipeExplore } from './RecipeExplore';
 export { default as RecipeExploreMore } from './RecipeExploreMore';
 export { default as RecipeExploreByIngredient } from './RecipeExploreByIngredient';
+export { default as RecipeExploreArea } from './RecipeExploreArea';
+export { default as NotFound } from './NotFound';

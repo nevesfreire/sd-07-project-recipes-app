@@ -6,7 +6,10 @@ import {
   RecipeDetails,
   RecipeExplore,
   RecipeExploreMore,
-  RecipeExploreByIngredient } from '../pages';
+  RecipeExploreByIngredient,
+  RecipeExploreArea,
+  NotFound,
+} from '../pages';
 
 export default function Routes() {
   return (
@@ -28,6 +31,16 @@ export default function Routes() {
         exact
         path="/explorar/bebidas/ingredientes"
         component={ RecipeExploreByIngredient }
+      />
+      <Route
+        exact
+        path="/explorar/bebidas/area"
+        component={ NotFound }
+      />
+      <Route
+        exact
+        path="/explorar/comidas/area"
+        component={ RecipeExploreArea }
       />
     </Switch>
   );

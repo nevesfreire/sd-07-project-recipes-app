@@ -21,6 +21,9 @@ const INITIAL_STATE = {
     error: '',
     categories: [],
     filterByCategory: '',
+    filterByIngredient: '',
+    areas: [],
+    ingredients: [],
   },
 };
 
