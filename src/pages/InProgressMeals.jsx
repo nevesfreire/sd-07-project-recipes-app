@@ -22,15 +22,14 @@ class InProgressMeals extends React.Component {
 
   async handleInputChange({ target }) {
     const { value, name } = target;
-    const { checkBox } = this.state;
-
     const response = target.type === 'checkbox' ? target.checked : value;
-    await this.setState({
+    await this.setState((prevState) => ({
       checkBox: {
-        ...checkBox, [name]: response,
+        ...prevState.checkBox, [name]: response,
       },
-    });
-    localStorage.setItem('checkedItens', JSON.stringify(this.state.checkBox));
+    }));
+    const { checkBox } = this.state;
+    localStorage.setItem('checkedItens', JSON.stringify(checkBox));
   }
 
   async callRecipeAPI() {
