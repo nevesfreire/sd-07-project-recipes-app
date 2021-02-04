@@ -1,8 +1,6 @@
 import React, { useContext } from 'react';
-import Header from '../../Components/Header';
-import Footer from '../../Components/Footer';
+import { Header, Footer, Cards } from '../../Components';
 import FoodContext from '../../providers/Context/Context';
-import Cards from '../../Components/Cards';
 
 const Food = () => {
   const { data, categories, categoriesData, allButton } = useContext(FoodContext);

@@ -5,6 +5,8 @@ import Perfil from './Perfil';
 import Login from './Login';
 import DrinkDetails from './DrinkDetails';
 import FoodDetails from './FoodDetails';
+import DoneRecipes from './DoneRecipes';
+import FavoriteRecipes from './FavoriteRecipes';
 import DrinkProgress from './DrinkProgress';
 import FoodProgress from './FoodProgress';
 import DrinkExplore from './DrinkExplore';
@@ -18,6 +20,8 @@ export {
   Login,
   DrinkDetails,
   FoodDetails,
+  DoneRecipes,
+  FavoriteRecipes,
   DrinkProgress,
   FoodProgress,
   DrinkExplore,
