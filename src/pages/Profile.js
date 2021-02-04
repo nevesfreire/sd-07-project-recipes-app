@@ -1,17 +1,10 @@
 import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import HeaderNoSearch from '../components/HeaderNoSearch';
 import Footer from '../components/Footer';
 import RecipesContext from '../context/RecipesContext';
 
 function Profile() {
-  // const goDoneRecipes = () => props.history.push('/receitas-feitas');
-  // const goFavoriteRecipes = () => props.history.push('/receitas-favoritas');
-  // const goLogin = () => {
-  //   props.history.push('/');
-  //   localStorage.clear();
-  // };
   const { login } = useContext(RecipesContext);
   return (
     <div>
@@ -29,7 +22,6 @@ function Profile() {
           <button
             type="button"
             data-testid="profile-done-btn"
-          // onClick={ () => goDoneRecipes() }
           >
             Receitas Feitas
           </button>
@@ -38,7 +30,6 @@ function Profile() {
           <button
             type="button"
             data-testid="profile-favorite-btn"
-          // onClick={ () => goFavoriteRecipes() }
           >
             Receitas Favoritas
           </button>
@@ -47,7 +38,6 @@ function Profile() {
           <button
             type="button"
             data-testid="profile-logout-btn"
-          // onClick={ () => goLogin() }
           >
             Sair
           </button>
@@ -57,9 +47,5 @@ function Profile() {
     </div>
   );
 }
-
-Profile.propTypes = {
-  history: PropTypes.func.isRequired,
-};
 
 export default Profile;
