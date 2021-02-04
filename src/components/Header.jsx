@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 import imageProfile from '../images/profileIcon.svg';
@@ -17,7 +17,9 @@ function Header() {
     setHeaderName(titleHeaderNames[renderTitlePage]);
   }
 
-  routeLoadToState();
+  useEffect(() => {
+    routeLoadToState();
+  }, []);
 
   if (path === undefined) path = titleHeaderName;
 

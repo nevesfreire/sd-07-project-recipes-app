@@ -9,6 +9,7 @@ function Provider({ children }) {
   const [mealDescription, setMealDescription] = useState({});
   const [foodsOrDrinksList, setFoodsOrDrinksList] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
+  const [selectedTypeItem, setSelectedTypeItem] = useState('all');
   const fetchMealId = async (id = '52772') => {
     const x = await getMealWithId(id);
     setMealDescription(() => x);
@@ -21,6 +22,8 @@ function Provider({ children }) {
     fetchMealId,
     isFetching,
     mealDescription,
+    selectedTypeItem,
+    setSelectedTypeItem,
   };
 
   return (

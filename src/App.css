@@ -76,6 +76,20 @@ body {
   background-image: linear-gradient(yellow, yellow, red);
 }
 
+.card-my-recipes {
+  max-width: 350px;
+  max-height: 250px;
+}
+
+.card-combined-itens {
+  display: flex;
+}
+
+.card-img-done {
+  width: 100px;
+  height: 100px;
+}
+
 .footer-nav {
   background-color: red; /* For browsers that do not support gradients */
   background-image: linear-gradient(red, black);
