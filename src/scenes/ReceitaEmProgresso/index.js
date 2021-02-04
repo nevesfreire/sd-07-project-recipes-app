@@ -16,14 +16,22 @@ const ReceitaEmProgresso = () => {
   const [mainData, setMainData] = useState({});
   const [copyOK, setCopyOK] = useState(false);
   const [isloading, setIsLoading] = useState(true);
+  const [disabled, setDisabled] = useState(true);
   const [listIngredient, setListIngredient] = useState([]);
   const { pathname } = history.location;
   const { id } = useParams();
   const mainFunction = pathname.includes('comida') ? mealById : drinkById;
   const type = mainFunction === mealById ? 'meals' : 'cocktails';
+
   const ingredients = Object.keys(mainData)
     .filter((e) => e.includes('strIngredient')
     && mainData[e] !== null && mainData[e] !== '');
+  const veryDisabled = () => {
+    const qtdIngredients = ingredients.length;
+    const alreadyUsed = listIngredient.length;
+    return alreadyUsed + 1 !== qtdIngredients;
+  };
+
   const mapOl = (e, i) => (
     <li key={ i } data-testid={ `${i}-ingredient-step` }>
       <label
@@ -31,12 +39,12 @@ const ReceitaEmProgresso = () => {
       >
         <input
           type="checkbox"
-          value={ mainData[e] }
           id={ mainData[e] }
-          checked={ listIngredient.includes(mainData[e]) }
-          onChange={ ({ target }) => {
-            insertOrRemoveIngredient(type, id, target.value);
+          defaultChecked={ listIngredient.includes(mainData[e]) }
+          onChange={ () => {
+            insertOrRemoveIngredient(type, id, mainData[e]);
             setListIngredient(ingredientList(type, id));
+            setDisabled(veryDisabled());
           } }
         />
         { mainData[e] }
@@ -71,7 +79,8 @@ const ReceitaEmProgresso = () => {
         <button
           type="button"
           onClick={ () => {
-            copy(window.location.href)
+            const url = window.location.href.replace('/in-progress', '');
+            copy(url)
               .then(() => setCopyOK(true));
           } }
         >
@@ -89,7 +98,16 @@ const ReceitaEmProgresso = () => {
         </ul>
         <h2>Instruções:</h2>
         <p data-testid="instructions">{mainData.strInstructions}</p>
-        <button type="button" data-testid="finish-recipe-btn">Finalizar</button>
+        <button
+          type="button"
+          data-testid="finish-recipe-btn"
+          disabled={ disabled }
+          onClick={ () => {
+            history.push('/receitas-feitas');
+          } }
+        >
+          Finalizar
+        </button>
       </>
     );
   }

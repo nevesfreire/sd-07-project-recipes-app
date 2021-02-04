@@ -374,7 +374,6 @@ describe('51 - Desenvolva a lógica de favoritar e compartilhar, a lógica da te
           image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
         },
       ];
-
       expect(favoriteRecipes).to.deep.eq(expectedFavoriteRecipes);
       localStorage.clear();
     });
