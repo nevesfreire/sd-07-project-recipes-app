@@ -12,11 +12,11 @@ import ExploreFood from './pages/ExploreFood';
 import ExploreDrink from './pages/ExploreDrink';
 import FoodIngredient from './pages/FoodIngredient';
 import DrinkIngredient from './pages/DrinkIngredient';
-import FoodArea from './pages/FoodArea';
 import FavoriteRecipes from './pages/FavoriteRecipes';
+import DrinkArea from './pages/DrinkArea';
+import FoodArea from './pages/FoodArea';
 
 function App() {
-  const stringPath = '/explorar/bebidas/ingredientes';
   return (
     <Provider>
       <BrowserRouter>
@@ -24,19 +24,22 @@ function App() {
           <Route exact path="/" component={ Login } />
           <Route exact path="/comidas" component={ FoodRecipes } />
           <Route exact path="/bebidas" component={ DrinkRecipes } />
-          <Route path="/comidas/:id" component={ FoodDetails } />
-          <Route path="/bebidas/:id" component={ DrinkDetails } />
+          <Route exact path="/comidas/:id" component={ FoodDetails } />
+          <Route exact path="/bebidas/:id" component={ DrinkDetails } />
           <Route exact path="/perfil" component={ Profile } />
           <Route exact path="/explorar" component={ Explore } />
           <Route exact path="/explorar/comidas" component={ ExploreFood } />
           <Route exact path="/explorar/bebidas" component={ ExploreDrink } />
           <Route
-            exact
             path="/explorar/comidas/ingredientes"
             component={ FoodIngredient }
           />
-          <Route exact path={ stringPath } component={ DrinkIngredient } />
+          <Route
+            path="/explorar/bebidas/ingredientes"
+            component={ DrinkIngredient }
+          />
           <Route exact path="/explorar/comidas/area" component={ FoodArea } />
+          <Route exact path="/explorar/bebidas/area" component={ DrinkArea } />
           <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
         </Switch>
       </BrowserRouter>

@@ -88,6 +88,7 @@ function DrinkDetails() {
     <div>
       <img
         data-testid="recipe-photo"
+        width="500"
         src={ recipeDetailDrink.strDrinkThumb }
         alt="drink"
       />
@@ -119,6 +120,7 @@ function DrinkDetails() {
                   key={ index }
                 >
                   <img
+                    width="200"
                     data-testid={ `${index}-card-img` }
                     src={ meals.strMealThumb }
                     alt={ meals.strMeal }
