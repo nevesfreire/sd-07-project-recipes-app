@@ -10,6 +10,7 @@ import FoodArea from './FoodArea';
 import Profile from './Profile';
 import DoneRecipes from './DoneRecipes';
 import FavoritesRecipes from './FavoritesRecipes';
+import RecipeDetails from './RecipeDetails';
 
 export {
   Login,
@@ -24,4 +25,5 @@ export {
   Profile,
   DoneRecipes,
   FavoritesRecipes,
+  RecipeDetails,
 };
