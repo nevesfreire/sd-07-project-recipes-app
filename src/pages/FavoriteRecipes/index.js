@@ -2,26 +2,25 @@ import React, { useState, useEffect } from 'react';
 import { CardAll, Header } from '../../Components';
 
 function FavoriteRecipes() {
-  const [getRecipe, setRecipe] = useState(
-    JSON.parse(localStorage.getItem('favoriteRecipes')),
-  );
+  const filtrar = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const [getRecipe, setRecipe] = useState(filtrar);
   const [FoodOrDrink, setRenderAll] = useState(getRecipe);
 
   useEffect(() => { setRecipe(FoodOrDrink); }, [getRecipe, FoodOrDrink]);
 
   const handleDrink = () => {
-    const drink = getRecipe.filter(
+    const drink = filtrar.filter(
       (selectFood) => selectFood.type === 'bebida',
     );
     setRenderAll(drink);
   };
   const handleFood = () => {
-    const food = getRecipe.filter((selectFood) => selectFood.type === 'comida');
+    const food = filtrar.filter((selectFood) => selectFood.type === 'comida');
     setRenderAll(food);
   };
 
   const handleFoodAndDrink = () => {
-    setRenderAll(getRecipe);
+    setRenderAll(filtrar);
   };
 
   return (
@@ -49,7 +48,7 @@ function FavoriteRecipes() {
         Drinks
       </button>
       <div>
-        <CardAll FoodOrDrink={ FoodOrDrink } />
+        <CardAll setRenderAll={ setRenderAll } FoodOrDrink={ FoodOrDrink } />
       </div>
     </div>
   );

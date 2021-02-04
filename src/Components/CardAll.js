@@ -4,8 +4,7 @@ import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
-function CardAll({ FoodOrDrink }) {
-  const [getDrinkOrFood, setDrinkOrFood] = useState(FoodOrDrink);
+function CardAll({ FoodOrDrink, setRenderAll }) {
   const [favorited, setFavorite] = useState(true);
   const [copied, setCopied] = useState(false);
   const iconFavorite = favorited ? blackHeartIcon : whiteHeartIcon;
@@ -13,13 +12,13 @@ function CardAll({ FoodOrDrink }) {
   useEffect(() => {
     setFavorite(true);
     setCopied(false);
-  }, [getDrinkOrFood]);
+  }, [FoodOrDrink]);
 
   const handleDeslike = (id) => {
     if (favorited) {
-      const newFavorite = getDrinkOrFood
+      const newFavorite = FoodOrDrink
         .filter((foodsOrDrinks) => foodsOrDrinks.id !== id);
-      setDrinkOrFood(newFavorite);
+      setRenderAll(newFavorite);
       localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorite));
       return setFavorite(false);
     }
@@ -32,8 +31,8 @@ function CardAll({ FoodOrDrink }) {
   };
 
   return (
-    getDrinkOrFood
-    && getDrinkOrFood.map((foodAndDrink, index) => (
+    FoodOrDrink
+    && FoodOrDrink.map((foodAndDrink, index) => (
       <div key={ foodAndDrink.id }>
         <Link to={ `/${foodAndDrink.type}s/${foodAndDrink.id}` }>
           <img
