@@ -13,7 +13,9 @@ function Favorite({ recipesStorage, setRecipesStorage }) {
   const [favorite] = useFavorites();
 
   const copyLink = () => {
+    const delay = 2000;
     setCopy(true);
+    setTimeout(() => setCopy(false), delay);
   };
 
   const handlerFilterRecipes = (number) => {
@@ -32,7 +34,10 @@ function Favorite({ recipesStorage, setRecipesStorage }) {
       <p>{copy && 'Link copiado!'}</p>
       {recipesStorage.map(
         ({ id, type, area, category, image, alcoholicOrNot, name }, index) => (
-          <div key={ id } className="div-favorite-div">
+          <div
+            key={ id }
+            className="div-favorite-div"
+          >
             <div className="div-recipes-favorite">
               <Link to={ `${type}s/${id}` }>
                 <img

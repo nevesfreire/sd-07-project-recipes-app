@@ -15,3 +15,4 @@ export { default as Favorite } from './Favorite';
 export { default as ButtonsFavorite } from './ButtonsFavorite';
 export { default as Loading } from './Loading';
 export { default as Item } from './Item';
+export { default as ExploreArea } from './ExploreArea';

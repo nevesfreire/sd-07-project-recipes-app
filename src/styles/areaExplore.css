@@ -1,0 +1,14 @@
+.div-select-area {
+  display: flex;
+  font-size: 16pt;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.div-select-area select {
+  background: white;
+  border: 1px solid black;
+  box-sizing: border-box;
+  height: 47px;
+  width: 337px;
+}

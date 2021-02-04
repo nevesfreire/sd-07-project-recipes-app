@@ -20,7 +20,9 @@ function TitleDetails({ recipes, pathname, id }) {
   }, []);
 
   const copyLink = () => {
+    const delay = 2000;
     setCopy(true);
+    setTimeout(() => setCopy(false), delay);
   };
 
   if (recipes === 'comidas') {
@@ -43,6 +45,7 @@ function TitleDetails({ recipes, pathname, id }) {
             </p>
           </div>
         ))}
+        <p className="p-copy">{copy && 'Link copiado!'}</p>
         <div className="div-favorite-detail">
           <CopyToClipboard text={ pathname }>
             <button
@@ -55,7 +58,6 @@ function TitleDetails({ recipes, pathname, id }) {
                 src={ shareIcon }
                 alt="Icone Compartilhar"
               />
-              <p>{copy && 'Link copiado!'}</p>
             </button>
           </CopyToClipboard>
           <button
@@ -91,6 +93,7 @@ function TitleDetails({ recipes, pathname, id }) {
           </p>
         </div>
       ))}
+      <p className="p-copy">{copy && 'Link copiado!'}</p>
       <div className="div-favorite-detail">
         <CopyToClipboard text={ pathname }>
           <button
@@ -103,7 +106,6 @@ function TitleDetails({ recipes, pathname, id }) {
               src={ shareIcon }
               alt="Icone Compartilhar"
             />
-            <p>{copy && 'Link copiado!'}</p>
           </button>
         </CopyToClipboard>
         <button

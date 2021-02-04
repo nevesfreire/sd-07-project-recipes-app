@@ -39,6 +39,15 @@
   height: 100vh;
 }
 
+.div-favorite p {
+  background-color: #be1003;
+  border-radius: 5px;
+  color: aliceblue;
+  font-size: 12pt;
+  margin-top: 10px;
+  padding: 0 2px;
+}
+
 .div-recipes-favorite {
   display: flex;
 }

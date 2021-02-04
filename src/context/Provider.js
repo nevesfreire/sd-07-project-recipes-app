@@ -37,6 +37,8 @@ function Provider({ children }) {
     mealsData,
     setMealsData,
     setDrinksData,
+    mealsAPI,
+    drinksAPI,
     detailApi,
     showSearch,
     setShowSearch,
