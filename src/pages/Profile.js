@@ -1,21 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import HeaderNoSearch from '../components/HeaderNoSearch';
 import Footer from '../components/Footer';
-import * as localStorageFunc from '../services/localStorageFunctions';
+import RecipesContext from '../context/RecipesContext';
 
-function Profile(props) {
-  const goDoneRecipes = () => props.history.push('/receitas-feitas');
-  const goFavoriteRecipes = () => props.history.push('/receitas-favoritas');
-  const goLogin = () => {
-    props.history.push('/');
-    localStorage.clear();
-  };
-  const { email } = localStorageFunc.getEmailLocalStorage();
+function Profile() {
+  const { login } = useContext(RecipesContext);
   return (
     <div>
-      <HeaderNoSearch title="Profile" />
-      <Footer />
+      <HeaderNoSearch title="Perfil" />
       <div>
         <section
           type="email"
@@ -23,36 +16,36 @@ function Profile(props) {
           data-testid="profile-email"
         >
           <strong>User:</strong>
-          {email}
+          {login.email}
         </section>
-        <button
-          type="button"
-          data-testid="profile-done-btn"
-          onClick={ () => goDoneRecipes() }
-        >
-          Receitas Feitas
-        </button>
-        <button
-          type="button"
-          data-testid="profile-favorite-btn"
-          onClick={ () => goFavoriteRecipes() }
-        >
-          Receitas Favoritas
-        </button>
-        <button
-          type="button"
-          data-testid="profile-logout-btn"
-          onClick={ () => goLogin() }
-        >
-          Sair
-        </button>
+        <Link to="/receitas-feitas">
+          <button
+            type="button"
+            data-testid="profile-done-btn"
+          >
+            Receitas Feitas
+          </button>
+        </Link>
+        <Link to="/receitas-favoritas">
+          <button
+            type="button"
+            data-testid="profile-favorite-btn"
+          >
+            Receitas Favoritas
+          </button>
+        </Link>
+        <Link to="/">
+          <button
+            type="button"
+            data-testid="profile-logout-btn"
+          >
+            Sair
+          </button>
+        </Link>
       </div>
+      <Footer />
     </div>
   );
 }
-
-Profile.propTypes = {
-  history: PropTypes.func.isRequired,
-};
 
 export default Profile;
