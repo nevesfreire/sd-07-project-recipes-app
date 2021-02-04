@@ -1,28 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class RecomendationCardMeal extends React.Component {
+class RecomendationCardDrink extends React.Component {
   render() {
-    const { mealRecommended, mealIndex } = this.props;
-    console.log(mealRecommended);
+    const { drinkRecommended, drinkIndex } = this.props;
+    console.log(drinkRecommended);
     return (
       <div
-        data-testid={ `${mealIndex}-recomendation-card` }
+        data-testid={ `${drinkIndex}-recomendation-card` }
       >
-        <h3>{mealRecommended.strMeal}</h3>
-        <h4>{mealRecommended.strCategory}</h4>
+        <h3>{drinkRecommended.strDrink}</h3>
+        <h4>{drinkRecommended.strCategory}</h4>
         <img
-          src={ mealRecommended.strMealThumb }
-          alt={ mealRecommended.strMeal }
+          src={ drinkRecommended.strDrinkThumb }
+          alt={ drinkRecommended.strDrink }
         />
       </div>
     );
   }
 }
 
-RecomendationCardMeal.propTypes = {
-  mealRecommended: PropTypes.arrayOf(PropTypes.Object).isRequired,
-  mealIndex: PropTypes.number.isRequired,
+RecomendationCardDrink.propTypes = {
+  drinkRecommended: PropTypes.arrayOf(PropTypes.Object).isRequired,
+  drinkIndex: PropTypes.number.isRequired,
 };
 
-export default RecomendationCardMeal;
+export default RecomendationCardDrink;

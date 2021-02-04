@@ -7,8 +7,9 @@ import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import { RecomendationCardDrink } from '../../components';
 import {
   getSpecificDrinkById,
-  getRecommendatedDrinks,
+  // getRecommendatedDrinks,
 } from '../../store/ducks/getDetailedDrink/actions';
+import { getRecommendatedMeals } from '../../store/ducks/getDetailedMeal/actions';
 
 class TelaDetalheBebida extends Component {
   async componentDidMount() {
@@ -17,8 +18,9 @@ class TelaDetalheBebida extends Component {
         params: { id },
       },
     } = this.props;
-    const { getDetailedDrinkDispatch, getRecommendationDrinks } = this.props;
-    await getRecommendationDrinks();
+    const { getDetailedDrinkDispatch, getRecommendationMeals } = this.props;
+    // await getRecommendationDrinks();
+    await getRecommendationMeals();
     await getDetailedDrinkDispatch(id);
   }
 
@@ -41,7 +43,7 @@ class TelaDetalheBebida extends Component {
   renderDetails(drink) {
     const ingredientsArray = this.handleIngredients(drink);
     const measuresArray = this.handleMeasure(drink);
-    const { drinksRecommendStore } = this.props;
+    const { mealsRecommendStore } = this.props;
     const six = 6;
     const settings = {
       dots: true,
@@ -50,7 +52,7 @@ class TelaDetalheBebida extends Component {
       slidesToShow: 2,
       slidesToScroll: 2,
     };
-
+    // console.log(drinksRecommendStore);
     return (
       <div>
         <img
@@ -84,12 +86,13 @@ class TelaDetalheBebida extends Component {
           <p data-testid="instructions">{drink[0].strInstructions}</p>
         </div>
         <Slider { ...settings }>
-          {drinksRecommendStore.map((element, index) => {
+          {mealsRecommendStore.map((element, index) => {
             if (index < six) {
               return (<RecomendationCardDrink
                 key={ element }
-                drinkRecommended={ element }
-                drinkIndex={ index }
+                data-testid={ `${index}-recomendation-card` }
+                mealRecommended={ element }
+                mealIndex={ index }
               />);
             } return null;
           })}
@@ -112,19 +115,23 @@ class TelaDetalheBebida extends Component {
 
 const mapStateToProps = (state) => ({
   drinkDetailStore: state.detalhesDaReceitaBebida.drink.drinks,
-  drinksRecommendStore: state.detalhesDaReceitaBebida.drinkRecommend.drinks,
+  // drinksRecommendStore: state.detalhesDaReceitaBebida.drinkRecommend.drinks,
+  mealsRecommendStore: state.detalhesDaReceitaComida.mealRecommend.meals,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getDetailedDrinkDispatch: (id) => dispatch(getSpecificDrinkById(id)),
-  getRecommendationDrinks: () => dispatch(getRecommendatedDrinks()),
+  getRecommendationMeals: () => dispatch(getRecommendatedMeals()),
+  // getRecommendationDrinks: () => dispatch(getRecommendatedDrinks()),
 });
 
 TelaDetalheBebida.propTypes = {
   drinkDetailStore: PropTypes.arrayOf(PropTypes.Object).isRequired,
   getDetailedDrinkDispatch: PropTypes.func.isRequired,
-  drinksRecommendStore: PropTypes.arrayOf(PropTypes.Object).isRequired,
-  getRecommendationDrinks: PropTypes.func.isRequired,
+  // drinksRecommendStore: PropTypes.arrayOf(PropTypes.Object).isRequired,
+  // getRecommendationDrinks: PropTypes.func.isRequired,
+  mealsRecommendStore: PropTypes.arrayOf(PropTypes.Object).isRequired,
+  getRecommendationMeals: PropTypes.arrayOf(PropTypes.Object).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
