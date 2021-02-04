@@ -1,25 +1,22 @@
 import React, { useEffect, useState, useContext } from 'react';
-import Carousel from 'react-bootstrap/Carousel';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import copiedLink from 'clipboard-copy';
 import { StorageContext } from '../providers/AllProviders';
 import ShareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import './Details.css';
 
-const Details = ({ type, recipe, recommend, ingredientes, id, medidas }) => {
+const ProgressFood = ({ type, recipe, ingredientes, id }) => {
   const { addFavorite, removeFavorite } = useContext(StorageContext);
   const [favorited, setFavorite] = useState(false);
   const [copied, setCopied] = useState(false);
   const verifyLocalFav = localStorage.getItem('favoriteRecipes');
+  const [allChecked, setAllChecked] = useState(false);
 
   const iconFavorite = favorited ? blackHeartIcon : whiteHeartIcon;
-  const name = type === 'comida' ? 'strMeal' : 'strDrink';
-  const rcmdName = type === 'comida' ? 'strDrink' : 'strMeal';
+  const name = type === 'comida' && 'strMeal';
   const image = `${name}Thumb`;
-  const rcmdImg = `${rcmdName}Thumb`;
 
   useEffect(() => {
     if (verifyLocalFav) {
@@ -27,6 +24,14 @@ const Details = ({ type, recipe, recommend, ingredientes, id, medidas }) => {
       setFavorite(searchFav);
     }
   }, []);
+
+  const checkedIsTreu = () => {
+    const nodeListForAllCheckeBox = document.querySelectorAll('input');
+    const arrayForAllCheckeBox = [];
+    nodeListForAllCheckeBox.forEach((item) => arrayForAllCheckeBox.push(item));
+    if (arrayForAllCheckeBox.every((elem) => elem.checked === true)) setAllChecked(true);
+    else setAllChecked(false);
+  };
 
   const handleFavorite = () => {
     if (!favorited) {
@@ -45,6 +50,7 @@ const Details = ({ type, recipe, recommend, ingredientes, id, medidas }) => {
 
   return (
     <div>
+
       <img
         data-testid="recipe-photo"
         src={ recipe[image] }
@@ -53,63 +59,49 @@ const Details = ({ type, recipe, recommend, ingredientes, id, medidas }) => {
       />
       <h2 data-testid="recipe-title">{recipe[name]}</h2>
       { copied && <p className="copy-feedback">Link copiado!</p>}
-      <button type="button" onClick={ handleCopy }>
-        <img src={ ShareIcon } data-testid="share-btn" alt="thumbShare" />
+      <button type="button" data-testid="share-btn" onClick={ handleCopy }>
+        <img src={ ShareIcon } alt="thumbShare" />
       </button>
       <button type="button" onClick={ handleFavorite }>
         <img src={ iconFavorite } data-testid="favorite-btn" alt="thumbFavorite" />
       </button>
       <h3 data-testid="recipe-category">{ recipe.strAlcoholic || recipe.strCategory}</h3>
       {ingredientes.map((ingrediente, index) => (
-        <p key={ ingrediente } data-testid={ `${index}-ingredient-name-and-measure` }>
-          {ingrediente}
-        </p>))}
-      {medidas.map((medida, index) => (
-        <p key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-          {medida}
-        </p>))}
-      <p data-testid="instructions">{recipe.strInstructions}</p>
-      {type === 'comida' && <iframe
-        data-testid="video"
-        title="recipe"
-        width="560"
-        height="315"
-        src={ recipe.strYoutube && recipe.strYoutube.replace('watch?v=', 'embed/') }
-        frameBorder="0"
-        allowFullScreen
-      />}
-      <Carousel>
-        { recommend.map((card, index) => (
-          <Carousel.Item key={ card[rcmdName] }>
-            <div data-testid={ `${index}-recomendation-card` }>
-              <img src={ card[rcmdImg] } alt="Recommended thumb" width="70" />
-              <p data-testid={ `${index}-recomendation-title` }>{ card[rcmdName] }</p>
-            </div>
-            { !index && (
-              <div data-testid="1-recomendation-title">
-                <img src={ recommend[1][rcmdImg] } alt="Recommended thumb" width="70" />
-                <p data-testid="1-recomendation-title">{ recommend[1][rcmdName] }</p>
-              </div>
-            )}
-          </Carousel.Item>
-        ))}
-      </Carousel>
-      <Link to={ `/${type}s/${id}/in-progress` }>
-        <button
-          data-testid="start-recipe-btn"
-          type="button"
-          className="start-recipe"
+        <label
+          htmlFor={ `${index}-ingredient-step` }
+          key={ ingrediente }
+          data-testid={ `${index}-ingredient-step` }
         >
-          Iniciar receita
-        </button>
-      </Link>
+          <input
+            type="checkbox"
+            id={ `${index}-ingredient-step` }
+            name={ ingrediente }
+            onClick={ () => checkedIsTreu() }
+          />
+          {ingrediente}
+        </label>
+      ))}
+      <p data-testid="instructions">{recipe.strInstructions}</p>
+      { allChecked ? (
+        <Link to="/receitas-feitas">
+          <button type="button" data-testid="finish-recipe-btn">
+            Finalizado!
+          </button>
+        </Link>)
+        : (
+          <button
+            disabled="disabled"
+            type="button"
+            data-testid="finish-recipe-btn"
+          >
+            Finalizado!
+          </button>
+        )}
     </div>
   );
 };
 
-export default Details;
-
-Details.propTypes = {
+ProgressFood.propTypes = {
   recipe: PropTypes.shape({
     strDrink: PropTypes.string,
     strMeal: PropTypes.string,
@@ -121,9 +113,9 @@ Details.propTypes = {
     strYoutube: PropTypes.string,
     strArea: PropTypes.string,
   }).isRequired,
-  recommend: PropTypes.arrayOf(PropTypes.object).isRequired,
   ingredientes: PropTypes.arrayOf(PropTypes.string).isRequired,
-  medidas: PropTypes.arrayOf(PropTypes.string).isRequired,
   type: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
 };
+
+export default ProgressFood;
