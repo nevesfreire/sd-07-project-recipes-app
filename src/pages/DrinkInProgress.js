@@ -8,6 +8,10 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Loading from '../components/Loading';
 import { favoriteDrinkLocalStorage } from '../localStorage/favoriteRecipes';
 import { doneDrinkLocalStorage } from '../localStorage/doneRecipes';
+import {
+  checkProgressDrinkLocalStorage,
+  setIngredientDrinkLocalStorage,
+  checkedDrinkIngredients } from '../localStorage/inProgressRecipes';
 
 class DrinkInProgress extends Component {
   constructor(props) {
@@ -35,6 +39,7 @@ class DrinkInProgress extends Component {
     requestRecipes(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
     this.createFavoriteLocalStorage('favoriteRecipes');
     this.createFavoriteLocalStorage('doneRecipes');
+    checkProgressDrinkLocalStorage(id);
   }
 
   componentDidUpdate() {
@@ -81,7 +86,9 @@ class DrinkInProgress extends Component {
     }
   }
 
-  handleCheckbox() {
+  handleCheckbox({ target: { id: ingredient } }) {
+    const { match: { params: { id } } } = this.props;
+    setIngredientDrinkLocalStorage(id, ingredient);
     this.handleButtonEnabled();
   }
 
@@ -113,7 +120,7 @@ class DrinkInProgress extends Component {
   }
 
   render() {
-    const { history } = this.props;
+    const { history, match: { params: { id } } } = this.props;
     const { drinks, ingredients, favorite, measurement, button } = this.state;
     const { strDrinkThumb, strDrink, strInstructions, strAlcoholic } = drinks;
 
@@ -168,6 +175,7 @@ class DrinkInProgress extends Component {
                     className="form-check-input"
                     id={ ingredient }
                     onClick={ this.handleCheckbox }
+                    checked={ checkedDrinkIngredients(id, ingredient) }
                   />
                   <label
                     className="form-check-label"

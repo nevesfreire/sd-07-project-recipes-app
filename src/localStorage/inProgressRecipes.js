@@ -7,14 +7,6 @@ function checkProgressFoodLocalStorage(id) {
         [id]: [],
       },
     };
-    //    localStorage.setItem('inProgressRecipes', JSON.stringify(recipesInProgress));
-    //  } else if (inProgressRecipes && !Object.keys(inProgressRecipes.meals).length) {
-    //    const recipesInProgress = {
-    //      ...inProgressRecipes,
-    //      meals: {
-    //        [id]: [],
-    //      },
-    //    };
     localStorage.setItem('inProgressRecipes', JSON.stringify(recipesInProgress));
   } else if (inProgressRecipes && Object.keys(inProgressRecipes.meals).includes(id)) {
     const recipesInProgress = {
@@ -37,18 +29,36 @@ function checkProgressFoodLocalStorage(id) {
 }
 
 function checkProgressDrinkLocalStorage(id) {
-  if (localStorage.getItem('inProgressRecipes') === null) {
+  const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  if (!inProgressRecipes) {
     const recipesInProgress = {
-      cocktails: {
+      drinks: {
         [id]: [],
       },
       meals: {},
     };
     localStorage.setItem('inProgressRecipes', JSON.stringify(recipesInProgress));
+  } else if (inProgressRecipes && Object.keys(inProgressRecipes.drinks).includes(id)) {
+    const recipesInProgress = {
+      ...inProgressRecipes,
+      drinks: {
+        ...inProgressRecipes.drinks,
+      },
+    };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(recipesInProgress));
+  } else if (inProgressRecipes && !Object.keys(inProgressRecipes.drinks).includes(id)) {
+    const recipesInProgress = {
+      ...inProgressRecipes,
+      drinks: {
+        ...inProgressRecipes.drinks,
+        [id]: [],
+      },
+    };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(recipesInProgress));
   }
 }
 
-function setIngredientLocalStorage(id, ingredient) {
+function setIngredientFoodLocalStorage(id, ingredient) {
   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
   let newStructure = [...inProgressRecipes.meals[id], ingredient];
   if (inProgressRecipes.meals[id].includes(ingredient)) {
@@ -65,8 +75,42 @@ function setIngredientLocalStorage(id, ingredient) {
   localStorage.setItem('inProgressRecipes', JSON.stringify(newObject));
 }
 
+function setIngredientDrinkLocalStorage(id, ingredient) {
+  const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  let newStructure = [...inProgressRecipes.drinks[id], ingredient];
+  if (inProgressRecipes.drinks[id].includes(ingredient)) {
+    newStructure = inProgressRecipes.drinks[id]
+      .filter((element) => element !== ingredient);
+  }
+  const newObject = {
+    ...inProgressRecipes,
+    drinks: {
+      ...inProgressRecipes.drinks,
+      [id]: newStructure,
+    },
+  };
+  localStorage.setItem('inProgressRecipes', JSON.stringify(newObject));
+}
+
+function checkedFoodIngredients(id, ingredient) {
+  const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const checkedElements = inProgressRecipes.meals[id];
+  console.log(checkedElements);
+  return checkedElements.includes(ingredient);
+}
+
+function checkedDrinkIngredients(id, ingredient) {
+  const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const checkedElements = inProgressRecipes.drinks[id];
+  console.log(checkedElements);
+  return checkedElements.includes(ingredient);
+}
+
 export {
   checkProgressFoodLocalStorage,
   checkProgressDrinkLocalStorage,
-  setIngredientLocalStorage,
+  setIngredientFoodLocalStorage,
+  setIngredientDrinkLocalStorage,
+  checkedFoodIngredients,
+  checkedDrinkIngredients,
 };

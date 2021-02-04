@@ -10,7 +10,8 @@ import { favoriteMealLocalStorage } from '../localStorage/favoriteRecipes';
 import { doneMealLocalStorage } from '../localStorage/doneRecipes';
 import {
   checkProgressFoodLocalStorage,
-  setIngredientLocalStorage } from '../localStorage/inProgressRecipes';
+  setIngredientFoodLocalStorage,
+  checkedFoodIngredients } from '../localStorage/inProgressRecipes';
 
 class FoodInProgress extends Component {
   constructor(props) {
@@ -18,7 +19,6 @@ class FoodInProgress extends Component {
 
     this.handleState = this.handleState.bind(this);
     this.handleButtonEnabled = this.handleButtonEnabled.bind(this);
-    this.checkedIngredients = this.checkedIngredients.bind(this);
     this.handleCheckbox = this.handleCheckbox.bind(this);
     this.changeFavorite = this.changeFavorite.bind(this);
     this.createFavoriteLocalStorage = this.createFavoriteLocalStorage.bind(this);
@@ -88,16 +88,8 @@ class FoodInProgress extends Component {
 
   handleCheckbox({ target: { id: ingredient } }) {
     const { match: { params: { id } } } = this.props;
-    setIngredientLocalStorage(id, ingredient);
+    setIngredientFoodLocalStorage(id, ingredient);
     this.handleButtonEnabled();
-  }
-
-  checkedIngredients(ingredient) {
-    const { match: { params: { id } } } = this.props;
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const checkedElements = inProgressRecipes.meals[id];
-    console.log(checkedElements);
-    return checkedElements.includes(ingredient);
   }
 
   changeFavorite() {
@@ -128,7 +120,7 @@ class FoodInProgress extends Component {
   }
 
   render() {
-    const { history } = this.props;
+    const { history, match: { params: { id } } } = this.props;
     const { meal, ingredients, favorite, measurement, button } = this.state;
     const { strMealThumb, strMeal, strCategory, strInstructions } = meal;
     if (!strMealThumb) return <Loading />;
@@ -183,7 +175,7 @@ class FoodInProgress extends Component {
                     className="form-check-input"
                     id={ ingredient }
                     onClick={ this.handleCheckbox }
-                    checked={ this.checkedIngredients(ingredient) }
+                    checked={ checkedFoodIngredients(id, ingredient) }
                   />
                   <label
                     className="form-check-label"
