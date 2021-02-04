@@ -26,6 +26,7 @@ function DoneRecipes() {
   return (
     <div>
       <Header />
+      <h2 data-testid="page-title">Receitas Feitas</h2>
       <button
         type="button"
         onClick={ handleFoodAndDrink }
