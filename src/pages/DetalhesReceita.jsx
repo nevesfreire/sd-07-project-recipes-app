@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import Slider from 'react-slick';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '../styles/components/footer.css';
 import shareIcon from '../images/shareIcon.svg';
 import { loadState } from '../services/localStorage';
+import FavoriteHeart from '../components/FavoriteHeart';
 import { requestApiFoodDetails } from '../services/requestFood';
 import { recommendDrinksList } from '../services/requestDrink';
 
@@ -150,6 +151,7 @@ function DetalhesReceitas({ match: { params: { id } } }) {
             <img src={ shareIcon } alt="Share icon" />
           </button>
         </CopyToClipboard>
+        <FavoriteHeart id={ id } foodDetails={ foodDetails } />
         <small style={ { visibility: copyVisibility } }>Link copiado!</small>
       </div>
       <div>
