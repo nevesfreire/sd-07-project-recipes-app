@@ -56,12 +56,6 @@ const mapDispatchToProps = {
   ExploreRandomFood: randomFoodAction.ExploreRandomFood,
 };
 
-// ExplorarComidas.propTypes = {
-//   history: PropTypes.shape({
-//     push: PropTypes.func.isRequired,
-//   }).isRequired,
-// };
-
 ExplorarComidas.propTypes = {
   ExploreRandomFood: PropTypes.objectOf(PropTypes.string).isRequired,
   foodExplore: PropTypes.objectOf(PropTypes.string).isRequired,

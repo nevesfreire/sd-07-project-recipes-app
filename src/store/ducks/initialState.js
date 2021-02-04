@@ -20,4 +20,7 @@ export default {
   exploreFoods: {
     meals: '',
   },
+  drinkExploreIngredients: {
+    drinkIngredients: '',
+  },
 };
