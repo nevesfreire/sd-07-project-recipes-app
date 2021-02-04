@@ -90,3 +90,21 @@ export const fetchApi = async (value, type, api) => {
   if (api === 'meal') return fetchMeal(value, type);
   return fetchDrinks(value, type);
 };
+
+export const fetchRandom = async (type) => {
+  let url = '';
+  switch (type) {
+  case 'comidas':
+    url = 'https://www.themealdb.com/api/json/v1/1/random.php';
+    break;
+  case 'bebidas':
+    url = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+    break;
+  default:
+    break;
+  }
+  const response = await fetch(url);
+  const results = await response.json();
+  if (type === 'comidas') return Object.entries(results)[0][1][0].idMeal;
+  return Object.entries(results)[0][1][0].idDrink;
+};
