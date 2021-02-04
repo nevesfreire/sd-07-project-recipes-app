@@ -1,7 +1,8 @@
 import React from 'react';
-import { useHistory, Link } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 import Header from '../../common/Header';
+import ExplorarComidas from './components/ExplorarComidas';
+import ExplorarBebidas from './components/ExplorarBebidas';
 
 export default function ExplorarReceitas() {
   const { pathname } = useHistory().location;
@@ -14,13 +15,7 @@ export default function ExplorarReceitas() {
           <Header />
         </header>
         <main>
-          <Link to="/explorar/comidas/ingredientes">
-            <Button data-testid="explore-by-ingredient">Por Ingredientes</Button>
-          </Link>
-          <Link to="/explorar/comidas/area">
-            <Button data-testid="explore-by-area">Por Local de Origem</Button>
-          </Link>
-          <Button data-testid="explore-surprise">Me Surpreenda!</Button>
+          <ExplorarComidas />
         </main>
       </div>
     );
@@ -32,10 +27,7 @@ export default function ExplorarReceitas() {
           <Header />
         </header>
         <main>
-          <Link to="/explorar/bebidas/ingredientes">
-            <Button data-testid="explore-by-ingredient">Por Ingredientes</Button>
-          </Link>
-          <Button data-testid="explore-surprise">Me Surpreenda!</Button>
+          <ExplorarBebidas />
         </main>
       </div>
     );
