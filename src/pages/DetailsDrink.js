@@ -1,7 +1,7 @@
 import React from 'react';
 import '../components/components.css';
 import PropTypes from 'prop-types';
-import { Button, CardsFactory, LoadingCard, ShareButton, FavoriteDrinkButton,
+import { Button, FoodRecomendation, LoadingCard, ShareButton, FavoriteDrinkButton,
 } from '../components';
 import { useFetchApi } from '../hooks';
 
@@ -24,7 +24,12 @@ export default function DetailsDrink({ history, match }) {
       ? (<LoadingCard />)
       : (
         <div>
-          <img data-testid="recipe-photo" src={ drinks[0].strDrinkThumb } alt="foto" />
+          <img
+            data-testid="recipe-photo"
+            src={ drinks[0].strDrinkThumb }
+            alt="foto"
+            style={ { width: 360 } }
+          />
           <div>
             <div>
               <h3 data-testid="recipe-title">{drinks[0].strDrink}</h3>
@@ -57,15 +62,8 @@ export default function DetailsDrink({ history, match }) {
               </p>
             </div>
             <div>
-              <h4>Recomendadas</h4>
-              <CardsFactory
-                number={ 6 }
-                drink={ false }
-                URL="https://www.themealdb.com/api/json/v1/1/search.php?s="
-                testidImg="-recomendation-img"
-                testidCard="-recomendation-card"
-                testidTitle="-recomendation-title"
-              />
+              <h5>Recomendadas</h5>
+              <FoodRecomendation />
             </div>
             <Button
               testid="start-recipe-btn"

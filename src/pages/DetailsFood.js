@@ -73,8 +73,8 @@ export default function DetailsFood({
                 src={ meals[0].strYoutube.replace('watch?v=', 'embed/') }
               />
             </div>
-            <h4>Recomendadas</h4>
-            <DrinkRecomendation meals={ meals[0] } />
+            <h5>Recomendadas</h5>
+            <DrinkRecomendation />
             <Button
               testid="start-recipe-btn"
               text="Iniciar Receita"
