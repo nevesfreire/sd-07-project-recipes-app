@@ -14,6 +14,7 @@ function DoneRecipes() {
     );
     setRenderAll(drink);
   };
+
   const handleFood = () => {
     const food = filtrar.filter((selectFood) => selectFood.type === 'comida');
     setRenderAll(food);

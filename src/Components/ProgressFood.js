@@ -25,10 +25,18 @@ const ProgressFood = ({ type, recipe, ingredientes, id }) => {
     }
   }, []);
 
-  const checkedIsTreu = () => {
+  const checkItem = (item) => {
+    const check1status = document.getElementById(item).checked;
+    document.getElementById(item).checked = check1status;
+    localStorage.setItem(item, check1status);
+  };
+
+  const checkedIsTreu = ({ target }) => {
     const nodeListForAllCheckeBox = document.querySelectorAll('input');
     const arrayForAllCheckeBox = [];
     nodeListForAllCheckeBox.forEach((item) => arrayForAllCheckeBox.push(item));
+    console.log(target.id);
+    // arrayForAllCheckeBox.forEach((item) => checkItem(item));
     if (arrayForAllCheckeBox.every((elem) => elem.checked === true)) setAllChecked(true);
     else setAllChecked(false);
   };
@@ -76,7 +84,7 @@ const ProgressFood = ({ type, recipe, ingredientes, id }) => {
             type="checkbox"
             id={ `${index}-ingredient-step` }
             name={ ingrediente }
-            onClick={ () => checkedIsTreu() }
+            onClick={ (event) => checkedIsTreu(event) }
           />
           {ingrediente}
         </label>
