@@ -5,15 +5,19 @@ export default function TodoList({ id, route, ingredients, setisEnded }) {
   const progressStatus = JSON.parse(localStorage.getItem('inProgressRecipes'));
   let key = 'meals';
   if (route === 'bebidas') key = 'cocktails';
-  const checkStatus = ingredients.map(() => false);
+  const checkEmpty = ingredients.map(() => false);
 
-  const [checks, setChecks] = useState(checkStatus);
-  let newChecks = checkStatus;
+  const [checks, setChecks] = useState(
+    progressStatus && progressStatus[key][id]
+      ? progressStatus[key][id]
+      : checkEmpty,
+  );
+  const [update, setUpdate] = useState(false);
 
-  if (progressStatus && progressStatus[key][id]) {
-    newChecks = progressStatus[key][id];
-    // setChecks(newChecks);
-  }
+  // if (progressStatus && progressStatus[key][id]) {
+  //   newChecks = progressStatus[key][id];
+  //   setChecks(newChecks);
+  // }
 
   // console.log('ingr:', ingredients);
 
@@ -28,8 +32,12 @@ export default function TodoList({ id, route, ingredients, setisEnded }) {
     console.log(progressObj);
     localStorage.setItem('inProgressRecipes', JSON.stringify(progressObj));
   };
+
   const isDone = (e) => {
+    console.log(checks);
+    const checkStatus = checks;
     checkStatus[e.target.id] = !checkStatus[e.target.id];
+    setUpdate(!update);
     setChecks(checkStatus);
     updateStorage();
     const a = checkStatus.filter((ingredient) => !ingredient);
@@ -40,18 +48,23 @@ export default function TodoList({ id, route, ingredients, setisEnded }) {
     return setisEnded(false);
   };
 
-  return (
-    <div>
-      <form onChange={ isDone }>
-        {ingredients.map((ing, index) => (
-          <div key={ index } data-testid={ `${index}-ingredient-step` }>
-            <input id={ index } type="checkbox" checked={ newChecks[index] } />
-            <label htmlFor={ index }>{ing[1]}</label>
-          </div>
-        ))}
-      </form>
-    </div>
+  const renderForm = () => (
+    <form>
+      {ingredients.map((ing, index) => (
+        <div key={ index } data-testid={ `${index}-ingredient-step` }>
+          <input
+            id={ index }
+            type="checkbox"
+            checked={ checks[index] }
+            onClick={ isDone }
+          />
+          <label htmlFor={ index }>{ing[1]}</label>
+        </div>
+      ))}
+    </form>
   );
+
+  return <div>{renderForm()}</div>;
 }
 
 TodoList.propTypes = {
