@@ -19,6 +19,7 @@ import ExplorerFoods from './pages/ExplorerFoods';
 import ExplorerDrinks from './pages/ExplorerDrinks';
 import FoodDetails from './pages/FoodDetails';
 import DrinkDetails from './pages/DrinkDetails';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
             component={ IngredientsDrinks }
           />
           <Route exact path="/explorar/comidas/area" component={ OriginFoods } />
+          <Route exact path="/explorar/bebidas/area" component={ NotFound } />
           <Route exact path="/perfil" component={ Profile } />
           <Route exact path="/receitas-feitas" component={ RecipesDone } />
           <Route exact path="/receitas-favoritas" component={ RecipesFavorites } />

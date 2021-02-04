@@ -3,7 +3,7 @@ const URLDrinks = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 const URLCatFood = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
 const URLCatDrinks = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
 
-const fetchAPIFoodsIngredient = async (filter) => {
+export const fetchAPIFoodsIngredient = async (filter) => {
   try {
     const request = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${filter}`);
     const { meals } = await request.json();
@@ -13,7 +13,7 @@ const fetchAPIFoodsIngredient = async (filter) => {
   }
 };
 
-const fetchAPIFoodsName = async (filter) => {
+export const fetchAPIFoodsName = async (filter) => {
   try {
     const request = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${filter}`);
     const { meals } = await request.json();
@@ -23,7 +23,7 @@ const fetchAPIFoodsName = async (filter) => {
   }
 };
 
-const fetchAPIFoodsLetterFirst = async (filter) => {
+export const fetchAPIFoodsLetterFirst = async (filter) => {
   try {
     const request = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${filter}`);
     const { meals } = await request.json();
@@ -33,7 +33,7 @@ const fetchAPIFoodsLetterFirst = async (filter) => {
   }
 };
 
-const fetchAPIDrinksIngredient = async (filter) => {
+export const fetchAPIDrinksIngredient = async (filter) => {
   try {
     const request = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${filter}`);
     const { drinks } = await request.json();
@@ -43,7 +43,7 @@ const fetchAPIDrinksIngredient = async (filter) => {
   }
 };
 
-const fetchAPIDrinksName = async (filter) => {
+export const fetchAPIDrinksName = async (filter) => {
   try {
     const request = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${filter}`);
     const { drinks } = await request.json();
@@ -53,7 +53,7 @@ const fetchAPIDrinksName = async (filter) => {
   }
 };
 
-const fetchAPIDrinksLetterFirst = async (filter) => {
+export const fetchAPIDrinksLetterFirst = async (filter) => {
   try {
     const request = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${filter}`);
     const { drinks } = await request.json();
@@ -192,6 +192,46 @@ export const fetchAPIDrinksSurprise = async () => {
     const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php');
     const { drinks } = await response.json();
     return drinks;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchFoodsIngredients = async () => {
+  try {
+    const request = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
+    const { meals } = await request.json();
+    return meals;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchDrinksIngredients = async () => {
+  try {
+    const request = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
+    const { drinks } = await request.json();
+    return drinks;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchFoodsArea = async () => {
+  try {
+    const request = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
+    const { meals } = await request.json();
+    return meals;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchFoodsAreaName = async (name) => {
+  try {
+    const request = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${name}`);
+    const { meals } = await request.json();
+    return meals;
   } catch (error) {
     console.log(error);
   }
