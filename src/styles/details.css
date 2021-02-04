@@ -10,7 +10,7 @@ body {
   bottom: 0;
   font-size: 20pt;
   height: 76px;
-  margin-left: -167px;
+  margin-left: -169px;
   position: fixed;
   width: 339px;
 }
@@ -77,17 +77,28 @@ body {
 .div-title {
   display: flex;
   justify-content: space-between;
-  width: 340px;
+  width: 345px;
 }
 
 .div-title p {
   color: dimgrey;
 }
 
+.div-title .p-copy {
+  background-color: #be1003;
+  border-radius: 5px;
+  color: aliceblue;
+  font-size: 12pt;
+  height: fit-content;
+  margin-top: 10px;
+  padding: 2px 0;
+}
+
 .div-title .div-title-detail {
   align-items: flex-start;
   display: flex;
   flex-direction: column;
+  width: 150px;
 }
 
 .div-title .div-favorite-detail {
@@ -112,10 +123,40 @@ body {
 
 .img-compartilhar {
   margin-right: 15px;
+  position: relative;
+  z-index: -1;
 }
 
 .images-details {
   height: 155px;
   top: 1px;
   width: 360px;
+}
+
+/* @keyframes hide {
+  from { opacity: 1; }
+  to { opacity: 0; }
+} */
+
+.link-compartilhar {
+  background-color: rgb(164, 174, 185);
+  border-radius: 5px;
+  left: 100px;
+  padding: 10px;
+  position: relative;
+}
+
+.copy-compartilhar {
+
+  /* animation: hide 1s 1s forwards; */
+  background-color: rgb(164, 174, 185);
+  border-radius: 10px;
+  font-size: small;
+  margin-right: 5px;
+  opacity: 20px;
+  padding: 5px;
+}
+
+.checkedIngredient {
+  text-decoration: line-through;
 }

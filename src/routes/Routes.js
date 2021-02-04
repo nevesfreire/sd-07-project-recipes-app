@@ -15,6 +15,7 @@ import {
   FoodDetails,
   DrinkDetails,
   InProgressRecipes,
+  NotFound,
 } from '../pages';
 
 function Routes() {
@@ -65,6 +66,11 @@ function Routes() {
           exact
           path="/explorar/comidas/area"
           component={ ExploreByArea }
+        />
+        <Route
+          exact
+          path="/explorar/bebidas/area"
+          component={ NotFound }
         />
         <Route
           exact

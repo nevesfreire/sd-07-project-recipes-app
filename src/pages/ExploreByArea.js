@@ -1,13 +1,16 @@
 import React from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+
+import { Header, Footer, ExploreArea } from '../components';
+import '../styles/areaExplore.css';
 
 function ExploreByArea() {
   return (
     <div>
       <Header title="Explorar Origem" isSearchable />
+      <ExploreArea />
       <Footer />
     </div>
   );
 }
+
 export default ExploreByArea;

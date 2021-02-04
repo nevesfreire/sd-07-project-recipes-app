@@ -4,6 +4,7 @@ const foodDetail = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
 const drinkDetail = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
 const mealIngredientsUrl = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
 const drinkIngredientsUrl = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
+const areaExplore = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
 
 const auxFunc = (term, type, url) => {
   if (term && type) {
@@ -99,6 +100,17 @@ export const drinkIngredientsAPI = async () => {
     const ingredients = await response.json();
 
     return ingredients;
+  } catch (error) {
+    return error.message;
+  }
+};
+
+export const areaExplorerAPI = async () => {
+  try {
+    const response = await fetch(areaExplore);
+    const areas = await response.json();
+
+    return areas;
   } catch (error) {
     return error.message;
   }

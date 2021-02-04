@@ -57,7 +57,7 @@ function useFavorites() {
     localStorage.setItem('favoriteRecipes', JSON.stringify([...filteredFavorites]));
   };
 
-  const handleClickFavorite = (recipe, drinkOrMeals, id) => {
+  const handleClickFavorite = (recipe = [], drinkOrMeals = '', id) => {
     const favoritesRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (!favorite) {
       onFavorite(recipe, drinkOrMeals, favoritesRecipes);
