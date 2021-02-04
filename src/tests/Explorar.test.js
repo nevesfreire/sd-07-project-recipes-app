@@ -4,7 +4,6 @@ import renderWithRouter from '../renderWithRouter';
 import Comidas from '../pages/Comidas';
 import Explorar from '../pages/Explorar';
 
-
 describe('Testa o comportamente do componente Explorar.js', () => {
   it('Verifica a mudança de rota para \'explorar\'', async () => {
     const { history } = renderWithRouter(<Comidas />);
