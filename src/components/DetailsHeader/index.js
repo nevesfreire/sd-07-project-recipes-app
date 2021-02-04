@@ -1,10 +1,13 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import FavoriteButton from '../FavoriteButton';
 import ShareButton from '../ShareButton';
 import './style.css';
 
 function DetailsHeader({ details }) {
+  const { category, idReceita } = useParams();
+
   return (
     <div className="details-header-container">
       <img
@@ -18,7 +21,7 @@ function DetailsHeader({ details }) {
           {details.strDrink || details.strMeal}
         </h3>
         <div className="details-header-buttons">
-          <ShareButton />
+          <ShareButton type={ category.replace('s', '') } id={ idReceita } />
           <FavoriteButton details={ details } />
         </div>
       </div>
