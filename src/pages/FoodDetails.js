@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchDetails, fetchRecipes } from '../actions';
+import { fetchDetails, fetchRecipes, copyButton } from '../actions';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Loading from '../components/Loading';
 import { favoriteMealLocalStorage } from '../localStorage/favoriteRecipes';
-// import { doneMealLocalStorage } from '../localStorage/doneRecipes';
 import '../css/details.css';
 
 class FoodDetails extends Component {
@@ -16,7 +15,11 @@ class FoodDetails extends Component {
 
     this.handleState = this.handleState.bind(this);
     this.changeFavorite = this.changeFavorite.bind(this);
-    this.createFavoriteLocalStorage = this.createFavoriteLocalStorage.bind(this);
+    this.createFavoriteLocalStorage = this.createFavoriteLocalStorage.bind(
+      this,
+    );
+    this.handleCopy = this.handleCopy.bind(this);
+    this.showButton = this.showButton.bind(this);
 
     this.state = {
       meal: [],
@@ -29,10 +32,19 @@ class FoodDetails extends Component {
   }
 
   componentDidMount() {
-    const { requestRecipes,
-      requestRecomendations, match: { params: { id } } } = this.props;
-    requestRecipes(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
-    requestRecomendations('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+    const {
+      requestRecipes,
+      requestRecomendations,
+      match: {
+        params: { id },
+      },
+    } = this.props;
+    requestRecipes(
+      `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`,
+    );
+    requestRecomendations(
+      'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
+    );
     this.createFavoriteLocalStorage('favoriteRecipes');
     this.createFavoriteLocalStorage('doneRecipes');
   }
@@ -47,16 +59,29 @@ class FoodDetails extends Component {
   }
 
   handleState() {
-    const { match: { params: { id } }, mealsRecipes } = this.props;
-    const filterRecipe = mealsRecipes.meals.find((recipe) => recipe.idMeal === id);
+    const {
+      match: {
+        params: { id },
+      },
+      mealsRecipes,
+    } = this.props;
+    const filterRecipe = mealsRecipes.meals.find(
+      (recipe) => recipe.idMeal === id,
+    );
     const ingredients = Object.entries(filterRecipe)
-      .filter((array) => array[0]
-        .includes('strIngredient') && array[1] !== null && array[1] !== '')
+      .filter(
+        (array) => array[0].includes('strIngredient')
+          && array[1] !== null
+          && array[1] !== '',
+      )
       .map((array2) => array2[1]);
 
     const measurement = Object.entries(filterRecipe)
-      .filter((array) => array[0]
-        .includes('strMeasure') && array[1] !== null && array[1] !== '')
+      .filter(
+        (array) => array[0].includes('strMeasure')
+          && array[1] !== null
+          && array[1] !== '',
+      )
       .map((array2) => array2[1]);
 
     this.setState({
@@ -68,19 +93,22 @@ class FoodDetails extends Component {
     });
   }
 
-  changeFavorite() {
-    this.setState((prevState) => ({
-      favorite: !prevState.favorite,
-    }),
-    () => {
-      const { meal, favorite } = this.state;
-      favoriteMealLocalStorage(meal, favorite, 'favoriteRecipes');
-      // doneMealLocalStorage(meal, favorite, 'doneRecipes');
-    });
+  handleCopy() {
+    const {
+      executeCopy,
+      location: { pathname },
+    } = this.props;
+    const copy = require('clipboard-copy');
+    copy(`http://localhost:3000${pathname}`);
+    executeCopy('Link copiado!');
   }
 
   createFavoriteLocalStorage(keyStorage) {
-    const { match: { params: { id } } } = this.props;
+    const {
+      match: {
+        params: { id },
+      },
+    } = this.props;
     const read = JSON.parse(localStorage.getItem(keyStorage));
 
     if (read && read.some((obj) => obj.id === id)) {
@@ -88,16 +116,58 @@ class FoodDetails extends Component {
         favorite: true,
       });
     } else if (!read) {
-      this.setState({
-        favorite: false,
+      this.setState(
+        {
+          favorite: false,
+        },
+        () => localStorage.setItem(keyStorage, JSON.stringify([])),
+      );
+    }
+  }
+
+  changeFavorite() {
+    this.setState(
+      (prevState) => ({
+        favorite: !prevState.favorite,
+      }),
+      () => {
+        const { meal, favorite } = this.state;
+        favoriteMealLocalStorage(meal, favorite, 'favoriteRecipes');
       },
-      () => localStorage.setItem(keyStorage, JSON.stringify([])));
+    );
+  }
+
+  showButton() {
+    const {
+      match: {
+        params: { id },
+      },
+      history,
+    } = this.props;
+    const getDoneStorage = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (!getDoneStorage.length) {
+      return (
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          onClick={ () => history.push(`/comidas/${id}/in-progress`) }
+          className="finish-button-recipe"
+        >
+          Iniciar Receita
+        </button>
+      );
     }
   }
 
   render() {
-    const { match: { params: { id } }, recomendations, history } = this.props;
-    const { meal, hashYoutube, ingredients, favorite, measurement } = this.state;
+    const { recomendations, valueCopied } = this.props;
+    const {
+      meal,
+      hashYoutube,
+      ingredients,
+      favorite,
+      measurement,
+    } = this.state;
     const { strMealThumb, strMeal, strCategory, strInstructions } = meal;
     const DRINK_LENGTH = 6;
     // console.log(recomendations);
@@ -112,23 +182,15 @@ class FoodDetails extends Component {
         />
         <div className="title-container">
           <div className="title-subcontainer">
-            <h1 data-testid="recipe-title">{strMeal }</h1>
+            <h1 data-testid="recipe-title">{strMeal}</h1>
             <h3 data-testid="recipe-category">{strCategory}</h3>
           </div>
           <div className="images-container">
-            <button
-              type="button"
-            >
-              <img
-                data-testid="share-btn"
-                src={ shareIcon }
-                alt="shareIcon"
-              />
+            <p>{valueCopied}</p>
+            <button type="button" onClick={ this.handleCopy }>
+              <img data-testid="share-btn" src={ shareIcon } alt="shareIcon" />
             </button>
-            <button
-              type="button"
-              onClick={ this.changeFavorite }
-            >
+            <button type="button" onClick={ this.changeFavorite }>
               <img
                 data-testid="favorite-btn"
                 src={ favorite ? blackHeartIcon : whiteHeartIcon }
@@ -140,15 +202,14 @@ class FoodDetails extends Component {
         <div className="ingredients-container">
           <h1>Ingredientes</h1>
           <ul className="list-container">
-            {ingredients
-              .map((ingredient, index) => (
-                <li
-                  key={ index }
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {`${ingredient} - ${measurement[index]}`}
-                </li>
-              ))}
+            {ingredients.map((ingredient, index) => (
+              <li
+                key={ index }
+                data-testid={ `${index}-ingredient-name-and-measure` }
+              >
+                {`${ingredient} - ${measurement[index]}`}
+              </li>
+            ))}
           </ul>
         </div>
         <div className="instructions-container">
@@ -168,38 +229,27 @@ class FoodDetails extends Component {
         <div className="recomendations-container">
           <h1>Recomendadas</h1>
           <div className="div-recomendations">
-            {
-              recomendations.drinks
-                .filter((_drink, index) => index < DRINK_LENGTH)
-                .map((drink, index) => (
-                  <div
+            {recomendations.drinks
+              .filter((_drink, index) => index < DRINK_LENGTH)
+              .map((drink, index) => (
+                <div
+                  key={ drink.strDrink }
+                  className="div-recomendations-children"
+                  data-testid={ `${index}-recomendation-card` }
+                >
+                  <img src={ drink.strDrinkThumb } alt={ drink.strDrink } />
+                  <h6 key={ drink.strCategory }>{drink.strCategory}</h6>
+                  <h4
                     key={ drink.strDrink }
-                    className="div-recomendations-children"
-                    data-testid={ `${index}-recomendation-card` }
+                    data-testid={ `${index}-recomendation-title` }
                   >
-                    <img src={ drink.strDrinkThumb } alt={ drink.strDrink } />
-                    <h6 key={ drink.strCategory }>{ drink.strCategory }</h6>
-                    <h4
-                      key={ drink.strDrink }
-                      data-testid={ `${index}-recomendation-title` }
-                    >
-                      { drink.strDrink }
-                    </h4>
-                  </div>
-                ))
-            }
+                    {drink.strDrink}
+                  </h4>
+                </div>
+              ))}
           </div>
         </div>
-        <div className="finish-button-container">
-          <button
-            type="button"
-            data-testid="start-recipe-btn"
-            onClick={ () => history.push(`/comidas/${id}/in-progress`) }
-            className="finish-button-recipe"
-          >
-            Iniciar Receita
-          </button>
-        </div>
+        <div className="finish-button-container">{this.showButton()}</div>
       </div>
     );
   }
@@ -208,11 +258,13 @@ class FoodDetails extends Component {
 const mapStateToProps = ({ recipesReducer, recomendationsReducer }) => ({
   mealsRecipes: recipesReducer.recipes,
   recomendations: recomendationsReducer.recomendations,
+  valueCopied: recomendationsReducer.copy,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   requestRecomendations: (endpoint) => dispatch(fetchDetails(endpoint)),
   requestRecipes: (endpoint) => dispatch(fetchRecipes(endpoint)),
+  executeCopy: (value) => dispatch(copyButton(value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FoodDetails);
@@ -234,4 +286,6 @@ FoodDetails.propTypes = {
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
+  executeCopy: PropTypes.func.isRequired,
+  valueCopied: PropTypes.string.isRequired,
 };

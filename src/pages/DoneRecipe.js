@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { copyButton } from '../actions';
 import shareIcon from '../images/shareIcon.svg';
 import '../css/recipe.css';
+
 
 class DoneRecipe extends Component {
   constructor(props) {
@@ -12,11 +15,18 @@ class DoneRecipe extends Component {
   }
 
   handleClipBoard() {
-    console.log('oi');
+    const {
+      executeCopy,
+      location: { pathname },
+    } = this.props;
+    const copy = require('clipboard-copy');
+    copy(`http://localhost:3000${pathname}`);
+    executeCopy('Link copiado!');
   }
 
   render() {
     const readLocalStorage = JSON.parse(localStorage.getItem('doneRecipes'));
+    const { valueCopied } = this.props;
     console.log(readLocalStorage);
     console.log(readLocalStorage[0].tags);
     if (readLocalStorage) {
@@ -53,6 +63,7 @@ class DoneRecipe extends Component {
               <p data-testid={ `${index}-horizontal-done-date` }>
                 {card.doneDate}
               </p>
+              <p>{ valueCopied }</p>
               <button type="button" onClick={ this.handleClipBoard }>
                 <img
                   data-testid={ `${index}-horizontal-share-btn` }
@@ -64,8 +75,8 @@ class DoneRecipe extends Component {
               <h1 data-testid={ `${index}-horizontal-name` }>{card.name}</h1>
               {console.log(card.tags)}
               {/* Para funcionar com a API tem que descomentar a linha abaixo e comentar a seguinte */}
+              {/* {card.tags.map((cardTag, indexTag) => ( */}
               {card.tags.split(',').map((cardTag, indexTag) => (
-              // {card.tags.map((cardTag, indexTag) => (
                 <p
                   data-testid={ `${index}-${cardTag}-horizontal-tag` }
                   key={ indexTag }
@@ -82,4 +93,12 @@ class DoneRecipe extends Component {
   }
 }
 
-export default DoneRecipe;
+const mapStateToProps = ({ recomendationsReducer }) => ({
+  valueCopied: recomendationsReducer.copy,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  executeCopy: (value) => dispatch(copyButton(value)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DoneRecipe);
