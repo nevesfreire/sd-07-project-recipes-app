@@ -12,13 +12,11 @@ import '../css/details.css';
 class DrinkDetails extends Component {
   constructor(props) {
     super(props);
-
     this.handleState = this.handleState.bind(this);
     this.changeFavorite = this.changeFavorite.bind(this);
     this.createFavoriteLocalStorage = this.createFavoriteLocalStorage.bind(this);
     this.handleCopy = this.handleCopy.bind(this);
     this.showButton = this.showButton.bind(this);
-
     this.state = {
       drinks: [],
       ingredients: [],
@@ -41,7 +39,6 @@ class DrinkDetails extends Component {
   componentDidUpdate() {
     const { drinksRecipes } = this.props;
     const { request } = this.state;
-
     if (drinksRecipes.drinks && request) {
       this.handleState();
     }
@@ -54,18 +51,23 @@ class DrinkDetails extends Component {
       .filter((array) => array[0]
         .includes('strIngredient') && array[1] !== null && array[1] !== '')
       .map((array2) => array2[1]);
-
     const measurement = Object.entries(filterRecipe)
       .filter((array) => array[0]
         .includes('strMeasure') && array[1] !== null && array[1] !== '')
       .map((array2) => array2[1]);
-
     this.setState({
       drinks: filterRecipe,
       ingredients,
       measurement,
       request: false,
     });
+  }
+
+  handleCopy() {
+    const { executeCopy, location: { pathname } } = this.props;
+    const copy = require('clipboard-copy');
+    copy(`http://localhost:3000${pathname}`);
+    executeCopy('Link copiado!');
   }
 
   changeFavorite() {
@@ -94,13 +96,6 @@ class DrinkDetails extends Component {
     }
   }
 
-  handleCopy() {
-    const { executeCopy, location: { pathname } } = this.props;
-    const copy = require('clipboard-copy');
-    copy(`http://localhost:3000${pathname}`);
-    executeCopy('Link copiado!' );
-  }
-
   showButton() {
     const { match: { params: { id } }, history } = this.props;
     const getDoneStorage = JSON.parse(localStorage.getItem('doneRecipes'));
@@ -114,7 +109,7 @@ class DrinkDetails extends Component {
         >
           Iniciar Receita
         </button>
-      )
+      );
     }
   }
 
@@ -232,6 +227,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(DrinkDetails);
 DrinkDetails.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
+  }).isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
   }).isRequired,
   recomendations: PropTypes.shape({
     meals: PropTypes.arrayOf(PropTypes.object),

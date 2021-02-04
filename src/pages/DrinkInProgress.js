@@ -13,13 +13,11 @@ import '../css/details.css';
 class DrinkInProgress extends Component {
   constructor(props) {
     super(props);
-
     this.handleState = this.handleState.bind(this);
     this.changeFavorite = this.changeFavorite.bind(this);
     this.createFavoriteLocalStorage = this.createFavoriteLocalStorage.bind(this);
     this.handleCopy = this.handleCopy.bind(this);
     this.changeDone = this.changeDone.bind(this);
-
     this.state = {
       drinks: [],
       ingredients: [],
@@ -87,6 +85,13 @@ class DrinkInProgress extends Component {
     });
   }
 
+  handleCopy() {
+    const { executeCopy, location: { pathname } } = this.props;
+    const copy = require('clipboard-copy');
+    copy(`http://localhost:3000${pathname}`);
+    executeCopy('Link copiado!');
+  }
+
   changeFavorite() {
     this.setState((prevState) => ({
       favorite: !prevState.favorite,
@@ -129,13 +134,6 @@ class DrinkInProgress extends Component {
         () => localStorage.setItem(keyStorage, JSON.stringify([])),
       );
     }
-  }
-
-  handleCopy() {
-    const { executeCopy, location: { pathname } } = this.props;
-    const copy = require('clipboard-copy');
-    copy(`http://localhost:3000${pathname}`);
-    executeCopy('Link copiado!' );
   }
 
   render() {
@@ -235,6 +233,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(DrinkInProgress);
 DrinkInProgress.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
+  }).isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
   }).isRequired,
   drinksRecipes: PropTypes.shape({
     drinks: PropTypes.arrayOf(PropTypes.object),

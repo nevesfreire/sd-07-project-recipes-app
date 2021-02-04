@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { copyButton } from '../actions';
 import shareIcon from '../images/shareIcon.svg';
@@ -8,15 +9,10 @@ class DoneRecipe extends Component {
   constructor(props) {
     super(props);
     this.handleClipBoard = this.handleClipBoard.bind(this);
-    this.state = {
-      clipboard: {},
-    };
   }
 
   handleClipBoard(type, id) {
-    const {
-      executeCopy
-    } = this.props;
+    const { executeCopy } = this.props;
     const copy = require('clipboard-copy');
     copy(`http://localhost:3000/${type}s/${id}`);
     executeCopy('Link copiado!');
@@ -61,7 +57,10 @@ class DoneRecipe extends Component {
                 {card.doneDate}
               </p>
               <p>{valueCopied}</p>
-              <button type="button" onClick={ () => this.handleClipBoard(card.type, card.id) }>
+              <button
+                type="button"
+                onClick={ () => this.handleClipBoard(card.type, card.id) }
+              >
                 <img
                   data-testid={ `${index}-horizontal-share-btn` }
                   alt="icone de compartilhamento"
@@ -71,7 +70,7 @@ class DoneRecipe extends Component {
 
               <h1 data-testid={ `${index}-horizontal-name` }>{card.name}</h1>
               {console.log(card.tags)}
-              {/* Para funcionar com a API tem que descomentar a linha abaixo e comentar a seguinte */}
+              {/* Para funcionar com a API tem que descomentar a linha abaixo */}
               {/* {card.tags.split(',').map((cardTag, indexTag) => ( */}
               {card.tags.map((cardTag, indexTag) => (
                 <p
@@ -99,3 +98,8 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DoneRecipe);
+
+DoneRecipe.propTypes = {
+  executeCopy: PropTypes.func.isRequired,
+  valueCopied: PropTypes.string.isRequired,
+};

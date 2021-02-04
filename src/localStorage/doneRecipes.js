@@ -1,6 +1,6 @@
 const date = () => {
-  const arrayMonth = ['Janeiro','Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-   'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+  const arrayMonth = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+    'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
   let day = new Date().getDay();
   if (day.toString().length === 1) day = `0${day}`;
   let month = new Date().getMonth();

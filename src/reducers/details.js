@@ -17,7 +17,7 @@ const recomendations = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       copy: action.value,
-    }
+    };
   case ERROR:
     return {
       ...state,

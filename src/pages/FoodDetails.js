@@ -273,6 +273,9 @@ FoodDetails.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+  }).isRequired,
   recomendations: PropTypes.shape({
     drinks: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,

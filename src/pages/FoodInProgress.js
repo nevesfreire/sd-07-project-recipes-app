@@ -92,6 +92,13 @@ class FoodInProgress extends Component {
     console.log(target);
   }
 
+  handleCopy() {
+    const { executeCopy, location: { pathname } } = this.props;
+    const copy = require('clipboard-copy');
+    copy(`http://localhost:3000${pathname}`);
+    executeCopy('Link copiado!');
+  }
+
   changeFavorite() {
     this.setState((prevState) => ({
       favorite: !prevState.favorite,
@@ -134,13 +141,6 @@ class FoodInProgress extends Component {
         () => localStorage.setItem(keyStorage, JSON.stringify([])),
       );
     }
-  }
-
-  handleCopy() {
-    const { executeCopy, location: { pathname } } = this.props;
-    const copy = require('clipboard-copy');
-    copy(`http://localhost:3000${pathname}`);
-    executeCopy('Link copiado!' );
   }
 
   render() {
@@ -241,6 +241,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(FoodInProgress);
 FoodInProgress.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
+  }).isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
   }).isRequired,
   mealsRecipes: PropTypes.shape({
     meals: PropTypes.arrayOf(PropTypes.object),
