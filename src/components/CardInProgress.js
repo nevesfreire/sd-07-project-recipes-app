@@ -35,7 +35,6 @@ function CardInProgress() {
     ingredientsAndFavorites(itemId, mealTypeChain, setIngredientsList, setIsFavorite);
     // checkFavorites();
     loadIngredients();
-    // checkedIngredients();
   }, [itemId, mealType, details, mealTypeChain]);
 
   useEffect(() => {
