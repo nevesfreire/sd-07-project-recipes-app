@@ -1,20 +1,17 @@
 import React from 'react';
 // import { render, screen } from '@testing-library/react';
-import ComidasID from './index';
+import Comidas from './index';
 import { renderWithRouterAndStore } from '../../test/testConfig';
 import storeMock from '../../test/mock';
 
 describe('[PÁGINA DE COMIDAR]: ', () => {
   test('rederiza pagina', async () => {
     const { getByText, history } = renderWithRouterAndStore(
-      <ComidasID />,
-      '/comidas/53026',
+      <Comidas />,
+      '',
       storeMock,
     );
-    history.push('/comidas/53026');
-    const element = getByText(
-      /Pour the Galliano liqueur over ice. Fill the remainder of the glass with ginger ale and thats all there is to it. You now have a your very own GG./,
-    );
+    const element = getByText(/Corba/);
 
     // Wait for page to update with query text
     expect(element).toBeInTheDocument();
