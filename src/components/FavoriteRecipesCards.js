@@ -5,6 +5,7 @@ import clipboardCopy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import blackHearthIcon from '../images/blackHeartIcon.svg';
 import whiteHearthIcon from '../images/whiteHeartIcon.svg';
+import './donerecipes.css';
 
 function FavoriteRecipesCards({
   thumb,
@@ -63,7 +64,7 @@ function FavoriteRecipesCards({
         />
       </button>
       <Link to={ `/${url(type)}/${id}` }>
-        <div>
+        <div className="img_recipes">
           <img
             src={ thumb }
             alt="Imagem do profile"
