@@ -4,7 +4,13 @@ import Footer from '../components/Footer';
 import profileIcon from '../images/profileIcon.svg';
 
 function Profile() {
-  const { email } = JSON.parse(localStorage.getItem('user'));
+  const findEmail = () => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user === null) {
+      return null;
+    }
+    return user.email;
+  };
 
   return (
     <div>
@@ -19,7 +25,7 @@ function Profile() {
         <h1 data-testid="page-title">Perfil</h1>
       </header>
       <div>
-        <h2 data-testid="profile-email">{email}</h2>
+        <h2 data-testid="profile-email">{findEmail()}</h2>
       </div>
       <div>
         <Link to="/receitas-feitas">
