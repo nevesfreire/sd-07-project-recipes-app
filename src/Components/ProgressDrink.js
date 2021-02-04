@@ -79,12 +79,21 @@ const ProgressDrink = ({ type, recipe, ingredientes, id }) => {
         </label>
       ))}
       <p data-testid="instructions">{recipe.strInstructions}</p>
-      { allChecked && (
+      { allChecked ? (
         <Link to="/receitas-feitas">
           <button type="button" data-testid="finish-recipe-btn">
             Finalizado!
           </button>
-        </Link>) }
+        </Link>)
+        : (
+          <button
+            disabled="disabled"
+            type="button"
+            data-testid="finish-recipe-btn"
+          >
+            Finalizado!
+          </button>
+        )}
     </div>
   );
 };
