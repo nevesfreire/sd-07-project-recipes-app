@@ -21,17 +21,14 @@ function DoneRecipesCard() {
     history.push(`/${type}s/${id}`);
   };
 
-  const putSaveDoneRecipes = async () => {
-    const getStore = await localStorage.getItem('doneRecipes');
-    const doneRecipes = await JSON.parse(getStore);
-    console.log('put');
-    console.log(doneRecipes);
-    saveDoneRecipes(doneRecipes);
-  };
-
   useEffect(() => {
+    const putSaveDoneRecipes = async () => {
+      const getStore = await localStorage.getItem('doneRecipes');
+      const doneRecipes = await JSON.parse(getStore);
+      saveDoneRecipes(doneRecipes);
+    };
     putSaveDoneRecipes();
-  }, []);
+  }, [saveDoneRecipes]);
 
   return (
     <div>
