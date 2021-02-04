@@ -25,11 +25,11 @@ const inicializateInProgress = (type, id) => {
     const { meals, cocktails } = recipesInProgress;
     const mealsLength = Object.keys((meals)).length;
     const cocktailsLength = Object.keys((cocktails)).length;
-    if ((mealsLength === empity && meals.id === undefined) && type === 'meals') {
+    if ((mealsLength === empity || meals[id] === undefined) && type === 'meals') {
       meals[id] = [];
       localStorage.setItem('inProgressRecipes', JSON.stringify(recipesInProgress));
-    } else if (cocktailsLength === empity
-        && cocktails.id === undefined && type === 'cocktails') {
+    } else if ((cocktailsLength === empity
+      || cocktails[id] === undefined) && type === 'cocktails') {
       cocktails[id] = [];
       localStorage.setItem('inProgressRecipes', JSON.stringify(recipesInProgress));
     }

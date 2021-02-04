@@ -29,7 +29,6 @@ const ReceitaEmProgresso = () => {
       <label
         htmlFor={ mainData[e] }
       >
-        {console.log(listIngredient)}
         <input
           type="checkbox"
           value={ mainData[e] }
