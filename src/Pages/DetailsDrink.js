@@ -41,7 +41,6 @@ function DetailsDrink() {
   //   }
   //   return localStorageRecipes.cocktails[newUrlId].length
   // }
-
   const { strCategory,
     idDrink,
     strDrink,
