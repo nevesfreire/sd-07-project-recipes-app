@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchRecipes } from '../actions';
+import { fetchRecipes, copyButton } from '../actions';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -17,6 +17,8 @@ class DrinkInProgress extends Component {
     this.handleState = this.handleState.bind(this);
     this.changeFavorite = this.changeFavorite.bind(this);
     this.createFavoriteLocalStorage = this.createFavoriteLocalStorage.bind(this);
+    this.handleCopy = this.handleCopy.bind(this);
+    this.changeDone = this.changeDone.bind(this);
 
     this.state = {
       drinks: [],
@@ -24,6 +26,7 @@ class DrinkInProgress extends Component {
       measurement: [],
       request: true,
       favorite: false,
+      done: false,
     };
   }
 
@@ -72,7 +75,18 @@ class DrinkInProgress extends Component {
     () => {
       const { drinks, favorite } = this.state;
       favoriteDrinkLocalStorage(drinks, favorite, 'favoriteRecipes');
-      doneDrinkLocalStorage(drinks, favorite, 'doneRecipes');
+    });
+  }
+
+  changeDone() {
+    this.setState((prevState) => ({
+      done: !prevState.done,
+    }),
+    () => {
+      const { history } = this.props;
+      const { drinks, done } = this.state;
+      doneDrinkLocalStorage(drinks, done, 'doneRecipes');
+      history.push('/receitas-feitas');
     });
   }
 
@@ -92,8 +106,15 @@ class DrinkInProgress extends Component {
     }
   }
 
+  handleCopy() {
+    const { executeCopy, location: { pathname } } = this.props;
+    const copy = require('clipboard-copy');
+    copy(`http://localhost:3000${pathname}`);
+    executeCopy('Link copiado!' );
+  }
+
   render() {
-    const { history } = this.props;
+    const { history, valueCopied } = this.props;
     const { drinks, ingredients, favorite, measurement } = this.state;
     const { strDrinkThumb, strDrink, strInstructions, strAlcoholic } = drinks;
 
@@ -112,8 +133,10 @@ class DrinkInProgress extends Component {
             <h3 data-testid="recipe-category">{strAlcoholic}</h3>
           </div>
           <div className="images-container">
+            <p>{ valueCopied }</p>
             <button
               type="button"
+              onClick={ this.handleCopy }
             >
               <img
                 data-testid="share-btn"
@@ -168,7 +191,7 @@ class DrinkInProgress extends Component {
           <button
             type="button"
             data-testid="finish-recipe-btn"
-            onClick={ () => history.push('/receitas-feitas') }
+            onClick={ this.changeDone }
             className="finish-button-recipe"
           >
             Finalizar Receita
@@ -179,12 +202,14 @@ class DrinkInProgress extends Component {
   }
 }
 
-const mapStateToProps = ({ recipesReducer }) => ({
+const mapStateToProps = ({ recipesReducer, recomendationsReducer }) => ({
   drinksRecipes: recipesReducer.recipes,
+  valueCopied: recomendationsReducer.copy,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   requestRecipes: (endpoint) => dispatch(fetchRecipes(endpoint)),
+  executeCopy: (value) => dispatch(copyButton(value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DrinkInProgress);
@@ -202,4 +227,6 @@ DrinkInProgress.propTypes = {
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
+  executeCopy: PropTypes.func.isRequired,
+  valueCopied: PropTypes.string.isRequired,
 };

@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchDetails, fetchRecipes } from '../actions';
+import { fetchDetails, fetchRecipes, copyButton } from '../actions';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Loading from '../components/Loading';
 import { favoriteMealLocalStorage } from '../localStorage/favoriteRecipes';
-import { doneMealLocalStorage } from '../localStorage/doneRecipes';
 import '../css/details.css';
 
 class FoodDetails extends Component {
@@ -17,6 +16,8 @@ class FoodDetails extends Component {
     this.handleState = this.handleState.bind(this);
     this.changeFavorite = this.changeFavorite.bind(this);
     this.createFavoriteLocalStorage = this.createFavoriteLocalStorage.bind(this);
+    this.handleCopy = this.handleCopy.bind(this);
+    this.showButton = this.showButton.bind(this);
 
     this.state = {
       meal: [],
@@ -75,7 +76,6 @@ class FoodDetails extends Component {
     () => {
       const { meal, favorite } = this.state;
       favoriteMealLocalStorage(meal, favorite, 'favoriteRecipes');
-      doneMealLocalStorage(meal, favorite, 'doneRecipes');
     });
   }
 
@@ -95,8 +95,32 @@ class FoodDetails extends Component {
     }
   }
 
+  handleCopy() {
+    const { executeCopy, location: { pathname } } = this.props;
+    const copy = require('clipboard-copy');
+    copy(`http://localhost:3000${pathname}`);
+    executeCopy('Link copiado!' );
+  }
+
+  showButton() {
+    const { match: { params: { id } }, history } = this.props;
+    const getDoneStorage = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (!getDoneStorage.length) {
+      return (
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          onClick={ () => history.push(`/comidas/${id}/in-progress`) }
+          className="finish-button-recipe"
+        >
+          Iniciar Receita
+        </button>
+      )
+    }
+  }
+
   render() {
-    const { match: { params: { id } }, recomendations, history } = this.props;
+    const { recomendations, valueCopied } = this.props;
     const { meal, hashYoutube, ingredients, favorite, measurement } = this.state;
     const { strMealThumb, strMeal, strCategory, strInstructions } = meal;
     const DRINK_LENGTH = 6;
@@ -116,8 +140,10 @@ class FoodDetails extends Component {
             <h3 data-testid="recipe-category">{strCategory}</h3>
           </div>
           <div className="images-container">
+            <p>{ valueCopied }</p>
             <button
               type="button"
+              onClick={ this.handleCopy }
             >
               <img
                 data-testid="share-btn"
@@ -191,14 +217,9 @@ class FoodDetails extends Component {
           </div>
         </div>
         <div className="finish-button-container">
-          <button
-            type="button"
-            data-testid="start-recipe-btn"
-            onClick={ () => history.push(`/comidas/${id}/in-progress`) }
-            className="finish-button-recipe"
-          >
-            Iniciar Receita
-          </button>
+          {
+            this.showButton()
+          }
         </div>
       </div>
     );
@@ -208,11 +229,13 @@ class FoodDetails extends Component {
 const mapStateToProps = ({ recipesReducer, recomendationsReducer }) => ({
   mealsRecipes: recipesReducer.recipes,
   recomendations: recomendationsReducer.recomendations,
+  valueCopied: recomendationsReducer.copy,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   requestRecomendations: (endpoint) => dispatch(fetchDetails(endpoint)),
   requestRecipes: (endpoint) => dispatch(fetchRecipes(endpoint)),
+  executeCopy: (value) => dispatch(copyButton(value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FoodDetails);
@@ -234,4 +257,6 @@ FoodDetails.propTypes = {
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
+  executeCopy: PropTypes.func.isRequired,
+  valueCopied: PropTypes.string.isRequired,
 };

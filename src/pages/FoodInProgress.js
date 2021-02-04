@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchRecipes } from '../actions';
+import { fetchRecipes, copyButton } from '../actions';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -18,6 +18,8 @@ class FoodInProgress extends Component {
     this.changeFavorite = this.changeFavorite.bind(this);
     this.handleCheckbox = this.handleCheckbox.bind(this);
     this.createFavoriteLocalStorage = this.createFavoriteLocalStorage.bind(this);
+    this.handleCopy = this.handleCopy.bind(this);
+    this.changeDone = this.changeDone.bind(this);
 
     this.state = {
       meal: [],
@@ -25,6 +27,7 @@ class FoodInProgress extends Component {
       measurement: [],
       request: true,
       favorite: false,
+      done: false,
     };
   }
 
@@ -77,7 +80,18 @@ class FoodInProgress extends Component {
     () => {
       const { meal, favorite } = this.state;
       favoriteMealLocalStorage(meal, favorite, 'favoriteRecipes');
-      doneMealLocalStorage(meal, favorite, 'doneRecipes');
+    });
+  }
+
+  changeDone() {
+    this.setState((prevState) => ({
+      done: !prevState.done,
+    }),
+    () => {
+      const { history } = this.props;
+      const { meal, done } = this.state;
+      doneMealLocalStorage(meal, done, 'doneRecipes');
+      history.push('/receitas-feitas');
     });
   }
 
@@ -97,8 +111,15 @@ class FoodInProgress extends Component {
     }
   }
 
+  handleCopy() {
+    const { executeCopy, location: { pathname } } = this.props;
+    const copy = require('clipboard-copy');
+    copy(`http://localhost:3000${pathname}`);
+    executeCopy('Link copiado!' );
+  }
+
   render() {
-    const { history } = this.props;
+    const { valueCopied } = this.props;
     const { meal, ingredients, favorite, measurement } = this.state;
     const { strMealThumb, strMeal, strCategory, strInstructions } = meal;
     if (!ingredients) return <Loading />;
@@ -117,8 +138,10 @@ class FoodInProgress extends Component {
             <h3 data-testid="recipe-category">{strCategory}</h3>
           </div>
           <div className="images-container">
+            <p>{ valueCopied }</p>
             <button
               type="button"
+              onClick={ this.handleCopy }
             >
               <img
                 data-testid="share-btn"
@@ -174,7 +197,7 @@ class FoodInProgress extends Component {
           <button
             type="button"
             data-testid="finish-recipe-btn"
-            onClick={ () => history.push('/receitas-feitas') }
+            onClick={ this.changeDone }
             className="finish-button-recipe"
           >
             Finalizar Receita
@@ -185,12 +208,14 @@ class FoodInProgress extends Component {
   }
 }
 
-const mapStateToProps = ({ recipesReducer }) => ({
+const mapStateToProps = ({ recipesReducer, recomendationsReducer }) => ({
   mealsRecipes: recipesReducer.recipes,
+  valueCopied: recomendationsReducer.copy,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   requestRecipes: (endpoint) => dispatch(fetchRecipes(endpoint)),
+  executeCopy: (value) => dispatch(copyButton(value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FoodInProgress);
@@ -208,4 +233,6 @@ FoodInProgress.propTypes = {
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
+  executeCopy: PropTypes.func.isRequired,
+  valueCopied: PropTypes.string.isRequired,
 };

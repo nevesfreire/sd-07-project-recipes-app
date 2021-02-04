@@ -9,7 +9,7 @@ const date = () => {
 };
 // console.log(date());
 
-const doneMealLocalStorage = (meal, favorite, keyStorage) => {
+const doneMealLocalStorage = (meal, done, keyStorage) => {
   const {
     idMeal,
     strArea,
@@ -22,7 +22,7 @@ const doneMealLocalStorage = (meal, favorite, keyStorage) => {
   // id, type, area, category, alcoholicOrNot, name, image, doneDate, tags
   const read = JSON.parse(localStorage.getItem(keyStorage));
 
-  if (favorite) {
+  if (done) {
     const checkoutStorage = read.some((obj, index) => {
       if (obj.id === idMeal) {
         const newArray = read;
@@ -65,7 +65,7 @@ const doneMealLocalStorage = (meal, favorite, keyStorage) => {
   }
 };
 
-const doneDrinkLocalStorage = (drink, favorite, keyStorage) => {
+const doneDrinkLocalStorage = (drink, done, keyStorage) => {
   const {
     idDrink,
     strCategory,
@@ -77,7 +77,7 @@ const doneDrinkLocalStorage = (drink, favorite, keyStorage) => {
   // id, type, area, category, alcoholicOrNot, name, image, doneDate, tags
   const read = JSON.parse(localStorage.getItem(keyStorage));
 
-  if (favorite) {
+  if (done) {
     const checkoutStorage = read.some((obj, index) => {
       if (obj.id === idDrink) {
         const newArray = read;
