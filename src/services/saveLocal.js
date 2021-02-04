@@ -10,6 +10,31 @@ const checkFav = (id) => {
   return false;
 };
 
+const inicializateInProgress = (type, id) => {
+  const recipesInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const empity = 0;
+  if (!recipesInProgress) {
+    const blanckProgress = {
+      cocktails: {},
+      meals: {},
+    };
+    if (type === 'meals') blanckProgress.meals[id] = [];
+    else blanckProgress.cocktails[id] = [];
+    localStorage.setItem('inProgressRecipes', JSON.stringify(blanckProgress));
+  } else {
+    const { meals, cocktails } = recipesInProgress;
+    if (Object.keys((meals).length === empity
+     || meals.id === undefined) && type === 'meals') {
+      meals[id] = [];
+      localStorage.setItem('inProgressRecipes', JSON.stringify(recipesInProgress));
+    } else if (Object.keys((cocktails).length === empity
+   || cocktails.id === undefined) && type === 'cocktails') {
+      cocktails[id] = [];
+      localStorage.setItem('inProgressRecipes', JSON.stringify(recipesInProgress));
+    }
+  }
+};
+
 const toggleFav = (recipe) => {
   let array = JSON.parse(localStorage.getItem('favoriteRecipes'));
   if (array === null) {
@@ -24,4 +49,4 @@ const toggleFav = (recipe) => {
   }
 };
 
-export { toggleFav, getFav, checkFav };
+export { toggleFav, getFav, checkFav, inicializateInProgress };

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import copy from 'clipboard-copy';
 import { useParams, useHistory } from 'react-router-dom';
 import shareImg from '../../images/shareIcon.svg';
+import { inicializateInProgress } from '../../services/saveLocal';
 import FavBtn from '../../common/FavBtn';
 import { mealById, drinkById } from '../../services/API';
 import './style.css';
@@ -14,6 +15,7 @@ const ReceitaEmProgresso = () => {
   const { pathname } = history.location;
   const { id } = useParams();
   const mainFunction = pathname.includes('comida') ? mealById : drinkById;
+  const type = mainFunction === mealById ? 'meals' : 'cocktails';
   const ingredients = Object.keys(mainData)
     .filter((e) => e.includes('strIngredient')
     && mainData[e] !== null && mainData[e] !== '');
@@ -36,11 +38,11 @@ const ReceitaEmProgresso = () => {
       const data = await mainFunction(id);
       setMainData(data);
       setIsLoading(false);
+      inicializateInProgress(type, id);
     };
     getData();
-  }, [id, mainFunction]);
+  }, [id, mainFunction, type]);
   if (!isloading) {
-    console.log(mainData);
     return (
       <>
         <img
@@ -48,7 +50,7 @@ const ReceitaEmProgresso = () => {
           src={
             mainFunction === mealById ? mainData.strMealThumb : mainData.strDrinkThumb
           }
-          alt=""
+          alt="food or drink"
         />
         <h1 data-testid="recipe-title">
           {
