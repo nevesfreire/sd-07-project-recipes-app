@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import Slider from 'react-slick';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import clipboardCopy from 'clipboard-copy';
 import RecipesContext from '../context/RecipesContext';
-import './recipedetails.css';
 import { fetchFoodDetailById } from '../services/foodApiFunctions';
 import { fetchAllDrinkRecipes } from '../services/drinkApiFunctions';
 import shareIcon from '../images/shareIcon.svg';
@@ -27,6 +29,14 @@ function RecipesDetails(props) {
   const zero = 0;
   const six = 6;
   const fifty = 50;
+
+  const settings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 2,
+    slidesToScroll: 2,
+  };
 
   const handlerFavorite = () => {
     const favoriteRec = {
@@ -81,7 +91,6 @@ function RecipesDetails(props) {
 
   return (
     <div className="main_recipe">
-      {console.log('Console do Food Detail', foodDetail)}
       <img
         data-testid="recipe-photo"
         alt="Imagem da comida"
@@ -142,22 +151,29 @@ function RecipesDetails(props) {
         data-testid="video"
         src={ foodDetail.strYoutube }
       />
-      <div className="main_carrousel">
-        Receitas recomendadas
-        <div className="carrousel">
+      <div className="slider">
+        <Slider { ...settings }>
           {
             recomended.map(
-              (item, index) => (
-                <span
-                  data-testid={ `${index}-recomendation-card` }
-                  key={ index }
-                >
-                  <img alt="recomendadas" src={ item.strDrinkThumb } />
-                </span>
-              ),
+              (item, index) => {
+                if (index > six) return null;
+                return (
+                  <div
+                    key={ index }
+                    data-testid={ `${index}-recomendation-card` }
+                  >
+                    <img alt="imagem" src={ item.strDrinkThumb } />
+                    <p
+                      data-testid={ `${index}-recomendation-title` }
+                    >
+                      {item.strDrink}
+                    </p>
+                  </div>
+                );
+              },
             )
           }
-        </div>
+        </Slider>
       </div>
       <Link to={ `/comidas/${id}/in-progress` }>
         <button
