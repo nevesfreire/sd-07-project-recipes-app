@@ -1,5 +1,6 @@
 import React from 'react';
 import Header2 from '../../components/header/Header2';
+import Footer from '../../components/footer/Footer';
 import shareIcon from '../../images/shareIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
@@ -69,6 +70,7 @@ class ReceitasFavoritas extends React.Component {
       <div>
         <Header2 title="Receitas Favoritas" />
         {this.renderCards()}
+        <Footer />
       </div>
     );
   }
