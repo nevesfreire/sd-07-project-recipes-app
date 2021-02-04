@@ -7,7 +7,7 @@ function FavoriteRecipes() {
   );
   const [FoodOrDrink, setRenderAll] = useState(getRecipe);
 
-  useEffect(() => {}, [getRecipe]);
+  useEffect(() => { setRecipe(FoodOrDrink); }, [getRecipe, FoodOrDrink]);
 
   const handleDrink = () => {
     const drink = getRecipe.filter(
