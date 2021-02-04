@@ -24,9 +24,16 @@ const RecipeDetail = () => {
   const like = () => {
     localStorage.setItem(
       'favoriteRecipes',
-      JSON.stringify([{ favoriteRecipes: `${id}` }]),
+      JSON.stringify([{
+        id: `${id}`,
+        type: 'comida',
+        area: `${recipeDetails.meals[0].strArea}`,
+        category: `${recipeDetails.meals[0].strCategory}`,
+        alcoholicOrNot: '',
+        name: `${recipeDetails.meals[0].strMeal}`,
+        image: `${recipeDetails.meals[0].strMealThumb}`,
+      }]),
     );
-
     if (isFavorite === false) {
       setIsFavorite(true);
     } else {
@@ -40,6 +47,7 @@ const RecipeDetail = () => {
       const favoriteLocalStorage = JSON.parse(
         localStorage.getItem('favoriteRecipes'),
       );
+      console.log(favoriteLocalStorage);
       if (favoriteLocalStorage !== null) {
         const ocurrencies = favoriteLocalStorage.map((actual) => Object.entries(actual));
         const isFavored = ocurrencies.map(
@@ -94,10 +102,6 @@ const RecipeDetail = () => {
 
   const page = 'comida';
   const sizeEnd = 6;
-  // const mealsSixData = mealsData.slice(size, sizeEnd);
-
-  // console.log(mealsSixData);
-
   const mealsSave = cocktailsData;
 
   const mealsDoc = () => mealsSave

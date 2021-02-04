@@ -1,10 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
-// import { element } from 'prop-types';
 import shareIcon from '../../images/shareIcon.svg';
 import likeIcon from '../../images/whiteHeartIcon.svg';
 import likeIconBlack from '../../images/blackHeartIcon.svg';
-// import FoodIngredients from '../../Pages/FoodIngredientsPage';
 import RecipeContext from '../../Context/RecipeContext';
 import RecomendationCard from '../RecomedationCard';
 import { fetchAllRecipes } from '../../API/apiMeals';
@@ -23,22 +21,31 @@ const RecipeDetailDrink = () => {
 
   const like = () => {
     localStorage.setItem(
-      'favoriteRecipesDrinks',
-      JSON.stringify([{ drink: `${id}` }]),
+      'favoriteRecipes',
+      JSON.stringify([{
+        id: `${id}`,
+        type: 'bebida',
+        area: '',
+        category: `${recipeDetails.drinks[0].strCategory}`,
+        alcoholicOrNot: `${recipeDetails.drinks[0].strAlcoholic}`,
+        name: `${recipeDetails.drinks[0].strDrink}`,
+        image: `${recipeDetails.drinks[0].strDrinkThumb}`,
+      }]),
     );
     if (isFavorite === false) {
       setIsFavorite(true);
     } else {
       setIsFavorite(false);
-      localStorage.removeItem('favoriteRecipesDrinks');
+      localStorage.removeItem('favoriteRecipes');
     }
   };
 
   useEffect(() => {
     const checkFavorite = () => {
       const favoriteLocalStorage = JSON.parse(
-        localStorage.getItem('favoriteRecipesDrinks'),
+        localStorage.getItem('favoriteRecipes'),
       );
+      console.log(favoriteLocalStorage);
       if (favoriteLocalStorage !== null) {
         const ocurrencies = favoriteLocalStorage.map((actual) => Object.entries(actual));
         const isFavored = ocurrencies.map(
@@ -124,22 +131,6 @@ const RecipeDetailDrink = () => {
     setIsStart(true);
   };
 
-  // const isDoneRecipe = () => {
-  //   const isDone = JSON.parse(localStorage.getItem('doneRecipes'));
-  //   if (isDone && id !== isDone.id) {
-  //     return (
-  //       <button
-  //         className="btn-start"
-  //         data-testid="start-recipe-btn"
-  //         type="button"
-  //         onClick={ () => startRecipe() }
-  //       >
-  //         {isStart === true ? 'Continuar Receita' : 'Iniciar Receita'}
-  //       </button>
-  //     );
-  //   }
-  // };
-
   const shareLink = () => {
     const url = window.location.href;
     console.log(url);
@@ -194,7 +185,6 @@ const RecipeDetailDrink = () => {
         <div className="video" data-testid="video" />
       </div>
       <div className="container-cards">{mealsDoc()}</div>
-      {/* {isDoneRecipe()} */}
       <Link to={ `/bebidas/${id}/in-progress` }>
         <button
           className="btn-start"
