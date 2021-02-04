@@ -35,7 +35,7 @@ function IngredientsTable({ done, setDone, ingredients, measures }) {
 }
 
 IngredientsTable.propTypes = {
-  done: PropTypes.arrayOf(PropTypes.boolean).isRequired,
+  done: PropTypes.arrayOf(PropTypes.bool).isRequired,
   setDone: PropTypes.func.isRequired,
   ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
   measures: PropTypes.arrayOf(PropTypes.string).isRequired,

@@ -20,6 +20,7 @@ function Progress({ history, match: { params: { id } } }) {
   const [image, setImage] = useState('');
   const [done, setDone] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [canFinish, setFinish] = useState(false);
   const [data, setData] = useState({
     id: '',
     name: '',
@@ -37,6 +38,11 @@ function Progress({ history, match: { params: { id } } }) {
   }, []);
 
   useEffect(() => {
+    if (api === '') return;
+    setFinish(!done.every((check) => check === true));
+  }, [api, done]);
+
+  useEffect(() => {
     if (pathname.includes('bebidas')) setApi('drinks');
     else setApi('meal');
   }, [pathname, setApi]);
@@ -51,32 +57,32 @@ function Progress({ history, match: { params: { id } } }) {
     firstFetch();
   }, [api, id, setResult]);
 
-  const getIngredients = (acc, curr) => (
-    curr[0].includes('strIngredient') && curr[1] !== '' && curr[1] !== null
-      ? [...acc, curr[1]]
-      : acc
-  );
-
-  const getMeasures = (acc, curr) => (
-    curr[0].includes('strMeasure') && curr[1] !== '' && curr[1] !== null
-      ? [...acc, curr[1]]
-      : acc
-  );
-
-  const getIngredientsList = (list) => {
-    const ing = Object.entries(list).reduce(getIngredients, []);
-    const meas = Object.entries(list).reduce(getMeasures, []);
-
-    const ingredientsList = [];
-
-    ing.forEach((_, index) => {
-      ingredientsList.push(`${ing[index]} - ${meas[index]}`);
-    });
-
-    return ingredientsList;
-  };
-
   useEffect(() => {
+    const getIngredients = (acc, curr) => (
+      curr[0].includes('strIngredient') && curr[1] !== '' && curr[1] !== null
+        ? [...acc, curr[1]]
+        : acc
+    );
+
+    const getMeasures = (acc, curr) => (
+      curr[0].includes('strMeasure') && curr[1] !== '' && curr[1] !== null
+        ? [...acc, curr[1]]
+        : acc
+    );
+
+    const getIngredientsList = (list) => {
+      const ing = Object.entries(list).reduce(getIngredients, []);
+      const meas = Object.entries(list).reduce(getMeasures, []);
+
+      const ingredientsList = [];
+
+      ing.forEach((_, index) => {
+        ingredientsList.push(`${ing[index]} - ${meas[index]}`);
+      });
+
+      return ingredientsList;
+    };
+
     setData({
       id: result.idMeal || result.idDrink,
       name: result.strMeal || result.strDrink,
@@ -146,7 +152,7 @@ function Progress({ history, match: { params: { id } } }) {
       newRecipesInProgress.cocktails[id] = doneIngredients;
     }
     saveItem('inProgressRecipes', newRecipesInProgress);
-  }, [id, api, done]);
+  }, [id, api, done, result]);
 
   return (
     <div>
@@ -166,6 +172,7 @@ function Progress({ history, match: { params: { id } } }) {
         data={ data }
         isFavorite={ isFavorite }
         setIsFavorite={ setIsFavorite }
+        canFinish={ canFinish }
       />
     </div>
   );

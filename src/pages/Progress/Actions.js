@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import copy from 'clipboard-copy';
 import PropTypes from 'prop-types';
@@ -43,7 +44,7 @@ function formatFavorite(data, api) {
   saveItem('favoriteRecipes', favoriteRecipesArray);
 }
 
-function Actions({ data, isFavorite, setIsFavorite }) {
+function Actions({ data, isFavorite, setIsFavorite, canFinish }) {
   const {
     api,
   } = useContext(Context);
@@ -55,10 +56,11 @@ function Actions({ data, isFavorite, setIsFavorite }) {
     setIsFavorite((prev) => !prev);
   };
 
+  const history = useHistory();
+
   return (
     <nav>
       <Button
-        // data-testid="favorite-btn"
         onClick={ setAsFavorite }
       >
         <img
@@ -78,7 +80,11 @@ function Actions({ data, isFavorite, setIsFavorite }) {
       >
         Share
       </Button>
-      <Button data-testid="finish-recipe-btn">
+      <Button
+        data-testid="finish-recipe-btn"
+        disabled={ canFinish }
+        onClick={ () => history.push('/receitas-feitas') }
+      >
         Finish
       </Button>
       <div>{msg}</div>
@@ -100,6 +106,7 @@ Actions.propTypes = {
   }).isRequired,
   isFavorite: PropTypes.bool.isRequired,
   setIsFavorite: PropTypes.func.isRequired,
+  canFinish: PropTypes.bool.isRequired,
 };
 
 export default Actions;
