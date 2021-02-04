@@ -2,7 +2,7 @@ import React from 'react';
 import '../components/components.css';
 import PropTypes from 'prop-types';
 import {
-  Button, CardsFactory, LoadingCard, ShareButton, FavoriteFoodButton,
+  Button, DrinkRecomendation, LoadingCard, ShareButton, FavoriteFoodButton,
 } from '../components';
 import { useFetchApi } from '../hooks';
 
@@ -26,7 +26,12 @@ export default function DetailsFood({
       ? (<LoadingCard />)
       : (
         <div>
-          <img data-testid="recipe-photo" src={ meals[0].strMealThumb } alt="foto" />
+          <img
+            data-testid="recipe-photo"
+            src={ meals[0].strMealThumb }
+            alt="foto"
+            style={ { width: 360 } }
+          />
           <div>
             <div>
               <h3 data-testid="recipe-title">{meals[0].strMeal}</h3>
@@ -63,21 +68,13 @@ export default function DetailsFood({
               <iframe
                 data-testid="video"
                 title={ meals[0].strMeal }
-                width="420"
-                height="315"
+                width="360"
+                height="260"
                 src={ meals[0].strYoutube.replace('watch?v=', 'embed/') }
               />
             </div>
-            <div>
-              <h4>Recomendadas</h4>
-              <CardsFactory
-                number={ 6 }
-                URL="https://www.thecocktaildb.com/api/json/v1/1/search.php?s="
-                testidImg="-recomendation-img"
-                testidCard="-recomendation-card"
-                testidTitle="-recomendation-title"
-              />
-            </div>
+            <h4>Recomendadas</h4>
+            <DrinkRecomendation meals={ meals[0] } />
             <Button
               testid="start-recipe-btn"
               text="Iniciar Receita"

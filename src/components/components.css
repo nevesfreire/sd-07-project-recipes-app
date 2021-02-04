@@ -1,10 +1,13 @@
 .footer {
+  align-items: center;
+  background-color: gray;
   bottom: 0;
   display: flex;
-  height: 60px;
+  flex-flow: row wrap;
   justify-content: space-around;
+  height: 70px;
   position: fixed;
-  width: 100%;
+  width: 360px;
 }
 
 .header {
@@ -18,13 +21,10 @@
   height: 60px;
 }
 
-.card {
-  align-items: center;
-  width: 10rem;
+.carousel-div {
+padding: 0 40px;
 }
 
-.cards {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
+.recomendation-card {
+  height: 100px;
 }
