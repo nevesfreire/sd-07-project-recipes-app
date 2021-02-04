@@ -58,6 +58,7 @@ function Progress({ history, match: { params: { id } } }) {
   }, [api, id, setResult]);
 
   useEffect(() => {
+    if (!result) return;
     const getIngredients = (acc, curr) => (
       curr[0].includes('strIngredient') && curr[1] !== '' && curr[1] !== null
         ? [...acc, curr[1]]
@@ -97,7 +98,7 @@ function Progress({ history, match: { params: { id } } }) {
   }, [result]);
 
   useEffect(() => {
-    if (api === '') return;
+    if (api === '' || !result) return;
     const ing = [];
     const meas = [];
     const don = [];
@@ -120,7 +121,7 @@ function Progress({ history, match: { params: { id } } }) {
     setMeasures(meas);
     setDone(don);
 
-    const favoriteRecipesArray = getItem('favoriteRecipes');
+    const favoriteRecipesArray = getItem('favoriteRecipes') || [];
     const isRecipeFavorite = favoriteRecipesArray
       .some((recipe) => recipe.id === id);
     if (isRecipeFavorite) setIsFavorite(true);
@@ -138,14 +139,14 @@ function Progress({ history, match: { params: { id } } }) {
   }, [api]);
 
   useEffect(() => {
-    if (api === '' || result === {}) return;
+    if (api === '' || !result) return;
     const doneIngredients = done
       .map((ing, index) => {
         if (ing === true) return index;
         return false;
       })
       .filter((ing) => ing !== false);
-    const newRecipesInProgress = getItem('inProgressRecipes');
+    const newRecipesInProgress = getItem('inProgressRecipes') || [];
     if (api === 'meal') {
       newRecipesInProgress.meals[id] = doneIngredients;
     } else {
@@ -156,9 +157,9 @@ function Progress({ history, match: { params: { id } } }) {
 
   return (
     <div>
-      <h1 data-testid="recipe-title">{result[name]}</h1>
-      <h2 data-testid="recipe-category">{ result.strCategory }</h2>
-      <img data-testid="recipe-photo" src={ result[image] } alt="thumbnail" />
+      {result && <h1 data-testid="recipe-title">{result[name]}</h1>}
+      {result && <h2 data-testid="recipe-category">{ result.strCategory }</h2>}
+      {result && <img data-testid="recipe-photo" src={ result[image] } alt="thumbnail" />}
       <h2>Ingredients list</h2>
       <IngredientsTable
         ingredients={ ingredients }
@@ -167,7 +168,7 @@ function Progress({ history, match: { params: { id } } }) {
         setDone={ setDone }
       />
       <h2>instructions</h2>
-      <p data-testid="instructions">{result.strInstructions}</p>
+      {result && <p data-testid="instructions">{result.strInstructions}</p>}
       <Actions
         data={ data }
         isFavorite={ isFavorite }
