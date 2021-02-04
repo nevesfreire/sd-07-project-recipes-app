@@ -60,10 +60,10 @@ describe('Testando arquivo Login.js', () => {
     const { getByTestId, history } = renderWithRouter(<Login />);
     const email = getByTestId(EMAIL_IMPUT);
     const senha = getByTestId(PASSWORD_IMPUT);
-    const botão = getByTestId(LOGIN_SUBMIT_BTN);
+    // const botão = getByTestId(LOGIN_SUBMIT_BTN);
     fireEvent.change(senha, { target: { value: '1234567' } });
     fireEvent.change(email, { target: { value: 'teste@test.com' } });
-    fireEvent.click(botão);
+    // fireEvent.click(botão);
     const { pathname } = history.location;
     expect(pathname).toBe('/Comidas');
   });
