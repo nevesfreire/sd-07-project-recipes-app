@@ -73,26 +73,11 @@ class FoodInProgress extends Component {
     console.log(target);
   }
 
-  changeFavorite() {
-    this.setState((prevState) => ({
-      favorite: !prevState.favorite,
-    }),
-    () => {
-      const { meal, favorite } = this.state;
-      favoriteMealLocalStorage(meal, favorite, 'favoriteRecipes');
-    });
-  }
-
-  changeDone() {
-    this.setState((prevState) => ({
-      done: !prevState.done,
-    }),
-    () => {
-      const { history } = this.props;
-      const { meal, done } = this.state;
-      doneMealLocalStorage(meal, done, 'doneRecipes');
-      history.push('/receitas-feitas');
-    });
+  handleCopy() {
+    const { executeCopy, location: { pathname } } = this.props;
+    const copy = require('clipboard-copy');
+    copy(`http://localhost:3000${pathname}`);
+    executeCopy('Link copiado!');
   }
 
   createFavoriteLocalStorage(keyStorage) {
@@ -111,11 +96,26 @@ class FoodInProgress extends Component {
     }
   }
 
-  handleCopy() {
-    const { executeCopy, location: { pathname } } = this.props;
-    const copy = require('clipboard-copy');
-    copy(`http://localhost:3000${pathname}`);
-    executeCopy('Link copiado!' );
+  changeDone() {
+    this.setState((prevState) => ({
+      done: !prevState.done,
+    }),
+    () => {
+      const { history } = this.props;
+      const { meal, done } = this.state;
+      doneMealLocalStorage(meal, done, 'doneRecipes');
+      history.push('/receitas-feitas');
+    });
+  }
+
+  changeFavorite() {
+    this.setState((prevState) => ({
+      favorite: !prevState.favorite,
+    }),
+    () => {
+      const { meal, favorite } = this.state;
+      favoriteMealLocalStorage(meal, favorite, 'favoriteRecipes');
+    });
   }
 
   render() {
@@ -235,4 +235,7 @@ FoodInProgress.propTypes = {
   }).isRequired,
   executeCopy: PropTypes.func.isRequired,
   valueCopied: PropTypes.string.isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+  }).isRequired,
 };

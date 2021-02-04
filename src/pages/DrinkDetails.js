@@ -68,14 +68,11 @@ class DrinkDetails extends Component {
     });
   }
 
-  changeFavorite() {
-    this.setState((prevState) => ({
-      favorite: !prevState.favorite,
-    }),
-    () => {
-      const { drinks, favorite } = this.state;
-      favoriteDrinkLocalStorage(drinks, favorite, 'favoriteRecipes');
-    });
+  handleCopy() {
+    const { executeCopy, location: { pathname } } = this.props;
+    const copy = require('clipboard-copy');
+    copy(`http://localhost:3000${pathname}`);
+    executeCopy('Link copiado!');
   }
 
   createFavoriteLocalStorage(keyStorage) {
@@ -94,16 +91,20 @@ class DrinkDetails extends Component {
     }
   }
 
-  handleCopy() {
-    const { executeCopy, location: { pathname } } = this.props;
-    const copy = require('clipboard-copy');
-    copy(`http://localhost:3000${pathname}`);
-    executeCopy('Link copiado!' );
+  changeFavorite() {
+    this.setState((prevState) => ({
+      favorite: !prevState.favorite,
+    }),
+    () => {
+      const { drinks, favorite } = this.state;
+      favoriteDrinkLocalStorage(drinks, favorite, 'favoriteRecipes');
+    });
   }
 
   showButton() {
-    const { match: { params: { id } }, history } = this.props;
     const getDoneStorage = JSON.parse(localStorage.getItem('doneRecipes'));
+    const getProgressRecipeStorage = JSON.parse(localStorage
+      .getItem('inProgressRecipes'));
     if (!getDoneStorage.length) {
       return (
         <button
@@ -112,14 +113,27 @@ class DrinkDetails extends Component {
           onClick={ () => history.push(`/bebidas/${id}/in-progress`) }
           className="finish-button-recipe"
         >
-          Iniciar Receita
+          'Iniciar Receita'
+        </button>
+      )
+    }
+    if (getProgressRecipeStorage) {
+      return (
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          onClick={ () => history.push(`/bebidas/${id}/in-progress`) }
+          className="finish-button-recipe"
+        >
+          'Continuar Receita'
         </button>
       )
     }
   }
 
   render() {
-    const { match: { params: { id } }, recomendations, history, valueCopied } = this.props;
+    const { match: { params: { id } }, recomendations,
+      history, valueCopied } = this.props;
     const { drinks, ingredients, favorite, measurement } = this.state;
     const { strDrinkThumb, strDrink, strInstructions, strAlcoholic } = drinks;
     const MEAL_LENGTH = 6;
@@ -206,9 +220,7 @@ class DrinkDetails extends Component {
           </div>
         </div>
         <div className="finish-button-container">
-          {
-            this.showButton()
-          }
+          { this.showButton() }
         </div>
       </div>
     );
@@ -248,4 +260,7 @@ DrinkDetails.propTypes = {
   }).isRequired,
   executeCopy: PropTypes.func.isRequired,
   valueCopied: PropTypes.string.isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+  }).isRequired,
 };

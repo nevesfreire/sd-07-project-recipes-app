@@ -68,14 +68,11 @@ class DrinkInProgress extends Component {
     });
   }
 
-  changeFavorite() {
-    this.setState((prevState) => ({
-      favorite: !prevState.favorite,
-    }),
-    () => {
-      const { drinks, favorite } = this.state;
-      favoriteDrinkLocalStorage(drinks, favorite, 'favoriteRecipes');
-    });
+  handleCopy() {
+    const { executeCopy, location: { pathname } } = this.props;
+    const copy = require('clipboard-copy');
+    copy(`http://localhost:3000${pathname}`);
+    executeCopy('Link copiado!');
   }
 
   changeDone() {
@@ -106,15 +103,18 @@ class DrinkInProgress extends Component {
     }
   }
 
-  handleCopy() {
-    const { executeCopy, location: { pathname } } = this.props;
-    const copy = require('clipboard-copy');
-    copy(`http://localhost:3000${pathname}`);
-    executeCopy('Link copiado!' );
+  changeFavorite() {
+    this.setState((prevState) => ({
+      favorite: !prevState.favorite,
+    }),
+    () => {
+      const { drinks, favorite } = this.state;
+      favoriteDrinkLocalStorage(drinks, favorite, 'favoriteRecipes');
+    });
   }
 
   render() {
-    const { history, valueCopied } = this.props;
+    const { valueCopied } = this.props;
     const { drinks, ingredients, favorite, measurement } = this.state;
     const { strDrinkThumb, strDrink, strInstructions, strAlcoholic } = drinks;
 
@@ -229,4 +229,7 @@ DrinkInProgress.propTypes = {
   }).isRequired,
   executeCopy: PropTypes.func.isRequired,
   valueCopied: PropTypes.string.isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+  }).isRequired,
 };
