@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
-import { Header } from '../../components';
+import { Header, DoneCard } from '../../components';
 import { RecipesContext } from '../../context';
 
 export default function DoneRecipes() {
   const { doneRecipes, setDoneRecipes } = useContext(RecipesContext);
   const defaultRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  console.log(doneRecipes);
 
   return (
     <div>
@@ -39,9 +40,13 @@ export default function DoneRecipes() {
         >
           Drink
         </button>
-        {
-
-        }
+        <div>
+          {
+            doneRecipes && doneRecipes.map((recipe, index) => (
+              <DoneCard index={ index } key={ index } recipe={ recipe } />
+            ))
+          }
+        </div>
       </main>
     </div>
   );
