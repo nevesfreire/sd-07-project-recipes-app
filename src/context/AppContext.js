@@ -5,7 +5,10 @@ import { getMeals,
   getMealsCategories,
   getDrinksCategories,
   getMealsByCategories,
-  getDrinksByCategories } from '../services/API';
+  getDrinksByCategories,
+  filterByDrinkIngredient,
+  filterByMealIngredient,
+} from '../services/API';
 
 const AppContext = createContext();
 
@@ -22,6 +25,8 @@ const AppProvider = ({ children }) => {
   const [chosenDrinkCategory, setChosenDrinkCategory] = useState('');
   const [isUsingSearchBar, setIsUsingSearchBar] = useState(false);
   const [inputStatus, setInputStatus] = useState({ searchInput: false });
+  const [doneRecipes, setDoneRecipes] = useState([]);
+  const [filteredDoneRecipes, setFilteredDoneRecipes] = useState([]);
 
   const onFetchMeals = async () => {
     const foodRes = await getMeals();
@@ -73,7 +78,13 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const saveDoneRecipes = (saveDoneRecipesFromStore) => {
+    setDoneRecipes(saveDoneRecipesFromStore);
+    setFilteredDoneRecipes(saveDoneRecipesFromStore);
+  };
+
   const filterByCategory = async (event, categoryType) => {
+    console.log(categoryType);
     const { name } = event.target;
     switch (categoryType) {
     case 'meals':
@@ -90,8 +101,27 @@ const AppProvider = ({ children }) => {
       setFilteredDrinks(drinksData);
       setChosenDrinkCategory(categoryType);
       break;
+    case 'food-done-recipes':
+      setFilteredDoneRecipes(doneRecipes.filter((item) => item.type === 'comida'));
+      break;
+    case 'drink-done-recipes':
+      setFilteredDoneRecipes(doneRecipes.filter((item) => item.type === 'bebida'));
+      break;
+    case 'all-done-recipes':
+      setFilteredDoneRecipes(doneRecipes);
+      break;
     default:
     }
+  };
+
+  const onFilterByMealIngredient = async (ingredient) => {
+    const filterMealRes = await filterByMealIngredient(ingredient);
+    setFilteredMeals(filterMealRes);
+  };
+
+  const onFilterByDrinkIngredient = async (ingredient) => {
+    const filterDrinkRes = await filterByDrinkIngredient(ingredient);
+    setFilteredDrinks(filterDrinkRes);
   };
 
   useEffect(() => {
@@ -118,6 +148,11 @@ const AppProvider = ({ children }) => {
     setIsUsingSearchBar,
     inputStatus,
     setInputStatus,
+    saveDoneRecipes,
+    filteredDoneRecipes,
+    doneRecipes,
+    onFilterByDrinkIngredient,
+    onFilterByMealIngredient,
   };
 
   return (
