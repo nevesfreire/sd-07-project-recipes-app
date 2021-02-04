@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { Carousel } from 'react-bootstrap';
 import RecipesContext from '../context/RecipesContext';
 
-export default function FoodDetails(props) {
+export default function DrinkDetails(props) {
   const {
     fetchMealId,
     isFetching,
-    mealDescription: { meals },
-    recomendation: { drinks },
+    mealDescription: { drinks },
+    recomendation: { meals },
   } = useContext(RecipesContext);
 
   const zero = 0;
@@ -16,35 +16,36 @@ export default function FoodDetails(props) {
 
   useEffect(() => {
     const { id } = props.match.params;
-    fetchMealId(id, 'comida');
+    fetchMealId(id);
   }, []);
 
   const listIgredient = () => {
     const list = [];
-    const mealsReceived = meals[0];
+    const mealsReceived = drinks[0];
 
-    for (let index = 1; mealsReceived[`strIngredient${index}`] !== ''; index += 1) {
-      list.push(`
-      ${mealsReceived[`strIngredient${index}`]} - ${mealsReceived[`strMeasure${index}`]}
-      `);
+    for (let index = 1; mealsReceived[`strIngredient${index}`] !== null; index += 1) {
+      list
+        .push(`
+        ${mealsReceived[`strIngredient${index}`]} - ${mealsReceived[`strMeasure${index}`]}
+        `);
     }
     return list;
   };
 
-  if (isFetching || meals === undefined) return <span>Carregando...</span>;
+  if (isFetching || drinks === undefined) return <span>Carregando...</span>;
 
   return (
     <div>
       <img
         data-testid="recipe-photo"
         alt="Imagem da receita"
-        src={ meals[0].strMealThumb }
+        src={ drinks[0].strDrinkThumb }
       />
-      <p data-testid="recipe-title">{meals[0].strMeal}</p>
+      <p data-testid="recipe-title">{drinks[0].strDrink}</p>
       <div>
         <button data-testid="share-btn" type="button">Compartilhar</button>
         <button data-testid="favorite-btn" type="button">Favoritar</button>
-        <p data-testid="recipe-category">{meals[0].strCategory}</p>
+        <p data-testid="recipe-category">{drinks[0].strAlcoholic}</p>
         <ol className="list-ingredients">
           {listIgredient().map((content, index) => (
             <li
@@ -56,27 +57,27 @@ export default function FoodDetails(props) {
           ))}
         </ol>
         <p data-testid="instructions">
-          {meals[0].strInstructions}
+          {drinks[0].strInstructions}
         </p>
         <iframe
           data-testid="video"
-          title={ meals[0].strMeal }
+          title={ drinks[0].strDrink }
           id="ytplayer"
           type="text/html"
           width="640"
           height="360"
-          src={ meals[0].strYoutube }
+          src={ drinks[0].strYoutube }
           frameBorder="0"
         />
         <Carousel>
-          {drinks.map((drinkRecomendation, index) => (
+          {meals.map((mealRecomendation, index) => (
             <Carousel.Item key={ index } data-testid={ `${index}-recomendation-card` }>
-              <img alt="Recomendation" src={ drinkRecomendation.strDrinkThumb } />
+              <img alt="Recomendation" src={ mealRecomendation.strMealThumb } />
               <Carousel.Caption>
                 <p
                   data-testid={ `${index}-recomendation-title` }
                 >
-                  {drinkRecomendation.strDrink}
+                  {mealRecomendation.strMeal}
                 </p>
               </Carousel.Caption>
             </Carousel.Item>
@@ -93,6 +94,6 @@ export default function FoodDetails(props) {
     </div>
   );
 }
-FoodDetails.propTypes = {
+DrinkDetails.propTypes = {
   match: PropTypes.elementType.isRequired,
 };

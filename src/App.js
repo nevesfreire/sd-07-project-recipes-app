@@ -18,6 +18,7 @@ import RecipesFavorites from './pages/RecipesFavorites';
 import ExplorerFoods from './pages/ExplorerFoods';
 import ExplorerDrinks from './pages/ExplorerDrinks';
 import FoodDetails from './pages/FoodDetails';
+import DrinkDetails from './pages/DrinkDetails';
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -28,9 +29,9 @@ function App() {
         <Switch>
           <Route exact path="/" component={ Login } />
           <Route exact path="/comidas" component={ Foods } />
-          {/* <Route exact path="/comidas/:{id}" component={} /> */}
+          <Route exact path="/comidas/:id" component={ FoodDetails } />
           <Route exact path="/bebidas" component={ Drinks } />
-          {/* <Route exact path="/bebidas/:{id}" component={  } /> */}
+          <Route exact path="/bebidas/:id" component={ DrinkDetails } />
           <Route exact path="/explorar" component={ Explorer } />
           <Route exact path="/explorar/comidas" component={ ExplorerFoods } />
           <Route exact path="/explorar/bebidas" component={ ExplorerDrinks } />
@@ -49,7 +50,7 @@ function App() {
           <Route exact path="/perfil" component={ Profile } />
           <Route exact path="/receitas-feitas" component={ RecipesDone } />
           <Route exact path="/receitas-favoritas" component={ RecipesFavorites } />
-          <Route exact path="/detalhes-receita/:id" component={ FoodDetails } />
+          {/* <Route exact path="/detalhes-receita/:id" component={ FoodDetails } /> */}
         </Switch>
       </div>
     </Provider>

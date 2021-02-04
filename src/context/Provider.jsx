@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 
 import RecipesContext from './RecipesContext';
 import TitleContext from './TitleContext';
-import getMealWithId from '../services/RecipesAPI';
+import getMealWithId, {
+  getDrinkWithId,
+  getRecomendationDrink,
+  getRecomendationMeal,
+} from '../services/RecipesAPI';
 import { fetchFoodsIngredients, fetchDrinksIngredients } from '../services/api';
 
 function Provider({ children }) {
@@ -13,12 +17,30 @@ function Provider({ children }) {
   const [drinksIngredientsList, setDrinksIngredientsList] = useState([]);
   const [isUse, setIsUse] = useState(false);
   const [isFetching, setIsFetching] = useState(true);
+  const [recomendation, setRecomendation] = useState({});
   const [selectedTypeItem, setSelectedTypeItem] = useState('all');
-  const fetchMealId = async (id = '52772') => {
-    const x = await getMealWithId(id);
-    setMealDescription(() => x);
-    setIsFetching(() => false);
+
+  const fetchRecomendation = async (tipo = undefined) => {
+    if (tipo === 'comida') {
+      const recomend = await getRecomendationDrink();
+      console.log(recomend);
+      setRecomendation(recomend);
+    } else {
+      const recomend = await getRecomendationMeal();
+      setRecomendation(recomend);
+    }
   };
+
+  const fetchMealId = async (id, tipo = undefined) => {
+    if (tipo === 'comida') {
+      const x = await getMealWithId(id);
+      await fetchRecomendation(tipo);
+      setMealDescription(() => x);
+      setIsFetching(() => false);
+      return false;
+    }
+    const x = await getDrinkWithId(id);
+    await fetchRecomendation();
 
   async function fetchIngredients() {
     const foodIngredients = await fetchFoodsIngredients();
@@ -38,6 +60,8 @@ function Provider({ children }) {
     fetchMealId,
     isFetching,
     mealDescription,
+    setIsFetching,
+    recomendation,
     foodsIngredientsList,
     drinksIngredientsList,
     isUse,
