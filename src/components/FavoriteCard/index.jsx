@@ -38,16 +38,33 @@ export default function FavoriteCard({ recipe, index }) {
     setFavorites((prevState) => prevState.filter((element) => element.id !== id));
   };
 
+  const choosePath = () => {
+    if (type === 'comida') {
+      return `/comidas/${id}`;
+    }
+    return `/bebidas/${id}`;
+  };
+
+  const path = choosePath();
+
   return (
     <div>
-      <img
-        src={ image }
-        alt={ name }
-        data-testid={ `${index}-horizontal-image` }
-      />
+      <a href={ path }>
+        <img
+          src={ image }
+          alt={ name }
+          data-testid={ `${index}-horizontal-image` }
+        />
+      </a>
+      <a href={ path }>
+        <h3
+          data-testid={ `${index}-horizontal-name` }
+        >
+          { name }
+        </h3>
+      </a>
       <div>
         { renderTopText() }
-        <h3 data-testid={ `${index}-horizontal-name` }>{ name }</h3>
         <button type="button" onClick={ copyLink }>
           <img
             src={ shareIcon }
