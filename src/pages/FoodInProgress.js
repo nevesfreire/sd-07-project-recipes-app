@@ -8,6 +8,9 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Loading from '../components/Loading';
 import { favoriteMealLocalStorage } from '../localStorage/favoriteRecipes';
 import { doneMealLocalStorage } from '../localStorage/doneRecipes';
+import {
+  checkProgressFoodLocalStorage,
+  setIngredientLocalStorage } from '../localStorage/inProgressRecipes';
 
 class FoodInProgress extends Component {
   constructor(props) {
@@ -15,6 +18,7 @@ class FoodInProgress extends Component {
 
     this.handleState = this.handleState.bind(this);
     this.handleButtonEnabled = this.handleButtonEnabled.bind(this);
+    this.checkedIngredients = this.checkedIngredients.bind(this);
     this.handleCheckbox = this.handleCheckbox.bind(this);
     this.changeFavorite = this.changeFavorite.bind(this);
     this.createFavoriteLocalStorage = this.createFavoriteLocalStorage.bind(this);
@@ -35,6 +39,7 @@ class FoodInProgress extends Component {
     requestRecipes(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
     this.createFavoriteLocalStorage('favoriteRecipes');
     this.createFavoriteLocalStorage('doneRecipes');
+    checkProgressFoodLocalStorage(id);
   }
 
   componentDidUpdate() {
@@ -81,8 +86,18 @@ class FoodInProgress extends Component {
     }
   }
 
-  handleCheckbox() {
+  handleCheckbox({ target: { id: ingredient } }) {
+    const { match: { params: { id } } } = this.props;
+    setIngredientLocalStorage(id, ingredient);
     this.handleButtonEnabled();
+  }
+
+  checkedIngredients(ingredient) {
+    const { match: { params: { id } } } = this.props;
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const checkedElements = inProgressRecipes.meals[id];
+    console.log(checkedElements);
+    return checkedElements.includes(ingredient);
   }
 
   changeFavorite() {
@@ -128,8 +143,8 @@ class FoodInProgress extends Component {
         />
         <div className="title-container">
           <div className="title-subcontainer">
-            <h1 data-testid="recipe-title">{strMeal }</h1>
-            <h3 data-testid="recipe-category">{strCategory}</h3>
+            <h1 data-testid="recipe-title">{ strMeal }</h1>
+            <h3 data-testid="recipe-category">{ strCategory}</h3>
           </div>
           <div className="images-container">
             <button
@@ -168,6 +183,7 @@ class FoodInProgress extends Component {
                     className="form-check-input"
                     id={ ingredient }
                     onClick={ this.handleCheckbox }
+                    checked={ this.checkedIngredients(ingredient) }
                   />
                   <label
                     className="form-check-label"
