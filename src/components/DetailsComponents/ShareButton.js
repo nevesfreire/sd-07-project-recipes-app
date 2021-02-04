@@ -9,9 +9,21 @@ function ShareButton() {
 
   const history = useHistory();
   const path = history.location.pathname;
+  const zero = 0;
+  const catorze = 14;
+  const quinze = 15;
+  const vinteSeis = 26;
 
   const copyLink = () => {
-    copy(`http://localhost:3000${path}`);
+    if (path.length <= quinze) {
+      copy(`http://localhost:3000${path}`);
+    } else if (path.length === vinteSeis) {
+      const newPath = path.substring(zero, catorze);
+      copy(`http://localhost:3000${newPath}`);
+    } else {
+      const newPath = path.substring(zero, quinze);
+      copy(`http://localhost:3000${newPath}`);
+    }
   };
 
   const handleShareBtn = () => {

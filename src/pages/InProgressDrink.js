@@ -45,6 +45,7 @@ export default function InProgressDrink() {
 
   const handleFinishRecipeBtn = () => {
     setDone([...done, recipe]);
+    history.push('/receitas-feitas');
   };
 
   return (
