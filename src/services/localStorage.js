@@ -169,13 +169,25 @@ export function addRecipeProgress(recipeID, ingredient) {
     } else recipes[recipeIndex].ingredients.push(ingredient);
   } else {
     const obj = {
-      id: recipeID,
-      ingredients: [ingredient],
+      meals: {
+        recipeID: [ingredient],
+      },
     };
     recipes.push(obj);
   }
 
   setRecipesProgress(recipes);
+}
+
+export function resumeRecipe(recipeID) {
+  checkDatabase();
+  const recipes = getRecipesProgress();
+  if (recipes.find((item) => item.id === recipeID)) {
+    const doneRecipes = getDoneRecipes();
+    if (!doneRecipes.find((item) => item.id === recipeID)) return true;
+  }
+
+  return false;
 }
 
 export async function mockRecipe(id) {

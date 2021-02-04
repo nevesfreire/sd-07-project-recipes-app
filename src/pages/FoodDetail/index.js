@@ -5,7 +5,7 @@ import getMeals from '../../services/mealAPI';
 import getDrinks from '../../services/cockTailAPI';
 import Ingredients from './Ingredients';
 import RecomedendationList from './RecomendationList';
-import { setStorage, getStorage } from '../../services/localStorage';
+import { setStorage, getStorage, resumeRecipe } from '../../services/localStorage';
 import './style.css';
 import { blackHeartIcon, whiteHeartIcon, shareIcon } from '../../images';
 
@@ -144,7 +144,7 @@ export default function FoodDetail() {
         className="button-start-recipe"
         onClick={ () => history.push(`/comidas/${mealId}/in-progress`) }
       >
-        Iniciar Receita
+        { resumeRecipe(mealId) ? 'Continuar Receita' : 'Iniciar Receita' }
       </button>
     </div>
   );

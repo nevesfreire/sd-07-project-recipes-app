@@ -106,7 +106,7 @@ export default function Drinks() {
       <Header title="Bebidas" />
       { categoryButtons }
       { recipes.drinks.map((recipe, index) => {
-        if (control) {
+        if (control && index < twelve) {
           return <Card recipe={ recipe } index={ index } key={ index } />;
         }
         if (index < twelve) {

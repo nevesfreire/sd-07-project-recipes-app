@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from '../../Context/RecipesContext';
 import Header from '../../components/Header';
+import Footer from '../Footer';
 
 export default function Profile() {
   const { login } = useContext(RecipesContext);
@@ -46,6 +47,7 @@ export default function Profile() {
         </button>
 
       </section>
+      <Footer />
     </div>
   );
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../../components/Header';
 import getDrinks from '../../services/cockTailAPI';
+import Footer from '../Footer';
 
 export default function DrinkExplore() {
   const history = useHistory();
@@ -29,6 +30,7 @@ export default function DrinkExplore() {
       >
         Me Surpreenda!
       </button>
+      <Footer />
     </div>
   );
 }
