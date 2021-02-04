@@ -8,21 +8,22 @@ export default function TodoList({ id, route, ingredients, setisEnded }) {
   const checkStatus = ingredients.map(() => false);
 
   const [checks, setChecks] = useState(checkStatus);
+  let newChecks = checkStatus;
 
   if (progressStatus && progressStatus[key][id]) {
-    const newChecks = progressStatus[key][id];
-    console.log(newChecks)
+    newChecks = progressStatus[key][id];
     // setChecks(newChecks);
   }
 
   // console.log('ingr:', ingredients);
 
   const updateStorage = () => {
-    const progressObj = {
+    const initialObj = {
       meals: {},
       cocktails: {},
     };
-
+    let progressObj = initialObj;
+    if (progressStatus) progressObj = progressStatus;
     progressObj[key][id] = checks;
     console.log(progressObj);
     localStorage.setItem('inProgressRecipes', JSON.stringify(progressObj));
@@ -44,7 +45,7 @@ export default function TodoList({ id, route, ingredients, setisEnded }) {
       <form onChange={ isDone }>
         {ingredients.map((ing, index) => (
           <div key={ index } data-testid={ `${index}-ingredient-step` }>
-            <input id={ index } type="checkbox" checked={ checks[index] } />
+            <input id={ index } type="checkbox" checked={ newChecks[index] } />
             <label htmlFor={ index }>{ing[1]}</label>
           </div>
         ))}
@@ -56,4 +57,6 @@ export default function TodoList({ id, route, ingredients, setisEnded }) {
 TodoList.propTypes = {
   ingredients: arrayOf(PropTypes.string).isRequired,
   setisEnded: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
+  route: PropTypes.string.isRequired,
 };
