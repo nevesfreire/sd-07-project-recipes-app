@@ -12,9 +12,10 @@ const StorageProvider = ({ children }) => {
   }, [verifyLocalFav]);
 
   const addFavorite = (keyName, recipe, { name, id, type, doneDate, tags }) => {
-    const [objetct, setObject ] = useState({};)
+    let recipeObjct = {};
     if (keyName === 'favoriteRecipes') {
-      setObject({
+      recipeObjct = {
+        recipe: {
           id,
           type,
           area: recipe.strArea ? recipe.strArea : '',
@@ -22,9 +23,11 @@ const StorageProvider = ({ children }) => {
           alcoholicOrNot: recipe.strAlcoholic ? recipe.strAlcoholic : '',
           name: recipe[name],
           image: recipe[`${name}Thumb`],
-      });
+        },
+      };
     } else {
-      setObject({
+      recipeObjct = {
+        recipe: {
           id,
           type,
           area: recipe.strArea ? recipe.strArea : '',
@@ -34,10 +37,12 @@ const StorageProvider = ({ children }) => {
           image: recipe[`${name}Thumb`],
           doneDate,
           tags,
-      });
+        },
+      };
     }
 
-    const newFavorite = [...favRecipes, objetct];
+    const newFavorite = [...favRecipes, recipeObjct.recipe];
+    delete recipeObjct.recipe;
     setFavRecipes(newFavorite);
     localStorage.setItem(keyName, JSON.stringify(newFavorite));
   };
