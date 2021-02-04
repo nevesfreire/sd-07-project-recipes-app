@@ -33,11 +33,11 @@ const ReceitaEmProgresso = () => {
           type="checkbox"
           value={ mainData[e] }
           id={ mainData[e] }
+          checked={ listIngredient.includes(mainData[e]) }
           onChange={ ({ target }) => {
             insertOrRemoveIngredient(type, id, target.value);
             setListIngredient(ingredientList(type, id));
           } }
-          checked={ listIngredient ? listIngredient.includes(mainData[e]) : false }
         />
         { mainData[e] }
       </label>
