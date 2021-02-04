@@ -11,6 +11,8 @@ import '../style/recipeDetail.css';
 
 function FoodDetails() {
   const [recipeDetailFood, setRecipeDetailFood] = useState({});
+  const [buttonClassName, setButtonClassName] = useState('fixedbutton');
+  const [buttonText] = useState('Iniciar Receita');
   const [recommendation, setRecommendation] = useState(['']);
   const [copyText, setCopyText] = useState('');
   const [favorited, setFavorited] = useState();
@@ -58,6 +60,19 @@ function FoodDetails() {
       setFavorited(blackHeartIcon);
     } else {
       setFavorited(whiteHeartIcon);
+    }
+  }, [mealRecipeId]);
+
+  useEffect(() => {
+    if (!localStorage.doneRecipes) {
+      localStorage.doneRecipes = JSON.stringify([]);
+    }
+    const doneStorage = JSON.parse(localStorage.doneRecipes)
+      .filter((item) => item.id === mealRecipeId);
+    if (doneStorage.length >= 1) {
+      setButtonClassName('fixedbutton hidden');
+    } else {
+      setButtonClassName('fixedbutton');
     }
   }, [mealRecipeId]);
 
@@ -141,11 +156,11 @@ function FoodDetails() {
       </div>
       <Link to={ `/comidas/${mealRecipeId}/in-progress` }>
         <button
-          className="fixedbutton"
+          className={ buttonClassName }
           type="button"
           data-testid="start-recipe-btn"
         >
-          Start Recipe
+          {buttonText}
         </button>
       </Link>
     </div>
