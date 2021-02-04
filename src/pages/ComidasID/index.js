@@ -32,6 +32,9 @@ function ComidasID({
 
   const { route, id } = useParams();
 
+  let startBtnText = 'Iniciar Receita';
+  const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
   const nine = 9;
   const twoOne = 21;
   const size = 2;
@@ -41,6 +44,7 @@ function ComidasID({
   let suggestions;
   let video;
   let indexDiff;
+  let keyName;
 
   useEffect(() => {
     if (route === 'comidas') {
@@ -59,12 +63,16 @@ function ComidasID({
     video = true;
     suggestions = drinks;
     indexDiff = nine;
+    keyName = 'meals';
   } else {
     detailed = drinks;
     video = false;
     suggestions = meals;
     indexDiff = twoOne;
+    keyName = 'cocktails';
   }
+  if (inProgress
+    && Object.keys(inProgress[keyName]).includes(id)) startBtnText = 'Continuar Receita';
 
   return (
     <div>
@@ -109,8 +117,7 @@ function ComidasID({
             className="start-recipe-btn"
             data-testid="start-recipe-btn"
           >
-            Iniciar Receita
-            {/** esse botão desaparece caso receita já tenha sido feita */}
+            { startBtnText }
           </Link>
         </p>
       </div>
