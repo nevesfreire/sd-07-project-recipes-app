@@ -35,7 +35,7 @@ function DoneRecipesCards({
 
   const copyClipboard = () => {
     const urlarray = window.location.href.split('/');
-    const urlToCopy = `${urlarray[0]}//${urlarray[2]}/${type}/${id}`;
+    const urlToCopy = `${urlarray[0]}//${urlarray[2]}/${type}s/${id}`;
     clipboardCopy(urlToCopy);
     setCopyMessage('Link copiado!');
   };
