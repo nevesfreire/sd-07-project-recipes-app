@@ -47,7 +47,8 @@ function FavoriteHeart({ id, foodDetails, drinkDetails }) {
   useEffect(() => {
     const loadStorage = loadState('favoriteRecipes', [])
       .some((element) => element.id === id);
-      setFavoriteButton(loadStorage);
+
+    setFavoriteButton(loadStorage);
   }, []);
 
   return (
@@ -57,6 +58,7 @@ function FavoriteHeart({ id, foodDetails, drinkDetails }) {
         onClick={ handleFavoriteRecipe }
       >
         <img
+          data-testid="favorite-btn"
           src={ blackHeartIcon }
           alt="favorite"
         />
@@ -67,12 +69,13 @@ function FavoriteHeart({ id, foodDetails, drinkDetails }) {
         onClick={ handleFavoriteRecipe }
       >
         <img
+          data-testid="favorite-btn"
           src={ whiteHeartIcon }
           alt="is not favorite"
         />
       </button>
     )
-  )
+  );
 }
 
 FavoriteHeart.propTypes = {
@@ -89,6 +92,7 @@ FavoriteHeart.propTypes = {
     strCategory: PropTypes.string.isRequired,
     strMeal: PropTypes.string.isRequired,
     strMealThumb: PropTypes.string.isRequired,
+    strArea: PropTypes.string.isRequired,
   }).isRequired,
 };
 
