@@ -44,7 +44,6 @@ describe('Testa o comportamente do componente Explorar.js', () => {
     const exploreFoods = await screen.findByTestId('explore-food');
 
     fireEvent.click(exploreFoods);
-
     expect(history.location.pathname).toBe('/explorar/comidas');
   });
   it('Verifica a mudança de rota para \'/explorar/bebidas\'', async () => {
@@ -52,7 +51,6 @@ describe('Testa o comportamente do componente Explorar.js', () => {
     const exploreDrinks = await screen.findByTestId('explore-drinks');
 
     fireEvent.click(exploreDrinks);
-
     expect(history.location.pathname).toBe('/explorar/bebidas');
   });
 });
