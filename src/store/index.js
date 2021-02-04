@@ -3,15 +3,17 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import {
   loginReducer,
-  foodRecipesReducer,
-  drinkRecipesReducer,
+  // foodRecipesReducer,
+  // drinkRecipesReducer,
+  recipesReducer,
   areaReducer,
 } from '../redux/reducer';
 
 const rootReducer = combineReducers({
   loginReducer,
-  foodRecipesReducer,
-  drinkRecipesReducer,
+  // foodRecipesReducer,
+  // drinkRecipesReducer,
+  recipesReducer,
   areaReducer,
 });
 

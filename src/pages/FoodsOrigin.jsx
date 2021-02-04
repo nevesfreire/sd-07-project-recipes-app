@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { CustomFooter, CustomDropdown, CustomCardFood } from '../components';
 import CustomHeader from '../components/CustomHeader';
-import { updateFoodIsFetching } from '../redux/actions';
+import { requestRecipes } from '../redux/actions';
 import { getFoodRecipes, getAllOrigin } from '../services';
 
 class ExploreArea extends Component {
@@ -93,13 +93,13 @@ class ExploreArea extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  isFetching: state.foodRecipesReducer.isFetching,
-  meals: state.foodRecipesReducer.meals,
+  isFetching: state.recipesReducer.isFetching,
+  meals: state.recipesReducer.recipes,
 
 });
 const mapDispatchToProps = (dispatch) => ({
   dispatchFoodRecipes: (searchHeader) => dispatch(getFoodRecipes(searchHeader)),
-  dispatchUpdateFoodIsFetching: () => dispatch(updateFoodIsFetching()),
+  dispatchUpdateFoodIsFetching: () => dispatch(requestRecipes()),
 });
 
 ExploreArea.propTypes = {

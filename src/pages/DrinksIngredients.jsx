@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { CustomFooter, CustomIngredientsDrinks } from '../components';
 import CustomHeader from '../components/CustomHeader';
 import { getIngredientsDrink } from '../services';
-import { requestIngredientsDrinks } from '../redux/actions/drinkRecipesAction';
+import { requestIngredients } from '../redux/actions/recipesActions';
 
 class DrinksIngredients extends Component {
   constructor() {
@@ -69,14 +69,10 @@ class DrinksIngredients extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchIngredients: (Ingredients) => dispatch(requestIngredientsDrinks(Ingredients)),
+  dispatchIngredients: (Ingredients) => dispatch(requestIngredients(Ingredients)),
 });
 
 DrinksIngredients.propTypes = {
   dispatchIngredients: PropTypes.func.isRequired,
-  // meals: PropTypes.shape({
-  //   length: PropTypes.number.isRequired,
-  //   slice: PropTypes.func.isRequired,
-  // }).isRequired,
 };
 export default connect(null, mapDispatchToProps)(DrinksIngredients);

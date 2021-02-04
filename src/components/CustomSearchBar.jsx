@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getFoodRecipes, getDrinkRecipes } from '../services';
-import { updateFoodIsFetching } from '../redux/actions';
+import { requestRecipes } from '../redux/actions';
 
 class CustomSearchBar extends Component {
   constructor(props) {
@@ -97,15 +97,10 @@ class CustomSearchBar extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  isFetching: state.foodRecipesReducer.isFetching,
-  meals: state.foodRecipesReducer.meals,
-});
-
 const mapDispatchToProps = (dispatch) => ({
   dispatchFoodRecipes: (searchHeader) => dispatch(getFoodRecipes(searchHeader)),
   dispatchDrinkRecipes: (searchHeader) => dispatch(getDrinkRecipes(searchHeader)),
-  dispatchUpdateFoodIsFetching: () => dispatch(updateFoodIsFetching()),
+  dispatchUpdateFoodIsFetching: () => dispatch(requestRecipes()),
 });
 
 CustomSearchBar.propTypes = {
@@ -114,4 +109,4 @@ CustomSearchBar.propTypes = {
   title: PropTypes.string.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CustomSearchBar);
+export default connect(null, mapDispatchToProps)(CustomSearchBar);

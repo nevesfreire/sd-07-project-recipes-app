@@ -1,8 +1,9 @@
 import {
-  requestDrinkRecipes,
-  listDrinkRecipes,
-  failedDrinkRequest,
-  drinkFilteredByCategoryAction,
+  requestRecipes,
+  listRecipes,
+  failedRequest,
+  changeCurrentCategoryAction,
+  filteredByCategoryAction,
 } from '../redux/actions';
 
 export const getDrinkRecipes = ({ searchInput = '', searchRadio = 's' }) => {
@@ -11,13 +12,13 @@ export const getDrinkRecipes = ({ searchInput = '', searchRadio = 's' }) => {
     endpoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?${searchRadio}=${searchInput}`;
   }
   return async (dispatch) => {
-    dispatch(requestDrinkRecipes());
+    dispatch(requestRecipes());
     try {
       const response = await fetch(endpoint);
       const data = await response.json();
-      dispatch(listDrinkRecipes(data));
+      dispatch(listRecipes(data.drinks));
     } catch (error) {
-      dispatch(failedDrinkRequest(error));
+      dispatch(failedRequest(error));
     }
   };
 };
@@ -61,13 +62,14 @@ export const drinksFilteredByCategory = (category) => {
     drinkUrlForFilterByCategory = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
   }
   return async (dispatch) => {
-    dispatch(requestDrinkRecipes());
+    dispatch(requestRecipes());
+    dispatch(changeCurrentCategoryAction(category));
     try {
       const resquestFilteredByCategory = await fetch(drinkUrlForFilterByCategory);
       const JSONresponseFiltered = await resquestFilteredByCategory.json();
-      dispatch(drinkFilteredByCategoryAction(JSONresponseFiltered.drinks, category));
+      dispatch(filteredByCategoryAction(JSONresponseFiltered.drinks));
     } catch (error) {
-      dispatch(failedDrinkRequest(error));
+      dispatch(failedRequest(error));
     }
   };
 };

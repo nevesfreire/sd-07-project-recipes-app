@@ -6,38 +6,50 @@ export {
 } from './loginAction';
 
 export {
-  listFoodRecipes,
-  requestFoodRecipes,
-  failedFoodRequest,
-  updateFoodIsFetching,
-  allCategoriesFoodsAction,
-  foodFilteredByCategoryAction,
-  requestIngredientsFoods,
-  REQUEST_FOOD_RECIPES,
-  REQUEST_FOOD_FAILED,
-  LIST_FOOD_RECIPES,
-  UPDATE_FOOD_IS_FETCHING,
-  RESQUEST_ALL_CATEGORIES_MEALS,
-  FILTERED_FOOD_BY_CATEGORY,
-  REQUEST_INGREDIENTS_FOODS,
-} from './foodRecipesAction';
+  listRecipes,
+  requestRecipes,
+  failedRequest,
+  filteredByCategoryAction,
+  changeCurrentCategoryAction,
+  REQUEST_RECIPES,
+  REQUEST_FAILED,
+  LIST_RECIPES,
+  FILTERED_BY_CATEGORY,
+  REQUEST_INGREDIENTS,
+} from './recipesActions';
 
-export {
-  listDrinkRecipes,
-  requestDrinkRecipes,
-  failedDrinkRequest,
-  updateDrinkIsFetching,
-  allCategoriesDrinksAction,
-  drinkFilteredByCategoryAction,
-  requestIngredientsDrinks,
-  REQUEST_DRINK_RECIPES,
-  REQUEST_DRINK_FAILED,
-  LIST_DRINK_RECIPES,
-  UPDATE_DRINK_IS_FETCHING,
-  RESQUEST_ALL_CATEGORIES_DRINKS,
-  FILTERED_DRINK_BY_CATEGORY,
-  REQUEST_INGREDIENTS_DRINKS,
-} from './drinkRecipesAction';
+// export {
+//   listFoodRecipes,
+//   requestFoodRecipes,
+//   failedFoodRequest,
+//   allCategoriesFoodsAction,
+//   foodFilteredByCategoryAction,
+//   requestIngredientsFoods,
+//   REQUEST_FOOD_RECIPES,
+//   REQUEST_FOOD_FAILED,
+//   LIST_FOOD_RECIPES,
+//   UPDATE_FOOD_IS_FETCHING,
+//   RESQUEST_ALL_CATEGORIES_MEALS,
+//   FILTERED_FOOD_BY_CATEGORY,
+//   REQUEST_INGREDIENTS_FOODS,
+// } from './foodRecipesAction';
+
+// export {
+//   listDrinkRecipes,
+//   requestDrinkRecipes,
+//   failedDrinkRequest,
+//   updateDrinkIsFetching,
+//   allCategoriesDrinksAction,
+//   drinkFilteredByCategoryAction,
+//   requestIngredientsDrinks,
+//   REQUEST_DRINK_RECIPES,
+//   REQUEST_DRINK_FAILED,
+//   LIST_DRINK_RECIPES,
+//   UPDATE_DRINK_IS_FETCHING,
+//   RESQUEST_ALL_CATEGORIES_DRINKS,
+//   FILTERED_DRINK_BY_CATEGORY,
+//   REQUEST_INGREDIENTS_DRINKS,
+// } from './drinkRecipesAction';
 
 export {
   requestArea,

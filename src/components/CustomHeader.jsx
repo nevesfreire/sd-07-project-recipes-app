@@ -6,7 +6,6 @@ import profile from '../images/profileIcon.svg';
 import { CustomSearchBar } from '.';
 
 export default function CustomHeader({
-  // se nao passar nada como props renderiza o padrão
   route = '/perfil',
   title,
   showSearchTopBtn = true,
