@@ -9,6 +9,7 @@ function Provider({ children }) {
   const [cardDrink, setCardDrink] = useState([]);
   const [drinkDetails, setDrinkDetails] = useState([]);
   const [foodDetails, setFoodDetails] = useState([]);
+  const [copyVisibility, setCopyVisibility] = useState('hidden');
 
   const [categoriesButtonDrink, setCategoriesButtonDrink] = useState([]);
   const [categoriesButtonFood, setCategoriesButtonFood] = useState([]);
@@ -33,6 +34,8 @@ function Provider({ children }) {
     setIngredientsAndMeasures,
     foodDetails,
     setFoodDetails,
+    copyVisibility,
+    setCopyVisibility,
   };
 
   return (

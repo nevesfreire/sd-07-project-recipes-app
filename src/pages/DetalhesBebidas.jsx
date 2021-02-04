@@ -38,13 +38,14 @@ function DetalhesBebidas({ match: { params: { id } } }) {
   const [recommendedForThisDrink, setRecommendedForThisDrink] = useState([]);
   const [startRecipeButton, setStartRecipeButton] = useState('Iniciar Receita');
   const [startButtonVisibility, setStartButtonVisibility] = useState({});
-  const [copyVisibility, setCopyVisibility] = useState('hidden');
 
   const {
     drinkDetails,
     setDrinkDetails,
     ingredientsAndMeasures,
     setIngredientsAndMeasures,
+    copyVisibility,
+    setCopyVisibility,
   } = useContext(CoffeAndCodeContext);
 
   const sliderSettings = {
