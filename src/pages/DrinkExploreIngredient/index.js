@@ -3,6 +3,8 @@ import { Redirect } from 'react-router-dom';
 import RequestIngredientsDrink from '../../services/ingredientDrink';
 import RequestDrinkAPI from '../../services/drinkApi';
 import { DrinkContext } from '../../providers/AllProviders';
+import Footer from '../../Components/Footer';
+import Header from '../../Components/Header';
 
 const DrinkExploreIngredient = () => {
   const { setData } = useContext(DrinkContext);
@@ -27,6 +29,8 @@ const DrinkExploreIngredient = () => {
 
   return (
     <div>
+      <Header />
+      <h1 data-testid="page-title">Explorar Ingredientes</h1>
       { ingredients.map(({ strIngredient1: ingredient }, index) => (
         <button
           key={ ingredient }
@@ -42,6 +46,7 @@ const DrinkExploreIngredient = () => {
           <h2 data-testid={ `${index}-card-name` }>{ingredient}</h2>
         </button>
       ))}
+      <Footer />
     </div>
   );
 };

@@ -1,6 +1,8 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FoodContext } from '../../providers/AllProviders';
+import Footer from '../../Components/Footer';
+import Header from '../../Components/Header';
 
 const FoodExploreArea = () => {
   const maxLength = 12;
@@ -31,7 +33,8 @@ const FoodExploreArea = () => {
 
   return (
     <div>
-      <h1>Exporar área</h1>
+      <Header />
+      <h1 data-testid="page-title">Explorar Origem</h1>
       <select data-testid="explore-by-area-dropdown" onChange={ handleChange }>
         <option value="All" data-testid="All-option">All</option>
         {areaOptions.map((area, index) => (
@@ -57,6 +60,7 @@ const FoodExploreArea = () => {
           </div>
         </Link>
       ))}
+      <Footer />
     </div>
   );
 };
