@@ -131,6 +131,7 @@ function DetalhesComidas({ match: { params: { id } }, history }) {
         className="aaaa"
         data-testid="share-btn"
         type="button"
+        src={ shareIcon }
         onClick={ () => setCopyLink(handleClick(history)) }
       >
         <img

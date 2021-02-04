@@ -52,7 +52,8 @@ export const ingredientsListMeals = (detail) => {
   const twenty = 20;
   const list = [];
   for (let index = one; index <= twenty; index += one) {
-    if (detail[`strIngredient${index}`] !== '') {
+    if (detail[`strIngredient${index}`] !== ''
+      && detail[`strIngredient${index}`] !== null) {
       list.push(`${detail[`strIngredient${index}`]} - ${detail[`strMeasure${index}`]}`);
     }
   }
@@ -64,7 +65,8 @@ export const ingredientsListDrinks = (detail) => {
   const twenty = 15;
   const list = [];
   for (let index = one; index <= twenty; index += one) {
-    if (detail[`strIngredient${index}`] !== null) {
+    if (detail[`strIngredient${index}`] !== null
+      && detail[`strIngredient${index}`] !== '') {
       list.push(`${detail[`strIngredient${index}`]} - ${detail[`strMeasure${index}`]}`);
     }
   }
