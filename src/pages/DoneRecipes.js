@@ -15,14 +15,14 @@ function DoneRecipes() {
     setAtualDoneRecipes(initialDoneRecipes);
   }, [initialDoneRecipes]);
 
-  const filterByFood = () => {
-    const arrayOfFood = atualDoneRecipes.filter((item) => item.type === 'comida');
-    setAtualDoneRecipes(arrayOfFood);
+  const filterByFoods = () => {
+    const arrayOfFoods = atualDoneRecipes.filter((item) => item.type === 'comida');
+    setAtualDoneRecipes(arrayOfFoods);
   };
 
-  const filterByDrink = () => {
-    const arrayOfDrink = atualDoneRecipes.filter((item) => item.type === 'bebida');
-    setAtualDoneRecipes(arrayOfDrink);
+  const filterByDrinks = () => {
+    const arrayOfDrinks = atualDoneRecipes.filter((item) => item.type === 'bebida');
+    setAtualDoneRecipes(arrayOfDrinks);
   };
 
   const resetArrayToRender = () => {
@@ -62,14 +62,14 @@ function DoneRecipes() {
       <button
         type="button"
         data-testid="filter-by-food-btn"
-        onClick={ filterByFood }
+        onClick={ filterByFoods }
       >
         Food
       </button>
       <button
         type="button"
         data-testid="filter-by-drink-btn"
-        onClick={ filterByDrink }
+        onClick={ filterByDrinks }
       >
         Drinks
       </button>
