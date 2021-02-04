@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import '../styles/components/footer.css';
 import { requestApiDrinkDetails } from '../services/requestDrink';
 import { recommendFoodsList } from '../services/requestFood';
 import { loadState } from '../services/localStorage';
@@ -34,6 +35,7 @@ function DetalhesBebidas({ match: { params: { id } } }) {
   const [ingredientsAndMeasure, setIngredientsAndMeasures] = useState([]);
   const [recommendedForThisDrink, setRecommendedForThisDrink] = useState([]);
   const [startRecipeButton, setStartRecipeButton] = useState('Iniciar Receita');
+  const [startButtonVisibility, setStartButtonVisibility] = useState({});
 
   const sliderSettings = {
     dots: true,
@@ -79,10 +81,19 @@ function DetalhesBebidas({ match: { params: { id } } }) {
     }
   };
 
+  const testRecipeDone = () => {
+    const loadStorage = loadState('doneRecipes', []);
+    const expectedArray = loadStorage.filter((doneRecipe) => doneRecipe.id === id);
+
+    if (expectedArray.length) setStartButtonVisibility({ visibility: 'hidden' });
+    else setStartButtonVisibility({ visibility: 'visible' });
+  };
+
   useEffect(() => {
     getIngredientsAndMeasure();
     getTheRecommendedFood();
     setStateOfStartRecipe();
+    testRecipeDone();
   }, [drinkDetails]);
 
   const callMainApi = async () => {
@@ -101,7 +112,7 @@ function DetalhesBebidas({ match: { params: { id } } }) {
       <img
         src={ drinkDetails.strDrinkThumb }
         alt={ drinkDetails.strDrink }
-        deta-testid="recipe-photo"
+        data-testid="recipe-photo"
       />
       <div>
         <div>
@@ -156,10 +167,12 @@ function DetalhesBebidas({ match: { params: { id } } }) {
         </Slider>
       </div>
       <div>
-        <Link to={ `bebidas/${id}/in-progress` }>
+        <Link to={ `/bebidas/${id}/in-progress` }>
           <button
             type="button"
             data-testid="start-recipe-btn"
+            className="footer"
+            style={ startButtonVisibility }
           >
             { startRecipeButton }
           </button>

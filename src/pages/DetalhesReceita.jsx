@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import '../styles/components/footer.css';
 import { loadState } from '../services/localStorage';
 import { requestApiFoodDetails } from '../services/requestFood';
 import { recommendDrinksList } from '../services/requestDrink';
@@ -17,12 +18,14 @@ const filteredIngredientsAndMeasures = (
   const measureRegex = /strMeasure/i;
 
   detailsEntries.forEach((currentArray) => {
-    if (ingredientRegex.test(currentArray[0]) && currentArray[1].trim() !== '') {
-      filteredIngredients.push(currentArray[1]);
-    }
+    if (currentArray[1] !== null) {
+      if (ingredientRegex.test(currentArray[0]) && currentArray[1].trim() !== '') {
+        filteredIngredients.push(currentArray[1]);
+      }
 
-    if (measureRegex.test(currentArray[0]) && currentArray[1].trim() !== '') {
-      filteredMeasures.push(currentArray[1]);
+      if (measureRegex.test(currentArray[0]) && currentArray[1].trim() !== '') {
+        filteredMeasures.push(currentArray[1]);
+      }
     }
   });
 };
@@ -33,6 +36,7 @@ function DetalhesReceitas({ match: { params: { id } } }) {
   const [videoLink, setVideoLink] = useState('');
   const [recommendedForThisFood, setRecommendedForThisFood] = useState([]);
   const [startRecipeButton, setStartRecipeButton] = useState('Iniciar Receita');
+  const [startButtonVisibility, setStartButtonVisibility] = useState({});
 
   const sliderSettings = {
     dots: true,
@@ -88,11 +92,20 @@ function DetalhesReceitas({ match: { params: { id } } }) {
     }
   };
 
+  const testRecipeDone = () => {
+    const loadStorage = loadState('doneRecipes', []);
+    const expectedArray = loadStorage.filter((doneRecipe) => doneRecipe.id === id);
+
+    if (expectedArray.length) setStartButtonVisibility({ visibility: 'hidden' });
+    else setStartButtonVisibility({ visibility: 'visible' });
+  };
+
   useEffect(() => {
     getIngredientsAndMeasure();
     getVideoLink();
     getTheRecommendedDrinks();
     setStateOfStartRecipe();
+    testRecipeDone();
   }, [foodDetails]);
 
   const callMainApi = async () => {
@@ -111,7 +124,7 @@ function DetalhesReceitas({ match: { params: { id } } }) {
       <img
         src={ foodDetails.strMealThumb }
         alt={ foodDetails.strMeal }
-        deta-testid="recipe-photo"
+        data-testid="recipe-photo"
       />
       <div>
         <div>
@@ -182,10 +195,12 @@ function DetalhesReceitas({ match: { params: { id } } }) {
         </Slider>
       </div>
       <div>
-        <Link to={ `comidas/${id}/in-progress` }>
+        <Link to={ `/comidas/${id}/in-progress` }>
           <button
             type="button"
             data-testid="start-recipe-btn"
+            className="footer"
+            style={ startButtonVisibility }
           >
             { startRecipeButton }
           </button>
