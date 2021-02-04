@@ -29,7 +29,7 @@ const isChecked = (ing, page, id, index) => {
   const type = `${page}s`;
   const idd = parseInt(id, 10);
   const lS = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  return lS.[type].[idd].[index].[ing];
+  return lS[type][idd][index][ing];
 };
 
 export default {
