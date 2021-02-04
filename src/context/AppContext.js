@@ -5,7 +5,9 @@ import { getMeals,
   getMealsCategories,
   getDrinksCategories,
   getMealsByCategories,
-  getDrinksByCategories } from '../services/API';
+  getDrinksByCategories,
+  filterByDrinkIngredient,
+  filterByMealIngredient } from '../services/API';
 
 const AppContext = createContext();
 
@@ -111,6 +113,16 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const onFilterByMealIngredient = async (ingredient) => {
+    const filterMealRes = await filterByMealIngredient(ingredient);
+    setFilteredMeals(filterMealRes);
+  };
+
+  const onFilterByDrinkIngredient = async (ingredient) => {
+    const filterDrinkRes = await filterByDrinkIngredient(ingredient);
+    setFilteredDrinks(filterDrinkRes);
+  };
+
   useEffect(() => {
     onFetchMeals();
     onFetchMealsCategories();
@@ -138,6 +150,8 @@ const AppProvider = ({ children }) => {
     saveDoneRecipes,
     filteredDoneRecipes,
     doneRecipes,
+    onFilterByDrinkIngredient,
+    onFilterByMealIngredient,
   };
 
   return (

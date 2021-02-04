@@ -165,6 +165,50 @@ const getDrinksByCategories = async (category) => {
   }
 };
 
+const getMealIngredients = async () => {
+  const endPoint = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+  let response = {};
+  try {
+    response = await fetch(endPoint);
+    return response.json();
+  } catch (error) {
+    return error.response;
+  }
+};
+
+const getDrinkIngredients = async () => {
+  const endPoint = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
+  let response = {};
+  try {
+    response = await fetch(endPoint);
+    return response.json();
+  } catch (error) {
+    return error.response;
+  }
+};
+
+const filterByDrinkIngredient = async (ingredient) => {
+  const endPoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`;
+  let response = {};
+  try {
+    response = await fetch(endPoint);
+    return response.json();
+  } catch (error) {
+    return error.response;
+  }
+};
+
+const filterByMealIngredient = async (ingredient) => {
+  const endPoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
+  let response = {};
+  try {
+    response = await fetch(endPoint);
+    return response.json();
+  } catch (error) {
+    return error.response;
+  }
+};
+
 export {
   getCategories,
   searchGeneral,
@@ -178,4 +222,8 @@ export {
   mealRecomendations,
   drinkById,
   drinkRecomendations,
+  getMealIngredients,
+  getDrinkIngredients,
+  filterByDrinkIngredient,
+  filterByMealIngredient,
 };
