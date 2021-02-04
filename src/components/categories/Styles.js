@@ -20,8 +20,8 @@ const Styles = {
   height: 2rem;
   width: auto;
   :focus {
-    background: rgba(226,226,226,1);
-    box-shadow: 0 1px 4px rgba(0,0,0,0.46);
+    background: ${({ toggle }) => (toggle ? 'rgba(226,226,226,1)' : 'white')};
+    box-shadow: ${({ toggle }) => (toggle ? '0 1px 4px rgba(0,0,0,0.46)' : 'none')};
     outline: none;
   }
 `,

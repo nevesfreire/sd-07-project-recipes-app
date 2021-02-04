@@ -1,3 +1,5 @@
+import { twelve } from './numbers';
+
 export async function drinkByName(name) {
   const endpoint = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`);
   const response = await endpoint.json();
@@ -16,14 +18,29 @@ export async function drinkByLetter(firstLetter) {
   const { drinks } = response;
   return drinks;
 }
+export async function drinkByCategory(category) {
+  const endpoint = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`);
+  const response = await endpoint.json();
+  const { drinks } = response;
+  return drinks;
+}
 
 export async function getInitialDrink() {
   const response = await drinkByName('');
   const list = [];
-  const doze = 12;
+  Object.entries(response).forEach((drink, index) => {
+    const { strDrink, strDrinkThumb, strCategory, idDrink } = drink[1];
+    if (index < twelve) list.push({ strDrink, strDrinkThumb, strCategory, idDrink });
+  });
+  return list;
+}
+
+export async function getDrinkCategories(category) {
+  const response = await drinkByCategory(category);
+  const list = [];
   Object.entries(response).forEach((drink, index) => {
     const { strDrink, strDrinkThumb, strCategory } = drink[1];
-    if (index < doze) list.push({ strDrink, strDrinkThumb, strCategory });
+    if (index < twelve) list.push({ strDrink, strDrinkThumb, strCategory });
   });
   return list;
 }

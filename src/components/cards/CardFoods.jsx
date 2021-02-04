@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import GeralContext from '../../context/GlobalContext';
 import Styles from './Styles';
 
@@ -8,23 +9,24 @@ export default function Cards() {
   const { data } = useContext(GeralContext);
 
   const listOfCards = [];
-  data.forEach(({ strMeal, strMealThumb }, index) => {
+  data.forEach(({ strMeal, strMealThumb, idMeal }, index) => {
     listOfCards.push(
-      <Content
-        data-testid={ `${index}-recipe-card` }
-        key={ `${index}-recipe-card` }
-      >
-        <Image
-          data-testid={ `${index}-card-img` }
-          src={ strMealThumb }
-          alt={ `Imagem da receita ${strMeal}` }
-        />
-        <NameContainer>
-          <Name data-testid={ `${index}-card-name` }>
-            {strMeal}
-          </Name>
-        </NameContainer>
-      </Content>,
+      <Link to={ `/comidas/${idMeal}` } key={ `${index}-recipe-card` }>
+        <Content
+          data-testid={ `${index}-recipe-card` }
+        >
+          <Image
+            data-testid={ `${index}-card-img` }
+            src={ strMealThumb }
+            alt={ `Imagem da receita ${strMeal}` }
+          />
+          <NameContainer>
+            <Name data-testid={ `${index}-card-name` }>
+              {strMeal}
+            </Name>
+          </NameContainer>
+        </Content>
+      </Link>,
     );
   });
   return listOfCards;
