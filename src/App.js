@@ -11,7 +11,6 @@ import ExplorarComidasArea from './pages/ExplorarComidasArea';
 import Login from './pages/Login';
 import Perfil from './pages/Perfil';
 import ReceitasFeitasFavoritas from './pages/ReceitasFeitasFavoritas';
-import NotFound from './pages/NotFound';
 
 function criarLocalStorage() {
   const localStorageDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
@@ -113,10 +112,6 @@ function App() {
             render={ (props) => (
               <ReceitasFeitasFavoritas { ...props } telaAtual="favoritas" />
             ) }
-          />
-          <Route
-            path="/explorar/bebidas/area"
-            component={ NotFound }
           />
         </Switch>
       </BrowserRouter>
