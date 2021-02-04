@@ -7,10 +7,12 @@ import {
   REQUEST_AREA,
   REQUEST_AREA_FAILED,
   SELECT_AREA,
+  CHANGE_RECIPE_TYPE,
+  CHANGE_CURRENT_CATEGORY,
 } from '../actions';
-import { CHANGE_CURRENT_CATEGORY } from '../actions/recipesActions';
 
 const INITIAL_STATE = {
+  recipeType: 'comidas',
   isFetching: true,
   recipes: [],
   currentCategory: 'all',
@@ -28,6 +30,11 @@ const recipesReducer = (state = INITIAL_STATE, action) => {
   case CHANGE_CURRENT_CATEGORY:
     return {
       currentCategory: action.category.strCategory,
+    };
+  case CHANGE_RECIPE_TYPE:
+    return {
+      ...state,
+      recipeType: action.recipeType,
     };
   case REQUEST_RECIPES:
     return { ...state, isFetching: true };
