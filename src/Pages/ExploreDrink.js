@@ -11,6 +11,20 @@ function ExploreDrink() {
     return setSurprise(results.drinks[0]);
   }
 
+  function lintEuTeAmo() {
+    return (
+      <Link to={ `/bebidas/${surprise.idDrink}` }>
+        <button
+          data-testid="explore-surprise"
+          type="button"
+        >
+          Me Surpreenda!
+
+        </button>
+      </Link>
+    );
+  }
+
   useEffect(() => {
     surpriseAPI();
   }, []);
@@ -29,15 +43,7 @@ function ExploreDrink() {
         </Link>
         {
           surprise
-        && <Link to={ `/bebidas/${surprise.idDrink}` }>
-          <button
-            data-testid="explore-surprise"
-            type="button"
-          >
-            Me Surpreenda!
-
-          </button>
-        </Link>
+        && lintEuTeAmo()
         }
       </div>
       <FooterMenu />

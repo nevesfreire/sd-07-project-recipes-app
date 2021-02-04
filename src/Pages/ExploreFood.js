@@ -11,6 +11,20 @@ function ExploreFood() {
     return setSurprise(results.meals[0]);
   }
 
+  function lintEuTeAmo() {
+    return (
+      <Link to={ `/comidas/${surprise.idMeal}` }>
+        <button
+          data-testid="explore-surprise"
+          type="button"
+        >
+          Me Surpreenda!
+
+        </button>
+      </Link>
+    );
+  }
+
   useEffect(() => {
     surpriseAPI();
   }, []);
@@ -33,15 +47,7 @@ function ExploreFood() {
         </Link>
         {
           surprise
-        && <Link to={ `/comidas/${surprise.idMeal}` }>
-          <button
-            data-testid="explore-surprise"
-            type="button"
-          >
-            Me Surpreenda!
-
-          </button>
-        </Link>
+        && lintEuTeAmo()
         }
       </div>
       <FooterMenu />
