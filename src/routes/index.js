@@ -14,6 +14,7 @@ import ExplorarBebidasIngredientes from '../pages/Explorar/ExplorarBebidas/Ingre
 import Notfound from '../components/Notfound';
 import EmProgresso from '../pages/EmProgresso';
 import ReceitasFavoritas from '../pages/ReceitasFavoritas';
+import ReceitasFeitas from '../pages/ReceitasFeitas';
 
 function Routes() {
   return (
@@ -45,22 +46,8 @@ function Routes() {
         <Route exact path="/comidas/:id/in-progress" component={ EmProgresso } />
         <Route exact path="/bebidas/:id/in-progress" component={ EmProgresso } />
         <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
-        <Route component={ Notfound } />
-
-        {/*
-        <Route exact path="/bebidas/:id-da-receita" component={ BebidasID } />
-        <Route
-          exact
-          path="/comidas/:id-da-receita/in-progress"
-          component={ ComidasIDProgress }
-        />
-        <Route
-          exact
-          path="/bebidas/:id-da-receita/in-progress"
-          component={ BebidasIDProgress }
-        />
         <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
-         */}
+        <Route component={ Notfound } />
       </Switch>
     </BrowserRouter>
   );

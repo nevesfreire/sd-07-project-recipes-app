@@ -312,7 +312,7 @@ describe('40 - Implemente a solução de modo que caso a receita tenha sido inic
             178319: [],
           },
         };
-        localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+        localStorage.setItem('inProgressRecipes', JSON.stringify( ));
         win.fetch = fetchMock;
       },
     });
