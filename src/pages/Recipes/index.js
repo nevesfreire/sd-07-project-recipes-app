@@ -19,6 +19,10 @@ function Recipes({ history, search = false }) {
     setResults,
     isFetching,
     setIsFetching,
+    searchByExplore,
+    filterByExplore,
+    recipesByExplore,
+    setByExplore,
   } = useContext(Context);
   const { pathname } = history.location;
 
@@ -31,17 +35,21 @@ function Recipes({ history, search = false }) {
     if (api === '') return;
     const firstFetch = async () => {
       let data = [];
-      if (category === 'all') {
-        data = await fetchApi(undefined, 'firstFetch', api);
+      if (recipesByExplore && searchByExplore !== '') {
+        data = await fetchApi(searchByExplore, filterByExplore, api);
+        setByExplore(false);
+      } else if (category === 'all') {
+        data = await fetchApi('', 'firstFetch', api);
       } else {
         data = await fetchApi(category, 'categories', api);
       }
       if (!data) return;
       setResults(data);
       setIsFetching(true);
+      console.log(data);
     };
     firstFetch();
-  }, [api, setIsFetching, setResults, category]);
+  }, [api, category]);
 
   useEffect(() => {
     if (!isFetching) return;

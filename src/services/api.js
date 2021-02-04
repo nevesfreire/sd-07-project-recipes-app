@@ -108,3 +108,23 @@ export const fetchRandom = async (type) => {
   if (type === 'comidas') return Object.entries(results)[0][1][0].idMeal;
   return Object.entries(results)[0][1][0].idDrink;
 };
+
+export const fetchByIngredients = async (type) => {
+  const MAX_LENGTH = 12;
+  const MIN_LENGTH = 0;
+  let url = '';
+  switch (type) {
+  case 'comidas':
+    url = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+    break;
+  case 'bebidas':
+    url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
+    break;
+  default:
+    break;
+  }
+  const response = await fetch(url);
+  const results = await response.json();
+  if (type === 'comidas') return results.meals.slice(MIN_LENGTH, MAX_LENGTH);
+  return results.drinks.slice(MIN_LENGTH, MAX_LENGTH);
+};
