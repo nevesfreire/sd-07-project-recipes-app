@@ -1,9 +1,13 @@
 import {
-  requestFoodRecipes,
-  listFoodRecipes,
-  failedFoodRequest,
-  foodFilteredByCategoryAction,
+  listRecipes,
+  failedRequest,
+  requestRecipes,
 } from '../redux/actions';
+import {
+  changeCurrentCategoryAction,
+  filteredByCategoryAction,
+}
+  from '../redux/actions/recipesActions';
 
 export const getFoodRecipes = ({ searchInput = '', searchRadio = 's' }) => {
   let endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?${searchRadio}=${searchInput}`;
@@ -11,13 +15,13 @@ export const getFoodRecipes = ({ searchInput = '', searchRadio = 's' }) => {
     endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?${searchRadio}=${searchInput}`;
   }
   return async (dispatch) => {
-    dispatch(requestFoodRecipes());
+    dispatch(requestRecipes());
     try {
       const response = await fetch(endpoint);
       const data = await response.json();
-      dispatch(listFoodRecipes(data));
+      dispatch(listRecipes(data.meals));
     } catch (error) {
-      dispatch(failedFoodRequest(error));
+      dispatch(failedRequest(error));
     }
   };
 };
@@ -61,13 +65,14 @@ export const foodFilterByCategory = (category) => {
     foodUrlForFilterByCategory = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
   }
   return async (dispatch) => {
-    dispatch(requestFoodRecipes());
+    dispatch(requestRecipes());
+    dispatch(changeCurrentCategoryAction(category));
     try {
       const resquestFilteredByCategory = await fetch(foodUrlForFilterByCategory);
       const JSONresponseFiltered = await resquestFilteredByCategory.json();
-      dispatch(foodFilteredByCategoryAction(JSONresponseFiltered.meals, category));
+      dispatch(filteredByCategoryAction(JSONresponseFiltered.meals));
     } catch (error) {
-      dispatch(failedFoodRequest(error));
+      dispatch(failedRequest(error));
     }
   };
 };

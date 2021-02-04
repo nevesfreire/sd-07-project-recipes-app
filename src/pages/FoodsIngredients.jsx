@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { CustomFooter, CustomIngredientsFoods } from '../components';
 import CustomHeader from '../components/CustomHeader';
 import { getIngredientsFood } from '../services';
-import { requestIngredientsFoods } from '../redux/actions/foodRecipesAction';
+import { requestIngredients } from '../redux/actions/recipesActions';
 
 class FoodsIngredients extends Component {
   constructor() {
@@ -69,7 +69,7 @@ class FoodsIngredients extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchIngredients: (Ingredients) => dispatch(requestIngredientsFoods(Ingredients)),
+  dispatchIngredients: (Ingredients) => dispatch(requestIngredients(Ingredients)),
 });
 
 FoodsIngredients.propTypes = {

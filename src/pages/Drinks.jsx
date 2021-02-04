@@ -5,9 +5,7 @@ import { Redirect } from 'react-router-dom';
 import { CustomCardDrink, CustomCartegory, CustomFooter } from '../components';
 import CustomHeader from '../components/CustomHeader';
 import {
-  listDrinkRecipes,
-  updateDrinkIsFetching,
-  allCategoriesDrinksAction,
+  listRecipes, requestRecipes,
 } from '../redux/actions';
 import { getDrinkRecipes, getAllDrinksCategories } from '../services';
 
@@ -50,11 +48,11 @@ class Drinks extends Component {
   handleRecipes() {
     const { drinks, isFetching } = this.props;
     const numberToComper = 1;
-    if (drinks.length === numberToComper) {
+    if (drinks && drinks.length === numberToComper) {
       return <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />;
     }
-    if (!drinks.length && !isFetching) return this.renderAlertError();
-    if (drinks.length === 1) return this.redirectToRecipeDetail();
+    if (drinks && !drinks.length && !isFetching) return this.renderAlertError();
+    if (drinks && drinks.length === 1) return this.redirectToRecipeDetail();
     return this.renderRecipes();
   }
 
@@ -71,16 +69,18 @@ class Drinks extends Component {
 
   renderRecipes() {
     const { drinks } = this.props;
-    const LENGTH = 12;
-    const INITIAL_LENGTH = 0;
-    const MAX_LENGTH = (drinks.length > LENGTH) ? LENGTH : drinks.length;
-    return (
-      <div>
-        { drinks.slice(INITIAL_LENGTH, MAX_LENGTH)
-          .map((drink, index) => (
-            <CustomCardDrink key={ drink.idDrink } index={ index } drink={ drink } />))}
-      </div>
-    );
+    if (drinks) {
+      const LENGTH = 12;
+      const INITIAL_LENGTH = 0;
+      const MAX_LENGTH = (drinks.length > LENGTH) ? LENGTH : drinks.length;
+      return (
+        <div>
+          { drinks.slice(INITIAL_LENGTH, MAX_LENGTH)
+            .map((drink, index) => (
+              <CustomCardDrink key={ drink.idDrink } index={ index } drink={ drink } />))}
+        </div>
+      );
+    }
   }
 
   renderCategories() {
@@ -124,22 +124,17 @@ class Drinks extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  isFetching: state.drinkRecipesReducer.isFetching,
-  drinks: state.drinkRecipesReducer.drinks,
-  categories: state.drinkRecipesReducer.categories,
-  currentCategoryDrink: state.drinkRecipesReducer.currentCategoryDrink,
-
+  isFetching: state.recipesReducer.isFetching,
+  drinks: state.recipesReducer.recipes,
+  currentCategoryDrink: state.recipesReducer.currentCategory,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   dispatchDrinksRecipes: (searchHeader) => dispatch(getDrinkRecipes(searchHeader)),
-  dispatchAllCategories: (allCategories) => {
-    dispatch(allCategoriesDrinksAction(allCategories));
+  dispatchInitialCards: (JSONRequestAllCategories) => {
+    dispatch(listRecipes(JSONRequestAllCategories));
   },
-  dispatchInitialCards: (JSONRequestAllCAtegories) => {
-    dispatch(listDrinkRecipes(JSONRequestAllCAtegories));
-  },
-  dispatchUpdateDrinkIsFetching: () => dispatch(updateDrinkIsFetching()),
+  dispatchUpdateDrinkIsFetching: () => dispatch(requestRecipes()),
 });
 
 Drinks.propTypes = {

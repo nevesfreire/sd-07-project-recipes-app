@@ -11,19 +11,16 @@ class CustomCartegory extends Component {
       title,
       dispatchFoodFilteredByCategory,
       dispatchDrinkFilteredByCategory,
-      currentCategoryFood,
       dispatchFoodRecipes,
       dispatchDrinksRecipes,
-      currentCategoryDrink,
+      currentCategory,
     } = this.props;
     return (
       <button
         type="button"
         data-testid={ `${category.strCategory}-category-filter` }
         onClick={ () => {
-          if (currentCategoryFood === category.strCategory
-            || currentCategoryDrink === category.strCategory
-          ) {
+          if (currentCategory === category.strCategory) {
             return title === 'Comidas' ? dispatchFoodRecipes({})
               : dispatchDrinksRecipes({});
           }
@@ -38,8 +35,7 @@ class CustomCartegory extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  currentCategoryDrink: state.drinkRecipesReducer.currentCategoryDrink,
-  currentCategoryFood: state.foodRecipesReducer.currentCategoryFood,
+  currentCategory: state.recipesReducer.currentCategory,
 });
 const mapDispatchToProps = (dispatch) => ({
   dispatchDrinksRecipes: (searchHeader) => dispatch(getDrinkRecipes(searchHeader)),
@@ -59,8 +55,7 @@ CustomCartegory.propTypes = {
     strCategory: PropTypes.string.isRequired,
   }).isRequired,
   title: PropTypes.string.isRequired,
-  currentCategoryFood: PropTypes.string.isRequired,
-  currentCategoryDrink: PropTypes.string.isRequired,
+  currentCategory: PropTypes.string.isRequired,
   dispatchFoodFilteredByCategory: PropTypes.func.isRequired,
   dispatchDrinkFilteredByCategory: PropTypes.func.isRequired,
   dispatchFoodRecipes: PropTypes.func.isRequired,

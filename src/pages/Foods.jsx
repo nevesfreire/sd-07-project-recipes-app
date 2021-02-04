@@ -5,9 +5,8 @@ import { Redirect } from 'react-router-dom';
 import { CustomCardFood, CustomFooter, CustomCartegory } from '../components';
 import CustomHeader from '../components/CustomHeader';
 import {
-  listFoodRecipes,
-  updateFoodIsFetching,
-  allCategoriesFoodsAction,
+  listRecipes,
+  requestRecipes,
 } from '../redux/actions';
 import { getAllFoodCategories, getFoodRecipes } from '../services';
 
@@ -48,9 +47,11 @@ class Foods extends Component {
 
   handleRecipes() {
     const { meals, isFetching } = this.props;
-    if (!meals.length && !isFetching) return this.renderAlertError();
-    if (meals.length === 1) return this.redirectToRecipeDetail(meals);
-    return this.renderRecipes();
+    if (meals) {
+      if (!meals.length && !isFetching) return this.renderAlertError();
+      if (meals.length === 1) return this.redirectToRecipeDetail(meals);
+      return this.renderRecipes();
+    }
   }
 
   redirectToRecipeDetail(meals) {
@@ -117,20 +118,16 @@ class Foods extends Component {
   }
 }
 const mapStateToProps = (state) => ({
-  isFetching: state.foodRecipesReducer.isFetching,
-  meals: state.foodRecipesReducer.meals,
-  categories: state.foodRecipesReducer.categories,
-  currentCategoryFood: state.foodRecipesReducer.currentCategoryFood,
+  isFetching: state.recipesReducer.isFetching,
+  meals: state.recipesReducer.recipes,
+  currentCategoryFood: state.recipesReducer.currentCategory,
 });
 const mapDispatchToProps = (dispatch) => ({
   dispatchFoodRecipes: (searchHeader) => dispatch(getFoodRecipes(searchHeader)),
-  dispatchAllCategories: (allCategories) => {
-    dispatch(allCategoriesFoodsAction(allCategories));
-  },
   dispatchInitialCards: (JSONRequestAllCAtegories) => {
-    dispatch(listFoodRecipes(JSONRequestAllCAtegories));
+    dispatch(listRecipes(JSONRequestAllCAtegories));
   },
-  dispatchUpdateFoodIsFetching: () => dispatch(updateFoodIsFetching()),
+  dispatchUpdateFoodIsFetching: () => dispatch(requestRecipes()),
 });
 Foods.propTypes = {
   dispatchFoodRecipes: PropTypes.func.isRequired,

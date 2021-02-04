@@ -26,7 +26,5 @@ CustomIngredientsDrinks.propTypes = {
   dispatch: PropTypes.func.isRequired,
   drink: PropTypes.shape({
     strIngredient1: PropTypes.string.isRequired,
-    // strMealThumb: PropTypes.string.isRequired,
-    // idIngredient: PropTypes.number.isRequired,
   }).isRequired,
 };
