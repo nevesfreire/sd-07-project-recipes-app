@@ -22,7 +22,7 @@ function MealDetails() {
 
   const handleClick = () => {
     history.push(`/comidas/${recipeId}/in-progress`);
-    handleClickMeals(recipeId, ingredMeasures);
+    handleClickMeals(recipeId);
   };
 
   useEffect(() => {

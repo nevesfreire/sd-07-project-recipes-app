@@ -21,7 +21,7 @@ function CocktailDetails() {
 
   const handleClick = () => {
     history.push(`/bebidas/${recipeId}/in-progress`);
-    handleClickCocktails(recipeId, ingredMeasures);
+    handleClickCocktails(recipeId);
   };
 
   useEffect(() => {

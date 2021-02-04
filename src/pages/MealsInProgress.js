@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { getMealById } from '../services/mealAPI';
 import ButtonsDetailsPage from '../components/ButtonsDetailsPage';
-import { handleClickMeals } from '../functions/DetailPages';
 
 function MealsInProgress() {
   const history = useHistory();
@@ -15,21 +14,28 @@ function MealsInProgress() {
   const [category, setCategory] = useState('');
   const [area, setArea] = useState('');
   const [instructions, setInstructions] = useState('');
-  const [checked, setChecked] = useState('');
+  const [buttonIsEnabled, setButtonIsEnabled] = useState(false);
+  const getStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const checked = getStorage.meals[recipeId];
 
   const handleClick = () => {
     history.push("/receitas-feitas");
-    handleClickMeals(recipeId, ingredMeasures);
   };
 
-  const handleChange = ({target}) => {
-    if (target.checked) {
-      target.classList.add('checked');
-    } else {
-      target.classList.remove('checked');
+  const handleChange = (ingredient) => {
+    const getPrevStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const getPrevProgress = getPrevStorage.meals[recipeId];
+    const updateStorage = {
+      ...getPrevStorage,
+      meals: { ...getPrevStorage.meals, [recipeId]: [...getPrevProgress, ingredient] },
+    };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(updateStorage));
+    console.log(getPrevProgress.length);
+    console.log(ingredMeasures.length);
+    if (getPrevProgress.length + 1 === ingredMeasures.length) {
+      setButtonIsEnabled(true);
     }
   }
-
 
   useEffect(() => {
     const path = history.location.pathname;
@@ -87,9 +93,13 @@ function MealsInProgress() {
         { ingredMeasures.map((element, index) => {
           const [key] = Object.keys(element);
           const [value] = Object.values(element);
+          const isChecked = false;
+          if (checked.find(ing => ing === `${key} - ${value}`)) {
+            isChecked = true;
+          }
           return (
             <div data-testid={ `${index}-ingredient-step` }>
-              <input id={`ingredient-${index}`} type="checkbox" key={ index } onChange={handleChange}/>
+              <input id={`ingredient-${index}`} type="checkbox" key={ index } onChange={() => handleChange(`${key} - ${value}`) checked={isChecked}}/>
               <label htmlFor={`ingredient-${index}`}>{ `${key} - ${value}` }</label>
             </div>
           );
@@ -104,6 +114,7 @@ function MealsInProgress() {
         className="finishRecipe"
         data-testid="finish-recipe-btn"
         onClick={ handleClick }
+        disabled={!(buttonIsEnabled)}
       >
         Finalizar Receita
       </button>
