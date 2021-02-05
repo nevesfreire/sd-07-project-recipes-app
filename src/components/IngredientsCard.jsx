@@ -46,7 +46,7 @@ function IngredientsCard() {
       {list !== undefined ? (
         list.map((item, index) => (
           <Link
-            to={ path === urlFoods ? '/comidas' : '/bebidas' }
+            to={ path === urlFoods ? '/comidas/' : '/bebidas' }
             onClick={ () => redirectMainScreen(item.strIngredient, item.strIngredient1) }
             key={ renderPaths(item.strIngredient1, item.strIngredient) }
             className="card col-6"
