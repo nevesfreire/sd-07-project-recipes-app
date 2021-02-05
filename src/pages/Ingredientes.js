@@ -59,7 +59,7 @@ class Ingredientes extends React.Component {
                   to="/comidas"
                   key={ index }
                   onClick={ () => this.saveToRedux(item, 'comidas') }
-                  onKeyPress
+                  onKeyPress={ () => ('') }
                   role="link"
                   tabIndex={ index }
                 >
@@ -79,7 +79,7 @@ class Ingredientes extends React.Component {
                   to="/bebidas"
                   key={ index }
                   onClick={ () => this.saveToRedux(item, 'bebidas') }
-                  onKeyPress
+                  onKeyPress={ () => ('') }
                   role="link"
                   tabIndex={ index }
                 >

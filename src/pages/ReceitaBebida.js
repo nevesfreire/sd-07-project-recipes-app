@@ -3,10 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Carousel } from 'react-bootstrap';
 import { apiTheCocktailDB, apiTheMealDB } from '../services';
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
-import copy from '../helper/Require';
+import ShareButton from '../components/ShareButton';
+import FavoriteButton from '../components/FavoriteButton';
 import { startRecipeDrink } from '../redux/actions';
 
 class ReceitaBebida extends React.Component {
@@ -16,13 +14,11 @@ class ReceitaBebida extends React.Component {
     this.state = {
       recipe: '',
       mealList: [],
-      copied: false,
-      favorite: false,
+      storageObj: {},
     };
 
     this.callRecipeAPI = this.callRecipeAPI.bind(this);
     this.ingredientListHandle = this.ingredientListHandle.bind(this);
-    this.favoriteButtonHandle = this.favoriteButtonHandle.bind(this);
   }
 
   componentDidMount() {
@@ -44,10 +40,24 @@ class ReceitaBebida extends React.Component {
     // referência proxima linha: https://stackoverflow.com/questions/4758103/
     const urlParams = window.location.pathname.split('/').pop();
     const recipe = await apiTheCocktailDB(`lookup.php?i=${urlParams}`);
+    // const arrayTags = recipe.drinks[0].strTags === null ? []
+    //   : recipe.drinks[0].strTags.split(',');
+    const storageObj = {
+      id: recipe.drinks[0].idDrink,
+      type: 'bebida',
+      area: '',
+      category: recipe.drinks[0].strCategory,
+      alcoholicOrNot: recipe.drinks[0].strAlcoholic,
+      name: recipe.drinks[0].strDrink,
+      image: recipe.drinks[0].strDrinkThumb,
+      // doneDate: recipe.drinks[0].dateModified,
+      // tags: arrayTags,
+    };
     const mealList = await apiTheMealDB('search.php?s=');
     this.setState({
       recipe: recipe.drinks[0],
       mealList: mealList.meals,
+      storageObj,
     });
   }
 
@@ -65,23 +75,14 @@ class ReceitaBebida extends React.Component {
     return array;
   }
 
-  favoriteButtonHandle() {
-    const { favorite, recipe } = this.state;
-    this.setState({ favorite: !favorite });
-    const favRecipeStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    localStorage.setItem(
-      'favoriteRecipes', JSON.stringify([...favRecipeStorage, recipe]),
-    );
-  }
-
   render() {
-    const { recipe, copied, mealList, favorite } = this.state;
+    const { recipe, mealList, storageObj } = this.state;
     const SIX = 6;
     const ingredientsArray = this.ingredientListHandle();
+    const url = window.location.pathname;
     if (recipe === '') {
       return <p>Loading...</p>;
     }
-    console.log(mealList);
 
     return (
       <div>
@@ -102,29 +103,8 @@ class ReceitaBebida extends React.Component {
           )) }
         </ul>
         <p data-testid="instructions">{ recipe.strInstructions}</p>
-        <button
-          type="button"
-          data-testid="share-btn"
-          onClick={ () => {
-            this.setState({ copied: !copied });
-            copy(`http://localhost:3000/bebidas/${recipe.idDrink}`);
-          } }
-        >
-          <img src={ shareIcon } alt="Share" />
-        </button>
-        {copied ? <span style={ { color: 'red' } }>Link copiado!</span> : null}
-        <button
-          type="button"
-          data-testid="favorite-btn"
-          onClick={ this.favoriteButtonHandle }
-          src={ !favorite ? whiteHeartIcon : blackHeartIcon }
-        >
-          {
-            !favorite
-              ? <img src={ whiteHeartIcon } alt="Favorite" />
-              : <img src={ blackHeartIcon } alt="Favorite" />
-          }
-        </button>
+        <ShareButton url={ url } />
+        <FavoriteButton storageObj={ storageObj } />
         <p>Recomendadas</p>
         <Carousel style={ { height: '30%' } }>
           { mealList.map((item, index) => (

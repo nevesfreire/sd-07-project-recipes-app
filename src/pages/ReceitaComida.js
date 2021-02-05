@@ -2,10 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Carousel } from 'react-bootstrap';
-import { apiTheMealDB, apiTheCocktailDB } from '../services';
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import copy from '../helper/Require';
+import { apiTheCocktailDB, apiTheMealDB } from '../services';
+import ShareButton from '../components/ShareButton';
+import FavoriteButton from '../components/FavoriteButton';
 import { startRecipe } from '../redux/actions';
 
 class ReceitaComida extends React.Component {
@@ -15,7 +14,7 @@ class ReceitaComida extends React.Component {
     this.state = {
       recipe: '',
       drinkList: [],
-      copied: false,
+      storageObj: {},
     };
 
     this.callRecipeAPI = this.callRecipeAPI.bind(this);
@@ -24,16 +23,33 @@ class ReceitaComida extends React.Component {
 
   componentDidMount() {
     this.callRecipeAPI();
+    if (JSON.parse(localStorage.getItem('favoriteRecipes')) === null) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    }
   }
 
   async callRecipeAPI() {
     // referência proxima linha: https://stackoverflow.com/questions/4758103/
     const urlParams = window.location.pathname.split('/').pop();
     const recipe = await apiTheMealDB(`lookup.php?i=${urlParams}`);
+    // const arrayTags = recipe.meals[0].strTags === null
+    //   ? [] : recipe.meals[0].strTags.split(',');
+    const storageObj = {
+      id: recipe.meals[0].idMeal,
+      type: 'comida',
+      area: recipe.meals[0].strArea,
+      category: recipe.meals[0].strCategory,
+      alcoholicOrNot: '',
+      name: recipe.meals[0].strMeal,
+      image: recipe.meals[0].strMealThumb,
+      // doneDate: recipe.meals[0].dateModified,
+      // tags: arrayTags,
+    };
     const drinkList = await apiTheCocktailDB('search.php?s=');
     this.setState({
       recipe: recipe.meals[0],
       drinkList: drinkList.drinks,
+      storageObj,
     });
   }
 
@@ -60,9 +76,10 @@ class ReceitaComida extends React.Component {
   }
 
   render() {
-    const { recipe, copied, drinkList } = this.state;
+    const { recipe, drinkList, storageObj } = this.state;
     const SIX = 6;
     const ingredientsArray = this.ingredientListHandle();
+    const url = window.location.pathname;
     if (recipe === '') {
       return <p>Loading...</p>;
     }
@@ -87,23 +104,8 @@ class ReceitaComida extends React.Component {
           )) }
         </ul>
         <p data-testid="instructions">{ recipe.strInstructions}</p>
-        <button
-          type="button"
-          data-testid="share-btn"
-          onClick={ () => {
-            this.setState({ copied: !copied });
-            copy(`http://localhost:3000/comidas/${recipe.idMeal}`);
-          } }
-        >
-          <img src={ shareIcon } alt="Share" />
-        </button>
-        {copied ? <span style={ { color: 'red' } }>Link copiado!</span> : null}
-        <button
-          type="button"
-          data-testid="favorite-btn"
-        >
-          <img src={ whiteHeartIcon } alt="Favorite" />
-        </button>
+        <ShareButton url={ url } />
+        <FavoriteButton storageObj={ storageObj } />
         <iframe
           title="youtube"
           width="360"
