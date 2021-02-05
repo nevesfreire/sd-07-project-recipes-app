@@ -5,7 +5,7 @@ import {
 import { CupNodesContext } from '../contexts';
 
 function filterURL({ option, text }) {
-  const newText = text.toLowerCase().split(' ', '_');
+  const newText = text.toLowerCase();
   switch (option) {
   case 'ingrediente':
     return `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${text.toLowerCase()}`;

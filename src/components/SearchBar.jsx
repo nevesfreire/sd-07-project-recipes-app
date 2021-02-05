@@ -16,7 +16,7 @@ export default function SearchBar({ title }) {
 
   const onSubmitFilters = () => {
     if (state.option === 'primeiraLetra' && state.text.length > 1) {
-      console.log('Sua busca deve conter somente 1 (um) caracter');
+      alert('Sua busca deve conter somente 1 (um) caracter');
     }
     dispatchFilter({ type: SUBMIT_SEARCH, payload: state });
   };
