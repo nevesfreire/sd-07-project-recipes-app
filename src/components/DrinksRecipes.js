@@ -10,15 +10,20 @@ class DrinksRecipes extends Component {
   constructor(props) {
     super(props);
     this.fetchRecipesByCategory = this.fetchRecipesByCategory.bind(this);
+    this.fetchRecipesByIngredient = this.fetchRecipesByIngredient.bind(this);
     this.state = {
       recipesByCategory: {},
     };
   }
 
   componentDidMount() {
-    const { requestRecipes, requestCategories, endPoint } = this.props;
+    const { requestRecipes,
+      requestCategories,
+      endPoint,
+      selectedIngredient } = this.props;
     requestCategories('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
     requestRecipes(endPoint);
+    if (selectedIngredient) this.fetchRecipesByIngredient();
   }
 
   componentDidUpdate(prevProps) {
@@ -31,6 +36,14 @@ class DrinksRecipes extends Component {
   async fetchRecipesByCategory() {
     const { selectedCategory } = this.props;
     const URL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${selectedCategory}`;
+    const response = await fetch(URL);
+    const data = await response.json();
+    this.setState({ recipesByCategory: data });
+  }
+
+  async fetchRecipesByIngredient() {
+    const { selectedIngredient } = this.props;
+    const URL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${selectedIngredient}`;
     const response = await fetch(URL);
     const data = await response.json();
     this.setState({ recipesByCategory: data });
@@ -92,9 +105,11 @@ const mapDispatchToProps = (dispatch) => ({
   requestCategories: (endPoint) => dispatch(fetchCategories(endPoint)),
 });
 
-const mapStateToProps = ({ recipesReducer, categoriesReducer }) => ({
+const mapStateToProps = ({
+  recipesReducer, categoriesReducer, ingredientsReducer }) => ({
   getRecipes: recipesReducer.recipes,
   selectedCategory: categoriesReducer.selectedCategory,
+  selectedIngredient: ingredientsReducer.selectedIngredient,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DrinksRecipes);
@@ -107,4 +122,5 @@ DrinksRecipes.propTypes = {
     drinks: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
   requestCategories: PropTypes.func.isRequired,
+  selectedIngredient: PropTypes.string.isRequired,
 };
