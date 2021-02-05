@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types';
 import { Container, Col, Row } from 'react-bootstrap';
 import apiTheMealDB from '../services/apiTheMealDB';
 
@@ -81,6 +81,8 @@ class InProgressMeals extends React.Component {
   render() {
     const { ingredientsList,
       ingrentsMeasuresList, recipe, checkBox, buttonStatus } = this.state;
+    const { history } = this.props;
+
     if (recipe === '') {
       return <p>Loading...</p>;
     }
@@ -145,6 +147,7 @@ class InProgressMeals extends React.Component {
               type="button"
               data-testid="finish-recipe-btn"
               disabled={ buttonStatus }
+              onClick={ () => history.push('/receitas-feitas') }
             >
               Finalizar
             </button>
@@ -156,3 +159,9 @@ class InProgressMeals extends React.Component {
 }
 
 export default InProgressMeals;
+
+InProgressMeals.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};

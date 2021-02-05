@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types';
 import { Container, Col, Row } from 'react-bootstrap';
 import apiTheCocktailDB from '../services/apiTheCocktailDB';
 
@@ -83,6 +83,7 @@ class InProgressDrinks extends React.Component {
       return <p>Loading...</p>;
     }
     const { ingredientsList, ingrentsMeasuresList, checkBox, buttonStatus } = this.state;
+    const { history } = this.props;
     return (
       <Container fluid>
         <Col>
@@ -144,6 +145,7 @@ class InProgressDrinks extends React.Component {
               type="button"
               data-testid="finish-recipe-btn"
               disabled={ buttonStatus }
+              onClick={ () => history.push('/receitas-feitas') }
             >
               Finalizar
             </button>
@@ -155,3 +157,9 @@ class InProgressDrinks extends React.Component {
 }
 
 export default InProgressDrinks;
+
+InProgressDrinks.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
