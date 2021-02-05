@@ -22,6 +22,7 @@ function Provider({ children }) {
   const [idDetail, setIdDetail] = useState();
   const [searchCards, setSearchCards] = useState([]);
   const [favorite, setFavorite] = useState(false);
+  const [favorited, setFavorited] = useState([]);
   const [done, setDone] = useState(false);
   const [recipe, setRecipe] = useState({});
 
@@ -68,7 +69,10 @@ function Provider({ children }) {
           done,
           setDone,
           recipe,
-          setRecipe }
+          setRecipe,
+          favorited,
+          setFavorited,
+        }
       }
     >
       { children }

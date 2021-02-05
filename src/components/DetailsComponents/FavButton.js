@@ -69,7 +69,7 @@ function FavButton() {
       </button>
     );
   }
-
+  console.log(favorite);
   return (
     <button
       type="button"
