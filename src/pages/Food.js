@@ -13,7 +13,7 @@ class Food extends Component {
       <div>
         <Header title="Comidas" history={ history } />
         <MealsCategoryFilter endPoint="https://www.themealdb.com/api/json/v1/1/list.php?c=list" />
-        <MealRecipes endPoint="https://www.themealdb.com/api/json/v1/1/search.php?s=" />
+        <MealRecipes history={ history } endPoint="https://www.themealdb.com/api/json/v1/1/search.php?s=" />
         <Footer history={ history } />
       </div>
     );
