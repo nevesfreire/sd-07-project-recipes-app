@@ -2,7 +2,7 @@ import React from 'react';
 
 class NovasReceitas extends React.Component {
   render() {
-    return (<div>NovasReceitas</div>);
+    return (<div>Novas Receitas</div>);
   }
 }
 

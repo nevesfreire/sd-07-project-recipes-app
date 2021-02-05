@@ -5,8 +5,8 @@ class ComidasIngredientes extends React.Component {
   render() {
     return (
       <div>
-        ComidasIngredientes
         <Header />
+        Comidas Ingredientes
       </div>
     );
   }
