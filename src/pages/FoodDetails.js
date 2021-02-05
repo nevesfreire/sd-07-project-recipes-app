@@ -6,7 +6,7 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import RecipesContext from '../context/RecipesContext';
 import { fetchAPI, handleIngredients,
-  TWO_THOUSAND, SIX, NINE, TWENTY_NINE, FOURTY_NINE } from '../services/helpers';
+  TWO_THOUSAND, SIX } from '../services/helpers';
 import '../style/recipeDetail.css';
 
 function FoodDetails() {
@@ -16,6 +16,7 @@ function FoodDetails() {
   const [recommendation, setRecommendation] = useState(['']);
   const [copyText, setCopyText] = useState('');
   const [favorited, setFavorited] = useState();
+  // src: https://reactrouter.com/web/api/Hooks
   const history = useHistory();
   const { pathname } = history.location;
   const mealRecipeId = pathname.split('/')[2];
@@ -55,7 +56,7 @@ function FoodDetails() {
       localStorage.favoriteRecipes = JSON.stringify([]);
     }
     const favoriteStorage = JSON.parse(localStorage.favoriteRecipes)
-      .filter((item) => item.id === mealRecipeId);
+      .filter((recipe) => recipe.id === mealRecipeId);
     if (favoriteStorage.length >= 1) {
       setFavorited(blackHeartIcon);
     } else {
@@ -68,7 +69,7 @@ function FoodDetails() {
       localStorage.doneRecipes = JSON.stringify([]);
     }
     const doneStorage = JSON.parse(localStorage.doneRecipes)
-      .filter((item) => item.id === mealRecipeId);
+      .filter((recipe) => recipe.id === mealRecipeId);
     if (doneStorage.length >= 1) {
       setButtonClassName('fixedbutton hidden');
     } else {
@@ -79,7 +80,8 @@ function FoodDetails() {
   const handleFavoriteClick = () => {
     if (favorited === whiteHeartIcon) {
       setFavorited(blackHeartIcon);
-      const favoriteFood = {
+      const favoriteStorage = JSON.parse(localStorage.favoriteRecipes);
+      const newFavoriteStorage = favoriteStorage.concat({
         id: recipeDetailFood.idMeal,
         type: 'comida',
         area: recipeDetailFood.strArea,
@@ -87,15 +89,14 @@ function FoodDetails() {
         alcoholicOrNot: '',
         name: recipeDetailFood.strMeal,
         image: recipeDetailFood.strMealThumb,
-      };
-      const recipes = JSON.parse(localStorage.favoriteRecipes);
-      const AllFavorites = recipes.concat(favoriteFood);
-      localStorage.favoriteRecipes = JSON.stringify(AllFavorites);
+      });
+      localStorage.favoriteRecipes = JSON.stringify(newFavoriteStorage);
     } else {
       setFavorited(whiteHeartIcon);
-      const recipes = JSON.parse(localStorage.favoriteRecipes);
-      const AllFavorites = recipes.filter((recipe) => recipe.id !== mealRecipeId);
-      localStorage.favoriteRecipes = JSON.stringify(AllFavorites);
+      const favoriteStorage = JSON.parse(localStorage.favoriteRecipes);
+      const newFavoriteStorage = favoriteStorage
+        .filter((recipe) => recipe.id !== mealRecipeId);
+      localStorage.favoriteRecipes = JSON.stringify(newFavoriteStorage);
     }
   };
 
@@ -112,7 +113,7 @@ function FoodDetails() {
       <p>{copyText}</p>
       <p data-testid="recipe-category">{recipeDetailFood.strCategory}</p>
       <ul>
-        {handleIngredients(recipeDetailFood, NINE, TWENTY_NINE, FOURTY_NINE)}
+        {handleIngredients(recipeDetailFood)}
       </ul>
       <p data-testid="instructions">{recipeDetailFood.strInstructions}</p>
       <video data-testid="video" width="750" height="500" controls>

@@ -1,19 +1,21 @@
 import React from 'react';
 
-export const fetchAPI = async (url) => {
-  const api = await fetch(url);
-  const data = await api.json();
+export const fetchAPI = async (URL) => {
+  const API = await fetch(URL);
+  const data = await API.json();
   return data;
 };
 
-export const handleIngredients = (recipe, initial, middle, end) => {
-  const ingredients = Object.values(recipe).slice(initial, middle);
-  const measures = Object.values(recipe).slice(middle, end);
+export const handleIngredients = (recipe) => {
+  const ingredients = Object.entries(recipe)
+    .filter((key) => (key[1] === null ? false : key[0].includes('strIngredient')));
+  const measures = Object.entries(recipe)
+    .filter((key) => (key[1] === null ? false : key[0].includes('strMeasure')));
   return ingredients
-    .filter((recipes) => recipes !== null && recipes !== '')
+    .filter((recipes) => recipes[1] !== '')
     .map((ingredient, index) => (
       <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-        { `${ingredient} - ${measures[index]}` }
+        { `${ingredient[1]} - ${measures[index][1]}` }
       </li>
     ));
 };
