@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Slider from 'react-slick';
 import ShareIcon from '../../images/shareIcon.svg';
 import WhiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import Recomendations from './Recomendations';
@@ -38,14 +37,6 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
     strAlcoholic,
     strDrinkThumb,
   } = recipeDetails;
-
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 2,
-    slidesToScroll: 1,
-  };
 
   const url = () => {
     const youTubeURL = strYoutube.split('=')[1];
@@ -115,9 +106,7 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
         { strInstructions }
       </p>
       { strYoutube && url() }
-      <Slider { ...settings }>
-        <Recomendations />
-      </Slider>
+      <Recomendations />
       <button
         type="button"
         className="start-recipe-btn"
