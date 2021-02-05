@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-import { HeaderS, CardC } from '../../components';
+import { HeaderS, CardC, Footer } from '../../components';
 import {
   loadMeals,
   loadMealsCategories,
@@ -122,6 +122,7 @@ class TelaPrincipalReceitasComidas extends Component {
         <HeaderS title={ title } />
         {categoriesStore ? this.renderCategories(categoriesStore) : null}
         {mealsStore ? this.renderMeals(mealsStore) : null}
+        <Footer />
       </div>
     );
   }
