@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ListCards from '../components/ListCards';
 
-function Comidas() {
+function R() {
   return (
     <section className="header-container">
       <div className="header-page">
