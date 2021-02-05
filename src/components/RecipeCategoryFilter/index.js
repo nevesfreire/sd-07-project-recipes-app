@@ -11,13 +11,14 @@ const RecipeCategoryFilter = () => {
   const { pathname } = useLocation();
   const dispatch = useDispatch();
 
-  const setToggleButton = (value) => {
-    if (value === checkedValue) {
+  const setToggleButton = (newValue) => {
+    if ((newValue && newValue === checkedValue)
+      || (!newValue && newValue !== checkedValue)) {
       setCheckedValue('');
       dispatch(setFilter(FILTER_TYPES.NAME));
-    } else {
-      setCheckedValue(value);
-      dispatch(setFilter(FILTER_TYPES.CATEGORY, value));
+    } else if (newValue !== checkedValue) {
+      setCheckedValue(newValue);
+      dispatch(setFilter(FILTER_TYPES.CATEGORY, newValue));
     }
   };
 
