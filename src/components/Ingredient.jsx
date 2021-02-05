@@ -48,7 +48,7 @@ function Ingredient({ recipes, inProgress, id }) {
                 data-testid={ `${index}-ingredient-step` }
               >
                 <input
-                  onChange={ (e) => handleChange(e, id, recipes) }
+                  onChange={ (e) => handleChange(e, id, recipes, ingredients) }
                   name={ value }
                   id={ value }
                   type="checkbox"

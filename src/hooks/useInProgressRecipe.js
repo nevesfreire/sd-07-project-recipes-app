@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 function useInProgressRecipe() {
   let inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
 
   const removeIngredient = (type, id, ingredient) => {
     if (type === 'comidas') {
@@ -65,13 +67,80 @@ function useInProgressRecipe() {
       localStorage.setItem('inProgressRecipes',
         JSON.stringify({ meals: {}, cocktails: {} }));
     }
+    if (!doneRecipes) {
+      localStorage.setItem('doneRecipes',
+        JSON.stringify([]));
+    }
+  };
+
+  const history = useHistory();
+
+  const handleClick = (recipe, type) => {
+    const doneDate = new Date();
+    let tags = [];
+
+    if (type === 'comidas') {
+      const { meals: currMeal } = recipe;
+      const alcoholicOrNot = '';
+      const {
+        idMeal: id,
+        strArea: area,
+        strCategory: category,
+        strMeal: name,
+        strMealThumb: image,
+        strTags,
+      } = currMeal[0];
+      if (strTags !== null) tags = strTags;
+
+      localStorage.setItem('doneRecipes', JSON.stringify([
+        ...doneRecipes,
+        {
+          id,
+          type,
+          area,
+          category,
+          alcoholicOrNot,
+          name,
+          image,
+          doneDate,
+          tags,
+        },
+      ]));
+    } else {
+      const { drinks } = recipe;
+      const area = '';
+      const {
+        idDrink: id,
+        strCategory: category,
+        strAlcoholic: alcoholicOrNot,
+        strDrink: name,
+        strDrinkThumb: image,
+        strTags,
+      } = drinks[0];
+      if (strTags !== null) tags = strTags;
+      localStorage.setItem('doneRecipes', JSON.stringify([
+        ...doneRecipes,
+        {
+          id,
+          type,
+          area,
+          category,
+          alcoholicOrNot,
+          name,
+          image,
+          doneDate,
+          tags,
+        },
+      ]));
+    }
+    history.push('/receitas-feitas');
   };
 
   useEffect(() => {
     setInitialLocalStorage();
   }, []);
 
-  return [handleChange, inProgressRecipes];
+  return [handleChange, inProgressRecipes, handleClick];
 }
 
 export default useInProgressRecipe;
