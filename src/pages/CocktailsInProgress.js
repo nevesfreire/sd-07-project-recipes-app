@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { getCocktailById } from '../services/cocktailAPI';
@@ -11,19 +10,10 @@ function CocktailsInProgress() {
   const [storeIngredients, setStoreIngredients] = useState([]);
   const [storeMeasures, setStoreMeasures] = useState([]);
   const [ingredMeasures, setIngredMeasures] = useState([]);
-=======
-import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import { getCocktailById } from '../services/cocktailAPI';
-
-function CocktailsInProgress() {
-  const [recipeId, setRecipeId] = useState('');
->>>>>>> c3ac3e1da1eb25d160305118044481a500619366
   const [title, setTitle] = useState('');
   const [source, setSource] = useState('');
   const [category, setCategory] = useState('');
   const [area, setArea] = useState('');
-<<<<<<< HEAD
   const [instructions, setInstructions] = useState('');
   const [alcoholic, setAlcoholic] = useState('');
   const [buttonIsEnabled, setButtonIsEnabled] = useState(false);
@@ -61,10 +51,6 @@ function CocktailsInProgress() {
     }
   }, [storage]);
 
-=======
-  const [tags, setTags] = useState('');
-  const history = useHistory();
->>>>>>> c3ac3e1da1eb25d160305118044481a500619366
 
   useEffect(() => {
     const path = history.location.pathname;
@@ -75,7 +61,6 @@ function CocktailsInProgress() {
     setRecipeId(splitPath);
     getCocktailById(splitPath)
       .then((res) => {
-<<<<<<< HEAD
         const ingredientsArray = [];
         const measureArray = [];
         setTitle(res.drinks[0].strDrink);
@@ -151,55 +136,6 @@ function CocktailsInProgress() {
         Finalizar Receita
       </button>
 
-=======
-        setTitle(res.drinks[0].strDrink);
-        setSource(res.drinks[0].strDrinkThumb);
-        setCategory(res.drinks[0].strAlcoholic);
-        setArea(res.drinks[0].strCategory);
-        setTags(res.drinks[0].Tags);
-      });
-  }, []);
-
-  const finishRecipe = () => {
-    const done = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-    const findId = done.find((recipe) => recipe.id === recipeId);
-    const date = new Date();
-    const finishedRecipe = {
-      id: recipeId,
-      type: 'bebida',
-      area: '',
-      category: area,
-      alcoholicOrNot: category,
-      name: title,
-      image: source,
-      doneDate: date,
-      tags,
-    };
-    if (!done) {
-      localStorage.setItem('doneRecipes', JSON.stringify([finishedRecipe]));
-    } else if (!findId) {
-      const newList = [...done, finishedRecipe];
-      localStorage.setItem('doneRecipes', JSON.stringify(newList));
-    }
-  };
-
-  return (
-    <div>
-      <img data-testid="recipe-photo" alt="Foto" />
-      <h1 data-testid="recipe-title">{ }</h1>
-      <button data-testid="share-btn" type="button">A</button>
-      <button data-testid="favorite-btn" type="button">B</button>
-      <spam data-testid="recipe-category">Xablau</spam>
-      <h4>Instructions</h4>
-      <p data-testid="instructions">Xablau</p>
-      <button
-        data-testid="finish-recipe-btn"
-        type="button"
-        onClick={ finishRecipe }
-      >
-        Finalizar Receita
-      </button>
->>>>>>> c3ac3e1da1eb25d160305118044481a500619366
     </div>
   );
 }
