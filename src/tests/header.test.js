@@ -51,12 +51,11 @@ describe('10 - Implemente um ícone para a tela de perfil, um título e um'
     expect(container.querySelector('.header')).not.toBeInTheDocument();
   });
   test('Não tem header na tela de receita em processo de comida', () => {
-    const { container } = renderWithRouter(<InProgress />);
-    expect(container.querySelector('.header')).not.toBeInTheDocument();
+
   });
   test('Não tem header na tela de receita em processo de bebida', () => {
-    const { container } = renderWithRouter(<InProgress />);
-    expect(container.querySelector('.header')).not.toBeInTheDocument();
+
+    
   });
   test('O header tem os ícones corretos na tela de explorar', () => {
     const { getAllByRole } = renderWithRouter(<Explorar />);
