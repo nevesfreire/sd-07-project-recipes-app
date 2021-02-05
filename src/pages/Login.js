@@ -28,18 +28,9 @@ function Login() {
 
   const handleClick = () => {
     const item = { email: loginInfo.loginEmail };
-    const progress = {
-      cocktails: {
-        'id-da-bebida': [],
-      },
-      meals: {
-        'id-da-comida': [],
-      },
-    };
     localStorage.setItem('user', JSON.stringify(item));
     localStorage.setItem('mealsToken', '1');
     localStorage.setItem('cocktailsToken', '1');
-    localStorage.setItem('inProgressRecipes', progress);
     setShouldRedirect(true);
   };
 

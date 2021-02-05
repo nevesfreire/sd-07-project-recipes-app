@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import {
   NINE,
   TWENTY_ONE,
@@ -9,11 +9,38 @@ import {
 } from '../services/helpers';
 import RecipesContext from '../context/RecipesContext';
 import history from '../history/history';
+import '../App.css';
 
-// const toggleCheckboxChange = (e) => {
-//   const { pathname } = history.location;
-//   const progress = localStorage.getItem('inProgressRecipes');
-// };
+// informações da tela
+const { pathname } = history.location;
+const DrinkOrFood = pathname.includes('bebidas') ? 'cocktails' : 'meals';
+
+const toggleCheckboxChange = (e, recipe, index) => {
+  const progress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const idRecipe = Object.values(recipe)[0];
+  const targetIngredient = [index];
+  const savedIngredients = progress[DrinkOrFood][idRecipe];
+  const concat = (...arrays) => [].concat(...arrays.filter(Array.isArray));
+  const newIndredients = concat(savedIngredients, targetIngredient);
+  const newProgress = {
+    ...progress,
+    [DrinkOrFood]: {
+      [idRecipe]: newIndredients,
+    },
+  };
+  localStorage.setItem('inProgressRecipes', JSON.stringify(newProgress));
+  console.log(newProgress);
+};
+
+const handleChecked = (recipe, index) => {
+  const progress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const idRecipe = Object.values(recipe)[0];
+
+  return progress[DrinkOrFood][idRecipe]
+    && progress[DrinkOrFood][idRecipe].includes(index)
+    ? true
+    : null;
+};
 
 const handleIngredientsInProgress = (recipe, initial, middle, end) => {
   const ingredients = Object.values(recipe).slice(initial, middle);
@@ -23,10 +50,10 @@ const handleIngredientsInProgress = (recipe, initial, middle, end) => {
     .map((ingredient, index) => (
       <div data-testid={ `${index}-ingredient-step` } key={ `${index}-ingredient` }>
         <input
-          // onChange={toggleCheckboxChange}
+          onChange={ (e) => toggleCheckboxChange(e, recipe, index) }
           type="checkbox"
           id={ `${index}-ingredient` }
-          nome="subscribe"
+          checked={ handleChecked(recipe, index) }
         />
         {' '}
         <label htmlFor={ `${index}-ingredient` } key={ index }>
@@ -39,7 +66,19 @@ const handleIngredientsInProgress = (recipe, initial, middle, end) => {
 
 function CheckBoxProgress() {
   const { recipeDetailDrink, recipeDetailFood } = useContext(RecipesContext);
-  const { pathname } = history.location;
+
+  useEffect(() => {
+    const startProgress = {
+      cocktails: {},
+      meals: {},
+    };
+
+    const progress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+    if (!progress) {
+      localStorage.setItem('inProgressRecipes', JSON.stringify(startProgress));
+    }
+  }, []);
 
   return (
     <div>
