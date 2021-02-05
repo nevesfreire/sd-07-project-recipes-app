@@ -54,7 +54,7 @@ function FoodArea() {
     <div>
       <header>
         <h1 data-testid="page-title">
-          Explorar Origem
+          Explorar por Local de Origem
         </h1>
         <Link to="/perfil">
           <button type="button">

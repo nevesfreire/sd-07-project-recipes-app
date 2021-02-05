@@ -6,7 +6,7 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import RecipesContext from '../context/RecipesContext';
 import { fetchAPI, handleIngredients,
-  TWO_THOUSAND, SIX, TWENTY_ONE, THIRTY_SIX, FIFTY_ONE } from '../services/helpers';
+  TWO_THOUSAND, SIX } from '../services/helpers';
 import '../style/recipeDetail.css';
 
 function DrinkDetails() {
@@ -16,6 +16,7 @@ function DrinkDetails() {
   const [recommendation, setRecommendation] = useState(['']);
   const [copyText, setCopyText] = useState('');
   const [favorited, setFavorited] = useState();
+  // src: https://reactrouter.com/web/api/Hooks
   const history = useHistory();
   const { pathname } = history.location;
   const drinkRecipeId = pathname.split('/')[2];
@@ -51,11 +52,9 @@ function DrinkDetails() {
   };
 
   useEffect(() => {
-    if (!localStorage.favoriteRecipes) {
-      localStorage.favoriteRecipes = JSON.stringify([]);
-    }
+    if (!localStorage.favoriteRecipes) localStorage.favoriteRecipes = JSON.stringify([]);
     const favoriteStorage = JSON.parse(localStorage.favoriteRecipes)
-      .filter((item) => item.id === drinkRecipeId);
+      .filter((recipe) => recipe.id === drinkRecipeId);
     if (favoriteStorage.length >= 1) {
       setFavorited(blackHeartIcon);
     } else {
@@ -64,11 +63,9 @@ function DrinkDetails() {
   }, [drinkRecipeId]);
 
   useEffect(() => {
-    if (!localStorage.doneRecipes) {
-      localStorage.doneRecipes = JSON.stringify([]);
-    }
+    if (!localStorage.doneRecipes) localStorage.doneRecipes = JSON.stringify([]);
     const doneStorage = JSON.parse(localStorage.doneRecipes)
-      .filter((item) => item.id === drinkRecipeId);
+      .filter((recipe) => recipe.id === drinkRecipeId);
     if (doneStorage.length >= 1) {
       setButtonClassName('fixedbutton hidden');
     } else {
@@ -79,7 +76,8 @@ function DrinkDetails() {
   const handleFavoriteClick = () => {
     if (favorited === whiteHeartIcon) {
       setFavorited(blackHeartIcon);
-      const favoriteFood = {
+      const favoriteStorage = JSON.parse(localStorage.favoriteRecipes);
+      const newFavoriteStorage = favoriteStorage.concat({
         id: recipeDetailDrink.idDrink,
         type: 'bebida',
         area: '',
@@ -87,15 +85,14 @@ function DrinkDetails() {
         alcoholicOrNot: recipeDetailDrink.strAlcoholic,
         name: recipeDetailDrink.strDrink,
         image: recipeDetailDrink.strDrinkThumb,
-      };
-      const recipes = JSON.parse(localStorage.favoriteRecipes);
-      const AllFavorites = recipes.concat(favoriteFood);
-      localStorage.favoriteRecipes = JSON.stringify(AllFavorites);
+      });
+      localStorage.favoriteRecipes = JSON.stringify(newFavoriteStorage);
     } else {
       setFavorited(whiteHeartIcon);
-      const recipes = JSON.parse(localStorage.favoriteRecipes);
-      const AllFavorites = recipes.filter((recipe) => recipe.id !== drinkRecipeId);
-      localStorage.favoriteRecipes = JSON.stringify(AllFavorites);
+      const favoriteStorage = JSON.parse(localStorage.favoriteRecipes);
+      const newFavoriteStorage = favoriteStorage
+        .filter((recipe) => recipe.id !== drinkRecipeId);
+      localStorage.favoriteRecipes = JSON.stringify(newFavoriteStorage);
     }
   };
 
@@ -117,7 +114,7 @@ function DrinkDetails() {
       <p>{copyText}</p>
       <p data-testid="recipe-category">{recipeDetailDrink.strAlcoholic}</p>
       <ul>
-        {handleIngredients(recipeDetailDrink, TWENTY_ONE, THIRTY_SIX, FIFTY_ONE)}
+        {handleIngredients(recipeDetailDrink)}
       </ul>
       <p data-testid="instructions">{recipeDetailDrink.strInstructions}</p>
       <div>
@@ -132,7 +129,6 @@ function DrinkDetails() {
                 <Link
                   onClick={ () => setMealRecipeId(meals.idMeal) }
                   to={ `/comidas/${meals.idMeal}` }
-                  key={ index }
                 >
                   <img
                     width="200"
