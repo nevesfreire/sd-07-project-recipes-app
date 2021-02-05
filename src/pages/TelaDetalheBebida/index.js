@@ -95,8 +95,12 @@ class TelaDetalheBebida extends Component {
             } return null;
           })}
         </Slider>
-        <button data-testid="start-recipe-btn" type="button">
-          Click on me
+        <button
+          data-testid="start-recipe-btn"
+          type="button"
+          style={ { position: 'fixed', bottom: '0px' } }
+        >
+          Iniciar Receita
         </button>
       </div>
     );
