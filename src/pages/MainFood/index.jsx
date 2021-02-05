@@ -30,7 +30,10 @@ export default function MainFood() {
   };
 
   useEffect(() => {
-    fetchRandomFoods();
+    const ZERO = 0;
+    if (meals.length === ZERO) {
+      fetchRandomFoods();
+    }
     fetchFoodsCategories();
   }, []);
 

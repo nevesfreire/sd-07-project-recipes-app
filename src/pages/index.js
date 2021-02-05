@@ -11,6 +11,7 @@ import Profile from './Profile';
 import DoneRecipes from './DoneRecipes';
 import FavoritesRecipes from './FavoritesRecipes';
 import RecipeDetails from './RecipeDetails';
+import NotFound from './NotFound';
 
 export {
   Login,
@@ -26,4 +27,5 @@ export {
   DoneRecipes,
   FavoritesRecipes,
   RecipeDetails,
+  NotFound,
 };
