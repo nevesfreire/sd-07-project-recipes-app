@@ -6,7 +6,9 @@ import RecipeDetailsContext from '../context/RecipeContext';
 import likeIcon from '../images/whiteHeartIcon.svg';
 import fullLikeIcon from '../images/blackHeartIcon.svg';
 import ShareButton from '../components/ShareButton';
-// import {ingredientsMount} from '../components/func_details';
+import { ingredientsMount, saveProgress, handleCheckedFromLocalStorage,
+  unLikeRecipe, dateFormat, handleClass,
+  handleFinishRecipe } from '../components/func_in-process';
 import './foodAndDrinkDetails.css';
 
 function DrinkProcess({
@@ -34,21 +36,6 @@ function DrinkProcess({
     setRecipeInstructions,
   } = context;
 
-  const ingredientsMount = (result) => {
-    const initialIndex = 0;
-    const halfIndex = 2;
-    const ingredients = Object.entries(result.drinks[0])
-      .filter((item) => item[0].includes('Ingredient') || item[0].includes('Measure'))
-      .filter((ar) => ar[1] !== null && ar[1] !== ' ' && ar[1] !== '')
-      .map((ar2) => ar2[1]);
-    const ingredientsMeasures = [];
-    for (let i = initialIndex; i < ingredients.length / halfIndex; i += 1) {
-      ingredientsMeasures
-        .push(`${ingredients[i]} - ${ingredients[i + ingredients.length / halfIndex]}`);
-    }
-    setRecipeIngredients(ingredientsMeasures);
-  };
-
   const fetchRecipe = async () => {
     const path = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
     const getRecipe = await fetch(path);
@@ -58,51 +45,12 @@ function DrinkProcess({
     setRecipeImage(result.drinks[0].strDrinkThumb);
     setRecipeInstructions(result.drinks[0].strInstructions);
     setRecipeAlc(result.drinks[0].strAlcoholic);
-    ingredientsMount(result);
+    ingredientsMount(setRecipeIngredients, result);
     setIsLoading(false);
   };
 
-  const saveProgress = (ingredient) => {
-    const previousProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-
-    if (previousProgress.cocktails[id]) {
-      if (previousProgress.cocktails[id].includes(ingredient)) {
-        previousProgress.cocktails[id] = previousProgress.cocktails[id]
-          .filter((item) => item !== ingredient);
-      } else {
-        previousProgress.cocktails[id].push(ingredient);
-      }
-    } else {
-      previousProgress.cocktails[id] = [ingredient];
-    }
-    localStorage.setItem('inProgressRecipes', JSON.stringify(previousProgress));
-    setInProgressRecipes(previousProgress);
-  };
-
   const handleChecked = ({ target: { name } }) => {
-    saveProgress(name);
-  };
-
-  const handleCheckedFromLocalStorage = (item) => {
-    if (localStorage.getItem('inProgressRecipes')) {
-      const previousLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      return previousLocalStorage.cocktails[id]
-        .find((currentItem) => currentItem === item);
-    }
-    return false;
-  };
-
-  const handleClass = (item) => {
-    if (localStorage.getItem('inProgressRecipes')) {
-      const previousLocalStorage = JSON
-        .parse(localStorage.getItem('inProgressRecipes'));
-      const isThere = previousLocalStorage.cocktails[id]
-        .find((currentItem) => currentItem === item);
-      if (isThere) {
-        return 'is-checked';
-      }
-    }
-    return 'is-not-checked';
+    saveProgress(setInProgressRecipes, name, id);
   };
 
   const recheckLocalStorage = () => {
@@ -116,12 +64,6 @@ function DrinkProcess({
       localStorage.setItem('inProgressRecipes', JSON
         .stringify(inProgressRecipesPattern));
     }
-  };
-
-  const unLikeRecipe = () => {
-    const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const unSave = recipes.filter((item) => item.id !== id);
-    localStorage.setItem('favoriteRecipes', JSON.stringify(unSave));
   };
 
   const saveFavoriteRecipe = () => {
@@ -162,43 +104,8 @@ function DrinkProcess({
       saveFavoriteRecipe();
     } else {
       setBtnImg(likeIcon);
-      unLikeRecipe();
+      unLikeRecipe(id);
     }
-  };
-
-  const handleFinishRecipe = (ingredientsLength) => {
-    if (JSON.parse(localStorage.getItem('inProgressRecipes'))) {
-      const ingredientsInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      if (ingredientsLength === ingredientsInProgress.cocktails[id].length) {
-        return false;
-      }
-      return true;
-    }
-  };
-
-  const getFormattedDate = () => {
-    const monthCorrection = 1;
-    const twoDecimalPlaces = 10;
-    const date = new Date();
-    const day = date.getDate();
-    const month = date.getMonth() + monthCorrection;
-    const year = date.getFullYear();
-
-    let formatterDay;
-    if (day < twoDecimalPlaces) {
-      formatterDay = `0${day}`;
-    } else {
-      formatterDay = day;
-    }
-
-    let formatterMonth;
-    if (month < twoDecimalPlaces) {
-      formatterMonth = `0${month}`;
-    } else {
-      formatterMonth = month;
-    }
-
-    return `${formatterDay}/${formatterMonth}/${year}`;
   };
 
   const handleDoneLocalStorage = () => {
@@ -216,7 +123,7 @@ function DrinkProcess({
         alcoholicOrNot: getRecipeAlc,
         name: getRecipeTitle,
         image: getRecipeImage,
-        doneDate: getFormattedDate(),
+        doneDate: dateFormat(),
         tags: '',
       },
     ];
@@ -272,11 +179,11 @@ function DrinkProcess({
           >
             <label
               htmlFor={ item }
-              className={ handleClass(item) }
+              className={ handleClass(item, id) }
             >
               <input
                 type="checkbox"
-                checked={ handleCheckedFromLocalStorage(item) }
+                checked={ handleCheckedFromLocalStorage(item, id) }
                 name={ item }
                 id={ item }
                 onChange={ handleChecked }
@@ -294,7 +201,7 @@ function DrinkProcess({
           type="button"
           data-testid="finish-recipe-btn"
           className="finish-recipe-btn"
-          disabled={ handleFinishRecipe(getRecipeIngredients.length) }
+          disabled={ handleFinishRecipe(getRecipeIngredients.length, id) }
           onClick={ handleDoneLocalStorage }
         >
           Finalizar receita

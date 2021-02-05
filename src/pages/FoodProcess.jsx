@@ -7,7 +7,8 @@ import likeIcon from '../images/whiteHeartIcon.svg';
 import fullLikeIcon from '../images/blackHeartIcon.svg';
 import ShareButton from '../components/ShareButton';
 import { ingredientsMount, tagsMount, saveProgress, saveFavoriteRecipe, unLikeRecipe,
-  setLikeImage, dateFormat, handleCheckedFromLocalStorage } from '../components/func_details';
+  setLikeImage, dateFormat,
+  handleCheckedFromLocalStorage } from '../components/func_details';
 import './foodAndDrinkDetails.css';
 
 function FoodProcess({
