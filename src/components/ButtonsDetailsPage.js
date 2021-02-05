@@ -31,10 +31,11 @@ function ButtonsDetailsPage({ api }) {
     }
   }, []);
 
-  const handleShare = () => {
+  const handleShare = (entry) => {
     let alternative = '';
-    (api.key === 'meal') ? alternative = 'comidas' : alternative = 'bebidas';
+    (entry === 'meal') ? alternative = 'comidas' : alternative = 'bebidas';
     const path =`${window.location.origin}/${alternative}/${api.recipeId}`;
+    console.log(path)
     copy(path)
       .then(() => setCopyLink(true));
   };
@@ -98,7 +99,7 @@ function ButtonsDetailsPage({ api }) {
         type="image"
         alt="share-button"
         src={ shareIcon }
-        onClick={ handleShare }
+        onClick={ () => handleShare(api.key) }
       />
       <input
         data-type="favorite"

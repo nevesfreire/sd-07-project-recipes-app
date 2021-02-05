@@ -19,14 +19,6 @@ function CocktailDetails() {
   const [instructions, setInstructions] = useState('');
   const [mealsRecommendations, setMealsRecommendations] = useState([]);
 
-<<<<<<< HEAD
-  const handleClick = () => {
-    history.push(`/bebidas/${recipeId}/in-progress`);
-    handleClickCocktails(recipeId);
-  };
-
-=======
->>>>>>> c3ac3e1da1eb25d160305118044481a500619366
   useEffect(() => {
     setRecipeId(params.id);
     getMealsRecommendations()
