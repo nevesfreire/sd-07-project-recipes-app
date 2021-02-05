@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Jomhuria&display=swap');
+
+body {
+  background: url('./images/img_bg.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+
+.containerSize {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 360px;
+}
+
+.recipeBox {
+  margin: 10px;
+  width: 140px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  border-radius: 5px;
+}
+
+.recipeBox button {
+  width: 130px;
+  border: none;
+  background:none;
+  font-size: 18px;
+}
+
+.recipeBox img {
+  border-radius: 5px;
+  box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.25);
+  margin-top: 5px;
+  width: 130px;
+}
+
+.buttonPattern {
+  width: 140px;
+  height: 42px;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  margin: 5px 10px;
+  border: #FFFFFF;
+}

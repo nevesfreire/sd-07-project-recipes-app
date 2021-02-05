@@ -13,25 +13,29 @@ export default function SearchButton(props) {
     return setInputStatus({ searchInput: !searchInput });
   }
 
+  if (pathname !== ('/explorar')
+  && pathname !== ('/explorar/comidas')
+  && pathname !== ('/explorar/bebidas')
+  && pathname !== ('/explorar/comidas/ingredientes')
+  && pathname !== ('/explorar/bebidas/ingredientes')
+  && pathname !== ('/perfil')
+  && pathname !== ('/receitas-feitas')
+  && pathname !== ('/receitas-favoritas')) {
+    return (
+      <input
+        src={ searchIcon }
+        id="search-icon"
+        type="image"
+        alt="search-image"
+        className="search-button"
+        data-testid="search-top-btn"
+        onClick={ () => hedleChange() }
+      />
+    );
+  }
   return (
     <div>
-      {(pathname !== ('/explorar')
-        && pathname !== ('/explorar/comidas')
-        && pathname !== ('/explorar/bebidas')
-        && pathname !== ('/explorar/comidas/ingredientes')
-        && pathname !== ('/explorar/bebidas/ingredientes')
-        && pathname !== ('/perfil')
-        && pathname !== ('/receitas-feitas')
-        && pathname !== ('/receitas-favoritas'))
-        && <input
-          src={ searchIcon }
-          id="search-icon"
-          type="image"
-          alt="search-image"
-          className="search-button"
-          data-testid="search-top-btn"
-          onClick={ () => hedleChange() }
-        />}
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     </div>
   );
 }
