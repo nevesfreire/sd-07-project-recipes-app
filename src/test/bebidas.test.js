@@ -6,11 +6,7 @@ import storeMock from './helper/mock';
 
 describe('[PÁGINA DE BEBIDA]: ', () => {
   test('rederiza pagina', async () => {
-    const { findByText } = renderWithRouterAndStore(
-      <Bebidas />,
-      '',
-      storeMock,
-    );
+    const { findByText } = renderWithRouterAndStore(<Bebidas />, '', storeMock);
     const element = await findByText('GG');
 
     // Wait for page to update with query text
@@ -28,5 +24,4 @@ describe('[PÁGINA DE BEBIDA]: ', () => {
   //   // Wait for page to update with query text
   //   expect(element).toBeInTheDocument();
   // });
-
 });

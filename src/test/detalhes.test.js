@@ -13,7 +13,7 @@ describe('[PÁGINA DE COMIDAR]: ', () => {
     );
     history.push('/comidas/53026');
     const element = getByText(
-      /Pour the Galliano liqueur over ice. Fill the remainder of the glass with ginger ale and thats all there is to it. You now have a your very own GG./,
+      /Pour the Galliano liqueur over ice. Fill the remai./,
     );
 
     // Wait for page to update with query text

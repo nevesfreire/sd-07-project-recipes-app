@@ -6,7 +6,7 @@ import storeMock from './helper/mock';
 
 describe('[PÁGINA DE LOGIN]: ', () => {
   test('rederiza pagina', () => {
-    const { getByText, history } = renderWithRouterAndStore(
+    const { history } = renderWithRouterAndStore(
       <Login />,
       '',
       storeMock,

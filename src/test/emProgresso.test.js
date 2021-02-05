@@ -6,7 +6,7 @@ import storeMock from './helper/mock';
 
 describe('[PÁGINA DE EM PROGRESSO]: ', () => {
   test('rederiza pagina', () => {
-    const { getByText, history } = renderWithRouterAndStore(
+    const { getByText } = renderWithRouterAndStore(
       <EmProgresso />,
       '/comidas/53026/in-progress',
       storeMock,
@@ -18,7 +18,7 @@ describe('[PÁGINA DE EM PROGRESSO]: ', () => {
     expect(element).toBeInTheDocument();
   });
   test('checa rota', async () => {
-    const { findByText, history } = renderWithRouterAndStore(
+    const { history } = renderWithRouterAndStore(
       <EmProgresso />,
       '',
       storeMock,
