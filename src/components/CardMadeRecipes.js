@@ -74,20 +74,30 @@ function CardMadeRecipes({ recipe, index }) {
       {type === 'bebida'
         ? (
           <Link to={ `/bebidas/${id}` }>
-            <img
-              data-testid={ `${index}-horizontal-image` }
-              alt="recipeImg"
+            <div
               src={ image }
-            />
+              role="button"
+              data-testid={ `${index}-horizontal-image` }
+            >
+              <img
+                alt="recipeImg"
+                src={ image }
+              />
+            </div>
           </Link>
         )
         : (
           <Link to={ `/comidas/${id}` }>
-            <img
-              data-testid={ `${index}-horizontal-image` }
-              alt="recipeImg"
+            <div
               src={ image }
-            />
+              role="button"
+              data-testid={ `${index}-horizontal-image` }
+            >
+              <img
+                alt="recipeImg"
+                src={ image }
+              />
+            </div>
           </Link>
         )}
 
