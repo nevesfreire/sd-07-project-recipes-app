@@ -61,6 +61,11 @@ class MealRecipes extends Component {
       );
     }
     if (getRecipes.meals) {
+      if (getRecipes.meals.length === 1) {
+        const { history } = this.props;
+        const { meals } = getRecipes;
+        history.push(`/comidas/${meals[0].idMeal}`);
+      }
       let filterArray = [];
       if (recipesByCategory.meals && (selectedCategory !== 'All')) {
         filterArray = recipesByCategory.meals
@@ -121,4 +126,7 @@ MealRecipes.propTypes = {
   requestCategories: PropTypes.func.isRequired,
   selectedCategory: PropTypes.string.isRequired,
   selectedIngredient: PropTypes.string.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };

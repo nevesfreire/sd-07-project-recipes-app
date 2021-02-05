@@ -61,6 +61,11 @@ class DrinksRecipes extends Component {
       ));
     }
     if (getRecipes.drinks) {
+      if (getRecipes.drinks.length === 1) {
+        const { history } = this.props;
+        const { drinks } = getRecipes;
+        history.push(`/bebidas/${drinks[0].idDrink}`);
+      }
       let filterArray = [];
       if (recipesByCategory.drinks && (selectedCategory !== 'All')) {
         filterArray = recipesByCategory.drinks
@@ -124,4 +129,7 @@ DrinksRecipes.propTypes = {
   }).isRequired,
   requestCategories: PropTypes.func.isRequired,
   selectedIngredient: PropTypes.string.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };
