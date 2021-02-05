@@ -67,19 +67,26 @@ function Recipes({ history, search = false }) {
       <Header history={ history } search={ search } />
       <main style={ { marginBottom: 52, marginTop: 10 } }>
         <Categories category={ category } setCategory={ setCategory } />
-        {slicedResults.map((res, index) => {
-          const card = {
-            id: res.idMeal || res.idDrink,
-            name: res.strMeal || res.strDrink,
-            img: res.strMealThumb || res.strDrinkThumb,
-            category: res.strCategory,
-            instrunctions: res.strInstructions,
-            video: res.video,
-          };
-          return (
-            <Card key={ index + 1 } data={ card } index={ index } pathname={ pathname } />
-          );
-        })}
+        <div className="card__container">
+          {slicedResults.map((res, index) => {
+            const card = {
+              id: res.idMeal || res.idDrink,
+              name: res.strMeal || res.strDrink,
+              img: res.strMealThumb || res.strDrinkThumb,
+              category: res.strCategory,
+              instrunctions: res.strInstructions,
+              video: res.video,
+            };
+            return (
+              <Card
+                key={ index + 1 }
+                data={ card }
+                index={ index }
+                pathname={ pathname }
+              />
+            );
+          })}
+        </div>
       </main>
       {
         pathname !== '/receitas-feitas'
