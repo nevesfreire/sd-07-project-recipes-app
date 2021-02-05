@@ -106,6 +106,17 @@ body {
   position: fixed;
 }
 
+.start-recipe-btn {
+  bottom: 0;
+  position: fixed;
+}
+
+/*
+#iceLeft {
+  animation: clink .8s infinite ease;
+  opacity: 0.6;
+  transform-origin: 36px 66px;
+
 .footer img {
   padding: 5px;
 }

@@ -9,6 +9,7 @@ function Provider({ children }) {
   const [inputValues, setInputValues] = useState({ radio: 'Nome', input: '' });
   const [meals, setMeals] = useState([]);
   const [drinks, setDrinks] = useState([]);
+
   const [favorites, setFavorites] = useState([]);
   const [doneRecipes, setDoneRecipes] = useState([]);
 
