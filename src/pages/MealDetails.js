@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { getMealById } from '../services/mealAPI';
 import { getCocktailsRecommendations } from '../services/cocktailAPI';
 import Recommendations from '../components/Recommendations';
 import ButtonsDetailsPage from '../components/ButtonsDetailsPage';
-import { handleClickMeals } from '../functions/DetailPages';
+import ButtonStart from '../components/ButtonStart';
 
 function MealDetails() {
-  const history = useHistory();
+  const params = useParams();
   const [recipeId, setRecipeId] = useState('');
   const [storeIngredients, setStoreIngredients] = useState([]);
   const [storeMeasures, setStoreMeasures] = useState([]);
@@ -20,21 +20,11 @@ function MealDetails() {
   const [instructions, setInstructions] = useState('');
   const [cocktailsRecommendations, setCocktailsRecommendations] = useState([]);
 
-  const handleClick = () => {
-    history.push(`/comidas/${recipeId}/in-progress`);
-    handleClickMeals(recipeId, ingredMeasures);
-  };
-
   useEffect(() => {
-    const path = history.location.pathname;
-    const position = 2;
-    const numberToSplice = 1;
-    const splitPath = path.split('/')
-      .splice(position, numberToSplice).toString();
-    setRecipeId(splitPath);
+    setRecipeId(params.id);
     getCocktailsRecommendations()
       .then((res) => setCocktailsRecommendations(res));
-    getMealById(splitPath)
+    getMealById(params.id)
       .then((res) => {
         const ingredientsArray = [];
         const measureArray = [];
@@ -110,16 +100,7 @@ function MealDetails() {
 
       <h3>Recomendações</h3>
       <Recommendations api={ cocktailsRecommendations } />
-
-      <button
-        type="button"
-        className="startRecipe"
-        data-testid="start-recipe-btn"
-        onClick={ handleClick }
-      >
-        Iniciar Receita
-      </button>
-
+      <ButtonStart data={ { key: 'meal', recipeId, ingredMeasures } } />
     </div>
   );
 }

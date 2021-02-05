@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { getCocktailById } from '../services/cocktailAPI';
 import { getMealsRecommendations } from '../services/mealAPI';
 import Recommendations from '../components/Recommendations';
 import ButtonsDetailsPage from '../components/ButtonsDetailsPage';
-import { handleClickCocktails } from '../functions/DetailPages';
+import ButtonStart from '../components/ButtonStart';
 
 function CocktailDetails() {
+  const params = useParams();
   const [area, setArea] = useState('');
-  const history = useHistory();
   const [recipeId, setRecipeId] = useState('');
   const [storeIngredients, setStoreIngredients] = useState([]);
   const [storeMeasures, setStoreMeasures] = useState([]);
@@ -19,21 +19,11 @@ function CocktailDetails() {
   const [instructions, setInstructions] = useState('');
   const [mealsRecommendations, setMealsRecommendations] = useState([]);
 
-  const handleClick = () => {
-    history.push(`/bebidas/${recipeId}/in-progress`);
-    handleClickCocktails(recipeId, ingredMeasures);
-  };
-
   useEffect(() => {
-    const path = history.location.pathname;
-    const position = 2;
-    const numberToSplice = 1;
-    const splitPath = path.split('/')
-      .splice(position, numberToSplice).toString();
-    setRecipeId(splitPath);
+    setRecipeId(params.id);
     getMealsRecommendations()
       .then((res) => setMealsRecommendations(res));
-    getCocktailById(splitPath)
+    getCocktailById(params.id)
       .then((res) => {
         const ingredientsArray = [];
         const measureArray = [];
@@ -100,14 +90,7 @@ function CocktailDetails() {
       <p data-testid="instructions">{instructions}</p>
       <h3>Recomendações</h3>
       <Recommendations api={ mealsRecommendations } />
-      <button
-        type="button"
-        className="startRecipe"
-        data-testid="start-recipe-btn"
-        onClick={ handleClick }
-      >
-        Iniciar Receita
-      </button>
+      <ButtonStart data={ { key: 'cocktail', recipeId, ingredMeasures } } />
     </div>
   );
 }
