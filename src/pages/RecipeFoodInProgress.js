@@ -1,24 +1,53 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import '../components/components.css';
 import PropTypes from 'prop-types';
-import { Button, CardsFactory, LoadingCard, ShareButton, FavoriteDrinkButton,
+import {
+  Button, LoadingCard, ShareButton, FavoriteDrinkButton, CheckListIngredients, NotFound,
 } from '../components';
-import { useFetchApi } from '../hooks';
+import { useFetchApi, useLocalStorage } from '../hooks';
+import { getKeys } from '../Services';
 
-const filterDrinks = (arr, str) => Object.entries(arr).filter((key) => (
-  key[0].includes(str) && !!key[1]
-));
-
-const getLink = (idDrink) => (
-  Number.isNaN(Number(idDrink))
-    ? 'https://www.thecocktaildb.com/api/json/v1/1/random.php'
-    : `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idDrink}`
+const initialState = (id) => (
+  { cocktails: { [id]: [] } }
 );
 
-export default function DetailsDrink({ history, match }) {
+const removeItem = (itemRm, arr) => (
+  arr.filter((item) => itemRm !== item)
+);
+
+export default function RecipeFoodInProgress({ history: { push }, match }) {
   const { params: { idDrink } } = match;
-  const URL = getLink(idDrink);
+  const URL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idDrink}`;
   const [loading, { drinks }] = useFetchApi(URL);
+
+  const [inProgressRecipes, setRecipeStorage] = useLocalStorage('inProgressRecipes');
+  const initialRecipeInProgress = inProgressRecipes
+    && inProgressRecipes.cocktails[idDrink]
+    ? inProgressRecipes
+    : initialState(idDrink);
+  const [recipeInProgress, setRecipe] = useState(initialRecipeInProgress);
+
+  const setStorage = useCallback((date) => setRecipeStorage(date), [setRecipeStorage]);
+  useEffect(() => {
+    setStorage(recipeInProgress);
+  }, [recipeInProgress, setStorage]);
+
+  if (!loading && !drinks) return (<NotFound />);
+
+  const itens = recipeInProgress.cocktails[idDrink];
+  const legthIngredients = drinks && getKeys(drinks[0], 'strIngredient').length;
+  const checkItem = (value) => {
+    const exist = itens.includes(value);
+    return exist
+      ? setRecipe({
+        ...recipeInProgress,
+        cocktails: { [idDrink]: removeItem(value, itens) },
+      })
+      : setRecipe({
+        ...recipeInProgress,
+        cocktails: { [idDrink]: [...itens, value] },
+      });
+  };
   return (
     loading
       ? (<LoadingCard />)
@@ -32,46 +61,32 @@ export default function DetailsDrink({ history, match }) {
               <FavoriteDrinkButton drinksArr={ drinks[0] } />
             </div>
             <h5 data-testid="recipe-category">{drinks[0].strAlcoholic}</h5>
-            <div>
-              <h4>Ingredients</h4>
-              <ul>
-                {
-                  filterDrinks(drinks[0], 'strIngredient').map((key, i) => {
-                    const measures = filterDrinks(drinks[0], 'strMeasure');
-                    return (
-                      <li
-                        data-testid={ `${i}-ingredient-name-and-measure` }
-                        key={ i }
-                      >
-                        {`${key && key[1]} - ${measures[i] && measures[i][1]}`}
-                      </li>
-                    );
-                  })
-                }
-              </ul>
-            </div>
+            <CheckListIngredients
+              ingreObj={ drinks[0] }
+              checkItem={ checkItem }
+              itens={ itens }
+            />
             <div>
               <h4>Instruções</h4>
               <p data-testid="instructions">
                 {drinks[0].strInstructions}
               </p>
             </div>
-            <div>
-              <h4>Recomendadas</h4>
-              <CardsFactory
-                number={ 6 }
-                drink={ false }
-                URL="https://www.themealdb.com/api/json/v1/1/search.php?s="
-                testidImg="-recomendation-img"
-                testidCard="-recomendation-card"
-                testidTitle="-recomendation-title"
-              />
-            </div>
-            <Button
-              testid="start-recipe-btn"
-              text="Iniciar Receita"
-              func={ () => { history.push(`/bebidas/${idDrink}/in-progress`); } }
-            />
+            { legthIngredients === itens.length && !!itens.length
+              ? (
+                <Button
+                  testid="finish-recipe-btn"
+                  text="Finalizar receita"
+                  func={ () => {
+                    push('/receitas-feitas');
+                  } }
+                />
+              )
+              : (
+                <button type="button" testid="finish-recipe-btn" disabled>
+                  Finalizar receita
+                </button>
+              )}
           </div>
         </div>
       )
@@ -79,7 +94,7 @@ export default function DetailsDrink({ history, match }) {
   );
 }
 
-DetailsDrink.propTypes = {
+RecipeFoodInProgress.propTypes = {
   history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({ idDrink: PropTypes.string.isRequired }).isRequired,

@@ -11,6 +11,7 @@ import {
   FoodExplore,
   DrinkExplore,
   AreaExploreFood,
+  RecipeFoodInProgress,
   IngredientsExploreDrink,
   IngredientsExploreFood,
 } from './pages';
@@ -41,8 +42,8 @@ export default function Routes() {
         <Route exact path="/explorar/comidas/area" component={ AreaExploreFood } />
         <Route exact path="/perfil" component={ Profile } />
         <Route exact path="/explorar/bebidas/area" component={ NotFound } />
-        <Route exact path="/comidas/:idFood/in-progress" component={ NotFound } />
-        <Route exact path="/bebidas/:idDrink/in-progress" component={ NotFound } />
+        <Route exact path="/comidas/:idFood/in-progress" component={ RecipeFoodInProgress } />
+        <Route exact path="/bebidas/:idDrink/in-progress" component={ RecipeFoodInProgress } />
       </Switch>
     </BrowserRouter>
   );
