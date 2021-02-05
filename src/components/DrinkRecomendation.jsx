@@ -1,16 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import ItemsCarousel from 'react-items-carousel';
+import Slider from 'react-slick';
 import { useFetchApi } from '../hooks';
 import { LoadingCard, NotFound } from './Contructors';
 import './components.css';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 export default function DrinkRecomendation() {
   const URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
   const [loading, { drinks }] = useFetchApi(URL);
-  const ZERO = 0;
-  const [activeItemIndex, setActiveItemIndex] = useState(ZERO);
-  const chevronWidth = 40;
+  const settings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 2,
+    slidesToScroll: 2,
+  };
+
   if (!loading && !drinks) return (<NotFound />);
   const SIX = 6;
   return (
@@ -19,17 +26,7 @@ export default function DrinkRecomendation() {
         loading
           ? (<LoadingCard />)
           : (
-            <ItemsCarousel
-              requestToChangeActive={ setActiveItemIndex }
-              activeItemIndex={ activeItemIndex }
-              numberOfCards={ 2 }
-              gutter={ 20 }
-              leftChevron={ <button type="button">{'<'}</button> }
-              rightChevron={ <button type="button">{'>'}</button> }
-              outsideChevron
-              alwaysShowChevrons
-              chevronWidth={ chevronWidth }
-            >
+            <Slider { ...settings }>
               {drinks && drinks.filter((_, index) => index < SIX)
                 .map(({ idDrink, strAlcoholic, strDrink, strDrinkThumb }, i) => (
                   <Link
@@ -42,7 +39,7 @@ export default function DrinkRecomendation() {
                     <p>{strAlcoholic}</p>
                   </Link>
                 ))}
-            </ItemsCarousel>
+            </Slider>
           )
       }
     </div>
