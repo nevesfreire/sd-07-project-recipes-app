@@ -128,10 +128,7 @@ class CocktailRecipeDetails extends Component {
 
   render() {
     const { cocktails, isLoading, favorite, ingredients, measures } = this.state;
-    if (isLoading) {
-      return <p>Loading...</p>;
-    }
-
+    if (isLoading) return <p>Loading...</p>;
     const {
       idDrink,
       strDrink,
@@ -167,10 +164,7 @@ class CocktailRecipeDetails extends Component {
               className="action-button"
               onClick={ () => this.copyLink(idDrink) }
             >
-              <img
-                src={ shareIcon }
-                alt="share"
-              />
+              <img src={ shareIcon } alt="share" />
             </button>
             <p id="link" style={ { display: 'none' } }>Link copiado!</p>
             <button
