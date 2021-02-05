@@ -6,15 +6,13 @@ import RecipeDetailsContext from '../context/RecipeContext';
 import likeIcon from '../images/whiteHeartIcon.svg';
 import fullLikeIcon from '../images/blackHeartIcon.svg';
 import ShareButton from '../components/ShareButton';
+import {ingredientsMount} from '../components/func_details'
 import './foodAndDrinkDetails.css';
-import {
-  ingredientsMount,
-  unLikeRecipe,
-  setLikeImage,
-  saveFavoriteRecipe,
-} from '../components/func_details';
 
-function FoodProcess(props) {
+function FoodProcess({
+  match: { params: { id } },
+  history: { location: { pathname } },
+}) {
   const contextGlobal = useContext(GlobalContext);
   const { setTitle } = contextGlobal;
   const context = useContext(RecipeDetailsContext);
@@ -37,12 +35,24 @@ function FoodProcess(props) {
     setRecipeTags,
     getRecipeTags,
   } = context;
-  const { match, history: { location: { pathname } } } = props;
-  const { params } = match;
-  const { id } = params;
 
-  const tagsMount = (valueTags) => {
-    const tags = valueTags.meals[0].strTags;
+  // const ingredientsMount = (valueJson) => {
+  //   const initialIndex = 0;
+  //   const halfIndex = 2;
+  //   const ingredients = Object.entries(valueJson.meals[0])
+  //     .filter((item) => item[0].includes('Ingredient') || item[0].includes('Measure'))
+  //     .filter((ar) => ar[1] !== null && ar[1] !== ' ' && ar[1] !== '')
+  //     .map((ar2) => ar2[1]);
+  //   const ingredientsMeasures = [];
+  //   for (let i = initialIndex; i < ingredients.length / halfIndex; i += 1) {
+  //     ingredientsMeasures
+  //       .push(`${ingredients[i]} - ${ingredients[i + ingredients.length / halfIndex]}`);
+  //   }
+  //   setRecipeIngredients(ingredientsMeasures);
+  // };
+
+  const tagsMount = (jsonRecipe) => {
+    const tags = jsonRecipe.meals[0].strTags;
     if (tags) {
       if (tags.split(',').length === 1) {
         setRecipeTags(tags.split(','));
@@ -57,39 +67,29 @@ function FoodProcess(props) {
     // const path = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
     const getRecipe = await fetch(path);
     const result = await getRecipe.json();
-    // console.log(result); chave meals interesse
+    console.log(result);
     setRecipeTitle(result.meals[0].strMeal);
     setRecipeCategory(result.meals[0].strCategory);
     setRecipeImage(result.meals[0].strMealThumb);
     setRecipeInstructions(result.meals[0].strInstructions);
     setRecipeArea(result.meals[0].strArea);
     tagsMount(result);
-    ingredientsMount(setRecipeIngredients, result);
+    ingredientsMount(setRecipeIngredients,result);
     setIsLoading(false);
   };
 
-  const handleFinishRecipe = (ingredientsLength) => {
-    if (JSON.parse(localStorage.getItem('inProgressRecipes'))) {
-      const ingredientsInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      if (ingredientsLength === ingredientsInProgress.meals[id].length) {
-        return false;
-      }
-      return true;
-    }
-  };
-
-  const saveProgress = (valueIngredient) => {
+  const saveProgress = (ingredient) => {
     const previousProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    // console.log(previousProgress)
-    if (previousProgress.cocktails[id]) {
-      if (previousProgress.cocktails[id].includes(valueIngredient)) {
-        previousProgress.cocktails[id] = previousProgress.cocktails[id]
-          .filter((item) => item !== valueIngredient);
+
+    if (previousProgress.meals[id]) {
+      if (previousProgress.meals[id].includes(ingredient)) {
+        previousProgress.meals[id] = previousProgress.meals[id]
+          .filter((item) => item !== ingredient);
       } else {
-        previousProgress.cocktails[id].push(valueIngredient);
+        previousProgress.meals[id].push(ingredient);
       }
     } else {
-      previousProgress.cocktails[id] = [valueIngredient];
+      previousProgress.meals[id] = [ingredient];
     }
     localStorage.setItem('inProgressRecipes', JSON.stringify(previousProgress));
     setInProgressRecipes(previousProgress);
@@ -111,7 +111,7 @@ function FoodProcess(props) {
     if (localStorage.getItem('inProgressRecipes')) {
       const previousLocalStorage = JSON
         .parse(localStorage.getItem('inProgressRecipes'));
-      const isThere = previousLocalStorage.cocktails[id]
+      const isThere = previousLocalStorage.meals[id]
         .find((currentItem) => currentItem === item);
       if (isThere) {
         return 'is-checked';
@@ -123,30 +123,71 @@ function FoodProcess(props) {
   const recheckLocalStorage = () => {
     if (!JSON.parse(localStorage.getItem('inProgressRecipes'))) {
       const inProgressRecipesPattern = {
-        cocktails: {
+        meals: {
           [id]: [],
         },
-        meals: {},
+        cocktails: {},
       };
       localStorage.setItem('inProgressRecipes', JSON
         .stringify(inProgressRecipesPattern));
     }
   };
 
-  const handleImage = () => {
-    const options = {
+  const unLikeRecipe = () => {
+    const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const unSave = recipes.filter((item) => item.id !== id);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(unSave));
+  };
+
+  const saveFavoriteRecipe = () => {
+    if (localStorage.getItem('favoriteRecipes') === null) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    }
+    const favoriteRecipes = {
       id,
-      getRecipeArea,
-      getRecipeCategory,
-      getRecipeTitle,
-      getRecipeImage,
+      type: 'comida',
+      area: getRecipeArea,
+      category: getRecipeCategory,
+      alcoholicOrNot: '',
+      name: getRecipeTitle,
+      image: getRecipeImage,
     };
-    if (btnImg === likeIcon) {
-      setBtnImg(fullLikeIcon);
-      saveFavoriteRecipe(options);
+    const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    recipes.push(favoriteRecipes);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(recipes));
+  };
+
+  const setLikeImage = () => {
+    if (localStorage.getItem('favoriteRecipes') !== null) {
+      const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      const findElement = recipes.find((item) => item.id.toString() === id);
+      if (findElement !== undefined) {
+        setBtnImg(fullLikeIcon);
+      } else {
+        setBtnImg(likeIcon);
+      }
     } else {
       setBtnImg(likeIcon);
-      unLikeRecipe(id);
+    }
+  };
+
+  const handleImage = () => {
+    if (btnImg === likeIcon) {
+      setBtnImg(fullLikeIcon);
+      saveFavoriteRecipe();
+    } else {
+      setBtnImg(likeIcon);
+      unLikeRecipe();
+    }
+  };
+
+  const handleFinishRecipe = (ingredientsLength) => {
+    if (JSON.parse(localStorage.getItem('inProgressRecipes'))) {
+      const ingredientsInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      if (ingredientsLength === ingredientsInProgress.meals[id].length) {
+        return false;
+      }
+      return true;
     }
   };
 
@@ -201,9 +242,9 @@ function FoodProcess(props) {
   useEffect(() => {
     setTitle('Food In Progress');
     fetchRecipe();
-    setLikeImage(setBtnImg, id, fullLikeIcon, likeIcon);
+    setLikeImage();
     recheckLocalStorage();
-  }, [])
+  }, []);
 
   useEffect(() => {
   }, [inProgressRecipes]);
@@ -220,7 +261,7 @@ function FoodProcess(props) {
         { getRecipeTitle }
       </h1>
       <div className="favorite-and-share-btn-container">
-        <button type="button" onClick={ handleImage } data-testid="share-btn">
+        <button type="button" onClick={ handleImage } className="favorite-btn">
           <img src={ btnImg } alt="like" data-testid="favorite-btn" />
         </button>
         <ShareButton path={ pathname } />
@@ -233,7 +274,7 @@ function FoodProcess(props) {
         { !isLoading && getRecipeIngredients.map((item, index) => (
           <li
             key={ item }
-            data-testid="ingredient-step"
+            data-testid={ `${index}-ingredient-step` }
           >
             <label
               htmlFor={ item }
@@ -241,10 +282,10 @@ function FoodProcess(props) {
             >
               <input
                 type="checkbox"
-                // checked={ handleCheckedFromLocalStorage(item) }
+                checked={ handleCheckedFromLocalStorage(item) }
                 name={ item }
                 id={ item }
-                // onChange={ handleChecked }
+                onChange={ handleChecked }
               />
               { item }
             </label>
@@ -259,8 +300,8 @@ function FoodProcess(props) {
           type="button"
           data-testid="finish-recipe-btn"
           className="finish-recipe-btn"
-          // disabled={ handleFinishRecipe(getRecipeIngredients.length) }
-          // onClick={ handleDoneLocalStorage }
+          disabled={ handleFinishRecipe(getRecipeIngredients.length) }
+          onClick={ handleDoneLocalStorage }
         >
           Finalizar receita
         </button>
