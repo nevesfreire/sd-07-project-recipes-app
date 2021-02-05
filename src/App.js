@@ -11,7 +11,7 @@ import CocktailRecipeDetails from './pages/CocktailRecipeDetails';
 import MealsExplorer from './pages/MealsExplorer';
 import DrinksExplorer from './pages/DrinksExplorer';
 import MealsIngredients from './pages/MealsIngredients';
-import DrinksIngredients from './pages/DrinksIngredients';
+import CocktailsIngredients from './pages/CocktailsIngredients';
 import MealsOrigin from './pages/MealsOrigin';
 import Cocktails from './pages/Cocktails';
 import RecipesDone from './pages/RecipesDone';
@@ -29,15 +29,14 @@ function App() {
       <Route exact path="/comidas" component={ Meals } />
       <Route exact path="/bebidas" component={ Cocktails } />
       <Route exact path="/comidas/:id" component={ MealRecipeDetails } />
-      <Route path="/comidas/52771" component={ MealRecipeDetails } />
-      <Route path="/bebidas/178319" component={ CocktailRecipeDetails } />
+      <Route exact path="/bebidas/:id" component={ CocktailRecipeDetails } />
       <Route exact path="/explorar/comidas" component={ MealsExplorer } />
       <Route exact path="/explorar/bebidas" component={ DrinksExplorer } />
       <Route exact path="/explorar/comidas/ingredientes" component={ MealsIngredients } />
       <Route
         exact
         path="/explorar/bebidas/ingredientes"
-        component={ DrinksIngredients }
+        component={ CocktailsIngredients }
       />
       <Route exact path="/explorar/comidas/area" component={ MealsOrigin } />
       <Route exact path="/explorar/bebidas/area" component={ () => notFount() } />

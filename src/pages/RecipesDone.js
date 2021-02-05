@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import RecipeDoneCard from '../components/RecipeDoneCard';
 
 function RecipesDone() {
-  const recipesFromStorage = JSON.parse(localStorage.getItem('doneRecipes'));
+  const recipesFromStorage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
   const [doneRecipes, setDoneRecipes] = useState(recipesFromStorage);
   return (
     <div>

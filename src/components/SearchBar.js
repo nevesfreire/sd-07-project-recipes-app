@@ -55,8 +55,27 @@ const searchByCocktails = (options, word, {
   }
 };
 
+const verifyIfExistIngredientSetted = (props) => {
+  const {
+    title,
+    ingredientMealCur,
+    ingredientCocktailCur,
+  } = props;
+  if (title === 'Comidas' && ingredientMealCur !== '') {
+    searchByMeals(INGREDIENT, ingredientMealCur, props);
+  }
+  if (title === 'Bebidas' && ingredientCocktailCur !== '') {
+    searchByCocktails(INGREDIENT, ingredientCocktailCur, props);
+  }
+};
+
 function SearchBar(props) {
-  const { toggle, title, meals, cocktails } = props;
+  const {
+    toggle,
+    title,
+    meals,
+    cocktails,
+  } = props;
 
   const [word, setWord] = useState('');
   const [options, setOptions] = useState('');
@@ -70,6 +89,8 @@ function SearchBar(props) {
       searchByCocktails(options, word, props);
     }
   };
+
+  verifyIfExistIngredientSetted(props);
 
   useEffect(() => {
     const zero = 0;
@@ -159,6 +180,8 @@ const mapStateToProps = ({ searchToggleReducer, meals, cocktails }) => ({
   toggle: searchToggleReducer,
   meals: meals.meals,
   cocktails: cocktails.cocktails,
+  ingredientMealCur: meals.ingredientCurrency,
+  ingredientCocktailCur: cocktails.ingredientCurrency,
 });
 
 const mapDispatchToProps = (dispatch) => ({

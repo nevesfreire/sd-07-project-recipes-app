@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { getMealsDetailsById } from '../services/mealsAPI';
+import { fetchRandomCocktails } from '../actions/cocktails';
+import CocktailCard from '../components/CocktailCard';
 import shareIcon from '../images/shareIcon.svg';
 import favIconEnabled from '../images/blackHeartIcon.svg';
 import favIconDisabled from '../images/whiteHeartIcon.svg';
-import '../styles/recipeDetails.css';
+import '../styles/recipes.css';
 
 class MealRecipeDetails extends Component {
   constructor() {
@@ -10,29 +16,110 @@ class MealRecipeDetails extends Component {
 
     this.state = {
       favorite: false,
+      meals: '',
+      isLoading: true,
+      ingredients: '',
+      measures: [],
     };
 
     this.handleFavoriteButton = this.handleFavoriteButton.bind(this);
+    this.fetchAPI = this.fetchAPI.bind(this);
+    this.setStorage = this.setStorage.bind(this);
+  }
+
+  componentDidMount() {
+    const { searchRandomCocktails } = this.props;
+    searchRandomCocktails();
+    this.fetchAPI();
   }
 
   handleFavoriteButton() {
     const { favorite } = this.state;
     if (!favorite) {
-      return this.setState({
-        favorite: true,
-      });
+      this.setState({ favorite: true });
+    } else {
+      this.setState({ favorite: false });
     }
-    return this.setState({
-      favorite: false,
+    this.setStorage();
+  }
+
+  setStorage() {
+    const { meals, favorite } = this.state;
+    const {
+      idMeal,
+      strArea,
+      strCategory,
+      strMeal,
+      strMealThumb,
+    } = meals.meals[0];
+    const mealFavorite = {
+      id: idMeal,
+      type: 'comida',
+      alcoholicOrNot: '',
+      area: strArea,
+      category: strCategory,
+      name: strMeal,
+      image: strMealThumb,
+    };
+    if (favorite) {
+      localStorage.removeItem('favoriteRecipes');
+    } else {
+      const storage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      if (storage) {
+        localStorage.setItem(
+          'favoriteRecipes',
+          JSON.stringify([...storage, mealFavorite]),
+        );
+      } else {
+        localStorage.setItem('favoriteRecipes', JSON.stringify([mealFavorite]));
+      }
+    }
+  }
+
+  async fetchAPI() {
+    const { match: { params: { id } } } = this.props;
+    const results = await getMealsDetailsById(id);
+    const total = 20;
+    let arrayIngredients = [];
+    let arrayMeasures = [];
+    for (let i = 1; i <= total; i += 1) {
+      arrayIngredients = [...arrayIngredients, results.meals[0][`strIngredient${i}`]];
+      arrayMeasures = [...arrayMeasures, results.meals[0][`strMeasure${i}`]];
+    }
+    this.setState({
+      ingredients: arrayIngredients,
+      measures: arrayMeasures,
+      meals: results,
+      isLoading: false,
     });
   }
 
   render() {
-    const { favorite } = this.state;
+    const { meals, isLoading, favorite, ingredients, measures } = this.state;
+    if (isLoading) {
+      return <p>Loading...</p>;
+    }
+
+    const {
+      idMeal,
+      strMealThumb,
+      strMeal,
+      strInstructions,
+      strCategory,
+      strYoutube,
+    } = meals.meals[0];
+
+    const youtubeId = strYoutube.substring(strYoutube.indexOf('=') + 1);
+
+    const zero = 0;
+    const maxLength = 6;
+    const { cocktails } = this.props;
+    const firstCocktails = cocktails.slice(zero, maxLength);
+
     return (
       <div className="recipe-details">
         <img
-          src="https://cdn.pixabay.com/photo/2014/04/22/02/55/pasta-329522__340.jpg"
+          src={ strMealThumb }
           alt=""
           data-testid="recipe-photo"
           className="recipe-photo"
@@ -42,7 +129,7 @@ class MealRecipeDetails extends Component {
             data-testid="recipe-title"
             className="recipe-title"
           >
-            Miojão top!
+            {strMeal}
           </h1>
           <div className="actions">
             <button
@@ -57,13 +144,14 @@ class MealRecipeDetails extends Component {
             </button>
             <button
               type="button"
-              data-testid="favorite-btn"
               onClick={ this.handleFavoriteButton }
               className="action-button"
             >
               <img
                 src={ (favorite) ? favIconEnabled : favIconDisabled }
                 alt="favorite"
+                data-testid="favorite-btn"
+                className="favorite-icon"
               />
             </button>
           </div>
@@ -72,27 +160,37 @@ class MealRecipeDetails extends Component {
           data-testid="recipe-category"
           className="recipe-category"
         >
-          Categoria
+          { strCategory }
         </span>
         <div>
           <h2>Ingredients</h2>
-          <ul data-testid="0-ingredient-name-and-measure">
-            <li>1 pacote de miojo</li>
-            <li>1 sache molho de tomate</li>
-            <li>50g parmesão ralado</li>
-            <li>Sal a gosto</li>
+          <ul>
+            {
+              ingredients
+                .filter((item) => item !== '' && item !== null)
+                .map((item, index) => (
+                  <li
+                    key={ index }
+                    data-testid={ `${index}-ingredient-name-and-measure` }
+                  >
+                    {`${item} - ${measures[index]}`}
+                  </li>
+                ))
+            }
           </ul>
         </div>
         <div>
           <h2>Instructions</h2>
-          <p data-testid="instructions">Aprenda a fazer um miojão top!</p>
+          <p data-testid="instructions">{strInstructions}</p>
         </div>
-        <div data-testid="video">
+        <div>
+          <h2>Video</h2>
           <iframe
-            title="Miojão"
-            width="100%"
-            height="350px"
-            src="https://www.youtube.com/embed/CBK3WYUb4ng"
+            data-testid="video"
+            title={ strMeal }
+            width="360"
+            height="202.5"
+            src={ `https://www.youtube.com/embed/${youtubeId}` }
             frameBorder="0"
             allow="accelerometer;
             autoplay;
@@ -104,44 +202,45 @@ class MealRecipeDetails extends Component {
           />
         </div>
         <div>
-          <h2
-            data-testid="0-recomendation-card"
-          >
-            Receitas recomendadas
-          </h2>
-          <div
-            data-testid="0-recomendation-card"
-          >
-            Receita 1
-          </div>
-          <div
-            data-testid="0-recomendation-card"
-          >
-            Receita 2
-          </div>
-          <div
-            data-testid="0-recomendation-card"
-          >
-            Receita 3
-          </div>
-          <div
-            data-testid="0-recomendation-card"
-          >
-            Receita 4
-          </div>
+          { firstCocktails.map((cocktail, index) => (
+            <CocktailCard
+              key={ index }
+              cocktail={ cocktail }
+              index={ index }
+              testid="recomendation-card"
+            />
+          ))}
         </div>
         <div className="start-btn">
-          <button
-            type="submit"
+          <Link
             data-testid="start-recipe-btn"
             className="start-recipe-btn"
+            to={ `${idMeal}/in-progress` }
           >
             Iniciar receita
-          </button>
+          </Link>
         </div>
       </div>
     );
   }
 }
 
-export default MealRecipeDetails;
+const mapStateToProps = ({ cocktails }) => ({
+  cocktails: cocktails.cocktails,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  searchRandomCocktails: () => dispatch(fetchRandomCocktails()),
+});
+
+MealRecipeDetails.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+  searchRandomCocktails: PropTypes.func.isRequired,
+  cocktails: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MealRecipeDetails);

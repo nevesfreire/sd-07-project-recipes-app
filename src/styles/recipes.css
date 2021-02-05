@@ -44,9 +44,14 @@ button:focus {
 }
 
 .start-recipe-btn {
+  align-items: center;
   background-color: #f80;
   border: none;
   border-radius: 20px;
+  bottom: 0;
+  display: flex;
   height: 40px;
+  justify-content: center;
+  position: fixed;
   width: 200px;
 }

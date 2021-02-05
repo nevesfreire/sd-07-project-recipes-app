@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getEmail } from '../actions';
+import '../styles/Login.css';
+import ChimaHooks from '../images/ChimaHooks.png';
 
 class Login extends Component {
   constructor(props) {
@@ -42,20 +44,23 @@ class Login extends Component {
   render() {
     const { email, password } = this.state;
     return (
-      <div>
-        <form>
-          <label htmlFor="email">
-            Email
+      <div className="login-page">
+        <div className="login-content">
+          <form className="form">
+            <h1 className="form-title">ChimaHooks</h1>
+            <img
+              src={ ChimaHooks }
+              alt="ChimaHooks"
+              className="logo"
+            />
             <input
               placeholder="Digite seu email"
               data-testid="email-input"
               value={ email }
               onChange={ this.handleChange }
               name="email"
+              className="form-input"
             />
-          </label>
-          <label htmlFor="password">
-            Senha
             <input
               placeholder="Digite sua senha"
               data-testid="password-input"
@@ -63,17 +68,19 @@ class Login extends Component {
               value={ password }
               onChange={ this.handleChange }
               name="password"
+              className="form-input"
             />
-          </label>
-        </form>
-        <button
-          type="button"
-          data-testid="login-submit-btn"
-          disabled={ !this.verifyEmailAndPassword() }
-          onClick={ this.handleSubmit }
-        >
-          Entrar
-        </button>
+            <button
+              type="button"
+              data-testid="login-submit-btn"
+              disabled={ !this.verifyEmailAndPassword() }
+              onClick={ this.handleSubmit }
+              className="form-button"
+            >
+              Entrar
+            </button>
+          </form>
+        </div>
       </div>
     );
   }
