@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import Slider from 'react-slick';
 import ShareIcon from '../../images/shareIcon.svg';
 import WhiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import Recomendations from './Recomendations';
+
 // import BlackHeartIcon from '../../images/blackHeartIcon.svg';
 
 export default function RecipeDetails({ history, match: { params: { id } } }) {
   const [recipeDetails, setRecipeDetails] = useState([]);
-  const [recomendationList, setRecomendationList] = useState([]);
+  // const [recomendationList, setRecomendationList] = useState([]);
   const fetchMealDetails = async () => {
     try {
       let endpoint = '';
@@ -27,53 +30,6 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
     }
   };
 
-  const fetchRecomendations = async () => {
-    try {
-      let endpoint = '';
-      const { location: { pathname } } = history;
-      const path = pathname.split('/')[1];
-      console.log(path);
-      if (path === 'comidas') {
-        endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
-      } else {
-        endpoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-      }
-      const results = await fetch(endpoint)
-        .then((response) => response.json())
-        .then((details) => (details.meals ? details.meals : details.drinks));
-      setRecomendationList(results);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const recomendations = () => (
-    recomendationList.map((item) => (
-      <div
-        key={ item.index }
-        className="container-title-image"
-        data-testid={ `${item.index}-recomendation-card` }
-      >
-        <img
-          className="recipe-photo"
-          data-testid="recipe-photo"
-          src={ item.strMealThumb || item.strDrinkThumb }
-          alt="imagem do produto"
-          width="200"
-        />
-        <h1 data-testid="recipe-title">
-          { item.strMeal || item.strDrink }
-        </h1>
-        <h4
-          className="recipe-category"
-          data-testid="recipe-category"
-        >
-          { item.strAlcoholic || item.strCategory }
-        </h4>
-      </div>
-    ))
-  );
-
   const {
     strMealThumb,
     strMeal,
@@ -85,9 +41,16 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
     strDrinkThumb,
   } = recipeDetails;
 
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 2,
+    slidesToScroll: 1,
+  };
+
   const url = () => {
     const youTubeURL = strYoutube.split('=')[1];
-    console.log(youTubeURL);
     return (
       <iframe
         data-testid="video"
@@ -109,9 +72,21 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
     .map((item, index) => [item, measures[index]]);
   console.log(ops);
 
+  // const arrayVazio = [];
+  // ingredients.forEach((ingredient, index) => {
+  //   // console.log(recipeDetails);
+  //   if (
+  //     (recipeDetails[ingredient]
+  //     || recipeDetails[ingredient] !== ' ')) {
+  //     // && (recipeDetails[measures[index]]
+  //     // || recipeDetails[measures[index]] !== ' ')){
+  //     arrayVazio.push([recipeDetails[ingredient], recipeDetails[measures[index]]]);
+  //   }
+  // });
+  // console.log(arrayVazio);
+
   useEffect(() => {
     fetchMealDetails();
-    fetchRecomendations();
   }, []);
 
   return (
@@ -151,7 +126,9 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
         { strInstructions }
       </p>
       { strYoutube && url() }
-      { recomendations() }
+      <Slider { ...settings }>
+        <Recomendations />
+      </Slider>
       <button type="button" data-testid="start-recipe-btn">
         Iniciar Receita
       </button>
