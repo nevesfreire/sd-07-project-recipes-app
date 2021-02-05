@@ -1,27 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { whiteHeartIcon, blackHeartIcon } from '../images';
 import { Button } from './Contructors';
 import { useLocalStorage } from '../hooks';
 
 export default function FavoriteFoodButton({ foodArr }) {
-  const { idMeal, strArea, strMeal, strMealThumb } = foodArr;
+  const { idMeal, strArea, strMeal, strMealThumb, strCategory } = foodArr;
 
   const [favoriteRecipes, setStorage] = useLocalStorage('favoriteRecipes');
 
-  const recipe = [{
+  const recipe = {
     id: idMeal,
     type: 'comida',
     area: strArea,
-    category: '',
+    category: strCategory,
     alcoholicOrNot: '',
     name: strMeal,
     image: strMealThumb,
-  }];
+  };
 
-  const favorite = favoriteRecipes && favoriteRecipes.find(({ id }) => recipe.id === id);
+  const [favorite, setState] = useState(false);
+  useEffect(() => {
+    const favorites = favoriteRecipes && favoriteRecipes
+      .find(({ id }) => recipe.id === id);
+    setState(favorites);
+  }, [favoriteRecipes]);
 
-  const setFavirite = () => (
+  const setFavorite = () => (
     favoriteRecipes
       ? setStorage(
         favorite
@@ -37,7 +42,7 @@ export default function FavoriteFoodButton({ foodArr }) {
     <Button
       testid="favorite-btn"
       icon={ favorite ? blackHeartIcon : whiteHeartIcon }
-      func={ setFavirite }
+      func={ setFavorite }
     />
   );
 }

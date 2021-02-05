@@ -12,6 +12,7 @@ export default function ButtonConstructor(
       id={ id }
       data-testid={ testid }
       onClick={ func }
+      src={ icon }
     >
       {!!text && text}
       {!!icon && <img src={ icon } alt="icone" />}

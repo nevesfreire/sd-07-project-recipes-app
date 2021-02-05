@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { whiteHeartIcon, blackHeartIcon } from '../images';
 import { Button } from './Contructors';
@@ -19,7 +19,12 @@ export default function FavoriteDrinkButton({ drinksArr }) {
     image: strDrinkThumb,
   };
 
-  const favorite = favoriteRecipes && favoriteRecipes.find(({ id }) => recipe.id === id);
+  const [favorite, setState] = useState(false);
+  useEffect(() => {
+    const favorites = favoriteRecipes && favoriteRecipes
+      .find(({ id }) => recipe.id === id);
+    setState(favorites);
+  }, [favoriteRecipes]);
 
   const setFavirite = () => (
     favoriteRecipes
