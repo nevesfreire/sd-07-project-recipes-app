@@ -42,9 +42,6 @@
 
 /* https://www.w3schools.com/howto/howto_js_todolist.asp */
 ul li {
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -webkit-user-select: none;
   background: #eee;
   cursor: pointer;
   font-size: 18px;
@@ -58,7 +55,7 @@ ul li {
 }
 
 /* Set all odd list items to a different color (zebra-stripes) */
-ul li:nth-child(odd) {
+ul li:nth-child( odd ) {
   background: #f9f9f9;
 }
 
@@ -69,8 +66,8 @@ ul li:hover {
 
 /* When clicked on, add a background color and strike out text */
 ul li.is-checked {
-  background: #888;
-  color: #fff;
+  background: grey;
+  color: white;
   text-decoration: line-through;
 }
 
@@ -79,7 +76,7 @@ ul li.is-checked::before {
   border-color: #fff;
   border-style: solid;
   border-width: 0 2px 2px 0;
-  content: "";
+  content: '';
   height: 15px;
   left: 16px;
   position: absolute;
@@ -89,7 +86,7 @@ ul li.is-checked::before {
 }
 
 .recipe-in-progress-instructions {
-    border: 1px solid silver;
-    margin: 20px;
-    text-align: justify;
+  border: 1px solid silver;
+  margin: 20px;
+  text-align: justify;
 }
