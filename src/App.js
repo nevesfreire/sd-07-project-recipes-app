@@ -19,7 +19,6 @@ import DrinkInProgress from './pages/DrinkInProgress';
 import FoodInProgress from './pages/FoodInProgress';
 import RecipesMade from './pages/RecipesMade';
 
-
 function App() {
   return (
     <Provider>
@@ -47,7 +46,7 @@ function App() {
           <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
           <Route exact path="/receitas-feitas" component={ RecipesMade } />
           <Route path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
-        <Route path="/comidas/:id/in-progress" component={ FoodInProgress } />
+          <Route path="/comidas/:id/in-progress" component={ FoodInProgress } />
         </Switch>
       </BrowserRouter>
     </Provider>
