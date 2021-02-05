@@ -21,6 +21,9 @@ const INITIAL_STATE = {
       type: '', // name, category, ingredient, firstLetter, area, random
       term: '', // term of search or filter
     },
+    detailsRecipe: {
+      id: 0,
+    },
   },
 };
 

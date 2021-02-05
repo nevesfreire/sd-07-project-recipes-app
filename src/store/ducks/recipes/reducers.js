@@ -44,6 +44,18 @@ const recipes = (state = INITIAL_STATE, action) => {
       ...state,
       filter: { ...action.payload },
     };
+  case recipesTypes.FAVORITE_RECIPE:
+    return {
+      ...state,
+      favoriteRecipes: [...state.favoriteRecipes, action.payload],
+    };
+  case recipesTypes.UNFAVORITE_RECIPE:
+    return {
+      ...state,
+      favoriteRecipes: [...state.favoriteRecipes]
+        .filter(({ id }) => id !== action.payload),
+    };
+
   default:
     return state;
   }

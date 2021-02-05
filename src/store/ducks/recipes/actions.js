@@ -19,3 +19,11 @@ export function failedRequest(error) {
 export function setFilter(type, term = '') {
   return { type: recipesTypes.SET_FILTER, payload: { type, term } };
 }
+
+export function favoriteRecipe(recipe) {
+  return { type: recipesTypes.FAVORITE_RECIPE, payload: recipe };
+}
+
+export function unFavoriteRecipe(recipeId) {
+  return { type: recipesTypes.UNFAVORITE_RECIPE, payload: recipeId };
+}

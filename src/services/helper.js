@@ -126,3 +126,22 @@ export const mapShortMealAndDrinkToRecipe = (recipesList) => (!recipesList
           strThumb: mealOrDrink.strDrinkThumb,
         }
     )));
+
+export const mapIngredientsAndMeasuresToList = (recipe) => {
+  const NUM_MAX_INGREDIENTS = 20;
+  const ingredientsAndMeasuresList = [];
+  let index = 1;
+  let ingredient = recipe[`strIngredient${index}`];
+  let measure = recipe[`strMeasure${index}`];
+  while ((ingredient || measure) && index <= NUM_MAX_INGREDIENTS) {
+    ingredientsAndMeasuresList.push({
+      ingredient,
+      measure,
+      text: `${ingredient} - ${measure}`,
+    });
+    index += 1;
+    ingredient = recipe[`strIngredient${index}`];
+    measure = recipe[`strMeasure${index}`];
+  }
+  return ingredientsAndMeasuresList;
+};

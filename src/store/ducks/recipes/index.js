@@ -1,7 +1,10 @@
 import recipes from './reducers';
 
 export { default as recipesTypes } from './types';
-export { setFilter } from './actions';
+export {
+  setFilter,
+  favoriteRecipe,
+  unFavoriteRecipe } from './actions';
 export {
   fetchRecipesByFilter,
   fetchCategories,

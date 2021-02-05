@@ -11,6 +11,7 @@ const END_POINT_SEARCH_BY_FIRST_LETTER = '/search.php?f=';
 const END_POINT_CATEGORY_LIST = '/list.php?c=list';
 // const END_POINT_INGREDIENT_LIST = '/list.php?i=list';
 // const END_POINT_AREA_LIST = '/list.php?a=list';
+const END_POINT_LOOKUP_BY_ID = '/lookup.php?i=';
 
 const END_POINT_FILTER = '/filter.php?';
 const BY_CATEGORY = 'c=';
@@ -84,4 +85,16 @@ export const getCategories = async (type) => {
   return type.includes('comidas')
     ? result.meals
     : result.drinks;
+};
+
+export const getRecipeById = async (type, recipeId) => {
+  const GET_RECIPE_BY_ID = (type.includes('comidas')
+    ? BASE_MEAL_URL : BASE_COCKTAIL_URL)
+    + END_POINT_LOOKUP_BY_ID
+    + recipeId;
+  const response = await fetch(GET_RECIPE_BY_ID);
+  const result = await response.json();
+  return type.includes('comidas')
+    ? mapMealAndDrinkToRecipe(result.meals)
+    : mapMealAndDrinkToRecipe(result.drinks);
 };
