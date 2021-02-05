@@ -38,7 +38,7 @@ export default function MainFood() {
   }, []);
 
   return (
-    <div>
+    <div className="main-food">
       <Header title="Comidas" />
       <div className="categories-buttons">
         <button
@@ -59,8 +59,8 @@ export default function MainFood() {
             ))
         }
       </div>
-      <main className="main-food">
-        <div className="cards-container">
+      <main>
+        <div className="cards-container-food">
           {
             meals.filter((_, index) => index < twelve)
               .map((meal, index) => (

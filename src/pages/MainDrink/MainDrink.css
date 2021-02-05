@@ -1,32 +1,12 @@
 .main-drink {
+  background-color: #f0f0f0;
   display: flex;
   flex-direction: column;
 }
 
-.cards-container {
-  background-color: rgb(255, 255, 255) !important;
+.cards-container-drink {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   overflow: auto;
 }
-
-.categories-buttons {
-  background-color: white;
-}
-
-.categories-buttons button {
-  background-image: linear-gradient(to right, #ee5a1a 0%, #FF6A28  51%, #df4807  100%);
-  justify-content: center;
-  font-size: 1em;
-  font-weight: 700;
-  background-size: 200% auto;
-  border-radius: 5px;
-  border: 0;
-  color: white;            
-  margin: 4px 6px;
-  padding: 8px;
-  text-align: center;
-  transition: 0.5s;
-}
-

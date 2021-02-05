@@ -41,7 +41,7 @@ export default function MainDrink() {
   }, []);
 
   return (
-    <div>
+    <div className="main-drink">
       <Header title="Bebidas" />
       <div className="categories-buttons">
         <button
@@ -62,8 +62,8 @@ export default function MainDrink() {
             ))
         }
       </div>
-      <main className="main-drink">
-        <div className="cards-container">
+      <main>
+        <div className="cards-container-drink">
           {
             drinks.filter((_, index) => index < TWELVE)
               .map((drink, index) => (

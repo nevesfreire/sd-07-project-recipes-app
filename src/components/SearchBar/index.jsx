@@ -50,13 +50,15 @@ export default function SearchBar() {
 
   return (
     <div className="search-bar">
-      <input
-        type="text"
-        placeholder="Buscar Receita"
-        data-testid="search-input"
-        onChange={ handleChangeInput }
-      />
-      <label htmlFor="ingrediente">
+      <div className="search-bar-input">
+        <input
+          type="text"
+          placeholder="Buscar Receita"
+          data-testid="search-input"
+          onChange={ handleChangeInput }
+        />
+      </div>
+      <label className="search-bar-radio" htmlFor="ingrediente">
         <input
           type="radio"
           name="search"
@@ -68,7 +70,7 @@ export default function SearchBar() {
         Ingrediente
       </label>
 
-      <label htmlFor="nome">
+      <label className="search-bar-radio" htmlFor="nome">
         <input
           type="radio"
           name="search"
@@ -80,7 +82,7 @@ export default function SearchBar() {
         Nome
       </label>
 
-      <label htmlFor="PrimeiraLetra">
+      <label className="search-bar-radio" htmlFor="PrimeiraLetra">
         <input
           type="radio"
           name="search"

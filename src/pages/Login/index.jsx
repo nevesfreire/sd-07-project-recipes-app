@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import RecipesContext from '../../context/RecipesContext';
 import Logo from '../../images/ByeByeMiojo-logo.png';
-import Background from '../../images/bkLogin.jpg';
+import Background from '../../images/bk.png';
 import './Login.css';
 
 export default function Login() {
@@ -41,10 +41,6 @@ export default function Login() {
   return (
     <div className="login-container">
 
-      <div className="login-background-image">
-        <img src={ Background } alt="Logo" />
-      </div>
-
       <div className="login-content">
         <img className="login-logo" src={ Logo } alt="Logo" />
 
@@ -80,6 +76,10 @@ export default function Login() {
         >
           Entrar
         </button>
+      </div>
+
+      <div className="login-background-image">
+        <img src={ Background } alt="Logo" />
       </div>
     </div>
   );
