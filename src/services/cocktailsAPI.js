@@ -34,13 +34,14 @@ export const getCocktailsCategories = () => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-<<<<<<< HEAD
 export const getCocktailsDetailsById = (id) => new Promise((resolve, reject) => {
   fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
-=======
+    .then((response) => response.json().then((data) => resolve(data)))
+    .catch((error) => reject(error));
+});
+
 export const getCocktailsIngredients = () => new Promise((resolve, reject) => {
   fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list')
->>>>>>> b3c2e3ff08005342b86b01e0af9a36d299140394
     .then((response) => response.json().then((data) => resolve(data)))
     .catch((error) => reject(error));
 });
