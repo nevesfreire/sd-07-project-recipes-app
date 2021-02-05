@@ -3,16 +3,19 @@ import Header from '../components/Header';
 import SearchHeaderBar from '../components/SearchHeaderBar';
 import Footer from '../components/Footer';
 import RecipeContext from '../context/RecipeContext';
+import ListCardsFoodCategory from '../components/ListCardsFoodCategory';
 import ListCardsFood from '../components/ListCardsFood';
-import { getCategoryFoods } from '../services/Api';
+import { getCategoryFoods, filterFoodCategory } from '../services/Api';
 
 function Food() {
+  const FIVE = 5;
+  const MAX_RENDER_BUTTON_FILTERS = 2;
+  const ZERO = 0;
   const [loading, setLoading] = useState(false);
   const [arrayListFood, setArrayListFood] = useState([]);
+  const [arrayCategory, setArrayCategory] = useState([]);
+  const [countButtonFilter, setCountButtonFilter] = useState(ZERO);
   const { showBtn, data, setData } = useContext(RecipeContext);
-  const MAX_ARRAY = 12;
-  const FIVE = 5;
-  const ZERO = 0;
 
   useEffect(() => {
     if (!data.food) setData({ ...data, food: [] });
@@ -28,30 +31,33 @@ function Food() {
     getListCategories();
   }, []);
 
+  const getFilterFoodCategory = async (category) => {
+    setArrayCategory(await filterFoodCategory(category));
+    setCountButtonFilter((countButton) => countButton + 1);
+  };
+
   const getAlert = () => {
     window.alert(
       'Sinto muito, não encontramos nenhuma receita para esses filtros.',
     );
   };
-
   const getLoading = () => {
     if (loading) {
       const arrayFoods = [...data.food];
-      if (arrayFoods.length > MAX_ARRAY) arrayFoods.length = MAX_ARRAY;
       return ListCardsFood(arrayFoods);
     }
     return 'Loading...';
   };
 
-  const showListFoodCategories = () => arrayListFood.map((category) => (
-    <div
-      key={ category.strCategory }
-      data-testid={ `${category.strCategory}-category-filter` }
+  const showListFoodCategories = () => arrayListFood.map((item) => (
+    <button
+      key={ item.strCategory }
+      type="button"
+      data-testid={ `${item.strCategory}-category-filter` }
+      onClick={ () => getFilterFoodCategory(item.strCategory) }
     >
-      <button type="button">
-        {category.strCategory}
-      </button>
-    </div>
+      {item.strCategory}
+    </button>
   ));
 
   return (
@@ -59,13 +65,18 @@ function Food() {
       <Header />
       { showBtn && <SearchHeaderBar /> }
 
-      {(arrayListFood.length > ZERO) && showListFoodCategories()}
+      {(arrayListFood.length > ZERO
+        && countButtonFilter < MAX_RENDER_BUTTON_FILTERS)
+        && showListFoodCategories()}
+
+      {(arrayCategory.length > ZERO) && ListCardsFoodCategory(arrayCategory)}
 
       {
         (data.food === 'erro' || data.food === null)
           ? getAlert()
           : getLoading()
       }
+
       <Footer />
     </div>
   );

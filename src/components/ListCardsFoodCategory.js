@@ -1,11 +1,8 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-function ListCardsFood(cardsFoods) {
-  const { push } = useHistory();
+function ListCardsFoodCategory(cardsFoods) {
   const MAX_ARRAY = 12;
-
-  if (cardsFoods.length === 1) return push(`/comidas/${cardsFoods[0].idMeal}`);
   if (cardsFoods.length > MAX_ARRAY) cardsFoods.length = MAX_ARRAY;
 
   return (
@@ -29,4 +26,4 @@ function ListCardsFood(cardsFoods) {
   );
 }
 
-export default ListCardsFood;
+export default ListCardsFoodCategory;

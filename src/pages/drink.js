@@ -3,14 +3,15 @@ import Header from '../components/Header';
 import SearchHeaderBar from '../components/SearchHeaderBar';
 import Footer from '../components/Footer';
 import RecipeContext from '../context/RecipeContext';
+import ListCardsDrinkCategory from '../components/ListCardsDrinkCategory';
 import ListCardsDrink from '../components/ListCardsDrink';
-import { getCategoryDrinks } from '../services/Api';
+import { getCategoryDrinks, filterDrinkCategory } from '../services/Api';
 
 function Drink() {
   const [loading, setLoading] = useState(false);
   const [arrayListDrink, setArrayListDrink] = useState([]);
+  const [arrayCategory, setArrayCategory] = useState([]);
   const { showBtn, data, setData } = useContext(RecipeContext);
-  const MAX_ARRAY = 12;
   const FIVE = 5;
   const ZERO = 0;
 
@@ -28,30 +29,32 @@ function Drink() {
     getListCategories();
   }, []);
 
+  const getFilterDrinkCategory = async (category) => {
+    setArrayCategory(await filterDrinkCategory(category));
+  };
+
   const getAlert = () => {
     window.alert(
       'Sinto muito, não encontramos nenhuma receita para esses filtros.',
     );
   };
-
   const getLoading = () => {
     if (loading) {
       const arrayDrinks = [...data.drink];
-      if (arrayDrinks.length > MAX_ARRAY) arrayDrinks.length = MAX_ARRAY;
       return ListCardsDrink(arrayDrinks);
     }
     return 'Loading...';
   };
 
   const showListDrinksCategories = () => arrayListDrink.map((category) => (
-    <div
+    <button
       key={ category.strCategory }
+      type="button"
       data-testid={ `${category.strCategory}-category-filter` }
+      onClick={ () => getFilterDrinkCategory(category.strCategory) }
     >
-      <button type="button">
-        {category.strCategory}
-      </button>
-    </div>
+      {category.strCategory}
+    </button>
   ));
 
   return (
@@ -60,6 +63,8 @@ function Drink() {
       { showBtn && <SearchHeaderBar /> }
 
       {(arrayListDrink.length > ZERO) && showListDrinksCategories()}
+
+      {(arrayCategory.length > ZERO) && ListCardsDrinkCategory(arrayCategory)}
 
       {
         (data.drink === 'erro' || data.drink === null)
