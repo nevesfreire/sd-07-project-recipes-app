@@ -3,13 +3,13 @@ import { fireEvent } from '@testing-library/react';
 import renderWithRouter from '../renderWithRouter';
 import Comidas from '../pages/Comidas';
 
-const searchTopButtonId = 'search-top-btn';
+const searchButtonTestId = 'search-top-btn';
 
 describe('Testa o componente CategoryBar', () => {
   it('Testa se o componente tem o input ', () => {
     const { getByTestId } = renderWithRouter(<Comidas />);
 
-    const searchButton = getByTestId(searchTopButtonId);
+    const searchButton = getByTestId(searchButtonTestId);
     expect(searchButton).toBeInTheDocument();
 
     fireEvent.click(searchButton);
@@ -22,7 +22,7 @@ describe('Testa o componente CategoryBar', () => {
   it('Testa se o componente tem o box ingredient', () => {
     const { getByTestId } = renderWithRouter(<Comidas />);
 
-    const searchButton = getByTestId(searchTopButtonId);
+    const searchButton = getByTestId(searchButtonTestId);
     expect(searchButton).toBeInTheDocument();
 
     fireEvent.click(searchButton);
@@ -35,7 +35,7 @@ describe('Testa o componente CategoryBar', () => {
   it('Testa se o component tem a opcao name', () => {
     const { getByTestId } = renderWithRouter(<Comidas />);
 
-    const searchButton = getByTestId(searchTopButtonId);
+    const searchButton = getByTestId(searchButtonTestId);
     expect(searchButton).toBeInTheDocument();
 
     fireEvent.click(searchButton);
@@ -48,7 +48,7 @@ describe('Testa o componente CategoryBar', () => {
   it('Testa se o componente tem a opcao firstLetter', () => {
     const { getByTestId } = renderWithRouter(<Comidas />);
 
-    const searchButton = getByTestId(searchTopButtonId);
+    const searchButton = getByTestId(searchButtonTestId);
     expect(searchButton).toBeInTheDocument();
 
     fireEvent.click(searchButton);
@@ -61,7 +61,7 @@ describe('Testa o componente CategoryBar', () => {
   it('Testa se o componente tem o botao de search', () => {
     const { getByTestId } = renderWithRouter(<Comidas />);
 
-    const searchButton = getByTestId(searchTopButtonId);
+    const searchButton = getByTestId(searchButtonTestId);
     expect(searchButton).toBeInTheDocument();
 
     fireEvent.click(searchButton);
