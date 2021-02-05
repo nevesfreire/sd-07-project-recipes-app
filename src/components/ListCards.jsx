@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import context from '../contextAPI/context';
+// import siteMap from '../helpers/siteMap';
 import Card from './Card';
 
 const findMatch = (string, object) => (
@@ -12,7 +13,7 @@ const ListCard = () => {
   const maxRecipesNumber = 12;
   let recipes = [];
   let recipeStr = '';
-  console.log(data);
+
   if (data.meals) {
     const { meals } = data;
     recipes = [...meals];

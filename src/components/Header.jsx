@@ -72,13 +72,12 @@ export default function Header() {
   const history = useHistory();
   const { location: { pathname } } = history;
   const { searchButton, profileButton, title, toggleSearch } = state;
-  console.log(state.data);
+
   const callSearch = () => {
     setState((s) => ({
       ...s,
       toggleSearch: !toggleSearch,
     }));
-    // return history.push('/comidas');
   };
 
   const render = () => (

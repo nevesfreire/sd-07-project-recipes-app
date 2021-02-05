@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Context from '../contextAPI/context';
 import { fetchApi } from '../services/fetchApi';
@@ -8,7 +7,6 @@ function Provider({ children }) {
   const [login, setLogin] = useState({});
   const [state, setState] = useState({});
   const [RecipesUrl, setRecipesUrl] = useState({});
-  const history = useHistory();
 
   useEffect(() => {
     setState((s) => ({ ...s, isDisabled: true }));

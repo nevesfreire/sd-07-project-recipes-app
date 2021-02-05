@@ -5,24 +5,26 @@ import { fetchApi, allFood } from '../services/fetchApi';
 import context from '../contextAPI/context';
 import '../css/login.css';
 
-const inputText = (onChange) => (
+const inputText = (onChange, login) => (
   <div className="input-email">
     <Input
       data-testid="email-input"
       type="email"
       name="user"
+      value={ login.user }
       placeholder="email@email.com"
       onChange={ (e) => onChange(e) }
     />
   </div>
 );
 
-const inputPasswd = (onChange) => (
+const inputPasswd = (onChange, login) => (
   <div className="input-senha">
     <Input
       data-testid="password-input"
       type="password"
       name="passwd"
+      value={ login.passwd }
       placeholder="sua senha aqui"
       onChange={ (e) => onChange(e) }
     />
@@ -56,7 +58,7 @@ export default function InputLogin() {
   const setLocalStorageData = () => {
     localStorage.setItem('mealsToken', JSON.stringify(1));
     localStorage.setItem('cocktailsToken', JSON.stringify(1));
-    localStorage.setItem('user', JSON.stringify({ email: state.user }));
+    localStorage.setItem('user', JSON.stringify({ _email: state.user }));
   };
 
   const callRoute = async () => {
@@ -75,8 +77,8 @@ export default function InputLogin() {
 
   return (
     <div className="input-login-controller">
-      {inputText(loginChanges)}
-      {inputPasswd(loginChanges)}
+      {inputText(loginChanges, login)}
+      {inputPasswd(loginChanges, login)}
       {buttonLogin(callRoute, isDisabled)}
     </div>
   );
