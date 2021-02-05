@@ -65,15 +65,15 @@ ul li:hover {
 }
 
 /* When clicked on, add a background color and strike out text */
-ul li.is-checked {
+ul li .is-checked {
   background: grey;
   color: white;
   text-decoration: line-through;
 }
 
 /* Add a "checked" mark when clicked on */
-ul li.is-checked::before {
-  border-color: #fff;
+ul li .is-checked:before {
+  border-color: white;
   border-style: solid;
   border-width: 0 2px 2px 0;
   content: '';
