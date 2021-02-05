@@ -19,11 +19,13 @@ export const handleClickMeals = (recipeId) => {
 export const handleClickCocktails = (recipeId) => {
   const getRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
   if (getRecipes) {
-    const newRecipe = {
-      ...getRecipes,
-      cocktails: { ...getRecipes.cocktails, [recipeId]: [] },
-    };
-    localStorage.setItem('inProgressRecipes', JSON.stringify(newRecipe));
+    if (!getRecipes.cocktails[recipeId]) {
+      const newRecipe = {
+        ...getRecipes,
+        cocktails: { ...getRecipes.cocktails, [recipeId]: [] },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(newRecipe));
+    }
   } else {
     const newRecipe = {
       cocktails: { [recipeId]: [] },

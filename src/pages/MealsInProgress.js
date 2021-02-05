@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { getMealById } from '../services/mealAPI';
 import ButtonsDetailsPage from '../components/ButtonsDetailsPage';
 import { handleClickMeals } from '../functions/DetailPages';
@@ -15,8 +15,6 @@ function MealsInProgress() {
   const [category, setCategory] = useState('');
   const [area, setArea] = useState('');
   const [instructions, setInstructions] = useState('');
-  const [alcoholic, setAlcoholic] = useState('');
-  const [exemplo, setExemplo] = useState('');
   const [buttonIsEnabled, setButtonIsEnabled] = useState(false);
   const [storage, setStorage] = useState({meals: []});
   const [ checked, setChecked] = useState([]);
@@ -68,7 +66,6 @@ function MealsInProgress() {
         setCategory(res.meals[0].strCategory);
         setArea(res.meals[0].strArea);
         setInstructions(res.meals[0].strInstructions);
-        setAlcoholic(res.meals[0].strAlcoholic);
         Object.entries(res.meals[0]).forEach(([key, value]) => {
           const noValue = 0;
           const minLength = 1;
@@ -101,13 +98,12 @@ function MealsInProgress() {
       <h1 data-testid="recipe-title">{ title }</h1>
       <ButtonsDetailsPage
         api={ {
-          key: 'meal', recipeId, area, category, title, source, alcoholic } }
+          key: 'meal', recipeId, area, category, title, source } }
       />
       <h3 data-testid="recipe-category">{ category }</h3>
       <h3>Ingredientes</h3>
       <form>
         { ingredMeasures.map((element, index) => {
-          console.log(checked);
           const [key] = Object.keys(element);
           const [value] = Object.values(element);
           let isChecked = false;

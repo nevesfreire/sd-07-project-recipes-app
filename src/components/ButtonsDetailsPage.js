@@ -47,7 +47,8 @@ function ButtonsDetailsPage({ api }) {
     const { key } = api;
     let categoryEntry = '';
     let isAlcoholicEntry = '';
-    const pathCheck = [window.location].includes('/in-progress');
+    const pathCheck = window.location.pathname.includes('/in-progress');
+    console.log(pathCheck);
     if (pathCheck) {
       categoryEntry = api.category;
       isAlcoholicEntry = api.alcoholic;

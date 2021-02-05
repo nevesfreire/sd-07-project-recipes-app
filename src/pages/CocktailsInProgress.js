@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { getCocktailById } from '../services/cocktailAPI';
 import ButtonsDetailsPage from '../components/ButtonsDetailsPage';
-import { handleClickMeals } from '../functions/DetailPages';
+import { handleClickCocktails } from '../functions/DetailPages';
 
 function CocktailsInProgress() {
   const history = useHistory();
@@ -15,29 +15,44 @@ function CocktailsInProgress() {
   const [category, setCategory] = useState('');
   const [area, setArea] = useState('');
   const [instructions, setInstructions] = useState('');
-  const [checked, setChecked] = useState(['']);
-  const [className, setClassName] = useState('');
+  const [alcoholic, setAlcoholic] = useState('');
   const [buttonIsEnabled, setButtonIsEnabled] = useState(false);
-  const getStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const [storage, setStorage] = useState({cocktails: []});
+  const [ checked, setChecked] = useState([]);
 
   const handleClick = () => {
     history.push("/receitas-feitas");
   };
 
-  const handleChange = ({target}, ingredient) => {
-    if (target.checked) {
-      handleClickMeals(recipeId, ingredient);
-      setClassName('checked');
-    }
-    if (checked.length === ingredMeasures.length) {
+  const handleChange = (ingredient) => {
+    const getPrevStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const getPrevProgress = getPrevStorage.cocktails[recipeId];
+    const updateStorage = {
+      ...getPrevStorage,
+      cocktails: { ...getPrevStorage.cocktails, [recipeId]: [...getPrevProgress, ingredient] },
+    };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(updateStorage));
+    if (getPrevProgress.length + 1 === ingredMeasures.length) {
       setButtonIsEnabled(true);
     }
   }
 
   useEffect(() => {
-    if (getStorage) {
-      setChecked(getStorage.cocktails[recipeId]);
+    if (recipeId !== '') {
+      handleClickCocktails(recipeId);
+    setStorage(JSON.parse(localStorage.getItem('inProgressRecipes')));
     }
+  }, [recipeId]);
+
+  useEffect(() => {
+    const validate = storage.cocktails[recipeId];
+    if (validate) {
+      setChecked(storage.cocktails[recipeId]);
+    }
+  }, [storage]);
+
+
+  useEffect(() => {
     const path = history.location.pathname;
     const position = 2;
     const numberToSplice = 1;
@@ -53,6 +68,7 @@ function CocktailsInProgress() {
         setCategory(res.drinks[0].strCategory);
         setArea(res.drinks[0].strArea);
         setInstructions(res.drinks[0].strInstructions);
+        setAlcoholic(res.drinks[0].strAlcoholic);
         Object.entries(res.drinks[0]).forEach(([key, value]) => {
           const noValue = 0;
           const minLength = 1;
@@ -85,7 +101,7 @@ function CocktailsInProgress() {
       <h1 data-testid="recipe-title">{ title }</h1>
       <ButtonsDetailsPage
         api={ {
-          key: 'cocktail', recipeId, area, category, title, source } }
+          key: 'cocktail', recipeId, area, category, title, source, alcoholic } }
       />
       <h3 data-testid="recipe-category">{ category }</h3>
       <h3>Ingredientes</h3>
@@ -93,14 +109,15 @@ function CocktailsInProgress() {
         { ingredMeasures.map((element, index) => {
           const [key] = Object.keys(element);
           const [value] = Object.values(element);
-          const isChecked = false;
-          if (checked.find(ing => ing === `${key} - ${value}`)) {
+          let isChecked = false;
+          const validation = checked.find(ing => ing === `${key} - ${value}`);
+          if (validation) {
             isChecked = true;
           }
           return (
             <div data-testid={ `${index}-ingredient-step` }>
-              <input id={`ingredient-${index}`} type="checkbox" key={ index } onChange={() => handleChange(`${key} - ${value}`)} checked={isChecked}/>
-              <label className={className} htmlFor={`ingredient-${index}`}>{ `${key} - ${value}` }</label>
+              <input id={`ingredient-${index}`} type="checkbox" key={ index } onChange={() => handleChange(`${key} - ${value}`)} defaultChecked={isChecked}/>
+              <label htmlFor={`ingredient-${index}`}>{ `${key} - ${value}` }</label>
             </div>
           );
         }) }
