@@ -31,6 +31,7 @@ function Progress({ history, match: { params: { id } } }) {
     video: '',
     alcoholic: false,
     area: '',
+    tags: [],
   });
 
   useEffect(() => {
@@ -59,6 +60,7 @@ function Progress({ history, match: { params: { id } } }) {
 
   useEffect(() => {
     if (!result) return;
+    if (!Object.keys(result).length) return;
     const getIngredients = (acc, curr) => (
       curr[0].includes('strIngredient') && curr[1] !== '' && curr[1] !== null
         ? [...acc, curr[1]]
