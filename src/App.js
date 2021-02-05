@@ -50,7 +50,7 @@ function App() {
           <Route exact path="/perfil" component={ Profile } />
           <Route exact path="/receitas-feitas" component={ RecipesDone } />
           <Route exact path="/receitas-favoritas" component={ RecipesFavorites } />
-          {/* <Route exact path="/detalhes-receita/:id" component={ FoodDetails } /> */}
+          <Route exact path="/detalhes-receita/:id" component={ FoodDetails } />
         </Switch>
       </div>
     </Provider>

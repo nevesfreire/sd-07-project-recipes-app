@@ -1,12 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
+import { fetchAPIFoodsSurprise, fetchAPIDrinksSurprise } from '../services/api';
+
 function ExplorerButtons() {
+  const [idFood, setIdFood] = useState('');
+  const [idDrink, setIdDrink] = useState('');
   const [render, setRender] = useState();
   const path = useHistory().location.pathname;
   const urlFoods = '/explorar/comidas';
 
+  const getIdFoodsAndDrinks = async () => {
+    const food = await fetchAPIFoodsSurprise();
+    const drink = await fetchAPIDrinksSurprise();
+    setIdFood(food[0].idMeal);
+    setIdDrink(drink[0].idDrink);
+  };
+
   useEffect(() => {
+    getIdFoodsAndDrinks();
+
     if (path === urlFoods) {
       setRender(true);
     } else {
@@ -36,7 +49,10 @@ function ExplorerButtons() {
       ) : (
         <span />
       )}
-      <Link to={ path === urlFoods ? 'comidas/:{id}' : 'bebidas/:{id}' }>
+      <Link
+        to={ path === urlFoods ? `/comidas/${idFood}` : `/bebidas/${idDrink}` }
+        onClick={ () => console.log('hi') }
+      >
         <button
           data-testid="explore-surprise"
           type="button"

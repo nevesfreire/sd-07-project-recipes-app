@@ -23,7 +23,6 @@ function Provider({ children }) {
   const fetchRecomendation = async (tipo = undefined) => {
     if (tipo === 'comida') {
       const recomend = await getRecomendationDrink();
-      console.log(recomend);
       setRecomendation(recomend);
     } else {
       const recomend = await getRecomendationMeal();
@@ -32,15 +31,19 @@ function Provider({ children }) {
   };
 
   const fetchMealId = async (id, tipo = undefined) => {
+    await fetchRecomendation(tipo);
+    setIsFetching(() => false);
+
     if (tipo === 'comida') {
       const x = await getMealWithId(id);
-      await fetchRecomendation(tipo);
       setMealDescription(() => x);
-      setIsFetching(() => false);
       return false;
     }
-    const x = await getDrinkWithId(id);
-    await fetchRecomendation();
+
+    const y = await getDrinkWithId(id);
+    setMealDescription(() => y);
+    return true;
+  };
 
   async function fetchIngredients() {
     const foodIngredients = await fetchFoodsIngredients();
