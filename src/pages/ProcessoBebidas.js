@@ -40,7 +40,7 @@ function ProcessoBebidas({ match: { params: { id } }, history }) {
 
   useEffect(() => {
     fetchDrink();
-    // setIsFavorite(changeFavorites(id));
+    setIsFavorite(changeFavorites(id));
   }, []);
 
   useEffect(() => {
