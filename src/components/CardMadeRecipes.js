@@ -74,7 +74,7 @@ function CardMadeRecipes({ recipe, index }) {
         />
       </Link>
 
-      {type === 'comida'
+      {type !== 'comida'
         ? (
           <button type="button" onClick={ () => copyToClipBoard(urlComidas) }>
             <img
