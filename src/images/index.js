@@ -1,3 +1,4 @@
+export { default as bgPerfil } from './bg_perfil.png';
 export { default as blackHeartIcon } from './blackHeartIcon.svg';
 export { default as drinkIcon } from './drinkIcon.svg';
 export { default as exploreIcon } from './exploreIcon.svg';
