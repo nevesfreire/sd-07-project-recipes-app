@@ -58,20 +58,22 @@ function Header({ history, search = false }) {
             data-testid="profile-top-btn"
           />
         </Link>
-        <p data-testid="page-title">{path}</p>
+        <h4 data-testid="page-title">{path}</h4>
         {path === 'Receitas Favoritas' ? <FavoriteRecipes /> : null}
-        {search && (
-          <button
-            type="button"
-            onClick={ () => setSearchInput((prev) => !prev) }
-          >
-            <img
-              src={ SearchIcon }
-              alt="search icon"
-              data-testid="search-top-btn"
-            />
-          </button>
-        )}
+        {search
+          ? (
+            <button
+              type="button"
+              onClick={ () => setSearchInput((prev) => !prev) }
+            >
+              <img
+                src={ SearchIcon }
+                alt="search icon"
+                data-testid="search-top-btn"
+              />
+            </button>
+          )
+          : <div />}
       </nav>
       {searchInput && (
         <SearchBar history={ history } />

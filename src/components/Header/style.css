@@ -2,15 +2,17 @@ nav {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
-  margin: auto;
-  width: 90%;
+  justify-content: space-between;
+  padding: 5px 10px;
+  margin: 0 auto;
+  width: 80%;
 }
 
-nav > p {
+nav > h4 {
   margin: 0;
 }
 
 header {
-  background-color: rgb(108, 159, 218);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 5px 10px;
 }
