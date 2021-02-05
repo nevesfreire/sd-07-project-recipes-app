@@ -27,7 +27,7 @@ function Recipes({ history, search = false }) {
   const { pathname } = history.location;
 
   useEffect(() => {
-    if (pathname.includes('bebidas')) setApi('drinks');
+    if (pathname.includes('bebidas')) setApi('drink');
     else setApi('meal');
   }, [pathname, setApi]);
 

@@ -8,6 +8,43 @@ import { getItem, saveItem } from '../../services/localStorage';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 
+function finishRecipe(data, api) {
+  const date = new Date();
+  const day = date.getDate();
+  const maxDay = 10;
+  const month = date.getMonth() < maxDay ? `0${date.getMonth()}` : date.getMonth();
+  const year = date.getFullYear();
+  const doneDate = `${day}/${month}/${year}`;
+  const newRecipe = {
+    id: data.id,
+    type: api === 'meal' ? 'comida' : 'bebida',
+    area: data.area,
+    category: data.category,
+    alcoholicOrNot: data.alcoholic ? 'Alcoholic' : '',
+    name: data.name,
+    image: data.image,
+    doneDate,
+    tags: data.tags,
+  };
+  const doneRecipesArr = getItem('doneRecipes');
+  saveItem('doneRecipes', [...doneRecipesArr, newRecipe]);
+  const inProgressObj = getItem('inProgressRecipes');
+  const field = api === 'meal' ? 'meals' : 'cocktails';
+  const newObj = Object.entries(inProgressObj[field])
+    .reduce((acc, [key, value]) => {
+      console.log(key, value);
+      if (key !== data.id) {
+        return {
+          ...acc,
+          [key]: value,
+        };
+      }
+      return acc;
+    }, {});
+  inProgressObj[field] = newObj;
+  saveItem('inProgressRecipes', inProgressObj);
+}
+
 function formatFavorite(data, api) {
   let drinkOrMeal = '';
   if (api === '') return;
@@ -32,7 +69,7 @@ function formatFavorite(data, api) {
     category: data.category,
     alcoholicOrNot: alcoholic,
     name: data.name,
-    image: data.src,
+    image: data.image,
   };
 
   if (!isRecipeFavorite) {
@@ -57,6 +94,11 @@ function Actions({ data, isFavorite, setIsFavorite, canFinish }) {
   };
 
   const history = useHistory();
+
+  const handleFinish = () => {
+    finishRecipe(data, api);
+    history.push('/receitas-feitas');
+  };
 
   return (
     <nav>
@@ -83,7 +125,7 @@ function Actions({ data, isFavorite, setIsFavorite, canFinish }) {
       <Button
         data-testid="finish-recipe-btn"
         disabled={ canFinish }
-        onClick={ () => history.push('/receitas-feitas') }
+        onClick={ handleFinish }
       >
         Finish
       </Button>
@@ -96,13 +138,15 @@ Actions.propTypes = {
   data: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    src: PropTypes.string.isRequired,
+    area: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
     category: PropTypes.string.isRequired,
     instructions: PropTypes.string.isRequired,
     ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
     video: PropTypes.string.isRequired,
     alcoholic: PropTypes.bool.isRequired,
-    area: PropTypes.string.isRequired,
+    tags: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
   isFavorite: PropTypes.bool.isRequired,
   setIsFavorite: PropTypes.func.isRequired,
