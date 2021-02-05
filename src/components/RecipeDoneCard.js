@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 
 class RecipeDoneCard extends Component {
   render() {
     const { doneRecipes: {
+      id,
       type,
       area,
       category,
@@ -17,14 +19,47 @@ class RecipeDoneCard extends Component {
 
     return (
       <div data-testid={ `${index}-recipe-card` }>
-        <img src={ image } alt={ name } data-testid={ `${index}-horizontal-image` } />
-        <p data-testid={ `${index}-horizontal-name` }>{ name }</p>
-        {type === 'bebida' ? <p>{ alcoholicOrNot}</p>
-          : (
-            <p data-testid={ `${index}-horizontal-top-text` }>
-              {`${area} - ${category}`}
-            </p>
-          ) }
+        {type === 'bebida' ? (
+          <Link to={ `/bebidas/${id}` }>
+            <img
+              data-testid={ `${index}-horizontal-image` }
+              src={ image }
+              alt={ name }
+            />
+          </Link>
+        ) : (
+          <Link to={ `/comidas/${id}` }>
+            <img
+              data-testid={ `${index}-horizontal-image` }
+              src={ image }
+              alt={ name }
+            />
+          </Link>
+        )}
+        {type === 'bebida' ? (
+          <Link
+            to={ `/bebidas/${id}` }
+            data-testid={ `${index}-horizontal-name` }
+          >
+            { name }
+          </Link>
+        ) : (
+          <Link
+            to={ `/comidas/${id}` }
+            data-testid={ `${index}-horizontal-name` }
+          >
+            { name }
+          </Link>
+        )}
+        {type === 'bebida' ? (
+          <p data-testid={ `${index}-horizontal-top-text` }>
+            { alcoholicOrNot }
+          </p>
+        ) : (
+          <p data-testid={ `${index}-horizontal-top-text` }>
+            {`${area} - ${category}`}
+          </p>
+        ) }
         <p data-testid={ `${index}-horizontal-done-date` }>
           Feito em:
           { doneDate }
@@ -34,8 +69,11 @@ class RecipeDoneCard extends Component {
           data-testid={ `${index}-horizontal-share-btn` }
           alt="Compartilhar receita"
         />
-        <p data-testid={ `${index}-${tags[0]}-horizontal-tag` }>{tags[0]}</p>
-        <p data-testid={ `${index}-${tags[1]}-horizontal-tag` }>{tags[1]}</p>
+        {tags.map((tag) => (
+          <p key={ index + tag } data-testid={ `${index}-${tag}-horizontal-tag` }>
+            {tag}
+          </p>
+        ))}
       </div>
     );
   }
@@ -43,6 +81,7 @@ class RecipeDoneCard extends Component {
 
 RecipeDoneCard.propTypes = {
   doneRecipes: PropTypes.shape({
+    id: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     area: PropTypes.string.isRequired,
     category: PropTypes.string.isRequired,
