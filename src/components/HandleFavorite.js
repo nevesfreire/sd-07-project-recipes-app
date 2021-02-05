@@ -1,4 +1,5 @@
-export function handleFavoriteFood(detailsRecipe, favoriteRecipe, setFavoriteRecipe, setButtonClicked) {
+export function handleFavoriteFood(detailsRecipe,
+  favoriteRecipe, setFavoriteRecipe, setButtonClicked) {
   setButtonClicked(true);
   const { idMeal, strArea, strCategory, strMeal, strMealThumb } = detailsRecipe;
   const newRecipe = {

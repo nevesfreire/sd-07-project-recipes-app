@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import RecipeContext from '../Context/Context';
 
 const useHandleFavorite = () => {
@@ -40,7 +40,8 @@ const useHandleFavorite = () => {
 
   function handleFavFood() {
     setClickedButtonMeal(true);
-    const { idMeal, strArea, strCategory, strMeal, strMealThumb } = detailsRecipe.meals[0];
+    const { idMeal,
+      strArea, strCategory, strMeal, strMealThumb } = detailsRecipe.meals[0];
     const newRecipe = {
       id: idMeal,
       type: 'comida',
@@ -78,7 +79,8 @@ const useHandleFavorite = () => {
 
   function handleFavDrink() {
     setClickedButtonDrink(true);
-    const { idDrink, strAlcoholic, strCategory, strDrink, strDrinkThumb } = detailsRecipe.drinks[0];
+    const { idDrink,
+      strAlcoholic, strCategory, strDrink, strDrinkThumb } = detailsRecipe.drinks[0];
     const newRecipe = {
       id: idDrink,
       type: 'bebida',

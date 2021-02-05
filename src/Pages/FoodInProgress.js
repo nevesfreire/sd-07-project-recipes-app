@@ -17,8 +17,6 @@ function FoodInProgress() {
   const [loading, setLoading] = useState(true);
   const { recipeDetailsAPI } = useFetch();
   const [checked] = useState([]);
-  const [buttonClicked, setButtonClicked] = useState(false);
-  const [favoriteRecipe, setFavoriteRecipe] = useState(false);
   const [spanHidden, setSpanHidden] = useState(false);
   const { handleFavFood, mealDidMount } = useHandleFavorite();
 
