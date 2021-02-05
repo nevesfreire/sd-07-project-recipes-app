@@ -43,14 +43,13 @@ const ProgressFood = ({ type, recipe, ingredientes, id }) => {
   };
 
   const handleCopy = () => {
-    copiedLink(`http://localhost:3000/${type}s/${id}`);
+    copiedLink(`http://localhost:3000/${type}/${id}`);
     if (copied) setCopied(false);
     else setCopied(true);
   };
 
   return (
     <div>
-
       <img
         data-testid="recipe-photo"
         src={ recipe[image] }
@@ -76,7 +75,7 @@ const ProgressFood = ({ type, recipe, ingredientes, id }) => {
             type="checkbox"
             id={ `${index}-ingredient-step` }
             name={ ingrediente }
-            onClick={ () => checkedIsTreu() }
+            onClick={ checkedIsTreu }
           />
           {ingrediente}
         </label>

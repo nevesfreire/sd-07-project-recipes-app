@@ -43,19 +43,18 @@ const Details = ({ type, recipe, recommend, ingredientes, id, medidas }) => {
 
   const handleCopy = () => {
     copiedLink(`http://localhost:3000/${type}s/${id}`);
-    if (copied) setCopied(false);
-    else setCopied(true);
+    if (copied) return setCopied(false);
+    return setCopied(true);
   };
 
   const handleStartRecipe = () => {
     const today = new Date();
-    const doneDate = `${today.getDay()}/${today.getMonth()}/${today.getFullYear()}`;
+    const doneDate = today.toLocaleDateString();
     const novatag = recipe.strTags;
     const tags = novatag && novatag.split(',');
     const atributes = { name, id, type, doneDate, tags };
     history.push(`/${type}s/${id}/in-progress`);
     addFavorite('doneRecipes', recipe, atributes);
-    // removeFavorite('doneRecipes', ids);
   };
 
   return (
