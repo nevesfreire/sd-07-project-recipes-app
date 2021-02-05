@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { apiTheMealDB, apiTheCocktailDB } from '../services';
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import { connect } from 'react-redux';
+import { Carousel } from 'react-bootstrap';
+import { apiTheCocktailDB, apiTheMealDB } from '../services';
+import ShareButton from '../components/ShareButton';
+import FavoriteButton from '../components/FavoriteButton';
+import { startRecipe } from '../redux/actions';
 
 class ReceitaComida extends React.Component {
   constructor() {
@@ -11,43 +14,75 @@ class ReceitaComida extends React.Component {
     this.state = {
       recipe: '',
       drinkList: [],
+      storageObj: {},
     };
 
     this.callRecipeAPI = this.callRecipeAPI.bind(this);
-    // this.ingredientListHandle = this.ingredientListHandle.bind(this);
+    this.ingredientListHandle = this.ingredientListHandle.bind(this);
   }
 
   componentDidMount() {
     this.callRecipeAPI();
+    if (JSON.parse(localStorage.getItem('favoriteRecipes')) === null) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    }
   }
 
   async callRecipeAPI() {
     // referência proxima linha: https://stackoverflow.com/questions/4758103/
     const urlParams = window.location.pathname.split('/').pop();
     const recipe = await apiTheMealDB(`lookup.php?i=${urlParams}`);
+    // const arrayTags = recipe.meals[0].strTags === null
+    //   ? [] : recipe.meals[0].strTags.split(',');
+    const storageObj = {
+      id: recipe.meals[0].idMeal,
+      type: 'comida',
+      area: recipe.meals[0].strArea,
+      category: recipe.meals[0].strCategory,
+      alcoholicOrNot: '',
+      name: recipe.meals[0].strMeal,
+      image: recipe.meals[0].strMealThumb,
+      // doneDate: recipe.meals[0].dateModified,
+      // tags: arrayTags,
+    };
     const drinkList = await apiTheCocktailDB('search.php?s=');
     this.setState({
       recipe: recipe.meals[0],
       drinkList: drinkList.drinks,
+      storageObj,
     });
   }
 
-  // ingredientListHandle() {
-  //   const { recipe } = this.state;
-  //   const recipeArray = [{ ...recipe }];
-  //   const test = recipeArray
-  //     .map((e) => e.strIngredient1);
-  //   console.log(test);
-  // }
+  ingredientListHandle() {
+    const { recipe } = this.state;
+    const array = [];
+    const twentyOne = 21;
+    for (let index = 1; index < twentyOne; index += 1) {
+      const strIngredient = `strIngredient${[index]}`;
+      const strMeasure = `strMeasure${[index]}`;
+      if (recipe[strIngredient] !== null && recipe[strIngredient] !== '') {
+        array.push(`${recipe[strIngredient]} - ${recipe[strMeasure]}`);
+      }
+    }
+    return array;
+  }
+
+  async startRecipeButton() {
+    const { recipe } = this.state;
+    const { startRecipeDispatch, history } = this.props;
+    localStorage.setItem('inProgressRecipe', JSON.stringify(recipe));
+    await startRecipeDispatch(recipe);
+    history.push(`/comidas/${recipe.idMeal}/in-progress`);
+  }
 
   render() {
-    const { history } = this.props;
-    const { recipe, drinkList } = this.state;
+    const { recipe, drinkList, storageObj } = this.state;
+    const SIX = 6;
+    const ingredientsArray = this.ingredientListHandle();
+    const url = window.location.pathname;
     if (recipe === '') {
       return <p>Loading...</p>;
     }
-    console.log(drinkList);
-    // this.ingredientListHandle();
 
     return (
       <div>
@@ -60,24 +95,17 @@ class ReceitaComida extends React.Component {
         />
         <h4 data-testid="recipe-title">{ recipe.strMeal }</h4>
         <p data-testid="recipe-category">{ recipe.strCategory }</p>
+        <p>Ingredientes</p>
         <ul>
-          <li data-testid="0-ingredient-name-and-measure">
-            {`${recipe.strIngredient1} - ${recipe.strMeasure1}`}
-          </li>
-          <li data-testid="1-ingredient-name-and-measure">
-            {`${recipe.strIngredient2} - ${recipe.strMeasure2}`}
-          </li>
+          { ingredientsArray.map((e, index) => (
+            <li key={ e } data-testid={ `${[index]}-ingredient-name-and-measure` }>
+              {e}
+            </li>
+          )) }
         </ul>
         <p data-testid="instructions">{ recipe.strInstructions}</p>
-        <button type="button" data-testid="share-btn">
-          <img src={ shareIcon } alt="Share" />
-        </button>
-        <button
-          type="button"
-          data-testid="favorite-btn"
-        >
-          <img src={ whiteHeartIcon } alt="Favorite" />
-        </button>
+        <ShareButton url={ url } />
+        <FavoriteButton storageObj={ storageObj } />
         <iframe
           title="youtube"
           width="360"
@@ -88,12 +116,38 @@ class ReceitaComida extends React.Component {
           src={ recipe.strYoutube.replace('watch?v=', 'embed/') }
           data-testid="video"
         />
-        <p data-testid="0-recomendation-card">Recomendadas</p>
+        <p>Recomendadas</p>
+        <Carousel style={ { height: '30%' } }>
+          { drinkList.map((item, index) => (
+            index < SIX
+              ? (
+                <Carousel.Item
+                  key={ item.idDrink }
+                  data-testid={ `${index}-recomendation-card` }
+                >
+                  <img
+                    src={ item.strDrinkThumb }
+                    alt={ item.strDrinkThumb }
+                    style={ { width: '30%' } }
+                  />
+                  <Carousel.Caption>
+                    <p>{item.strAlcoholic}</p>
+                    <h5
+                      data-testid={ `${index}-recomendation-title` }
+                    >
+                      {item.strDrink}
+                    </h5>
+                  </Carousel.Caption>
+                </Carousel.Item>
+              )
+              : null
+          ))}
+        </Carousel>
         <button
           style={ { position: 'fixed', bottom: 0 } }
           type="button"
           data-testid="start-recipe-btn"
-          onClick={ () => history.push(`/comidas/${recipe.idMeal}/in-progress`) }
+          onClick={ () => this.startRecipeButton() }
         >
           Iniciar receita
         </button>
@@ -106,6 +160,11 @@ ReceitaComida.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+  startRecipeDispatch: PropTypes.func.isRequired,
 };
 
-export default ReceitaComida;
+const mapDispatchToProps = (dispatch) => ({
+  startRecipeDispatch: (e) => dispatch(startRecipe(e)),
+});
+
+export default connect(null, mapDispatchToProps)(ReceitaComida);

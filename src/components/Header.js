@@ -17,6 +17,10 @@ class Header extends Component {
     this.renderSearchIcon = this.renderSearchIcon.bind(this);
   }
 
+  componentWillUnmount() {
+    this.renderSearchBar();
+  }
+
   renderSearchBar() {
     const { search } = this.props;
     return (
@@ -73,8 +77,13 @@ class Header extends Component {
 
 Header.propTypes = {
   pageTitle: PropTypes.string.isRequired,
-  shouldRenderSearchIcon: PropTypes.string.isRequired,
-  search: PropTypes.string.isRequired,
+  shouldRenderSearchIcon: PropTypes.string,
+  search: PropTypes.string,
+};
+
+Header.defaultProps = {
+  shouldRenderSearchIcon: undefined,
+  search: undefined,
 };
 
 export default Header;
