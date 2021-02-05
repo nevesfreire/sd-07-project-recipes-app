@@ -25,22 +25,10 @@ const ProgressFood = ({ type, recipe, ingredientes, id }) => {
     }
   }, []);
 
-  const checkItem = (item) => {
-    const inProgressRecipes = {
-      ...meals,
-      meals: {
-        [id]: [item],
-      },
-    };
-
-    localStorage.setItem('inProgressRecipes', inProgressRecipes);
-  };
-
-  const checkedIsTreu = ({ target }) => {
+  const checkedIsTreu = () => {
     const nodeListForAllCheckeBox = document.querySelectorAll('input');
     const arrayForAllCheckeBox = [];
     nodeListForAllCheckeBox.forEach((item) => arrayForAllCheckeBox.push(item));
-    checkItem(target.id);
     if (arrayForAllCheckeBox.every((elem) => elem.checked === true)) setAllChecked(true);
     else setAllChecked(false);
   };
@@ -55,14 +43,13 @@ const ProgressFood = ({ type, recipe, ingredientes, id }) => {
   };
 
   const handleCopy = () => {
-    copiedLink(`http://localhost:3000/${type}s/${id}`);
+    copiedLink(`http://localhost:3000/${type}/${id}`);
     if (copied) setCopied(false);
     else setCopied(true);
   };
 
   return (
     <div>
-
       <img
         data-testid="recipe-photo"
         src={ recipe[image] }
@@ -88,7 +75,7 @@ const ProgressFood = ({ type, recipe, ingredientes, id }) => {
             type="checkbox"
             id={ `${index}-ingredient-step` }
             name={ ingrediente }
-            onClick={ (event) => checkedIsTreu(event) }
+            onClick={ checkedIsTreu }
           />
           {ingrediente}
         </label>
