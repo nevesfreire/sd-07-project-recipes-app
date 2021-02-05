@@ -24,7 +24,7 @@ const inputSearchBar = (onChange) => (
 
 const radioButtons = (handleChange, value) => (
   <div className="radio-controll">
-    <FormControl component="fieldset" className="">
+    <FormControl component="fieldset">
       <FormLabel component="legend">Receitas</FormLabel>
       <RadioGroup
         aria-label="option"
@@ -32,37 +32,38 @@ const radioButtons = (handleChange, value) => (
         value={ value }
         onChange={ handleChange }
       >
-        <FormControlLabel
-          data-testid="ingredient-search-radio"
-          value="ingredient"
-          control={ <Radio /> }
-          label="Ingrediente"
-        />
-        <FormControlLabel
-          data-testid="name-search-radio"
-          value="name"
-          control={ <Radio /> }
-          label="Nome"
-        />
-        <FormControlLabel
-          data-testid="first-letter-search-radio"
-          value="letter"
-          control={ <Radio /> }
-          label="1ª Letra"
-        />
+        <div className="field-set">
+          <FormControlLabel
+            data-testid="ingredient-search-radio"
+            value="ingredient"
+            control={ <Radio /> }
+            label="Ingrediente"
+          />
+          <FormControlLabel
+            data-testid="name-search-radio"
+            value="name"
+            control={ <Radio /> }
+            label="Nome"
+          />
+          <FormControlLabel
+            data-testid="first-letter-search-radio"
+            value="letter"
+            control={ <Radio /> }
+            label="1ª Letra"
+          />
+        </div>
       </RadioGroup>
     </FormControl>
   </div>
 );
 
 const buttonFetch = (onClick) => (
-  <div className="input-radiobutton">
+  <div className="radio-btn">
     <Button
       data-testid="exec-search-btn"
       variant="contained"
-      collor="primary"
+      color="primary"
       onClick={ (e) => onClick(e) }
-      className=""
     >
       Buscar
     </Button>

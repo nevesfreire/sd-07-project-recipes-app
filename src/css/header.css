@@ -5,7 +5,13 @@
 }
 
 .radio-controll {
-    width: 200px;
+    width: 330px;
+}
+
+.field-set {
+    display: flex;
+    flex-direction: row;
+    width: 345px;
 }
 
 .header {
@@ -15,12 +21,19 @@
 }
 
 .header-page {
-    height: 310px;
+    height: 210px;
 }
 
 .header-buttons {
     display: flex;
     flex-direction: row;
-    
     margin-left: 40em;
+}
+
+.input-searchbar {
+    margin-top: 25px;
+}
+
+.search-recipes {
+    height: 0px;
 }

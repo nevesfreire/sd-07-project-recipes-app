@@ -57,7 +57,7 @@
     margin-left: 200px;
 }
 
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 340px) {
     .main-container {
         margin-top: 100px;
         margin-left: 0.01em;

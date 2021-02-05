@@ -9,6 +9,9 @@ function Recipes() {
       <div className="header-page">
         <Header />
       </div>
+      <div className="top-footer">
+        <Footer />
+      </div>
       <div className="cards-container">
         <ListCards />
       </div>
