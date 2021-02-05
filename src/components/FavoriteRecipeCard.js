@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -6,6 +7,7 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 class FavoriteRecipeCard extends Component {
   render() {
     const { favoriteRecipes: {
+      id,
       type,
       area,
       category,
@@ -17,13 +19,30 @@ class FavoriteRecipeCard extends Component {
     return (
       <div data-testid={ `${index}-recipe-card` }>
         <img src={ image } alt={ name } data-testid={ `${index}-horizontal-image` } />
-        <p data-testid={ `${index}-horizontal-name` }>{ name }</p>
-        {type === 'bebida' ? <p>{ alcoholicOrNot}</p>
-          : (
-            <p data-testid={ `${index}-horizontal-top-text` }>
-              {`${area} - ${category}`}
-            </p>
-          ) }
+        {type === 'bebida' ? (
+          <Link
+            to={ `/bebidas/${id}` }
+            data-testid={ `${index}-horizontal-name` }
+          >
+            { name }
+          </Link>
+        ) : (
+          <Link
+            to={ `/comidas/${id}` }
+            data-testid={ `${index}-horizontal-name` }
+          >
+            { name }
+          </Link>
+        )}
+        {type === 'bebida' ? (
+          <p data-testid={ `${index}-horizontal-top-text` }>
+            { alcoholicOrNot}
+          </p>
+        ) : (
+          <p data-testid={ `${index}-horizontal-top-text` }>
+            {`${area} - ${category}`}
+          </p>
+        )}
         <img
           src={ blackHeartIcon }
           data-testid={ `${index}-horizontal-favorite-btn` }
@@ -41,6 +60,7 @@ class FavoriteRecipeCard extends Component {
 
 FavoriteRecipeCard.propTypes = {
   favoriteRecipes: PropTypes.shape({
+    id: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     area: PropTypes.string.isRequired,
     category: PropTypes.string.isRequired,
