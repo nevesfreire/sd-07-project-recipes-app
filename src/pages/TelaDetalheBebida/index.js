@@ -7,8 +7,8 @@ import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import { RecomendationCardDrink } from '../../components';
 import {
   getSpecificDrinkById,
-  getRecommendatedDrinks,
 } from '../../store/ducks/getDetailedDrink/actions';
+import { getRecommendatedMeals } from '../../store/ducks/getDetailedMeal/actions';
 
 class TelaDetalheBebida extends Component {
   async componentDidMount() {
@@ -17,8 +17,8 @@ class TelaDetalheBebida extends Component {
         params: { id },
       },
     } = this.props;
-    const { getDetailedDrinkDispatch, getRecommendationDrinks } = this.props;
-    await getRecommendationDrinks();
+    const { getDetailedDrinkDispatch, getRecommendationMeals } = this.props;
+    await getRecommendationMeals();
     await getDetailedDrinkDispatch(id);
   }
 
@@ -41,11 +41,11 @@ class TelaDetalheBebida extends Component {
   renderDetails(drink) {
     const ingredientsArray = this.handleIngredients(drink);
     const measuresArray = this.handleMeasure(drink);
-    const { drinksRecommendStore } = this.props;
+    const { mealsRecommendStore } = this.props;
     const six = 6;
     const settings = {
       dots: true,
-      infinite: true,
+      infinite: false,
       speed: 500,
       slidesToShow: 2,
       slidesToScroll: 2,
@@ -84,18 +84,23 @@ class TelaDetalheBebida extends Component {
           <p data-testid="instructions">{drink[0].strInstructions}</p>
         </div>
         <Slider { ...settings }>
-          {drinksRecommendStore.map((element, index) => {
+          {mealsRecommendStore.map((element, index) => {
             if (index < six) {
+              console.log(index);
               return (<RecomendationCardDrink
                 key={ element }
-                drinkRecommended={ element }
-                drinkIndex={ index }
+                mealRecommended={ element }
+                mealIndex={ index }
               />);
             } return null;
           })}
         </Slider>
-        <button data-testid="start-recipe-btn" type="button">
-          Click on me
+        <button
+          data-testid="start-recipe-btn"
+          type="button"
+          style={ { position: 'fixed', bottom: '0px' } }
+        >
+          Iniciar Receita
         </button>
       </div>
     );
@@ -112,19 +117,19 @@ class TelaDetalheBebida extends Component {
 
 const mapStateToProps = (state) => ({
   drinkDetailStore: state.detalhesDaReceitaBebida.drink.drinks,
-  drinksRecommendStore: state.detalhesDaReceitaBebida.drinkRecommend.drinks,
+  mealsRecommendStore: state.detalhesDaReceitaComida.mealRecommend.meals,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getDetailedDrinkDispatch: (id) => dispatch(getSpecificDrinkById(id)),
-  getRecommendationDrinks: () => dispatch(getRecommendatedDrinks()),
+  getRecommendationMeals: () => dispatch(getRecommendatedMeals()),
 });
 
 TelaDetalheBebida.propTypes = {
   drinkDetailStore: PropTypes.arrayOf(PropTypes.Object).isRequired,
   getDetailedDrinkDispatch: PropTypes.func.isRequired,
-  drinksRecommendStore: PropTypes.arrayOf(PropTypes.Object).isRequired,
-  getRecommendationDrinks: PropTypes.func.isRequired,
+  mealsRecommendStore: PropTypes.arrayOf(PropTypes.Object).isRequired,
+  getRecommendationMeals: PropTypes.arrayOf(PropTypes.Object).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
