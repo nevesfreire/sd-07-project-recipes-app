@@ -14,7 +14,11 @@ const endPointIdFood = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
 
 const endPointIdDrink = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
 
-const endPointIngredientFoodList = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list'; // Alterar o nome que está errado
+const endPointFilterFood = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
+
+const endPointFilterDrink = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
+
+const endPointIngredientFoodList = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
 
 const endPointIngredientDrinkList = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
 
@@ -117,6 +121,25 @@ export const getCategoryDrinks = async () => {
   }
 };
 
+export const filterFoodCategory = async (category) => {
+  try {
+    const { meals } = await fetch(`${endPointFilterFood}${category}`)
+      .then((result) => result.json());
+    return meals;
+  } catch (error) {
+    return 'error';
+  }
+};
+
+export const filterDrinkCategory = async (category) => {
+  try {
+    const { drinks } = await fetch(`${endPointFilterDrink}${category}`)
+      .then((result) => result.json());
+    return drinks;
+  } catch (error) {
+    return 'error';
+  }
+};
 export const getIngredientsFoodList = async () => {
   try {
     const { meals } = await fetch(endPointIngredientFoodList)

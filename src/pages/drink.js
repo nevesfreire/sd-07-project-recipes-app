@@ -3,12 +3,17 @@ import Header from '../components/Header';
 import SearchHeaderBar from '../components/SearchHeaderBar';
 import Footer from '../components/Footer';
 import RecipeContext from '../context/RecipeContext';
+import ListCardsDrinkCategory from '../components/ListCardsDrinkCategory';
 import ListCardsDrink from '../components/ListCardsDrink';
-import { getCategoryDrinks, getDrinkIngredients } from '../services/Api';
+import { getCategoryDrinks,
+  filterDrinkCategory,
+  getDrinkIngredients,
+} from '../services/Api';
 
 function Drink() {
   const [loading, setLoading] = useState(false);
-  const [arrayListDrinks, setArrayListDrinks] = useState([]);
+  const [arrayListDrink, setArrayListDrink] = useState([]);
+  const [arrayCategory, setArrayCategory] = useState([]);
   const [ListFoodCategories, setListFoodCategories] = useState([]);
   const { showBtn, data, setData } = useContext(RecipeContext);
   const FIVE = 5;
@@ -28,17 +33,18 @@ function Drink() {
     getListCategories();
   }, []);
 
+  const getFilterDrinkCategory = async (category) => {
+    setArrayCategory(await filterDrinkCategory(category));
+  };
   useEffect(() => {
     const getDrinkByIngredients = async () => {
       const getdrinkByIngredient = await getDrinkIngredients(data.ingredient);
-      console.log(data.ingredient);
-      console.log(getdrinkByIngredient);
-      setArrayListDrinks(getdrinkByIngredient);
+      setArrayListDrink(getdrinkByIngredient);
     };
     if (data.ingredient) {
       getDrinkByIngredients();
     } else {
-      setArrayListDrinks(data.drink);
+      setArrayListDrink(data.drink);
     }
   }, [data.drink]);
 
@@ -47,24 +53,23 @@ function Drink() {
       'Sinto muito, não encontramos nenhuma receita para esses filtros.',
     );
   };
-
   const getLoading = () => {
     if (loading) {
-      const arrayListDrink = [...arrayListDrinks];
-      return ListCardsDrink(arrayListDrink);
+      const arrayDrinks = [...arrayListDrink];
+      return ListCardsDrink(arrayDrinks);
     }
     return 'Loading...';
   };
 
   const showListDrinksCategories = () => ListFoodCategories.map((category) => (
-    <div
+    <button
       key={ category.strCategory }
+      type="button"
       data-testid={ `${category.strCategory}-category-filter` }
+      onClick={ () => getFilterDrinkCategory(category.strCategory) }
     >
-      <button type="button">
-        {category.strCategory}
-      </button>
-    </div>
+      {category.strCategory}
+    </button>
   ));
 
   return (
@@ -72,7 +77,9 @@ function Drink() {
       <Header />
       { showBtn && <SearchHeaderBar /> }
 
-      {(arrayListDrinks.length > ZERO) && showListDrinksCategories()}
+      {(arrayListDrink.length > ZERO) && showListDrinksCategories()}
+
+      {(arrayCategory.length > ZERO) && ListCardsDrinkCategory(arrayCategory)}
 
       {
         (data.drink === 'erro' || data.drink === null)

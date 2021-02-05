@@ -12,13 +12,13 @@ function ListCardsDrink(cardsDrinks) {
       {
         cardsDrinks.map((drink, index) => (
           <div data-testid={ `${index}-recipe-card` } key={ drink.idDrink }>
-            <h5 data-testid={ `${index}-card-name` }>{drink.strDrink}</h5>
             <img
               style={ { width: '30%' } }
               src={ drink.strDrinkThumb }
               alt={ drink.strDrink }
               data-testid={ `${index}-card-img` }
             />
+            <h5 data-testid={ `${index}-card-name` }>{drink.strDrink}</h5>
           </div>
         ))
       }
