@@ -9,15 +9,17 @@ class InProgressMeals extends React.Component {
       recipe: '',
       ingredientsList: [],
       ingrentsMeasuresList: [],
-      checkBox: {},
+      checkBox: null,
+      buttonStatus: true,
     };
     this.maracutaia = this.maracutaia.bind(this);
-    this.callRecipeAPI = this.callRecipeAPI.bind(this);
+    this.toggleButton = this.toggleButton.bind(this);
   }
 
   async componentDidMount() {
     await this.callRecipeAPI();
     this.maracutaia();
+    this.toggleButton();
   }
 
   async handleInputChange({ target }) {
@@ -30,6 +32,18 @@ class InProgressMeals extends React.Component {
     }));
     const { checkBox } = this.state;
     localStorage.setItem('checkedItens', JSON.stringify(checkBox));
+    this.toggleButton();
+  }
+
+  toggleButton() {
+    const { ingredientsList, checkBox } = this.state;
+    if (!checkBox) {
+      const obj = {};
+      ingredientsList.forEach((item) => { obj[item] = false; });
+      return this.setState({ checkBox: obj });
+    }
+    this.setState({ buttonStatus: !Object
+      .values(checkBox).every((item) => item === true) });
   }
 
   async callRecipeAPI() {
@@ -65,7 +79,8 @@ class InProgressMeals extends React.Component {
   }
 
   render() {
-    const { ingredientsList, ingrentsMeasuresList, recipe, checkBox } = this.state;
+    const { ingredientsList,
+      ingrentsMeasuresList, recipe, checkBox, buttonStatus } = this.state;
     if (recipe === '') {
       return <p>Loading...</p>;
     }
@@ -129,6 +144,7 @@ class InProgressMeals extends React.Component {
             <button
               type="button"
               data-testid="finish-recipe-btn"
+              disabled={ buttonStatus }
             >
               Finalizar
             </button>
