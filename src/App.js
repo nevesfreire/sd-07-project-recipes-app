@@ -57,7 +57,7 @@ function App() {
           />
           <Route
             exact
-            path="/:recipes/:id/in-progress"
+            path="/:category/:idReceita/in-progress"
             render={ (props) => (<RecipesInProgress { ...props } />) }
           />
           <Route
