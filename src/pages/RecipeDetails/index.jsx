@@ -9,7 +9,6 @@ import Recomendations from './Recomendations';
 
 export default function RecipeDetails({ history, match: { params: { id } } }) {
   const [recipeDetails, setRecipeDetails] = useState([]);
-  // const [recomendationList, setRecomendationList] = useState([]);
   const fetchMealDetails = async () => {
     try {
       let endpoint = '';
@@ -72,18 +71,17 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
     .map((item, index) => [item, measures[index]]);
   console.log(ops);
 
-  // const arrayVazio = [];
-  // ingredients.forEach((ingredient, index) => {
-  //   // console.log(recipeDetails);
-  //   if (
-  //     (recipeDetails[ingredient]
-  //     || recipeDetails[ingredient] !== ' ')) {
-  //     // && (recipeDetails[measures[index]]
-  //     // || recipeDetails[measures[index]] !== ' ')){
-  //     arrayVazio.push([recipeDetails[ingredient], recipeDetails[measures[index]]]);
-  //   }
-  // });
-  // console.log(arrayVazio);
+  const arrayVazio = [];
+  ingredients.forEach((ingredient, index) => {
+    // console.log(recipeDetails);
+    if (
+      (recipeDetails[ingredient]
+      && recipeDetails[ingredient] !== ' '
+      && recipeDetails[ingredient] !== null)) {
+      arrayVazio.push([recipeDetails[ingredient], recipeDetails[measures[index]]]);
+    }
+  });
+  console.log(arrayVazio);
 
   useEffect(() => {
     fetchMealDetails();
@@ -116,9 +114,9 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
         </h4>
       </div>
       <ul className="container-ingredients">
-        { ops.map((name, index) => (
+        { arrayVazio.map((name, index) => (
           <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-            { `${recipeDetails[name[0]]} - ${recipeDetails[name[1]]}` }
+            { name[1] !== null ? `${name[0]} - ${name[1]}` : `${name[0]}` }
           </li>
         ))}
       </ul>
