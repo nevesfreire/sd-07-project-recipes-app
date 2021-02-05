@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Container, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { sendDrinkRecipes, sendMealRecipes } from '../redux/actions';
 import { apiTheMealDB, apiTheCocktailDB } from '../services';
@@ -55,40 +56,35 @@ class Ingredientes extends React.Component {
           {pathname === '/explorar/comidas/ingredientes' && (
             <Row>
               {data ? data.map((item, index) => (
-                <div
+                <Link
                   to="/comidas"
                   key={ index }
                   onClick={ () => this.saveToRedux(item, 'comidas') }
-                  onKeyPress
-                  role="link"
-                  tabIndex={ index }
                 >
                   <RecipesCards
                     recipe={ item }
                     search="ingredientsMeals"
                     index={ index }
                   />
-                </div>
+                </Link>
               )) : <Loading />}
             </Row>
           )}
           {pathname === '/explorar/bebidas/ingredientes' && (
             <Row>
               {data ? data.map((item, index) => (
-                <div
+                <Link
                   to="/bebidas"
                   key={ index }
                   onClick={ () => this.saveToRedux(item, 'bebidas') }
-                  onKeyPress
-                  role="link"
-                  tabIndex={ index }
                 >
                   <RecipesCards
+                    onClick={ () => this.saveToRedux(item, 'bebidas') }
                     recipe={ item }
                     search="ingredientsDrinks"
                     index={ index }
                   />
-                </div>
+                </Link>
               )) : <Loading />}
             </Row>
           )}
@@ -105,10 +101,10 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Ingredientes.propTypes = {
-  location: PropTypes.shape({ pathname: PropTypes.func.isRequired }).isRequired,
+  location: PropTypes.shape({ pathname: PropTypes.string.isRequired }).isRequired,
   sendMealRecipesDispatch: PropTypes.func.isRequired,
   sendDrinkRecipesDispatch: PropTypes.func.isRequired,
-  history: PropTypes.func.isRequired,
+  history: PropTypes.shape(PropTypes.object).isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(Ingredientes);
