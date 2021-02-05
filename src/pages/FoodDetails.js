@@ -24,7 +24,6 @@ export default function FoodDetails() {
   const seis = 6;
   const path = history.location.pathname;
   const listIngredients = [];
-
   useEffect(() => {
     const getRecipe = async () => {
       const id = path.substr(path.length - cinco, path.length);
@@ -33,7 +32,7 @@ export default function FoodDetails() {
       setRecipe(meals[0]);
     };
     getRecipe();
-  }, [path]);
+  }, []);
 
   const getRecomendations = async () => {
     const endpoint = ('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
@@ -78,6 +77,18 @@ export default function FoodDetails() {
     }
   };
 
+  const favoritedStorage = () => {
+    const dataMeal = JSON.parse(localStorage.getItem('favoriteRecipes'))
+      ? JSON.parse(localStorage.getItem('favoriteRecipes'))
+      : [];
+    Object.values(dataMeal).forEach((item) => {
+      if (!favorited.includes(item.id)) {
+        setFavorited([item.id, ...favorited]);
+      }
+    });
+    return true;
+  };
+
   useEffect(() => {
     getRecomendations();
   }, []);
@@ -86,10 +97,9 @@ export default function FoodDetails() {
     history.push(`/comidas/${recipe.idMeal}/in-progress`);
   };
 
-  console.log(favorited);
   return (
     <div>
-
+      { favoritedStorage() }
       <img
         data-testid="recipe-photo"
         alt="Foto da Receita"
@@ -117,10 +127,10 @@ export default function FoodDetails() {
       <ShareButton />
       <button
         type="button"
-        data-testid="favorite-btn"
         onClick={ isFavorite }
       >
         <img
+          data-testid="favorite-btn"
           src={
             favorited.includes(recipe.idMeal)
               ? blackHeartIcon
