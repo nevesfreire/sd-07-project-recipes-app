@@ -3,7 +3,7 @@ import React from 'react';
 class CardRecomendacaoComida extends React.Component {
   render() {
     return (
-      <div>CardRecomendacaoComida</div>
+      <div>Card Recomendação Comida</div>
     );
   }
 }

@@ -3,7 +3,7 @@ import React from 'react';
 function ExplorarIngredientes() {
   return (
     <div>
-      ExplorarIngredientes
+      Explorar Ingredientes
     </div>
 
   );
