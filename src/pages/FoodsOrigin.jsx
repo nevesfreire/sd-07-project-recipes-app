@@ -81,12 +81,10 @@ class ExploreArea extends Component {
     return (
       <div>
         <CustomHeader title="Explorar Origem" />
-        {
-          <CustomDropdown
-            data={ data }
-            allFoods={ this.allFoods }
-          />
-        }
+        <CustomDropdown
+          data={ data }
+          allFoods={ this.allFoods }
+        />
         {this.handleRecipes()}
 
         <CustomFooter />
