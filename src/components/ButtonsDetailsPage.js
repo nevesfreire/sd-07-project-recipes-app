@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
+import handleAction from '../functions/MountFavorite';
 
 const copy = require('clipboard-copy');
 
@@ -33,62 +34,14 @@ function ButtonsDetailsPage({ api }) {
 
   const handleShare = (entry) => {
     let alternative = '';
-    (entry === 'meal') ? alternative = 'comidas' : alternative = 'bebidas';
-    const path =`${window.location.origin}/${alternative}/${api.recipeId}`;
-    console.log(path)
+    if (entry === 'meal') {
+      alternative = 'comidas';
+    } else {
+      alternative = 'bebidas';
+    }
+    const path = `${window.location.origin}/${alternative}/${api.recipeId}`;
     copy(path)
       .then(() => setCopyLink(true));
-  };
-
-  const handleAction = () => {
-    const { key } = api;
-    let categoryEntry = '';
-    let isAlcoholicEntry = '';
-    const pathCheck = window.location.pathname.includes('/in-progress');
-    console.log(pathCheck);
-    if (pathCheck) {
-      categoryEntry = api.category;
-      isAlcoholicEntry = api.alcoholic;
-    } else {
-      categoryEntry = api.area;
-      isAlcoholicEntry = api.category;
-    }
-
-    const recipeCocktail = {
-      id: api.recipeId,
-      type: 'bebida',
-      area: '',
-      category: categoryEntry,
-      alcoholicOrNot: isAlcoholicEntry,
-      name: api.title,
-      image: api.source,
-    };
-
-    const recipeMeal = {
-      id: api.recipeId,
-      type: 'comida',
-      area: api.area,
-      category: api.category,
-      alcoholicOrNot: '',
-      name: api.title,
-      image: api.source,
-    };
-
-    const addNewRecipe = key === 'cocktail' ? recipeCocktail : recipeMeal;
-
-    if (heartStatus === 'white') {
-      setHeartStatus('black');
-      const getStatus = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      const myRecipes = [...getStatus, addNewRecipe];
-      localStorage.removeItem('favoriteRecipes');
-      localStorage.setItem('favoriteRecipes', JSON.stringify(myRecipes));
-    } else {
-      setHeartStatus('white');
-      const getStatus = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      const returned = getStatus.filter((recipe) => recipe.id !== api.recipeId);
-      localStorage.removeItem('favoriteRecipes');
-      localStorage.setItem('favoriteRecipes', JSON.stringify(returned));
-    }
   };
 
   return (
@@ -107,7 +60,7 @@ function ButtonsDetailsPage({ api }) {
         type="image"
         alt="favorite-button"
         src={ heartStatus === 'white' ? whiteHeartIcon : blackHeartIcon }
-        onClick={ handleAction }
+        onClick={ () => setHeartStatus(handleAction(api, heartStatus)) }
       />
       { copyLink === true ? (<span>Link copiado!</span>) : false }
     </div>

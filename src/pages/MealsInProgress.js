@@ -16,11 +16,11 @@ function MealsInProgress() {
   const [area, setArea] = useState('');
   const [instructions, setInstructions] = useState('');
   const [buttonIsEnabled, setButtonIsEnabled] = useState(false);
-  const [storage, setStorage] = useState({meals: []});
-  const [ checked, setChecked] = useState([]);
+  const [storage, setStorage] = useState({ meals: [] });
+  const [checked, setChecked] = useState([]);
 
   const handleClick = () => {
-    history.push("/receitas-feitas");
+    history.push('/receitas-feitas');
   };
 
   const handleChange = (ingredient) => {
@@ -34,12 +34,12 @@ function MealsInProgress() {
     if (getPrevProgress.length + 1 === ingredMeasures.length) {
       setButtonIsEnabled(true);
     }
-  }
+  };
 
   useEffect(() => {
     if (recipeId !== '') {
-    handleClickMeals(recipeId);
-    setStorage(JSON.parse(localStorage.getItem('inProgressRecipes')));
+      handleClickMeals(recipeId);
+      setStorage(JSON.parse(localStorage.getItem('inProgressRecipes')));
     }
   }, [recipeId]);
 
@@ -107,14 +107,21 @@ function MealsInProgress() {
           const [key] = Object.keys(element);
           const [value] = Object.values(element);
           let isChecked = false;
-          const validation = checked.find(ing => ing === `${key} - ${value}`);
+          const validation = checked.find((ing) => ing === `${key} - ${value}`);
           if (validation) {
             isChecked = true;
           }
           return (
-            <div data-testid={ `${index}-ingredient-step` }>
-              <input id={`ingredient-${index}`} type="checkbox" key={ index } onChange={() => handleChange(`${key} - ${value}`)} value={isChecked} defaultChecked={isChecked}/>
-              <label htmlFor={`ingredient-${index}`}>{ `${key} - ${value}` }</label>
+            <div key={ `${index}-ingredient` } data-testid={ `${index}-ingredient-step` }>
+              <input
+                id={ `ingredient-${index}` }
+                type="checkbox"
+                key={ index }
+                onChange={ () => handleChange(`${key} - ${value}`) }
+                value={ isChecked }
+                defaultChecked={ isChecked }
+              />
+              <label htmlFor={ `ingredient-${index}` }>{ `${key} - ${value}` }</label>
             </div>
           );
         }) }
@@ -128,7 +135,7 @@ function MealsInProgress() {
         className="finishRecipe"
         data-testid="finish-recipe-btn"
         onClick={ handleClick }
-        disabled={!(buttonIsEnabled)}
+        disabled={ !(buttonIsEnabled) }
       >
         Finalizar Receita
       </button>

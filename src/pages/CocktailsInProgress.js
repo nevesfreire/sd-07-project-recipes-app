@@ -17,11 +17,11 @@ function CocktailsInProgress() {
   const [instructions, setInstructions] = useState('');
   const [alcoholic, setAlcoholic] = useState('');
   const [buttonIsEnabled, setButtonIsEnabled] = useState(false);
-  const [storage, setStorage] = useState({cocktails: []});
-  const [ checked, setChecked] = useState([]);
+  const [storage, setStorage] = useState({ cocktails: [] });
+  const [checked, setChecked] = useState([]);
 
   const handleClick = () => {
-    history.push("/receitas-feitas");
+    history.push('/receitas-feitas');
   };
 
   const handleChange = (ingredient) => {
@@ -29,18 +29,20 @@ function CocktailsInProgress() {
     const getPrevProgress = getPrevStorage.cocktails[recipeId];
     const updateStorage = {
       ...getPrevStorage,
-      cocktails: { ...getPrevStorage.cocktails, [recipeId]: [...getPrevProgress, ingredient] },
+      cocktails: {
+        ...getPrevStorage.cocktails,
+        [recipeId]: [...getPrevProgress, ingredient] },
     };
     localStorage.setItem('inProgressRecipes', JSON.stringify(updateStorage));
     if (getPrevProgress.length + 1 === ingredMeasures.length) {
       setButtonIsEnabled(true);
     }
-  }
+  };
 
   useEffect(() => {
     if (recipeId !== '') {
       handleClickCocktails(recipeId);
-    setStorage(JSON.parse(localStorage.getItem('inProgressRecipes')));
+      setStorage(JSON.parse(localStorage.getItem('inProgressRecipes')));
     }
   }, [recipeId]);
 
@@ -50,7 +52,6 @@ function CocktailsInProgress() {
       setChecked(storage.cocktails[recipeId]);
     }
   }, [storage]);
-
 
   useEffect(() => {
     const path = history.location.pathname;
@@ -110,14 +111,20 @@ function CocktailsInProgress() {
           const [key] = Object.keys(element);
           const [value] = Object.values(element);
           let isChecked = false;
-          const validation = checked.find(ing => ing === `${key} - ${value}`);
+          const validation = checked.find((ing) => ing === `${key} - ${value}`);
           if (validation) {
             isChecked = true;
           }
           return (
-            <div data-testid={ `${index}-ingredient-step` }>
-              <input id={`ingredient-${index}`} type="checkbox" key={ index } onChange={() => handleChange(`${key} - ${value}`)} defaultChecked={isChecked}/>
-              <label htmlFor={`ingredient-${index}`}>{ `${key} - ${value}` }</label>
+            <div key={ `${index}-ingredient` } data-testid={ `${index}-ingredient-step` }>
+              <input
+                id={ `ingredient-${index}` }
+                type="checkbox"
+                key={ index }
+                onChange={ () => handleChange(`${key} - ${value}`) }
+                defaultChecked={ isChecked }
+              />
+              <label htmlFor={ `ingredient-${index}` }>{ `${key} - ${value}` }</label>
             </div>
           );
         }) }
@@ -131,7 +138,7 @@ function CocktailsInProgress() {
         className="finishRecipe"
         data-testid="finish-recipe-btn"
         onClick={ handleClick }
-        disabled={!buttonIsEnabled}
+        disabled={ !buttonIsEnabled }
       >
         Finalizar Receita
       </button>
