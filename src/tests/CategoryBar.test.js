@@ -67,6 +67,6 @@ describe('Testa o componente CategoryBar', () => {
     fireEvent.click(searchButton);
     const findButton = getByTestId('exec-search-btn');
     expect(findButton).toBeInTheDocument();
-    expect(findButton.tagName).toBe('INPUT');
+    expect(findButton.tagName).toBe('BUTTON');
   });
 });
