@@ -30,42 +30,49 @@ class Header extends Component {
   }
 
   render() {
-    const { title, searchOn, history, match } = this.props;
     const Style = { border: 0 };
+    const { title, searchOn, history, match, categori = true } = this.props;
     const { estilo } = this.state;
     if (searchOn === 'on') {
       return (
         <header className="row">
-          <div className="col">
-            <input
-              className="form-control"
-              style={ Style }
-              type="image"
-              data-testid="profile-top-btn"
-              src={ profileIcon }
-              alt="Imagem de perfil"
-              onClick={ () => history.push('/perfil') }
-            />
-          </div>
-          <div className="col">
-            <h3 data-testid="page-title">{title}</h3>
-          </div>
-          <div className="col">
-            <input
-              style={ Style }
-              className="form-control"
-              type="image"
-              data-testid="search-top-btn"
-              onClick={ () => this.handleClick() }
-              src={ searchIcon }
-              alt="Buscar"
-            />
-          </div>
           {
             estilo === 'visible'
               ? <Searchbar match={ match } />
-              : <Categories match={ match } />
+              : null
           }
+          {
+            categori && estilo !== 'visible'
+              ? <Categories match={ match } />
+              : null
+          }
+          <div className="header">
+            <div className="col">
+              <input
+                className="form-control"
+                style={ Style }
+                type="image"
+                data-testid="profile-top-btn"
+                src={ profileIcon }
+                alt="Imagem de perfil"
+                onClick={ () => history.push('/perfil') }
+              />
+            </div>
+            <div className="col">
+              <h4 data-testid="page-title">{title}</h4>
+            </div>
+            <div className="col">
+              <input
+                style={ Style }
+                className="form-control"
+                type="image"
+                data-testid="search-top-btn"
+                onClick={ () => this.handleClick() }
+                src={ searchIcon }
+                alt="Buscar"
+              />
+            </div>
+          </div>
         </header>
       );
     }
@@ -73,6 +80,7 @@ class Header extends Component {
       <header className="col">
         <div className="row">
           <input
+            className="btn btn-outline-ligth"
             type="image"
             data-testid="profile-top-btn"
             src={ profileIcon }
@@ -80,8 +88,9 @@ class Header extends Component {
             onClick={ () => history.push('/perfil') }
           />
           <div className="col">
-            <h3 className="text-center" data-testid="page-title">{title}</h3>
+            <h4 className="text-center" data-testid="page-title">{title}</h4>
           </div>
+          <div style={ { color: 'white' } }>.............</div>
         </div>
       </header>
     );
@@ -89,6 +98,7 @@ class Header extends Component {
 }
 
 Header.propTypes = {
+  categori: PropTypes.bool.isRequired,
   match: PropTypes.objectOf().isRequired,
   title: PropTypes.string.isRequired,
   searchOn: PropTypes.string.isRequired,

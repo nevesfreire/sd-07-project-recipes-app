@@ -10,15 +10,19 @@ class Explorar extends Component {
       <div>
         <Header title="Explorar" searchOn="off" history={ history } />
         <Footer history={ history } />
-        <div>
+        <div className="form-floating mb-3">
           <button
+            className="btn btn-danger form-control"
             type="button"
             data-testid="explore-food"
             onClick={ () => history.push('/explorar/comidas') }
           >
             Explorar Comidas
           </button>
+        </div>
+        <div className="form-floating mb-3">
           <button
+            className="btn btn-danger form-control"
             type="button"
             data-testid="explore-drinks"
             onClick={ () => history.push('/explorar/bebidas') }

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import fetchFoodImg from '../../images/fetchFood (1).png';
+import '../../App.css';
 
 class Login extends Component {
   constructor() {
@@ -34,6 +36,7 @@ class Login extends Component {
     const regexPassword = 6;
     return (
       <div>
+        <img src={ fetchFoodImg } alt="background" className="background-img" />
         <h1 className="text-center">
           Login
         </h1>
@@ -67,7 +70,7 @@ class Login extends Component {
         <div className="form-floating">
           <button
             type="button"
-            className="btn btn-outline-success form-control"
+            className="btn btn-danger form-control"
             data-testid="login-submit-btn"
             disabled={ !regexEmail.test(email) || password.length <= regexPassword }
             onClick={ () => this.handleClick() }

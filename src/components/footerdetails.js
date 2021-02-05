@@ -29,7 +29,7 @@ class Footerdetails extends Component {
         }
         return (
           <button
-            className="footer"
+            className="footer btn btn-danger"
             data-testid="start-recipe-btn"
             type="button"
             onClick={ () => hi.push(`/bebidas/${id}/in-progress`) }
@@ -50,7 +50,7 @@ class Footerdetails extends Component {
       }
       return (
         <button
-          className="footer"
+          className="footer btn btn-danger"
           data-testid="start-recipe-btn"
           type="button"
           onClick={ () => hi.push(`/comidas/${id}/in-progress`) }

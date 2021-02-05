@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loadCategories, setFilterRecipes, loadRecipes } from '../redux/action';
 import { fetchFoodCategory } from '../services';
+import '../App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Categories extends Component {
   constructor() {
@@ -52,9 +54,13 @@ class Categories extends Component {
   render() {
     const { categorias } = this.props;
     return (
-      <div className="btn-group" role="group" aria-label="Basic example">
+      <div
+        className="category row align-items-center"
+        role="group"
+        aria-label="Basic example"
+      >
         <button
-          className="btn btn-outline-success"
+          className="btn-group col-all btn btn-danger"
           data-testid="All-category-filter"
           type="button"
           onClick={ () => this.handleClick('All') }
@@ -63,7 +69,7 @@ class Categories extends Component {
         </button>
         { categorias.map((categoria) => (
           <button
-            className="btn btn-outline-success"
+            className="btn-group col-all btn btn-danger"
             name={ categoria.strCategory }
             type="button"
             data-testid={ `${categoria.strCategory}-category-filter` }

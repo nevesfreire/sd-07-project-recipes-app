@@ -26,7 +26,6 @@ class PrincipalComidas extends Component {
 
   Meals() {
     const { history, receitas } = this.props;
-    const recipe = 52977;
     let controlealert = false;
     if (receitas.meals || receitas.meals === null) {
       if (receitas.meals === null && !controlealert) {
@@ -40,28 +39,24 @@ class PrincipalComidas extends Component {
           const limit = 12;
           if (index < limit) {
             return (
-              <div className="container" Style="width: 18rem;">
+              <div className="container">
                 <button
                   className="card"
-                  name={ receita.idMeal }
                   type="button"
-                  onClick={ ({ target }) => this.handleClick(target.name) }
+                  onClick={ () => this.handleClick(receita.idMeal) }
                   key={ index }
                   data-testid={ `${index}-recipe-card` }
                 >
                   <figure className="figure">
                     <img
                       className="figure-img img-fluid rounded"
-                      name={ receita.idMeal }
                       data-testid={ `${index}-card-img` }
                       src={ receita.strMealThumb }
                       alt="imagem da receita"
                     />
                   </figure>
-
                   <div className="card-body">
                     <h4
-                      name={ receita.idMeal }
                       data-testid={ `${index}-card-name` }
                     >
                       {receita.strMeal}
@@ -73,8 +68,8 @@ class PrincipalComidas extends Component {
                       card's content.
                     </p>
                     <a
-                      href={ `/comidas/${recipe}` }
-                      className="btn btn-outline-success"
+                      href={ `/comidas/${receita.idMeal}` }
+                      className="btn btn-danger"
                     >
                       Go to Recipe
                     </a>
@@ -92,11 +87,13 @@ class PrincipalComidas extends Component {
   render() {
     const { history, match } = this.props;
     return (
-      <div>
+      <div className="component">
         <Header title="Comidas" searchOn="on" history={ history } match={ match } />
-        {
-          this.Meals()
-        }
+        <div className="cards">
+          {
+            this.Meals()
+          }
+        </div>
         <Footer history={ history } />
       </div>
     );

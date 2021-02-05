@@ -21,7 +21,7 @@ class Perfil extends Component {
           </h4>
           <div className="form-floating mb-3">
             <button
-              className="btn btn-outline-success form-control"
+              className="btn btn-success form-control"
               type="button"
               data-testid="profile-done-btn"
               onClick={ () => history.push('/receitas-feitas') }
@@ -31,7 +31,7 @@ class Perfil extends Component {
           </div>
           <div className="form-floating mb-3">
             <button
-              className="btn btn-outline-success form-control"
+              className="btn btn-success form-control"
               type="button"
               data-testid="profile-favorite-btn"
               onClick={ () => history.push('/receitas-favoritas') }
@@ -41,7 +41,7 @@ class Perfil extends Component {
           </div>
           <div className="form-floating mb-3">
             <button
-              className="btn btn-outline-danger form-control"
+              className="btn btn-danger form-control"
               type="button"
               data-testid="profile-logout-btn"
               onClick={ () => localStorage.clear(history.push('/')) }

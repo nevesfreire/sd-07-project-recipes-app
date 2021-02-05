@@ -7,6 +7,7 @@ import {
   fetchFoodName,
   fetchFoodLetter,
 } from '../services';
+import '../App.css';
 
 class Searchbar extends Component {
   constructor() {
@@ -65,9 +66,10 @@ class Searchbar extends Component {
   render() {
     const { busca, inputValue } = this.state;
     return (
-      <div className="form-control">
+      <div className="search-bar">
         <input
           className="form-control"
+          id="search"
           onChange={ (event) => this.handlechange(event) }
           name="inputValue"
           data-testid="search-input"
@@ -75,46 +77,50 @@ class Searchbar extends Component {
           placeholder="Busca"
           value={ inputValue }
         />
-        <label htmlFor="ingredient" className="visually-hidden">
-          <input
-            className="row gy-2 gx-3 align-items-center"
-            onChange={ (event) => this.handlechange(event) }
-            value="ingredient"
-            checked={ busca === 'ingredient' }
-            name="busca"
-            id="ingredient"
-            type="radio"
-            data-testid="ingredient-search-radio"
-          />
-          Ingrediente
-        </label>
-        <label htmlFor="name">
-          <input
-            onChange={ (event) => this.handlechange(event) }
-            value="name"
-            checked={ busca === 'name' }
-            name="busca"
-            id="name"
-            type="radio"
-            data-testid="name-search-radio"
-          />
-          Nome
-        </label>
-        <label htmlFor="first-letter">
-          <input
-            onChange={ (event) => this.handlechange(event) }
-            value="first-letter"
-            checked={ busca === 'first-letter' }
-            name="busca"
-            id="first-letter"
-            type="radio"
-            data-testid="first-letter-search-radio"
-          />
-          Primeira letra
-        </label>
-        <div className="col-auto">
+        <div className="radio">
+          <label htmlFor="ingredient" className="label visually-hidden">
+            <input
+              className="align-items-center"
+              onChange={ (event) => this.handlechange(event) }
+              value="ingredient"
+              checked={ busca === 'ingredient' }
+              name="busca"
+              id="ingredient"
+              type="radio"
+              data-testid="ingredient-search-radio"
+            />
+            Ingrediente
+          </label>
+          <label className="label visually-hidden" htmlFor="name">
+            <input
+              className="align-items-center"
+              onChange={ (event) => this.handlechange(event) }
+              value="name"
+              checked={ busca === 'name' }
+              name="busca"
+              id="name"
+              type="radio"
+              data-testid="name-search-radio"
+            />
+            Nome
+          </label>
+          <label className="label visually-hidden" htmlFor="first-letter">
+            <input
+              className="align-items-center"
+              onChange={ (event) => this.handlechange(event) }
+              value="first-letter"
+              checked={ busca === 'first-letter' }
+              name="busca"
+              id="first-letter"
+              type="radio"
+              data-testid="first-letter-search-radio"
+            />
+            Primeira letra
+          </label>
+        </div>
+        <div className="btnsearch">
           <button
-            className="btn btn-outline-success btn-sm"
+            className="btn btn-danger btn-sm"
             data-testid="exec-search-btn"
             type="button"
             onClick={ () => this.handleClick() }

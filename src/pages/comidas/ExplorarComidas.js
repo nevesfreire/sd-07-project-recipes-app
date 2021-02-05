@@ -46,25 +46,32 @@ class ExplorarComidas extends Component {
     const { history } = this.props;
 
     return (
-      <div>
+      <div className="form-floating mb-3">
         <Header title="Explorar Comidas" searchOn="off" history={ history } />
         <Footer history={ history } />
-        <div>
+        <div className="form-floating mb-3">
           <button
+            className="btn btn-danger form-control"
             type="button"
             data-testid="explore-by-ingredient"
             onClick={ () => history.push('/explorar/comidas/ingredientes') }
           >
             Por Ingredientes
           </button>
+        </div>
+        <div className="form-floating mb-3">
           <button
+            className="btn btn-danger form-control"
             type="button"
             data-testid="explore-by-area"
             onClick={ () => history.push('/explorar/comidas/area') }
           >
             Por Local de Origem
           </button>
+        </div>
+        <div className="form-floating mb-3">
           <button
+            className="btn btn-danger form-control"
             type="button"
             data-testid="explore-surprise"
             onClick={ this.handleClick }

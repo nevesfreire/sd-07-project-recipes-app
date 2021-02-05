@@ -228,7 +228,7 @@ class ProcessoComidas extends Component {
           <p data-testid="instructions">{receita.strInstructions}</p>
         </div>
         <button
-          className="footer"
+          className="footer btn btn-danger"
           data-testid="finish-recipe-btn"
           type="button"
           disabled={ !buton }

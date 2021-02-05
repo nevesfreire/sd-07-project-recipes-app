@@ -39,29 +39,43 @@ class PrincipalBebidas extends Component {
           const limit = 12;
           if (index < limit) {
             return (
-              <button
-                className="card"
-                type="button"
-                name={ receita.idDrink }
-                onClick={ ({ target }) => this.handleClick(target.name) }
-                key={ index }
-                data-testid={ `${index}-recipe-card` }
-              >
-                <img
+              <div className="container">
+                <button
                   className="card"
-                  name={ receita.idDrink }
-                  data-testid={ `${index}-card-img` }
-                  src={ receita.strDrinkThumb }
-                  alt="imagem da receita"
-                />
-                <h1
-                  className="card"
-                  name={ receita.idDrink }
-                  data-testid={ `${index}-card-name` }
+                  type="button"
+                  onClick={ () => this.handleClick(receita.idDrink) }
+                  key={ index }
+                  data-testid={ `${index}-recipe-card` }
                 >
-                  {receita.strDrink}
-                </h1>
-              </button>
+                  <figure className="figure">
+                    <img
+                      className="figure-img img-fluid rounded"
+                      data-testid={ `${index}-card-img` }
+                      src={ receita.strDrinkThumb }
+                      alt="imagem da receita"
+                    />
+                  </figure>
+                  <div className="card-body">
+                    <h4
+                      data-testid={ `${index}-card-name` }
+                    >
+                      {receita.strDrink}
+                    </h4>
+                    <p className="card-text">
+                      Some quick example text
+                      to build on the card title
+                      and make up the bulk of the
+                      card's content.
+                    </p>
+                    <a
+                      href={ `/bebidas/${receita.idDrink}` }
+                      className="btn btn-danger"
+                    >
+                      Go to Recipe
+                    </a>
+                  </div>
+                </button>
+              </div>
             );
           }
           return null;
@@ -75,9 +89,11 @@ class PrincipalBebidas extends Component {
     return (
       <div>
         <Header title="Bebidas" searchOn="on" history={ history } match={ match } />
-        {
-          this.Drinks()
-        }
+        <div className="cards">
+          {
+            this.Drinks()
+          }
+        </div>
         <Footer history={ history } />
       </div>
     );

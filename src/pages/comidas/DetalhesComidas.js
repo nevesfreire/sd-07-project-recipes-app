@@ -9,7 +9,7 @@ import { loadRecipes } from '../../redux/action';
 import shareIcon from '../../images/shareIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
-// problema no filtro??
+
 class DetalhesComidas extends Component {
   constructor() {
     super();
@@ -108,21 +108,18 @@ class DetalhesComidas extends Component {
           return (
             <div key={ index } className="card">
               <button
-                name={ receita.idDrink }
                 type="button"
-                onClick={ ({ target }) => this.handleClick(target.name) }
+                onClick={ () => this.handleClick(receita.idDrink) }
                 data-testid={ `${index}-recomendation-card` }
               >
                 <img
                   data-testid={ `${index}-recomendation-img` }
-                  name={ receita.idDrink }
                   src={ receita.strDrinkThumb }
                   alt="imagem da receita"
                 />
               </button>
               <h1
                 data-testid={ `${index}-recomendation-title` }
-                name={ receita.idDrink }
               >
                 {receita.strDrink}
               </h1>
@@ -151,12 +148,15 @@ class DetalhesComidas extends Component {
     const metricas = keys.filter((key) => key[0].includes('strMeasure'));
     return (
       <div>
-        <img
-          src={ receita.strMealThumb }
-          data-testid="recipe-photo"
-          alt="foto-da comida"
-        />
-        <h2 data-testid="recipe-title">{receita.strMeal}</h2>
+        <figure className="figure">
+          <img
+            className="figure-img img-fluid rounded"
+            src={ receita.strMealThumb }
+            data-testid="recipe-photo"
+            alt="foto-da comida"
+          />
+        </figure>
+        <h4 data-testid="recipe-title">{receita.strMeal}</h4>
         <input
           type="image"
           data-testid="share-btn"
@@ -172,26 +172,36 @@ class DetalhesComidas extends Component {
           src={ favorito ? blackHeartIcon : whiteHeartIcon }
           alt="favoritar"
         />
-        <h3 data-testid="recipe-category">{receita.strCategory}</h3>
+        <h4 data-testid="recipe-category">{receita.strCategory}</h4>
         <div>
-          {
-            ingredientes.map((ingrediente, index) => {
-              if (ingrediente[1] !== '' && ingrediente[1] !== null) {
-                return (
-                  <h4
-                    key={ `${index}-ingredient-name-and-measure` }
-                    data-testid={ `${index}-ingredient-name-and-measure` }
-                  >
-                    {`-${ingrediente[1]}-${metricas[index][1]}`}
-                  </h4>
-                );
-              }
-              return null;
-            })
-          }
+          <ul className="list-group list-group-flush">
+            {
+              ingredientes.map((ingrediente, index) => {
+                if (ingrediente[1] !== '' && ingrediente[1] !== null) {
+                  return (
+                    <li
+                      className="list-group-item"
+                      key={ `${index}-ingredient-name-and-measure` }
+                      data-testid={ `${index}-ingredient-name-and-measure` }
+                    >
+                      {`${ingrediente[1]}-${metricas[index][1]}`}
+                    </li>
+                  );
+                }
+                return null;
+              })
+            }
+          </ul>
         </div>
-        <div>
-          <p data-testid="instructions">{receita.strInstructions}</p>
+        <div className="card">
+          <div className="card-body">
+            <p
+              className="card-text"
+              data-testid="instructions"
+            >
+              {receita.strInstructions}
+            </p>
+          </div>
         </div>
         <ReactPlayer
           data-testid="video"
