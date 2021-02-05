@@ -1,48 +1,62 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { Footer, Header } from '../../components';
 import RequestData from '../../services/RequestAPI';
 import Card from '../../components/Card';
 
-function ExploreByIngredient(props) {
-  const history = useHistory();
-  const { pathname } = history.location;
-  console.log(pathname);
-  const isFood = pathname.indexOf('comidas') > -1;
-  console.log(isFood);
-  const isDrink = pathname.indexOf('bebidas') > -1;
-  console.log(isDrink);
+function ExploreByIngredient() {
+  const index = -1;
+  const isFood = useHistory().location.pathname.indexOf('comidas') > index;
+  const isDrink = useHistory().location.pathname.indexOf('bebidas') > index;
   let recipeType;
-  if (isFood) { recipeType = 'comidas'; }
-  if (isDrink) { recipeType = 'bebidas'; }
+  let link;
+  let key;
+  let keyCard;
+  if (isFood) {
+    recipeType = 'comidas';
+    link = 'themealdb';
+    key = 'meals';
+    keyCard = 'strIngredient';
+  }
+  if (isDrink) {
+    recipeType = 'bebidas';
+    link = 'thecocktaildb';
+    key = 'drinks';
+    keyCard = 'strIngredient1';
+  }
   const [data, setData] = useState([]);
   async function Request() {
-    let URL;
-    if (isFood) URL = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
-    if (isDrink) URL = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
+    const URL = `https://www.${link}.com/api/json/v1/1/list.php?i=list`;
     const list = await RequestData(URL);
-    console.log(list);
+    // console.log(list);
     const zero = 0;
     const end = 12;
-    let list12;
-    if (isFood) { 
-      list12 = await list.meals.slice(zero, end);
-    }
+    const list12 = await list[key].slice(zero, end);
+    // if (isFood) list12 = await list.meals.slice(zero, end);
+    // if (isDrink) list12 = await list.drinks.slice(zero, end);
+    list12.forEach((element, key2) => {
+      if (isFood) list12[key2].thumb = `https://www.themealdb.com/images/ingredients/${element.strIngredient}-Small.png`;
+      if (isDrink) list12[key2].thumb = `https://www.thecocktaildb.com/images/ingredients/${element.strIngredient1}-Small.png`;
+    });
+    setData(list12);
+    console.log(list12);
   }
 
-  Request();
-  console.log(data);
+  useEffect(() => {
+    Request();
+  }, []);
 
   return (
     <div>
       <Header />
       {
         data
-          ? data.map((element, key) => (
+          ? data.map((element, key3) => (
             <Card
-              key={ key }
-              name={ element.strIngredient }
-              index={ key }
+              data-testid={ key3 }
+              key={ key3 }
+              name={ element[keyCard] }
+              index={ key3 }
               id={ element.idIngredient }
               recipeType={ recipeType }
               thumb={ element.thumb }
