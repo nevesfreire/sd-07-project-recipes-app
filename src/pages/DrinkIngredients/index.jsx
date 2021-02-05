@@ -32,7 +32,7 @@ export default function DrinksIngredients() {
   }, []);
 
   return (
-    <div>
+    <div className="drink-ingredient-container">
       <Header title="Explorar Ingredientes" />
       <p>comidas</p>
       <div>

@@ -38,9 +38,9 @@ export default function MainFood() {
   }, []);
 
   return (
-    <div>
+    <div className="main-food">
       <Header title="Comidas" />
-      <main>
+      <div className="categories-buttons">
         <button
           type="button"
           onClick={ fetchRandomFoods }
@@ -48,19 +48,19 @@ export default function MainFood() {
         >
           ALL
         </button>
-        <div>
-          {
-            categories && categories.filter((_, index) => index < five)
-              .map((category, index) => (
-                <Category
-                  fetchRandomFoods={ fetchRandomFoods }
-                  key={ index }
-                  category={ category }
-                />
-              ))
-          }
-        </div>
-        <div className="cards-container">
+        {
+          categories && categories.filter((_, index) => index < five)
+            .map((category, index) => (
+              <Category
+                fetchRandomFoods={ fetchRandomFoods }
+                key={ index }
+                category={ category }
+              />
+            ))
+        }
+      </div>
+      <main>
+        <div className="cards-container-food">
           {
             meals.filter((_, index) => index < twelve)
               .map((meal, index) => (

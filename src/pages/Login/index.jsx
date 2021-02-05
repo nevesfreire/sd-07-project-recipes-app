@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import RecipesContext from '../../context/RecipesContext';
+import Logo from '../../images/ByeByeMiojo-logo.png';
+import Background from '../../images/bk.png';
 import './Login.css';
 
 export default function Login() {
@@ -39,38 +41,46 @@ export default function Login() {
   return (
     <div className="login-container">
 
-      {
-        login.redirect
-          ? <Redirect to="/comidas" />
-          : null
-      }
+      <div className="login-content">
+        <img className="login-logo" src={ Logo } alt="Logo" />
 
-      <label htmlFor="email">
-        E-mail:
-        <input
-          type="email"
-          name="email"
-          data-testid="email-input"
-          onChange={ (e) => handleChange(e) }
-        />
-      </label>
-      <label htmlFor="password">
-        Senha:
-        <input
-          type="password"
-          name="password"
-          data-testid="password-input"
-          onChange={ (e) => handleChange(e) }
-        />
-      </label>
-      <button
-        type="button"
-        data-testid="login-submit-btn"
-        disabled={ disabled }
-        onClick={ () => handleSubmit() }
-      >
-        Entrar
-      </button>
+        {
+          login.redirect
+            ? <Redirect to="/comidas" />
+            : null
+        }
+
+        <label htmlFor="email">
+          E-mail:
+          <input
+            type="email"
+            name="email"
+            data-testid="email-input"
+            onChange={ (e) => handleChange(e) }
+          />
+        </label>
+        <label htmlFor="password">
+          Senha:
+          <input
+            type="password"
+            name="password"
+            data-testid="password-input"
+            onChange={ (e) => handleChange(e) }
+          />
+        </label>
+        <button
+          type="button"
+          data-testid="login-submit-btn"
+          disabled={ disabled }
+          onClick={ () => handleSubmit() }
+        >
+          Entrar
+        </button>
+      </div>
+
+      <div className="login-background-image">
+        <img src={ Background } alt="Logo" />
+      </div>
     </div>
   );
 }
