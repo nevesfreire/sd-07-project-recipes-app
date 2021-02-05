@@ -20,8 +20,8 @@ function FavoriteRecipes() {
     setType(target.name);
   };
 
-  const handleCopyClick = (food) => {
-    copy(`http://localhost:3000/${food.type}s/${food.id}`);
+  const handleCopyClick = (recipe) => {
+    copy(`http://localhost:3000/${recipe.type}s/${recipe.id}`);
     setCopyText('Link copiado!');
     setInterval(() => setCopyText(''), TWO_THOUSAND);
   };
@@ -90,31 +90,31 @@ function FavoriteRecipes() {
       <p className="message">{copyText}</p>
       {
         favorited
-          .filter((element) => element.type.includes(type)).map((food, index) => (
+          .filter((recipe) => recipe.type.includes(type)).map((recipe, index) => (
             <div key={ index }>
-              <Link to={ `/${food.type}s/${food.id}` }>
+              <Link to={ `/${recipe.type}s/${recipe.id}` }>
                 <img
                   width="200"
                   data-testid={ `${index}-horizontal-image` }
-                  src={ food.image }
-                  alt={ food.name }
+                  src={ recipe.image }
+                  alt={ recipe.name }
                 />
                 <h3 data-testid={ `${index}-horizontal-top-text` }>
-                  {(food.type === 'comida')
-                    ? `${food.area} - ${food.category}`
-                    : food.alcoholicOrNot}
+                  {(recipe.type === 'comida')
+                    ? `${recipe.area} - ${recipe.category}`
+                    : recipe.alcoholicOrNot}
                 </h3>
-                <h2 data-testid={ `${index}-horizontal-name` }>{food.name}</h2>
+                <h2 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h2>
               </Link>
               <div>
                 <button
-                  onClick={ () => handleCopyClick(food) }
+                  onClick={ () => handleCopyClick(recipe) }
                   type="button"
                 >
                   <img
                     data-testid={ `${index}-horizontal-share-btn` }
                     src={ shareIcon }
-                    alt={ food.name }
+                    alt={ recipe.name }
                   />
                 </button>
               </div>
@@ -125,7 +125,7 @@ function FavoriteRecipes() {
                 >
                   <img
                     data-testid={ `${index}-horizontal-favorite-btn` }
-                    name={ food.id }
+                    name={ recipe.id }
                     src={ blackHeartIcon }
                     alt="favorite logo"
                   />

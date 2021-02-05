@@ -129,7 +129,6 @@ function DrinkDetails() {
                 <Link
                   onClick={ () => setMealRecipeId(meals.idMeal) }
                   to={ `/comidas/${meals.idMeal}` }
-                  key={ index }
                 >
                   <img
                     width="200"

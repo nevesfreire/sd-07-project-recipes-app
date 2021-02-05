@@ -128,7 +128,6 @@ function FoodDetails() {
                 <Link
                   onClick={ () => setDrinkRecipeId(drinks.idDrink) }
                   to={ `/bebidas/${drinks.idDrink}` }
-                  key={ index }
                 >
                   <img
                     data-testid={ `${index}-card-img` }
