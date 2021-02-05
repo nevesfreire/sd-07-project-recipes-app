@@ -4,6 +4,7 @@ import { useParams, useLocation } from 'react-router-dom';
 
 import { FavoriteButton } from '../../components';
 import { mapIngredientsAndMeasuresToList } from '../../services/helper';
+// import Recomendation from '../../components/Recomendations';
 
 const RecipeDetails = () => {
   const { recipeId } = useParams();
@@ -142,6 +143,7 @@ const RecipeDetails = () => {
       >
         Iniciar receita
       </button>
+      {/* <Recomendation title={ pathname } /> */}
     </>
   );
 };
