@@ -14,6 +14,10 @@ const endPointIdFood = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
 
 const endPointIdDrink = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
 
+const endPointIngredientFoodList = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list'; // Alterar o nome que está errado
+
+const endPointIngredientDrinkList = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
+
 export const getFoodIngredients = async (ingredients) => {
   try {
     const { meals } = await fetch(`${endPointFoodIngredients}${ingredients}`)
@@ -110,5 +114,25 @@ export const getCategoryDrinks = async () => {
     return drinks;
   } catch (error) {
     return 'error';
+  }
+};
+
+export const getIngredientsFoodList = async () => {
+  try {
+    const { meals } = await fetch(endPointIngredientFoodList)
+      .then((result) => result.json());
+    return meals;
+  } catch (err) {
+    return 'erro';
+  }
+};
+
+export const getIngredientsDrinkList = async () => {
+  try {
+    const { drinks } = await fetch(endPointIngredientDrinkList)
+      .then((result) => result.json());
+    return drinks;
+  } catch (err) {
+    return 'erro';
   }
 };
