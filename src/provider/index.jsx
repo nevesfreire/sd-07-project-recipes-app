@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Context from '../contextAPI/context';
 import { fetchApi } from '../services/fetchApi';
@@ -29,9 +30,8 @@ function Provider({ children }) {
     if (RecipesUrl !== '') {
       fetchApi(RecipesUrl)
         .then((r) => setState((s) => ({ ...s, data: r })));
-      // history.push();
     }
-  }, [RecipesUrl, history]);
+  }, [RecipesUrl]);
 
   const context = {
     state,
