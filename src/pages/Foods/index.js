@@ -28,16 +28,6 @@ export default function Foods() {
       filter = value;
       fetchMeals('category', filter, true);
     }
-    // switch (filter) {
-    // case value:
-    //   filter = '';
-    //   break;
-    // default:
-    //   filter = value;
-    //   break;
-    // }
-    // if (filter !== '') fetchMeals('category', filter, true);
-    // if (filter === '') fetchMeals('searchName', filter, true);
   };
 
   const pageLoading = (
@@ -83,16 +73,6 @@ export default function Foods() {
         }
         return <Card recipe={ recipe } index={ index } key={ index } />;
       })}
-
-      {/* { recipes.meals.map((recipe, index) => {
-        if (control) {
-          return null;
-        }
-        if (index < twelve) {
-          return <Card recipe={ recipe } index={ index } key={ index } />;
-        }
-        return null;
-      })} */}
       { filteredMap() }
       <Footer />
     </div>
