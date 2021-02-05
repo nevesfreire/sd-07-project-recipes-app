@@ -41,5 +41,5 @@ TitleBar.propTypes = {
   valueCopied: PropTypes.string.isRequired,
   executeCopy: PropTypes.func.isRequired,
   changeFavorite: PropTypes.func.isRequired,
-  favorite: PropTypes.string.isRequired,
+  favorite: PropTypes.bool.isRequired,
 };
