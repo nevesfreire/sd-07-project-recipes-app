@@ -6,7 +6,7 @@ import likeIcon from '../images/whiteHeartIcon.svg';
 import fullLikeIcon from '../images/blackHeartIcon.svg';
 import ShareButton from '../components/ShareButton';
 import ShowRecommended from '../components/RecommendedFoodOrDrinks';
-import './foodAndDrinkDetails.css';
+import './style/foodAndDrinkDetails.css';
 import {
   unLikeRecipe,
   setLikeImage,

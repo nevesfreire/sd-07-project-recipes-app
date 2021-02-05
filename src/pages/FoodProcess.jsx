@@ -9,7 +9,7 @@ import ShareButton from '../components/ShareButton';
 import { ingredientsMount, tagsMount, saveProgress, saveFavoriteRecipe, unLikeRecipe,
   setLikeImage, dateFormat,
   handleCheckedFromLocalStorage } from '../components/func_details';
-import './foodAndDrinkDetails.css';
+import './style/foodAndDrinkProcess.css';
 
 function FoodProcess({
   match: { params: { id } },

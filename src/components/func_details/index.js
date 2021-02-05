@@ -25,7 +25,7 @@ export const ingredientsMount = (fn, value) => {
 
 export const videoMount = (fn, value) => {
   // console.log(value.meals[0].strYoutube)
-  const lastIndex = value.meals[0].strYoutube.lastIndexOf("=");
+  const lastIndex = value.meals[0].strYoutube.lastIndexOf('=');
   // console.log(lastIndex)
   const videoId = value.meals[0].strYoutube.slice(lastIndex + 1);
   // console.log(videoId) capturando idVideo
@@ -34,8 +34,8 @@ export const videoMount = (fn, value) => {
 };
 
 export const buttonMount = (valueId) => {
-  if (localStorage.getItem("doneRecipes") !== null) {
-    const doneRecipes = JSON.parse(localStorage.getItem("doneRecipes"));
+  if (localStorage.getItem('doneRecipes') !== null) {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     const findElement = doneRecipes.find((item) => item.id === valueId);
     if (findElement !== undefined) {
       return false;
@@ -45,18 +45,18 @@ export const buttonMount = (valueId) => {
 };
 
 export const setButtonTitle = (fnSetBtnTitle, valueId) => {
-  if (localStorage.getItem("inProgressRecipes") !== null) {
-    const recipes = JSON.parse(localStorage.getItem("inProgressRecipes")).meals;
+  if (localStorage.getItem('inProgressRecipes') !== null) {
+    const recipes = JSON.parse(localStorage.getItem('inProgressRecipes')).meals;
     const recipesIds = Object.keys(recipes);
     const findElement = recipesIds.find((recipeId) => recipeId === valueId);
     if (findElement !== undefined) {
-      fnSetBtnTitle("Continuar Receita");
+      fnSetBtnTitle('Continuar Receita');
     }
   }
 };
 
 export function saveFavoriteRecipe(
-  valueObject
+  valueObject,
   // valueId,
   // valueRecipeArea,
   // valueRecipeCategory,
@@ -71,31 +71,31 @@ export function saveFavoriteRecipe(
     getRecipeArea,
   } = valueObject;
 
-  if (localStorage.getItem("favoriteRecipes") === null) {
-    localStorage.setItem("favoriteRecipes", JSON.stringify([]));
+  if (localStorage.getItem('favoriteRecipes') === null) {
+    localStorage.setItem('favoriteRecipes', JSON.stringify([]));
   }
   const favoriteRecipes = {
     id,
-    type: "comida",
+    type: 'comida',
     area: getRecipeArea,
     category: getRecipeCategory,
-    alcoholicOrNot: "",
+    alcoholicOrNot: '',
     name: getRecipeTitle,
     image: getRecipeImage,
   };
-  const recipes = JSON.parse(localStorage.getItem("favoriteRecipes"));
+  const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
   recipes.push(favoriteRecipes);
-  localStorage.setItem("favoriteRecipes", JSON.stringify(recipes));
+  localStorage.setItem('favoriteRecipes', JSON.stringify(recipes));
 }
 
 export const setLikeImage = (
   fnSetBtnImg,
   valueId,
   valueFullLikeIcon,
-  valueLikeIcon
+  valueLikeIcon,
 ) => {
-  if (localStorage.getItem("favoriteRecipes") !== null) {
-    const recipes = JSON.parse(localStorage.getItem("favoriteRecipes"));
+  if (localStorage.getItem('favoriteRecipes') !== null) {
+    const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     const findElement = recipes.find((item) => item.id === valueId);
     if (findElement !== undefined) {
       fnSetBtnImg(valueFullLikeIcon);
@@ -108,30 +108,30 @@ export const setLikeImage = (
 };
 
 export const unLikeRecipe = (valueId) => {
-  const recipes = JSON.parse(localStorage.getItem("favoriteRecipes"));
+  const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
   const unSave = recipes.filter((item) => item.id !== valueId);
-  localStorage.setItem("favoriteRecipes", JSON.stringify(unSave));
+  localStorage.setItem('favoriteRecipes', JSON.stringify(unSave));
 };
 
 export const fetchRecommendationsMeals = async (
   fnSetRecommendations1,
-  fnSetRecommendations2
+  fnSetRecommendations2,
 ) => {
-  const path = "https://www.themealdb.com/api/json/v1/1/search.php?s=";
+  const path = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   const response = await fetch(path);
   const result = await response.json();
   // console.log(result);
   const maximumRecommendations1 = 3;
   const maximumRecommendations2 = 6;
   const getRecommendations1 = result.meals.filter(
-    (recommendation, index) => index < maximumRecommendations1 && recommendation
+    (recommendation, index) => index < maximumRecommendations1
+    && recommendation,
   );
   // console.log(getRecommendations1);
   const getRecommendations2 = result.meals.filter(
-    (recommendation, index) =>
-      index >= maximumRecommendations1 &&
-      index < maximumRecommendations2 &&
-      recommendation
+    (recommendation, index) => index >= maximumRecommendations1
+      && index < maximumRecommendations2
+      && recommendation,
   );
   fnSetRecommendations1(getRecommendations1);
   fnSetRecommendations2(getRecommendations2);
@@ -140,23 +140,23 @@ export const fetchRecommendationsMeals = async (
 export const tagsMount = (fnSetRecipeTags, result) => {
   const tags = result.meals[0].strTags;
   if (tags) {
-    if (tags.split(",").length === 1) {
-      fnSetRecipeTags(tags.split(","));
+    if (tags.split(',').length === 1) {
+      fnSetRecipeTags(tags.split(','));
     } else {
-      fnSetRecipeTags([tags.split(",")[0], tags.split(",")[1]]);
+      fnSetRecipeTags([tags.split(',')[0], tags.split(',')[1]]);
     }
   }
 };
 
 export const saveProgress = (fnSetInProgressRecipes, ingredient, valueId) => {
   const previousProgress = JSON.parse(
-    localStorage.getItem("inProgressRecipes")
+    localStorage.getItem('inProgressRecipes'),
   );
 
   if (previousProgress.meals[valueId]) {
     if (previousProgress.meals[valueId].includes(ingredient)) {
       previousProgress.meals[valueId] = previousProgress.meals[valueId].filter(
-        (item) => item !== ingredient
+        (item) => item !== ingredient,
       );
     } else {
       previousProgress.meals[valueId].push(ingredient);
@@ -164,7 +164,7 @@ export const saveProgress = (fnSetInProgressRecipes, ingredient, valueId) => {
   } else {
     previousProgress.meals[valueId] = [ingredient];
   }
-  localStorage.setItem("inProgressRecipes", JSON.stringify(previousProgress));
+  localStorage.setItem('inProgressRecipes', JSON.stringify(previousProgress));
   fnSetInProgressRecipes(previousProgress);
 };
 
@@ -194,12 +194,12 @@ export const dateFormat = () => {
 };
 
 export const handleCheckedFromLocalStorage = (item, valueId) => {
-  if (localStorage.getItem("inProgressRecipes")) {
+  if (localStorage.getItem('inProgressRecipes')) {
     const previousLocalStorage = JSON.parse(
-      localStorage.getItem("inProgressRecipes")
+      localStorage.getItem('inProgressRecipes'),
     );
     return previousLocalStorage.meals[valueId].find(
-      (currentItem) => currentItem === item
+      (currentItem) => currentItem === item,
     );
   }
   return false;

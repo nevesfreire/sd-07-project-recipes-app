@@ -9,7 +9,7 @@ import ShareButton from '../components/ShareButton';
 import { ingredientsMount, saveProgress, handleCheckedFromLocalStorage,
   unLikeRecipe, dateFormat, handleClass,
   handleFinishRecipe } from '../components/func_in-process';
-import './foodAndDrinkDetails.css';
+import './style/foodAndDrinkProcess.css';
 
 function DrinkProcess({
   match: { params: { id } },
@@ -145,9 +145,9 @@ function DrinkProcess({
     <div className="recipe-in-progress-container">
       <img
         data-testid="recipe-photo"
-        className="recipe-in-progress-image"
         src={ getRecipeImage }
         alt={ getRecipeTitle }
+        className="recipe-in-progress-image"
       />
       <h1
         data-testid="recipe-title"

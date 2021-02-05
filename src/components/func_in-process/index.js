@@ -8,7 +8,7 @@ export const ingredientsMount = (fnSetRecipeIngredients, result) => {
   const ingredientsMeasures = [];
   for (let i = initialIndex; i < ingredients.length / halfIndex; i += 1) {
     ingredientsMeasures
-    .push(`${ingredients[i]} - ${ingredients[i + ingredients.length / halfIndex]}`);
+      .push(`${ingredients[i]} - ${ingredients[i + ingredients.length / halfIndex]}`);
   }
   fnSetRecipeIngredients(ingredientsMeasures);
 };
@@ -34,7 +34,7 @@ export const handleCheckedFromLocalStorage = (item, valueId) => {
   if (localStorage.getItem('inProgressRecipes')) {
     const previousLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
     return previousLocalStorage.cocktails[valueId]
-    .find((currentItem) => currentItem === item);
+      .find((currentItem) => currentItem === item);
   }
   return false;
 };
@@ -42,12 +42,12 @@ export const handleCheckedFromLocalStorage = (item, valueId) => {
 export const handleClass = (item, valueId) => {
   if (localStorage.getItem('inProgressRecipes')) {
     const previousLocalStorage = JSON
-    .parse(localStorage.getItem('inProgressRecipes'));
+      .parse(localStorage.getItem('inProgressRecipes'));
     const isThere = previousLocalStorage.cocktails[valueId]
-    .find((currentItem) => currentItem === item);
+      .find((currentItem) => currentItem === item);
     if (isThere) {
-    return 'is-checked';
-  }
+      return 'is-checked';
+    }
   }
   return 'is-not-checked';
 };
@@ -69,26 +69,26 @@ export const handleFinishRecipe = (ingredientsLength, valueId) => {
 };
 
 export const dateFormat = () => {
-    const monthCorrection = 1;
-    const twoDecimalPlaces = 10;
-    const date = new Date();
-    const day = date.getDate();
-    const month = date.getMonth() + monthCorrection;
-    const year = date.getFullYear();
-  
-    let formatterDay;
-    if (day < twoDecimalPlaces) {
-      formatterDay = `0${day}`;
-    } else {
-      formatterDay = day;
-    }
-  
-    let formatterMonth;
-    if (month < twoDecimalPlaces) {
-      formatterMonth = `0${month}`;
-    } else {
-      formatterMonth = month;
-    }
-  
-    return `${formatterDay}/${formatterMonth}/${year}`;
-  };
+  const monthCorrection = 1;
+  const twoDecimalPlaces = 10;
+  const date = new Date();
+  const day = date.getDate();
+  const month = date.getMonth() + monthCorrection;
+  const year = date.getFullYear();
+
+  let formatterDay;
+  if (day < twoDecimalPlaces) {
+    formatterDay = `0${day}`;
+  } else {
+    formatterDay = day;
+  }
+
+  let formatterMonth;
+  if (month < twoDecimalPlaces) {
+    formatterMonth = `0${month}`;
+  } else {
+    formatterMonth = month;
+  }
+
+  return `${formatterDay}/${formatterMonth}/${year}`;
+};
