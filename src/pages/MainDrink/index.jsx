@@ -32,7 +32,10 @@ export default function MainDrink() {
   };
 
   useEffect(() => {
-    fetchDrinks();
+    const ZERO = 0;
+    if (drinks.length === ZERO) {
+      fetchDrinks();
+    }
     fetchDrinkCategories();
   }, []);
 
