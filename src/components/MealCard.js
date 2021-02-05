@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import '../styles/recipes.css';
 
 class MealCard extends Component {
@@ -14,6 +15,10 @@ class MealCard extends Component {
           data-testid={ `${index}-card-img` }
           className="recipe-photo"
         />
+        <Link to={ `/comidas/${idMeal}` }>
+          <div data-testid={ `${index}-recipe-card` }>{ idMeal }</div>
+        </Link>
+        <img src={ strMealThumb } alt={ strMeal } data-testid={ `${index}-card-img` } />
         <p data-testid={ `${index}-card-name` }>{ strMeal }</p>
       </div>
     );
@@ -22,7 +27,7 @@ class MealCard extends Component {
 
 MealCard.propTypes = {
   meals: PropTypes.shape({
-    idMeal: PropTypes.number.isRequired,
+    idMeal: PropTypes.string.isRequired,
     strMealThumb: PropTypes.string.isRequired,
     strMeal: PropTypes.string.isRequired,
   }).isRequired,

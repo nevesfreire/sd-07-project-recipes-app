@@ -28,14 +28,31 @@ export const getMealsByCategory = (category) => new Promise((resolve, reject) =>
     .catch((error) => reject(error));
 });
 
+export const getMealsByArea = (area) => new Promise((resolve, reject) => {
+  fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`)
+    .then((response) => response.json().then((data) => resolve(data)))
+    .catch((error) => reject(error));
+});
+
 export const getMealsCategories = () => new Promise((resolve, reject) => {
   fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list')
     .then((response) => response.json().then((data) => resolve(data)))
     .catch((error) => reject(error));
 });
 
+<<<<<<< HEAD
 export const getMealsDetailsById = (id) => new Promise((resolve, reject) => {
   fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
+=======
+export const getMealsIngredients = () => new Promise((resolve, reject) => {
+  fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list')
+    .then((response) => response.json().then((data) => resolve(data)))
+    .catch((error) => reject(error));
+});
+
+export const getMealsAreas = () => new Promise((resolve, reject) => {
+  fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list')
+>>>>>>> b3c2e3ff08005342b86b01e0af9a36d299140394
     .then((response) => response.json().then((data) => resolve(data)))
     .catch((error) => reject(error));
 });

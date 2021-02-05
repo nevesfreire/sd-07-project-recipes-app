@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -55,25 +55,52 @@ const searchByCocktails = (options, word, {
   }
 };
 
+const verifyIfExistIngredientSetted = (props) => {
+  const {
+    title,
+    ingredientMealCur,
+    ingredientCocktailCur,
+  } = props;
+  if (title === 'Comidas' && ingredientMealCur !== '') {
+    searchByMeals(INGREDIENT, ingredientMealCur, props);
+  }
+  if (title === 'Bebidas' && ingredientCocktailCur !== '') {
+    searchByCocktails(INGREDIENT, ingredientCocktailCur, props);
+  }
+};
+
 function SearchBar(props) {
   const {
-    toggle, title, meals, cocktails,
+    toggle,
+    title,
+    meals,
+    cocktails,
   } = props;
 
   const [word, setWord] = useState('');
   const [options, setOptions] = useState('');
 
-  const changeInputs = ({ target }) => {
-    const { value, name } = target;
-    if (name === 'word') setWord(value);
-    if (name === 'options') setOptions(value);
-  };
-
   const handlerSubmit = (event) => {
     event.preventDefault();
-    if (title === 'Comidas') searchByMeals(options, word, props);
-    if (title === 'Bebidas') searchByCocktails(options, word, props);
+    if (title === 'Comidas') {
+      searchByMeals(options, word, props);
+    }
+    if (title === 'Bebidas') {
+      searchByCocktails(options, word, props);
+    }
   };
+
+  verifyIfExistIngredientSetted(props);
+
+  useEffect(() => {
+    const zero = 0;
+    if (title === 'Comidas' && meals.length === zero) {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
+    if (title === 'Bebidas' && cocktails.length === zero) {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
+  }, [meals, cocktails, title]);
 
   return (
     <div style={ { display: toggle ? 'inline' : 'none' } }>
@@ -92,8 +119,8 @@ function SearchBar(props) {
           id="busca"
           name="word"
           value={ word }
-          data-testid="search-input"
-          onChange={ changeInputs }
+          data-testid={ `${toggle ? 'search-input' : ''}` }
+          onChange={ (event) => setWord(event.target.value) }
         />
       </label>
       <div>
@@ -104,7 +131,7 @@ function SearchBar(props) {
             value={ INGREDIENT }
             type="radio"
             name="options"
-            onChange={ changeInputs }
+            onChange={ (event) => setOptions(event.target.value) }
             data-testid="ingredient-search-radio"
           />
         </label>
@@ -115,7 +142,7 @@ function SearchBar(props) {
             value={ NAME }
             type="radio"
             name="options"
-            onChange={ changeInputs }
+            onChange={ (event) => setOptions(event.target.value) }
             data-testid="name-search-radio"
           />
         </label>
@@ -126,7 +153,7 @@ function SearchBar(props) {
             value={ FIRSTLETTER }
             type="radio"
             name="options"
-            onChange={ changeInputs }
+            onChange={ (event) => setOptions(event.target.value) }
             data-testid="first-letter-search-radio"
           />
         </label>
@@ -153,6 +180,8 @@ const mapStateToProps = ({ searchToggleReducer, meals, cocktails }) => ({
   toggle: searchToggleReducer,
   meals: meals.meals,
   cocktails: cocktails.cocktails,
+  ingredientMealCur: meals.ingredientCurrency,
+  ingredientCocktailCur: cocktails.ingredientCurrency,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -11,15 +11,20 @@ import CocktailRecipeDetails from './pages/CocktailRecipeDetails';
 import MealsExplorer from './pages/MealsExplorer';
 import DrinksExplorer from './pages/DrinksExplorer';
 import MealsIngredients from './pages/MealsIngredients';
-import DrinksIngredients from './pages/DrinksIngredients';
+import CocktailsIngredients from './pages/CocktailsIngredients';
 import MealsOrigin from './pages/MealsOrigin';
 import Cocktails from './pages/Cocktails';
+import RecipesDone from './pages/RecipesDone';
+import FavoriteRecipes from './pages/FavoriteRecipes';
 
 function App() {
+  const notFount = () => <div>Not Found</div>;
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
-      <Route exact path="/profile" component={ Profile } />
+      <Route exact path="/perfil" component={ Profile } />
+      <Route exact path="/receitas-feitas" component={ RecipesDone } />
+      <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
       <Route exact path="/explorar" component={ Explorer } />
       <Route exact path="/comidas" component={ Meals } />
       <Route exact path="/bebidas" component={ Cocktails } />
@@ -31,9 +36,10 @@ function App() {
       <Route
         exact
         path="/explorar/bebidas/ingredientes"
-        component={ DrinksIngredients }
+        component={ CocktailsIngredients }
       />
       <Route exact path="/explorar/comidas/area" component={ MealsOrigin } />
+      <Route exact path="/explorar/bebidas/area" component={ () => notFount() } />
     </Switch>
   );
 }
