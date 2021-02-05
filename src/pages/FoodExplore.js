@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button, Header, Footer } from '../components';
 
-export default function DrinkExplore() {
+export default function FoodExplore() {
   const { push } = useHistory();
   return (
     <div>
@@ -20,7 +20,7 @@ export default function DrinkExplore() {
       <Button
         testid="explore-surprise"
         text="Me Surpreenda!"
-        func={ () => { push('/explorar/comidas'); } }
+        func={ () => { push('/comidas/random'); } }
       />
       <Footer />
     </div>

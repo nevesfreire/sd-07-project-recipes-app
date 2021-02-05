@@ -28,3 +28,7 @@
   flex-wrap: wrap;
   width: 100%;
 }
+
+.checked {
+  text-decoration-line: line-through;
+}

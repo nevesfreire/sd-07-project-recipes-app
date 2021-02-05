@@ -17,7 +17,7 @@ export default function CardsFactory(
   const resultArr = drink ? result.drinks : result.meals;
   const parameters = testidCard ? { testidImg, testidCard, testidTitle } : '';
   useEffect(dispatchFil, [dispatchFil]);
-  if (loading && !!resultArr) return (<NotFound />);
+  if (!loading && !resultArr) return (<NotFound />);
   return (
     <div className="cards">
       {

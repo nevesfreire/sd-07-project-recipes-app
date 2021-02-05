@@ -1,10 +1,10 @@
 import React from 'react';
 import Alert from 'react-bootstrap/Alert';
 
-export default function NotFound() {
+export default function CopiedMSG() {
   return (
-    <Alert variant="warning">
-      Not Found
+    <Alert variant="success">
+      Link copiado!
     </Alert>
   );
 }
