@@ -59,7 +59,7 @@ function Food() {
   };
   const getLoading = () => {
     if (loading) {
-      const arrayFoods = [...data.food];
+      const arrayFoods = [...arrayListFood];
       return ListCardsFood(arrayFoods);
     }
     return 'Loading...';

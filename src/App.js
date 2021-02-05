@@ -1,8 +1,10 @@
 import React from 'react';
+import './App.css';
 import { BrowserRouter } from 'react-router-dom';
 import Routes from './routes';
 import ProviderContext from './context/ProviderContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function App() {
   return (
