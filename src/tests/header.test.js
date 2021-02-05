@@ -55,7 +55,6 @@ describe('10 - Implemente um ícone para a tela de perfil, um título e um'
   });
   test('Não tem header na tela de receita em processo de bebida', () => {
 
-    
   });
   test('O header tem os ícones corretos na tela de explorar', () => {
     const { getAllByRole } = renderWithRouter(<Explorar />);
