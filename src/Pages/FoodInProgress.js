@@ -127,7 +127,9 @@ function FoodInProgress() {
   // verifica se a página já carrega como favorito
 
   function copyToClipBoard(text) {
-    navigator.clipboard.writeText(text);
+    const urlToShare = text.split('/in-progress');
+    const finalUrlToShare = urlToShare.join('');
+    navigator.clipboard.writeText(finalUrlToShare);
     setSpanHidden(true);
   }
 
@@ -136,7 +138,7 @@ function FoodInProgress() {
       <img src={ strMealThumb } data-testid="recipe-photo" alt={ strMeal } />
       <h1 data-testid="recipe-title">{strMeal}</h1>
       <button
-        onClick={ () => copyToClipBoard(document.URL) }
+        onClick={ () => copyToClipBoard(url) }
         type="button"
       >
         <img

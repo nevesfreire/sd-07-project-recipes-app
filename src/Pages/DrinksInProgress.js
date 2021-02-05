@@ -125,16 +125,17 @@ function DrinksInProgress() {
     })).filter((item) => item.ingredient !== '' && item.ingredient !== null);
 
   function copyToClipBoard(text) {
-    navigator.clipboard.writeText(text);
+    const urlToShare = text.split('/in-progress');
+    const finalUrlToShare = urlToShare.join('');
+    navigator.clipboard.writeText(finalUrlToShare);
     setSpanHidden(true);
   }
-
   return (
     <div onLoad={ enableButton }>
       <img src={ strDrinkThumb } data-testid="recipe-photo" alt={ strDrink } />
       <h1 data-testid="recipe-title">{strDrink}</h1>
       <button
-        onClick={ () => copyToClipBoard(document.URL) }
+        onClick={ () => copyToClipBoard(url) }
         type="button"
       >
         <img
