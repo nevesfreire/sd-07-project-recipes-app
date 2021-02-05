@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import Item from './Item';
-import './style.css';
+import Carousel from 'react-bootstrap/Carousel';
+// import Item from './Item';
+// import './style.css';
 
 const Recomendation = ({ title }) => {
   const [recomendations, setRecomendations] = useState([]);
@@ -25,43 +26,45 @@ const Recomendation = ({ title }) => {
       <h2>{`Recomendations - ${title}`}</h2>
       <div className="carousel">
         {title.includes('comidas') ? (
-          <div className="carousel-card">
+          <Carousel className="carousel-card">
             {recomendations
               .filter((_, index) => index < SEIS)
               .map(({ strDrink, strDrinkThumb }, index) => (
-                <div key={ strDrink }>
-                  <Item className="cards">
-                    <img
-                      src={ strDrinkThumb }
-                      alt={ strDrink }
-                      data-testid={ `${index}-recomendation-card` }
-                    />
-                  </Item>
-                  <h4 data-testid={ `${index}-recomendation-title` }>
-                    {strDrink}
-                  </h4>
-                </div>
+                <Carousel.Item key={ strDrink }>
+                  <img
+                    className="d-block w-100"
+                    src={ strDrinkThumb }
+                    alt={ strDrink }
+                    data-testid={ `${index}-recomendation-card` }
+                  />
+                  <Carousel.Caption>
+                    <h4 data-testid={ `${index}-recomendation-title` }>
+                      {strDrink}
+                    </h4>
+                  </Carousel.Caption>
+                </Carousel.Item>
               ))}
-          </div>
+          </Carousel>
         ) : (
-          <div className="carousel-card">
+          <Carousel className="carousel-card">
             {recomendations
               .filter((_, index) => index < SEIS)
               .map(({ strMeal, strMealThumb }, index) => (
-                <div key={ strMeal }>
-                  <Item className="cards">
-                    <img
-                      src={ strMealThumb }
-                      alt={ strMeal }
-                      data-testid={ `${index}-recomendation-card` }
-                    />
-                  </Item>
-                  <h4 data-testid={ `${index}-recomendation-title` }>
-                    {strMeal}
-                  </h4>
-                </div>
+                <Carousel.Item key={ strMeal }>
+                  <img
+                    className="d-block w-100"
+                    src={ strMealThumb }
+                    alt={ strMeal }
+                    data-testid={ `${index}-recomendation-card` }
+                  />
+                  <Carousel.Caption>
+                    <h4 data-testid={ `${index}-recomendation-title` }>
+                      {strMeal}
+                    </h4>
+                  </Carousel.Caption>
+                </Carousel.Item>
               ))}
-          </div>
+          </Carousel>
         )}
       </div>
     </div>

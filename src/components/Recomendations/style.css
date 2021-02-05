@@ -7,8 +7,6 @@
 .carousel-card {
   align-items: center;
   display: flex;
-  overflow-x: scroll;
-  scroll-behavior: smooth;
 }
 
 .carousel-card div {
@@ -17,7 +15,6 @@
   flex-flow: column;
   flex-shrink: 0;
   justify-content: flex-end;
-  scroll-snap-align: start;
   width: 50%;
 }
 
