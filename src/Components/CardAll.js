@@ -4,7 +4,7 @@ import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
-function CardAll({ FoodOrDrink, setRenderAll }) {
+function CardAll({ FoodOrDrink }) {
   const [favorited, setFavorite] = useState(false);
   const [copied, setCopied] = useState(false);
   const iconFavorite = favorited ? blackHeartIcon : whiteHeartIcon;

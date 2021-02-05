@@ -43,7 +43,7 @@ const ProgressDrink = ({ type, recipe, ingredientes, id }) => {
   };
 
   const handleCopy = () => {
-    copiedLink(`http://localhost:3000/${type}s/${id}`);
+    copiedLink(`http://localhost:3000/${type}/${id}`);
     if (copied) setCopied(false);
     else setCopied(true);
   };
