@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import useFetch from '../hooks/useFetch';
+import Button from 'react-bootstrap/Button';
 
 function Categories({ list, type }) {
   const { selectedCategory, randomFoodFetch, randomDrinkFetch } = useFetch();
@@ -56,16 +57,18 @@ function Categories({ list, type }) {
   }
   return (
     <div>
-      <button
+      <Button
+        variant="primary"
         type="button"
         onClick={ () => allFilter() }
         data-testid="All-category-filter"
       >
         All
 
-      </button>
+      </Button>
       {list.map((category) => (
-        <button
+        <Button
+          variant="primary"
           onClick={ (event) => handleClick(category, type, event) }
           value={ category.strCategory }
           type="button"
@@ -73,7 +76,7 @@ function Categories({ list, type }) {
           data-testid={ `${category.strCategory}-category-filter` }
         >
           { category.strCategory }
-        </button>))}
+        </Button>))}
     </div>
   );
 }

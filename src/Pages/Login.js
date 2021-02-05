@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 // import RecipeContext from '../Context/Context';
 
 function Login() {
-//   const {} = useContext(RecipeContext);
+
   const [email, setEmail] = useState();
   const [password, setPassword] = useState('0');
 
@@ -23,6 +24,7 @@ function Login() {
   }
 
   return (
+
     <div>
       <label htmlFor="email">
         Email
@@ -41,14 +43,15 @@ function Login() {
         />
       </label>
       <Link to="/comidas">
-        <button
+        <Button
+          variant="success"
           disabled={ !dataVerify() }
           onClick={ handleClick }
           type="submit"
           data-testid="login-submit-btn"
         >
           Entrar
-        </button>
+        </Button>
       </Link>
     </div>);
 }
