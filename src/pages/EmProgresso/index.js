@@ -41,7 +41,6 @@ function EmProgesso({
   }, []);
 
   const [isEnded, setisEnded] = useState(false);
-  console.log('obj', meals);
   if (!meals[0] || !drinks[0]) return <p>Carregando...</p>;
 
   const ingredients = Object.entries(
@@ -52,6 +51,25 @@ function EmProgesso({
     }
     return false;
   });
+
+  const saveDoneRecipe = () => {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    const zero = 0;
+    const minusOne = -1;
+    const type = route.slice(zero, minusOne);
+    const doneDate = new Date();
+    const recipeObj = {
+      id,
+      type,
+      doneDate,
+    };
+
+    const updatedDoneRecipes = [...doneRecipes, recipeObj];
+
+    localStorage.setItem('doneRecipes', JSON.stringify(updatedDoneRecipes));
+
+    history.push('/receitas-feitas');
+  };
 
   return (
     <div>
@@ -77,7 +95,7 @@ function EmProgesso({
         disabled={ !isEnded }
         data-testid="finish-recipe-btn"
         type="button"
-        onClick={ () => history.push('/receitas-feitas') }
+        onClick={ saveDoneRecipe }
       >
         Finalizar Receita
       </button>

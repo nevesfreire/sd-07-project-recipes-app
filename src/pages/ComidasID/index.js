@@ -71,6 +71,7 @@ function ComidasID({
     indexDiff = twoOne;
     keyName = 'cocktails';
   }
+
   if (inProgress
     && Object.keys(inProgress[keyName]).includes(id)) startBtnText = 'Continuar Receita';
 

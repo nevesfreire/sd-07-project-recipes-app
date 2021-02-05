@@ -24,6 +24,7 @@ export default function Login() {
           cocktails: {},
         };
         localStorage.setItem('inProgressRecipes', JSON.stringify(initialObj));
+        localStorage.setItem('doneRecipes', []);
         localStorage.setItem('mealsToken', 1);
         localStorage.setItem('cocktailsToken', 1);
         localStorage.setItem('user', JSON.stringify({ email }));
