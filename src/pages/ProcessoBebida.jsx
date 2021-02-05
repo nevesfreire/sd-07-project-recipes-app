@@ -25,9 +25,18 @@ const filterIngredientsAndMeasures = (
   });
 };
 
+const initialCountValue = (id) => {
+  const getCocktailsFromStorage = loadState('inProgressRecipes', {});
+  const zero = 0;
+  if (getCocktailsFromStorage.cocktails && getCocktailsFromStorage.cocktails[id]) {
+    const getCurrentIdArray = getCocktailsFromStorage.cocktails[id];
+    return getCurrentIdArray.length;
+  }
+  return zero;
+};
+
 function ProcessoReceita({ match: { params: { id } } }) {
-  const initialCountValue = 0;
-  const [countCheck, setCountCheck] = useState(initialCountValue);
+  const [countCheck, setCountCheck] = useState(initialCountValue(id));
   const [url, setUrl] = useState(window.location.href);
 
   const getInitialCheckBoxArray = () => {
@@ -35,11 +44,13 @@ function ProcessoReceita({ match: { params: { id } } }) {
     const loadStorage = loadState('inProgressRecipes', {
       cocktails: { [id]: emptyArray },
     });
-    const thereIsTheIdKey = Object.keys(loadStorage.cocktails)
-      .some((key) => key === id);
+    if (loadStorage.cocktails) {
+      const thereIsTheIdKey = Object.keys(loadStorage.cocktails)
+        .some((key) => key === id);
 
-    if (thereIsTheIdKey) return loadStorage.cocktails[id];
-    return emptyArray;
+      if (thereIsTheIdKey) return loadStorage.cocktails[id];
+      return emptyArray;
+    }
   };
 
   const [checkBoxArray, setCheckBoxArray] = useState(getInitialCheckBoxArray());
@@ -102,7 +113,7 @@ function ProcessoReceita({ match: { params: { id } } }) {
         .filter((check) => check !== element);
 
       setCheckBoxArray(removingChecked);
-      setCountCheck(countCheck + 1);
+      setCountCheck(countCheck - 1);
     }
   };
 

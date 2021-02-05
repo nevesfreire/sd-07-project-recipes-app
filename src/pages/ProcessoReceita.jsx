@@ -29,9 +29,18 @@ const filteredIngredientsAndMeasures = (
   });
 };
 
+const initialCountValue = (id) => {
+  const getMealsFromStorage = loadState('inProgressRecipes', {});
+  const zero = 0;
+  if (getMealsFromStorage.meals && getMealsFromStorage.meals[id]) {
+    const getCurrentIdArray = getMealsFromStorage.meals[id];
+    return getCurrentIdArray.length;
+  }
+  return zero;
+};
+
 function ProcessoReceita({ match: { params: { id } } }) {
-  const initialCountValue = 0;
-  const [countCheck, setCountCheck] = useState(initialCountValue);
+  const [countCheck, setCountCheck] = useState(initialCountValue(id));
   const [url, setUrl] = useState(window.location.href);
 
   const getInitialCheckBoxArray = () => {
@@ -41,7 +50,9 @@ function ProcessoReceita({ match: { params: { id } } }) {
       const thereIsTheIdKey = Object.keys(loadStorage.meals)
         .some((key) => key === id);
 
-      if (thereIsTheIdKey) return loadStorage.meals[id];
+      if (thereIsTheIdKey) {
+        return loadStorage.meals[id];
+      }
     }
     return emptyArray;
   };
@@ -99,15 +110,17 @@ function ProcessoReceita({ match: { params: { id } } }) {
   };
 
   const handleChecked = (event, element) => {
-    if (event.target.checked) {
-      setCheckBoxArray([...checkBoxArray, element]);
-      setCountCheck(countCheck + 1);
-    } else {
-      const removingChecked = checkBoxArray
-        .filter((check) => check !== element);
+    if (event) {
+      if (event.target.checked) {
+        setCheckBoxArray([...checkBoxArray, element]);
+        setCountCheck(countCheck + 1);
+      } else {
+        const removingChecked = checkBoxArray
+          .filter((check) => check !== element);
 
-      setCheckBoxArray(removingChecked);
-      setCountCheck(countCheck + 1);
+        setCheckBoxArray(removingChecked);
+        setCountCheck(countCheck - 1);
+      }
     }
   };
 
@@ -183,7 +196,7 @@ function ProcessoReceita({ match: { params: { id } } }) {
                     name={ `${ingredient}-${index}` }
                     id={ `${ingredient}-${index}` }
                     checked={ checked }
-                    onClick={ (event) => handleChecked(event, ingredient) }
+                    onChange={ (event) => handleChecked(event, ingredient) }
                   />
                   { ingredient }
                 </label>
@@ -201,6 +214,7 @@ function ProcessoReceita({ match: { params: { id } } }) {
           type="button"
           data-testid="finish-recipe-btn"
           disabled={ ingredientsAndMeasures.length !== countCheck }
+          // disabled={ handleDisable }
           onClick={ doneRecipe }
         >
           Finalizar Receita
