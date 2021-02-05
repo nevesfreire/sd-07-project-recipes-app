@@ -12,6 +12,7 @@ export {
   filteredByCategoryAction,
   changeCurrentCategoryAction,
   changeRecipeType,
+  selectedArea,
   CHANGE_CURRENT_CATEGORY,
   CHANGE_RECIPE_TYPE,
   REQUEST_RECIPES,
@@ -19,13 +20,7 @@ export {
   LIST_RECIPES,
   FILTERED_BY_CATEGORY,
   REQUEST_INGREDIENTS,
-} from './recipesActions';
-
-export {
-  requestArea,
-  requestAreaFailed,
-  selectedArea,
   REQUEST_AREA,
   REQUEST_AREA_FAILED,
   SELECT_AREA,
-} from './areasAction';
+} from './recipesActions';

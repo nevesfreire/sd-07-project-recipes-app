@@ -5,6 +5,9 @@ export const FILTERED_BY_CATEGORY = 'FILTERED_BY_CATEGORY';
 export const REQUEST_INGREDIENTS = 'REQUEST_INGREDIENTS';
 export const CHANGE_CURRENT_CATEGORY = 'CHANGE_CURRENT_CATEGORY';
 export const CHANGE_RECIPE_TYPE = 'CHANGE_RECIPE_TYPE';
+export const REQUEST_AREA = 'REQUEST_AREA';
+export const REQUEST_AREA_FAILED = 'REQUEST_AREA_FAILED';
+export const SELECT_AREA = 'SELECT_AREA';
 
 export const filteredByCategoryAction = (filteredByCategory) => ({
   type: FILTERED_BY_CATEGORY,
@@ -38,4 +41,17 @@ export const requestIngredients = (ingredients) => ({
 export const changeCurrentCategoryAction = (category) => ({
   type: CHANGE_CURRENT_CATEGORY,
   category,
+});
+
+export const requestArea = () => ({
+  type: REQUEST_AREA,
+});
+
+export const requestAreaFailed = (error) => ({
+  type: REQUEST_AREA_FAILED,
+  error,
+});
+export const selectedArea = (meals) => ({
+  type: SELECT_AREA,
+  meals,
 });
