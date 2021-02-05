@@ -46,7 +46,9 @@ function DetailsMeal() {
   detailsDidMount(buttonClicked, favoriteRecipe, setFavoriteRecipe, currentRecipe);
 
   const meal = detailsRecipe.meals[0];
+  console.log('meal', meal);
   const keysMeal = Object.keys(meal);
+  console.log('keysMeal', keysMeal);
   const filterMeal = keysMeal
     .filter((key) => key.toLowerCase().includes('ingredient'));
   const filterMeasure = keysMeal

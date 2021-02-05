@@ -11,6 +11,9 @@ function useFetch() {
     setCategoriesDrinks,
     setDetailsRecipe,
     setRecomendations,
+    setMealByIngredient,
+    setDrinkByIngredient,
+    setMainPageByIngredient,
   } = useContext(RecipeContext);
 
   async function foodFetch(searchWord, type) {
@@ -57,6 +60,7 @@ function useFetch() {
   }
 
   async function randomFoodFetch() {
+    console.log('chamou a randomFoodFetch');
     const results = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
       .then((response) => response.json());
     return setRecipes(results);
@@ -129,6 +133,49 @@ function useFetch() {
     }
   }
 
+  async function fetchDrinkByIngredient() {
+    const doze = 12;
+    const results = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list')
+      .then((response) => response.json())
+      .then((list) => list.drinks.slice(zero, doze));
+    const arrayResults = results.reduce((acc, ingredient) => {
+      const nameIngrDrink = Object.values(ingredient);
+      acc.push([nameIngrDrink[0]]);
+      return acc;
+    }, []);
+    return setDrinkByIngredient(arrayResults);
+  }
+
+  async function fetchMealByIngredient() {
+    const doze = 12;
+    const results = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list')
+      .then((response) => response.json())
+      .then((list) => list.meals.slice(zero, doze));
+    return setMealByIngredient(results);
+  }
+
+  async function mealsByMainIngredient(ingredient) {
+    const results = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient.strIngredient}`)
+      .then((response) => response.json())
+      .then((response) => {
+        const newArray = { ...response, ingredient: 'ingredients' };
+        return newArray;
+      })
+      .then((newArray) => setRecipes(newArray));
+    return results;
+  }
+
+  async function drinksByMainIngredient(ingredient) {
+    const results = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`)
+      .then((response) => response.json())
+      .then((response) => {
+        const newArray = { ...response, ingredient: 'ingredients' };
+        return newArray;
+      })
+      .then((newArray) => setRecipes(newArray));
+    return results;
+  }
+
   return (
     {
       foodFetch,
@@ -140,6 +187,10 @@ function useFetch() {
       selectedCategory,
       recipeDetailsAPI,
       recipeRecomendationsAPI,
+      fetchDrinkByIngredient,
+      fetchMealByIngredient,
+      mealsByMainIngredient,
+      drinksByMainIngredient,
     }
   );
 }
