@@ -43,15 +43,14 @@ export default function Routes() {
         <Route exact path="/perfil" component={ Profile } />
         <Route exact path="/explorar/bebidas/area" component={ NotFound } />
         <Route
-          exact
-          path="/comidas/:idFood/in-progress"
+          exact path="/comidas/:idFood/in-progress"
           component={ RecipeFoodInProgress }
         />
         <Route
           exact
           path="/bebidas/:idDrink/in-progress"
           component={ RecipeFoodInProgress }
-         />
+        />
       </Switch>
     </BrowserRouter>
   );
