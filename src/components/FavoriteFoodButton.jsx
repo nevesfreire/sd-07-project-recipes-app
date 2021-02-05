@@ -9,7 +9,7 @@ export default function FavoriteFoodButton({ foodArr }) {
 
   const [favoriteRecipes, setStorage] = useLocalStorage('favoriteRecipes');
 
-  const recipe = {
+  const recipe = [{
     id: idMeal,
     type: 'comida',
     area: strArea,
@@ -17,7 +17,7 @@ export default function FavoriteFoodButton({ foodArr }) {
     alcoholicOrNot: '',
     name: strMeal,
     image: strMealThumb,
-  };
+  }];
 
   const favorite = favoriteRecipes && favoriteRecipes.find(({ id }) => recipe.id === id);
 
