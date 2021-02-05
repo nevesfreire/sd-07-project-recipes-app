@@ -6,7 +6,8 @@ import RecipeDetailsContext from '../context/RecipeContext';
 import likeIcon from '../images/whiteHeartIcon.svg';
 import fullLikeIcon from '../images/blackHeartIcon.svg';
 import ShareButton from '../components/ShareButton';
-import {ingredientsMount} from '../components/func_details'
+import { ingredientsMount, tagsMount, saveProgress, saveFavoriteRecipe, unLikeRecipe,
+  setLikeImage, dateFormat, handleCheckedFromLocalStorage } from '../components/func_details';
 import './foodAndDrinkDetails.css';
 
 function FoodProcess({
@@ -36,35 +37,9 @@ function FoodProcess({
     getRecipeTags,
   } = context;
 
-  // const ingredientsMount = (valueJson) => {
-  //   const initialIndex = 0;
-  //   const halfIndex = 2;
-  //   const ingredients = Object.entries(valueJson.meals[0])
-  //     .filter((item) => item[0].includes('Ingredient') || item[0].includes('Measure'))
-  //     .filter((ar) => ar[1] !== null && ar[1] !== ' ' && ar[1] !== '')
-  //     .map((ar2) => ar2[1]);
-  //   const ingredientsMeasures = [];
-  //   for (let i = initialIndex; i < ingredients.length / halfIndex; i += 1) {
-  //     ingredientsMeasures
-  //       .push(`${ingredients[i]} - ${ingredients[i + ingredients.length / halfIndex]}`);
-  //   }
-  //   setRecipeIngredients(ingredientsMeasures);
-  // };
-
-  const tagsMount = (jsonRecipe) => {
-    const tags = jsonRecipe.meals[0].strTags;
-    if (tags) {
-      if (tags.split(',').length === 1) {
-        setRecipeTags(tags.split(','));
-      } else {
-        setRecipeTags([tags.split(',')[0], tags.split(',')[1]]);
-      }
-    }
-  };
-
   const fetchRecipe = async () => {
-    const path = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=52771';
-    // const path = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+    // const path = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=52771';
+    const path = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
     const getRecipe = await fetch(path);
     const result = await getRecipe.json();
     console.log(result);
@@ -73,38 +48,13 @@ function FoodProcess({
     setRecipeImage(result.meals[0].strMealThumb);
     setRecipeInstructions(result.meals[0].strInstructions);
     setRecipeArea(result.meals[0].strArea);
-    tagsMount(result);
-    ingredientsMount(setRecipeIngredients,result);
+    tagsMount(setRecipeTags, result);
+    ingredientsMount(setRecipeIngredients, result);
     setIsLoading(false);
   };
 
-  const saveProgress = (ingredient) => {
-    const previousProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-
-    if (previousProgress.meals[id]) {
-      if (previousProgress.meals[id].includes(ingredient)) {
-        previousProgress.meals[id] = previousProgress.meals[id]
-          .filter((item) => item !== ingredient);
-      } else {
-        previousProgress.meals[id].push(ingredient);
-      }
-    } else {
-      previousProgress.meals[id] = [ingredient];
-    }
-    localStorage.setItem('inProgressRecipes', JSON.stringify(previousProgress));
-    setInProgressRecipes(previousProgress);
-  };
-
   const handleChecked = ({ target: { name } }) => {
-    saveProgress(name);
-  };
-
-  const handleCheckedFromLocalStorage = (item) => {
-    if (localStorage.getItem('inProgressRecipes')) {
-      const previousLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      return previousLocalStorage.meals[id].find((currentItem) => currentItem === item);
-    }
-    return false;
+    saveProgress(setInProgressRecipes, name, id);
   };
 
   const handleClass = (item) => {
@@ -133,51 +83,20 @@ function FoodProcess({
     }
   };
 
-  const unLikeRecipe = () => {
-    const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const unSave = recipes.filter((item) => item.id !== id);
-    localStorage.setItem('favoriteRecipes', JSON.stringify(unSave));
-  };
-
-  const saveFavoriteRecipe = () => {
-    if (localStorage.getItem('favoriteRecipes') === null) {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
-    }
-    const favoriteRecipes = {
-      id,
-      type: 'comida',
-      area: getRecipeArea,
-      category: getRecipeCategory,
-      alcoholicOrNot: '',
-      name: getRecipeTitle,
-      image: getRecipeImage,
-    };
-    const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    recipes.push(favoriteRecipes);
-    localStorage.setItem('favoriteRecipes', JSON.stringify(recipes));
-  };
-
-  const setLikeImage = () => {
-    if (localStorage.getItem('favoriteRecipes') !== null) {
-      const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      const findElement = recipes.find((item) => item.id.toString() === id);
-      if (findElement !== undefined) {
-        setBtnImg(fullLikeIcon);
-      } else {
-        setBtnImg(likeIcon);
-      }
-    } else {
-      setBtnImg(likeIcon);
-    }
-  };
-
   const handleImage = () => {
+    const options = {
+      id,
+      getRecipeArea,
+      getRecipeCategory,
+      getRecipeTitle,
+      getRecipeImage,
+    };
     if (btnImg === likeIcon) {
       setBtnImg(fullLikeIcon);
-      saveFavoriteRecipe();
+      saveFavoriteRecipe(options);
     } else {
       setBtnImg(likeIcon);
-      unLikeRecipe();
+      unLikeRecipe(id);
     }
   };
 
@@ -189,31 +108,6 @@ function FoodProcess({
       }
       return true;
     }
-  };
-
-  const getFormattedDate = () => {
-    const monthCorrection = 1;
-    const twoDecimalPlaces = 10;
-    const date = new Date();
-    const day = date.getDate();
-    const month = date.getMonth() + monthCorrection;
-    const year = date.getFullYear();
-
-    let formatterDay;
-    if (day < twoDecimalPlaces) {
-      formatterDay = `0${day}`;
-    } else {
-      formatterDay = day;
-    }
-
-    let formatterMonth;
-    if (month < twoDecimalPlaces) {
-      formatterMonth = `0${month}`;
-    } else {
-      formatterMonth = month;
-    }
-
-    return `${formatterDay}/${formatterMonth}/${year}`;
   };
 
   const handleDoneLocalStorage = () => {
@@ -231,7 +125,7 @@ function FoodProcess({
         alcoholicOrNot: '',
         name: getRecipeTitle,
         image: getRecipeImage,
-        doneDate: getFormattedDate(),
+        doneDate: dateFormat(),
         tags: getRecipeTags,
       },
     ];
@@ -242,7 +136,7 @@ function FoodProcess({
   useEffect(() => {
     setTitle('Food In Progress');
     fetchRecipe();
-    setLikeImage();
+    setLikeImage(setBtnImg, id, fullLikeIcon, likeIcon);
     recheckLocalStorage();
   }, []);
 
@@ -282,7 +176,7 @@ function FoodProcess({
             >
               <input
                 type="checkbox"
-                checked={ handleCheckedFromLocalStorage(item) }
+                checked={ handleCheckedFromLocalStorage(item, id) }
                 name={ item }
                 id={ item }
                 onChange={ handleChecked }

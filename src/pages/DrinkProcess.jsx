@@ -6,6 +6,7 @@ import RecipeDetailsContext from '../context/RecipeContext';
 import likeIcon from '../images/whiteHeartIcon.svg';
 import fullLikeIcon from '../images/blackHeartIcon.svg';
 import ShareButton from '../components/ShareButton';
+// import {ingredientsMount} from '../components/func_details';
 import './foodAndDrinkDetails.css';
 
 function DrinkProcess({
@@ -33,10 +34,10 @@ function DrinkProcess({
     setRecipeInstructions,
   } = context;
 
-  const ingredientsMount = (jsonRecipe) => {
+  const ingredientsMount = (result) => {
     const initialIndex = 0;
     const halfIndex = 2;
-    const ingredients = Object.entries(jsonRecipe.drinks[0])
+    const ingredients = Object.entries(result.drinks[0])
       .filter((item) => item[0].includes('Ingredient') || item[0].includes('Measure'))
       .filter((ar) => ar[1] !== null && ar[1] !== ' ' && ar[1] !== '')
       .map((ar2) => ar2[1]);
