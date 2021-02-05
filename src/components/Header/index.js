@@ -4,7 +4,7 @@ import { profileIcon, searchIcon } from '../../images';
 
 import SearchBar from '../SearchBar';
 
-import { StyledCard, StyledAccordion, StyledImage, StyledTitle } from './styles';
+import { StyledCard, StyledNavbar, StyledImage, StyledTitle } from './styles';
 
 function Header(props) {
   const history = useHistory();
@@ -17,7 +17,10 @@ function Header(props) {
   }, [props]);
 
   return (
-    <StyledAccordion>
+    <StyledNavbar
+      sticky="top"
+      className="justify-content-between"
+    >
       <StyledCard>
         <StyledCard.Header>
           <StyledImage
@@ -46,7 +49,7 @@ function Header(props) {
         {showSearchBar
         && <StyledCard.Body><SearchBar /></StyledCard.Body> }
       </StyledCard>
-    </StyledAccordion>
+    </StyledNavbar>
   );
 }
 
