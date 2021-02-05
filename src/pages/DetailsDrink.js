@@ -1,9 +1,9 @@
 import React from 'react';
-import '../components/components.css';
 import PropTypes from 'prop-types';
 import { Button, FoodRecomendation, LoadingCard, ShareButton, FavoriteDrinkButton,
 } from '../components';
 import { useFetchApi } from '../hooks';
+import '../components/components.css';
 
 const filterDrinks = (arr, str) => Object.entries(arr).filter((key) => (
   key[0].includes(str) && !!key[1]
@@ -68,6 +68,7 @@ export default function DetailsDrink({ history, match }) {
             <Button
               testid="start-recipe-btn"
               text="Iniciar Receita"
+              position="btn-fixed"
               func={ () => { history.push(`/bebidas/${idDrink}/in-progress`); } }
             />
           </div>

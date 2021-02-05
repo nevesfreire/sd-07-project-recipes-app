@@ -1,10 +1,10 @@
 import React from 'react';
-import '../components/components.css';
 import PropTypes from 'prop-types';
 import {
   Button, DrinkRecomendation, LoadingCard, ShareButton, FavoriteFoodButton,
 } from '../components';
 import { useFetchApi } from '../hooks';
+import '../components/components.css';
 
 const filterMeals = (arr, str) => Object.entries(arr).filter((key) => (
   key[0].includes(str) && !!key[1]
@@ -78,6 +78,7 @@ export default function DetailsFood({
             <Button
               testid="start-recipe-btn"
               text="Iniciar Receita"
+              position="btn-fixed"
               func={ () => { push(`/comidas/${idFood}/in-progress`); } }
             />
           </div>

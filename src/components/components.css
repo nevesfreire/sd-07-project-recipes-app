@@ -28,3 +28,10 @@
 .recomendation-card {
   height: 100px;
 }
+
+.btn-fixed {
+  background-color: gray;
+  bottom: 0;
+  display: flex;
+  position: fixed;
+}
