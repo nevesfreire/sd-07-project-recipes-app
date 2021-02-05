@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Carousel } from 'react-bootstrap';
 import { apiTheMealDB, apiTheCocktailDB } from '../services';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -51,11 +52,11 @@ class ReceitaComida extends React.Component {
   render() {
     const { history } = this.props;
     const { recipe, copied, drinkList } = this.state;
+    const SIX = 6;
     const ingredientsArray = this.ingredientListHandle();
     if (recipe === '') {
       return <p>Loading...</p>;
     }
-    console.log(drinkList);
 
     return (
       <div>
@@ -104,7 +105,33 @@ class ReceitaComida extends React.Component {
           src={ recipe.strYoutube.replace('watch?v=', 'embed/') }
           data-testid="video"
         />
-        <p data-testid="0-recomendation-card">Recomendadas</p>
+        <p>Recomendadas</p>
+        <Carousel style={ { height: '30%' } }>
+          { drinkList.map((item, index) => (
+            index < SIX
+              ? (
+                <Carousel.Item
+                  key={ item.idDrink }
+                  data-testid={ `${index}-recomendation-card` }
+                >
+                  <img
+                    src={ item.strDrinkThumb }
+                    alt={ item.strDrinkThumb }
+                    style={ { width: '30%' } }
+                  />
+                  <Carousel.Caption>
+                    <p>{item.strAlcoholic}</p>
+                    <h5
+                      data-testid={ `${index}-recomendation-title` }
+                    >
+                      {item.strDrink}
+                    </h5>
+                  </Carousel.Caption>
+                </Carousel.Item>
+              )
+              : null
+          ))}
+        </Carousel>
         <button
           style={ { position: 'fixed', bottom: 0 } }
           type="button"
