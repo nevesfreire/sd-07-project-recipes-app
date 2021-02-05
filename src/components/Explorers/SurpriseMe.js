@@ -20,8 +20,10 @@ function SurpriseMe({ path }) {
 
   return (
     <button
+      className="explore__button"
       data-testid="explore-surprise"
       onClick={ randomMeals }
+      style={ { color: 'white', background: '#007bff' } }
       type="button"
     >
       Me Surpreenda!

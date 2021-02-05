@@ -58,7 +58,7 @@ function Header({ history, search = false }) {
             data-testid="profile-top-btn"
           />
         </Link>
-        <h4 data-testid="page-title">{path}</h4>
+        <h5 data-testid="page-title">{path}</h5>
         {path === 'Receitas Favoritas' ? <FavoriteRecipes /> : null}
         {search
           ? (

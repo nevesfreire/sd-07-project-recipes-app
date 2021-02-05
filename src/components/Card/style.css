@@ -6,11 +6,13 @@
   padding: 15px 30px;
 }
 
-.card {
+.card__container .card {
   border-radius: 4px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: #333;
   max-width: 128px;
   padding: 0;
+  text-decoration: none;
   width: 100%;
 }
 
@@ -22,6 +24,7 @@
 
 .card > main {
   align-items: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: flex-start;
   padding: 5px 10px;
