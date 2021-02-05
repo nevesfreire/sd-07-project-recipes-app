@@ -42,6 +42,7 @@ class MealRecipes extends Component {
 
     const MEAL_LENGTH = 12;
     if (getRecipes.meals === null) {
+      // eslint-disable-next-line no-alert
       return alert(
         'Sinto muito, não encontramos nenhuma receita para esses filtros.',
       );
