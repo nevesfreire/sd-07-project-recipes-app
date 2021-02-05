@@ -5,7 +5,13 @@ export const RECEIVED_CATEGORIES = 'RECEIVED_CATEGORIES';
 export const SEARCH_INPUT = 'SEARCH_INPUT';
 export const SET_CATEGORY = 'SET_CATEGORY';
 export const RECEIVED_DETAILS = 'RECEIVED_DETAILS';
+export const SET_INGREDIENT = 'SET_INGREDIENT';
 export const COPY_BUTTON = 'COPY_BUTTON';
+
+export const setIngredient = (payload) => ({
+  type: SET_INGREDIENT,
+  payload,
+});
 
 export const copyButton = (value) => ({
   type: COPY_BUTTON,

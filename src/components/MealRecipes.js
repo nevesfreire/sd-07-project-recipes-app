@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { fetchRecipes, fetchCategories, setCategory } from '../actions';
+import { fetchRecipes, fetchCategories } from '../actions';
 import Loading from './Loading';
 import '../css/recipe.css';
 
@@ -10,15 +10,20 @@ class MealRecipes extends Component {
   constructor(props) {
     super(props);
     this.fetchRecipesByCategory = this.fetchRecipesByCategory.bind(this);
+    this.fetchRecipesByIngredient = this.fetchRecipesByIngredient.bind(this);
     this.state = {
       recipesByCategory: {},
     };
   }
 
   componentDidMount() {
-    const { requestRecipes, requestCategories, endPoint } = this.props;
+    const { requestRecipes,
+      requestCategories,
+      endPoint,
+      selectedIngredient } = this.props;
     requestCategories('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
     requestRecipes(endPoint);
+    if (selectedIngredient) this.fetchRecipesByIngredient();
   }
 
   componentDidUpdate(prevProps) {
@@ -31,6 +36,14 @@ class MealRecipes extends Component {
   async fetchRecipesByCategory() {
     const { selectedCategory } = this.props;
     const URL = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${selectedCategory}`;
+    const response = await fetch(URL);
+    const data = await response.json();
+    this.setState({ recipesByCategory: data });
+  }
+
+  async fetchRecipesByIngredient() {
+    const { selectedIngredient } = this.props;
+    const URL = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${selectedIngredient}`;
     const response = await fetch(URL);
     const data = await response.json();
     this.setState({ recipesByCategory: data });
@@ -88,12 +101,13 @@ class MealRecipes extends Component {
 const mapDispatchToProps = (dispatch) => ({
   requestRecipes: (endPoint) => dispatch(fetchRecipes(endPoint)),
   requestCategories: (endPoint) => dispatch(fetchCategories(endPoint)),
-  selectCategory: (category) => dispatch(setCategory(category)),
 });
 
-const mapStateToProps = ({ recipesReducer, categoriesReducer }) => ({
+const mapStateToProps = ({
+  recipesReducer, categoriesReducer, ingredientsReducer }) => ({
   getRecipes: recipesReducer.recipes,
   selectedCategory: categoriesReducer.selectedCategory,
+  selectedIngredient: ingredientsReducer.selectedIngredient,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MealRecipes);
@@ -106,4 +120,5 @@ MealRecipes.propTypes = {
   }).isRequired,
   requestCategories: PropTypes.func.isRequired,
   selectedCategory: PropTypes.string.isRequired,
+  selectedIngredient: PropTypes.string.isRequired,
 };

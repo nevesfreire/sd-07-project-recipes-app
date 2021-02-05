@@ -4,6 +4,7 @@ import loginReducer from './login';
 import recipesReducer from './recipes';
 import headerReducer from './header';
 import recomendationsReducer from './details';
+import ingredientsReducer from './ingredients';
 
 const rootReducer = combineReducers({
   loginReducer,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   headerReducer,
   categoriesReducer,
   recomendationsReducer,
+  ingredientsReducer,
 });
 
 export default rootReducer;
