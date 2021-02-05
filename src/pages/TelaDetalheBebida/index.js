@@ -22,6 +22,11 @@ class TelaDetalheBebida extends Component {
     await getDetailedDrinkDispatch(id);
   }
 
+  handleShareClick() {
+    alert(document.URL);
+    // alert('Link copiado!');
+  }
+
   handleIngredients(drink) {
     const drinkArray = Object.entries(drink[0]);
     const ingredientsArray = drinkArray.filter(
@@ -59,7 +64,18 @@ class TelaDetalheBebida extends Component {
           src={ drink[0].strDrinkThumb }
         />
         <h3 data-testid="recipe-title">{drink[0].strDrink}</h3>
-        <img data-testid="share-btn" alt="share-btn" src={ shareIcon } />
+        <div
+          onClick={ this.handleShareClick }
+          onKeyDown={ this.handleShareClick }
+          role="button"
+          tabIndex={ 0 }
+        >
+          <img
+            data-testid="share-btn"
+            alt="share-btn"
+            src={ shareIcon }
+          />
+        </div>
         <img
           data-testid="favorite-btn"
           alt="favorite-btn"

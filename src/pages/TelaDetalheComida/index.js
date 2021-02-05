@@ -47,7 +47,7 @@ class TelaDetalheComida extends Component {
       dots: true,
       infinite: false,
       speed: 500,
-      slidesToShow: 2,
+      slidesToShow: 1,
       slidesToScroll: 2,
     };
 
