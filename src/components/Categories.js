@@ -60,6 +60,7 @@ function Categories({ list, type }) {
         type="button"
         onClick={ () => allFilter() }
         data-testid="All-category-filter"
+        variant="outline-primary"
       >
         All
 

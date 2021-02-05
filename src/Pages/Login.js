@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
+
 // import RecipeContext from '../Context/Context';
 
 function Login() {
@@ -40,8 +42,9 @@ function Login() {
           onChange={ ({ target }) => setPassword(target.value) }
         />
       </label>
-      <Link to="/comidas">
+      <Link className="btn btn-secondary" to="/comidas">
         <button
+          color="danger"
           disabled={ !dataVerify() }
           onClick={ handleClick }
           type="submit"
