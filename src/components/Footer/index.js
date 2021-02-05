@@ -7,7 +7,7 @@ import './styles.css';
 
 export default function Footer() {
   return (
-    <div data-testid="footer" className="footer">
+    <footer data-testid="footer" className="footer">
       <Link src={ drinkIcon } to="/bebidas" data-testid="drinks-bottom-btn">
         <img
           alt=""
@@ -26,6 +26,6 @@ export default function Footer() {
           src={ mealIcon }
         />
       </Link>
-    </div>
+    </footer>
   );
 }

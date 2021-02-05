@@ -28,6 +28,7 @@ export default function Recommended({ suggestions }) {
     strTitle = 'strMeal';
   }
 
+
   return (
     <div className="slider">
       <h2> Recomendações </h2>
