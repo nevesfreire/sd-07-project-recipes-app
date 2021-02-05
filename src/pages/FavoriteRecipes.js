@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import FavoriteRecipeCard from '../components/FavoriteRecipeCard';
 
 function FavoriteRecipes() {
-  const recipesFromStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const recipesFromStorage = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
   const [favoriteRecipes, setFavoriteRecipes] = useState(recipesFromStorage);
   return (
     <div>

@@ -18,20 +18,30 @@ class FavoriteRecipeCard extends Component {
 
     return (
       <div data-testid={ `${index}-recipe-card` }>
-        <img src={ image } alt={ name } data-testid={ `${index}-horizontal-image` } />
         {type === 'bebida' ? (
           <Link
             to={ `/bebidas/${id}` }
-            data-testid={ `${index}-horizontal-name` }
           >
-            { name }
+            <img
+              style={ { width: '100px' } }
+              src={ image }
+              alt={ name }
+              data-testid={ `${index}-horizontal-image` }
+            />
+            <p data-testid={ `${index}-horizontal-name` }>{ name }</p>
           </Link>
         ) : (
           <Link
             to={ `/comidas/${id}` }
-            data-testid={ `${index}-horizontal-name` }
+            src={ image }
           >
-            { name }
+            <img
+              style={ { width: '100px' } }
+              src={ image }
+              alt={ name }
+              data-testid={ `${index}-horizontal-image` }
+            />
+            <p data-testid={ `${index}-horizontal-name` }>{ name }</p>
           </Link>
         )}
         {type === 'bebida' ? (
