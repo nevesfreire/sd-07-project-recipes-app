@@ -33,6 +33,7 @@ class ReceitasFeitas extends Component {
     return (
       <div>
         <Header title={ title } />
+        {/* Falta funções dos botões de Filtro */}
         <div>
           <Button variant="outline-primary" data-testid="filter-by-all-btn">
             All
