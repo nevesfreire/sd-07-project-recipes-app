@@ -11,7 +11,7 @@ class ExplorarComidasIngredientes extends React.Component {
     };
     this.fetchData = this.fetchData.bind(this);
     this.renderCards = this.renderCards.bind(this);
-    // this.clickRecipe = this.clickRecipe.bind(this);
+    this.clickRecipe = this.clickRecipe.bind(this);
   }
 
   componentDidMount() {
