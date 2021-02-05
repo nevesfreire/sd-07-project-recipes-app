@@ -55,6 +55,7 @@ class DrinksRecipes extends Component {
 
     const DRINK_LENGTH = 12;
     if (getRecipes.drinks === null) {
+      // eslint-disable-next-line no-alert
       return (alert(
         'Sinto muito, não encontramos nenhuma receita para esses filtros.',
       ));

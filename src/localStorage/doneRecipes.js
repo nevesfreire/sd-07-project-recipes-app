@@ -1,15 +1,17 @@
 const date = () => {
+  const arrayMonth = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+    'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
   let day = new Date().getDay();
   if (day.toString().length === 1) day = `0${day}`;
   let month = new Date().getMonth();
-  if (month.toString().length === 1) month = `0${month}`;
+  if (month.toString().length === 1) month = `${arrayMonth[month]}`;
   let year = new Date().getFullYear();
   if (year.toString().length === 1) year = `0${year}`;
   return `${day}/${month}/${year}`;
 };
 // console.log(date());
 
-const doneMealLocalStorage = (meal, favorite, keyStorage) => {
+const doneMealLocalStorage = (meal, done, keyStorage) => {
   const {
     idMeal,
     strArea,
@@ -22,7 +24,7 @@ const doneMealLocalStorage = (meal, favorite, keyStorage) => {
   // id, type, area, category, alcoholicOrNot, name, image, doneDate, tags
   const read = JSON.parse(localStorage.getItem(keyStorage));
 
-  if (favorite) {
+  if (done) {
     const checkoutStorage = read.some((obj, index) => {
       if (obj.id === idMeal) {
         const newArray = read;
@@ -65,7 +67,7 @@ const doneMealLocalStorage = (meal, favorite, keyStorage) => {
   }
 };
 
-const doneDrinkLocalStorage = (drink, favorite, keyStorage) => {
+const doneDrinkLocalStorage = (drink, done, keyStorage) => {
   const {
     idDrink,
     strCategory,
@@ -77,7 +79,7 @@ const doneDrinkLocalStorage = (drink, favorite, keyStorage) => {
   // id, type, area, category, alcoholicOrNot, name, image, doneDate, tags
   const read = JSON.parse(localStorage.getItem(keyStorage));
 
-  if (favorite) {
+  if (done) {
     const checkoutStorage = read.some((obj, index) => {
       if (obj.id === idDrink) {
         const newArray = read;

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { fetchRecipes, fetchCategories, setCategory } from '../actions';
+import { fetchRecipes, fetchCategories } from '../actions';
 import Loading from './Loading';
 import '../css/recipe.css';
 
@@ -55,6 +55,7 @@ class MealRecipes extends Component {
 
     const MEAL_LENGTH = 12;
     if (getRecipes.meals === null) {
+      // eslint-disable-next-line no-alert
       return alert(
         'Sinto muito, não encontramos nenhuma receita para esses filtros.',
       );
@@ -100,7 +101,6 @@ class MealRecipes extends Component {
 const mapDispatchToProps = (dispatch) => ({
   requestRecipes: (endPoint) => dispatch(fetchRecipes(endPoint)),
   requestCategories: (endPoint) => dispatch(fetchCategories(endPoint)),
-  selectCategory: (category) => dispatch(setCategory(category)),
 });
 
 const mapStateToProps = ({

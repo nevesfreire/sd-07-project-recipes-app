@@ -26,6 +26,7 @@ body {
 }
 
 .title-container {
+  align-items: center;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
@@ -57,8 +58,16 @@ h1 {
 }
 
 .images-container {
+  align-items: center;
   display: flex;
   flex-flow: row nowrap;
+  height: max-content;
+  justify-content: center;
+}
+
+.images-container p {
+  font-size: 1rem;
+  margin: 0;
 }
 
 .images-container button {
@@ -157,4 +166,8 @@ h1 {
   padding: 10px;
   position: fixed;
   width: 100%;
+}
+
+.finish-button-recipe:disabled {
+  background: gray;
 }
