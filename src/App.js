@@ -23,6 +23,10 @@ function App() {
           path="/explorar/comidas/area"
           render={ (props) => <Explore { ...props } search /> }
         />
+        <Route
+          path="/explorar/bebidas/area"
+          render={ (props) => <Explore { ...props } search /> }
+        />
         <Route path="/explorar/comidas/ingredientes" component={ Explore } />
         <Route path="/explorar/bebidas/ingredientes" component={ Explore } />
         <Route path="/explorar/comidas" component={ Explore } />

@@ -128,3 +128,19 @@ export const fetchByIngredients = async (type) => {
   if (type === 'comidas') return results.meals.slice(MIN_LENGTH, MAX_LENGTH);
   return results.drinks.slice(MIN_LENGTH, MAX_LENGTH);
 };
+
+export const fetchAreas = async () => {
+  const areasBaseUrl = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+  const allAreasResponse = await fetch(areasBaseUrl);
+  const allAreasConverted = await allAreasResponse.json();
+  const allAreas = allAreasConverted.meals.map((area) => area.strArea);
+  allAreas.push('All');
+  return allAreas;
+};
+
+export const fetchMealsByArea = async (area) => {
+  const mealsByAreaBaseUrl = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`;
+  const mealsAreaResponse = await fetch(mealsByAreaBaseUrl);
+  const allMealsByArea = await mealsAreaResponse.json();
+  return allMealsByArea;
+};
