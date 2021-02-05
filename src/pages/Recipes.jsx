@@ -66,7 +66,6 @@ class Recipes extends Component {
 
   getTypeOfRecipe() {
     const { type } = this.props;
-    console.log(type);
     this.setState({
       recipeType: type,
     }, () => this.fetchAllRecipes());
