@@ -78,7 +78,7 @@ function DetalhesBebidas({ match: { params: { id } }, history }) {
   }
 
   function continueRecipe() {
-    history.push(`/comidas/${id}/in-progress`);
+    history.push(`/bebidas/${id}/in-progress`);
   }
 
   function favoriteRecipes() {

@@ -1,36 +1,55 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { ingredientsListDrinks } from '../services/functions';
+import { Redirect } from 'react-router-dom';
+import {
+  ingredientsListDrinks,
+  handleClickinProcess,
+  changeFavorites } from '../services/functions';
 import { apiDrinks } from '../services/Services';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import './ProcessoComidas.css';
 
-const copy = require('clipboard-copy');
-
 function ProcessoBebidas({ match: { params: { id } }, history }) {
+  const zero = 0;
   const [drinkInProgress, setDrinkInProgress] = useState([]);
-  const [isFavorite, setIsFavorite] = useState(false);
   const [copyLink, setCopyLink] = useState(false);
+  const [disabled, setDisabled] = useState(true);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [count, setCount] = useState(zero);
+  const [sizeIngredient, setSizeIngredient] = useState();
+  const [redirect, setRedirect] = useState(false);
 
   const fetchDrink = async () => {
-    const getDrink = await apiDrinks(`lookup.php?i=${id}`);
-    setDrinkInProgress(getDrink);
+    const getFood = await apiDrinks(`lookup.php?i=${id}`);
+    setDrinkInProgress(getFood);
+  };
+
+  const initialSize = () => {
+    if (drinkInProgress.length === zero) return 1;
+    const detalhes = drinkInProgress[0];
+    const ingre = ingredientsListDrinks(detalhes).length;
+    setSizeIngredient(ingre);
+  };
+
+  const changeDisabled = () => {
+    if (sizeIngredient === count) return setDisabled(false);
+    return setDisabled(true);
   };
 
   useEffect(() => {
     fetchDrink();
+    // setIsFavorite(changeFavorites(id));
   }, []);
 
-  const zero = 0;
-  const fiveTeen = 15;
-  const handleClick = () => {
-    const url = history.location.pathname;
-    const newUrl = url.slice(zero, fiveTeen);
-    copy(`http://localhost:3000${newUrl}`);
-    return true;
-  };
+  useEffect(() => {
+    initialSize();
+    changeDisabled();
+  }, [count]);
+
+  console.log('sizeIngredient', sizeIngredient);
+  console.log('count', count);
 
   if (drinkInProgress && drinkInProgress.length === zero) return (<h1>Carregando...</h1>);
 
@@ -43,6 +62,11 @@ function ProcessoBebidas({ match: { params: { id } }, history }) {
   } = drinkInProgress[0];
 
   const detail = drinkInProgress[0];
+
+  function countIngredients({ target }) {
+    if (target.checked === true) return setCount((p) => p + 1);
+    return setCount((p) => p - 1);
+  }
 
   function favoriteRecipes() {
     const favoritesRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -89,7 +113,7 @@ function ProcessoBebidas({ match: { params: { id } }, history }) {
       <button
         data-testid="share-btn"
         type="button"
-        onClick={ () => setCopyLink(handleClick()) }
+        onClick={ () => setCopyLink(handleClickinProcess(history)) }
         src={ shareIcon }
       >
         <img
@@ -100,16 +124,14 @@ function ProcessoBebidas({ match: { params: { id } }, history }) {
       </button>
       {copyLink && <p>Link copiado!</p>}
       <button
-        className="aaaa"
-        data-testid="favorite-btn"
         type="button"
+        data-testid="favorite-btn"
         src={ !isFavorite ? whiteHeartIcon : blackHeartIcon }
         onClick={ !isFavorite ? favoriteRecipes : allRecipesFavorite }
       >
         <img
           src={ !isFavorite ? whiteHeartIcon : blackHeartIcon }
-          alt="whiteHeart"
-          width="50px"
+          alt="heart"
         />
       </button>
       <h6 data-testid="recipe-category">{ strCategory }</h6>
@@ -126,6 +148,7 @@ function ProcessoBebidas({ match: { params: { id } }, history }) {
                   id={ ingredient }
                   type="checkbox"
                   key={ index }
+                  onClick={ (event) => countIngredients(event) }
                 />
                 <label
                   htmlFor={ ingredient }
@@ -141,9 +164,12 @@ function ProcessoBebidas({ match: { params: { id } }, history }) {
       <button
         type="button"
         data-testid="finish-recipe-btn"
+        disabled={ disabled }
+        onClick={ () => setRedirect(true) }
       >
         Finalizar Receita
       </button>
+      {redirect && <Redirect to="/receitas-feitas" />}
     </div>
   );
 }
