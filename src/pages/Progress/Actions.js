@@ -139,7 +139,6 @@ Actions.propTypes = {
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     area: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
     category: PropTypes.string.isRequired,
     instructions: PropTypes.string.isRequired,
