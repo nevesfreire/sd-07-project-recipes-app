@@ -40,6 +40,14 @@
   display: none;
 }
 
+.ingredient-step {
+  list-style-type: none;
+}
+
+.card-favorite {
+  width: 200px;
+}
+
 .rocksGlass {
   animation: shake 1s infinite ease;
   max-height: 80vh;

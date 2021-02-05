@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Carousel from './CarouselComida';
 import ShareIcon from '../../images/shareIcon.svg';
+import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
 const MAX_INGREDIENTS = 20;
 
@@ -11,16 +13,42 @@ class ComidaDetalhes extends React.Component {
     this.state = {
       recipe: {},
       copyClipboard: '',
+      isDone: false,
+      isFavorite: false,
+
     };
     this.fetchData = this.fetchData.bind(this);
     this.renderIngredients = this.renderIngredients.bind(this);
     this.renderIngredient = this.renderIngredient.bind(this);
     this.iniciarReceita = this.iniciarReceita.bind(this);
     this.copyClipboard = this.copyClipboard.bind(this);
+    this.favoriteRecipe = this.favoriteRecipe.bind(this);
+    this.isFavorite = this.isFavorite.bind(this);
+    this.isDone = this.isDone.bind(this);
   }
 
   componentDidMount() {
     this.fetchData();
+    this.isFavorite();
+    this.isDone();
+  }
+
+  isFavorite() {
+    const setFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (setFavorite) {
+      this.setState({
+        isFavorite: true,
+      });
+    }
+  }
+
+  isDone() {
+    const setFavorite = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (setFavorite) {
+      this.setState({
+        isDone: true,
+      });
+    }
   }
 
   async fetchData() {
@@ -42,10 +70,35 @@ class ComidaDetalhes extends React.Component {
 
   async copyClipboard() {
     await navigator.clipboard.writeText(window.location.href);
-    const copySucess = await window.location.href;
     this.setState({
-      copyClipboard: copySucess,
+      copyClipboard: window.location.href,
     });
+  }
+
+  favoriteRecipe() {
+    const { recipe, isFavorite } = this.state;
+    this.setState({
+      isFavorite: !isFavorite,
+    });
+    const favorite = [{
+      id: recipe.idMeal,
+      type: 'comida',
+      area: recipe.strArea,
+      category: recipe.strCategory,
+      alcoholicOrNot: '',
+      name: recipe.strMeal,
+      image: recipe.strMealThumb,
+    }];
+    if (isFavorite) {
+      localStorage.removeItem('favoriteRecipes');
+    } else {
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favorite));
+    }
+  }
+
+  renderIngredients() {
+    return [...Array(MAX_INGREDIENTS)]
+      .map((_, index) => this.renderIngredient(index));
   }
 
   renderIngredient(index) {
@@ -63,13 +116,8 @@ class ComidaDetalhes extends React.Component {
     );
   }
 
-  renderIngredients() {
-    return [...Array(MAX_INGREDIENTS)]
-      .map((_, index) => this.renderIngredient(index));
-  }
-
   render() {
-    const { recipe, copyClipboard } = this.state;
+    const { recipe, copyClipboard, isFavorite, isDone } = this.state;
     return (
       <div className="ComidaDetalhes">
         <img
@@ -79,22 +127,28 @@ class ComidaDetalhes extends React.Component {
           width="200px"
         />
         <h1 data-testid="recipe-title">{recipe.strMeal}</h1>
-        <button
-          type="button"
-          data-testid="share-btn"
-          onClick={ this.copyClipboard }
-        >
-          <img src={ ShareIcon } alt="compartilhar" />
-        </button>
+        <div>
+          <button
+            type="button"
+            data-testid="share-btn"
+            onClick={ this.copyClipboard }
+          >
+            <img src={ ShareIcon } alt="compartilhar" />
+          </button>
+        </div>
         <span>
           {copyClipboard ? 'Link copiado!' : ''}
         </span>
-        <button
-          type="button"
-          data-testid="favorite-btn"
-        >
-          Favoritar
-        </button>
+        <div>
+          <button
+            type="button"
+            data-testid="favorite-btn"
+            onClick={ () => this.favoriteRecipe() }
+            src={ !isFavorite ? whiteHeartIcon : blackHeartIcon }
+          >
+            <img src={ !isFavorite ? whiteHeartIcon : blackHeartIcon } alt="favorite" />
+          </button>
+        </div>
         <p data-testid="recipe-category">{recipe.strCategory}</p>
         <ul>{this.renderIngredients()}</ul>
         <p data-testid="instructions">{recipe.strInstructions}</p>
@@ -103,7 +157,8 @@ class ComidaDetalhes extends React.Component {
         <button
           type="button"
           data-testid="start-recipe-btn"
-          className="iniciar-receita-fixo"
+          className={ isDone === false
+            ? 'iniciar-receita-fixo' : 'iniciar-receita-fixo hidden-item' }
           onClick={ this.iniciarReceita }
         >
           Iniciar receita

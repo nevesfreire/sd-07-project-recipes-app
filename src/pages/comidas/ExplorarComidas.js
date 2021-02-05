@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Header2 from '../../components/header/Header2';
 import Footer from '../../components/footer/Footer';
 
-class BebidasExplorar extends React.Component {
+class ExplorarComidas extends React.Component {
   constructor() {
     super();
     this.fetchData = this.fetchData.bind(this);
@@ -11,23 +11,30 @@ class BebidasExplorar extends React.Component {
 
   async fetchData() {
     const { history } = this.props;
-    const responseAPI = await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php');
+    const responseAPI = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
     const recipe = await responseAPI.json();
-    const { idDrink } = recipe.drinks[0];
-    history.push(`/bebidas/${idDrink}`);
+    const { idMeal } = recipe.meals[0];
+    history.push(`/comidas/${idMeal}`);
   }
 
   render() {
     const { history } = this.props;
     return (
       <div>
-        <Header2 title="Explorar Bebidas" />
+        <Header2 title="Explorar Comidas" />
         <button
           type="button"
           data-testid="explore-by-ingredient"
-          onClick={ () => history.push('/explorar/bebidas/ingredientes') }
+          onClick={ () => history.push('/explorar/comidas/ingredientes') }
         >
           Por Ingredientes
+        </button>
+        <button
+          type="button"
+          data-testid="explore-by-area"
+          onClick={ () => history.push('/explorar/comidas/area') }
+        >
+          Por Local de Origem
         </button>
         <button
           type="button"
@@ -41,10 +48,10 @@ class BebidasExplorar extends React.Component {
   }
 }
 
-BebidasExplorar.propTypes = {
+ExplorarComidas.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
 };
 
-export default BebidasExplorar;
+export default ExplorarComidas;

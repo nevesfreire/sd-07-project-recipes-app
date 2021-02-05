@@ -11,10 +11,13 @@ class Comidas extends Component {
     super();
     this.state = {
       recipes: [],
-      loading: false,
+      currentCategory: undefined,
     };
     this.showCards = this.showCards.bind(this);
     this.searchCategory = this.searchCategory.bind(this);
+    this.conditionalRender = this.conditionalRender.bind(this);
+    this.allCategories = this.allCategories.bind(this);
+    this.detailRecipe = this.detailRecipe.bind(this);
   }
 
   componentDidMount() {
@@ -23,20 +26,29 @@ class Comidas extends Component {
   }
 
   async searchCategory(category) {
-    this.setState({
-      loading: true,
-    }, async () => {
-      const ZERO = 0;
-      const TWELVE = 12;
-      const responseAPI = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
-      const response = await responseAPI.json();
-      const copyResponse = [...response.meals];
-      const recipes = copyResponse.splice(ZERO, TWELVE);
+    const { currentCategory } = this.state;
+    if (currentCategory && currentCategory === category) {
       this.setState({
-        recipes,
-        loading: false,
+        currentCategory: undefined,
       });
+      return;
+    }
+
+    const ZERO = 0;
+    const TWELVE = 12;
+    const responseAPI = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
+    const response = await responseAPI.json();
+    const copyResponse = [...response.meals];
+    const recipesResult = copyResponse.splice(ZERO, TWELVE);
+    this.setState({
+      recipes: recipesResult,
+      currentCategory: category,
     });
+  }
+
+  detailRecipe(id) {
+    const { history } = this.props;
+    history.push(`/comidas/${id}`);
   }
 
   showCards(card) {
@@ -44,7 +56,12 @@ class Comidas extends Component {
       const DOZE = 12;
       if (index < DOZE) {
         return (
-          <div data-testid={ `${index}-recipe-card` } key={ food.idMeal }>
+          <button
+            type="button"
+            data-testid={ `${index}-recipe-card` }
+            key={ food.idMeal }
+            onClick={ () => this.detailRecipe(food.idMeal) }
+          >
             <img
               src={ food.strMealThumb }
               alt="recipe pic"
@@ -52,22 +69,40 @@ class Comidas extends Component {
               width="50%"
             />
             <h4 data-testid={ `${index}-card-name` }>{food.strMeal}</h4>
-          </div>
+          </button>
         );
       }
       return null; // referência: Brenda Lima;
     });
   }
 
+  conditionalRender() {
+    const { currentCategory, recipes } = this.state;
+    const { toggleFood, resultApiByName, resultFood } = this.props;
+    if (currentCategory) {
+      return (
+        this.showCards(recipes)
+      );
+    }
+    if (toggleFood) {
+      return (
+        this.showCards(resultApiByName)
+      );
+    }
+    return (
+      this.showCards(resultFood)
+    );
+  }
+
+  allCategories() {
+    const { resultFood } = this.props;
+    this.setState({
+      recipes: resultFood,
+    });
+  }
+
   render() {
-    const {
-      toggle,
-      history,
-      toggleFood,
-      resultApiByName,
-      resultFood } = this.props;
-    const { recipes, loading } = this.state;
-    console.log(recipes);
+    const { toggle, history } = this.props;
     return (
       <div>
         <Header title="Comidas" history={ history } />
@@ -107,9 +142,16 @@ class Comidas extends Component {
         >
           Goat
         </button>
-        {loading ? 'Loading' : this.showCards(recipes)}
-        {toggleFood && !loading
-          ? this.showCards(resultApiByName) : this.showCards(resultFood)}
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ () => this.allCategories() }
+        >
+          All
+        </button>
+        <div>
+          {this.conditionalRender()}
+        </div>
         <Footer />
       </div>
     );

@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Carousel from './CarouselBebida';
 import ShareIcon from '../../images/shareIcon.svg';
+import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
 const MAX_INGREDIENTS = 20;
 
@@ -11,16 +13,40 @@ export default class BebidasDetalhes extends React.Component {
     this.state = {
       recipe: {},
       copyClipboard: '',
+      isFavorite: false,
+      isDone: false,
     };
     this.fetchData = this.fetchData.bind(this);
     this.renderIngredients = this.renderIngredients.bind(this);
     this.renderIngredient = this.renderIngredient.bind(this);
     this.iniciarReceita = this.iniciarReceita.bind(this);
     this.copyClipboard = this.copyClipboard.bind(this);
+    this.favoriteRecipe = this.favoriteRecipe.bind(this);
+    this.isFavorite = this.isFavorite.bind(this);
   }
 
   componentDidMount() {
     this.fetchData();
+    this.isFavorite();
+    this.isDone();
+  }
+
+  isFavorite() {
+    const setFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (setFavorite) {
+      this.setState({
+        isFavorite: true,
+      });
+    }
+  }
+
+  isDone() {
+    const setFavorite = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (setFavorite) {
+      this.setState({
+        isDone: true,
+      });
+    }
   }
 
   async fetchData() {
@@ -42,10 +68,30 @@ export default class BebidasDetalhes extends React.Component {
 
   async copyClipboard() {
     await navigator.clipboard.writeText(window.location.href);
-    const copySucess = await window.location.href;
     this.setState({
-      copyClipboard: copySucess,
+      copyClipboard: window.location.href,
     });
+  }
+
+  favoriteRecipe() {
+    const { recipe, isFavorite } = this.state;
+    this.setState({
+      isFavorite: !isFavorite,
+    });
+    const favorite = [{
+      id: recipe.idDrink,
+      type: 'bebida',
+      area: '',
+      category: recipe.strCategory,
+      alcoholicOrNot: recipe.strAlcoholic,
+      name: recipe.strDrink,
+      image: recipe.strDrinkThumb,
+    }];
+    if (isFavorite) {
+      localStorage.removeItem('favoriteRecipes');
+    } else {
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favorite));
+    }
   }
 
   renderIngredient(index) {
@@ -69,7 +115,7 @@ export default class BebidasDetalhes extends React.Component {
   }
 
   render() {
-    const { recipe, copyClipboard } = this.state;
+    const { recipe, copyClipboard, isFavorite, isDone } = this.state;
     return (
       <div>
         <img data-testid="recipe-photo" src={ recipe.strDrinkThumb } alt="drink pic" />
@@ -87,8 +133,10 @@ export default class BebidasDetalhes extends React.Component {
         <button
           type="button"
           data-testid="favorite-btn"
+          onClick={ () => this.favoriteRecipe() }
+          src={ !isFavorite ? whiteHeartIcon : blackHeartIcon }
         >
-          Favoritar
+          <img src={ !isFavorite ? whiteHeartIcon : blackHeartIcon } alt="favorite" />
         </button>
         <p data-testid="recipe-category">{recipe.strAlcoholic}</p>
         <ul>{this.renderIngredients()}</ul>
@@ -97,7 +145,8 @@ export default class BebidasDetalhes extends React.Component {
         <button
           type="button"
           data-testid="start-recipe-btn"
-          className="iniciar-receita-fixo"
+          className={ isDone === false
+            ? 'iniciar-receita-fixo' : 'iniciar-receita-fixo hidden-item' }
           onClick={ this.iniciarReceita }
         >
           Iniciar receita
