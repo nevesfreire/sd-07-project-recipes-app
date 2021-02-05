@@ -10,6 +10,7 @@ class DoneRecipe extends Component {
   constructor(props) {
     super(props);
     this.handleClipBoard = this.handleClipBoard.bind(this);
+    this.handleTags = this.handleTags.bind(this);
   }
 
   handleClipBoard(type, id) {
@@ -18,11 +19,21 @@ class DoneRecipe extends Component {
     executeCopy('Link copiado!');
   }
 
+  handleTags(tags) {
+    if (tags && typeof tags === 'object') {
+      console.log(tags);
+      return tags;
+    }
+    if (tags && typeof tags === 'string') {
+      console.log(tags.split(','));
+      return tags.split(',');
+    }
+  }
+
   render() {
     const readLocalStorage = JSON.parse(localStorage.getItem('doneRecipes'));
     const { valueCopied } = this.props;
-    console.log(readLocalStorage);
-    console.log(readLocalStorage[0].tags);
+    // console.log(readLocalStorage[0].tags);
     if (readLocalStorage) {
       return (
         <div>
@@ -69,17 +80,18 @@ class DoneRecipe extends Component {
               </button>
 
               <h1 data-testid={ `${index}-horizontal-name` }>{card.name}</h1>
-              {console.log(card.tags)}
-              {/* Para funcionar com a API tem que descomentar a linha abaixo */}
-              {/* {card.tags.split(',').map((cardTag, indexTag) => ( */}
-              {card.tags.map((cardTag, indexTag) => (
-                <p
-                  data-testid={ `${index}-${cardTag}-horizontal-tag` }
-                  key={ indexTag }
-                >
-                  {cardTag}
-                </p>
-              ))}
+              {
+                card.tags
+                  ? this.handleTags(card.tags).map((cardTag, indexTag) => (
+                    <p
+                      data-testid={ `${index}-${cardTag}-horizontal-tag` }
+                      key={ indexTag }
+                    >
+                      {cardTag}
+                    </p>
+                  ))
+                  : <p />
+              }
             </div>
           ))}
         </div>
