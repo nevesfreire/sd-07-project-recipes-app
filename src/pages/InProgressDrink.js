@@ -1,11 +1,13 @@
 import { Button } from 'react-bootstrap';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import ShareButton from '../components/DetailsComponents/ShareButton';
 import FavButton from '../components/DetailsComponents/FavButton';
 
 export default function InProgressDrink() {
+  const [usedIngr, setUsedIngr] = useState([]);
+
   const {
     setDone,
     done,
@@ -30,7 +32,7 @@ export default function InProgressDrink() {
       setRecipe(drinks[0]);
     };
     getRecipe();
-  }, [path]);
+  }, [path, setRecipe]);
 
   const listIngredients = [];
   const ingredientsList = () => {
@@ -42,10 +44,44 @@ export default function InProgressDrink() {
     }
     return true;
   };
+  useEffect(() => {
+    const dataProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (dataProgress) {
+      localStorage.setItem('inProgressRecipes', JSON.stringify({ ...dataProgress }));
+    } else {
+      localStorage.setItem('inProgressRecipes', JSON.stringify({
+        cocktails: {},
+        meals: {},
+      }));
+    }
+  }, []);
+
+  const handleCheckbox = (e) => {
+    if (e.target.checked) {
+      setUsedIngr([...usedIngr, e.target.name]);
+    } else {
+      setUsedIngr(usedIngr.filter((item) => item !== e.target.name));
+    }
+
+    const dataProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const dataDrinks = dataProgress.cocktails;
+    localStorage.setItem('inProgressRecipes', JSON.stringify({
+      ...dataProgress,
+      cocktails: {
+        ...dataDrinks,
+        [recipe.idDrink]: usedIngr,
+      },
+    }));
+  };
 
   const handleFinishRecipeBtn = () => {
     setDone([...done, recipe]);
     history.push('/receitas-feitas');
+  };
+
+  const isDisabled = () => {
+    if (usedIngr.length === listIngredients.length) return false;
+    return true;
   };
 
   return (
@@ -78,11 +114,12 @@ export default function InProgressDrink() {
           >
             <label
               htmlFor={ ingredient }
-              data-testid={ `${key}ingredient-step` }
+              data-testid={ `${key}-ingredient-step` }
             >
               <input
                 name={ ingredient }
                 type="checkbox"
+                onChange={ handleCheckbox }
               />
               { ingredient }
             </label>
@@ -98,6 +135,7 @@ export default function InProgressDrink() {
         data-testid="finish-recipe-btn"
         className="finishRecipeBtn"
         onClick={ handleFinishRecipeBtn }
+        disabled={ isDisabled() }
       >
         Finalizar Receita
       </Button>

@@ -29,7 +29,7 @@ export default function DrinkDetails() {
       setRecipe(drinks[0]);
     };
     getRecipe();
-  }, [path]);
+  }, [path, setRecipe]);
 
   const getRecomendations = async () => {
     const endpoint = ('https://www.themealdb.com/api/json/v1/1/search.php?s=');

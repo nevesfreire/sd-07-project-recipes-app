@@ -1,11 +1,13 @@
 import { Button } from 'react-bootstrap';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import ShareButton from '../components/DetailsComponents/ShareButton';
 import FavButton from '../components/DetailsComponents/FavButton';
 
 export default function InProgressFood() {
+  const [usedIngr, setUsedIngr] = useState([]);
+
   const {
     setDone,
     done,
@@ -20,7 +22,6 @@ export default function InProgressFood() {
   const vinte = 20;
 
   useEffect(() => {
-    setRecipe([]);
     const getRecipe = async () => {
       const id = path.substring(nove, catorze);
       const endpoint = (`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
@@ -41,9 +42,52 @@ export default function InProgressFood() {
     return true;
   };
 
+  useEffect(() => {
+    const dataProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (dataProgress) {
+      localStorage.setItem('inProgressRecipes', JSON.stringify({ ...dataProgress }));
+    } else {
+      localStorage.setItem('inProgressRecipes', JSON.stringify({
+        cocktails: {},
+        meals: {},
+      }));
+    }
+  }, []);
+
+  const handleCheckbox = (e) => {
+    if (e.target.checked) {
+      setUsedIngr([...usedIngr, e.target.name]);
+      const dataProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      const dataMeals = dataProgress.meals;
+      localStorage.setItem('inProgressRecipes', JSON.stringify({
+        ...dataProgress,
+        meals: {
+          ...dataMeals,
+          [recipe.idMeal]: [...usedIngr, e.target.name],
+        },
+      }));
+    } else {
+      setUsedIngr(usedIngr.filter((item) => item !== e.target.name));
+      const dataProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      const dataMeals = dataProgress.meals;
+      localStorage.setItem('inProgressRecipes', JSON.stringify({
+        ...dataProgress,
+        meals: {
+          ...dataMeals,
+          [recipe.idMeal]: usedIngr.filter((item) => item !== e.target.name),
+        },
+      }));
+    }
+  };
+
   const handleFinishRecipeBtn = () => {
     setDone([...done, recipe]);
     history.push('/receitas-feitas');
+  };
+
+  const isDisabled = () => {
+    if (usedIngr.length === listIngredients.length) return false;
+    return true;
   };
 
   return (
@@ -76,11 +120,12 @@ export default function InProgressFood() {
           >
             <label
               htmlFor={ ingredient }
-              data-testid={ `${key}ingredient-step` }
+              data-testid={ `${key}-ingredient-step` }
             >
               <input
                 name={ ingredient }
                 type="checkbox"
+                onChange={ handleCheckbox }
               />
               { ingredient }
             </label>
@@ -96,6 +141,7 @@ export default function InProgressFood() {
         data-testid="finish-recipe-btn"
         className="finishRecipeBtn"
         onClick={ handleFinishRecipeBtn }
+        disabled={ isDisabled() }
       >
         Finalizar Receita
       </Button>
