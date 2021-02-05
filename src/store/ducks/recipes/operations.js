@@ -3,6 +3,9 @@ import {
   request,
   failedRequest,
   getCategories,
+  setRecipeDetails,
+  setAreas,
+  setIngredients,
 } from './actions';
 
 import * as recipeAPI from '../../../services/recipeAPI';
@@ -50,6 +53,58 @@ export function fetchCategories(type) {
       dispatch(request());
       const data = await recipeAPI.getCategories(type);
       dispatch(getCategories(data));
+    } catch (error) {
+      console.log(error);
+      dispatch(failedRequest(error.message));
+    }
+  };
+}
+
+export function fetchRecipeDetails(type) {
+  return async (dispatch) => {
+    try {
+      dispatch(request());
+      const data = await recipeAPI.getRandom(type);
+      dispatch(setRecipeDetails(data[0]));
+    } catch (error) {
+      console.log(error);
+      dispatch(failedRequest(error.message));
+    }
+  };
+}
+
+export function fetchAreas(type) {
+  return async (dispatch) => {
+    try {
+      dispatch(request());
+      const data = await recipeAPI.getAreas(type);
+      dispatch(setAreas(data));
+    } catch (error) {
+      console.log(error);
+      dispatch(failedRequest(error.message));
+    }
+  };
+}
+
+export function fetchIngredients(type) {
+  return async (dispatch) => {
+    try {
+      dispatch(request());
+      const data = await recipeAPI.getIngredientList(type);
+      dispatch(setIngredients(data));
+    } catch (error) {
+      console.log(error);
+      dispatch(failedRequest(error.message));
+    }
+  };
+}
+
+export function fetchRecipesByIngredient(type, ingredient) {
+  return async (dispatch) => {
+    try {
+      dispatch(request());
+      const data = await recipeAPI.getRecipesByIngredient(type, ingredient);
+      dispatch(getRecipes(data));
     } catch (error) {
       console.log(error);
       dispatch(failedRequest(error.message));

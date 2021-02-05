@@ -27,3 +27,15 @@ export function favoriteRecipe(recipe) {
 export function unFavoriteRecipe(recipeId) {
   return { type: recipesTypes.UNFAVORITE_RECIPE, payload: recipeId };
 }
+
+export function setRecipeDetails(recipe) {
+  return { type: recipesTypes.SET_RECIPE_DETAILS, payload: recipe };
+}
+
+export function setAreas(areas) {
+  return { type: recipesTypes.SET_AREAS, payload: areas };
+}
+
+export function setIngredients(ingredients) {
+  return { type: recipesTypes.SET_AREAS, payload: ingredients };
+}

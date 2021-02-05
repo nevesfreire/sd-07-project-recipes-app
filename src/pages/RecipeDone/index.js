@@ -174,7 +174,7 @@ const RecipeDone = () => {
     <>
       <Header
         title={ pathname.includes('feitas') ? 'Receitas Feitas' : 'Receitas Favoritas' }
-        showSearchBar={ false }
+        showSearchIcon={ false }
       />
       <RecipeFilter />
       {pathname.includes('feitas')

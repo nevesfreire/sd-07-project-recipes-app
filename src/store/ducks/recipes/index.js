@@ -8,6 +8,7 @@ export {
 export {
   fetchRecipesByFilter,
   fetchCategories,
+  fetchRecipeDetails,
 } from './operations';
 
 export default recipes;
