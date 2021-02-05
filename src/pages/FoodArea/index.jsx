@@ -23,7 +23,7 @@ export default function FoodArea() {
     setMealsForArea(results2.meals);
   };
 
-  const xablau = async () => {
+  const initialFoods = async () => {
     const randomFoods = await fetchRandomFoods();
     console.log(randomFoods.meals);
     setMealsForArea(randomFoods.meals);
@@ -32,14 +32,14 @@ export default function FoodArea() {
   const areaSelectdOption = ({ target: { value } }) => {
     if (value === 'All') {
       console.log(meals);
-      xablau();
+      initialFoods();
     }
     fechtchingMeaalsForArea(value);
   };
 
   useEffect(() => {
     mealsAreaFetching();
-    xablau();
+    initialFoods();
   }, []);
 
   return (

@@ -14,6 +14,7 @@ import {
   DoneRecipes,
   FavoritesRecipes,
   NotFound,
+  RecipeInProgress,
 } from '../pages';
 
 const Routes = () => (
@@ -71,6 +72,14 @@ const Routes = () => (
     <Route
       path="/receitas-favoritas"
       component={ FavoritesRecipes }
+    />
+    <Route
+      path="/comidas/:id/in-progress"
+      component={ RecipeInProgress }
+    />
+    <Route
+      path="/bebidas/:id/in-progress"
+      component={ RecipeInProgress }
     />
     <Route
       path="*"
