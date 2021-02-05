@@ -198,7 +198,7 @@ class FoodInProgress extends Component {
                   type="checkbox"
                   className="form-check-input"
                   id={ ingredient }
-                  onClick={ this.handleCheckbox }
+                  onChange={ this.handleCheckbox }
                   checked={ checkedFoodIngredients(id, ingredient) }
                 />
                 <label className="form-check-label" htmlFor={ ingredient }>

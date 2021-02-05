@@ -187,7 +187,7 @@ class DrinkInProgress extends Component {
                     type="checkbox"
                     className="form-check-input"
                     id={ ingredient }
-                    onClick={ this.handleCheckbox }
+                    onChange={ this.handleCheckbox }
                     checked={ checkedDrinkIngredients(id, ingredient) }
                   />
                   <label
@@ -250,5 +250,4 @@ DrinkInProgress.propTypes = {
   }).isRequired,
   executeCopy: PropTypes.func.isRequired,
   valueCopied: PropTypes.string.isRequired,
-
 };
