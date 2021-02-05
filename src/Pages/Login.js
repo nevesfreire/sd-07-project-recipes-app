@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-// import RecipeContext from '../Context/Context';
+import { Form, Button } from 'react-bootstrap';
 
 function Login() {
-//   const {} = useContext(RecipeContext);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState('0');
 
@@ -23,34 +22,41 @@ function Login() {
   }
 
   return (
-    <div>
-      <label htmlFor="email">
-        Email
-        <input
-          data-testid="email-input"
-          type="input"
-          onChange={ ({ target }) => setEmail(target.value) }
-        />
-      </label>
-      <label htmlFor="senha">
-        Senha
-        <input
-          placeholder="Password"
-          data-testid="password-input"
-          onChange={ ({ target }) => setPassword(target.value) }
-        />
-      </label>
-      <Link to="/comidas">
-        <button
-          disabled={ !dataVerify() }
-          onClick={ handleClick }
-          type="submit"
-          data-testid="login-submit-btn"
-        >
-          Entrar
-        </button>
-      </Link>
-    </div>);
+    <Form className="login-form">
+      <div>
+        <Form.Group>
+          <Form.Label htmlFor="email">
+            Email
+            <Form.Control
+              data-testid="email-input"
+              type="input"
+              onChange={ ({ target }) => setEmail(target.value) }
+            />
+          </Form.Label>
+        </Form.Group>
+        <Form.Group>
+          <Form.Label htmlFor="senha">
+            Senha
+            <Form.Control
+              placeholder="Password"
+              data-testid="password-input"
+              onChange={ ({ target }) => setPassword(target.value) }
+            />
+          </Form.Label>
+        </Form.Group>
+        <Link to="/comidas">
+          <Button
+            disabled={ !dataVerify() }
+            onClick={ handleClick }
+            type="submit"
+            data-testid="login-submit-btn"
+          >
+            Entrar
+          </Button>
+        </Link>
+      </div>
+    </Form>
+  );
 }
 
 export default Login;
