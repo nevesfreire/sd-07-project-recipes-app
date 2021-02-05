@@ -13,8 +13,6 @@ class CategorySelector extends React.Component {
     this.state = {
       categories: [],
       currentCategory: 'All',
-      mealRecipes: [],
-      drinkRecipes: [],
     };
   }
 
@@ -22,12 +20,9 @@ class CategorySelector extends React.Component {
     const magicZero = 0;
     const { mealRecipes, drinkRecipes, location: { pathname } } = this.props;
     if (mealRecipes.length === magicZero && pathname === '/comidas') {
-      console.log(mealRecipes.length);
-      console.log('Entrou comidas')
       await this.updateItems('All');
     }
     if (drinkRecipes.length === magicZero && pathname === '/bebidas') {
-      console.log('entrou bebidas')
       await this.updateItems('All');
     }
     await this.getCategories();
