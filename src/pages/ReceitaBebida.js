@@ -98,6 +98,7 @@ ReceitaBebida.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+  startRecipeDrinkDispatch: PropTypes.func.isRequired,
 };
 const mapDispatchToProps = (dispatch) => ({
   startRecipeDrinkDispatch: (e) => dispatch(startRecipeDrink(e)),
