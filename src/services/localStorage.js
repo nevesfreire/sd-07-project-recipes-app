@@ -17,7 +17,7 @@ function createDoneRecipesDatabase() {
 function createProgressDatabase() {
   localStorage.setItem('inProgressRecipes', JSON.stringify({
     meals: {},
-    drinks: {},
+    cocktails: {},
   }));
 }
 
@@ -156,7 +156,7 @@ export function ingredientIsSelected(recipe, ingredient) {
   } else if ('idDrink' in recipe) {
     obj = {
       id: recipe.idDrink,
-      type: 'drinks',
+      type: 'cocktails',
     };
   }
   const recipes = getRecipesProgress();
@@ -183,7 +183,7 @@ export function addRecipeProgress(recipe, ingredient) {
   } else if ('idDrink' in recipe) {
     obj = {
       id: recipe.idDrink,
-      type: 'drinks',
+      type: 'cocktails',
     };
   }
   let recipes = getRecipesProgress();
@@ -223,7 +223,7 @@ export function resumeRecipe(recipe) {
   } else if ('idDrink' in recipe) {
     obj = {
       id: recipe.idDrink,
-      type: 'drinks',
+      type: 'cocktails',
     };
   }
   const recipes = getRecipesProgress();
