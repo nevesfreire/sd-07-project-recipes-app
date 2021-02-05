@@ -32,15 +32,8 @@ class DrinkInProgress extends Component {
   }
 
   componentDidMount() {
-    const {
-      requestRecipes,
-      match: {
-        params: { id },
-      },
-    } = this.props;
-    requestRecipes(
-      `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`,
-    );
+    const { requestRecipes, match: { params: { id } } } = this.props;
+    requestRecipes(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
     this.createFavoriteLocalStorage('favoriteRecipes');
     this.createFavoriteLocalStorage('doneRecipes');
     checkProgressDrinkLocalStorage(id);
@@ -49,18 +42,11 @@ class DrinkInProgress extends Component {
   componentDidUpdate() {
     const { drinksRecipes } = this.props;
     const { request } = this.state;
-    if (drinksRecipes.drinks && request) {
-      this.handleState();
-    }
+    if (drinksRecipes.drinks && request) this.handleState();
   }
 
   handleState() {
-    const {
-      match: {
-        params: { id },
-      },
-      drinksRecipes,
-    } = this.props;
+    const { match: { params: { id } }, drinksRecipes } = this.props;
     const filterRecipe = drinksRecipes.drinks.find(
       (recipe) => recipe.idDrink === id,
     );

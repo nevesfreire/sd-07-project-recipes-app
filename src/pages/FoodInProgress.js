@@ -35,15 +35,8 @@ class FoodInProgress extends Component {
   }
 
   componentDidMount() {
-    const {
-      requestRecipes,
-      match: {
-        params: { id },
-      },
-    } = this.props;
-    requestRecipes(
-      `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`,
-    );
+    const { requestRecipes, match: { params: { id } } } = this.props;
+    requestRecipes(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
     this.createFavoriteLocalStorage('favoriteRecipes');
     this.createFavoriteLocalStorage('doneRecipes');
     checkProgressFoodLocalStorage(id);
@@ -52,18 +45,11 @@ class FoodInProgress extends Component {
   componentDidUpdate() {
     const { mealsRecipes } = this.props;
     const { request } = this.state;
-    if (mealsRecipes.meals && request) {
-      this.handleState();
-    }
+    if (mealsRecipes.meals && request) this.handleState();
   }
 
   handleState() {
-    const {
-      match: {
-        params: { id },
-      },
-      mealsRecipes,
-    } = this.props;
+    const { match: { params: { id } }, mealsRecipes } = this.props;
     const filterRecipe = mealsRecipes.meals.find(
       (recipe) => recipe.idMeal === id,
     );
@@ -106,11 +92,7 @@ class FoodInProgress extends Component {
   }
 
   handleCheckbox({ target: { id: ingredient } }) {
-    const {
-      match: {
-        params: { id },
-      },
-    } = this.props;
+    const { match: { params: { id } } } = this.props;
     setIngredientFoodLocalStorage(id, ingredient);
     this.handleButtonEnabled();
   }
