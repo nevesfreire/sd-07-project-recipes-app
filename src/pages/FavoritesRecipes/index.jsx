@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Header, FavoriteCard } from '../../components';
 import { RecipesContext } from '../../context';
+import './FavoriteRecipes.css';
 
 export default function FavoritesRecipes() {
   const { favorites, setFavorites } = useContext(RecipesContext);
@@ -9,7 +10,7 @@ export default function FavoritesRecipes() {
   return (
     <div>
       <Header title="Receitas Favoritas" />
-      <main>
+      <main className="favorite-recipes-container">
         <button
           type="button"
           data-testid="filter-by-all-btn"

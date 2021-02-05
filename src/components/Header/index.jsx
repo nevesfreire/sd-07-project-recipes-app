@@ -38,7 +38,7 @@ export default function Header({ title }) {
   return (
     <div>
       <header className="header">
-        <div>
+        <div className="header-profile">
           <Link to="/perfil">
             <img
               src={ profileIcon }
