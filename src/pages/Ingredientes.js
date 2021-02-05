@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Container, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { sendDrinkRecipes, sendMealRecipes } from '../redux/actions';
 import { apiTheMealDB, apiTheCocktailDB } from '../services';
