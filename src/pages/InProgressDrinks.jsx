@@ -83,6 +83,7 @@ class InProgressDrinks extends React.Component {
       return <p>Loading...</p>;
     }
     const { ingredientsList, ingrentsMeasuresList, checkBox, buttonStatus } = this.state;
+    const { history } = this.props;
     return (
       <Container fluid>
         <Col>
@@ -144,6 +145,7 @@ class InProgressDrinks extends React.Component {
               type="button"
               data-testid="finish-recipe-btn"
               disabled={ buttonStatus }
+              onClick={ () => history.push('/receitas-feitas') }
             >
               Finalizar
             </button>

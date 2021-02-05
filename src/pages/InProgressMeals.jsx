@@ -81,6 +81,8 @@ class InProgressMeals extends React.Component {
   render() {
     const { ingredientsList,
       ingrentsMeasuresList, recipe, checkBox, buttonStatus } = this.state;
+    const { history } = this.props;
+
     if (recipe === '') {
       return <p>Loading...</p>;
     }
@@ -145,6 +147,7 @@ class InProgressMeals extends React.Component {
               type="button"
               data-testid="finish-recipe-btn"
               disabled={ buttonStatus }
+              onClick={ () => history.push('/receitas-feitas') }
             >
               Finalizar
             </button>
