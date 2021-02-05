@@ -2,15 +2,10 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Link } from 'react-router-dom';
-
-import useFavorites from '../hooks/useFavorites';
 import shareIcon from '../images/shareIcon.svg';
-import favoriteIcon from '../images/blackHeartIcon.svg';
-import notFavoriteIcon from '../images/whiteHeartIcon.svg';
 
-function Favorite({ recipesStorage, setRecipesStorage }) {
+function Done({ recipesStorage }) {
   const [copy, setCopy] = useState(false);
-  const [favorite] = useFavorites();
 
   const copyLink = () => {
     const delay = 2000;
@@ -18,26 +13,22 @@ function Favorite({ recipesStorage, setRecipesStorage }) {
     setTimeout(() => setCopy(false), delay);
   };
 
-  const handlerFilterRecipes = (number) => {
-    localStorage.setItem('favoriteRecipes', JSON.stringify(
-      recipesStorage && recipesStorage.filter(
-        ({ id }) => id !== number,
-      ),
-    ));
-    setRecipesStorage(
-      recipesStorage && recipesStorage.filter(({ id }) => id !== number),
-    );
-  };
-
   return (
     <div className="div-favorite">
       <p>{copy && 'Link copiado!'}</p>
-      {recipesStorage && recipesStorage.map(
-        ({ id, type, area, category, image, alcoholicOrNot, name }, index) => (
-          <div
-            key={ id }
-            className="div-favorite-div"
-          >
+      {recipesStorage.map(
+        ({
+          id,
+          type,
+          area,
+          category,
+          image,
+          alcoholicOrNot,
+          name,
+          doneDate,
+          tags,
+        }, index) => (
+          <div key={ id } className="div-favorite-div">
             <div className="div-recipes-favorite">
               <Link to={ `${type}s/${id}` }>
                 <img
@@ -47,22 +38,23 @@ function Favorite({ recipesStorage, setRecipesStorage }) {
                   alt="Imagem Receita"
                 />
               </Link>
-              <div className="div-span-p">
+              <div className="div-span-h6">
                 <span
                   data-testid={ `${index}-horizontal-top-text` }
                 >
                   { `${area === '' ? '' : area} - ${alcoholicOrNot === ''
                     ? category : alcoholicOrNot}`}
                 </span>
-                <h5
+                <h6
                   data-testid={ `${index}-horizontal-name` }
                 >
                   <Link to={ `${type}s/${id}` }>{ name }</Link>
-                </h5>
+                </h6>
               </div>
-            </div>
-            <div className="div-buttons-share-favorite">
-              <CopyToClipboard text={ `http://localhost:3000/${type}s/${id}` }>
+              <CopyToClipboard
+                className="div-buttons-share-favorite-feitas div-buttons-share"
+                text={ `http://localhost:3000/${type}s/${id}` }
+              >
                 <button
                   type="button"
                   onClick={ () => copyLink() }
@@ -75,17 +67,23 @@ function Favorite({ recipesStorage, setRecipesStorage }) {
                   />
                 </button>
               </CopyToClipboard>
-              <button
-                type="button"
-                value={ id }
-                onClick={ () => handlerFilterRecipes(id) }
+            </div>
+            <div className="div-data">
+              <h6
+                data-testid={ `${index}-horizontal-done-date` }
               >
-                <img
-                  data-testid={ `${index}-horizontal-favorite-btn` }
-                  src={ !favorite ? favoriteIcon : notFavoriteIcon }
-                  alt="Icone Favoritar"
-                />
-              </button>
+                { `Feita em: ${doneDate}` }
+              </h6>
+            </div>
+            <div className="div-tags">
+              {tags && tags.map((tag) => (
+                <h6
+                  key={ index }
+                  data-testid={ `${index}-${tag}-horizontal-tag` }
+                >
+                  { tag }
+                </h6>
+              ))}
             </div>
           </div>
         ),
@@ -94,9 +92,10 @@ function Favorite({ recipesStorage, setRecipesStorage }) {
   );
 }
 
-Favorite.propTypes = {
-  recipesStorage: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
-  setRecipesStorage: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
+Done.propTypes = {
+  recipesStorage: PropTypes.arrayOf(PropTypes.shape({
+    map: PropTypes.func.isRequired,
+  }).isRequired).isRequired,
 };
 
-export default Favorite;
+export default Done;

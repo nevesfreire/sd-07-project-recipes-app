@@ -36,6 +36,33 @@ function Ingredient({ recipes, inProgress, id }) {
   }
 
   if (inProgress) {
+    if (measures.length <= two) {
+      return (
+        <div>
+          <h3>Ingredient</h3>
+          <div className="div-ingredient">
+            {ingredients.map(([key, value], index) => (
+              <div key={ key }>
+                <label
+                  className=""
+                  htmlFor={ value }
+                  data-testid={ `${index}-ingredient-step` }
+                >
+                  <input
+                    onChange={ (e) => handleChange(e, id, recipes, ingredients) }
+                    name={ value }
+                    id={ value }
+                    type="checkbox"
+                    checked={ toogleChecked(value) }
+                  />
+                  { `- ${value} - 1/2 part`}
+                </label>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
     return (
       <div>
         <h3>Ingredient</h3>

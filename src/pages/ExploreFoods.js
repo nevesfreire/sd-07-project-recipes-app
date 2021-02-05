@@ -1,9 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import useRandomRecipe from '../hooks/useRandomRecipe';
 
-function ExploreFoods() {
+function ExploreFoods({ history }) {
+  const type = 'comidas';
+  const [getRandomRecipe] = useRandomRecipe();
+
+  const handleClick = async () => {
+    const valor = await getRandomRecipe(type);
+
+    history.push(`/comidas/${valor}`);
+  };
+
   return (
     <>
       <Header title="Explorar Comidas" isSearchable={ false } />
@@ -22,16 +33,24 @@ function ExploreFoods() {
         >
           Por Local de Origem
         </Link>
-        <Link
+        <button
+          type="button"
           data-testid="explore-surprise"
-          to="/"
-          className="explore-btn"
+          onClick={ () => handleClick() }
+          className="explore-surprise-btn"
         >
           Me Surpreenda!
-        </Link>
+        </button>
       </div>
       <Footer />
     </>
   );
 }
+
+ExploreFoods.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
 export default ExploreFoods;

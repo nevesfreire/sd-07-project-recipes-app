@@ -15,23 +15,24 @@
   width: 10%;
 }
 
-.div-buttons-share-favorite {
-  bottom: 70px;
+.div-buttons-share-favorite-feitas {
+  bottom: 60px;
   display: flex;
-  justify-content: space-evenly;
-  left: 170px;
+  height: fit-content;
+  justify-content: flex-end;
+  left: 8px;
   position: relative;
-  width: 150px;
+  top: 1px;
 }
 
-.div-buttons-share-favorite button {
+.div-buttons-share {
   background: none;
   border: none;
   outline: none;
   padding: 0;
 }
 
-.div-buttons-share-favorite img {
+.div-buttons-share-favorite-feitas img {
   z-index: 0;
 }
 
@@ -68,13 +69,13 @@
   width: 330px;
 }
 
-.div-recipes-favorite .div-span-p {
+.div-recipes-favorite .div-span-h6 {
   display: flex;
   flex-direction: column;
-  margin-left: 20px;
+  margin-left: 10px;
 }
 
-.div-recipes-favorite .div-span-p span {
+.div-recipes-favorite .div-span-h6 span {
   color: darkgray;
   font-size: 15px;
 }
@@ -83,4 +84,32 @@
   border-radius: 4px 0 0 4px;
   height: 143px;
   width: 165px;
+}
+
+.div-data {
+  bottom: 80px;
+  left: 180px;
+  position: relative;
+  width: fit-content;
+}
+
+.div-data h6 {
+  font-size: 15px;
+}
+
+.div-tags {
+  bottom: 85px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  left: 180px;
+  position: relative;
+  width: 135px;
+}
+
+.div-tags h6 {
+  background: #ecdede;
+  border-radius: 12px;
+  font-size: 15px;
+  padding: 2px;
 }
