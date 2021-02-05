@@ -4,7 +4,6 @@ import {
   Bebidas,
   Comidas,
   Explorar,
-  InProgress,
   Login,
   ReceitaBebida,
   ReceitaComida,
