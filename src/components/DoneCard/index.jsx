@@ -1,14 +1,21 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import removeFromFavorites from '../../services/localStorage';
-import { RecipesContext } from '../../context';
-import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import shareIcon from '../../images/shareIcon.svg';
 
-export default function FavoriteCard({ recipe, index }) {
-  const { name, image, type, alcoholicOrNot, category, area, id } = recipe;
+export default function DoneCard({ recipe, index }) {
+  const {
+    name,
+    image,
+    type,
+    alcoholicOrNot,
+    category,
+    area,
+    id,
+    doneDate,
+    tags,
+  } = recipe;
+  console.log(recipe);
   const [showCopied, setShowCopied] = useState(false);
-  const { setFavorites } = useContext(RecipesContext);
 
   const renderTopText = () => {
     if (type === 'comida') {
@@ -31,11 +38,6 @@ export default function FavoriteCard({ recipe, index }) {
         navigator.clipboard.writeText(`http://localhost:3000/${type}s/${id}`);
       }
     }).then(setShowCopied(true));
-  };
-
-  const disfavor = () => {
-    removeFromFavorites(id);
-    setFavorites((prevState) => prevState.filter((element) => element.id !== id));
   };
 
   const choosePath = () => {
@@ -73,20 +75,24 @@ export default function FavoriteCard({ recipe, index }) {
             data-testid={ `${index}-horizontal-share-btn` }
           />
         </button>
-        <button type="button" onClick={ disfavor }>
-          <img
-            src={ blackHeartIcon }
-            alt="heart"
-            data-testid={ `${index}-horizontal-favorite-btn` }
-          />
-        </button>
+        { showCopied && <p>Link copiado!</p> }
+        <h4 data-testid={ `${index}-horizontal-done-date` }>{ doneDate }</h4>
+        <p
+          data-testid={ `${index}-${tags[0]}-horizontal-tag` }
+        >
+          { tags[0] }
+        </p>
+        <p
+          data-testid={ `${index}-${tags[1]}-horizontal-tag` }
+        >
+          { tags[1] }
+        </p>
       </div>
-      { showCopied && <p>Link copiado!</p> }
     </div>
   );
 }
 
-FavoriteCard.propTypes = {
+DoneCard.propTypes = {
   index: PropTypes.number.isRequired,
   recipe: PropTypes.shape({
     name: PropTypes.string.isRequired,
@@ -96,5 +102,7 @@ FavoriteCard.propTypes = {
     category: PropTypes.string.isRequired,
     area: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
+    doneDate: PropTypes.string.isRequired,
+    tags: PropTypes.shape().isRequired,
   }).isRequired,
 };
