@@ -2,7 +2,6 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import NovasReceitas from '../pages/receitas/NovasReceitas';
 import NovasReceitasSalvas from '../pages/receitas/NovasReceitasSalvas';
-// import Receitas from '../pages/receitas/Receitas';
 import ReceitasFeitas from '../pages/receitas/ReceitasFeitas';
 
 describe('Testando arquivo NovasReceitas.js', () => {
@@ -20,16 +19,6 @@ describe('Testando arquivo NovasReceitasSalvas.js', () => {
     expect(nomeDaPagina).toBeInTheDocument();
   });
 });
-
-// describe('Testando arquivo Receitas.js', () => {
-//   test('Conteúdo da página Receitas', () => {
-//     const { getByText, getByTestId } = render(<Receitas />);
-//     const btnSearch = getByTestId('search-top-btn');
-//     const nomeDaPagina = getByText('Receitas');
-//     expect(nomeDaPagina).toBeInTheDocument();
-//     expect(btnSearch).toBeInTheDocument();
-//   });
-// });
 
 describe('Testando arquivo ReceitasFeitas.js', () => {
   test('Conteúdo da página ReceitasFeitas', () => {
