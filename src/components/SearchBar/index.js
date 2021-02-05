@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-import { Form, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 import { Context } from '../../context/Provider';
@@ -24,16 +23,16 @@ function SearchBar({ history }) {
   };
 
   return (
-    <Form onSubmit={ handleSearch }>
-      <Form.Group>
+    <form onSubmit={ handleSearch }>
+      <form>
         <input
           value={ search }
           onChange={ ({ target }) => setSearch(target.value) }
           type="text"
           data-testid="search-input"
         />
-      </Form.Group>
-      <Form.Group>
+      </form>
+      <form>
         <label htmlFor="ingredient">
           <input
             id="ingredient"
@@ -70,14 +69,14 @@ function SearchBar({ history }) {
           />
           Primeira letra
         </label>
-      </Form.Group>
-      <Button
+      </form>
+      <button
         type="submit"
         data-testid="exec-search-btn"
       >
         Buscar
-      </Button>
-    </Form>
+      </button>
+    </form>
   );
 }
 

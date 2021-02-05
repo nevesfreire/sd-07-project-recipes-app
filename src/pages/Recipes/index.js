@@ -46,7 +46,6 @@ function Recipes({ history, search = false }) {
       if (!data) return;
       setResults(data);
       setIsFetching(true);
-      console.log(data);
     };
     firstFetch();
   }, [api, category]);
