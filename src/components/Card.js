@@ -5,7 +5,6 @@ import RecipeContext from '../Context/Context';
 
 function Card({ name, thumb, index, id, type }) {
   const { setTypeAndIdDetails } = useContext(RecipeContext);
-
   return (
     <Link to={ `/${type}/${id}` }>
       <div

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import Card from '../components/Card';
 import Header from '../components/Header';
@@ -10,7 +10,10 @@ import Categories from '../components/Categories';
 function DrinksRecipes() {
   const { drinkFetch, randomDrinkFetch, drinksCategories } = useFetch();
   const { recipes, categoriesDrinks, setTypeAndIdDetails } = useContext(RecipeContext);
+  const [loading, setLoading] = useState(true);
+
   const um = 1;
+
   function handleRoutes() {
     const zero = 0;
     const doze = 12;
@@ -36,9 +39,19 @@ function DrinksRecipes() {
   }
 
   useEffect(() => {
-    randomDrinkFetch();
-    drinksCategories();
+    if (recipes === []) {
+      return setLoading(true);
+    }
+    if (!recipes.ingredient) {
+      randomDrinkFetch();
+    }
+    drinksCategories()
+      .then(() => setLoading(false));
   }, []);
+
+  if (loading) {
+    return (<div>Loading...</div>);
+  }
 
   return (
     <div>

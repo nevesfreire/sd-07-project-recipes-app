@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import Card from '../components/Card';
 import Header from '../components/Header';
@@ -10,6 +10,7 @@ import Categories from '../components/Categories';
 function FoodRecipes() {
   const { foodFetch, randomFoodFetch, foodCategories } = useFetch();
   const { recipes, categoriesFood, setTypeAndIdDetails } = useContext(RecipeContext);
+  const [loading, setLoading] = useState(true);
   const um = 1;
 
   function handleRoutes() {
@@ -26,8 +27,20 @@ function FoodRecipes() {
     />));
   }
 
-  const url = document.URL;
-  console.log('url', url);
+  useEffect(() => {
+    if (recipes === []) {
+      return setLoading(true);
+    }
+    if (!recipes.ingredient) {
+      randomFoodFetch();
+    }
+    foodCategories()
+      .then(() => setLoading(false));
+  }, []);
+
+  if (loading) {
+    return (<div>Loading...</div>);
+  }
 
   function handleDatails() {
     setTypeAndIdDetails({
@@ -39,13 +52,9 @@ function FoodRecipes() {
     );
   }
 
-  useEffect(() => {
-    randomFoodFetch();
-    foodCategories();
-  }, []);
-
   return (
     <div>
+      {console.log('console dentro do return')}
       <Header title="Comidas" explore funcFetch={ foodFetch } />
       <Categories list={ categoriesFood } type="meals" />
       {recipes.meals && !recipes.type && recipes.meals.length === um
