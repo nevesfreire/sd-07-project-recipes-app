@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import FavoriteRecipeCard from '../components/FavoriteRecipeCard';
 
 function FavoriteRecipes() {
   const recipesFromStorage = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
   const [favoriteRecipes, setFavoriteRecipes] = useState(recipesFromStorage);
+
+  useEffect(() => {
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+  }, [favoriteRecipes]);
+
   return (
     <div>
       <Header title="Receitas Favoritas" />
@@ -39,6 +44,7 @@ function FavoriteRecipes() {
             key={ recipe.id }
             favoriteRecipes={ recipe }
             index={ index }
+            setFavoriteRecipes={ setFavoriteRecipes }
           />
         )) }
       </div>

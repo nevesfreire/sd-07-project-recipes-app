@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import copy from 'clipboard-copy';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -120,6 +121,11 @@ class CocktailRecipeDetails extends Component {
     });
   }
 
+  copyLink(id) {
+    copy(`http://localhost:3000/bebidas/${id}`);
+    document.getElementById('link').style = 'inline';
+  }
+
   render() {
     const { cocktails, isLoading, favorite, ingredients, measures } = this.state;
     if (isLoading) {
@@ -159,12 +165,14 @@ class CocktailRecipeDetails extends Component {
               type="button"
               data-testid="share-btn"
               className="action-button"
+              onClick={ () => this.copyLink(idDrink) }
             >
               <img
                 src={ shareIcon }
                 alt="share"
               />
             </button>
+            <p id="link" style={ { display: 'none' } }>Link copiado!</p>
             <button
               type="button"
               onClick={ this.handleFavoriteButton }
