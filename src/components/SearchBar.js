@@ -55,14 +55,26 @@ const searchByCocktails = (options, word, {
   }
 };
 
+const verifyIfExistIngredientSetted = (props) => {
+  const {
+    title,
+    ingredientMealCur,
+    ingredientCocktailCur,
+  } = props;
+  if (title === 'Comidas' && ingredientMealCur !== '') {
+    searchByMeals(INGREDIENT, ingredientMealCur, props);
+  }
+  if (title === 'Bebidas' && ingredientCocktailCur !== '') {
+    searchByCocktails(INGREDIENT, ingredientCocktailCur, props);
+  }
+};
+
 function SearchBar(props) {
   const {
     toggle,
     title,
     meals,
     cocktails,
-    ingredientMealCur,
-    ingredientCocktailCur,
   } = props;
 
   const [word, setWord] = useState('');
@@ -78,13 +90,7 @@ function SearchBar(props) {
     }
   };
 
-  if (title === 'Comidas' && ingredientMealCur !== '') {
-    searchByMeals(INGREDIENT, ingredientMealCur, props);
-  }
-
-  if (title === 'Bebidas' && ingredientCocktailCur !== '') {
-    searchByCocktails(INGREDIENT, ingredientCocktailCur, props);
-  }
+  verifyIfExistIngredientSetted(props);
 
   useEffect(() => {
     const zero = 0;
