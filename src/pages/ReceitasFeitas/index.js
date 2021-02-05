@@ -5,18 +5,25 @@ import mealRecipe from '../../mocks/data';
 import shareIcon from '../../images/shareIcon.svg';
 
 class ReceitasFeitas extends Component {
+  constructor() {
+    super();
+    this.state = { copySuccess: '' };
+  }
+
   copyToClipboard(id) {
     const link = `http://localhost:3000/comidas/${id}`;
-    link.execCommand('copy');
+    navigator.clipboard.writeText(link);
     this.setState({ copySuccess: 'Link copiado!' });
   }
 
   render() {
     const title = 'Receitas Feitas';
+    // Criação do date
     const HoraInicial = new Date();
     const horaFinal = HoraInicial.toLocaleDateString();
+    // Mock do resultado esperado da função
     const mealMock = mealRecipe.meals[0];
-    console.log(this.props);
+    const { copySuccess } = this.state;
     return (
       <div>
         <Header title={ title } />
@@ -58,6 +65,7 @@ class ReceitasFeitas extends Component {
                 data-testid="index-horizontal-share-btn"
                 onClick={ () => this.copyToClipboard(mealMock.idMeal) }
               />
+              { copySuccess }
             </Button>
             <Card.Body>
               <br />
