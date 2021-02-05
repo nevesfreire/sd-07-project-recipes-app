@@ -5,6 +5,7 @@ import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { TWO_THOUSAND, ZERO } from '../services/helpers';
 import perfilIcon from '../images/profileIcon.svg';
+import '../style/favorites.css';
 
 function FavoriteRecipes() {
   const [favorited, setFavorited] = useState([]);
@@ -86,6 +87,7 @@ function FavoriteRecipes() {
           Drinks
         </button>
       </div>
+      <p className="message">{copyText}</p>
       {
         favorited
           .filter((element) => element.type.includes(type)).map((food, index) => (
@@ -115,7 +117,6 @@ function FavoriteRecipes() {
                     alt={ food.name }
                   />
                 </button>
-                {copyText}
               </div>
               <div>
                 <button

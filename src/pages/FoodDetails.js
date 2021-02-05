@@ -52,9 +52,7 @@ function FoodDetails() {
   };
 
   useEffect(() => {
-    if (!localStorage.favoriteRecipes) {
-      localStorage.favoriteRecipes = JSON.stringify([]);
-    }
+    if (!localStorage.favoriteRecipes) localStorage.favoriteRecipes = JSON.stringify([]);
     const favoriteStorage = JSON.parse(localStorage.favoriteRecipes)
       .filter((recipe) => recipe.id === mealRecipeId);
     if (favoriteStorage.length >= 1) {
@@ -65,9 +63,7 @@ function FoodDetails() {
   }, [mealRecipeId]);
 
   useEffect(() => {
-    if (!localStorage.doneRecipes) {
-      localStorage.doneRecipes = JSON.stringify([]);
-    }
+    if (!localStorage.doneRecipes) localStorage.doneRecipes = JSON.stringify([]);
     const doneStorage = JSON.parse(localStorage.doneRecipes)
       .filter((recipe) => recipe.id === mealRecipeId);
     if (doneStorage.length >= 1) {
