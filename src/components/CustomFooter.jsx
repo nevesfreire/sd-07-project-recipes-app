@@ -4,10 +4,14 @@ import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 
-export default function CustomFooter() {
+function CustomFooter() {
   return (
     <footer data-testid="footer" className="footer">
-      <Link to="/bebidas" data-testid="drinks-bottom-btn" src={ drinkIcon }>
+      <Link
+        to="/bebidas"
+        data-testid="drinks-bottom-btn"
+        src={ drinkIcon }
+      >
         <img
           src={ drinkIcon }
           alt="Drink Icon"
@@ -19,7 +23,11 @@ export default function CustomFooter() {
           alt="Explore Icon"
         />
       </Link>
-      <Link to="/comidas" data-testid="food-bottom-btn" src={ mealIcon }>
+      <Link
+        to="/comidas"
+        data-testid="food-bottom-btn"
+        src={ mealIcon }
+      >
         <img
           src={ mealIcon }
           alt="Meal Icon"
@@ -28,3 +36,5 @@ export default function CustomFooter() {
     </footer>
   );
 }
+
+export default CustomFooter;
