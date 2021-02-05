@@ -23,6 +23,20 @@ export const sendDrinkRecipes = (payload) => (
   }
 );
 
+export const addFavourites = (payload) => (
+  {
+    type: types.ADD_FAVOURITES,
+    payload,
+  }
+);
+
+export const removeFavourites = (payload) => (
+  {
+    type: types.REMOVE_FAVOURITES,
+    payload,
+  }
+);
+
 // const isFetching = () => (
 //   {
 //     type: types.IS_FETCHING,

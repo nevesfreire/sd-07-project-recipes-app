@@ -94,7 +94,7 @@ class CategorySelector extends React.Component {
       <div className="categories">
         <Row style={ { margin: 30 } }>
           <button
-            className={ (currentCategory === 'All' ? 'current' : '') }
+            // className={ (currentCategory === 'All' ? 'current' : '') }
             key="all"
             type="button"
             data-testid="All-category-filter"
@@ -104,7 +104,7 @@ class CategorySelector extends React.Component {
           </button>
           {categories.map((category) => (
             <button
-              className={ (currentCategory === category.strCategory ? 'current' : '') }
+              // className={ (currentCategory === category.strCategory ? 'current' : '') }
               key={ category.strCategory }
               type="button"
               data-testid={ `${category.strCategory}-category-filter` }
