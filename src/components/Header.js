@@ -15,7 +15,7 @@ function Header({ title,
       <a data-testid="profile-top-btn" href="/perfil" src={ profileIcon }>
         <img src={ profileIcon } alt="profile icon" />
       </a>
-      <h1 data-testid="page-title">{title}</h1>
+      <h1 className="page-title" data-testid="page-title">{title}</h1>
       {!JSON.parse(hideSearchIcon) && (
         <button
           className="header-button"

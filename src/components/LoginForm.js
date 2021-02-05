@@ -26,7 +26,7 @@ function LoginForm() {
 
   return (
     <form className='form'>
-      <h1 className='form-title'>ForkyChef</h1>
+      <h1 className='form-title'>Fome & Forky</h1>
       <h4 className='form-subtitle'>By Bons de Forky</h4>
       <p className='form-info'>Explore, salve e compartilhe suas receitas favoritas!</p>
       <input

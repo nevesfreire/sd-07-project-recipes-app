@@ -12,6 +12,7 @@ function Footer() {
         <img src={ drinkIcon } alt="drink icon" />
       </a>
       <button
+        className="header-button"
         type="button"
         data-testid="explore-bottom-btn"
         onClick={ () => history.push('/explorar') }
