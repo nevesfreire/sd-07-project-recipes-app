@@ -5,47 +5,49 @@
 }
 
 .modal-content {
-  width: 300px;
-  height: 430px;
-  background-color: #ffffff;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  display: flex;
-  border-radius: 10px;
-  justify-content: center;
   align-items: center;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  display: flex;
+  height: 430px;
+  justify-content: center;
   margin: 0 auto;
   margin-top: 110px;
+  width: 300px;
 }
 
 .modal-content input {
-  width: 235px;
-  height: 52px;
-  background: #ECECEC;
+  background: #ececec;
   border: none;
-  color: #959595
+  color: #959595;
+  height: 52px;
+  width: 235px;
 }
 
 .modal-content button {
-  width: 235px;
+  background: #32b35d;
+  color: white;
   height: 52px;
-  background: #32B35D;
-  color: #ffffff;
+  width: 235px;
 }
+
 .modal-content a {
   padding-bottom: 10px;
   padding-top: 10px;
 }
 
 .logo-login {
-  width: 85px;
+  background-color: #32b35d;
+  border-radius: 10px;
   height: 85px;
-  background-color: #32B35D;
+  margin: 0 auto;
   position: relative;
   top: -470px;
-  border-radius: 10px;
-  margin: 0 auto;
+  width: 85px;
 }
+
 .welcome {
-  font-family: 'Jomhuria', cursive;
+  font-family: Jomhuria , cursive;
   font-size: 48px;
 }
