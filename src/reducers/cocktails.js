@@ -12,7 +12,7 @@ import {
 } from '../actions';
 
 const INITIAL_STATE = {
-  cocktails: [],
+  cocktails: [{}, {}],
   cocktailsCategories: [],
   cocktailsIngredients: [],
   ingredientCurrency: '',
@@ -30,7 +30,7 @@ export default function cocktails(state = INITIAL_STATE, action) {
     return {
       ...state,
       isFetchingCocktails: false,
-      cocktails: [...action.cocktails.drinks],
+      cocktails: action.cocktails.drinks !== null ? [...action.cocktails.drinks] : [],
     };
   case REQUEST_COCKTAILS_FAILURE:
     return { ...state, isFetchingCocktails: false, error: action.error };
