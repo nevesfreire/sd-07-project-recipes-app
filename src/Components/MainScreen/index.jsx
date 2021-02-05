@@ -75,7 +75,7 @@ const MainScreen = (props) => {
   );
 
   const cockTailsDoc = () => (
-    <div>
+    <div className="container-cards">
       {cocktailsData.map(({ strDrinkThumb, strDrink, idDrink }, index) => (
         <CardFood
           idFood={ idDrink }
