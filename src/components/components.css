@@ -4,8 +4,8 @@
   bottom: 0;
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-around;
   height: 70px;
+  justify-content: space-around;
   position: fixed;
   width: 360px;
 }
@@ -22,7 +22,7 @@
 }
 
 .carousel-div {
-padding: 0 40px;
+  padding: 0 40px;
 }
 
 .recomendation-card {
