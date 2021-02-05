@@ -13,6 +13,10 @@ function RecipeProvider({ children }) {
   const [mealStateButton, setMealStateButton] = useState(true);
   const [drinkByIngredient, setDrinkByIngredient] = useState([]);
   const [mealByIngredient, setMealByIngredient] = useState([]);
+  const [clickedButtonMeal, setClickedButtonMeal] = useState(false);
+  const [clickedButtonDrink, setClickedButtonDrink] = useState(false);
+  const [favoriteMeal, setFavoriteMeal] = useState(false);
+  const [favoriteDrink, setFavoriteDrink] = useState(false);
 
   const context = {
     recipes,
@@ -35,6 +39,14 @@ function RecipeProvider({ children }) {
     setDrinkByIngredient,
     mealByIngredient,
     setMealByIngredient,
+    clickedButtonMeal,
+    setClickedButtonMeal,
+    clickedButtonDrink,
+    setClickedButtonDrink,
+    favoriteMeal,
+    setFavoriteMeal,
+    favoriteDrink,
+    setFavoriteDrink,
   };
 
   return (
