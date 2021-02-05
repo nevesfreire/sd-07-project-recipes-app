@@ -14,7 +14,6 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
       let endpoint = '';
       const { location: { pathname } } = history;
       const path = pathname.split('/')[1];
-      console.log(path);
       if (path === 'comidas') {
         endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
       } else {
@@ -62,18 +61,11 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
   };
 
   const teste = Object.keys(recipeDetails);
-  console.log(teste);
   const ingredients = teste.filter((item) => item.includes('strIngredient'));
-  console.log(ingredients);
   const measures = teste.filter((item) => item.includes('strMeasure'));
-
-  const ops = ingredients
-    .map((item, index) => [item, measures[index]]);
-  console.log(ops);
 
   const arrayVazio = [];
   ingredients.forEach((ingredient, index) => {
-    // console.log(recipeDetails);
     if (
       (recipeDetails[ingredient]
       && recipeDetails[ingredient] !== ' '
@@ -81,7 +73,6 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
       arrayVazio.push([recipeDetails[ingredient], recipeDetails[measures[index]]]);
     }
   });
-  console.log(arrayVazio);
 
   useEffect(() => {
     fetchMealDetails();
@@ -127,7 +118,11 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
       <Slider { ...settings }>
         <Recomendations />
       </Slider>
-      <button type="button" data-testid="start-recipe-btn">
+      <button
+        type="button"
+        className="start-recipe-btn"
+        data-testid="start-recipe-btn"
+      >
         Iniciar Receita
       </button>
     </div>
