@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Container, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { sendDrinkRecipes, sendMealRecipes } from '../redux/actions';
 import { apiTheMealDB, apiTheCocktailDB } from '../services';
@@ -36,12 +35,12 @@ class Ingredientes extends React.Component {
     const { sendMealRecipesDispatch, sendDrinkRecipesDispatch, history } = this.props;
     if (type === 'comidas') {
       const response = await apiTheMealDB(`filter.php?i=${item.strIngredient}`);
-      sendMealRecipesDispatch(response.meals);
+      await sendMealRecipesDispatch(response.meals);
       history.push('/comidas');
     }
     if (type === 'bebidas') {
       const response = await apiTheCocktailDB(`filter.php?i=${item.strIngredient1}`);
-      sendDrinkRecipesDispatch(response.drinks);
+      await sendDrinkRecipesDispatch(response.drinks);
       history.push('/bebidas');
     }
   }
@@ -56,35 +55,40 @@ class Ingredientes extends React.Component {
           {pathname === '/explorar/comidas/ingredientes' && (
             <Row>
               {data ? data.map((item, index) => (
-                <Link
+                <div
                   to="/comidas"
                   key={ index }
                   onClick={ () => this.saveToRedux(item, 'comidas') }
+                  onKeyPress
+                  role="link"
+                  tabIndex={ index }
                 >
                   <RecipesCards
                     recipe={ item }
                     search="ingredientsMeals"
                     index={ index }
                   />
-                </Link>
+                </div>
               )) : <Loading />}
             </Row>
           )}
           {pathname === '/explorar/bebidas/ingredientes' && (
             <Row>
               {data ? data.map((item, index) => (
-                <Link
+                <div
                   to="/bebidas"
                   key={ index }
                   onClick={ () => this.saveToRedux(item, 'bebidas') }
+                  onKeyPress
+                  role="link"
+                  tabIndex={ index }
                 >
                   <RecipesCards
-                    onClick={ () => this.saveToRedux(item, 'bebidas') }
                     recipe={ item }
                     search="ingredientsDrinks"
                     index={ index }
                   />
-                </Link>
+                </div>
               )) : <Loading />}
             </Row>
           )}
