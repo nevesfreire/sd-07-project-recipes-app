@@ -24,7 +24,7 @@ function SearchBarByDrinks() {
   }
   function verifyIsNull(response) {
     if (response === 'undefined' || response === 'null') {
-      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      customAlert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
   }
   function verifyIsEqual1(response) {
@@ -53,7 +53,7 @@ function SearchBarByDrinks() {
       setDrink(response);
     }
     if (radio === 'Primeira letra' && searchData.length !== 1) {
-      alert('Sua busca deve conter somente 1 (um) caracter');
+      customAlert('Sua busca deve conter somente 1 (um) caracter');
     }
   }
   return (
