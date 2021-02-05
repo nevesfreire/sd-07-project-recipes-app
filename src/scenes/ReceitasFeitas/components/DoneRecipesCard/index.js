@@ -28,7 +28,7 @@ function DoneRecipesCard() {
       saveDoneRecipes(doneRecipes);
     };
     putSaveDoneRecipes();
-  }, [saveDoneRecipes]);
+  }, []);
 
   return (
     <div>
