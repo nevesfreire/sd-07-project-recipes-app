@@ -48,6 +48,10 @@ const mapDispatchToProps = {
   ExploreRandomDrinksD: randomDrinkAction.ExploreRandomDrinks,
 };
 
+// const mapDispatchToProps = (dispatch) => ({
+//   loadIngredientsDrink: () => dispatch(ExploreIngredientsDrink()),
+// });
+
 ExplorarBebidas.propTypes = {
   ExploreRandomDrinksD: PropTypes.objectOf(PropTypes.string).isRequired,
   drinkExplore: PropTypes.objectOf(PropTypes.string).isRequired,

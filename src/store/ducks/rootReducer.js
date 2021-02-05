@@ -5,6 +5,7 @@ import receitasDeComidas from './receitasDeComidas';
 import exploreDrinks from './exploreDrinks';
 import exploreFoods from './exploreFoods';
 import drinkExploreIngredients from './drinkExploreIngredients';
+import foodExploreIngredients from './foodExploreIngredients';
 
 export default combineReducers({
   receitasDeBebidas,
@@ -13,4 +14,5 @@ export default combineReducers({
   exploreDrinks,
   exploreFoods,
   drinkExploreIngredients,
+  foodExploreIngredients,
 });

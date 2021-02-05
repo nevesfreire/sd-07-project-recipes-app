@@ -16,7 +16,7 @@ class ExplorarBebidasIng extends Component {
   render() {
     const title = 'Explorar Ingredientes';
     const { ingredientsDrinkStore } = this.props;
-    console.log('test', ingredientsDrinkStore);
+    if (!ingredientsDrinkStore) return <div>Loading...</div>;
     return (
       <div>
         <Header title={ title } />
@@ -30,6 +30,8 @@ class ExplorarBebidasIng extends Component {
                   key={ index }
                   data-testid={ `${index}-ingredient-card` }
                 >
+                  <div data-testid={ `${index}-card-img` } />
+                  <div data-testid={ `${index}-card-name` } />
                   <CardC card={ item } indexDrink={ index } />
                 </div>
               );

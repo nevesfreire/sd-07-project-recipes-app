@@ -23,4 +23,7 @@ export default {
   drinkExploreIngredients: {
     drinkIngredients: '',
   },
+  foodExploreIngredients: {
+    foodIngredients: '',
+  },
 };
