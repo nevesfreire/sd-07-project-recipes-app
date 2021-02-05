@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Card, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
 import { Header } from '../../components';
 import mealRecipe from '../../mocks/data';
 import shareIcon from '../../images/shareIcon.svg';
@@ -14,6 +15,11 @@ class ReceitasFeitas extends Component {
     const link = `http://localhost:3000/comidas/${id}`;
     navigator.clipboard.writeText(link);
     this.setState({ copySuccess: 'Link copiado!' });
+  }
+
+  redirectDetail(id) {
+    const { history } = this.props;
+    history.push(`/comidas/${id}`)
   }
 
   render() {
@@ -40,11 +46,14 @@ class ReceitasFeitas extends Component {
         </div>
         <div>
           <Card style={ { width: '18rem' } }>
-            <Card.Img
-              variant="top"
-              src={ mealMock.strMealThumb }
-              data-testid="index-horizontal-image"
-            />
+            <Button variant="outline-primary">
+              <Card.Img
+                variant="top"
+                src={ mealMock.strMealThumb }
+                data-testid="index-horizontal-image"
+                onClick={ () => this.redirectDetail(mealMock.idMeal) }
+              />
+            </Button>
             <Card.Body>
               <Card.Title data-testid="index-horizontal-name">
                 {mealMock.strMeal}
