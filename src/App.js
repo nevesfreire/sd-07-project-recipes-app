@@ -14,12 +14,17 @@ import MealsIngredients from './pages/MealsIngredients';
 import CocktailsIngredients from './pages/CocktailsIngredients';
 import MealsOrigin from './pages/MealsOrigin';
 import Cocktails from './pages/Cocktails';
+import RecipesDone from './pages/RecipesDone';
+import FavoriteRecipes from './pages/FavoriteRecipes';
 
 function App() {
+  const notFount = () => <div>Not Found</div>;
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
       <Route exact path="/perfil" component={ Profile } />
+      <Route exact path="/receitas-feitas" component={ RecipesDone } />
+      <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
       <Route exact path="/explorar" component={ Explorer } />
       <Route exact path="/comidas" component={ Meals } />
       <Route exact path="/bebidas" component={ Cocktails } />
@@ -35,6 +40,7 @@ function App() {
         component={ CocktailsIngredients }
       />
       <Route exact path="/explorar/comidas/area" component={ MealsOrigin } />
+      <Route exact path="/explorar/bebidas/area" component={ () => notFount() } />
     </Switch>
   );
 }
