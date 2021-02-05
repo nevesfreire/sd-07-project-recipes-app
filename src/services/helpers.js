@@ -18,6 +18,7 @@ export const handleIngredients = (recipe, initial, middle, end) => {
     ));
 };
 
+export const ZERO = 0;
 export const SIX = 6;
 export const NINE = 9;
 export const TWELVE = 12;
@@ -26,3 +27,4 @@ export const FOURTY_NINE = 49;
 export const THIRTY_SIX = 36;
 export const TWENTY_ONE = 21;
 export const FIFTY_ONE = 51;
+export const TWO_THOUSAND = 2000;
