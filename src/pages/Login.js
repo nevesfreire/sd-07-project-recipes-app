@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
+import logoRocketFood from '../images/logoRocketFood.png';
+import './Login.css';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -26,34 +28,44 @@ function Login() {
   };
 
   return (
-    <form>
-      <input
-        type="email"
-        name="email"
-        value={ email }
-        placeholder="Digite seu Email"
-        data-testid="email-input"
-        onChange={ ({ target }) => setEmail(target.value) }
-        autoCorrect="off"
+    <div className="wrapper__Login">
+      <img
+        className="logoRocketFood"
+        alt="imagem do logo"
+        src={ logoRocketFood }
       />
-      <input
-        type="password"
-        name="password"
-        value={ password }
-        placeholder="Digite sua Senha"
-        data-testid="password-input"
-        onChange={ ({ target }) => setPassword(target.value) }
-      />
-      <button
-        type="button"
-        data-testid="login-submit-btn"
-        disabled={ isDisable }
-        onClick={ handleClick }
-      >
-        Entrar
-      </button>
-      { redirect && <Redirect to="/comidas" />}
-    </form>
+      <form>
+        <input
+          type="email"
+          name="email"
+          className="inputLogin"
+          value={ email }
+          placeholder="Digite seu Email"
+          data-testid="email-input"
+          onChange={ ({ target }) => setEmail(target.value) }
+          autoCorrect="off"
+        />
+        <input
+          type="password"
+          className="inputLogin"
+          name="password"
+          value={ password }
+          placeholder="Digite sua Senha"
+          data-testid="password-input"
+          onChange={ ({ target }) => setPassword(target.value) }
+        />
+        <button
+          type="button"
+          data-testid="login-submit-btn"
+          className="button"
+          disabled={ isDisable }
+          onClick={ handleClick }
+        >
+          Entrar
+        </button>
+        { redirect && <Redirect to="/comidas" />}
+      </form>
+    </div>
   );
 }
 

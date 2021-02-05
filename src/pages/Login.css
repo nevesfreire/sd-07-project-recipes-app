@@ -1,0 +1,48 @@
+body {
+  background-image: url("https://lh3.googleusercontent.com/YGJ77qN9KiwctZgfqV8Bf3hNo0rZvcFaPKDTkvtS6kVbtwyCS80Pm6dpXzJCCLZE1Q");
+
+}
+
+.wrapper__Login {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 80px;
+}
+
+.logoRocketFood {
+  height: 150px;
+  margin-right: 18px;
+  width: 210px;
+}
+
+.button:disabled {
+  background-color: rgba(151, 111, 191, 50%);
+}
+
+.button {
+  background-color: rgb(102, 67, 138);
+  border-radius: 7px;
+  border: none;
+  color: white;
+  font-size: 21px;
+  height: 50px;
+  margin-left: 95px;
+  padding: 10px;
+  width: 110px;
+}
+
+.inputLogin {
+  background: rgb(255, 255, 255);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 7px;
+  display: flex;
+  flex-direction: column;
+  height: 40px;
+  justify-content: center;
+  margin: 25px;
+  text-align: center;
+  width: 250px;
+}
+
