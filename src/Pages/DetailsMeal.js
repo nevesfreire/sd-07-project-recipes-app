@@ -65,7 +65,7 @@ function DetailsMeal() {
       <img src={ strMealThumb } data-testid="recipe-photo" alt={ strMeal } />
       <h1 data-testid="recipe-title">{strMeal}</h1>
       <button
-        onClick={ () => copyToClipBoard(document.URL) }
+        onClick={ () => copyToClipBoard(url) }
         type="button"
       >
         <img
