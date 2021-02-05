@@ -11,6 +11,7 @@ function Provider({ children }) {
   const [drinks, setDrinks] = useState([]);
 
   const [favorites, setFavorites] = useState([]);
+  const [doneRecipes, setDoneRecipes] = useState([]);
 
   useEffect(() => {
     const favoriteList = localStorage.getItem('favoriteRecipes');
@@ -18,6 +19,15 @@ function Provider({ children }) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     } else {
       setFavorites(JSON.parse(favoriteList));
+    }
+  }, []);
+
+  useEffect(() => {
+    const recipes = localStorage.getItem('doneRecipes');
+    if (!recipes) {
+      localStorage.setItem('doneRecipes', JSON.stringify([]));
+    } else {
+      setDoneRecipes(JSON.parse(recipes));
     }
   }, []);
 
@@ -29,6 +39,7 @@ function Provider({ children }) {
     searchBarVisible,
     inputValues,
     favorites,
+    doneRecipes,
     setLogin,
     setDisabled,
     setMeals,
@@ -36,6 +47,7 @@ function Provider({ children }) {
     setSearchBarVisible,
     setInputValues,
     setFavorites,
+    setDoneRecipes,
   };
 
   return (

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Header, Footer, RecipeCard } from '../../components';
 import { RecipesContext } from '../../context';
 import { fetchRandomFoods } from '../../services/mandaFoods';
+import './FoodArea.css';
 
 export default function FoodArea() {
   const [mealsArea, setMealsArea] = useState([{ strArea: 'All' }]);
@@ -23,7 +24,7 @@ export default function FoodArea() {
     setMealsForArea(results2.meals);
   };
 
-  const xablau = async () => {
+  const initialFoods = async () => {
     const randomFoods = await fetchRandomFoods();
     console.log(randomFoods.meals);
     setMealsForArea(randomFoods.meals);
@@ -32,47 +33,52 @@ export default function FoodArea() {
   const areaSelectdOption = ({ target: { value } }) => {
     if (value === 'All') {
       console.log(meals);
-      xablau();
+      initialFoods();
     }
     fechtchingMeaalsForArea(value);
   };
 
   useEffect(() => {
     mealsAreaFetching();
-    xablau();
+    initialFoods();
   }, []);
 
   return (
-    <div>
+    <div className="explore-area-container">
       <Header title="Explorar Origem" />
-      <select
-        data-testid="explore-by-area-dropdown"
-        onChange={ areaSelectdOption }
-      >
+      <div className="explore-area-content">
+        <select
+          className="explore-dropdown"
+          data-testid="explore-by-area-dropdown"
+          onChange={ areaSelectdOption }
+        >
 
-        {
-          mealsArea
-            .map((area, index) => (
-              <option
-                key={ index }
-                value={ area.strArea }
-                data-testid={ `${area.strArea}-option` }
-              >
-                { area.strArea }
-              </option>
-            ))
-        }
-      </select>
-      {
-        mealsForArea && mealsForArea.filter((_, index) => index < TWELVE)
-          .map((meal, index) => (
-            <RecipeCard
-              key={ index }
-              id={ index }
-              meal={ meal }
-            />
-          ))
-      }
+          {
+            mealsArea
+              .map((area, index) => (
+                <option
+                  key={ index }
+                  value={ area.strArea }
+                  data-testid={ `${area.strArea}-option` }
+                >
+                  { area.strArea }
+                </option>
+              ))
+          }
+        </select>
+        <div className="cards-container">
+          {
+            mealsForArea && mealsForArea.filter((_, index) => index < TWELVE)
+              .map((meal, index) => (
+                <RecipeCard
+                  key={ index }
+                  id={ index }
+                  meal={ meal }
+                />
+              ))
+          }
+        </div>
+      </div>
       <Footer />
     </div>
   );
