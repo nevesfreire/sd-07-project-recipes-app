@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import { getIngredientList } from '../../services/recipeAPI';
-import { setFilterByIngredient } from '../../store/ducks/recipes';
+import { getIngredientList, FILTER_TYPES } from '../../services/recipeAPI';
+import { setFilter } from '../../store/ducks/recipes';
 
 const RecipeExploreByIngredient = () => {
   const location = useLocation();
@@ -26,7 +26,7 @@ const RecipeExploreByIngredient = () => {
                 data-testid={ `${index}-ingredient-card` }
                 key={ ing.strIngredient }
                 onClick={ () => {
-                  dispatch(setFilterByIngredient(ing.strIngredient));
+                  dispatch(setFilter(FILTER_TYPES.INGREDIENT, ing.strIngredient));
                 } }
               >
                 <div>
@@ -54,7 +54,7 @@ const RecipeExploreByIngredient = () => {
                 data-testid={ `${index}-ingredient-card` }
                 key={ ing.strIngredient1 }
                 onClick={ () => {
-                  dispatch(setFilterByIngredient(ing.strIngredient1));
+                  dispatch(setFilter(FILTER_TYPES.INGREDIENT, ing.strIngredient1));
                 } }
               >
                 <div>
