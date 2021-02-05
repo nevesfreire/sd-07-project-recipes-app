@@ -4,7 +4,7 @@
   padding: 10px 20px;
 }
 
-nav {
+.header__nav {
   align-items: center;
   display: flex;
   flex-wrap: wrap;

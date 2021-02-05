@@ -50,7 +50,7 @@ function Header({ history, search = false }) {
 
   return (
     <header className="header">
-      <nav>
+      <nav className="header__nav">
         <Link to="/perfil">
           <img
             src={ ProfileIcon }

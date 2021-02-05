@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import { Context } from '../../context/Provider';
 import { fetchApi } from '../../services/api';
+import './style.css';
 
 function Categories({ category, setCategory }) {
   const { api } = useContext(Context);
@@ -39,28 +40,28 @@ function Categories({ category, setCategory }) {
   };
 
   return (
-    <div>
-      <nav>
+    <div className="categories">
+      <Button
+        className="categories__button"
+        type="button"
+        data-testid="All-category-filter"
+        name="all"
+        onClick={ handleClick }
+      >
+        All
+      </Button>
+      {slicedResults.map(({ strCategory }) => (
         <Button
           type="button"
-          data-testid="All-category-filter"
-          name="all"
+          className="categories__button"
+          key={ strCategory }
+          name={ strCategory }
+          data-testid={ `${strCategory}-category-filter` }
           onClick={ handleClick }
         >
-          All
+          {strCategory}
         </Button>
-        {slicedResults.map(({ strCategory }) => (
-          <Button
-            type="button"
-            key={ strCategory }
-            name={ strCategory }
-            data-testid={ `${strCategory}-category-filter` }
-            onClick={ handleClick }
-          >
-            {strCategory}
-          </Button>
-        ))}
-      </nav>
+      ))}
     </div>
   );
 }

@@ -1,0 +1,13 @@
+.categories {
+  /* align-items: center; */
+  justify-content: center;
+  display: flex;
+  padding: 15px 30px;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.categories__button {
+  width: 100%;
+  max-width: 130px;
+}
