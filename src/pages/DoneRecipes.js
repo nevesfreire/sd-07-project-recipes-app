@@ -5,7 +5,7 @@ import ButtonsFavorite from '../components/ButtonsFavorite';
 import '../styles/favorite.css';
 
 function DoneRecipes() {
-  const localRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const localRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
   const [recipesStorage, setRecipesStorage] = useState(!localRecipes ? [] : localRecipes);
   return (
     <div>

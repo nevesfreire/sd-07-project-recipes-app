@@ -76,7 +76,8 @@ function useInProgressRecipe() {
   const history = useHistory();
 
   const handleClick = (recipe, type) => {
-    const doneDate = new Date();
+    const data = new Date();
+    const doneDate = `${data.getDate()}/${data.getMonth()}/${data.getFullYear()}`;
     let tags = [];
 
     if (type === 'comidas') {
