@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchRecipes, copyButton } from '../actions';
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
+import TitleBar from '../components/TitleBar';
 import Loading from '../components/Loading';
 import { favoriteDrinkLocalStorage } from '../localStorage/favoriteRecipes';
 import { doneDrinkLocalStorage } from '../localStorage/doneRecipes';
@@ -169,32 +167,15 @@ class DrinkInProgress extends Component {
           data-testid="recipe-photo"
           className="main-image"
         />
-        <div className="title-container">
-          <div className="title-subcontainer">
-            <h1 data-testid="recipe-title">{strDrink}</h1>
-            <h3 data-testid="recipe-category">{strAlcoholic}</h3>
-          </div>
-          <div className="images-container">
-            <p>{ valueCopied }</p>
-            <button
-              type="button"
-              onClick={ () => handleCopy(executeCopy) }
-            >
-              <img
-                data-testid="share-btn"
-                src={ shareIcon }
-                alt="shareIcon"
-              />
-            </button>
-            <button type="button" onClick={ this.changeFavorite }>
-              <img
-                data-testid="favorite-btn"
-                src={ favorite ? blackHeartIcon : whiteHeartIcon }
-                alt="whiteHeartIcon"
-              />
-            </button>
-          </div>
-        </div>
+        <TitleBar
+          strRecipe={ strDrink }
+          strCategory={ strAlcoholic }
+          handleCopy={ handleCopy }
+          executeCopy={ executeCopy }
+          changeFavorite={ this.changeFavorite }
+          valueCopied={ valueCopied }
+          favorite={ favorite }
+        />
         <div className="ingredients-container">
           <h1>Ingredientes</h1>
           <div className="list-container">
