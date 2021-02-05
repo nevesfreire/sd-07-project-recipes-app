@@ -4,13 +4,13 @@ import SearchHeaderBar from '../components/SearchHeaderBar';
 import Footer from '../components/Footer';
 import RecipeContext from '../context/RecipeContext';
 import ListCardsDrink from '../components/ListCardsDrink';
-import { getCategoryDrinks } from '../services/Api';
+import { getCategoryDrinks, getDrinkIngredients } from '../services/Api';
 
 function Drink() {
   const [loading, setLoading] = useState(false);
-  const [arrayListDrink, setArrayListDrink] = useState([]);
+  const [arrayListDrinks, setArrayListDrinks] = useState([]);
+  const [ListFoodCategories, setListFoodCategories] = useState([]);
   const { showBtn, data, setData } = useContext(RecipeContext);
-  const MAX_ARRAY = 12;
   const FIVE = 5;
   const ZERO = 0;
 
@@ -23,10 +23,24 @@ function Drink() {
     const getListCategories = async () => {
       const listDrinkCategories = await getCategoryDrinks();
       listDrinkCategories.length = FIVE;
-      setArrayListDrink(listDrinkCategories);
+      setListFoodCategories(listDrinkCategories);
     };
     getListCategories();
   }, []);
+
+  useEffect(() => {
+    const getDrinkByIngredients = async () => {
+      const getdrinkByIngredient = await getDrinkIngredients(data.ingredient);
+      console.log(data.ingredient);
+      console.log(getdrinkByIngredient);
+      setArrayListDrinks(getdrinkByIngredient);
+    };
+    if (data.ingredient) {
+      getDrinkByIngredients();
+    } else {
+      setArrayListDrinks(data.drink);
+    }
+  }, [data.drink]);
 
   const getAlert = () => {
     window.alert(
@@ -36,14 +50,13 @@ function Drink() {
 
   const getLoading = () => {
     if (loading) {
-      const arrayDrinks = [...data.drink];
-      if (arrayDrinks.length > MAX_ARRAY) arrayDrinks.length = MAX_ARRAY;
-      return ListCardsDrink(arrayDrinks);
+      const arrayListDrink = [...arrayListDrinks];
+      return ListCardsDrink(arrayListDrink);
     }
     return 'Loading...';
   };
 
-  const showListDrinksCategories = () => arrayListDrink.map((category) => (
+  const showListDrinksCategories = () => ListFoodCategories.map((category) => (
     <div
       key={ category.strCategory }
       data-testid={ `${category.strCategory}-category-filter` }
@@ -59,7 +72,7 @@ function Drink() {
       <Header />
       { showBtn && <SearchHeaderBar /> }
 
-      {(arrayListDrink.length > ZERO) && showListDrinksCategories()}
+      {(arrayListDrinks.length > ZERO) && showListDrinksCategories()}
 
       {
         (data.drink === 'erro' || data.drink === null)

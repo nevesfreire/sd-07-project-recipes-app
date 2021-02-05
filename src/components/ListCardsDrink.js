@@ -2,9 +2,10 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 
 function ListCardsDrink(cardsDrinks) {
+  const MAX_ARRAY = 12;
   const { push } = useHistory();
-  console.log(cardsDrinks);
   if (cardsDrinks.length === 1) return push(`/bebidas/${cardsDrinks[0].idDrink}`);
+  if (cardsDrinks.length > MAX_ARRAY) cardsDrinks.length = MAX_ARRAY;
 
   return (
     <div>
