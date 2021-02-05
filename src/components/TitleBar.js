@@ -14,7 +14,7 @@ class TitleBar extends Component {
           <h3 data-testid="recipe-category">{ strCategory }</h3>
         </div>
         <div className="images-container">
-          <p>{valueCopied}</p>
+          <p>{ valueCopied }</p>
           <button type="button" onClick={ () => handleCopy(executeCopy) }>
             <img data-testid="share-btn" src={ shareIcon } alt="shareIcon" />
           </button>
@@ -33,13 +33,12 @@ class TitleBar extends Component {
 
 export default TitleBar;
 
-// TitleBar.propTypes = {
-//   strRecipe: PropTypes.
-//   strCategory: PropTypes.
-//   strCategory: PropTypes
-//   handleCopy: PropTypes.
-//   valueCopied: PropTypes
-//   executeCopy: PropTypes
-//   changeFavorite: PropTypes
-//   favorite: PropTypes
-// }
+TitleBar.propTypes = {
+  strRecipe: PropTypes.string.isRequired,
+  strCategory: PropTypes.string.isRequired,
+  handleCopy: PropTypes.func.isRequired,
+  valueCopied: PropTypes.string.isRequired,
+  executeCopy: PropTypes.func.isRequired,
+  changeFavorite: PropTypes.func.isRequired,
+  favorite: PropTypes.string.isRequired,
+};
