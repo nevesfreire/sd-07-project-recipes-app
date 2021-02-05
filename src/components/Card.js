@@ -6,7 +6,8 @@ import RecipeContext from '../Context/Context';
 function Card({ name, thumb, index, id, type }) {
   const { setTypeAndIdDetails } = useContext(RecipeContext);
   return (
-    <Link to={ `/${type}/${id}` }>
+    <div className="itemCard">
+      <Link to={ `/${type}/${id}` }>
       <div
         className="recipe-card"
         onKeyDown=""
@@ -22,6 +23,7 @@ function Card({ name, thumb, index, id, type }) {
         <img src={ thumb } alt={ name } data-testid={ `${index}-card-img` } />
       </div>
     </Link>
+    </div>
   );
 }
 

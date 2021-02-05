@@ -1,4 +1,4 @@
-.meals {
+/* .meals {
   align-items: center;
   background: #0fa36b;
   color: #464646;
@@ -15,7 +15,7 @@
   max-height: 80vh;
 }
 
-/*
+
 #iceLeft {
   animation: clink .8s infinite ease;
   opacity: 0.6;
@@ -27,7 +27,7 @@
   opacity: 0.6;
   transform-origin: 60px 78px;
 }
-*/
+
 
 .meals > .logo {
   animation: shake 1.5s infinite ease;
@@ -65,4 +65,46 @@
   100% {
     transform: rotate(-10deg);
   }
+} */
+
+body {
+  background-color: gray;
+}
+
+.container {
+  background-color: white;
+  display: flex;
+	max-width: 420px;
+	margin: 0 auto;
+	display: flex;
+	border: 1px solid #ccc;
+}
+
+.alinhamento-central {
+	height: 400px;
+	justify-content: center;
+	align-items: center;
+}
+
+.item {
+  display: flex;
+	flex: 1;
+  font-size: 1.3em;
+}
+
+.divButton {
+  display: flex;
+  justify-content: center;
+}
+
+.cardContainer {
+  display: flex;
+	margin: 0 auto;
+	border: 1px solid #ccc;
+}
+
+.itemCard {
+  display: flex;
+  height: 10px;
+  width: 10px;
 }

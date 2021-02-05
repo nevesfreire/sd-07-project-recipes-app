@@ -53,7 +53,7 @@ function FoodRecipes() {
   }
 
   return (
-    <div>
+    <div className="cardContainer">
       {console.log('console dentro do return')}
       <Header title="Comidas" explore funcFetch={ foodFetch } />
       <Categories list={ categoriesFood } type="meals" />
