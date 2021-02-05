@@ -53,8 +53,6 @@ body {
 
 .form-login {
   border-radius: 5px;
-  /* background-color: white; */
-  /* box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5); */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -156,6 +154,7 @@ body {
     flex-direction: column-reverse;
     height: 100vh;
     justify-content: center;
+    width: auto;
   }
   
   .image-login {
@@ -181,8 +180,6 @@ body {
   
   .form-login {
     border-radius: 5px;
-    /* background-color: white; */
-    /* box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5); */
     display: flex;
     flex-direction: column;
     justify-content: center;
