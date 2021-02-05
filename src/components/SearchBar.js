@@ -174,8 +174,6 @@ SearchBar.propTypes = {
   title: PropTypes.string.isRequired,
   meals: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   cocktails: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  ingredientMealCur: PropTypes.string.isRequired,
-  ingredientCocktailCur: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = ({ searchToggleReducer, meals, cocktails }) => ({
