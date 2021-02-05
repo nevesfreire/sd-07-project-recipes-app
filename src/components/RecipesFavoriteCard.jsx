@@ -4,6 +4,7 @@ import RecipesContext from '../context/RecipesContext';
 
 import { getRecipesDone } from '../services/localStorage';
 import shareRecipe from '../images/shareIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function RecipesDoneCard() {
   const [isCopy, setIsCopy] = useState(false);
@@ -21,7 +22,6 @@ function RecipesDoneCard() {
   const recipesIsDone = getRecipesDone();
   const filtredRecipesDone = recipesIsDone
     .filter((recipe) => recipe.type !== selectedTypeItem);
-  const zero = 0;
   return (
     <div className="card-my-recipes">
       {filtredRecipesDone.map((recipe, index) => (
@@ -45,6 +45,9 @@ function RecipesDoneCard() {
               </span>
             </div>
             <div>
+              <Link to={ `/${recipe.type}s/${recipe.id}` }>
+                <h3 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h3>
+              </Link>
               <button
                 type="button"
                 onClick={ () => copyLink(`http://localhost:3000/${recipe.type}s/${recipe.id}`) }
@@ -60,35 +63,17 @@ function RecipesDoneCard() {
               >
                 { isCopy ? 'Link copiado!' : null }
               </span>
-            </div>
-          </div>
-          <Link to={ `/${recipe.type}s/${recipe.id}` }>
-            <h3 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h3>
-          </Link>
-          <div>
-            <span>Receita feita em: </span>
-            <span
-              data-testid={ `${index}-horizontal-done-date` }
-            >
-              { recipe.doneDate }
-            </span>
-          </div>
-          { recipe.tags.length === zero ? null : (
-            <div>
               <button
                 type="button"
-                data-testid={ `${index}-${recipe.tags[0]}-horizontal-tag` }
               >
-                { recipe.tags[0] }
-              </button>
-              <button
-                type="button"
-                data-testid={ `${index}-${recipe.tags[1]}-horizontal-tag` }
-              >
-                { recipe.tags[1] }
+                <img
+                  data-testid={ `${index}-horizontal-favorite-btn` }
+                  src={ blackHeartIcon }
+                  alt={ recipe.name }
+                />
               </button>
             </div>
-          )}
+          </div>
         </div>
       ))}
     </div>
