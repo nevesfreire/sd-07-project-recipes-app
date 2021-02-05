@@ -1,7 +1,48 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import RecipesContext from '../context/RecipesContext';
+
+import RecipesFavoriteCard from '../components/RecipesFavoriteCard';
 
 function RecipesFavorites() {
-  return (<span>Receitas Favoritas</span>);
+  const { setSelectedTypeItem } = useContext(RecipesContext);
+
+  const setFilterRecipesDone = (data) => {
+    setSelectedTypeItem(data);
+  };
+
+  return (
+    <div>
+      <section className="profile-buttons">
+        <button
+          type="button"
+          className="button-list"
+          data-testid="filter-by-all-btn"
+          onClick={ () => setFilterRecipesDone('all') }
+        >
+          All
+        </button>
+        <button
+          type="button"
+          className="button-list"
+          data-testid="filter-by-food-btn"
+          onClick={ () => setFilterRecipesDone('bebida') }
+        >
+          Foods
+        </button>
+        <button
+          type="button"
+          className="button-list"
+          data-testid="filter-by-drink-btn"
+          onClick={ () => setFilterRecipesDone('comida') }
+        >
+          Drinks
+        </button>
+      </section>
+      <section>
+        <RecipesFavoriteCard />
+      </section>
+    </div>
+  );
 }
 
 export default RecipesFavorites;
