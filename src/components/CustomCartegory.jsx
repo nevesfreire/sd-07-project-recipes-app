@@ -21,11 +21,11 @@ class CustomCartegory extends Component {
         data-testid={ `${category.strCategory}-category-filter` }
         onClick={ () => {
           if (currentCategory === category.strCategory) {
-            return title === 'Comidas' ? dispatchFoodRecipes({})
+            return title === 'comidas' ? dispatchFoodRecipes({})
               : dispatchDrinksRecipes({});
           }
-          if (title === 'Comidas') dispatchFoodFilteredByCategory(category);
-          if (title === 'Bebidas') dispatchDrinkFilteredByCategory(category);
+          if (title === 'comidas') dispatchFoodFilteredByCategory(category);
+          if (title === 'bebidas') dispatchDrinkFilteredByCategory(category);
         } }
       >
         {category.strCategory}

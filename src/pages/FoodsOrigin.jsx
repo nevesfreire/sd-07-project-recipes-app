@@ -17,7 +17,6 @@ class ExploreArea extends Component {
 
     this.state = {
       data: [],
-      loading: true,
     };
   }
 
@@ -32,6 +31,7 @@ class ExploreArea extends Component {
     if (meals.length === numberToComper) {
       return <Redirect to={ `/comidas/${meals[0].idMeal}` } />;
     }
+    if (isFetching) return <p>Loading</p>;
     if (!meals.length && !isFetching) return this.renderAlertError();
     if (meals.length === 1) return this.redirectToRecipeDetail();
     return this.renderRecipes();
@@ -39,7 +39,7 @@ class ExploreArea extends Component {
 
   async getOrigin() {
     const { meals } = await getAllOrigin();
-    this.setState({ data: meals, loading: false });
+    this.setState({ data: meals });
   }
 
   allFoods() {
@@ -48,16 +48,21 @@ class ExploreArea extends Component {
   }
 
   renderRecipes() {
-    const { meals } = this.props;
+    const { meals, type } = this.props;
     const LENGTH = 12;
     const INITIAL_LENGTH = 0;
     const MAX_LENGTH = meals.length > LENGTH ? LENGTH : meals.length;
     return (
       <div>
-        {meals
+        {meals && meals
           .slice(INITIAL_LENGTH, MAX_LENGTH)
           .map((meal, index) => (
-            <CustomCardFood key={ meal.idMeal } index={ index } meal={ meal } />
+            <CustomCardFood
+              key={ meal.idMeal }
+              index={ index }
+              recipe={ meal }
+              recipeType={ type }
+            />
           ))}
       </div>
     );
@@ -72,18 +77,14 @@ class ExploreArea extends Component {
   }
 
   render() {
-    const { data, loading } = this.state;
+    const { data } = this.state;
     return (
       <div>
         <CustomHeader title="Explorar Origem" />
-        {loading ? (
-          <p>Loadinggg</p>
-        ) : (
-          <CustomDropdown
-            data={ data }
-            allFoods={ this.allFoods }
-          />
-        )}
+        <CustomDropdown
+          data={ data }
+          allFoods={ this.allFoods }
+        />
         {this.handleRecipes()}
 
         <CustomFooter />
@@ -93,9 +94,8 @@ class ExploreArea extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  isFetching: state.recipesReducer.isFetching,
   meals: state.recipesReducer.recipes,
-
+  isFetching: state.recipesReducer.isFetching,
 });
 const mapDispatchToProps = (dispatch) => ({
   dispatchFoodRecipes: (searchHeader) => dispatch(getFoodRecipes(searchHeader)),
@@ -105,6 +105,7 @@ const mapDispatchToProps = (dispatch) => ({
 ExploreArea.propTypes = {
   dispatchUpdateFoodIsFetching: PropTypes.func.isRequired,
   dispatchFoodRecipes: PropTypes.func.isRequired,
+  type: PropTypes.string.isRequired,
   isFetching: PropTypes.bool.isRequired,
   meals: PropTypes.shape({
     length: PropTypes.number.isRequired,
