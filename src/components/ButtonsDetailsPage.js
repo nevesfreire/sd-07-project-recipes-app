@@ -36,20 +36,32 @@ function ButtonsDetailsPage({ api }) {
   }, []);
 
   const handleShare = () => {
-    const path = window.location;
+    let alternative = '';
+    (api.key === 'meal') ? alternative = 'comidas' : alternative = 'bebidas';
+    const path =`${window.location.origin}/${alternative}/${api.recipeId}`;
     copy(path)
-      .then(setCopyLink(true));
+      .then(() => setCopyLink(true));
   };
 
   const handleAction = () => {
     const { key } = api;
+    let categoryEntry = '';
+    let isAlcoholicEntry = '';
+    const pathCheck = [window.location].includes('/in-progress');
+    if (pathCheck) {
+      categoryEntry = api.category;
+      isAlcoholicEntry = api.alcoholic;
+    } else {
+      categoryEntry = api.area;
+      isAlcoholicEntry = api.category;
+    }
 
     const recipeCocktail = {
       id: api.recipeId,
       type: 'bebida',
       area: '',
-      category: api.area,
-      alcoholicOrNot: api.category,
+      category: categoryEntry,
+      alcoholicOrNot: isAlcoholicEntry,
       name: api.title,
       image: api.source,
     };

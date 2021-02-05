@@ -15,11 +15,11 @@ function MealsInProgress() {
   const [category, setCategory] = useState('');
   const [area, setArea] = useState('');
   const [instructions, setInstructions] = useState('');
+  const [alcoholic, setAlcoholic] = useState('');
   const [exemplo, setExemplo] = useState('');
   const [buttonIsEnabled, setButtonIsEnabled] = useState(false);
   const [storage, setStorage] = useState({meals: []});
   const [ checked, setChecked] = useState([]);
-  const params = useParams();
 
   const handleClick = () => {
     history.push("/receitas-feitas");
@@ -36,21 +36,21 @@ function MealsInProgress() {
     if (getPrevProgress.length + 1 === ingredMeasures.length) {
       setButtonIsEnabled(true);
     }
-    // setExemplo(storage);
   }
 
   useEffect(() => {
-    console.log(storage)
+    if (recipeId !== '') {
+    handleClickMeals(recipeId);
+    setStorage(JSON.parse(localStorage.getItem('inProgressRecipes')));
+    }
+  }, [recipeId]);
+
+  useEffect(() => {
     const validate = storage.meals[recipeId];
     if (validate) {
       setChecked(storage.meals[recipeId]);
     }
   }, [storage]);
-
-  // useEffect(() => {
-   
-  //   console.log("oi");
-  // }, [setRecipeId]);
 
   useEffect(() => {
     const path = history.location.pathname;
@@ -58,9 +58,7 @@ function MealsInProgress() {
     const numberToSplice = 1;
     const splitPath = path.split('/')
       .splice(position, numberToSplice).toString();
-    setRecipeId(splitPath)
-      .then( handleClickMeals(recipeId))
-      .then( setStorage(JSON.parse(localStorage.getItem('inProgressRecipes'))));
+    setRecipeId(splitPath);
     getMealById(splitPath)
       .then((res) => {
         const ingredientsArray = [];
@@ -70,6 +68,7 @@ function MealsInProgress() {
         setCategory(res.meals[0].strCategory);
         setArea(res.meals[0].strArea);
         setInstructions(res.meals[0].strInstructions);
+        setAlcoholic(res.meals[0].strAlcoholic);
         Object.entries(res.meals[0]).forEach(([key, value]) => {
           const noValue = 0;
           const minLength = 1;
@@ -102,12 +101,13 @@ function MealsInProgress() {
       <h1 data-testid="recipe-title">{ title }</h1>
       <ButtonsDetailsPage
         api={ {
-          key: 'meal', recipeId, area, category, title, source } }
+          key: 'meal', recipeId, area, category, title, source, alcoholic } }
       />
       <h3 data-testid="recipe-category">{ category }</h3>
       <h3>Ingredientes</h3>
       <form>
         { ingredMeasures.map((element, index) => {
+          console.log(checked);
           const [key] = Object.keys(element);
           const [value] = Object.values(element);
           let isChecked = false;
@@ -117,7 +117,7 @@ function MealsInProgress() {
           }
           return (
             <div data-testid={ `${index}-ingredient-step` }>
-              <input id={`ingredient-${index}`} type="checkbox" key={ index } onChange={() => handleChange(`${key} - ${value}`)} checked={isChecked}/>
+              <input id={`ingredient-${index}`} type="checkbox" key={ index } onChange={() => handleChange(`${key} - ${value}`)} value={isChecked} defaultChecked={isChecked}/>
               <label htmlFor={`ingredient-${index}`}>{ `${key} - ${value}` }</label>
             </div>
           );

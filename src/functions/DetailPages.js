@@ -1,11 +1,13 @@
 export const handleClickMeals = (recipeId) => {
   const getRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
   if (getRecipes) {
-    const newRecipe = {
-      ...getRecipes,
-      meals: { ...getRecipes.meals, [recipeId]: [] },
-    };
-    localStorage.setItem('inProgressRecipes', JSON.stringify(newRecipe));
+    if (!getRecipes.meals[recipeId]) {
+      const newRecipe = {
+        ...getRecipes,
+        meals: { ...getRecipes.meals, [recipeId]: [] },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(newRecipe));
+    }
   } else {
     const newRecipe = {
       cocktails: {},
