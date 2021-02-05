@@ -3,9 +3,19 @@ import Card from '../../components/Cards';
 import Header from '../../components/Header';
 import Footer from '../Footer';
 import RecipesContext from '../../Context/RecipesContext';
-import CategoryButtons from './CategoryButtons';
 
 let filter = '';
+
+const applyFilter = (value, setRecipes, fetchMeals) => {
+  setRecipes([]);
+  if (filter === value) {
+    filter = '';
+  } else {
+    filter = value;
+  }
+  if (filter !== '') fetchMeals('category', filter, true);
+  if (filter === '') fetchMeals('searchName', filter, true);
+};
 
 export default function Foods() {
   const {
@@ -19,17 +29,6 @@ export default function Foods() {
   const zero = 0;
   const twelve = 12;
 
-  const applyFilter = (value) => {
-    setRecipes([]);
-    if (filter === value) {
-      filter = '';
-      fetchMeals('searchName', filter, true);
-    } else {
-      filter = value;
-      fetchMeals('category', filter, true);
-    }
-  };
-
   const pageLoading = (
     <div>
       <Header title="Comidas" />
@@ -37,6 +36,59 @@ export default function Foods() {
         Carregando...
       </h2>
       <Footer />
+    </div>
+  );
+
+  const categoryButtons = (
+    <div>
+      <button
+        data-testid="All-category-filter"
+        onClick={ ({ target }) => applyFilter(target.value, setRecipes, fetchMeals) }
+        type="button"
+        value=""
+      >
+        All
+      </button>
+      <button
+        data-testid="Beef-category-filter"
+        onClick={ ({ target }) => applyFilter(target.value, setRecipes, fetchMeals) }
+        type="button"
+        value="Beef"
+      >
+        Beef
+      </button>
+      <button
+        data-testid="Breakfast-category-filter"
+        onClick={ ({ target }) => applyFilter(target.value, setRecipes, fetchMeals) }
+        type="button"
+        value="Breakfast"
+      >
+        Breakfast
+      </button>
+      <button
+        data-testid="Chicken-category-filter"
+        onClick={ ({ target }) => applyFilter(target.value, setRecipes, fetchMeals) }
+        type="button"
+        value="Chicken"
+      >
+        Chicken
+      </button>
+      <button
+        data-testid="Dessert-category-filter"
+        onClick={ ({ target }) => applyFilter(target.value, setRecipes, fetchMeals) }
+        type="button"
+        value="Dessert"
+      >
+        Dessert
+      </button>
+      <button
+        data-testid="Goat-category-filter"
+        onClick={ ({ target }) => applyFilter(target.value, setRecipes, fetchMeals) }
+        type="button"
+        value="Goat"
+      >
+        Goat
+      </button>
     </div>
   );
 
@@ -66,7 +118,7 @@ export default function Foods() {
   return (
     <div>
       <Header title="Comidas" />
-      <CategoryButtons handleClick={ applyFilter } />
+      { categoryButtons }
       { recipes.meals.map((recipe, index) => {
         if (control || index >= twelve) {
           return null;

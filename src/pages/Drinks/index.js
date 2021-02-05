@@ -6,6 +6,17 @@ import RecipesContext from '../../Context/RecipesContext';
 
 let filter = '';
 
+const applyFilter = (value, setRecipes, fetchDrinks) => {
+  setRecipes([]);
+  if (filter === value) {
+    filter = '';
+  } else {
+    filter = value;
+  }
+  if (filter !== '') fetchDrinks('category', filter, true);
+  if (filter === '') fetchDrinks('searchName', filter, true);
+};
+
 export default function Drinks() {
   const {
     recipes,
@@ -17,27 +28,6 @@ export default function Drinks() {
 
   const zero = 0;
   const twelve = 12;
-
-  const applyFilter = (value) => {
-    setRecipes([]);
-    if (filter === value) {
-      filter = '';
-      fetchDrinks('searchName', filter, true);
-    } else {
-      filter = value;
-      fetchDrinks('category', filter, true);
-    }
-    // switch (filter) {
-    // case value:
-    //   filter = '';
-    //   break;
-    // default:
-    //   filter = value;
-    //   break;
-    // }
-    // if (filter !== '') fetchDrinks('category', filter, true);
-    // if (filter === '') fetchDrinks('searchName', filter, true);
-  };
 
   const pageLoading = (
     <div>
@@ -53,7 +43,7 @@ export default function Drinks() {
     <div>
       <button
         data-testid="All-category-filter"
-        onClick={ ({ target }) => applyFilter(target.value) }
+        onClick={ ({ target }) => applyFilter(target.value, setRecipes, fetchDrinks) }
         type="button"
         value=""
       >
@@ -61,7 +51,7 @@ export default function Drinks() {
       </button>
       <button
         data-testid="Ordinary Drink-category-filter"
-        onClick={ ({ target }) => applyFilter(target.value) }
+        onClick={ ({ target }) => applyFilter(target.value, setRecipes, fetchDrinks) }
         type="button"
         value="Ordinary Drink"
       >
@@ -69,7 +59,7 @@ export default function Drinks() {
       </button>
       <button
         data-testid="Cocktail-category-filter"
-        onClick={ ({ target }) => applyFilter(target.value) }
+        onClick={ ({ target }) => applyFilter(target.value, setRecipes, fetchDrinks) }
         type="button"
         value="Cocktail"
       >
@@ -77,7 +67,7 @@ export default function Drinks() {
       </button>
       <button
         data-testid="Milk / Float / Shake-category-filter"
-        onClick={ ({ target }) => applyFilter(target.value) }
+        onClick={ ({ target }) => applyFilter(target.value, setRecipes, fetchDrinks) }
         type="button"
         value="Milk / Float / Shake"
       >
@@ -85,7 +75,7 @@ export default function Drinks() {
       </button>
       <button
         data-testid="Other/Unknown-category-filter"
-        onClick={ ({ target }) => applyFilter(target.value) }
+        onClick={ ({ target }) => applyFilter(target.value, setRecipes, fetchDrinks) }
         type="button"
         value="Other/Unknown"
       >
@@ -93,7 +83,7 @@ export default function Drinks() {
       </button>
       <button
         data-testid="Cocoa-category-filter"
-        onClick={ ({ target }) => applyFilter(target.value) }
+        onClick={ ({ target }) => applyFilter(target.value, setRecipes, fetchDrinks) }
         type="button"
         value="Cocoa"
       >
