@@ -8,6 +8,8 @@ const recipesTypes = {
   SET_FILTER: 'recipes/SET_FILTER',
   FAVORITE_RECIPE: 'recipes/FAVORITE_RECIPE',
   UNFAVORITE_RECIPE: 'recipes/UNFAVORITE_RECIPE',
+  GET_RECOMENDATIONS: 'recipes/GET_RECOMENDATIONS',
+  UPDATE_FROM_LS: 'recipes/UPDATE_FROM_LS',
 };
 
 export default recipesTypes;

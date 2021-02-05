@@ -18,6 +18,18 @@ const recipes = (state = INITIAL_STATE, action) => {
       data: [...action.payload],
       error: '',
     };
+  case recipesTypes.GET_RECOMENDATIONS:
+  {
+    // put only 6 recipes recomendations
+    const START_INDEX = 0;
+    const END_INDEX = 6;
+    return {
+      ...state,
+      isFetching: false,
+      recomendations: [...action.payload.slice(START_INDEX, END_INDEX)],
+      error: '',
+    };
+  }
   case recipesTypes.GET_CATEGORIES:
   {
     // put only 5 categories and map to strings
@@ -61,6 +73,11 @@ const recipes = (state = INITIAL_STATE, action) => {
       detailsRecipe: action.payload,
     };
 
+  case recipesTypes.UPDATE_FROM_LS:
+    return {
+      ...state,
+      ...action.payload,
+    };
   default:
     return state;
   }

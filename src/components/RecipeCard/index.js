@@ -9,12 +9,12 @@ const RecipeCard = (props) => {
     setCardInfoState(props);
   }, [props]);
 
-  const { strThumb, name, index } = cardInfoState.cardInfo;
+  const { image, name, index } = cardInfoState.cardInfo;
   return (
     <StyledCard data-testid={ `${index}-recipe-card` }>
       <StyledCard.Img
         variant="top"
-        src={ strThumb }
+        src={ image }
         data-testid={ `${index}-card-img` }
       />
       <StyledCard.Body>

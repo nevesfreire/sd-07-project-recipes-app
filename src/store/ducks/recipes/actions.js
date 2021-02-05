@@ -39,3 +39,11 @@ export function setAreas(areas) {
 export function setIngredients(ingredients) {
   return { type: recipesTypes.SET_AREAS, payload: ingredients };
 }
+
+export function getRecomendations(recipes) {
+  return { type: recipesTypes.GET_RECOMENDATIONS, payload: recipes };
+}
+
+export function updateFromLS(stateLS) {
+  return { type: recipesTypes.UPDATE_FROM_LS, payload: stateLS };
+}

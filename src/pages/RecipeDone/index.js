@@ -21,7 +21,7 @@ const RecipeDone = () => {
       return (
         <div key={ item.id }>
           <h5 data-testid={ `${index}-horizontal-top-text` }>
-            { `${item.strArea} - ${item.strCategory}` }
+            { `${item.area} - ${item.category}` }
           </h5>
           <Link to={ `/comidas/${item.id}` }>
             <h2 data-testid={ `${index}-horizontal-name` }>
@@ -51,7 +51,7 @@ const RecipeDone = () => {
           </button>
           <Link to={ `/comidas/${item.id}` }>
             <img
-              src={ item.strThumb }
+              src={ item.image }
               height="100px"
               alt="Receita"
               data-testid={ `${index}-horizontal-image` }
@@ -84,7 +84,7 @@ const RecipeDone = () => {
           </button>
           <Link to={ `/bebidas/${item.id}` }>
             <img
-              src={ item.strThumb }
+              src={ item.image }
               height="100px"
               alt="Receita"
               data-testid={ `${index}-horizontal-image` }
@@ -100,7 +100,7 @@ const RecipeDone = () => {
       return (
         <div key={ item.id }>
           <h5 data-testid={ `${index}-horizontal-top-text` }>
-            { `${item.strArea} - ${item.strCategory}` }
+            { `${item.area} - ${item.category}` }
           </h5>
           <Link to={ `/comidas/${item.id}` }>
             <h2 data-testid={ `${index}-horizontal-name` }>
@@ -123,7 +123,7 @@ const RecipeDone = () => {
           </button>
           <Link to={ `/comidas/${item.id}` }>
             <img
-              src={ item.strThumb }
+              src={ item.image }
               height="100px"
               alt="Receita"
               data-testid={ `${index}-horizontal-image` }
@@ -137,7 +137,7 @@ const RecipeDone = () => {
       return (
         <div key={ item.id }>
           <h5 data-testid={ `${index}-horizontal-top-text` }>
-            {item.strAlcoholic}
+            {item.alcoholicOrNot}
           </h5>
           <Link to={ `/bebidas/${item.id}` }>
             <h2 data-testid={ `${index}-horizontal-name` }>
@@ -159,7 +159,7 @@ const RecipeDone = () => {
           </button>
           <Link to={ `/bebidas/${item.id}` }>
             <img
-              src={ item.strThumb }
+              src={ item.image }
               height="100px"
               alt="Receita"
               data-testid={ `${index}-horizontal-image` }

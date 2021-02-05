@@ -3,13 +3,24 @@
     https://egghead.io/lessons/javascript-redux-persisting-the-state-to-the-local-storage
 */
 
-const LS_KEYS = {
+export const LS_KEYS = {
   USER_KEY: 'user',
   MEALS_TOKEN_KEY: 'mealsToken',
   COCKTAILS_TOKEN_KEY: 'cocktailsToken',
   DONE_RECIPES_KEY: 'doneRecipes',
   FAVORITE_RECIPES_KEY: 'favoriteRecipes',
   IN_PROGRESS_RECIPES_KEY: 'inProgressRecipes',
+};
+
+export const loadKeyFromLS = (key) => {
+  try {
+    const serializedStateKey = localStorage.getItem(key);
+    const resultStateKey = JSON.parse(serializedStateKey);
+    return resultStateKey;
+  } catch (error) {
+    console.log(error);
+    return typeof (key) === 'object' ? {} : [];
+  }
 };
 
 export const loadState = (state) => {
@@ -28,10 +39,10 @@ export const loadState = (state) => {
         state.recipes.cocktailsToken = resultStateKey || 1;
         break;
       case LS_KEYS.DONE_RECIPES_KEY:
-        // state.recipes.doneRecipes = resultStateKey || []; // Comentei para iniciar com as informações na store
+        state.recipes.doneRecipes = resultStateKey || [];
         break;
       case LS_KEYS.FAVORITE_RECIPES_KEY:
-        // state.recipes.favoriteRecipes = resultStateKey || []; // Comentei para iniciar com as informações na store
+        state.recipes.favoriteRecipes = resultStateKey || [];
         break;
       case LS_KEYS.IN_PROGRESS_RECIPES_KEY:
         if (resultStateKey !== null) {

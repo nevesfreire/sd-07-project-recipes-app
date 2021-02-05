@@ -17,6 +17,7 @@ export default function ShareButton(props) {
       src={ shareIcon }
       onClick={ handleClick }
       alt="Share"
+      data-testid="share-btn"
     />
   );
 }

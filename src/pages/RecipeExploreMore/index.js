@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import { fetchRecipeDetails } from '../../store/ducks/recipes';
+import { fetchRandomRecipe } from '../../store/ducks/recipes';
 
 const RecipeExploreMore = () => {
   const dispatch = useDispatch();
@@ -11,7 +11,7 @@ const RecipeExploreMore = () => {
   const randomId = useSelector((state) => state.recipes.detailsRecipe.id);
 
   useEffect(() => {
-    dispatch(fetchRecipeDetails(currentPath));
+    dispatch(fetchRandomRecipe(currentPath));
   }, [dispatch, currentPath]);
 
   if (currentPath.includes('bebidas')) {

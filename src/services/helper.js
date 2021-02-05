@@ -7,15 +7,15 @@ export const mapMealAndDrinkToRecipe = (recipesList) => (!recipesList
         id: mealOrDrink.idMeal,
         name: mealOrDrink.strMeal,
         strDrinkAlternate: mealOrDrink.strDrinkAlternate,
-        strCategory: mealOrDrink.strCategory,
+        category: mealOrDrink.strCategory,
         strTags: mealOrDrink.strTags,
         strYoutube: mealOrDrink.strYoutube,
         strInstructions: mealOrDrink.strInstructions,
-        strThumb: mealOrDrink.strMealThumb,
+        image: mealOrDrink.strMealThumb,
         dateModified: mealOrDrink.dateModified,
         strGlass: null,
-        strAlcoholic: null,
-        strArea: mealOrDrink.strArea,
+        alcoholicOrNot: null,
+        area: mealOrDrink.strArea,
         strIngredient1: mealOrDrink.strIngredient1,
         strIngredient2: mealOrDrink.strIngredient2,
         strIngredient3: mealOrDrink.strIngredient3,
@@ -61,15 +61,15 @@ export const mapMealAndDrinkToRecipe = (recipesList) => (!recipesList
         id: mealOrDrink.idDrink,
         name: mealOrDrink.strDrink,
         strDrinkAlternate: mealOrDrink.strDrinkAlternate,
-        strCategory: mealOrDrink.strCategory,
+        category: mealOrDrink.strCategory,
         strTags: mealOrDrink.strTags,
         strYoutube: null,
         strInstructions: mealOrDrink.strInstructions,
-        strThumb: mealOrDrink.strDrinkThumb,
+        image: mealOrDrink.strDrinkThumb,
         dateModified: mealOrDrink.dateModified,
         strGlass: mealOrDrink.strGlass,
-        strAlcoholic: mealOrDrink.strAlcoholic,
-        strArea: null,
+        alcoholicOrNot: mealOrDrink.strAlcoholic,
+        area: null,
         strIngredient1: mealOrDrink.strIngredient1,
         strIngredient2: mealOrDrink.strIngredient2,
         strIngredient3: mealOrDrink.strIngredient3,
@@ -122,14 +122,34 @@ export const mapShortMealAndDrinkToRecipe = (recipesList) => (!recipesList
           type: 'meal',
           id: mealOrDrink.idMeal,
           name: mealOrDrink.strMeal,
-          strThumb: mealOrDrink.strMealThumb,
+          image: mealOrDrink.strMealThumb,
         } : {
           type: 'drink',
           id: mealOrDrink.idDrink,
           name: mealOrDrink.strDrink,
-          strThumb: mealOrDrink.strDrinkThumb,
+          image: mealOrDrink.strDrinkThumb,
         }
     )));
+
+export const resumeMealAndDrinkRecipe = ({
+  type,
+  id,
+  name,
+  image,
+  category,
+  alcoholicOrNot,
+  area,
+}) => (
+  {
+    type,
+    id,
+    name,
+    image,
+    category,
+    alcoholicOrNot,
+    area,
+  }
+);
 
 export const mapIngredientsAndMeasuresToList = (recipe) => {
   const NUM_MAX_INGREDIENTS = 20;
@@ -137,7 +157,11 @@ export const mapIngredientsAndMeasuresToList = (recipe) => {
   let index = 1;
   let ingredient = recipe[`strIngredient${index}`];
   let measure = recipe[`strMeasure${index}`];
-  while ((ingredient || measure) && index <= NUM_MAX_INGREDIENTS) {
+  while (
+    (ingredient && measure
+    && ingredient !== '' && ingredient !== null
+    && measure !== '' && measure !== null)
+    && index <= NUM_MAX_INGREDIENTS) {
     ingredientsAndMeasuresList.push({
       ingredient,
       measure,

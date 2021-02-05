@@ -4,11 +4,15 @@ export { default as recipesTypes } from './types';
 export {
   setFilter,
   favoriteRecipe,
-  unFavoriteRecipe } from './actions';
+  unFavoriteRecipe,
+  updateFromLS,
+} from './actions';
 export {
   fetchRecipesByFilter,
   fetchCategories,
-  fetchRecipeDetails,
+  fetchRandomRecipe,
+  fetchRecomendations,
+  fetchRecipeById,
 } from './operations';
 
 export default recipes;
