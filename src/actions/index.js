@@ -5,6 +5,12 @@ export const RECEIVED_CATEGORIES = 'RECEIVED_CATEGORIES';
 export const SEARCH_INPUT = 'SEARCH_INPUT';
 export const SET_CATEGORY = 'SET_CATEGORY';
 export const RECEIVED_DETAILS = 'RECEIVED_DETAILS';
+export const COPY_BUTTON = 'COPY_BUTTON';
+
+export const copyButton = (value) => ({
+  type: COPY_BUTTON,
+  value,
+});
 
 export const sendSearchInput = (value) => ({
   type: SEARCH_INPUT,
