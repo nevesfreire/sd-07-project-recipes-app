@@ -91,13 +91,13 @@ function useInProgressRecipe() {
         strMealThumb: image,
         strTags,
       } = currMeal[0];
-      if (strTags !== null) tags = strTags;
+      if (strTags !== null) tags = [...tags, ...strTags.split(',')];
 
       localStorage.setItem('doneRecipes', JSON.stringify([
         ...doneRecipes,
         {
           id,
-          type,
+          type: 'comida',
           area,
           category,
           alcoholicOrNot,
@@ -118,12 +118,12 @@ function useInProgressRecipe() {
         strDrinkThumb: image,
         strTags,
       } = drinks[0];
-      if (strTags !== null) tags = strTags;
+      if (strTags !== null) tags = [...tags, ...strTags.split(',')];
       localStorage.setItem('doneRecipes', JSON.stringify([
         ...doneRecipes,
         {
           id,
-          type,
+          type: 'bebida',
           area,
           category,
           alcoholicOrNot,
