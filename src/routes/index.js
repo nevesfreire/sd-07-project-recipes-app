@@ -15,7 +15,6 @@ import AreaFood from '../pages/areaFood';
 import DetailsFood from '../pages/detailsFood';
 import DetailsDrink from '../pages/detailsDrink';
 import FoodProgress from '../pages/foodProgress';
-import DrinkPress from '../pages/drinkProgress';
 import DrinkProgress from '../pages/drinkProgress';
 
 function Routes() {

@@ -9,9 +9,9 @@ import FoodRecom from '../components/FoodRecom';
 
 function DetailsDrink() {
   const [dataDrink, setDataDrink] = useState([]);
-  const [done, setDone] = useState(false);
+  const [done] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [start, setStart] = useState(false);
+  const [start] = useState(false);
   const [favorited, setFavorited] = useState(false);
   const history = useHistory();
   const { push } = useHistory();
