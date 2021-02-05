@@ -25,12 +25,14 @@ class CocktailRecipeDetails extends Component {
     this.handleFavoriteButton = this.handleFavoriteButton.bind(this);
     this.fetchAPI = this.fetchAPI.bind(this);
     this.setStorage = this.setStorage.bind(this);
+    this.verifyFavorite = this.verifyFavorite.bind(this);
   }
 
   componentDidMount() {
     const { searchRandomMeals } = this.props;
     searchRandomMeals();
     this.fetchAPI();
+    this.verifyFavorite();
   }
 
   handleFavoriteButton() {
@@ -49,7 +51,6 @@ class CocktailRecipeDetails extends Component {
 
   setStorage() {
     const { cocktails, favorite } = this.state;
-    console.log(this.state);
     const {
       idDrink,
       strAlcoholic,
@@ -67,19 +68,36 @@ class CocktailRecipeDetails extends Component {
       image: strDrinkThumb,
     };
     if (favorite) {
-      localStorage.removeItem('favoriteRecipes');
+      const storage = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+      const itemStorage = storage.filter((item) => item.id !== idDrink);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(itemStorage));
     } else {
-      const storage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      const storage = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
       if (storage) {
         localStorage.setItem(
           'favoriteRecipes',
           JSON.stringify([...storage, cocktailFavorite]),
         );
       } else {
-        localStorage.setItem(
-          'favoriteRecipes',
-          JSON.stringify([cocktailFavorite]),
-        );
+        localStorage.setItem('favoriteRecipes', JSON.stringify([cocktailFavorite]));
+      }
+    }
+  }
+
+  verifyFavorite() {
+    const { match: { params: { id } } } = this.props;
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const xablau = favorites.filter((item) => item.id === id);
+    if (xablau.length) {
+      const { favorite } = this.state;
+      if (!favorite) {
+        this.setState({
+          favorite: true,
+        });
+      } else {
+        this.setState({
+          favorite: false,
+        });
       }
     }
   }
@@ -161,27 +179,22 @@ class CocktailRecipeDetails extends Component {
             </button>
           </div>
         </div>
-        <span
-          data-testid="recipe-category"
-          className="recipe-category"
-        >
+        <span data-testid="recipe-category" className="recipe-category">
           { strAlcoholic }
         </span>
         <div>
           <h2>Ingredients</h2>
           <ul>
-            {
-              ingredients
-                .filter((item) => item !== '' && item !== null)
-                .map((item, index) => (
-                  <li
-                    key={ index }
-                    data-testid={ `${index}-ingredient-name-and-measure` }
-                  >
-                    {`${item} - ${measures[index]}`}
-                  </li>
-                ))
-            }
+            {ingredients
+              .filter((item) => item !== '' && item !== null)
+              .map((item, index) => (
+                <li
+                  key={ index }
+                  data-testid={ `${index}-ingredient-name-and-measure` }
+                >
+                  {`${item} - ${measures[index]}`}
+                </li>
+              ))}
           </ul>
         </div>
         <div>
