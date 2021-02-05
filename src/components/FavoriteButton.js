@@ -12,16 +12,34 @@ class FavoriteButton extends React.Component {
     };
 
     this.favoriteButtonHandle = this.favoriteButtonHandle.bind(this);
+    this.isFavorite = this.isFavorite.bind(this);
+  }
+
+  componentDidMount() {
+    this.isFavorite();
+  }
+
+  isFavorite() {
+    const { storageObj } = this.props;
+    const favRecipeStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    favRecipeStorage.map((item) => {
+      if (item.id === storageObj.id) {
+        this.setState({
+          favorite: true,
+        });
+      }
+      return null;
+    });
   }
 
   favoriteButtonHandle() {
     const { favorite } = this.state;
     const { storageObj } = this.props;
-    this.setState({ favorite: !favorite });
     const favRecipeStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
     localStorage.setItem(
       'favoriteRecipes', JSON.stringify([...favRecipeStorage, storageObj]),
     );
+    this.setState({ favorite: !favorite });
   }
 
   render() {
