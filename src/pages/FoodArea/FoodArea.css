@@ -12,8 +12,8 @@
 }
 
 .explore-area-content select {
-  border-radius: 15px;
   border: 1px solid rgb(247, 131, 36);
+  border-radius: 15px;
   display: flex;
   flex-flow: nowrap;
   justify-content: center;
@@ -30,6 +30,6 @@
   flex-wrap: wrap;
   justify-content: space-around;
   overflow: auto;
-  padding: 0 0 60px 0;
+  padding: 0 0 60px;
 }
 

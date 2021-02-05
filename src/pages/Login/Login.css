@@ -12,10 +12,9 @@
   flex-direction: column;
   justify-content: center;
   margin: 20vh 0;
-  padding: 10px 0 10px 0;
+  padding: 10px 0;
   position: absolute;
   width: 360px;
-  /* opacity: 0.6; */
 }
 
 .login-content label {
@@ -66,8 +65,8 @@
 }
 
 .login-content input {
+  border: white;
   border-radius: 15px;
-  border: #fff;
   display: flex;
   margin: 0 0 0 10px;
   padding: 10px 50px;

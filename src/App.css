@@ -1,5 +1,4 @@
 /* Resolução do avaliador: 360px W x 640px H */
-
 body {
   background-color: black;
   font-size: 16px;
@@ -8,7 +7,7 @@ body {
 }
 
 .header {
-  background-color: #FF6A28;
+  background-color: #ff6a28;
   color: white;
   display: flex;
   height: 75px;
@@ -23,11 +22,12 @@ body {
 
 .header h1 {
   display: flex;
+  font-size: 1.5em;
   margin-top: -5px;
   padding-top: -10px;
   text-align: center;
-  font-size: 1.5em;
 }
+
 .header-profile {
   padding: 0 6px 1px;
 }
@@ -40,12 +40,12 @@ body {
 .search-bar {
   align-items: center;
   background-color: white;
-  color: #FF6A28;
+  color: #ff6a28;
   flex-direction: column;
   font-weight: 600;
   height: 105px;
   justify-content: space-between;
-  padding: 80px 0 0 0;
+  padding: 80px 0 0;
 }
 
 .search-bar img {
@@ -53,8 +53,8 @@ body {
 }
 
 .search-bar-input input {
-  border-radius: 15px;
   border: 1px solid rgb(247, 131, 36);
+  border-radius: 15px;
   display: flex;
   flex-flow: nowrap;
   justify-content: center;
@@ -80,7 +80,7 @@ body {
 }
 
 .search-bar button {
-  background-image: linear-gradient(to right, #ee5a1a 0%, #FF6A28  51%, #df4807  100%);
+  background-image: linear-gradient(to right, #ee5a1a 0%, #ff6a28  51%, #df4807  100%);
   background-size: 200% auto;
   border-radius: 10px;
   color: white;
@@ -95,15 +95,15 @@ body {
 }
 
 .footer {
-  background-color: #FF6A28;
+  align-items: center;
+  background-color: #ff6a28;
   bottom: 0;
   display: flex;
+  height: 55px;
   justify-content: space-between;
+  margin-top: 5px;
   min-width: 360px;
   position: fixed;
-  height: 55px;
-  align-items: center;
-  margin-top: 5px;
 }
 
 .footer img {
@@ -111,7 +111,7 @@ body {
 }
 
 a {
-  color: rgb(184, 67, 0)
+  color: rgb(184, 67, 0);
 }
 
 a:link {
@@ -119,11 +119,11 @@ a:link {
 }
 
 a:visited {
-  color:rgb(161, 77, 8)
+  color: rgb(161, 77, 8);
 }
 
 .logo-flat {
-  background-color: #FF6A28;
+  background-color: #ff6a28;
   display: flex;
   padding: -10px;
 }
@@ -144,9 +144,9 @@ a:visited {
 .categories-buttons button {
   background-image: linear-gradient(to right, #ff4100 0%, #d4480d  51%, #c0440f  100%);
   background-size: 200% auto;
-  border-radius: 5px;
   border: 0;
-  color: white;            
+  border-radius: 5px;
+  color: white;
   font-size: 1em;
   font-weight: 700;
   justify-content: center;

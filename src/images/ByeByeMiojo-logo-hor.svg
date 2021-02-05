@@ -7,13 +7,13 @@ viewBox="0 0 2480 3507"
  <defs>
   <style type="text/css">
    <![CDATA[
-    .fil5 {fill:#FF6A28}
-    .fil4 {fill:#FF6A28}
+    .fil5 {fill:#ff6a28}
+    .fil4 {fill:#ff6a28}
     .fil1 {fill:#FFB594}
     .fil0 {fill:white}
     .fil6 {fill:white}
     .fil3 {fill:white}
-    .fil2 {fill:#FF6A28;fill-rule:nonzero}
+    .fil2 {fill:#ff6a28;fill-rule:nonzero}
    ]]>
   </style>
  </defs>
