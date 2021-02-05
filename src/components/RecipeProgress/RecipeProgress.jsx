@@ -1,119 +1,46 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React from 'react';
 import PropTypes from 'prop-types';
-
-import '../RecipeDetails/style.css';
-
-import Context from '../../Context';
-import Meals from '../../services/meals-api';
-import Drinks from '../../services/cocktails-api';
 import RecipeToProgress from './RecipeToProgress';
 
-const filterFoodKeys = (food) => {
-  const objKeys = Object.keys(food);
+const RecipeProgress = ({ recipe, commonProps }) => {
+  const { isMeal } = commonProps;
 
-  const filteredIngredientKeys = objKeys.filter((key) => key.includes('strIngredient'));
-  const filteredMeasureKeys = objKeys.filter((key) => key.includes('strMeasure'));
+  const id = isMeal ? recipe.idMeal : recipe.idDrink;
+  const name = isMeal ? recipe.strMeal : recipe.strDrink;
+  const image = isMeal ? recipe.strMealThumb : recipe.strDrinkThumb;
 
-  const ingredientsObj = filteredIngredientKeys.map((key) => food[key]);
-  const measuresObj = filteredMeasureKeys.map((key) => food[key]);
+  const alcoholic = recipe.strAlcoholic || '';
+  const area = recipe.strArea || '';
 
-  const ingredientsObjFiltered = ingredientsObj.filter((ing) => ing);
-  const measuresObjFiltered = measuresObj.filter((ing) => ing);
-
-  return [ingredientsObjFiltered, measuresObjFiltered];
-};
-
-const RecipeProgress = ({ page }) => {
-  const { id } = useParams();
-  const { verifyInProgress, checkFavorite } = useContext(Context);
-
-  const [meal, setMeal] = useState({});
-  const [drink, setDrink] = useState({});
-  const [meals, setMeals] = useState([]);
-  const [drinks, setDrinks] = useState([]);
-  const [ingredients, setIngredients] = useState([]);
-  const [measures, setMeasures] = useState([]);
-
-  const [isFetching, setIsFetching] = useState(true);
-  const [inProgress, setInProgress] = useState(false);
-  const [favorite, setFavorite] = useState(false);
-
-  useEffect(() => {
-    const isInProgress = verifyInProgress(id, page);
-    if (isInProgress) {
-      setInProgress(true);
-    }
-  }, [verifyInProgress, id, page]);
-
-  useEffect(() => {
-    const isFavorite = checkFavorite(id);
-    if (isFavorite) {
-      setFavorite(true);
-    } else {
-      setFavorite(false);
-    }
-  }, [id, checkFavorite]);
-
-  useEffect(() => {
-    const limitToShow = 6;
-
-    if (page === 'meal') {
-      Meals.getMealDetailsById(id)
-        .then((res) => {
-          const [filteredIngredients, filteredMeasures] = filterFoodKeys(res);
-          setIngredients(filteredIngredients);
-          setMeasures(filteredMeasures);
-          setMeal(res);
-          setIsFetching(false);
-        })
-        .catch((err) => console.log(err));
-
-      Drinks.getCocktails(limitToShow)
-        .then((res) => setDrinks(res))
-        .catch((err) => console.log(err));
-    }
-
-    if (page === 'drink') {
-      Drinks.getCocktailDetailsById(id)
-        .then((res) => {
-          const [filteredIngredients, filteredMeasures] = filterFoodKeys(res);
-          setIngredients(filteredIngredients);
-          setMeasures(filteredMeasures);
-          setDrink(res);
-          setIsFetching(false);
-        })
-        .catch((err) => console.log(err));
-
-      Meals.getMeals(limitToShow)
-        .then((res) => setMeals(res))
-        .catch((err) => console.log(err));
-    }
-  }, [page, id]);
-
-  if (isFetching) {
-    return <h1>Loading details...</h1>;
-  }
-
-  const commonProps = {
-    page,
-    favorite,
-    ingredients,
-    meals,
-    drinks,
-    measures,
-    inProgress,
-    id,
-  };
+  const instructions = recipe.strInstructions;
+  const category = recipe.strCategory;
 
   return (
     <RecipeToProgress
-      recipe={ page === 'meal' ? meal : drink }
+      id={ id }
+      area={ area }
+      image={ image }
+      name={ name }
+      category={ category }
+      instructions={ instructions }
+      alcoholic={ alcoholic }
+      meal={ isMeal }
       commonProps={ commonProps }
     />
   );
 };
 
-RecipeProgress.propTypes = { page: PropTypes.string.isRequired };
+RecipeProgress.propTypes = {
+  recipe: PropTypes.objectOf(PropTypes.string).isRequired,
+  commonProps: PropTypes.shape({
+    isMeal: PropTypes.bool.isRequired,
+    favorite: PropTypes.bool.isRequired,
+    ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
+    measures: PropTypes.arrayOf(PropTypes.string).isRequired,
+    inProgress: PropTypes.bool.isRequired,
+    meals: PropTypes.arrayOf(PropTypes.object).isRequired,
+    drinks: PropTypes.arrayOf(PropTypes.object).isRequired,
+  }).isRequired,
+};
 
 export default RecipeProgress;
