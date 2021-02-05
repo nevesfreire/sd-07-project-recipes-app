@@ -36,7 +36,11 @@ const Bebidas = () => {
                 key={ e.idDrink }
                 data-testid={ `${i}-card-name` }
               >
-                <img data-testid={ `${i}-card-img` } src={ e.strDrinkThumb } alt="drink" />
+                <img
+                  data-testid={ `${i}-card-img` }
+                  src={ e.strDrinkThumb }
+                  alt="drink"
+                />
                 <h1>
                   <NavigationButton
                     testId={ `${i}-recipe-card` }

@@ -3,7 +3,7 @@ import { LoginContext } from '../../context/LoginContext';
 import './style.css';
 import EmailInput from './components/EmailInput';
 import PasswordInput from './components/PasswordInput';
-import logo from '../../images/ChaBlau.png';
+// import logo from '../../images/ChaBlau.png';
 
 export default function Login() {
   const {
@@ -20,12 +20,12 @@ export default function Login() {
           data-testid="login-submit-btn"
           type="button"
           className="btn"
-          disabled={disabled}
-          onClick={() => handleSubmit()}
+          disabled={ disabled }
+          onClick={ () => handleSubmit() }
         >
           Entrar
         </button>
-        <a href="/" onClick={() => alert('A senha é XABLAU!')}>Esqueceu a senha?</a>
+        <a href="/" onClick={ () => alert('A senha é XABLAU!') }>Esqueceu a senha?</a>
       </div>
       <div className="logo-login">
         {/* <img src={ logo } alt="Chá blau logo" /> */}
