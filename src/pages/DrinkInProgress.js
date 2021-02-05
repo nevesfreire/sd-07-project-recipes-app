@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchRecipes } from '../actions';
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
+import { fetchRecipes, copyButton } from '../actions';
+import TitleBar from '../components/TitleBar';
 import Loading from '../components/Loading';
 import { favoriteDrinkLocalStorage } from '../localStorage/favoriteRecipes';
 import { doneDrinkLocalStorage } from '../localStorage/doneRecipes';
+import { handleCopy } from '../functions';
 import {
   checkProgressDrinkLocalStorage,
   setIngredientDrinkLocalStorage,
@@ -16,13 +15,12 @@ import {
 class DrinkInProgress extends Component {
   constructor(props) {
     super(props);
-
     this.handleState = this.handleState.bind(this);
     this.handleButtonEnabled = this.handleButtonEnabled.bind(this);
     this.handleCheckbox = this.handleCheckbox.bind(this);
     this.changeFavorite = this.changeFavorite.bind(this);
     this.createFavoriteLocalStorage = this.createFavoriteLocalStorage.bind(this);
-
+    this.changeDone = this.changeDone.bind(this);
     this.state = {
       drinks: [],
       ingredients: [],
@@ -34,8 +32,7 @@ class DrinkInProgress extends Component {
   }
 
   componentDidMount() {
-    const { requestRecipes,
-      match: { params: { id } } } = this.props;
+    const { requestRecipes, match: { params: { id } } } = this.props;
     requestRecipes(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
     this.createFavoriteLocalStorage('favoriteRecipes');
     this.createFavoriteLocalStorage('doneRecipes');
@@ -45,23 +42,27 @@ class DrinkInProgress extends Component {
   componentDidUpdate() {
     const { drinksRecipes } = this.props;
     const { request } = this.state;
-
-    if (drinksRecipes.drinks && request) {
-      this.handleState();
-    }
+    if (drinksRecipes.drinks && request) this.handleState();
   }
 
   handleState() {
     const { match: { params: { id } }, drinksRecipes } = this.props;
-    const filterRecipe = drinksRecipes.drinks.find((recipe) => recipe.idDrink === id);
+    const filterRecipe = drinksRecipes.drinks.find(
+      (recipe) => recipe.idDrink === id,
+    );
     const ingredients = Object.entries(filterRecipe)
-      .filter((array) => array[0]
-        .includes('strIngredient') && array[1] !== null && array[1] !== '')
+      .filter(
+        (array) => array[0].includes('strIngredient')
+          && array[1] !== null
+          && array[1] !== '',
+      )
       .map((array2) => array2[1]);
-
     const measurement = Object.entries(filterRecipe)
-      .filter((array) => array[0]
-        .includes('strMeasure') && array[1] !== null && array[1] !== '')
+      .filter(
+        (array) => array[0].includes('strMeasure')
+          && array[1] !== null
+          && array[1] !== '',
+      )
       .map((array2) => array2[1]);
 
     this.setState({
@@ -99,12 +100,27 @@ class DrinkInProgress extends Component {
     () => {
       const { drinks, favorite } = this.state;
       favoriteDrinkLocalStorage(drinks, favorite, 'favoriteRecipes');
-      doneDrinkLocalStorage(drinks, favorite, 'doneRecipes');
+    });
+  }
+
+  changeDone() {
+    this.setState((prevState) => ({
+      done: !prevState.done,
+    }),
+    () => {
+      const { history } = this.props;
+      const { drinks, done } = this.state;
+      doneDrinkLocalStorage(drinks, done, 'doneRecipes');
+      history.push('/receitas-feitas');
     });
   }
 
   createFavoriteLocalStorage(keyStorage) {
-    const { match: { params: { id } } } = this.props;
+    const {
+      match: {
+        params: { id },
+      },
+    } = this.props;
     const read = JSON.parse(localStorage.getItem(keyStorage));
 
     if (read && read.some((obj) => obj.id === id)) {
@@ -112,18 +128,19 @@ class DrinkInProgress extends Component {
         favorite: true,
       });
     } else if (!read) {
-      this.setState({
-        favorite: false,
-      },
-      () => localStorage.setItem(keyStorage, JSON.stringify([])));
+      this.setState(
+        {
+          favorite: false,
+        },
+        () => localStorage.setItem(keyStorage, JSON.stringify([])),
+      );
     }
   }
 
   render() {
-    const { history, match: { params: { id } } } = this.props;
+    const { executeCopy, valueCopied, match: { params: { id } } } = this.props;
     const { drinks, ingredients, favorite, measurement, button } = this.state;
     const { strDrinkThumb, strDrink, strInstructions, strAlcoholic } = drinks;
-
     if (!strDrinkThumb) return <Loading />;
     return (
       <div className="main-container">
@@ -133,33 +150,15 @@ class DrinkInProgress extends Component {
           data-testid="recipe-photo"
           className="main-image"
         />
-        <div className="title-container">
-          <div className="title-subcontainer">
-            <h1 data-testid="recipe-title">{strDrink}</h1>
-            <h3 data-testid="recipe-category">{strAlcoholic}</h3>
-          </div>
-          <div className="images-container">
-            <button
-              type="button"
-            >
-              <img
-                data-testid="share-btn"
-                src={ shareIcon }
-                alt="shareIcon"
-              />
-            </button>
-            <button
-              type="button"
-              onClick={ this.changeFavorite }
-            >
-              <img
-                data-testid="favorite-btn"
-                src={ favorite ? blackHeartIcon : whiteHeartIcon }
-                alt="whiteHeartIcon"
-              />
-            </button>
-          </div>
-        </div>
+        <TitleBar
+          strRecipe={ strDrink }
+          strCategory={ strAlcoholic }
+          handleCopy={ handleCopy }
+          executeCopy={ executeCopy }
+          changeFavorite={ this.changeFavorite }
+          valueCopied={ valueCopied }
+          favorite={ favorite }
+        />
         <div className="ingredients-container">
           <h1>Ingredientes</h1>
           <div className="list-container">
@@ -174,7 +173,7 @@ class DrinkInProgress extends Component {
                     type="checkbox"
                     className="form-check-input"
                     id={ ingredient }
-                    onClick={ this.handleCheckbox }
+                    onChange={ this.handleCheckbox }
                     checked={ checkedDrinkIngredients(id, ingredient) }
                   />
                   <label
@@ -191,12 +190,11 @@ class DrinkInProgress extends Component {
           <h1>Instruções</h1>
           <p data-testid="instructions">{strInstructions}</p>
         </div>
-
         <div className="finish-button-container">
           <button
             type="button"
             data-testid="finish-recipe-btn"
-            onClick={ () => history.push('/receitas-feitas') }
+            onClick={ this.changeDone }
             className="finish-button-recipe"
             disabled={ button }
           >
@@ -208,12 +206,14 @@ class DrinkInProgress extends Component {
   }
 }
 
-const mapStateToProps = ({ recipesReducer }) => ({
+const mapStateToProps = ({ recipesReducer, recomendationsReducer }) => ({
   drinksRecipes: recipesReducer.recipes,
+  valueCopied: recomendationsReducer.copy,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   requestRecipes: (endpoint) => dispatch(fetchRecipes(endpoint)),
+  executeCopy: (value) => dispatch(copyButton(value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DrinkInProgress);
@@ -221,6 +221,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(DrinkInProgress);
 DrinkInProgress.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
+  }).isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
   }).isRequired,
   drinksRecipes: PropTypes.shape({
     drinks: PropTypes.arrayOf(PropTypes.object),
@@ -231,4 +234,6 @@ DrinkInProgress.propTypes = {
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
+  executeCopy: PropTypes.func.isRequired,
+  valueCopied: PropTypes.string.isRequired,
 };

@@ -95,14 +95,12 @@ function setIngredientDrinkLocalStorage(id, ingredient) {
 function checkedFoodIngredients(id, ingredient) {
   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
   const checkedElements = inProgressRecipes.meals[id];
-  console.log(checkedElements);
   return checkedElements.includes(ingredient);
 }
 
 function checkedDrinkIngredients(id, ingredient) {
   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
   const checkedElements = inProgressRecipes.drinks[id];
-  console.log(checkedElements);
   return checkedElements.includes(ingredient);
 }
 
