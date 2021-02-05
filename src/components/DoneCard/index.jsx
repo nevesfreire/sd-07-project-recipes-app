@@ -55,6 +55,7 @@ export default function DoneCard({ recipe, index }) {
         <img
           src={ image }
           alt={ name }
+          width="250"
           data-testid={ `${index}-horizontal-image` }
         />
       </a>
