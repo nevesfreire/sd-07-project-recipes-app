@@ -7,23 +7,24 @@ function Recommendations({ api }) {
   const lastPosition = 6;
   const firstSixItems = api.slice(startPosition, lastPosition);
 
+  const settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 2,
+    slidesToScroll: 2,
+  };
+
   return (
     <div>
-      <Slider
-        dots
-        infinite
-        speed={ 1000 }
-        slidesToScroll={ 1 }
-        arrows
-        slidesToShow={ 2 }
-      >
+      <Slider { ...settings }>
         { firstSixItems.map((card, index) => {
           if (card.strDrink) {
             return (
               <div key={ index } data-testid={ `${index}-recomendation-card` }>
                 <img src={ card.strDrinkThumb } width="100px" alt="Cocktail" />
                 <h5>{ card.strCategory }</h5>
-                <h4>{ card.strDrink }</h4>
+                <h4 data-testid={ `${index}-recomendation-title` }>{ card.strDrink }</h4>
               </div>
             );
           }
@@ -31,7 +32,7 @@ function Recommendations({ api }) {
             <div key={ index } data-testid={ `${index}-recomendation-card` }>
               <img src={ card.strMealThumb } width="100px" alt="Meal" />
               <h5>{ card.strCategory }</h5>
-              <h4>{ card.strMeal }</h4>
+              <h4 data-testid={ `${index}-recomendation-title` }>{ card.strMeal }</h4>
             </div>
           );
         })}

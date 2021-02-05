@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { getMealById } from '../services/mealAPI';
@@ -10,10 +11,19 @@ function MealsInProgress() {
   const [storeIngredients, setStoreIngredients] = useState([]);
   const [storeMeasures, setStoreMeasures] = useState([]);
   const [ingredMeasures, setIngredMeasures] = useState([]);
+=======
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { getMealById } from '../services/mealAPI';
+
+function MealsInProgress() {
+  const [recipeId, setRecipeId] = useState('');
+>>>>>>> c3ac3e1da1eb25d160305118044481a500619366
   const [title, setTitle] = useState('');
   const [source, setSource] = useState('');
   const [category, setCategory] = useState('');
   const [area, setArea] = useState('');
+<<<<<<< HEAD
   const [instructions, setInstructions] = useState('');
   const [buttonIsEnabled, setButtonIsEnabled] = useState(false);
   const [storage, setStorage] = useState({meals: []});
@@ -49,6 +59,10 @@ function MealsInProgress() {
       setChecked(storage.meals[recipeId]);
     }
   }, [storage]);
+=======
+  const [tags, setTags] = useState('');
+  const history = useHistory();
+>>>>>>> c3ac3e1da1eb25d160305118044481a500619366
 
   useEffect(() => {
     const path = history.location.pathname;
@@ -59,12 +73,16 @@ function MealsInProgress() {
     setRecipeId(splitPath);
     getMealById(splitPath)
       .then((res) => {
+<<<<<<< HEAD
         const ingredientsArray = [];
         const measureArray = [];
+=======
+>>>>>>> c3ac3e1da1eb25d160305118044481a500619366
         setTitle(res.meals[0].strMeal);
         setSource(res.meals[0].strMealThumb);
         setCategory(res.meals[0].strCategory);
         setArea(res.meals[0].strArea);
+<<<<<<< HEAD
         setInstructions(res.meals[0].strInstructions);
         Object.entries(res.meals[0]).forEach(([key, value]) => {
           const noValue = 0;
@@ -133,6 +151,51 @@ function MealsInProgress() {
         Finalizar Receita
       </button>
 
+=======
+        setTags(res.meals[0].Tags);
+      });
+  }, []);
+
+  const finishRecipe = () => {
+    const done = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    const findId = done.find((recipe) => recipe.id === recipeId);
+    const date = new Date();
+    const finishedRecipe = {
+      id: recipeId,
+      type: 'comida',
+      area,
+      category,
+      alcoholicOrNot: '',
+      name: title,
+      image: source,
+      doneDate: date,
+      tags,
+    };
+    if (!done) {
+      localStorage.setItem('doneRecipes', JSON.stringify([finishedRecipe]));
+    } else if (!findId) {
+      const newList = [...done, finishedRecipe];
+      localStorage.setItem('doneRecipes', JSON.stringify(newList));
+    }
+  };
+
+  return (
+    <div>
+      <img data-testid="recipe-photo" alt="Foto" />
+      <h1 data-testid="recipe-title">{ }</h1>
+      <button data-testid="share-btn" type="button">A</button>
+      <button data-testid="favorite-btn" type="button">B</button>
+      <spam data-testid="recipe-category">Xablau</spam>
+      <h4>Instructions</h4>
+      <p data-testid="instructions">Xablau</p>
+      <button
+        data-testid="finish-recipe-btn"
+        type="button"
+        onClick={ finishRecipe }
+      >
+        Finalizar Receita
+      </button>
+>>>>>>> c3ac3e1da1eb25d160305118044481a500619366
     </div>
   );
 }

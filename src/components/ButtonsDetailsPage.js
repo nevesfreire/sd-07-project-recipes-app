@@ -12,26 +12,22 @@ function ButtonsDetailsPage({ api }) {
   const [copyLink, setCopyLink] = useState(false);
   const [heartStatus, setHeartStatus] = useState('');
 
-  const changeStatus = (getStatus) => {
-    const path = history.location.pathname;
-    const position = 2;
-    const numberToSplice = 1;
-    const splitPath = path.split('/').splice(position, numberToSplice).toString();
-    const returnId = getStatus.find((recipe) => recipe.id === splitPath);
-    if (returnId) {
-      setHeartStatus('black');
-    } else {
-      setHeartStatus('white');
-    }
-  };
-
   useEffect(() => {
     const getStatus = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (!getStatus) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([]));
       setHeartStatus('white');
     } else {
-      changeStatus(getStatus);
+      const path = history.location.pathname;
+      const position = 2;
+      const numberToSplice = 1;
+      const splitPath = path.split('/').splice(position, numberToSplice).toString();
+      const returnId = getStatus.find((recipe) => recipe.id === splitPath);
+      if (returnId) {
+        setHeartStatus('black');
+      } else {
+        setHeartStatus('white');
+      }
     }
   }, []);
 
