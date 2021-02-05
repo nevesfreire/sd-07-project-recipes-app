@@ -23,7 +23,7 @@ export default function CustomCardFood({ index, recipe, recipeType }) {
                 src={ (recipeType === 'comidas')
                   ? recipe.strMealThumb
                   : recipe.strDrinkThumb }
-                alt=""
+                alt="imagem de uma receita"
               />
               <p
                 data-testid={ `${index}-card-name` }
