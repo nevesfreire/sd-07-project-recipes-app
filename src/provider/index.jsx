@@ -13,7 +13,7 @@ function Provider({ children }) {
   }, []);
 
   useEffect(() => {
-    const NUM_PASSWORD = 5;
+    const NUM_PASSWORD = 6;
     const { user, passwd } = login;
     if (user && passwd) {
       const emailTest = (/^[^\s@]+@[^\s@]+\.[^\s@]+$/).test(user);

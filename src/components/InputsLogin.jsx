@@ -7,7 +7,7 @@ import '../css/login.css';
 
 const inputText = (onChange, login) => (
   <div className="input-email">
-    <Input
+    <input
       data-testid="email-input"
       type="email"
       name="user"
@@ -20,7 +20,7 @@ const inputText = (onChange, login) => (
 
 const inputPasswd = (onChange, login) => (
   <div className="input-senha">
-    <Input
+    <input
       data-testid="password-input"
       type="password"
       name="passwd"
@@ -33,15 +33,16 @@ const inputPasswd = (onChange, login) => (
 
 const buttonLogin = (onClick, enable) => (
   <div className="input-button">
-    <Button
+    <button
       data-testid="login-submit-btn"
+      type="button"
       variant="contained"
       color="primary"
       disabled={ enable }
       onClick={ (e) => onClick(e) }
     >
       Entrar
-    </Button>
+    </button>
   </div>
 );
 
