@@ -94,7 +94,6 @@ function CategoriesBar(props) {
         <button
           type="button"
           name={ ALL }
-          data-testid="All-category-filter"
         >
           All
         </button>

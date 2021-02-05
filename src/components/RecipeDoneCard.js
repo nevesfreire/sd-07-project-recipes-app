@@ -22,6 +22,7 @@ class RecipeDoneCard extends Component {
         {type === 'bebida' ? (
           <Link to={ `/bebidas/${id}` }>
             <img
+              style={ { width: '100px' } }
               data-testid={ `${index}-horizontal-image` }
               src={ image }
               alt={ name }
@@ -30,6 +31,7 @@ class RecipeDoneCard extends Component {
         ) : (
           <Link to={ `/comidas/${id}` }>
             <img
+              style={ { width: '100px' } }
               data-testid={ `${index}-horizontal-image` }
               src={ image }
               alt={ name }
