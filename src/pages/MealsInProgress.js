@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { getMealById } from '../services/mealAPI';
 import ButtonsDetailsPage from '../components/ButtonsDetailsPage';
+import { handleClickMeals } from '../functions/DetailPages';
 
 function MealsInProgress() {
   const history = useHistory();
@@ -14,9 +15,11 @@ function MealsInProgress() {
   const [category, setCategory] = useState('');
   const [area, setArea] = useState('');
   const [instructions, setInstructions] = useState('');
+  const [exemplo, setExemplo] = useState('');
   const [buttonIsEnabled, setButtonIsEnabled] = useState(false);
-  const getStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  const checked = getStorage.meals[recipeId];
+  const [storage, setStorage] = useState({meals: []});
+  const [ checked, setChecked] = useState([]);
+  const params = useParams();
 
   const handleClick = () => {
     history.push("/receitas-feitas");
@@ -30,12 +33,24 @@ function MealsInProgress() {
       meals: { ...getPrevStorage.meals, [recipeId]: [...getPrevProgress, ingredient] },
     };
     localStorage.setItem('inProgressRecipes', JSON.stringify(updateStorage));
-    console.log(getPrevProgress.length);
-    console.log(ingredMeasures.length);
     if (getPrevProgress.length + 1 === ingredMeasures.length) {
       setButtonIsEnabled(true);
     }
+    // setExemplo(storage);
   }
+
+  useEffect(() => {
+    console.log(storage)
+    const validate = storage.meals[recipeId];
+    if (validate) {
+      setChecked(storage.meals[recipeId]);
+    }
+  }, [storage]);
+
+  // useEffect(() => {
+   
+  //   console.log("oi");
+  // }, [setRecipeId]);
 
   useEffect(() => {
     const path = history.location.pathname;
@@ -43,7 +58,9 @@ function MealsInProgress() {
     const numberToSplice = 1;
     const splitPath = path.split('/')
       .splice(position, numberToSplice).toString();
-    setRecipeId(splitPath);
+    setRecipeId(splitPath)
+      .then( handleClickMeals(recipeId))
+      .then( setStorage(JSON.parse(localStorage.getItem('inProgressRecipes'))));
     getMealById(splitPath)
       .then((res) => {
         const ingredientsArray = [];
@@ -93,13 +110,14 @@ function MealsInProgress() {
         { ingredMeasures.map((element, index) => {
           const [key] = Object.keys(element);
           const [value] = Object.values(element);
-          const isChecked = false;
-          if (checked.find(ing => ing === `${key} - ${value}`)) {
+          let isChecked = false;
+          const validation = checked.find(ing => ing === `${key} - ${value}`);
+          if (validation) {
             isChecked = true;
           }
           return (
             <div data-testid={ `${index}-ingredient-step` }>
-              <input id={`ingredient-${index}`} type="checkbox" key={ index } onChange={() => handleChange(`${key} - ${value}`) checked={isChecked}}/>
+              <input id={`ingredient-${index}`} type="checkbox" key={ index } onChange={() => handleChange(`${key} - ${value}`)} checked={isChecked}/>
               <label htmlFor={`ingredient-${index}`}>{ `${key} - ${value}` }</label>
             </div>
           );
