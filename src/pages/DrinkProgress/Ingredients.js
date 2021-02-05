@@ -24,8 +24,8 @@ export default function Ingredients({ data }) {
 
   function selectIngredient(event) {
     const parentLabel = event.target.parentNode;
-    addRecipeProgress(data.idDrink, event.target.name);
-    if (ingredientIsSelected(data.idDrink, event.target.name)) {
+    addRecipeProgress(data, event.target.name);
+    if (ingredientIsSelected(data, event.target.name)) {
       parentLabel.classList.add('checked');
       event.target.setAttribute('checked', 'true');
       recipeIsDone();
@@ -39,7 +39,7 @@ export default function Ingredients({ data }) {
   function resumeRecipeProgress() {
     ingredients.forEach((item) => {
       const label = document.getElementById(item);
-      if (ingredientIsSelected(data.idDrink, item)) {
+      if (ingredientIsSelected(data, item)) {
         label.classList.add('checked');
         label.children[0].setAttribute('checked', 'true');
       } else {

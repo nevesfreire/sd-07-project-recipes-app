@@ -6,30 +6,28 @@ import RecipesContext from '../../Context/RecipesContext';
 
 let filter = '';
 
+const applyFilter = (value, setRecipes, fetchDrinks) => {
+  setRecipes([]);
+  if (filter === value) {
+    filter = '';
+  } else {
+    filter = value;
+  }
+  if (filter !== '') fetchDrinks('category', filter, true);
+  if (filter === '') fetchDrinks('searchName', filter, true);
+};
+
 export default function Drinks() {
   const {
     recipes,
     control,
     fetchDrinks,
     setRecipes,
+    filteredRecipes,
   } = useContext(RecipesContext);
 
   const zero = 0;
   const twelve = 12;
-
-  const applyFilter = (value) => {
-    setRecipes([]);
-    switch (filter) {
-    case value:
-      filter = '';
-      break;
-    default:
-      filter = value;
-      break;
-    }
-    if (filter !== '') fetchDrinks('category', filter);
-    if (filter === '') fetchDrinks('searchName', filter);
-  };
 
   const pageLoading = (
     <div>
@@ -37,6 +35,7 @@ export default function Drinks() {
       <h2>
         Carregando...
       </h2>
+      <Footer />
     </div>
   );
 
@@ -44,7 +43,7 @@ export default function Drinks() {
     <div>
       <button
         data-testid="All-category-filter"
-        onClick={ ({ target }) => applyFilter(target.value) }
+        onClick={ ({ target }) => applyFilter(target.value, setRecipes, fetchDrinks) }
         type="button"
         value=""
       >
@@ -52,7 +51,7 @@ export default function Drinks() {
       </button>
       <button
         data-testid="Ordinary Drink-category-filter"
-        onClick={ ({ target }) => applyFilter(target.value) }
+        onClick={ ({ target }) => applyFilter(target.value, setRecipes, fetchDrinks) }
         type="button"
         value="Ordinary Drink"
       >
@@ -60,7 +59,7 @@ export default function Drinks() {
       </button>
       <button
         data-testid="Cocktail-category-filter"
-        onClick={ ({ target }) => applyFilter(target.value) }
+        onClick={ ({ target }) => applyFilter(target.value, setRecipes, fetchDrinks) }
         type="button"
         value="Cocktail"
       >
@@ -68,7 +67,7 @@ export default function Drinks() {
       </button>
       <button
         data-testid="Milk / Float / Shake-category-filter"
-        onClick={ ({ target }) => applyFilter(target.value) }
+        onClick={ ({ target }) => applyFilter(target.value, setRecipes, fetchDrinks) }
         type="button"
         value="Milk / Float / Shake"
       >
@@ -76,7 +75,7 @@ export default function Drinks() {
       </button>
       <button
         data-testid="Other/Unknown-category-filter"
-        onClick={ ({ target }) => applyFilter(target.value) }
+        onClick={ ({ target }) => applyFilter(target.value, setRecipes, fetchDrinks) }
         type="button"
         value="Other/Unknown"
       >
@@ -84,7 +83,7 @@ export default function Drinks() {
       </button>
       <button
         data-testid="Cocoa-category-filter"
-        onClick={ ({ target }) => applyFilter(target.value) }
+        onClick={ ({ target }) => applyFilter(target.value, setRecipes, fetchDrinks) }
         type="button"
         value="Cocoa"
       >
@@ -93,11 +92,26 @@ export default function Drinks() {
     </div>
   );
 
+  const filteredMap = () => {
+    if (!filteredRecipes.drinks
+      || filteredRecipes.drinks.length === zero) {
+      return null;
+    } return (
+      filteredRecipes.drinks.map((recipe, index) => {
+        if (control && index < twelve) {
+          return <Card recipe={ recipe } index={ index } key={ index } />;
+        }
+        return null;
+      })
+    );
+  };
+
   useEffect(() => {
-    fetchDrinks('searchName', '');
+    fetchDrinks('searchName', '', false);
   }, []);
 
-  if (!recipes.drinks || recipes.drinks.length === zero) {
+  if (!recipes.drinks
+    || recipes.drinks.length === zero) {
     return pageLoading;
   }
 
@@ -106,14 +120,21 @@ export default function Drinks() {
       <Header title="Bebidas" />
       { categoryButtons }
       { recipes.drinks.map((recipe, index) => {
+        if (control || index >= twelve) {
+          return null;
+        }
+        return <Card recipe={ recipe } index={ index } key={ index } />;
+      })}
+      {/* { recipes.drinks.map((recipe, index) => {
         if (control) {
-          return <Card recipe={ recipe } index={ index } key={ index } />;
+          return null;
         }
         if (index < twelve) {
           return <Card recipe={ recipe } index={ index } key={ index } />;
         }
         return null;
-      })}
+      })} */}
+      { filteredMap() }
       <Footer />
     </div>
   );

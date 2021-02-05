@@ -7,16 +7,13 @@ import getDrinks from '../services/cockTailAPI';
 function Provider({ children }) {
   const [control, setControl] = useState(false);
   const [recipes, setRecipes] = useState([]);
+  const [filteredRecipes, setFilteredRecipes] = useState([]);
 
-  const fetchMeals = async (type, value) => {
+  const fetchMeals = async (type, value, controlVar) => {
     const result = await getMeals(type, value);
     setRecipes(result);
-    if (type === 'searchName' && value === '') {
-      setControl(false);
-      return null;
-    }
-    if (type === 'category') {
-      setControl(false);
+    if (controlVar) setFilteredRecipes(result);
+    if (!controlVar) {
       return null;
     }
     const resultReturn = {
@@ -35,15 +32,11 @@ function Provider({ children }) {
     return resultReturn;
   };
 
-  const fetchDrinks = async (type, value) => {
+  const fetchDrinks = async (type, value, controlVar) => {
     const result = await getDrinks(type, value);
     setRecipes(result);
-    if (type === 'searchName' && value === '') {
-      setControl(false);
-      return null;
-    }
-    if (type === 'category') {
-      setControl(false);
+    if (controlVar) setFilteredRecipes(result);
+    if (!controlVar) {
       return null;
     }
     const resultReturn = {
@@ -93,6 +86,7 @@ function Provider({ children }) {
     handleChange,
     btActive,
     login,
+    filteredRecipes,
   };
 
   return (
