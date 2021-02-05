@@ -1,9 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../components/Header';
+import Done from '../components/Done';
+import ButtonsFavorite from '../components/ButtonsFavorite';
+import '../styles/favorite.css';
 
 function DoneRecipes() {
+  const localRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  const [recipesStorage, setRecipesStorage] = useState(!localRecipes ? [] : localRecipes);
   return (
-    <Header title="Receitas Feitas" isSearchable={ false } />
+    <div>
+      <Header title="Receitas Feitas" isSearchable={ false } />
+      <ButtonsFavorite
+        setRecipesStorage={ setRecipesStorage }
+        localRecipes={ localRecipes }
+      />
+      <Done
+        setRecipesStorage={ setRecipesStorage }
+        recipesStorage={ recipesStorage }
+      />
+    </div>
   );
 }
 export default DoneRecipes;

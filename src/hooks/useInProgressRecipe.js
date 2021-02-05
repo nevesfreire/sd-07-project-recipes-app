@@ -90,7 +90,7 @@ function useInProgressRecipe() {
         strMealThumb: image,
         strTags,
       } = currMeal[0];
-      if (strTags !== null) tags = strTags;
+      if (strTags !== null) tags = strTags.split(',');
 
       localStorage.setItem('doneRecipes', JSON.stringify([
         ...doneRecipes,
