@@ -6,16 +6,15 @@ import RecomendationCardDrinks from '../components/RecomendationCardDrinks';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import detailsDidMount from '../components/DetailsDidMount';
 import '../css/Button.css';
+import useHandleFavorite from '../hooks/useHandleFavorite';
 
 function DetailsDrink() {
-  const { detailsRecipe, drinkStateButton } = useContext(RecipeContext);
+  const { detailsRecipe, drinkStateButton, favoriteDrink } = useContext(RecipeContext);
   const [loading, setLoading] = useState(true);
   const { recipeDetailsAPI } = useFetch();
-  const [favoriteRecipe, setFavoriteRecipe] = useState(false);
+  const { handleFavDrink, drinkDidMount } = useHandleFavorite();
   const [spanHidden, setSpanHidden] = useState(false);
-  const [buttonClicked, setButtonClicked] = useState(false);
 
   const url = document.URL;
   const newUrlId = url.split('/')[4];
@@ -42,7 +41,6 @@ function DetailsDrink() {
   //   return localStorageRecipes.cocktails[newUrlId].length
   // }
   const { strCategory,
-    idDrink,
     strDrink,
     strDrinkThumb,
     strAlcoholic,
@@ -54,7 +52,7 @@ function DetailsDrink() {
     name: strDrink,
   };
   // verifica se a página já carrega como favorito
-  detailsDidMount(buttonClicked, favoriteRecipe, setFavoriteRecipe, currentRecipe);
+  drinkDidMount(currentRecipe);
 
   const drink = detailsRecipe.drinks[0];
   const keysDrink = Object.keys(drink);
@@ -72,43 +70,6 @@ function DetailsDrink() {
     setSpanHidden(true);
   }
 
-  function handleFavorite() {
-    setButtonClicked(true);
-    const newRecipe = {
-      id: idDrink,
-      type: 'bebida',
-      area: '',
-      category: strCategory,
-      alcoholicOrNot: strAlcoholic,
-      name: strDrink,
-      image: strDrinkThumb,
-    };
-    if (favoriteRecipe === false) {
-      setFavoriteRecipe(true);
-      if (localStorage.getItem('favoriteRecipes') === null) {
-        localStorage.setItem('favoriteRecipes', JSON.stringify([newRecipe]));
-      } else {
-        const favoriteLocalStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
-        console.log('favLS', favoriteLocalStorage);
-        const newFavoriteList = {
-          ...favoriteLocalStorage,
-          ...newRecipe,
-        };
-        localStorage.setItem(
-          'favoriteRecipes',
-          JSON.stringify([newFavoriteList]),
-        );
-      }
-    }
-    if (favoriteRecipe === true) {
-      setFavoriteRecipe(false);
-      const favoriteLocalStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      const newListFavorite = favoriteLocalStorage
-        .filter((recipe) => recipe.name !== newRecipe.name);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(newListFavorite));
-    }
-  }
-
   return (
     <div>
       <img src={ strDrinkThumb } data-testid="recipe-photo" alt={ strDrink } />
@@ -124,9 +85,9 @@ function DetailsDrink() {
         />
       </button>
       <span hidden={ !spanHidden }>Link copiado!</span>
-      <button onClick={ handleFavorite } type="button">
+      <button onClick={ () => handleFavDrink() } type="button">
         <img
-          src={ favoriteRecipe ? blackHeartIcon : whiteHeartIcon }
+          src={ favoriteDrink ? blackHeartIcon : whiteHeartIcon }
           alt="icone de coração, para favoritar receita"
           data-testid="favorite-btn"
         />
