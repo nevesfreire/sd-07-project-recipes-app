@@ -3,7 +3,9 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Button, Carousel } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
-import FavButton from '../components/DetailsComponents/FavButton';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+// import FavButton from '../components/DetailsComponents/FavButton';
 import ShareButton from '../components/DetailsComponents/ShareButton';
 
 export default function FoodDetails() {
@@ -12,6 +14,8 @@ export default function FoodDetails() {
   const {
     recipe,
     setRecipe,
+    favorited,
+    setFavorited,
   } = useContext(RecipesContext);
 
   const history = useHistory();
@@ -49,27 +53,40 @@ export default function FoodDetails() {
     return true;
   };
 
+  const isFavorite = () => {
+    if (!favorited.includes(recipe.idMeal)) {
+      setFavorited([recipe.idMeal, ...favorited]);
+      const dataMeal = JSON.parse(localStorage.getItem('favoriteRecipes'))
+        ? JSON.parse(localStorage.getItem('favoriteRecipes'))
+        : [];
+      localStorage.setItem('favoriteRecipes', JSON.stringify([...dataMeal, {
+        id: recipe.idMeal,
+        type: 'comida',
+        area: recipe.strArea,
+        category: recipe.strCategory,
+        alcoholicOrNot: '',
+        name: recipe.strMeal,
+        image: recipe.strMealThumb,
+      }]));
+    } else {
+      setFavorited(favorited.filter((item) => recipe.idMeal !== item));
+      const dataMeal = JSON.parse(localStorage.getItem('favoriteRecipes'))
+        ? JSON.parse(localStorage.getItem('favoriteRecipes'))
+        : [];
+      const newDataMeal = dataMeal.filter((item) => recipe.idMeal !== item.id);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(newDataMeal));
+    }
+  };
+
   useEffect(() => {
     getRecomendations();
-  }, []);
-
-  useEffect(() => {
-    const dataFav = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (dataFav) {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([...dataFav]));
-    } else { localStorage.setItem('favoriteRecipes', JSON.stringify([])); }
-
-    const dataDone = JSON.parse(localStorage.getItem('doneRecipes'));
-    if (dataDone) {
-      localStorage.setItem('doneRecipes', JSON.stringify([...dataDone]));
-    } else { localStorage.setItem('doneRecipes', JSON.stringify([])); }
-    localStorage.setItem('doneRecipes', JSON.stringify([]));
   }, []);
 
   const handleStartRecipeBtn = () => {
     history.push(`/comidas/${recipe.idMeal}/in-progress`);
   };
 
+  console.log(favorited);
   return (
     <div>
 
@@ -99,8 +116,24 @@ export default function FoodDetails() {
       <span data-testid="instructions">{recipe.strInstructions}</span>
 
       <ShareButton />
-
-      <FavButton />
+      <button
+        type="button"
+        data-testid="favorite-btn"
+        onClick={ isFavorite }
+      >
+        <img
+          src={
+            favorited.includes(recipe.idMeal)
+              ? blackHeartIcon
+              : whiteHeartIcon
+          }
+          alt={
+            favorited.includes(recipe.idMeal)
+              ? 'Favorited Icon'
+              : 'Not Favorited Icon'
+          }
+        />
+      </button>
 
       <h3>Video</h3>
       <iframe
@@ -151,6 +184,5 @@ export default function FoodDetails() {
       </Button>
 
     </div>
-
   );
 }
