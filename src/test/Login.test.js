@@ -1,6 +1,5 @@
 import React from 'react';
 import { cleanup, render, fireEvent } from '@testing-library/react';
-import renderWithRouter from '../renderWithRouter';
 import Login from '../pages/Login';
 
 const EMAIL_IMPUT = 'email-input';
@@ -41,16 +40,5 @@ describe('Testando arquivo Login.js', () => {
     fireEvent.change(senha, { target: { value: '1234567' } });
     fireEvent.change(email, { target: { value: 'teste@test.com' } });
     expect(botão).not.toHaveAttribute('disabled');
-  });
-  test('Se ao clicar o botão a pessoa deve ser direcionada para "/comidas"', () => {
-    const { getByTestId, history } = renderWithRouter(<Login />);
-    const email = getByTestId(EMAIL_IMPUT);
-    const senha = getByTestId(PASSWORD_IMPUT);
-    const botão = getByTestId(LOGIN_SUBMIT_BTN);
-    fireEvent.change(senha, { target: { value: '1234567' } });
-    fireEvent.change(email, { target: { value: 'teste@test.com' } });
-    fireEvent.click(botão);
-    const { pathname } = history.location;
-    expect(pathname).toBe('/comidas');
   });
 });
