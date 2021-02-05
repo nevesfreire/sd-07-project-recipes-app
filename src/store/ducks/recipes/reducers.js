@@ -39,10 +39,10 @@ const recipes = (state = INITIAL_STATE, action) => {
       error: action.payload,
     };
 
-  case recipesTypes.SET_FILTER_BY_CATEGORY:
+  case recipesTypes.SET_FILTER:
     return {
       ...state,
-      filterByCategory: action.payload,
+      filter: { ...action.payload },
     };
 
   case recipesTypes.SET_FILTER_BY_INGREDIENT:

@@ -16,8 +16,8 @@ export function failedRequest(error) {
   return { type: recipesTypes.FAILED_REQUEST, payload: error };
 }
 
-export function setFilterByCategory(categoryFilter) {
-  return { type: recipesTypes.SET_FILTER_BY_CATEGORY, payload: categoryFilter };
+export function setFilter(type, term = '') {
+  return { type: recipesTypes.SET_FILTER, payload: { type, term } };
 }
 
 export function setFilterByIngredient(ingredientFilter) {

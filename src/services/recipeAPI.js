@@ -18,17 +18,16 @@ const BY_CATEGORY = 'c=';
 const BY_INGREDIENT = 'i=';
 const BY_AREA = 'a=';
 
-export const getRecipes = async (type) => {
-  const GET_RECIPES_URL = (type.includes('comidas')
-    ? BASE_MEAL_URL : BASE_COCKTAIL_URL) + END_POINT_SEARCH;
-  const response = await fetch(GET_RECIPES_URL);
-  const result = await response.json();
-  return type.includes('comidas')
-    ? mapMealAndDrinkToRecipe(result.meals)
-    : mapMealAndDrinkToRecipe(result.drinks);
+export const FILTER_TYPES = {
+  NAME: 'name',
+  CATEGORY: 'category',
+  INGREDIENT: 'ingredient',
+  FIRST_LETTER: 'firstLetter',
+  AREA: 'area',
+  RANDON: 'random',
 };
 
-export const getRecipesByName = async (type, name) => {
+export const getRecipesByName = async (type, name = '') => {
   const GET_RECIPES_BY_NAME_URL = (type.includes('comidas')
     ? BASE_MEAL_URL : BASE_COCKTAIL_URL)
     + END_POINT_SEARCH
@@ -39,6 +38,8 @@ export const getRecipesByName = async (type, name) => {
     ? mapMealAndDrinkToRecipe(result.meals)
     : mapMealAndDrinkToRecipe(result.drinks);
 };
+
+export const getRecipes = (type) => getRecipesByName(type);
 
 export const getRecipesByFirstLetter = async (type, firstLetter) => {
   const GET_RECIPES_BY_FIRST_LETTER_URL = (type.includes('comidas')
