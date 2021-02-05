@@ -121,7 +121,7 @@ function Meals() {
   }
 
   return (
-    <div>
+    <div className="meals-content">
       <Header />
       <FlexContainer>
         <button

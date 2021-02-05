@@ -31,9 +31,10 @@ function Header() {
         <button
           onClick={ handleSearchBar }
           type="button"
-          className="btn btn-secondary"
+          className="header_btn_search"
         >
           <img
+            className="header_btn_search--image"
             data-testid="search-top-btn"
             src={ searchIcon }
             alt="search icon"
@@ -44,22 +45,28 @@ function Header() {
   };
 
   return (
-    <FlexContainer className="header">
+    <div className="header">
       <button
         type="button"
         onClick={ changePage }
-        className="btn btn-secondary"
+        className="header_btn"
       >
         <img
           data-testid="profile-top-btn"
           src={ profileIcon }
           alt="profile icon"
+          className="header_btn--image"
         />
       </button>
-      <h1 data-testid="page-title">{pageTitle}</h1>
+      <h1
+        className="header_title"
+        data-testid="page-title"
+      >
+        {pageTitle}
+      </h1>
       {renderIcon()}
       <SearchBar />
-    </FlexContainer>
+    </div>
   );
 }
 

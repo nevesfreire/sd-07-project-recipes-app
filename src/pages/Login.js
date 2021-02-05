@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFire } from '@fortawesome/free-solid-svg-icons';
 
 class Login extends React.Component {
   constructor() {
@@ -50,9 +52,14 @@ class Login extends React.Component {
     const { disabled } = this.state;
 
     return (
-      <div className="main-div">
-        <form className="form-container">
+      <div className="login_container">
+        <div className="login_logo">
+          <FontAwesomeIcon className="login_icon" icon={ faFire } />
+          <h1 className="login_title">Master Jest</h1>
+        </div>
+        <form className="login_form">
           <input
+            className="form-input"
             name="email"
             data-testid="email-input"
             type="email"
@@ -60,6 +67,7 @@ class Login extends React.Component {
             placeholder="E-mail"
           />
           <input
+            className="form-input"
             name="password"
             data-testid="password-input"
             type="password"
@@ -67,7 +75,7 @@ class Login extends React.Component {
             placeholder="Senha"
           />
           <button
-            className="btn btn-primary"
+            className="form-btn"
             data-testid="login-submit-btn"
             type="button"
             disabled={ disabled }

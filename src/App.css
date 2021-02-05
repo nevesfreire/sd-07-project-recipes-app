@@ -1,15 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto&display=swap');
+
+/* CSS GERAL */
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+/* LOGIN PAGE */
+
+.login_container {
+  align-content: space-evenly;
+  background-size: cover;
+  background: 
+  linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)) no-repeat,
+  url(./images/background_login.jpg) center no-repeat; 
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 3%;
+  width: 100vw;
+}
+
+.login_logo {
+  align-content: space-between;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 80%;
+}
+
+.login_icon {
+  color: aliceblue;
+  font-size: 3em;
+}
+
+.login_title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  color: aliceblue;
+  width: 100%;
+  text-align: center;
+}
+
+.login_form {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+.form-input {
+  background-color: aliceblue;
+  box-shadow: 0px 0px 15px black;
+  border-radius: 15px;
+  border: solid 2px white;
+  opacity: 0.8;
+  margin: 5px;
+  padding: 10px;
+}
+
+.form-btn {
+  border: none;
+  color: aliceblue;
+  font-size: 1.2em;
+  font-weight: 600;
+  background-color: rgba(64, 145, 64, 0.842);
+  border-radius: 15px;
+  box-shadow: 0px 0px 15px black;
+  margin: 5px;
+  padding: 5px;
+}
+
+/* HEADER */
+
+.header {
+  align-items: center;
+  background: linear-gradient(rgba(140, 28, 19, 1), rgba(140, 28, 19, 0.95));
+  display: flex;
+  box-shadow: 0px 0px 15px black;
+  font-family: 'Montserrat', sans-serif;
+  flex-direction: row;
+  justify-content: space-around;
+  height: 10vh;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.header_title {
+  margin: 0 10px;
+}
+
+.header_btn, .header_btn_search {
+  margin: 5px;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+}
+
+.header_btn--image, .header_btn_search--image {
+  width: 100%;
+}
+
+.meals-content {
+  background-color: rgba(224, 223, 213);
+}
+
 .footer {
   background-color: grey;
   bottom: 0;
   padding: 5%;
   position: fixed;
-  width: 100%;
-}
-
-.header {
-  background-color: grey;
-  padding: 3%;
-  top: 0;
   width: 100%;
 }
 
@@ -28,21 +130,6 @@
 
 .links {
   text-decoration: none;
-}
-
-.main-div {
-  align-items: center;
-  display: flex;
-  height: 100vh;
-  width: 100%;
-}
-
-.form-container {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
 }
 
 .rocksGlass {
