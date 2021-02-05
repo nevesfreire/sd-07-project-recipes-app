@@ -13,6 +13,7 @@ import {
   Profile,
   DoneRecipes,
   FavoritesRecipes,
+  RecipeDetails,
   NotFound,
 } from '../pages';
 
@@ -71,6 +72,14 @@ const Routes = () => (
     <Route
       path="/receitas-favoritas"
       component={ FavoritesRecipes }
+    />
+    <Route
+      path="/comidas/:id"
+      component={ RecipeDetails }
+    />
+    <Route
+      path="/bebidas/:id"
+      component={ RecipeDetails }
     />
     <Route
       path="*"
