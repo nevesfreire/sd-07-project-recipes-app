@@ -16,7 +16,7 @@ class ExplorarBebidasOuComidas extends React.Component {
 }
 
 ExplorarBebidasOuComidas.propTypes = {
-  location: PropTypes.shape({ pathname: PropTypes.func.isRequired }).isRequired,
+  location: PropTypes.shape({ pathname: PropTypes.string.isRequired }).isRequired,
 };
 
 export default ExplorarBebidasOuComidas;

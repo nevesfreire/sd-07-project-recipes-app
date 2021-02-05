@@ -6,8 +6,14 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import RecipesList from '../components/RecipesList';
 import FoodTypeSelector from '../components/CategorySelector';
+// import { fetchDrinkRecipes } from '../redux/actions';
 
 class MainRecipes extends React.Component {
+  // componentDidMount() {
+  //   const { fetchDrink } = this.props;
+  //   const test = fetchDrink('search.php?s=');
+  // }
+
   render() {
     const { mealRecipes } = this.props;
     if (mealRecipes.length === 1 && mealRecipes[0].idMeal !== '52968') {
@@ -31,6 +37,10 @@ class MainRecipes extends React.Component {
 const mapStateToProps = ({ recipes: { mealRecipes } }) => (
   { mealRecipes }
 );
+
+// const mapDispatchToProps = (dispatch) => ({
+//   fetchDrink: (e) => dispatch(fetchDrinkRecipes(e)),
+// });
 
 MainRecipes.propTypes = {
   mealRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,

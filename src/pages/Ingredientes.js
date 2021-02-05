@@ -35,12 +35,12 @@ class Ingredientes extends React.Component {
     const { sendMealRecipesDispatch, sendDrinkRecipesDispatch, history } = this.props;
     if (type === 'comidas') {
       const response = await apiTheMealDB(`filter.php?i=${item.strIngredient}`);
-      sendMealRecipesDispatch(response.meals);
+      await sendMealRecipesDispatch(response.meals);
       history.push('/comidas');
     }
     if (type === 'bebidas') {
       const response = await apiTheCocktailDB(`filter.php?i=${item.strIngredient1}`);
-      sendDrinkRecipesDispatch(response.drinks);
+      await sendDrinkRecipesDispatch(response.drinks);
       history.push('/bebidas');
     }
   }
@@ -59,7 +59,7 @@ class Ingredientes extends React.Component {
                   to="/comidas"
                   key={ index }
                   onClick={ () => this.saveToRedux(item, 'comidas') }
-                  onKeyPress
+                  onKeyPress={ () => ('') }
                   role="link"
                   tabIndex={ index }
                 >
@@ -79,7 +79,7 @@ class Ingredientes extends React.Component {
                   to="/bebidas"
                   key={ index }
                   onClick={ () => this.saveToRedux(item, 'bebidas') }
-                  onKeyPress
+                  onKeyPress={ () => ('') }
                   role="link"
                   tabIndex={ index }
                 >
@@ -105,10 +105,10 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Ingredientes.propTypes = {
-  location: PropTypes.shape({ pathname: PropTypes.func.isRequired }).isRequired,
+  location: PropTypes.shape({ pathname: PropTypes.string.isRequired }).isRequired,
   sendMealRecipesDispatch: PropTypes.func.isRequired,
   sendDrinkRecipesDispatch: PropTypes.func.isRequired,
-  history: PropTypes.func.isRequired,
+  history: PropTypes.shape(PropTypes.object).isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(Ingredientes);
