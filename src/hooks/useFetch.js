@@ -13,7 +13,6 @@ function useFetch() {
     setRecomendations,
     setMealByIngredient,
     setDrinkByIngredient,
-    setMainPageByIngredient,
   } = useContext(RecipeContext);
 
   async function foodFetch(searchWord, type) {

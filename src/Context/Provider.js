@@ -13,7 +13,6 @@ function RecipeProvider({ children }) {
   const [mealStateButton, setMealStateButton] = useState(true);
   const [drinkByIngredient, setDrinkByIngredient] = useState([]);
   const [mealByIngredient, setMealByIngredient] = useState([]);
-  const [mainPageByIngredient, setMainPageByIngredient] = useState('ingredientes');
 
   const context = {
     recipes,
@@ -36,8 +35,6 @@ function RecipeProvider({ children }) {
     setDrinkByIngredient,
     mealByIngredient,
     setMealByIngredient,
-    mainPageByIngredient,
-    setMainPageByIngredient,
   };
 
   return (
