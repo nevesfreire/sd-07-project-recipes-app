@@ -20,16 +20,23 @@ export default function Drinks() {
 
   const applyFilter = (value) => {
     setRecipes([]);
-    switch (filter) {
-    case value:
+    if (filter === value) {
       filter = '';
-      break;
-    default:
+      fetchDrinks('searchName', filter, true);
+    } else {
       filter = value;
-      break;
+      fetchDrinks('category', filter, true);
     }
-    if (filter !== '') fetchDrinks('category', filter, true);
-    if (filter === '') fetchDrinks('searchName', filter, true);
+    // switch (filter) {
+    // case value:
+    //   filter = '';
+    //   break;
+    // default:
+    //   filter = value;
+    //   break;
+    // }
+    // if (filter !== '') fetchDrinks('category', filter, true);
+    // if (filter === '') fetchDrinks('searchName', filter, true);
   };
 
   const pageLoading = (
@@ -123,6 +130,12 @@ export default function Drinks() {
       <Header title="Bebidas" />
       { categoryButtons }
       { recipes.drinks.map((recipe, index) => {
+        if (control || index >= twelve) {
+          return null;
+        }
+        return <Card recipe={ recipe } index={ index } key={ index } />;
+      })}
+      {/* { recipes.drinks.map((recipe, index) => {
         if (control) {
           return null;
         }
@@ -130,7 +143,7 @@ export default function Drinks() {
           return <Card recipe={ recipe } index={ index } key={ index } />;
         }
         return null;
-      })}
+      })} */}
       { filteredMap() }
       <Footer />
     </div>

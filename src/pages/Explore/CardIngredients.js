@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import RecipesContext from '../../Context/RecipesContext';
 
 export default function CardIngredients({ index, name, isMeal }) {
@@ -16,9 +17,9 @@ export default function CardIngredients({ index, name, isMeal }) {
   const { fetchMeals, fetchDrinks } = useContext(RecipesContext);
 
   const searchRecipes = async () => {
-    isMeal
-      ? await fetchMeals('ingredient', name, true)
-      : await fetchDrinks('ingredient', name, true);
+    if (isMeal) {
+      await fetchMeals('ingredient', name, true);
+    } else await fetchDrinks('ingredient', name, true);
     history.push(path);
   };
 
@@ -48,3 +49,9 @@ export default function CardIngredients({ index, name, isMeal }) {
     </div>
   );
 }
+
+CardIngredients.propTypes = {
+  index: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  isMeal: PropTypes.bool.isRequired,
+};
