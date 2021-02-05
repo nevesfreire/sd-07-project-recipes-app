@@ -1,3 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@400;600;800&family=Noto+Sans:wght@400;700&display=swap');
+
+body {
+  background-image: url('https://image.freepik.com/vetores-gratis/elementos-alimentares-desenhados-a-mao_1411-48.jpg');
+  background-position: top;
+  background-size: 1000px;
+  background-repeat: no-repeat;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  min-width: 240px;
+  min-height: 140px;
+  margin: 5px;
+  left: 17px;
+  background: #FFFFFF;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+}
+
+.form-button {
+width: 100px;
+height: 50px;
+left: 129px;
+top: 569px;
+margin-top: 10px;
+background: #D60000;
+border-radius: 50px;
+border: none;
+box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+
+font-family: 'Baloo Thambi 2', cursive;
+font-style: normal;
+font-weight: bold;
+font-size: 20px;
+line-height: 37px;
+
+color: #FFFFFF;
+}
+
+.form-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 40px;
+}
+
+.form-title {
+height: 55px;
+top: 287px;
+margin: 0;
+font-family: 'Baloo Thambi 2', cursive;
+font-style: bold;
+font-weight: bold;
+font-size: 36px;
+line-height: 55px;
+
+color: #D60000;
+}
+
+.form-subtitle {
+height: 25px;
+left: 104px;
+top: 329px;
+margin: 0;
+font-family: 'Noto Sans', sans-serif;
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 25px;
+
+color: #696976;
+
+}
+
+.form-info {
+width: 269px;
+height: 50px;
+left: 52px;
+top: 370px;
+margin: 0;
+margin-top: 10px;
+margin-bottom: 10px;
+
+font-family: 'Noto Sans', sans-serif;
+font-style: normal;
+font-weight: 300;
+font-size: 18px;
+line-height: 25px;
+text-align: center;
+
+color: #696976;
+}
+
+.form-input {
+width: 212px;
+height: 30px;
+left: 80px;
+top: 436px;
+margin: 5px;
+background: rgba(204, 204, 204, 0.69);
+border-radius: 8px;
+border: none;
+}
+
+.img-login {
+height: 250px;
+filter: drop-shadow(5px 4px 4px rgba(0, 0, 0, 0.25));
+border-radius: 50%;
+margin-bottom: 5px;
+}
+
 .meals {
   align-items: center;
   background: #0fa36b;

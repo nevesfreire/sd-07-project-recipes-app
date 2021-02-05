@@ -1,9 +1,13 @@
 import React from 'react';
 import LoginForm from '../components/LoginForm';
+import Forkinho from '../images/Forkinho.jpeg'
 
 function Login() {
   return (
-    <LoginForm />
+    <div className='form-page'>
+      <img className='img-login' src={Forkinho} />
+      <LoginForm />
+    </div>
   );
 }
 

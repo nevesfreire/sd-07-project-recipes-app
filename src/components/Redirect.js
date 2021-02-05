@@ -20,7 +20,7 @@ export default function RedirectToDone(itemId, mealType, details) {
   const list = JSON.parse(localStorage.getItem('doneRecipes'));
   if (list) {
     list.push(item);
-    localStorage.setItem('doneRecipes', list);
+    localStorage.setItem('doneRecipes', JSON.stringify(list));
   } else {
     localStorage.setItem('doneRecipes', JSON.stringify([item]));
   }
