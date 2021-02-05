@@ -5,10 +5,8 @@ import RecipeContext from '../Context/Context';
 
 function Card({ name, thumb, index, id, type }) {
   const { setTypeAndIdDetails } = useContext(RecipeContext);
-  console.log('chegou no Card')
   return (
     <Link to={ `/${type}/${id}` }>
-      {console.log('chegou no return do Card. Name:', name)}
       <div
         className="recipe-card"
         onKeyDown=""
