@@ -35,3 +35,7 @@
   display: flex;
   position: fixed;
 }
+
+.checked {
+  text-decoration-line: line-through;
+}

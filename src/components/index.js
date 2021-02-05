@@ -9,3 +9,4 @@ export { default as FavoriteDrinkButton } from './FavoriteDrinkButton';
 export { default as FavoriteFoodButton } from './FavoriteFoodButton';
 export { default as DrinkRecomendation } from './DrinkRecomendation';
 export { default as FoodRecomendation } from './FoodRecomendation';
+export { default as CheckListIngredients } from './CheckListIngredients';
