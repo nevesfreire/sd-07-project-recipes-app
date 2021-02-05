@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import '../../App.css';
+import './style.css';
 import profileicon from '../../images/profileIcon.svg';
 import searchicon from '../../images/searchIcon.svg';
 import Searcher from '../Searcher';
@@ -15,7 +16,7 @@ const Header = (props) => {
 
   const isHeader = () => (
     <div className="search">
-      <button type="button" onClick={ () => setSearchBar(!searchBar) }>
+      <button type="button" className="search-btn" onClick={ () => setSearchBar(!searchBar) }>
         <img src={ searchicon } alt="serchIcon" data-testid="search-top-btn" />
       </button>
     </div>

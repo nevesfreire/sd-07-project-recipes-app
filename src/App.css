@@ -16,7 +16,7 @@ body {
 }
 
 .container-int {
-  height: 100vh;
+  height: auto;
   padding-left: 0;
   padding-right: 0;
   width: 100%;
@@ -132,7 +132,7 @@ body {
 
 .main-screen-container {
   display: block;
-  margin-bottom: 200px;
+  margin-bottom: 50px;
 }
 
 .btn-start {

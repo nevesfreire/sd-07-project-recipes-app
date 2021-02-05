@@ -1,0 +1,20 @@
+.btn-filter {
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    width: 150px;
+    margin-bottom: 10px;
+}
+
+.btn-filter:hover {
+  background-color: #f7a782;
+  transition-duration: 1s;
+  color: white;
+}
+
+.category-filter {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding-top: 10px;
+}
