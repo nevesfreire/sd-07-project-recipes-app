@@ -49,7 +49,6 @@ class DrinkInProgress extends Component {
   componentDidUpdate() {
     const { drinksRecipes } = this.props;
     const { request } = this.state;
-
     if (drinksRecipes.drinks && request) {
       this.handleState();
     }
@@ -72,7 +71,6 @@ class DrinkInProgress extends Component {
           && array[1] !== '',
       )
       .map((array2) => array2[1]);
-
     const measurement = Object.entries(filterRecipe)
       .filter(
         (array) => array[0].includes('strMeasure')
@@ -157,7 +155,6 @@ class DrinkInProgress extends Component {
     const { executeCopy, valueCopied, match: { params: { id } } } = this.props;
     const { drinks, ingredients, favorite, measurement, button } = this.state;
     const { strDrinkThumb, strDrink, strInstructions, strAlcoholic } = drinks;
-
     if (!strDrinkThumb) return <Loading />;
     return (
       <div className="main-container">
@@ -207,7 +204,6 @@ class DrinkInProgress extends Component {
           <h1>Instruções</h1>
           <p data-testid="instructions">{strInstructions}</p>
         </div>
-
         <div className="finish-button-container">
           <button
             type="button"

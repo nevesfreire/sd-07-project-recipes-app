@@ -10,13 +10,11 @@ import { handleCopy } from '../functions';
 import {
   checkProgressFoodLocalStorage,
   setIngredientFoodLocalStorage,
-  checkedFoodIngredients,
-} from '../localStorage/inProgressRecipes';
+  checkedFoodIngredients } from '../localStorage/inProgressRecipes';
 
 class FoodInProgress extends Component {
   constructor(props) {
     super(props);
-
     this.handleState = this.handleState.bind(this);
     this.handleButtonEnabled = this.handleButtonEnabled.bind(this);
     this.handleCheckbox = this.handleCheckbox.bind(this);
@@ -25,7 +23,6 @@ class FoodInProgress extends Component {
       this,
     );
     this.changeDone = this.changeDone.bind(this);
-
     this.state = {
       meal: [],
       ingredients: [],
@@ -55,7 +52,6 @@ class FoodInProgress extends Component {
   componentDidUpdate() {
     const { mealsRecipes } = this.props;
     const { request } = this.state;
-
     if (mealsRecipes.meals && request) {
       this.handleState();
     }
@@ -172,7 +168,6 @@ class FoodInProgress extends Component {
     const { meal, ingredients, favorite, measurement, button } = this.state;
     const { strMealThumb, strMeal, strCategory, strInstructions } = meal;
     if (!strMealThumb) return <Loading />;
-
     return (
       <div className="main-container">
         <img
@@ -213,12 +208,10 @@ class FoodInProgress extends Component {
             ))}
           </div>
         </div>
-
         <div className="instructions-container">
           <h1>Instruções</h1>
           <p data-testid="instructions">{strInstructions}</p>
         </div>
-
         <div className="finish-button-container">
           <button
             type="button"
