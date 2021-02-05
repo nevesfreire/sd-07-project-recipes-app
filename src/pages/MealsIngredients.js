@@ -33,7 +33,7 @@ class MealsIngredients extends Component {
     const firstIngredients = mealsIngredients.slice(zero, maxLength);
     return (
       <div>
-        <Header title="Comidas" />
+        <Header title="Explorar Ingredientes" />
         { firstIngredients.map((ingredient, index) => (
           <button
             type="button"
