@@ -13,8 +13,10 @@ describe('Testa App.js', () => {
     const { getByTestId } = renderWithRouter(<App />, '/');
     const email = getByTestId('email-input');
     const senha = getByTestId('password-input');
+    const button = getByTestId('login-submit-btn');
 
     expect(email).toBeInTheDocument();
     expect(senha).toBeInTheDocument();
+    expect(button).toBeInTheDocument();
   });
 });
