@@ -97,7 +97,7 @@ function DetalhesReceitas({ match: { params: { id } } }) {
   const setStateOfStartRecipe = () => {
     if (localStorage.getItem('inProgressRecipes')) {
       const loadStorage = loadState('inProgressRecipes', '');
-      if (loadStorage.meals[id] !== undefined) {
+      if (loadStorage.meals && loadStorage.cocktails[id]) {
         setStartRecipeButton('Continuar Receita');
       }
     }

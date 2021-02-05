@@ -34,6 +34,14 @@ const filterIngredientsAndMeasures = (
   });
 };
 
+const getExpectedArray = (filteredIngredients, filteredMeasures) => (
+  filteredIngredients.map((ingredient, index) => (
+    `${ingredient} ${
+      filteredMeasures[index] ? filteredMeasures[index] : ''
+    }`
+  ))
+);
+
 function DetalhesBebidas({ match: { params: { id } } }) {
   const [recommendedForThisDrink, setRecommendedForThisDrink] = useState([]);
   const [startRecipeButton, setStartRecipeButton] = useState('Iniciar Receita');
@@ -58,18 +66,11 @@ function DetalhesBebidas({ match: { params: { id } } }) {
 
   const getIngredientsAndMeasures = () => {
     const detailsEntries = Object.entries(drinkDetails);
-    const expectedArray = [];
     const filteredIngredients = [];
     const filteredMeasures = [];
 
     filterIngredientsAndMeasures(detailsEntries, filteredMeasures, filteredIngredients);
-
-    filteredIngredients.forEach((ingredient, index) => {
-      expectedArray.push(`${ingredient} ${
-        filteredMeasures[index] ? filteredMeasures[index] : ''
-      }`);
-    });
-
+    const expectedArray = getExpectedArray(filteredIngredients, filteredMeasures);
     setIngredientsAndMeasures(expectedArray);
   };
 
@@ -86,7 +87,7 @@ function DetalhesBebidas({ match: { params: { id } } }) {
   const setStateOfStartRecipe = () => {
     if (localStorage.getItem('inProgressRecipes')) {
       const loadStorage = loadState('inProgressRecipes', '');
-      if (loadStorage.cocktails[id] !== undefined) {
+      if (loadStorage.cocktails && loadStorage.cocktails[id]) {
         setStartRecipeButton('Continuar Receita');
       }
     }

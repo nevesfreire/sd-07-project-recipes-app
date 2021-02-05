@@ -31,8 +31,22 @@ const filteredIngredientsAndMeasures = (
 
 function ProcessoReceita({ match: { params: { id } } }) {
   const initialCountValue = 0;
-  const [checkBoxArray, setCheckBoxArray] = useState([]);
   const [countCheck, setCountCheck] = useState(initialCountValue);
+  const [url, setUrl] = useState(window.location.href);
+
+  const getInitialCheckBoxArray = () => {
+    const emptyArray = [];
+    const loadStorage = loadState('inProgressRecipes', { meals: { [id]: emptyArray } });
+    if (loadStorage.meals) {
+      const thereIsTheIdKey = Object.keys(loadStorage.meals)
+        .some((key) => key === id);
+
+      if (thereIsTheIdKey) return loadStorage.meals[id];
+    }
+    return emptyArray;
+  };
+
+  const [checkBoxArray, setCheckBoxArray] = useState(getInitialCheckBoxArray());
 
   const {
     ingredientsAndMeasures,
@@ -97,21 +111,9 @@ function ProcessoReceita({ match: { params: { id } } }) {
     }
   };
 
-  const getInitialCheckBoxArray = () => {
-    const emptyArray = [];
-    const loadStorage = loadState('inProgressRecipes', { meals: { [id]: emptyArray } });
-    const thereIsTheMealsKey = Object.keys(loadStorage)
-      .some((key) => key === 'meals');
-    const thereIsTheIdKey = Object.keys(loadStorage.meals)
-      .some((key) => key === id);
-
-    if (thereIsTheIdKey && thereIsTheMealsKey) setCheckBoxArray(loadStorage.meals[id]);
-    // else setCheckBoxArray(emptyArray);
-  };
-
   useEffect(() => {
     const loadStorage = loadState('inProgressRecipes', {});
-    console.log('teste linha 115', loadStorage);
+
     saveState('inProgressRecipes', {
       ...loadStorage,
       meals: { ...loadStorage.meals, [id]: [...checkBoxArray] },
@@ -124,7 +126,8 @@ function ProcessoReceita({ match: { params: { id } } }) {
 
   useEffect(() => {
     callApi();
-    getInitialCheckBoxArray();
+    const expectedUrl = url.split('/in-progress');
+    setUrl(expectedUrl[0]);
   }, []);
 
   if (!foodDetails) return <span>Loading...</span>;
@@ -150,7 +153,7 @@ function ProcessoReceita({ match: { params: { id } } }) {
         </span>
       </div>
       <div>
-        <CopyToClipboard text={ window.location.href }>
+        <CopyToClipboard text={ url }>
           <button
             type="button"
             data-testid="share-btn"
