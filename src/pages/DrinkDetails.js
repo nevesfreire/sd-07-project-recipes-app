@@ -16,12 +16,15 @@ class DrinkDetails extends Component {
     this.createFavoriteLocalStorage = this.createFavoriteLocalStorage.bind(
       this,
     );
+    // const read = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    // const { match: { params: { id } } } = this.props;
     this.state = {
       drinks: [],
       ingredients: [],
       measurement: [],
       request: true,
       favorite: false,
+      // favorite: read && read.some((obj) => obj.id === id) ? true : false,
     };
   }
 
@@ -39,6 +42,7 @@ class DrinkDetails extends Component {
     requestRecomendations(
       'https://www.themealdb.com/api/json/v1/1/search.php?s=',
     );
+    // console.log('chegou aqui Did Mount');
     this.createFavoriteLocalStorage('favoriteRecipes');
     this.createFavoriteLocalStorage('doneRecipes');
   }
@@ -52,12 +56,7 @@ class DrinkDetails extends Component {
   }
 
   handleState() {
-    const {
-      match: {
-        params: { id },
-      },
-      drinksRecipes,
-    } = this.props;
+    const { match: { params: { id } }, drinksRecipes } = this.props;
     const filterRecipe = drinksRecipes.drinks.find(
       (recipe) => recipe.idDrink === id,
     );
@@ -96,13 +95,9 @@ class DrinkDetails extends Component {
   }
 
   createFavoriteLocalStorage(keyStorage) {
-    const {
-      match: {
-        params: { id },
-      },
-    } = this.props;
+    const { match: { params: { id } } } = this.props;
     const read = JSON.parse(localStorage.getItem(keyStorage));
-
+    // console.log(read, id);
     if (read && read.some((obj) => obj.id === id)) {
       this.setState({
         favorite: true,

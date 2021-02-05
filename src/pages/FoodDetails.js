@@ -82,13 +82,9 @@ class FoodDetails extends Component {
   }
 
   createFavoriteLocalStorage(keyStorage) {
-    const {
-      match: {
-        params: { id },
-      },
-    } = this.props;
+    const { match: { params: { id } } } = this.props;
     const read = JSON.parse(localStorage.getItem(keyStorage));
-
+    console.log(read, id);
     if (read && read.some((obj) => obj.id === id)) {
       this.setState({
         favorite: true,
@@ -116,6 +112,7 @@ class FoodDetails extends Component {
   }
 
   render() {
+    console.log('Render');
     const { match: { params: { id } }, history,
       recomendations, valueCopied, executeCopy } = this.props;
     const {

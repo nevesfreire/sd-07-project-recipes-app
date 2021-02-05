@@ -16,14 +16,24 @@ class TitleBar extends Component {
         </div>
         <div className="images-container">
           <p>{ valueCopied }</p>
-          <button type="button" onClick={ () => handleCopy(executeCopy) }>
-            <img data-testid="share-btn" src={ shareIcon } alt="shareIcon" />
+          <button
+            type="button"
+            onClick={ () => handleCopy(executeCopy) }
+          >
+            <img
+              data-testid="share-btn"
+              src={ shareIcon }
+              alt="shareIcon"
+            />
           </button>
-          <button type="button" onClick={ changeFavorite }>
+          <button
+            type="button"
+            onClick={ () => changeFavorite() }
+          >
             <img
               data-testid="favorite-btn"
               src={ favorite ? blackHeartIcon : whiteHeartIcon }
-              alt="whiteHeartIcon"
+              alt="blackHeartIcon"
             />
           </button>
         </div>

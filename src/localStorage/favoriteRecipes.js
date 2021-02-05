@@ -8,7 +8,7 @@ const favoriteMealLocalStorage = (meal, favorite, keyStorage) => {
     strDrinkAlternate,
   } = meal;
 
-  const read = JSON.parse(localStorage.getItem(keyStorage));
+  const read = JSON.parse([...localStorage.getItem(keyStorage)]);
 
   if (favorite) {
     const checkoutStorage = read.some((obj, index) => {
