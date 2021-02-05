@@ -49,7 +49,7 @@ function Header({ history, search = false }) {
   }
 
   return (
-    <header>
+    <header className="header">
       <nav>
         <Link to="/perfil">
           <img
