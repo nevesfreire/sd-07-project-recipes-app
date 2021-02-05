@@ -3,13 +3,12 @@ import {
   Header, Footer, CardsFactory, CategoryButtons,
 } from '../components';
 import { CupNodesContext } from '../contexts';
-import { UperCaseFirstLetter } from '../Services';
 
 function filterURL({ option, text }) {
   const newText = text.toLowerCase().split(' ', '_');
   switch (option) {
   case 'ingrediente':
-    return `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${UperCaseFirstLetter(text)}`;
+    return `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${text.toLowerCase()}`;
   case 'nome':
     return `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${newText}`;
   case 'primeiraLetra':
