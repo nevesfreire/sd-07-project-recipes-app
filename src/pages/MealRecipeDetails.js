@@ -25,12 +25,14 @@ class MealRecipeDetails extends Component {
     this.handleFavoriteButton = this.handleFavoriteButton.bind(this);
     this.fetchAPI = this.fetchAPI.bind(this);
     this.setStorage = this.setStorage.bind(this);
+    this.verifyFavorite = this.verifyFavorite.bind(this);
   }
 
   componentDidMount() {
     const { searchRandomCocktails } = this.props;
     searchRandomCocktails();
     this.fetchAPI();
+    this.verifyFavorite();
   }
 
   handleFavoriteButton() {
@@ -45,13 +47,7 @@ class MealRecipeDetails extends Component {
 
   setStorage() {
     const { meals, favorite } = this.state;
-    const {
-      idMeal,
-      strArea,
-      strCategory,
-      strMeal,
-      strMealThumb,
-    } = meals.meals[0];
+    const { idMeal, strArea, strCategory, strMeal, strMealThumb } = meals.meals[0];
     const mealFavorite = {
       id: idMeal,
       type: 'comida',
@@ -62,9 +58,11 @@ class MealRecipeDetails extends Component {
       image: strMealThumb,
     };
     if (favorite) {
-      localStorage.removeItem('favoriteRecipes');
+      const storage = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+      const itemStorage = storage.filter((item) => item.id !== idMeal);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(itemStorage));
     } else {
-      const storage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      const storage = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
       if (storage) {
         localStorage.setItem(
           'favoriteRecipes',
@@ -72,6 +70,24 @@ class MealRecipeDetails extends Component {
         );
       } else {
         localStorage.setItem('favoriteRecipes', JSON.stringify([mealFavorite]));
+      }
+    }
+  }
+
+  verifyFavorite() {
+    const { match: { params: { id } } } = this.props;
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const xablau = favorites.filter((item) => item.id === id);
+    if (xablau.length) {
+      const { favorite } = this.state;
+      if (!favorite) {
+        this.setState({
+          favorite: true,
+        });
+      } else {
+        this.setState({
+          favorite: false,
+        });
       }
     }
   }
@@ -125,22 +141,12 @@ class MealRecipeDetails extends Component {
           className="recipe-photo"
         />
         <div className="recipe-header">
-          <h1
-            data-testid="recipe-title"
-            className="recipe-title"
-          >
+          <h1 data-testid="recipe-title" className="recipe-title">
             {strMeal}
           </h1>
           <div className="actions">
-            <button
-              type="button"
-              data-testid="share-btn"
-              className="action-button"
-            >
-              <img
-                src={ shareIcon }
-                alt="share"
-              />
+            <button type="button" data-testid="share-btn" className="action-button">
+              <img src={ shareIcon } alt="share" />
             </button>
             <button
               type="button"
@@ -156,27 +162,22 @@ class MealRecipeDetails extends Component {
             </button>
           </div>
         </div>
-        <span
-          data-testid="recipe-category"
-          className="recipe-category"
-        >
+        <span data-testid="recipe-category" className="recipe-category">
           { strCategory }
         </span>
         <div>
           <h2>Ingredients</h2>
           <ul>
-            {
-              ingredients
-                .filter((item) => item !== '' && item !== null)
-                .map((item, index) => (
-                  <li
-                    key={ index }
-                    data-testid={ `${index}-ingredient-name-and-measure` }
-                  >
-                    {`${item} - ${measures[index]}`}
-                  </li>
-                ))
-            }
+            {ingredients
+              .filter((item) => item !== '' && item !== null)
+              .map((item, index) => (
+                <li
+                  key={ index }
+                  data-testid={ `${index}-ingredient-name-and-measure` }
+                >
+                  {`${item} - ${measures[index]}`}
+                </li>
+              ))}
           </ul>
         </div>
         <div>
