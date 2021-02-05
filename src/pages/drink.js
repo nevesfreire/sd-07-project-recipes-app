@@ -5,12 +5,16 @@ import Footer from '../components/Footer';
 import RecipeContext from '../context/RecipeContext';
 import ListCardsDrinkCategory from '../components/ListCardsDrinkCategory';
 import ListCardsDrink from '../components/ListCardsDrink';
-import { getCategoryDrinks, filterDrinkCategory } from '../services/Api';
+import { getCategoryDrinks,
+  filterDrinkCategory,
+  getDrinkIngredients,
+} from '../services/Api';
 
 function Drink() {
   const [loading, setLoading] = useState(false);
   const [arrayListDrink, setArrayListDrink] = useState([]);
   const [arrayCategory, setArrayCategory] = useState([]);
+  const [ListFoodCategories, setListFoodCategories] = useState([]);
   const { showBtn, data, setData } = useContext(RecipeContext);
   const FIVE = 5;
   const ZERO = 0;
@@ -24,7 +28,7 @@ function Drink() {
     const getListCategories = async () => {
       const listDrinkCategories = await getCategoryDrinks();
       listDrinkCategories.length = FIVE;
-      setArrayListDrink(listDrinkCategories);
+      setListFoodCategories(listDrinkCategories);
     };
     getListCategories();
   }, []);
@@ -32,6 +36,17 @@ function Drink() {
   const getFilterDrinkCategory = async (category) => {
     setArrayCategory(await filterDrinkCategory(category));
   };
+  useEffect(() => {
+    const getDrinkByIngredients = async () => {
+      const getdrinkByIngredient = await getDrinkIngredients(data.ingredient);
+      setArrayListDrink(getdrinkByIngredient);
+    };
+    if (data.ingredient) {
+      getDrinkByIngredients();
+    } else {
+      setArrayListDrink(data.drink);
+    }
+  }, [data.drink]);
 
   const getAlert = () => {
     window.alert(
@@ -40,13 +55,13 @@ function Drink() {
   };
   const getLoading = () => {
     if (loading) {
-      const arrayDrinks = [...data.drink];
+      const arrayDrinks = [...arrayListDrink];
       return ListCardsDrink(arrayDrinks);
     }
     return 'Loading...';
   };
 
-  const showListDrinksCategories = () => arrayListDrink.map((category) => (
+  const showListDrinksCategories = () => ListFoodCategories.map((category) => (
     <button
       key={ category.strCategory }
       type="button"

@@ -5,7 +5,11 @@ import Footer from '../components/Footer';
 import RecipeContext from '../context/RecipeContext';
 import ListCardsFoodCategory from '../components/ListCardsFoodCategory';
 import ListCardsFood from '../components/ListCardsFood';
-import { getCategoryFoods, filterFoodCategory } from '../services/Api';
+import {
+  getCategoryFoods,
+  filterFoodCategory,
+  getFoodIngredients,
+} from '../services/Api';
 
 function Food() {
   const FIVE = 5;
@@ -16,6 +20,7 @@ function Food() {
   const [arrayCategory, setArrayCategory] = useState([]);
   const [countButtonFilter, setCountButtonFilter] = useState(ZERO);
   const { showBtn, data, setData } = useContext(RecipeContext);
+  const [listFoodCategories, setListFoodCategories] = useState([]);
 
   useEffect(() => {
     if (!data.food) setData({ ...data, food: [] });
@@ -24,9 +29,9 @@ function Food() {
 
   useEffect(() => {
     const getListCategories = async () => {
-      const listFoodCategories = await getCategoryFoods();
-      listFoodCategories.length = FIVE;
-      setArrayListFood(listFoodCategories);
+      const listFoodCategory = await getCategoryFoods();
+      listFoodCategory.length = FIVE;
+      setListFoodCategories(listFoodCategory);
     };
     getListCategories();
   }, []);
@@ -35,6 +40,17 @@ function Food() {
     setArrayCategory(await filterFoodCategory(category));
     setCountButtonFilter((countButton) => countButton + 1);
   };
+  useEffect(() => {
+    const getFoodByIngredients = async () => {
+      const getFoodByIngredient = await getFoodIngredients(data.ingredient);
+      setArrayListFood(getFoodByIngredient);
+    };
+    if (data.ingredient) {
+      getFoodByIngredients();
+    } else {
+      setArrayListFood(data.food);
+    }
+  }, [data.food]);
 
   const getAlert = () => {
     window.alert(
@@ -49,7 +65,7 @@ function Food() {
     return 'Loading...';
   };
 
-  const showListFoodCategories = () => arrayListFood.map((item) => (
+  const showListFoodCategories = () => listFoodCategories.map((item) => (
     <button
       key={ item.strCategory }
       type="button"
@@ -63,7 +79,7 @@ function Food() {
   return (
     <div>
       <Header />
-      { showBtn && <SearchHeaderBar /> }
+      { showBtn && <SearchHeaderBar />}
 
       {(arrayListFood.length > ZERO
         && countButtonFilter < MAX_RENDER_BUTTON_FILTERS)

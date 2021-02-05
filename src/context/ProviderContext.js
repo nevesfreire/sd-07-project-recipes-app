@@ -12,7 +12,7 @@ import {
 
 function ProviderContext({ children }) {
   const [showBtn, setShowBtn] = useState(false);
-  const [data, setData] = useState({ food: [], drink: [] });
+  const [data, setData] = useState({ food: [], drink: [], ingredient: '' });
 
   useEffect(() => {
     const getApiFoodDrink = async () => {

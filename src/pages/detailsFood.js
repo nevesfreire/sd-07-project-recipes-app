@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { getFoodId } from '../services/Api';
 import DrinkRecom from '../components/DrinkRecom';
 
 function DetailsFood() {
   const [dataFood, setDataFood] = useState([]);
+  const [done] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const [start] = useState(false);
+  const [favorited, setFavorited] = useState(false);
   const history = useHistory();
+  const { push } = useHistory();
   const path = history.location.pathname;
   const idPathName = path.split('/');
   const ZERO = 0;
@@ -18,6 +25,67 @@ function DetailsFood() {
     }
     calledIdFood();
   }, []);
+
+  const shareClicker = () => {
+    setCopied(true);
+    return copy(`http://localhost:3000/comidas/${idPathName[2]}`);
+  };
+
+  const getFavorited = () => {
+    const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (recipes) {
+      return recipes[0].id === idPathName[2]
+        ? setFavorited(!favorited)
+        : setFavorited(false);
+    } setFavorited(false);
+  };
+
+  useEffect(() => {
+    function favorit() {
+      getFavorited();
+    }
+    favorit();
+  }, []);
+
+  const favoriteRecipe = () => {
+    const recipeFavorited = [{
+      id: dataFood[0].idMeal,
+      type: 'comida',
+      area: dataFood[0].strArea,
+      category: dataFood[0].strCategory,
+      alcoholicOrNot: '',
+      name: dataFood[0].strMeal,
+      image: dataFood[0].strMealThumb,
+    }];
+    localStorage.setItem('favoriteRecipes', JSON.stringify(recipeFavorited));
+    return getFavorited();
+  };
+
+  /* const localStorageRecipes = () => {
+    const recipeDone = [{
+      id: dataFood[0].idMeal,
+      type: 'meals',
+      area: dataFood[0].strArea,
+      category: dataFood[0].strCategory,
+      alcoholicOrNot: 'not',
+      name: dataFood[0].strMeal,
+      image: dataFood[0].strMealThumb,
+      doneDate: dataFood[0].dateModified,
+      tags: dataFood[0].strTags,
+    }];
+  }; */
+
+  const startRecipe = () => (
+    <button
+      style={ { position: 'fixed', bottom: 0 } }
+      className="startRecipeBtn"
+      type="button"
+      data-testid="start-recipe-btn"
+      onClick={ () => push(`/comidas/${idPathName[2]}/in-progress`) }
+    >
+      {start ? 'Continuar Receita' : 'Iniciar Receita'}
+    </button>
+  );
 
   const cardFood = () => (
     <div>
@@ -35,21 +103,24 @@ function DetailsFood() {
           alt="share icon"
           data-testid="share-btn"
           id="shareBtn"
+          onClick={ () => shareClicker() }
         />
       </label>
       <label htmlFor="favoriteBtn">
         <input
           type="image"
-          src={ whiteHeartIcon }
+          src={ favorited ? blackHeartIcon : whiteHeartIcon }
           alt="favorite icon"
           data-testid="favorite-btn"
           id="favoriteBtn"
+          onClick={ () => favoriteRecipe() }
         />
       </label>
-      <p data-testid="recipe-category">{ dataFood[0].strCategory }</p>
-      <h2>
+      {copied && <h3>Link copiado!</h3>}
+      <h3 data-testid="recipe-category">{ dataFood[0].strCategory }</h3>
+      <h3>
         Ingredientes
-      </h2>
+      </h3>
       <p data-testid="0-ingredient-name-and-measure">
         {dataFood[0].strIngredient1}
         :
@@ -101,14 +172,7 @@ function DetailsFood() {
         <h2>Recomendadas</h2>
         {DrinkRecom()}
       </div>
-      <button
-        style={ { position: 'fixed', bottom: 0 } }
-        className="startRecipeBtn"
-        type="button"
-        data-testid="start-recipe-btn"
-      >
-        Iniciar Receita
-      </button>
+      { !done && startRecipe() }
     </div>
   );
   return (
