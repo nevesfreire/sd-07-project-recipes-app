@@ -1,16 +1,26 @@
+.header-container {
+    margin:50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.radio-controll {
+    width: 200px;
+}
+
 .header {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 
-.header-container {
-    border: 1px  solid black;
-    display: flex;
+.header-page {
+    height: 310px;
 }
-
 
 .header-buttons {
     display: flex;
     flex-direction: row;
+    
     margin-left: 40em;
 }

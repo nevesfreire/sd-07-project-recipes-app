@@ -14,15 +14,15 @@ export const allFood = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 
 export const allDrink = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 
-export const getIngredientsFood = (inputText) => (
+export const getFoodIngredients = (inputText) => (
   `https://www.themealdb.com/api/json/v1/1/filter.php?i=${inputText}`
 );
 
-export const getNameFood = (inputText) => (
+export const getFoodName = (inputText) => (
   `https://www.themealdb.com/api/json/v1/1/search.php?s=${inputText}`
 );
 
-export const getLetterFood = (inputText) => (
+export const getFoodFLetter = (inputText) => (
   `https://www.themealdb.com/api/json/v1/1/search.php?f=${inputText}`
 );
 
@@ -30,15 +30,15 @@ export const getFoodRecipeId = (id) => (
   `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
 );
 
-export const getIngredientsDrink = (inputText) => (
+export const getDrinkIngredients = (inputText) => (
   `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${inputText}`
 );
 
-export const getNameDrink = (inputText) => (
+export const getDrinkName = (inputText) => (
   `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${inputText}`
 );
 
-export const getLetterDrink = (inputText) => (
+export const getDrinkFLetter = (inputText) => (
   `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${inputText}`
 );
 

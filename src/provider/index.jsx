@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Context from '../contextAPI/context';
+import { fetchApi } from '../services/fetchApi';
 
 function Provider({ children }) {
   const [login, setLogin] = useState({});
   const [state, setState] = useState({});
+  const [RecipesUrl, setRecipesUrl] = useState({});
+  const history = useHistory();
 
   useEffect(() => {
     setState((s) => ({ ...s, isDisabled: true }));
@@ -22,11 +25,20 @@ function Provider({ children }) {
     }
   }, [login]);
 
+  useEffect(() => {
+    if (RecipesUrl !== '') {
+      fetchApi(RecipesUrl)
+        .then((r) => setState((s) => ({ ...s, data: r })));
+      // history.push();
+    }
+  }, [RecipesUrl, history]);
+
   const context = {
     state,
     setState,
     login,
     setLogin,
+    setRecipesUrl,
   };
 
   return (

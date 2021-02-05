@@ -1,0 +1,28 @@
+.card-image {
+    width: 150px;
+}
+
+.card-title {
+    color: rgba(0, 0, 0, 0.801);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-style: normal;
+    font-size: medium;
+    font-weight: bolder;
+    text-decoration: none;
+    text-align: center;
+    margin-top: 15px 0;
+}
+
+.paper-style {
+    margin: 15px;
+}
+
+.image-card {
+    padding: 10px;
+}
+
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px;
+}

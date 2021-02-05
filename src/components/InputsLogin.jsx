@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Input, Button } from '@material-ui/core';
+import { fetchApi, allFood } from '../services/fetchApi';
 import context from '../contextAPI/context';
 import '../css/login.css';
 
@@ -58,13 +59,15 @@ export default function InputLogin() {
     localStorage.setItem('user', JSON.stringify({ email: state.user }));
   };
 
-  const callRoute = () => {
+  const callRoute = async () => {
+    const data = await fetchApi(allFood);
     setState((s) => ({
       ...s,
       profileButton: true,
       title: 'Comidas',
       searchButton: true,
       toggleSearch: false,
+      data,
     }));
     setLocalStorageData();
     return history.push('/comidas');

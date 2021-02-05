@@ -24,7 +24,7 @@ const inputSearchBar = (onChange) => (
 
 const radioButtons = (handleChange, value) => (
   <div className="radio-controll">
-    <FormControl component="fieldset">
+    <FormControl component="fieldset" className="">
       <FormLabel component="legend">Receitas</FormLabel>
       <RadioGroup
         aria-label="option"
@@ -62,6 +62,7 @@ const buttonFetch = (onClick) => (
       variant="contained"
       collor="primary"
       onClick={ (e) => onClick(e) }
+      className=""
     >
       Buscar
     </Button>
@@ -85,7 +86,7 @@ export default function SearchRecipes() {
   };
 
   return (
-    <div>
+    <div className="search-recipes">
       {inputSearchBar(searchChanges)}
       {radioButtons(changeHandler)}
       {buttonFetch(execFetch)}

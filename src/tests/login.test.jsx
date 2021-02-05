@@ -16,6 +16,7 @@ describe('Testa a página de Login do App de receirtas:', () => {
     const PASSWD = getByPlaceholderText(/sua senha aqui/i);
     expect(PASSWD).toBeInTheDocument();
   });
+
   test('Verifica se o botão de Login é renderizado:', () => {
     const { getByRole } = renderWithRouter(<Login />);
 

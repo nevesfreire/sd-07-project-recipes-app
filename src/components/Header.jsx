@@ -15,6 +15,7 @@ const profileTopBtn = (profileButton, history) => {
         variant="contained"
         // color="primary"
         onClick={ () => history.push('/perfil') }
+        className="header"
       >
         <img
           src={ profileIcon }
@@ -26,13 +27,21 @@ const profileTopBtn = (profileButton, history) => {
   }
 };
 
-const pageTitle = (title) => (<h1 data-testid="page-title">{title}</h1>);
+const pageTitle = (title) => (
+  <h1
+    data-testid="page-title"
+    className="header"
+  >
+    {title}
+  </h1>
+);
 
 const searchRecipeComponent = (pathname, toggleSearch, title) => (
   toggleSearch ? (
     <SearchRecipes
       title={ title }
       pathname={ pathname }
+      className="header-container"
     />) : null
 );
 
@@ -45,6 +54,7 @@ const searchBtn = (searchButton, toggleSearch, onClick) => {
         variant="contained"
         // color="primary"
         onClick={ (e) => onClick(e) }
+        className="header"
       >
         <img
           data-testid="search-top-btn"
@@ -62,20 +72,22 @@ export default function Header() {
   const history = useHistory();
   const { location: { pathname } } = history;
   const { searchButton, profileButton, title, toggleSearch } = state;
-
+  console.log(state.data);
   const callSearch = () => {
     setState((s) => ({
       ...s,
       toggleSearch: !toggleSearch,
     }));
-    return history.push('/comidas');
+    // return history.push('/comidas');
   };
 
   const render = () => (
-    <div className="header">
-      {pageTitle(title)}
-      {searchBtn(searchButton, toggleSearch, callSearch)}
-      {profileTopBtn(profileButton, history)}
+    <div className="main-reader-controller">
+      <div className="header">
+        {profileTopBtn(profileButton, history)}
+        {pageTitle(title)}
+        {searchBtn(searchButton, toggleSearch, callSearch)}
+      </div>
       {searchRecipeComponent(pathname, toggleSearch, title)}
     </div>
   );
