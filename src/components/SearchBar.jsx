@@ -61,7 +61,7 @@ export default function SearchBar({ title }) {
         </label>
       </div>
       <Button
-        testid="exec=search-btn"
+        testid="exec-search-btn"
         text="Buscar..."
         func={ onSubmitFilters }
       />

@@ -56,6 +56,7 @@ FavoriteFoodButton.defaultProps = {
 
 FavoriteFoodButton.propTypes = {
   foodArr: PropTypes.shape({
+    strCategory: PropTypes.string,
     strArea: PropTypes.string,
     idMeal: PropTypes.string.isRequired,
     strMeal: PropTypes.string.isRequired,
