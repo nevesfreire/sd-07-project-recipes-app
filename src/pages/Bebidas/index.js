@@ -38,7 +38,7 @@ function Bebidas(props) {
       );
     }
 
-    console.log(cocktails);
+    // console.log(cocktails);
     const cocktail = cocktails.slice(INITIAL_RETURN, MAX_RETURN);
     return (
       <div className="container-drinks">

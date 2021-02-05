@@ -1,8 +1,8 @@
 import React from 'react';
 // import { render, screen } from '@testing-library/react';
-import ComidasID from './index';
-import { renderWithRouterAndStore } from '../../test/testConfig';
-import storeMock from '../../test/mock';
+import ComidasID from '../pages/ComidasID/index';
+import { renderWithRouterAndStore } from './helper/testConfig';
+import storeMock from './helper/mock';
 
 describe('[PÁGINA DE COMIDAR]: ', () => {
   test('rederiza pagina', async () => {

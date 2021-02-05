@@ -41,7 +41,7 @@ function EmProgesso({
   }, []);
 
   const [isEnded, setisEnded] = useState(false);
-  console.log('obj', meals);
+  // console.log('obj', meals);
   if (!meals[0] || !drinks[0]) return <p>Carregando...</p>;
 
   const ingredients = Object.entries(
