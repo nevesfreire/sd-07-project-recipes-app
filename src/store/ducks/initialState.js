@@ -72,10 +72,15 @@ const INITIAL_STATE = {
       cocktails: {},
       meals: {},
     },
+    detailsRecipe: {
+      id: 0,
+    },
     isFetching: false,
     data: [],
     error: '',
     categories: [],
+    areas: [],
+    ingredients: [],
     filter: {
       type: '', // name, category, ingredient, firstLetter, area, random
       term: '', // term of search or filter

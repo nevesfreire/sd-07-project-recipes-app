@@ -5,6 +5,7 @@ export { setFilter } from './actions';
 export {
   fetchRecipesByFilter,
   fetchCategories,
+  fetchRecipeDetails,
 } from './operations';
 
 export default recipes;

@@ -16,7 +16,11 @@ const RecipeCardList = (props) => {
   return (
     <StyledCardDeck>
       { recipeList.map(({ id, name, strThumb }, index) => (
-        <Link to={ `${pathname}/${id}` } key={ id }>
+        <Link
+          to={ pathname.includes('comidas') ? `/comidas/${id}`
+            : `/bebidas/${id}` }
+          key={ id }
+        >
           <RecipeCard key={ id } cardInfo={ { name, strThumb, index } } />
         </Link>
       ))}

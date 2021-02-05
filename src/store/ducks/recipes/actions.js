@@ -19,3 +19,19 @@ export function failedRequest(error) {
 export function setFilter(type, term = '') {
   return { type: recipesTypes.SET_FILTER, payload: { type, term } };
 }
+
+export function setFilterByIngredient(ingredientFilter) {
+  return { type: recipesTypes.SET_FILTER_BY_INGREDIENT, payload: ingredientFilter };
+}
+
+export function setRecipeDetails(recipe) {
+  return { type: recipesTypes.SET_RECIPE_DETAILS, payload: recipe };
+}
+
+export function setAreas(areas) {
+  return { type: recipesTypes.SET_AREAS, payload: areas };
+}
+
+export function setIngredients(ingredients) {
+  return { type: recipesTypes.SET_AREAS, payload: ingredients };
+}
