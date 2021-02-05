@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types';
 import { Container, Col, Row } from 'react-bootstrap';
 import apiTheMealDB from '../services/apiTheMealDB';
 
@@ -159,3 +159,9 @@ class InProgressMeals extends React.Component {
 }
 
 export default InProgressMeals;
+
+InProgressMeals.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};

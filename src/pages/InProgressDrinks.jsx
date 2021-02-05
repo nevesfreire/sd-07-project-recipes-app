@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types';
 import { Container, Col, Row } from 'react-bootstrap';
 import apiTheCocktailDB from '../services/apiTheCocktailDB';
 
@@ -157,3 +157,9 @@ class InProgressDrinks extends React.Component {
 }
 
 export default InProgressDrinks;
+
+InProgressDrinks.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
