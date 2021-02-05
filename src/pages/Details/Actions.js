@@ -12,12 +12,12 @@ const copy = require('clipboard-copy');
 
 const button = (renderButton, inProgress, api, id) => {
   let path = '';
-  if (api === 'meals') path = 'comidas';
+  if (api === 'meal') path = 'comidas';
   else path = 'bebidas';
 
   const beginRecipe = (dataId) => {
     const inProgressObj = getItem('inProgressRecipes');
-    const field = api === 'meals' ? 'meals' : 'cocktails';
+    const field = api === 'meal' ? 'meals' : 'cocktails';
     const isProgress = Object.keys(inProgressObj[field])
       .some((progressId) => progressId === dataId);
     if (!isProgress) {
@@ -44,7 +44,7 @@ const button = (renderButton, inProgress, api, id) => {
 
 function formatFavorite(data, api) {
   let drinkOrMeal = '';
-  if (api === 'meals') drinkOrMeal = 'comida';
+  if (api === 'meal') drinkOrMeal = 'comida';
   else drinkOrMeal = 'bebida';
 
   const favoriteRecipesArray = getItem('favoriteRecipes');

@@ -37,8 +37,8 @@ function Details({ history }) {
   useEffect(() => {
     const { pathname } = history.location;
 
-    if (pathname.split('/')[1] === 'comidas') setApi('meals');
-    else setApi('drinks');
+    if (pathname.split('/')[1] === 'comidas') setApi('meal');
+    else setApi('drink');
 
     const id = pathname.split('/')[2];
 

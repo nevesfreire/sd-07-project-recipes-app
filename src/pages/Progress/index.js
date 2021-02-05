@@ -24,7 +24,7 @@ function Progress({ history, match: { params: { id } } }) {
   const [data, setData] = useState({
     id: '',
     name: '',
-    src: '',
+    image: '',
     category: '',
     instructions: '',
     ingredients: [],
@@ -43,7 +43,7 @@ function Progress({ history, match: { params: { id } } }) {
   }, [api, done]);
 
   useEffect(() => {
-    if (pathname.includes('bebidas')) setApi('drinks');
+    if (pathname.includes('bebidas')) setApi('drink');
     else setApi('meal');
   }, [pathname, setApi]);
 
@@ -87,13 +87,14 @@ function Progress({ history, match: { params: { id } } }) {
     setData({
       id: result.idMeal || result.idDrink,
       name: result.strMeal || result.strDrink,
-      src: result.strMealThumb || result.strDrinkThumb,
+      image: result.strMealThumb || result.strDrinkThumb,
       category: result.strCategory,
       instructions: result.strInstructions,
       video: result.strYoutube || '',
       ingredients: getIngredientsList(result),
       alcoholic: result.strAlcoholic !== undefined,
       area: result.strArea,
+      tags: result.strTags ? result.strTags.trim().split(',') : [],
     });
   }, [result]);
 
@@ -147,7 +148,7 @@ function Progress({ history, match: { params: { id } } }) {
       })
       .filter((ing) => ing !== false);
     const newRecipesInProgress = getItem('inProgressRecipes') || [];
-    if (api === 'meal') {
+    if (pathname.includes('comidas')) {
       newRecipesInProgress.meals[id] = doneIngredients;
     } else {
       newRecipesInProgress.cocktails[id] = doneIngredients;
