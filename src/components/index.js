@@ -4,6 +4,7 @@ import Footer from './Footer';
 import RecipeCard from './RecipeCard';
 import Category from './Category';
 import IngredientCard from './IngredientCard';
+import FavoriteCard from './FavoriteCard';
 
 export {
   Header,
@@ -12,4 +13,5 @@ export {
   RecipeCard,
   Category,
   IngredientCard,
+  FavoriteCard,
 };

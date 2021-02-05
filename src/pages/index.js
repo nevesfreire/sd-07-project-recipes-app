@@ -11,6 +11,7 @@ import Profile from './Profile';
 import DoneRecipes from './DoneRecipes';
 import FavoritesRecipes from './FavoritesRecipes';
 import RecipeInProgress from './RecipeInProgress';
+import RecipeDetails from './RecipeDetails';
 import NotFound from './NotFound';
 
 export {
@@ -27,5 +28,6 @@ export {
   DoneRecipes,
   FavoritesRecipes,
   RecipeInProgress,
+  RecipeDetails,
   NotFound,
 };
