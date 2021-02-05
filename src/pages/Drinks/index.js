@@ -108,7 +108,7 @@ export default function Drinks() {
       return null;
     } return (
       filteredRecipes.drinks.map((recipe, index) => {
-        if (control) {
+        if (control && index < twelve) {
           return <Card recipe={ recipe } index={ index } key={ index } />;
         }
         return null;

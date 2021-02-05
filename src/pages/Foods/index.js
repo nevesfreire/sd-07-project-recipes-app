@@ -56,7 +56,7 @@ export default function Foods() {
       return null;
     } return (
       filteredRecipes.meals.map((recipe, index) => {
-        if (control) {
+        if (control && index < twelve) {
           return <Card recipe={ recipe } index={ index } key={ index } />;
         }
         return null;
@@ -79,7 +79,6 @@ export default function Foods() {
       <CategoryButtons handleClick={ applyFilter } />
       { recipes.meals.map((recipe, index) => {
         if (control || index >= twelve) {
-          console.log('index: ', index);
           return null;
         }
         return <Card recipe={ recipe } index={ index } key={ index } />;
