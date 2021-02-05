@@ -28,7 +28,7 @@ function showButton(id, history) {
       <button
         type="button"
         data-testid="start-recipe-btn"
-        onClick={() => history.push(`/comidas/${id}/in-progress`)}
+        onClick={ () => history.push(`/comidas/${id}/in-progress`) }
         className="finish-button-recipe"
       >
         Continuar Receita
