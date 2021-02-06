@@ -28,6 +28,7 @@ class DoneRecipes extends Component {
     console.log(filterDone, 'filteredDone');
     const LENGTH = 12;
     const INITIAL_LENGTH = 0;
+    if (!filterDone) return <p>Ainda não há receitas feitas</p>;
     const MAX_LENGTH = filterDone.length > LENGTH ? LENGTH : filterDone.length;
     if (!filterDone.length) return <p> Receita falsificada </p>;
     return (
@@ -64,7 +65,7 @@ class DoneRecipes extends Component {
           type="button"
           data-testid="filter-by-food-btn"
           onClick={ this.filterDoneRecipes }
-          value="comidas"
+          value="comida"
         >
           Food
         </button>
@@ -72,7 +73,7 @@ class DoneRecipes extends Component {
           type="button"
           data-testid="filter-by-drink-btn"
           onClick={ this.filterDoneRecipes }
-          value="bebidas"
+          value="bebida"
         >
           Drinks
         </button>

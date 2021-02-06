@@ -45,7 +45,7 @@ class RecipeInProgress extends Component {
         ...getStorage('doneRecipes'),
         {
           id: (recipeType === 'comidas' ? recipe.idMeal : recipe.idDrink),
-          type: recipeType,
+          type: (recipeType === 'comidas' ? 'comida' : 'bebida'),
           area: recipe.strArea ? recipe.strArea : '',
           category: recipe.strCategory,
           alcoholicOrNot: recipe.strAlcoholic ? recipe.strAlcoholic : '',
