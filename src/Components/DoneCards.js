@@ -1,20 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
 import './FavoriteCards.css';
 
 const copy = require('clipboard-copy');
 
-function FavoriteCard({ favorites }) {
+function DoneCards({ dones }) {
   const [copyLink, setCopyLink] = useState(false);
-  const [favoritesRender, setFavoritesRender] = useState();
-
-  useEffect(() => {
-    setFavoritesRender(favorites);
-  }, [favorites]);
 
   const twentySeconds = 20000;
+  const zero = 0;
 
   const shareRecipe = (id, type) => {
     copy(`http://localhost:3000/${type}s/${id}`);
@@ -22,20 +17,13 @@ function FavoriteCard({ favorites }) {
     setTimeout(() => setCopyLink(false), twentySeconds);
   };
 
-  const disfavorRecipe = (id) => {
-    const favoriteRecipess = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const newFavorites = favoriteRecipess.filter((favorite) => favorite.id !== id);
-    localStorage.setItem('favoriteRecipes',
-      JSON.stringify(newFavorites));
-    const newFavoritesRender = favoritesRender.filter((favorite) => favorite.id !== id);
-    setFavoritesRender(newFavoritesRender);
-  };
-
   return (
     <div className="container__favoriteCards">
       { copyLink && <p className="aaaa">Link copiado!</p>}
-      {favoritesRender && favoritesRender.map(({
+      {dones && dones.map(({
         name,
+        doneDate,
+        tags,
         image,
         category,
         alcoholicOrNot,
@@ -85,27 +73,47 @@ function FavoriteCard({ favorites }) {
               width="50px"
             />
           </button>
-          <button
-            className="aaaa"
-            type="button"
-            data-testid={ `${index}-horizontal-favorite-btn` }
-            onClick={ () => disfavorRecipe(id) }
-            src={ blackHeartIcon }
-          >
-            <img
-              alt="favorite"
-              src={ blackHeartIcon }
-              width="50px"
-            />
-          </button>
+          <p data-testid={ `${index}-horizontal-done-date` }>{`Feita em: ${doneDate}`}</p>
+          <div>
+            {tags.length > zero && tags.map((tag, i) => (
+              <p key={ i } data-testid={ `${index}-${tag}-horizontal-tag` }>{tag}</p>
+            ))}
+          </div>
         </div>
       ))}
     </div>
   );
 }
 
-FavoriteCard.propTypes = {
-  favorites: PropTypes.node.isRequired,
+DoneCards.propTypes = {
+  dones: PropTypes.node.isRequired,
 };
 
-export default FavoriteCard;
+export default DoneCards;
+
+// O imagem do card de receita deve ter o atributo data-testid="${index}-horizontal-image";
+// O texto da categoria da receita deve ter o atributo data-testid="${index}-horizontal-top-text";
+// O texto do nome da receita deve ter o atributo data-testid="${index}-horizontal-name";
+// O texto da data que a receita foi feita deve ter o atributo data-testid="${index}-horizontal-done-date";
+// O elemento de compartilhar a receita deve ter o atributo data-testid="${index}-horizontal-share-btn";
+// As tags da receita devem possuir o atributo data-testid=${index}-${tagName}-horizontal-tag;
+
+// alcoholicOrNot: ""
+// area: "Turkish"
+// category: "Side"
+// doneDate: "6/2/2021"
+// id: "52977"
+// image: "https://www.themealdb.com/images/media/meals/58oia61564916529.jpg"
+// name: "Corba"
+// tags: ["Soup"]
+// type: "comida"
+
+// alcoholicOrNot: ""
+// area: "Italian"
+// category: "Vegetarian"
+// doneDate: "6/2/2021"
+// id: "52771"
+// image: "https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg"
+// name: "Spicy Arrabiata Penne"
+// tags: (2) ["Pasta", "Curry"]
+// type: "comida"

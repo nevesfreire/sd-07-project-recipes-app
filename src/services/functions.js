@@ -13,6 +13,9 @@ export const innitialLocalStorage = () => {
     localStorage.setItem('inProgressRecipes',
       JSON.stringify(objectInProgressLocalStorage));
   }
+  if (!localStorage.getItem('doneRecipes')) {
+    localStorage.setItem('doneRecipes', JSON.stringify([]));
+  }
 };
 
 export const changeFavorites = (id) => {
@@ -82,4 +85,42 @@ export const handleClickinProcess = (history) => {
   const urlCut = url.split('/', three);
   copy(`http://localhost:3000/${urlCut[1]}/${urlCut[2]}`);
   return true;
+};
+
+export const localStorageDoneRecipes = (detail) => {
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  const now = new Date();
+  const data = `${now.getDay()}/${now.getMonth() + 1}/${now.getFullYear()}`;
+  let tags = [];
+  if (detail.strTags !== null) {
+    tags = (detail.strTags).split(',');
+  }
+  let newDoneRecipes;
+  if (detail.strMeal) {
+    newDoneRecipes = {
+      id: detail.idMeal,
+      type: 'comida',
+      area: detail.strArea,
+      category: detail.strCategory,
+      alcoholicOrNot: '',
+      name: detail.strMeal,
+      image: detail.strMealThumb,
+      doneDate: data,
+      tags,
+    };
+  } else {
+    newDoneRecipes = {
+      id: detail.idDrink,
+      type: 'bebida',
+      area: '',
+      category: detail.strCategory,
+      alcoholicOrNot: detail.strAlcoholic,
+      name: detail.strDrink,
+      image: detail.strDrinkThumb,
+      doneDate: data,
+      tags,
+    };
+  }
+  localStorage.setItem('doneRecipes',
+    JSON.stringify([...doneRecipes, newDoneRecipes]));
 };

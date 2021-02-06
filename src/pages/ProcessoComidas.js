@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import {
+  localStorageDoneRecipes,
   ingredientsListMeals,
   handleClickinProcess,
   changeFavorites } from '../services/functions';
@@ -47,9 +48,6 @@ function ProcessoComidas({ match: { params: { id } }, history }) {
     initialSize();
     changeDisabled();
   }, [count]);
-
-  console.log('sizeIngredient', sizeIngredient);
-  console.log('count', count);
 
   if (foodInProgress && foodInProgress.length === zero) return (<h1>Carregando...</h1>);
 
@@ -98,6 +96,11 @@ function ProcessoComidas({ match: { params: { id } }, history }) {
 
     localStorage.setItem('favoriteRecipes',
       JSON.stringify(newFavorites));
+  }
+
+  function finishRecipe() {
+    localStorageDoneRecipes(detail);
+    setRedirect(true);
   }
 
   return (
@@ -168,7 +171,7 @@ function ProcessoComidas({ match: { params: { id } }, history }) {
         type="button"
         data-testid="finish-recipe-btn"
         disabled={ disabled }
-        onClick={ () => setRedirect(true) }
+        onClick={ finishRecipe }
       >
         Finalizar Receita
       </button>
