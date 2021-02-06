@@ -10,10 +10,11 @@ function Provider({ children }) {
 
   useEffect(() => {
     setState((s) => ({ ...s, isDisabled: true }));
+    localStorage.clear();
   }, []);
 
   useEffect(() => {
-    const NUM_PASSWORD = 5;
+    const NUM_PASSWORD = 6;
     const { user, passwd } = login;
     if (user && passwd) {
       const emailTest = (/^[^\s@]+@[^\s@]+\.[^\s@]+$/).test(user);
@@ -21,6 +22,8 @@ function Provider({ children }) {
       if (emailTest && passLength) {
         setState((s) => ({ ...s, user, passwd, isDisabled: false }));
       }
+      localStorage.setItem('mealsToken', JSON.stringify(1));
+      localStorage.setItem('cocktailsToken', JSON.stringify(1));
     }
   }, [login]);
 

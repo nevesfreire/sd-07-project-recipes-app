@@ -1,48 +1,46 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Input, Button } from '@material-ui/core';
-import { fetchApi, allFood } from '../services/fetchApi';
+// import { Input, Button } from '@material-ui/core';
+// import { fetchApi, allFood } from '../services/fetchApi';
 import context from '../contextAPI/context';
 import '../css/login.css';
 
 const inputText = (onChange, login) => (
-  <div className="input-email">
-    <Input
-      data-testid="email-input"
-      type="email"
-      name="user"
-      value={ login.user }
-      placeholder="email@email.com"
-      onChange={ (e) => onChange(e) }
-    />
-  </div>
+  <input
+    data-testid="email-input"
+    type="email"
+    name="user"
+    value={ login.user }
+    placeholder="email@email.com"
+    onChange={ (e) => onChange(e) }
+    className="input-email"
+  />
 );
 
 const inputPasswd = (onChange, login) => (
-  <div className="input-senha">
-    <Input
-      data-testid="password-input"
-      type="password"
-      name="passwd"
-      value={ login.passwd }
-      placeholder="sua senha aqui"
-      onChange={ (e) => onChange(e) }
-    />
-  </div>
+  <input
+    data-testid="password-input"
+    type="password"
+    name="passwd"
+    value={ login.passwd }
+    placeholder="sua senha aqui"
+    onChange={ (e) => onChange(e) }
+    className="input-senha"
+  />
 );
 
 const buttonLogin = (onClick, enable) => (
-  <div className="input-button">
-    <Button
-      data-testid="login-submit-btn"
-      variant="contained"
-      color="primary"
-      disabled={ enable }
-      onClick={ (e) => onClick(e) }
-    >
-      Entrar
-    </Button>
-  </div>
+  <button
+    type="button"
+    data-testid="login-submit-btn"
+    variant="contained"
+    color="primary"
+    disabled={ enable }
+    onClick={ (e) => onClick(e) }
+    className="input-button"
+  >
+    Entrar
+  </button>
 );
 
 export default function InputLogin() {
@@ -55,28 +53,20 @@ export default function InputLogin() {
     setLogin({ ...login, [name]: value });
   };
 
-  const setLocalStorageData = () => {
-    localStorage.setItem('mealsToken', JSON.stringify(1));
-    localStorage.setItem('cocktailsToken', JSON.stringify(1));
-    localStorage.setItem('user', JSON.stringify({ _email: state.user }));
-  };
-
   const callRoute = async () => {
-    const data = await fetchApi(allFood);
     setState((s) => ({
       ...s,
       profileButton: true,
       title: 'Comidas',
       searchButton: true,
       toggleSearch: false,
-      data,
     }));
-    setLocalStorageData();
+    localStorage.setItem('user', JSON.stringify({ email: state.user }));
     return history.push('/comidas');
   };
 
   return (
-    <div className="input-login-controller">
+    <div className="input-login">
       {inputText(loginChanges, login)}
       {inputPasswd(loginChanges, login)}
       {buttonLogin(callRoute, isDisabled)}
