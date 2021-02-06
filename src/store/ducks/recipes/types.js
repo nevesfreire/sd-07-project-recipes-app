@@ -11,6 +11,7 @@ const recipesTypes = {
   GET_RECOMENDATIONS: 'recipes/GET_RECOMENDATIONS',
   UPDATE_FROM_LS: 'recipes/UPDATE_FROM_LS',
   CHECK_INGREDIENT: 'recipes/CHECK_INGREDIENT',
+  DONE_RECIPE: 'recipes/DONE_RECIPE',
 };
 
 export default recipesTypes;

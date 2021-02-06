@@ -54,3 +54,7 @@ export function checkIngredient(checked, ingredient, recipeId, recipeType) {
     payload: { checked, ingredient, recipeId, recipeType },
   };
 }
+
+export function doneRecipe(recipe) {
+  return { type: recipesTypes.DONE_RECIPE, payload: recipe };
+}

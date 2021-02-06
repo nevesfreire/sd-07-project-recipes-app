@@ -72,6 +72,11 @@ const recipes = (state = INITIAL_STATE, action) => {
       ...state,
       detailsRecipe: action.payload,
     };
+  case recipesTypes.DONE_RECIPE:
+    return {
+      ...state,
+      doneRecipes: [...state.doneRecipes, action.payload],
+    };
 
   case recipesTypes.UPDATE_FROM_LS:
     return {

@@ -7,6 +7,7 @@ export {
   unFavoriteRecipe,
   updateFromLS,
   checkIngredient,
+  doneRecipe,
 } from './actions';
 export {
   fetchRecipesByFilter,
