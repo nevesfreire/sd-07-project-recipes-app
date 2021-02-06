@@ -90,8 +90,12 @@ body {
   width: 100px;
 }
 
+.favorited-recipe {
+  filter: invert(27%) sepia(56%) saturate(7442%) hue-rotate(352deg) brightness(89%) contrast(134%);
+}
+
 .footer-nav {
-  background-color: red; /* For browsers that do not support gradients */
+  background-color: red;
   background-image: linear-gradient(red, black);
   bottom: 0;
   display: flex;

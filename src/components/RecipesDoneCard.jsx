@@ -6,19 +6,29 @@ import { getRecipesDone } from '../services/localStorage';
 import shareRecipe from '../images/shareIcon.svg';
 
 function RecipesDoneCard() {
-  const [isCopy, setIsCopy] = useState(false);
   const { selectedTypeItem } = useContext(RecipesContext);
 
-  const copyLink = async (data) => {
+  const copyLink = async ({ target }, data) => {
     await navigator.clipboard.writeText(data);
-    setIsCopy(true);
+    const { id } = target;
+    const divButtonsGet = document.getElementById(`${id}-div-buttons`);
+    const messageExist = document.getElementById(`${id}-message-span`);
+    if (!messageExist) {
+      const spamFromMessage = document.createElement('span');
+      spamFromMessage.id = `${id}-message-span`;
+      spamFromMessage.textContent = 'Link copiado!';
+      divButtonsGet.appendChild(spamFromMessage);
+    } else {
+      messageExist.remove();
+    }
   };
 
   useEffect(() => {
     getRecipesDone();
   }, []);
 
-  const recipesIsDone = getRecipesDone();
+  let recipesIsDone = getRecipesDone();
+  if (!recipesIsDone) recipesIsDone = [];
   const filtredRecipesDone = recipesIsDone
     .filter((recipe) => recipe.type !== selectedTypeItem);
   const zero = 0;
@@ -44,22 +54,18 @@ function RecipesDoneCard() {
                   : recipe.alcoholicOrNot }
               </span>
             </div>
-            <div>
+            <div id={ `${index}-div-buttons` }>
               <button
                 type="button"
-                onClick={ () => copyLink(`http://localhost:3000/${recipe.type}s/${recipe.id}`) }
+                onClick={ (event) => copyLink(event, `http://localhost:3000/${recipe.type}s/${recipe.id}`) }
               >
                 <img
+                  id={ index }
                   data-testid={ `${index}-horizontal-share-btn` }
                   src={ shareRecipe }
                   alt={ recipe.name }
                 />
               </button>
-              <span
-                id={ `mensage-${recipe.id}` }
-              >
-                { isCopy ? 'Link copiado!' : null }
-              </span>
             </div>
           </div>
           <Link to={ `/${recipe.type}s/${recipe.id}` }>
