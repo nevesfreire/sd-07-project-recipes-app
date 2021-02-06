@@ -1,0 +1,84 @@
+
+.container {
+  height: 80vh;
+  width: 50vh;
+  background-color: #D90429;
+}
+
+.container .form-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;  
+}
+
+.container .form-content img {  
+  margin-top: 2.5rem;
+}
+
+.container .form-content input {
+  width: 228px;
+  height: 51px;
+  border-radius: 6px;
+  border-color: unset;
+  border-style: unset;
+  padding-left: .5rem;    
+}
+
+.container .form-content input:focus {
+  outline: none;
+  box-shadow: 0px 4px 58px -6px rgba(0,0,0,0.57);
+}
+
+.container .form-content input:first-of-type {  
+  margin-top: 3.5rem;
+  margin-bottom: 2rem;
+}
+
+.container .form-content input::placeholder {
+  color: #8D99AE;
+}
+
+.container .form-content button {
+  background-color: #2B2D42;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  padding: 1rem 3.5rem 1rem 3.5rem;
+  border-radius: 6px;  
+  box-shadow: 0px 13px 6px -8px rgba(0,0,0,0.57);
+  font-size: 14px;
+  color: white;
+}
+
+.container .form-content button:disabled {
+  background-color: rgba(43, 45, 66, 0.65);
+  color: rgba(255,255,255,0.65);
+  border-style: none;
+  box-shadow: none;
+}
+
+.container .form-content .new-itens {
+  width: 70%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.container .form-content .new-itens label {
+  display: flex;
+  align-items: center;
+  color: white;
+  font-size: 11px;  
+}
+
+.container .form-content .new-itens #checkLogado {
+  height: 14px;
+  width: 14px;
+  margin: unset;    
+}
+
+.container .form-content .new-itens p {
+  color: white;
+  font-size: 11px;  
+}

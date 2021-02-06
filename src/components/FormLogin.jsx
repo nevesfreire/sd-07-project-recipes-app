@@ -2,7 +2,8 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 
 import useLogin from '../hooks/useLogin';
-import '../styles/login.css';
+import '../styles/FormLogin.css';
+import logo from '../images/logo_Login.png';
 
 function FormLogin() {
   const [email, password, route, getFilterEmail, handlerChangeLogin,
@@ -11,33 +12,46 @@ function FormLogin() {
   if (route) return <Redirect to="/comidas" />;
 
   return (
-    <div className="form-login">
+    <div className="container">
 
-      <h1>Login</h1>
+      <div className="form-content">
 
-      <input
-        type="text"
-        name="email"
-        data-testid="email-input"
-        onChange={ handlerChangeLogin }
-      />
+        <img src={ logo } alt="React Tomperos" />
 
-      <input
-        type="password"
-        name="password"
-        data-testid="password-input"
-        onChange={ handlerChangeLogin }
-      />
+        <input
+          type="text"
+          name="email"
+          data-testid="email-input"
+          placeholder="e-mail"
+          onChange={ handlerChangeLogin }
+        />
 
-      <button
-        type="button"
-        data-testid="login-submit-btn"
-        disabled={ getFilterEmail(email, password) }
-        onClick={ handlerClickLogin }
-      >
-        Entrar
-      </button>
+        <input
+          type="password"
+          name="password"
+          data-testid="password-input"
+          placeholder="senha"
+          onChange={ handlerChangeLogin }
+        />
+
+        <button
+          type="button"
+          data-testid="login-submit-btn"
+          disabled={ getFilterEmail(email, password) }
+          onClick={ handlerClickLogin }
+        >
+          Entrar
+        </button>
+        <div className="new-itens">
+          <label htmlFor="checkLogado">
+            <input type="checkbox" name="lembrarLogin" id="checkLogado" />
+            Lembrar-me
+          </label>
+          <p>Esqueceu sua senha?</p>
+        </div>
+      </div>
     </div>
+
   );
 }
 
