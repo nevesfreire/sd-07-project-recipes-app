@@ -1,5 +1,5 @@
 .card-image {
-  width: 150px;
+  width: 160px;
 }
 
 .card-title {
@@ -14,7 +14,7 @@
 }
 
 .card-title h3 {
-  margin-top: 15px;
+  margin-top: 1px;
 }
 
 .paper-style {
