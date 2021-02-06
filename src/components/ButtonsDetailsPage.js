@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
+import handleAction from '../functions/MountFavorite';
 
 const copy = require('clipboard-copy');
 
@@ -31,50 +32,16 @@ function ButtonsDetailsPage({ api }) {
     }
   }, []);
 
-  const handleShare = () => {
-    const path = window.location;
-    copy(path)
-      .then(setCopyLink(true));
-  };
-
-  const handleAction = () => {
-    const { key } = api;
-
-    const recipeCocktail = {
-      id: api.recipeId,
-      type: 'bebida',
-      area: '',
-      category: api.area,
-      alcoholicOrNot: api.category,
-      name: api.title,
-      image: api.source,
-    };
-
-    const recipeMeal = {
-      id: api.recipeId,
-      type: 'comida',
-      area: api.area,
-      category: api.category,
-      alcoholicOrNot: '',
-      name: api.title,
-      image: api.source,
-    };
-
-    const addNewRecipe = key === 'cocktail' ? recipeCocktail : recipeMeal;
-
-    if (heartStatus === 'white') {
-      setHeartStatus('black');
-      const getStatus = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      const myRecipes = [...getStatus, addNewRecipe];
-      localStorage.removeItem('favoriteRecipes');
-      localStorage.setItem('favoriteRecipes', JSON.stringify(myRecipes));
+  const handleShare = (entry) => {
+    let alternative = '';
+    if (entry === 'meal') {
+      alternative = 'comidas';
     } else {
-      setHeartStatus('white');
-      const getStatus = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      const returned = getStatus.filter((recipe) => recipe.id !== api.recipeId);
-      localStorage.removeItem('favoriteRecipes');
-      localStorage.setItem('favoriteRecipes', JSON.stringify(returned));
+      alternative = 'bebidas';
     }
+    const path = `${window.location.origin}/${alternative}/${api.recipeId}`;
+    copy(path)
+      .then(() => setCopyLink(true));
   };
 
   return (
@@ -85,7 +52,7 @@ function ButtonsDetailsPage({ api }) {
         type="image"
         alt="share-button"
         src={ shareIcon }
-        onClick={ handleShare }
+        onClick={ () => handleShare(api.key) }
       />
       <input
         data-type="favorite"
@@ -93,7 +60,7 @@ function ButtonsDetailsPage({ api }) {
         type="image"
         alt="favorite-button"
         src={ heartStatus === 'white' ? whiteHeartIcon : blackHeartIcon }
-        onClick={ handleAction }
+        onClick={ () => setHeartStatus(handleAction(api, heartStatus)) }
       />
       { copyLink === true ? (<span>Link copiado!</span>) : false }
     </div>

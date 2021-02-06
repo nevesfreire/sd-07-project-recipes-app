@@ -77,3 +77,7 @@
     transform: rotate(-10deg);
   }
 }
+
+.checked {
+  text-decoration: line-through solid black;
+}
