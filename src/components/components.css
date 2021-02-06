@@ -39,3 +39,19 @@
 .checked {
   text-decoration-line: line-through;
 }
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  flex-flow: column nowrap;
+  height: 360px;
+  max-width: 360px;
+  margin: 0 auto;
+  padding-top: 50px;
+}
+
+.cards * {
+  display: flex;
+  height: 160px;
+  width: 130px;
+}

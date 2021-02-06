@@ -18,7 +18,7 @@ export default function Header({ title, profile, search }) {
             func={ () => { push('/perfil'); } }
           />
         )}
-        <h1 data-testid="page-title">{title}</h1>
+        <h4 data-testid="page-title">{title}</h4>
         {search && (
           <Button
             testid="search-top-btn"

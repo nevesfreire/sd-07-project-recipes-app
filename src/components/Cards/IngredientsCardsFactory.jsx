@@ -5,6 +5,7 @@ import { useFetchApi } from '../../hooks';
 import { CupNodesContext } from '../../contexts';
 import { SUBMIT_SEARCH } from '../../reducers';
 import { UperCaseFirstLetter } from '../../Services';
+import '../components.css';
 
 const getURLImg = (drink, key) => {
   const imgFoodURL = `https://www.themealdb.com/images/ingredients/${key}.png`;
@@ -38,6 +39,7 @@ export default function IngredientsCardsFactory({ number, drink }) {
                 title={ item[text] }
                 img={ getURLImg(drink, item[text]) }
                 key={ i }
+                className="ddd-top"
                 link={ `/${getTitle(drink)}` }
                 testidImg={ `${i}-ingredient-card` }
                 testidCard={ `${i}-card-img` }
