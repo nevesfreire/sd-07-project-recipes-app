@@ -11,7 +11,8 @@ function Header({ title,
   const [showSearchBar, setShowSearchBar] = useState(false);
 
   return (
-    <header className="header">
+    <header className="main-header">
+      <div className="header">
       <a data-testid="profile-top-btn" href="/perfil" src={ profileIcon }>
         <img src={ profileIcon } alt="profile icon" />
       </a>
@@ -27,9 +28,11 @@ function Header({ title,
           <img src={ searchIcon } alt="search icon" />
         </button>
       )}
+      </div>
       {showSearchBar && (
-        <div>
+        <div className='shearchTags'>
           <input
+            className="search-input"
             type="text"
             data-testid="search-input"
             id="search"
@@ -38,7 +41,9 @@ function Header({ title,
             onChange={ (event) => setValueToFetch(event.target.value) }
           />
           <br />
-          <label htmlFor="ingredient">
+          <label
+          className='search-radio'
+          htmlFor="ingredient">
             Ingredient
             <input
               type="radio"
@@ -49,7 +54,9 @@ function Header({ title,
               onClick={ (event) => setFetch(event.target.value) }
             />
           </label>
-          <label htmlFor="name">
+          <label
+          className='search-radio'
+          htmlFor="name">
             Name
             <input
               type="radio"
@@ -60,7 +67,9 @@ function Header({ title,
               onClick={ (event) => setFetch(event.target.value) }
             />
           </label>
-          <label htmlFor="first-letter">
+          <label
+          className='search-radio'
+          htmlFor="first-letter">
             First Letter
             <input
               type="radio"
@@ -72,6 +81,7 @@ function Header({ title,
             />
           </label>
           <button
+          className="button-tag"
             data-testid="exec-search-btn"
             type="button"
             onClick={ () => getEndPointAndFetch() }

@@ -28,7 +28,6 @@ function CardList({ arrayOfCard, typeOfCard, sideScroll, recommendation }) {
             <a href={ `/${pathType}/${item[id]}` }>
               <img
                 data-testid={ `${index}-card-img` }
-                width="200px"
                 src={ item[src] }
                 alt="item"
               />

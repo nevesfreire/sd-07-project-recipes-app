@@ -11,6 +11,7 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import CardList from './CardList';
 import checksUnited from './checksUnited';
+import shareIcon from '../images/shareIcon.svg'
 
 const copy = require('clipboard-copy');
 
@@ -129,6 +130,7 @@ function Details({ itemId, mealType }) {
         localStorage.setItem('favoriteRecipes', JSON.stringify(favList));
         setIsFavorite(false);
       } else {
+
         setIsFavorite(true);
         localStorage.setItem('favoriteRecipes', JSON.stringify([...favList, data]));
       }
@@ -140,19 +142,28 @@ function Details({ itemId, mealType }) {
   const showDetails = () => (
     <div className="details">
       <img
+        className="details-img-main"
         alt="Meal Thumbnail"
         width="100%"
         data-testid="recipe-photo"
         src={ details[`str${mealType}Thumb`] }
         tagName="img"
       />
-      <h3 data-testid="recipe-title">{details[`str${mealType}`]}</h3>
+      <h3 className="detalhes-title" data-testid="recipe-title">{details[`str${mealType}`]}</h3>
+      <div className='detalhes-top'>
+      <h5 width="90%" data-testid="recipe-category">
+          {
+            mealType === 'Meal'
+              ? details.strCategory
+              : details.strAlcoholic
+          }
+      <span>
       <button
         type="button"
         data-testid="share-btn"
         onClick={ () => copyLink() }
       >
-        Compartilhar
+        <img src={ shareIcon } alt="share-icon" />
       </button>
       <button
         type="button"
@@ -165,16 +176,11 @@ function Details({ itemId, mealType }) {
           src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
           alt="heartIcon"
         />
-        Favoritar
       </button>
+      </span>
       <h5 hidden={ showMessage }>Link copiado!</h5>
-      <h5 width="90%" data-testid="recipe-category">
-        {
-          mealType === 'Meal'
-            ? details.strCategory
-            : details.strAlcoholic
-        }
       </h5>
+      </div>
       { loadIngredients()}
       <p
         data-testid="instructions"
