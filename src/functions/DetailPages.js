@@ -6,12 +6,13 @@ export const handleClickMeals = (recipeId, ingredMeasures) => {
       meals: { ...getRecipes.meals, [recipeId]: ingredMeasures },
     };
     localStorage.setItem('inProgressRecipes', JSON.stringify(newRecipe));
+  } else {
+    const newRecipe = {
+      cocktails: {},
+      meals: { [recipeId]: ingredMeasures },
+    };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(newRecipe));
   }
-  const newRecipe = {
-    cocktails: {},
-    meals: { [recipeId]: ingredMeasures },
-  };
-  localStorage.setItem('inProgressRecipes', JSON.stringify(newRecipe));
 };
 
 export const handleClickCocktails = (recipeId, ingredMeasures) => {
@@ -22,10 +23,11 @@ export const handleClickCocktails = (recipeId, ingredMeasures) => {
       cocktails: { ...getRecipes.cocktails, [recipeId]: ingredMeasures },
     };
     localStorage.setItem('inProgressRecipes', JSON.stringify(newRecipe));
+  } else {
+    const newRecipe = {
+      cocktails: { [recipeId]: ingredMeasures },
+      meals: {},
+    };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(newRecipe));
   }
-  const newRecipe = {
-    cocktails: { [recipeId]: ingredMeasures },
-    meals: {},
-  };
-  localStorage.setItem('inProgressRecipes', JSON.stringify(newRecipe));
 };
