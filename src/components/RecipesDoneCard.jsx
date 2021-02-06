@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 
@@ -6,27 +6,41 @@ import { getRecipesDone } from '../services/localStorage';
 import shareRecipe from '../images/shareIcon.svg';
 
 function RecipesDoneCard() {
-  const [isCopy, setIsCopy] = useState(false);
   const { selectedTypeItem } = useContext(RecipesContext);
 
-  const copyLink = async (data) => {
+  const copyLink = async ({ target }, data) => {
     await navigator.clipboard.writeText(data);
-    setIsCopy(true);
+    const { id } = target;
+    const divButtonsGet = document.getElementById(`${id}-div-buttons`);
+    const messageExist = document.getElementById(`${id}-message-span`);
+    console.log(messageExist);
+    if (messageExist === null) {
+      const spanFromMessage = document.createElement('Alert');
+      spanFromMessage.id = `${id}-message-span`;
+      spanFromMessage.textContent = 'Link copiado!';
+      divButtonsGet.appendChild(spanFromMessage);
+    } else {
+      messageExist.remove();
+    }
   };
 
   useEffect(() => {
     getRecipesDone();
   }, []);
 
-  const recipesIsDone = getRecipesDone();
+  let recipesIsDone = getRecipesDone();
+  if (!recipesIsDone) recipesIsDone = [];
   const filtredRecipesDone = recipesIsDone
     .filter((recipe) => recipe.type !== selectedTypeItem);
   const zero = 0;
   return (
-    <div className="card-my-recipes">
+    <>
       {filtredRecipesDone.map((recipe, index) => (
-        <div key={ index }>
-          <div className="card-combined-itens">
+        <div
+          key={ index }
+          className="card-recipes"
+        >
+          <div className="class-image">
             <Link to={ `/${recipe.type}s/${recipe.id}` }>
               <img
                 className="card-img-done"
@@ -35,7 +49,11 @@ function RecipesDoneCard() {
                 data-testid={ `${index}-horizontal-image` }
               />
             </Link>
-            <div>
+          </div>
+          <div className="class-items">
+            <div
+              className="card-combined-itens"
+            >
               <span
                 data-testid={ `${index}-horizontal-top-text` }
               >
@@ -43,55 +61,52 @@ function RecipesDoneCard() {
                   ? `${recipe.area} - ${recipe.category}`
                   : recipe.alcoholicOrNot }
               </span>
-            </div>
-            <div>
               <button
                 type="button"
-                onClick={ () => copyLink(`http://localhost:3000/${recipe.type}s/${recipe.id}`) }
+                onClick={ (event) => copyLink(event, `http://localhost:3000/${recipe.type}s/${recipe.id}`) }
               >
                 <img
+                  id={ index }
                   data-testid={ `${index}-horizontal-share-btn` }
                   src={ shareRecipe }
                   alt={ recipe.name }
                 />
               </button>
-              <span
-                id={ `mensage-${recipe.id}` }
-              >
-                { isCopy ? 'Link copiado!' : null }
-              </span>
             </div>
-          </div>
-          <Link to={ `/${recipe.type}s/${recipe.id}` }>
-            <h3 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h3>
-          </Link>
-          <div>
-            <span>Receita feita em: </span>
-            <span
-              data-testid={ `${index}-horizontal-done-date` }
-            >
-              { recipe.doneDate }
-            </span>
-          </div>
-          { recipe.tags.length === zero ? null : (
+            <div id={ `${index}-div-buttons` } />
             <div>
-              <button
-                type="button"
-                data-testid={ `${index}-${recipe.tags[0]}-horizontal-tag` }
-              >
-                { recipe.tags[0] }
-              </button>
-              <button
-                type="button"
-                data-testid={ `${index}-${recipe.tags[1]}-horizontal-tag` }
-              >
-                { recipe.tags[1] }
-              </button>
+              <Link to={ `/${recipe.type}s/${recipe.id}` }>
+                <h5 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h5>
+              </Link>
+              <div>
+                <span>Receita feita em: </span>
+                <span
+                  data-testid={ `${index}-horizontal-done-date` }
+                >
+                  { recipe.doneDate }
+                </span>
+              </div>
             </div>
-          )}
+            { recipe.tags.length === zero ? null : (
+              <div className="buttons-tags">
+                <button
+                  type="button"
+                  data-testid={ `${index}-${recipe.tags[0]}-horizontal-tag` }
+                >
+                  { recipe.tags[0] }
+                </button>
+                <button
+                  type="button"
+                  data-testid={ `${index}-${recipe.tags[1]}-horizontal-tag` }
+                >
+                  { recipe.tags[1] }
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       ))}
-    </div>
+    </>
   );
 }
 

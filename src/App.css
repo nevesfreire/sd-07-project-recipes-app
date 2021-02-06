@@ -76,22 +76,40 @@ body {
   background-image: linear-gradient(yellow, yellow, red);
 }
 
-.card-my-recipes {
-  max-height: 250px;
-  max-width: 350px;
+.card-recipes {
+  border: 1px solid;
+  border-radius: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding: 1px;
+  width: 360px;
 }
 
 .card-combined-itens {
   display: flex;
+  justify-content: space-between;
 }
 
 .card-img-done {
-  height: 100px;
-  width: 100px;
+  border-radius: 5px;
+  height: 120px;
+  width: 135px;
+}
+
+.buttons-tags {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.favorited-recipe {
+  filter: invert(27%) sepia(56%) saturate(7442%) hue-rotate(352deg)
+    brightness(89%) contrast(134%);
 }
 
 .footer-nav {
-  background-color: red; /* For browsers that do not support gradients */
+  background-color: red;
   background-image: linear-gradient(red, black);
   bottom: 0;
   display: flex;
