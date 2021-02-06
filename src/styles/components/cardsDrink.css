@@ -15,7 +15,7 @@ como-dispor-imagens-uma-ao-lado-da-outra-com-t%C3%ADtulos-abaixo-em-css
   width: 200px;
 }
 
-.image::after {
+.image:after {
   bottom: -20px;
   content: attr(data-title); /* estilo que coloco a legenda no lugar */
   left: 0;
