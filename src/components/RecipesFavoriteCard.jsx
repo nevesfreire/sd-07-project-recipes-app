@@ -15,7 +15,7 @@ function RecipesFavoriteCard() {
     const divButtonsGet = document.getElementById(`${id}-div-buttons`);
     const messageExist = document.getElementById(`${id}-message-span`);
     if (!messageExist) {
-      const spamFromMessage = document.createElement('span');
+      const spamFromMessage = document.createElement('div');
       spamFromMessage.id = `${id}-message-span`;
       spamFromMessage.textContent = 'Link copiado!';
       divButtonsGet.appendChild(spamFromMessage);
@@ -42,9 +42,9 @@ function RecipesFavoriteCard() {
     getRecipesFavorites();
   }, []);
 
-  let recipesIsDone = getRecipesFavorites();
-  if (!recipesIsDone) recipesIsDone = [];
-  const filtredRecipesDone = recipesIsDone
+  let recipesIsFavorite = getRecipesFavorites();
+  if (!recipesIsFavorite) recipesIsFavorite = [];
+  const filtredRecipesDone = recipesIsFavorite
     .filter((recipe) => recipe.type !== selectedTypeItem);
   return (
     <>
@@ -52,11 +52,9 @@ function RecipesFavoriteCard() {
         <div
           key={ index }
           className="card-recipes"
+          id={ `${index}-recipe-div` }
         >
-          <div
-            className="card-combined-itens"
-            id={ `${index}-recipe-div` }
-          >
+          <div className="class-image">
             <Link to={ `/${recipe.type}s/${recipe.id}` }>
               <img
                 className="card-img-done"
@@ -65,7 +63,12 @@ function RecipesFavoriteCard() {
                 data-testid={ `${index}-horizontal-image` }
               />
             </Link>
-            <div>
+          </div>
+          <div
+            className="class-items"
+            id={ `${index}-div-buttons` }
+          >
+            <div className="card-combined-itens">
               <span
                 data-testid={ `${index}-horizontal-top-text` }
               >
@@ -75,9 +78,11 @@ function RecipesFavoriteCard() {
               </span>
             </div>
             <Link to={ `/${recipe.type}s/${recipe.id}` }>
-              <h3 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h3>
+              <h5 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h5>
             </Link>
-            <div id={ `${index}-div-buttons` }>
+            <div
+              className="buttons-tags"
+            >
               <button
                 type="button"
                 onClick={ (event) => copyLink(event, `http://localhost:3000/${recipe.type}s/${recipe.id}`) }
