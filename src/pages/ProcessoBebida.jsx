@@ -7,6 +7,7 @@ import CoffeAndCodeContext from '../context/CoffeeAndCodeContext';
 import shareIcon from '../images/shareIcon.svg';
 import { loadState, saveState } from '../services/localStorage';
 import { requestApiDrinkDetails } from '../services/requestDrink';
+import '../styles/pages/processoBebida.css';
 
 const filterIngredientsAndMeasures = (
   detailsEntries,
@@ -139,7 +140,7 @@ function ProcessoReceita({ match: { params: { id } } }) {
 
   return (
     <div>
-      <img
+      <img className="image"
         data-testid="recipe-photo"
         src={ drinkDetails.strDrinkThumb }
         alt="thumb"
@@ -178,11 +179,12 @@ function ProcessoReceita({ match: { params: { id } } }) {
               const checked = checkBoxArray.some((check) => check === ingredient);
 
               return (
-                <label
-                  htmlFor={ `${ingredient}-${index}` }
-                  data-testid={ `${index}-ingredient-step` }
-                  key={ `${ingredient}-${index}` }
-                >
+                <div>
+                  <label
+                    htmlFor={ `${ingredient}-${index}` }
+                    data-testid={ `${index}-ingredient-step` }
+                    key={ `${ingredient}-${index}` }
+                  >
                   <input
                     type="checkbox"
                     name={ `${ingredient}-${index}` }
@@ -192,6 +194,7 @@ function ProcessoReceita({ match: { params: { id } } }) {
                   />
                   { ingredient }
                 </label>
+                </div>
               );
             })
           }

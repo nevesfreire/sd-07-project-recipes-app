@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import CoffeAndCodeContext from '../context/CoffeeAndCodeContext';
+
 import {
   requestApiDrinkListCategories,
   requestApiDrinkFilterName,

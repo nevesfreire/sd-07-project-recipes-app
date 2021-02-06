@@ -12,6 +12,7 @@ import FavoriteHeart from '../components/FavoriteHeart';
 import CoffeAndCodeContext from '../context/CoffeeAndCodeContext';
 import { requestApiFoodDetails } from '../services/requestFood';
 import { recommendDrinksList } from '../services/requestDrink';
+import '../styles/pages/detalhesReceita.css';
 
 const filteredIngredientsAndMeasures = (
   detailsEntries,
@@ -132,7 +133,7 @@ function DetalhesReceitas({ match: { params: { id } } }) {
 
   return (
     <div>
-      <img
+      <img className="image"
         src={ foodDetails.strMealThumb }
         alt={ foodDetails.strMeal }
         data-testid="recipe-photo"
@@ -163,7 +164,7 @@ function DetalhesReceitas({ match: { params: { id } } }) {
       </div>
       <div>
         <p>Ingredients</p>
-        <div>
+        <div className="ingredients">
           {
             ingredientsAndMeasures.map((element, index) => (
               <p
@@ -176,13 +177,13 @@ function DetalhesReceitas({ match: { params: { id } } }) {
           }
         </div>
         <p>Instructions</p>
-        <div>
+        <div className="instructions">
           <p data-testid="instructions">
             { foodDetails.strInstructions }
           </p>
         </div>
       </div>
-      <iframe
+      <iframe className="video"
         src={ videoLink }
         data-testid="video"
         title="video"
@@ -200,12 +201,12 @@ function DetalhesReceitas({ match: { params: { id } } }) {
         <Slider { ...sliderSettings }>
           {
             recommendedForThisFood.map((drink, index) => (
-              <div
+              <div className='holder'
                 key={ drink }
                 data-testid={ `${index}-recomendation-card` }
               >
                 <div>
-                  <img
+                  <img className='image-carousel'
                     src={ drink.strDrinkThumb }
                     alt={ drink.strDrinkThumb }
                   />

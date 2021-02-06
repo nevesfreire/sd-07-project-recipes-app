@@ -1,0 +1,26 @@
+.ingredients {
+    margin-left: 50px;
+}
+
+.instructions {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.holder {
+  display: inline-block;
+  justify-content: center;
+}
+.image-carousel {
+  width: 200px;
+  margin: 10px;
+  position: relative;
+  text-align: center;
+}
+.image-carousel::after {
+  content: attr(data-title); /* estilo que coloco a legenda no lugar */
+  position: absolute;
+  width: 100%;
+  bottom: -20px;
+  left: 0;
+}

@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import { loadState } from '../services/localStorage';
 import CoffeAndCodeContext from '../context/CoffeeAndCodeContext';
 import shareIcon from '../images/shareIcon.svg';
+import '../styles/pages/receitasFeitas.css';
 
 function ReceitasFeitas() {
   const [currentCategory, setCurrentCategory] = useState('All');
@@ -69,13 +70,13 @@ function ReceitasFeitas() {
       <div>
         {
           doneRecipeList.map((card, index) => (
-            <div key={ `${index}-${card.name}` }>
+            <div className='holder' key={ `${index}-${card.name}` }>
               <div>
                 <Link to={ `${card.type}s/${card.id}` }>
-                  <img
+                  <img className='image'
                     src={ card.image }
                     alt={ card.name }
-                    style={ { width: '100vw' } }
+                    style={ { width: '20vw' } }
                     data-testid={ `${index}-horizontal-image` }
                   />
                 </Link>
@@ -96,13 +97,15 @@ function ReceitasFeitas() {
                     </span>
                   )
                 }
-                <Link to={ `${card.type}s/${card.id}` }>
-                  <span
-                    data-testid={ `${index}-horizontal-name` }
-                  >
-                    { card.name }
-                  </span>
-                </Link>
+                <div>
+                  <Link to={ `${card.type}s/${card.id}` }>
+                    <span
+                      data-testid={ `${index}-horizontal-name` }
+                    >
+                      { card.name }
+                    </span>
+                  </Link>
+                </div>
                 <span
                   data-testid={ `${index}-horizontal-done-date` }
                 >

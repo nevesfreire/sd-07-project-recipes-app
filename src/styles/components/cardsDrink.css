@@ -1,0 +1,27 @@
+/*
+https://pt.stackoverflow.com/questions/288878/
+como-dispor-imagens-uma-ao-lado-da-outra-com-t%C3%ADtulos-abaixo-em-css
+*/
+
+.holder {
+  display: inline-block;
+  justify-content: center;
+}
+.image {
+  width: 200px;
+  margin: 10px;
+  position: relative;
+  text-align: center;
+}
+.image::after {
+  content: attr(data-title); /* estilo que coloco a legenda no lugar */
+  position: absolute;
+  width: 100%;
+  bottom: -20px;
+  left: 0;
+}
+
+button {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}

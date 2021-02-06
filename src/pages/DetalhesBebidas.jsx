@@ -12,6 +12,7 @@ import CoffeAndCodeContext from '../context/CoffeeAndCodeContext';
 import { requestApiDrinkDetails } from '../services/requestDrink';
 import { recommendFoodsList } from '../services/requestFood';
 import { loadState } from '../services/localStorage';
+import '../styles/pages/detalhesBebidas.css';
 
 // https://github.com/tryber/sd-07-project-recipes-app/blob/main-group-23;
 // slick-carrousel;
@@ -121,7 +122,7 @@ function DetalhesBebidas({ match: { params: { id } } }) {
 
   return (
     <div>
-      <img
+      <img className="image"
         src={ drinkDetails.strDrinkThumb }
         alt={ drinkDetails.strDrink }
         data-testid="recipe-photo"
@@ -154,7 +155,7 @@ function DetalhesBebidas({ match: { params: { id } } }) {
       </div>
       <div>
         <p>Ingredients</p>
-        <div>
+        <div className="ingredients">
           {
             ingredientsAndMeasures.map((element, index) => (
               <p
@@ -167,7 +168,7 @@ function DetalhesBebidas({ match: { params: { id } } }) {
           }
         </div>
         <p>Instructions</p>
-        <div>
+        <div className="instructions">
           <p data-testid="instructions">
             { drinkDetails.strInstructions }
           </p>
@@ -177,15 +178,19 @@ function DetalhesBebidas({ match: { params: { id } } }) {
         <Slider { ...sliderSettings }>
           {
             recommendedForThisDrink.map((food, index) => (
-              <div
+              <div className='holder'
                 key={ food }
                 data-testid={ `${index}-recomendation-card` }
               >
-                <img
-                  src={ food.strMealThumb }
-                  alt={ food.strMealThumb }
-                />
-                <h3 data-testid={ `${index}-recomendation-title` }>{ food.strMeal }</h3>
+                <div>
+                  <img className='image-carousel'
+                    src={ food.strMealThumb }
+                    alt={ food.strMealThumb }
+                  />
+                  <h3 data-testid={ `${index}-recomendation-title` }>
+                    { food.strMeal }
+                  </h3>
+                </div>
               </div>
             ))
           }

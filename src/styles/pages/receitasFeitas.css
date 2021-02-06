@@ -1,0 +1,15 @@
+.holder {
+  display: inline-block;
+  justify-content: center;
+}
+.image {
+  margin: 10px;
+  position: relative;
+  text-align: center;
+}
+.image::after {
+  content: attr(data-title); /* estilo que coloco a legenda no lugar */
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+}
