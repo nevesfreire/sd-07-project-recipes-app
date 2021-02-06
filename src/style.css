@@ -44,3 +44,52 @@ body {
   margin: 5px 10px;
   width: 140px;
 }
+
+.containerFull {
+  align-items: center;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 50px;
+  width: 360px;
+}
+
+.containerMargin {
+  width: 280px;
+}
+
+.containerMargin p {
+  text-align: justify;
+}
+
+.fullImg {
+  margin-bottom: 60px;
+  width: 360px;
+}
+
+.containerFull h1 {
+  display: flex;
+  font-family: Jomhuria , cursive;
+  font-size: 48px;
+  justify-content: center;
+  line-height: 20px;
+}
+
+.containerFull h2 {
+  color: grey;
+  display: flex;
+  font-size: 18px;
+  justify-content: center;
+  text-transform: uppercase;
+}
+
+.shareBox {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 50px;
+}
+
+.shareBox img {
+  width: 60px;
+}
