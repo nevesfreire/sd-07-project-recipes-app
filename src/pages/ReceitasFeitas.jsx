@@ -70,10 +70,14 @@ function ReceitasFeitas() {
       <div>
         {
           doneRecipeList.map((card, index) => (
-            <div className='holder' key={ `${index}-${card.name}` }>
+            <div
+              className="holder"
+              key={ `${index}-${card.name}` }
+            >
               <div>
                 <Link to={ `${card.type}s/${card.id}` }>
-                  <img className='image'
+                  <img
+                    className="image"
                     src={ card.image }
                     alt={ card.name }
                     style={ { width: '20vw' } }

@@ -40,7 +40,6 @@ function DetalhesReceitas({ match: { params: { id } } }) {
   const [recommendedForThisFood, setRecommendedForThisFood] = useState([]);
   const [startRecipeButton, setStartRecipeButton] = useState('Iniciar Receita');
   const [startButtonVisibility, setStartButtonVisibility] = useState({});
-
   const {
     ingredientsAndMeasures,
     setIngredientsAndMeasures,
@@ -49,7 +48,6 @@ function DetalhesReceitas({ match: { params: { id } } }) {
     copyVisibility,
     setCopyVisibility,
   } = useContext(CoffeAndCodeContext);
-
   const sliderSettings = {
     dots: true,
     infinite: false,
@@ -59,7 +57,6 @@ function DetalhesReceitas({ match: { params: { id } } }) {
   };
 
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trim
-
   const getIngredientsAndMeasures = () => {
     const detailsEntries = Object.entries(foodDetails);
     const filteredIngredients = [];
@@ -133,7 +130,8 @@ function DetalhesReceitas({ match: { params: { id } } }) {
 
   return (
     <div>
-      <img className="image"
+      <img
+        className="image"
         src={ foodDetails.strMealThumb }
         alt={ foodDetails.strMeal }
         data-testid="recipe-photo"
@@ -183,7 +181,8 @@ function DetalhesReceitas({ match: { params: { id } } }) {
           </p>
         </div>
       </div>
-      <iframe className="video"
+      <iframe
+        className="video"
         src={ videoLink }
         data-testid="video"
         title="video"
@@ -201,12 +200,14 @@ function DetalhesReceitas({ match: { params: { id } } }) {
         <Slider { ...sliderSettings }>
           {
             recommendedForThisFood.map((drink, index) => (
-              <div className='holder'
+              <div
+                className="holder"
                 key={ drink }
                 data-testid={ `${index}-recomendation-card` }
               >
                 <div>
-                  <img className='image-carousel'
+                  <img
+                    className="image-carousel"
                     src={ drink.strDrinkThumb }
                     alt={ drink.strDrinkThumb }
                   />

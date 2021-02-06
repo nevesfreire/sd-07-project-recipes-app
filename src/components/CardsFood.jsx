@@ -23,7 +23,7 @@ function CardsFood() {
   if (!cardFood.length) return <span>Loading...</span>;
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice
   return (
-    <div className='holder'>
+    <div className="holder">
       {
         cardFood.slice(firstCard, cardAmount)
           .map((currentObject, index) => {
@@ -34,13 +34,15 @@ function CardsFood() {
             } = currentObject;
 
             return (
-              <div className='holder'
+              <div
+                className="holder"
                 key={ idMeal }
                 data-testid={ `${index}-recipe-card` }
               >
                 <Link to={ `/comidas/${idMeal}` }>
                   <div>
-                    <img className='image'
+                    <img
+                      className="image"
                       src={ strMealThumb }
                       alt={ strMeal }
                       data-testid={ `${index}-card-img` }

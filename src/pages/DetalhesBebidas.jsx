@@ -122,7 +122,8 @@ function DetalhesBebidas({ match: { params: { id } } }) {
 
   return (
     <div>
-      <img className="image"
+      <img
+        className="image"
         src={ drinkDetails.strDrinkThumb }
         alt={ drinkDetails.strDrink }
         data-testid="recipe-photo"
@@ -133,7 +134,9 @@ function DetalhesBebidas({ match: { params: { id } } }) {
             { drinkDetails.strDrink }
           </h2>
           <hr />
-          <div data-testid="recipe-category">
+          <div
+            data-testid="recipe-category"
+          >
             <span>{ drinkDetails.strAlcoholic }</span>
             <br />
             <span>{ drinkDetails.strCategory }</span>
@@ -178,12 +181,14 @@ function DetalhesBebidas({ match: { params: { id } } }) {
         <Slider { ...sliderSettings }>
           {
             recommendedForThisDrink.map((food, index) => (
-              <div className='holder'
+              <div
+                className="holder"
                 key={ food }
                 data-testid={ `${index}-recomendation-card` }
               >
                 <div>
-                  <img className='image-carousel'
+                  <img
+                    className="image-carousel"
                     src={ food.strMealThumb }
                     alt={ food.strMealThumb }
                   />
