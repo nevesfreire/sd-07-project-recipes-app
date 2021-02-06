@@ -91,7 +91,8 @@ body {
 }
 
 .favorited-recipe {
-  filter: invert(27%) sepia(56%) saturate(7442%) hue-rotate(352deg) brightness(89%) contrast(134%);
+  filter: invert(27%) sepia(56%) saturate(7442%) hue-rotate(352deg)
+    brightness(89%) contrast(134%);
 }
 
 .footer-nav {
