@@ -15,6 +15,8 @@ function RecipesContextProvider({ children }) {
   const [idParams, setIdParams] = useState('');
   const [done, setDone] = useState(false);
   const [doing, setDoing] = useState(false);
+  const [filtered, setFiltered] = useState(false);
+  const [filter, setFilter] = useState('All');
   const twelve = 12;
 
   useEffect(() => {
@@ -35,6 +37,33 @@ function RecipesContextProvider({ children }) {
       }
     }
   }, [globalRecipes]);
+
+  const filterFoodByCategory = async (category) => {
+    if (!filtered || filter !== category) {
+      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
+      const filteredMeals = await response.json();
+      setFirstTwelveRecipes(filteredMeals.meals.slice(zero, twelve));
+      setIsFetching(false);
+      setFilter(category);
+      setFiltered(true);
+    } else {
+      setFiltered(false);
+    }
+  };
+
+  const filterDrinkByCategory = async (category) => {
+    if (!filtered || filter !== category) {
+      const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`);
+      const filteredDrinks = await response.json();
+      setFirstTwelveRecipes(filteredDrinks.drinks.slice(zero, twelve));
+      setIsFetching(false);
+      setFilter(category);
+      setFiltered(true);
+    } else {
+      setFiltered(false);
+    }
+  };
+
   return (
     <RecipesContext.Provider
       value={ {
@@ -59,6 +88,12 @@ function RecipesContextProvider({ children }) {
         setFinisRecipe,
         counter,
         setCounter,
+        filterFoodByCategory,
+        filterDrinkByCategory,
+        filter,
+        setFilter,
+        filtered,
+        setFiltered,
       } }
     >
       {children}

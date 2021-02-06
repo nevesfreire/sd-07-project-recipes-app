@@ -15,9 +15,12 @@ function DrinkPage() {
     setFirstTwelveRecipes,
     isFetching,
     setIsFetching,
-    firstTwelveRecipes } = useContext(RecipesContext);
-  const [filtered, setFiltered] = useState(false);
-  const [filter, setFilter] = useState('');
+    firstTwelveRecipes,
+    filter,
+    filtered,
+    setFiltered,
+    setFilter,
+    filterDrinkByCategory } = useContext(RecipesContext);
   const [fiveCategories, setFiveCategories] = useState([]);
   const { ingredient } = useParams();
   const twelve = 12;
@@ -53,21 +56,14 @@ function DrinkPage() {
     }
   }, [filtered]);
 
-  const filterByCategory = async (category) => {
-    if (!filtered || filter !== category) {
-      const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`);
-      const filteredDrinks = await response.json();
-      setFirstTwelveRecipes(filteredDrinks.drinks.slice(zero, twelve));
-      setIsFetching(false);
-      setFilter(category);
-      setFiltered(true);
-    } else {
-      setFiltered(false);
-    }
-  };
-
   const clearFilter = () => {
     setFiltered(false);
+    setFilter('All');
+  };
+
+  const isPrimary = (currentFilter, category) => {
+    if (currentFilter === category) return 'primary';
+    return 'secondary';
   };
 
   if (isOnlyOne) {
@@ -82,6 +78,7 @@ function DrinkPage() {
           onClick={ clearFilter }
           type="button"
           data-testid="All-category-filter"
+          variant={ isPrimary(filter, 'All') }
         >
           All
         </Button>
@@ -89,9 +86,9 @@ function DrinkPage() {
           fiveCategories.map(({ strCategory }) => (
             <Button
               key={ strCategory }
-              onClick={ () => filterByCategory(strCategory) }
+              onClick={ () => filterDrinkByCategory(strCategory) }
               data-testid={ `${strCategory}-category-filter` }
-              variant="secondary"
+              variant={ isPrimary(filter, strCategory) }
             >
               {strCategory}
             </Button>
