@@ -5,6 +5,7 @@ export const FILTERED_BY_CATEGORY = 'FILTERED_BY_CATEGORY';
 export const REQUEST_INGREDIENTS = 'REQUEST_INGREDIENTS';
 export const CHANGE_CURRENT_CATEGORY = 'CHANGE_CURRENT_CATEGORY';
 export const CHANGE_RECIPE_TYPE = 'CHANGE_RECIPE_TYPE';
+export const CHANGE_SEARCH_BAR = 'CHANGE_SEARCH_BAR';
 
 export const filteredByCategoryAction = (filteredByCategory) => ({
   type: FILTERED_BY_CATEGORY,
@@ -38,4 +39,8 @@ export const requestIngredients = (ingredients) => ({
 export const changeCurrentCategoryAction = (category) => ({
   type: CHANGE_CURRENT_CATEGORY,
   category,
+});
+
+export const changeSearchBarAction = () => ({
+  type: CHANGE_SEARCH_BAR,
 });

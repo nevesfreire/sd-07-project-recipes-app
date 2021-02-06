@@ -40,7 +40,6 @@ export default class CustomInProgressIngredients extends Component {
   getIngredientIsChecked(ingredientName) {
     const { recipeType, recipeId } = this.props;
     const recipes = getStorage('inProgressRecipes');
-    console.log(recipes);
     const recipeInProgress = (recipeType === 'comidas')
       ? recipes.meals[recipeId]
       : recipes.cocktails[recipeId];
@@ -72,6 +71,7 @@ export default class CustomInProgressIngredients extends Component {
   localStorageSetUp() {
     const { recipeType, recipeId } = this.props;
     if (recipeType === 'comidas' && !getStorage('inProgressRecipes')) {
+      console.log(recipeType);
       setStorage('inProgressRecipes', { cocktails: {}, meals: { [recipeId]: [] } });
     }
     if (recipeType === 'bebidas' && !getStorage('inProgressRecipes')) {

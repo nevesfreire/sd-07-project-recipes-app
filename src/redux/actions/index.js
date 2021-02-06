@@ -12,6 +12,7 @@ export {
   filteredByCategoryAction,
   changeCurrentCategoryAction,
   changeRecipeType,
+  changeSearchBarAction,
   CHANGE_CURRENT_CATEGORY,
   CHANGE_RECIPE_TYPE,
   REQUEST_RECIPES,
@@ -19,6 +20,7 @@ export {
   LIST_RECIPES,
   FILTERED_BY_CATEGORY,
   REQUEST_INGREDIENTS,
+  CHANGE_SEARCH_BAR,
 } from './recipesActions';
 
 export {
