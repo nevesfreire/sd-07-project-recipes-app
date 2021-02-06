@@ -5,10 +5,8 @@ import { Container, Button } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
-import {
-  getSpecificMealById,
-  getRecommendatedMeals,
-} from '../../store/ducks/getDetailedMeal/actions';
+import { getSpecificMealById } from '../../store/ducks/getDetailedMeal/actions';
+import { getSpecificDrinkById } from '../../store/ducks/getDetailedDrink/actions';
 
 class TelaDeReceitaEmProcesso extends Component {
   async componentDidMount() {
@@ -17,31 +15,33 @@ class TelaDeReceitaEmProcesso extends Component {
         params: { id },
       },
     } = this.props;
-    const { getDetailedMealDispatch } = this.props;
+    const { getDetailedMealDispatch, getDetailedDrinkDispatch } = this.props;
     await getDetailedMealDispatch(id);
+    await getDetailedDrinkDispatch(id);
   }
 
-  handleIngredients(meal) {
-    const mealArray = Object.entries(meal[0]);
-    const ingredientsArray = mealArray.filter(
+  handleIngredients(recipe) {
+    const recipeArray = Object.entries(recipe[0]);
+    const ingredientsArray = recipeArray.filter(
       (element) => element[0].startsWith('strIngredient') && element[1],
     );
     return ingredientsArray;
   }
-
+  /*
   handleTime() {
     const HoraInicial = new Date();
     const horaFinal = HoraInicial.toLocaleDateString();
-  }
-  handleMeasure(meal) {
-    const mealArray = Object.entries(meal[0]);
-    const measuresArray = mealArray.filter(
+  } */
+
+  handleMeasure(recipe) {
+    const recipeArray = Object.entries(recipe[0]);
+    const measuresArray = recipeArray.filter(
       (element) => element[0].startsWith('strMeasure') && element[1],
     );
     return measuresArray;
   }
 
-  renderDetails(meal) {
+  renderDetailsMeal(meal) {
     const ingredientsArray = this.handleIngredients(meal);
     const measuresArray = this.handleMeasure(meal);
 
@@ -57,15 +57,12 @@ class TelaDeReceitaEmProcesso extends Component {
         <Container>
           <Form>
             {ingredientsArray.map((item, index) => (
-              <div className="mb-3">
-                <Form.Check
-                  type="checkbox"
-                  label={ `${item[1]} - ${measuresArray[index][1]}` }
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                  key={ item }
-                >
-                </Form.Check>
-              </div>
+              <Form.Check
+                type="checkbox"
+                label={ `${item[1]} - ${measuresArray[index][1]}` }
+                data-testid={ `${index}-ingredient-step` }
+                key={ item }
+              />
             ))}
 
             <p data-testid="instructions">{meal[0].strInstructions}</p>
@@ -74,8 +71,50 @@ class TelaDeReceitaEmProcesso extends Component {
               variant="secondary"
               block
               size="lg"
-              data-testid="profile-done-btn"
-              onClick="vai pra algum lugar"
+              data-testid="finish-recipe-btn"
+              onClick={ this.handleTime }
+            >
+              Finalizar Receita
+            </Button>
+          </Form>
+        </Container>
+      </>
+    );
+  }
+
+  renderDetailsDrink(drink) {
+    const ingredientsArray = this.handleIngredients(drink);
+    const measuresArray = this.handleMeasure(drink);
+
+    return (
+      <>
+        <Container>
+          <img data-testid="recipe-photo" alt="comida" src={ drink[0].strDrinkThumb } />
+          <h3 data-testid="recipe-title">{drink[0].strDrink}</h3>
+          <img data-testid="share-btn" alt="share-btn" src={ shareIcon } />
+          <img data-testid="favorite-btn" alt="favorite-btn" src={ whiteHeartIcon } />
+          <h4 data-testid="recipe-category">{drink[0].strAlcoholic}</h4>
+        </Container>
+        <Container>
+          <Form>
+            <h4>Ingredients</h4>
+            {ingredientsArray.map((item, index) => (
+              <Form.Check
+                type="checkbox"
+                label={ `${item[1]} - ${measuresArray[index][1]}` }
+                data-testid={ `${index}-ingredient-step` }
+                key={ item }
+              />
+            ))}
+            <h4>Instructions</h4>
+            <p data-testid="instructions">{drink[0].strInstructions}</p>
+
+            <Button
+              variant="secondary"
+              block
+              size="lg"
+              data-testid="finish-recipe-btn"
+              onClick={ this.handleTime }
             >
               Finalizar Receita
             </Button>
@@ -86,15 +125,20 @@ class TelaDeReceitaEmProcesso extends Component {
   }
 
   render() {
-    const { meal } = this.props;
+    const { meal, drinkDetailStore } = this.props;
     if (meal) {
-      return this.renderDetails(meal);
+      return this.renderDetailsMeal(meal);
+    }
+    if (drinkDetailStore) {
+      return this.renderDetailsDrink(drinkDetailStore);
     }
     return <div>nundeu</div>;
   }
 }
 
 TelaDeReceitaEmProcesso.propTypes = {
+  drinkDetailStore: PropTypes.arrayOf(PropTypes.Object).isRequired,
+
   meal: PropTypes.arrayOf(PropTypes.Object).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
@@ -106,12 +150,12 @@ TelaDeReceitaEmProcesso.propTypes = {
 
 const mapStateToProps = (state) => ({
   meal: state.detalhesDaReceitaComida.meal.meals,
-  mealsRecommendStore: state.detalhesDaReceitaComida.mealRecommend.meals,
+  drinkDetailStore: state.detalhesDaReceitaBebida.drink.drinks,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getDetailedMealDispatch: (id) => dispatch(getSpecificMealById(id)),
-  getRecommendationMeals: () => dispatch(getRecommendatedMeals()),
+  getDetailedDrinkDispatch: (id) => dispatch(getSpecificDrinkById(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TelaDeReceitaEmProcesso);
