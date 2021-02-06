@@ -5,6 +5,7 @@ import renderWithRedux from './helpers/renderWithRedux';
 import { Recipes } from '../pages';
 
 const mealsMock = require('./Mocks/meals');
+const beefMealsMock = require('./Mocks/beefMeals');
 
 describe('Teste se a página de receitas', () => {
   beforeEach(() => {
@@ -75,7 +76,6 @@ describe('Teste se a página de receitas', () => {
     expect(recipeCard).toBeInTheDocument();
     expect(recipeImage.src).toBe('https://www.themealdb.com/images/media/meals/58oia6s1564916529.jpg');
     expect(recipeNameText[0]).toBeInTheDocument();
-
   });
 
   it('se redireciona a pessoa para a página de detalhes da receita', async () => {
@@ -83,6 +83,20 @@ describe('Teste se a página de receitas', () => {
     const recipeItem = await screen.findByTestId('0-card-name');
     fireEvent.click(recipeItem);
     expect(history.location.pathname).toBe('/comidas/52977');
+  });
+
+  it(`se ao clicar no filtro beef,
+    renderiza receitas com este ingrediente`, async () => {
+    renderWithRedux(<Recipes type="comidas" />);
+    const recipeNameText = await screen.findAllByText('Corba');
+    const beefFilterButton = await screen.findByTestId('Beef-category-filter');
+    fireEvent.click(beefFilterButton);
+    expect(recipeNameText[0]).toBeInTheDocument();
+    global.fetch = jest.fn(() => Promise.resolve({
+      json: () => Promise.resolve(beefMealsMock),
+    }));
+    const recipeItem = await screen.findByText('Beef and Mustard Pie');
+    expect(recipeItem).toBeInTheDocument();
   });
 
   /* test('when clicked in about link should redirect to url "/about" ', () => {
