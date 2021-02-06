@@ -7,7 +7,7 @@ function Video() {
 
   return (
     <div className="div-video">
-      <h3>Video Embeded</h3>
+      <h3>Video</h3>
       {meals && meals.map(({ idMeal, strYoutube }) => (
         <embed
           key={ idMeal }

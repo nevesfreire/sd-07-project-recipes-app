@@ -10,7 +10,7 @@ function Instructions({ recipes }) {
 
   if (recipes === 'comidas') {
     return (
-      <div>
+      <div className="instruction-detail">
         <h3>Instructions</h3>
         <div className="div-instructions">
           {meals && meals.map(({ idMeal, strInstructions }) => (
@@ -26,7 +26,7 @@ function Instructions({ recipes }) {
     );
   }
   return (
-    <div>
+    <div className="instruction-detail">
       <h3>Instructions</h3>
       <div className="div-instructions">
         {drinks && drinks.map(({ idDrink, strInstructions }) => (

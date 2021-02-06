@@ -3,9 +3,12 @@ import PropTypes from 'prop-types';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import FoodAppContext from '../context/FoodAppContext';
-import shareIcon from '../images/shareIcon.svg';
-import favoriteIcon from '../images/blackHeartIcon.svg';
-import notFavoriteIcon from '../images/whiteHeartIcon.svg';
+// import shareIcon from '../images/shareIcon.svg';
+import shareIcon from '../images/fullShare.png';
+// import favoriteIcon from '../images/blackHeartIcon.svg';
+import favoriteIcon from '../images/fullHeart.png';
+// import notFavoriteIcon from '../images/whiteHeartIcon.svg';
+import notFavoriteIcon from '../images/emptyHeart.png';
 import useFavorites from '../hooks/useFavorites';
 
 function TitleDetails({ recipes, pathname, id }) {
@@ -45,7 +48,7 @@ function TitleDetails({ recipes, pathname, id }) {
             </p>
           </div>
         ))}
-        <p className="p-copy">{copy && 'Link copiado!'}</p>
+        <p className="p-copy">{copy && ' Link copiado! '}</p>
         <div className="div-favorite-detail">
           <CopyToClipboard text={ pathname }>
             <button

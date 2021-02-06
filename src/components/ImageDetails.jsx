@@ -10,31 +10,29 @@ function ImageDetails({ recipes }) {
 
   if (recipes === 'comidas') {
     return (
-      <div>
+      <div className="image-detail">
         {meals && meals.map(({ idMeal, strMealThumb }) => (
-          <div key={ idMeal }>
-            <img
-              data-testid="recipe-photo"
-              className="images-details"
-              src={ strMealThumb }
-              alt="images-details"
-            />
-          </div>
+          <img
+            data-testid="recipe-photo"
+            className="images-details"
+            src={ strMealThumb }
+            alt="images-details"
+            key={ idMeal }
+          />
         ))}
       </div>
     );
   }
   return (
-    <div>
+    <div className="image-detail">
       {drinks && drinks.map(({ idDrink, strDrinkThumb }) => (
-        <div key={ idDrink }>
-          <img
-            data-testid="recipe-photo"
-            className="images-details"
-            src={ strDrinkThumb }
-            alt="images-details"
-          />
-        </div>
+        <img
+          data-testid="recipe-photo"
+          className="images-details"
+          src={ strDrinkThumb }
+          alt="images-details"
+          key={ idDrink }
+        />
       ))}
     </div>
   );

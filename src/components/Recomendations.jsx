@@ -37,7 +37,7 @@ function Recomendations({ recipes }) {
 
   if (recipes !== 'comidas') {
     return (
-      <div className="title-recomendations">
+      <div className="recomendations">
         <h3>Recomendations</h3>
         <div className="div-recomendations">
           {mealsData && mealsData.slice(zero, six).map(
@@ -46,7 +46,7 @@ function Recomendations({ recipes }) {
                 key={ idMeal }
                 type="button"
                 data-testid={ `${index}-recomendation-card` }
-                className="div-meals"
+                className="item-recommended"
                 onClick={ () => handleToDetail(idMeal) }
               >
                 <img src={ strMealThumb } alt="recipes-meals" />
@@ -60,7 +60,7 @@ function Recomendations({ recipes }) {
     );
   }
   return (
-    <div className="title-recomendations">
+    <div className="recomendations">
       <h3>Recomendations</h3>
       <div className="div-recomendations">
         {drinksData && drinksData.slice(zero, six).map(
@@ -69,7 +69,7 @@ function Recomendations({ recipes }) {
               key={ idDrink }
               type="button"
               data-testid={ `${index}-recomendation-card` }
-              className="div-meals"
+              className="item-recommended"
               onClick={ () => handleToDetail(idDrink) }
             >
               <img src={ strDrinkThumb } alt="recipes-meals" />

@@ -38,7 +38,7 @@ function Ingredient({ recipes, inProgress, id }) {
   if (inProgress) {
     if (measures.length <= two) {
       return (
-        <div>
+        <div className="ingredient-detail">
           <h3>Ingredient</h3>
           <div className="div-ingredient">
             {ingredients.map(([key, value], index) => (
@@ -64,7 +64,7 @@ function Ingredient({ recipes, inProgress, id }) {
       );
     }
     return (
-      <div>
+      <div className="ingredient-detail">
         <h3>Ingredient</h3>
         <div className="div-ingredient">
           {ingredients.map(([key, value], index) => (
@@ -94,7 +94,7 @@ function Ingredient({ recipes, inProgress, id }) {
 
   if (measures.length <= two) {
     return (
-      <div>
+      <div className="ingredient-detail">
         <h3>Ingredient</h3>
         <div className="div-ingredient">
           {ingredients.map(([key, value], index) => (
@@ -110,7 +110,7 @@ function Ingredient({ recipes, inProgress, id }) {
     );
   }
   return (
-    <div>
+    <div className="ingredient-detail">
       <h3>Ingredient</h3>
       <div className="div-ingredient">
         {ingredients.map(([key, value], index) => (
