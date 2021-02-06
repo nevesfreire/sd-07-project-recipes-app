@@ -5,7 +5,7 @@ import DoneRecipesCard from './DoneRecipesCard';
 
 class DoneRecipesList extends Component {
   render() {
-    const { filterRecipes, handleShare } = this.props;
+    const { filterRecipes } = this.props;
     return (
       <div className="recipes-list">
         <Row>
@@ -24,7 +24,6 @@ class DoneRecipesList extends Component {
 
 DoneRecipesList.propTypes = {
   filterRecipes: PropTypes.func.isRequired,
-  handleShare: PropTypes.func.isRequired,
 };
 
 export default DoneRecipesList;
