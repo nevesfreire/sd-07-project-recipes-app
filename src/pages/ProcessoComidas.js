@@ -1,49 +1,72 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { ingredientsListMeals } from '../services/functions';
+import { Redirect } from 'react-router-dom';
+import {
+  ingredientsListMeals,
+  handleClickinProcess,
+  changeFavorites } from '../services/functions';
 import { apiFoods } from '../services/Services';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import './ProcessoComidas.css';
 
-const copy = require('clipboard-copy');
-
 function ProcessoComidas({ match: { params: { id } }, history }) {
-  const [foodInProgress, setFoodInProgress] = useState([]);
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [copyLink, setCopyLink] = useState(false);
-
   const zero = 0;
-  const fourTeen = 14;
-
-  const handleClick = () => {
-    const url = history.location.pathname;
-    const newUrl = url.slice(zero, fourTeen);
-    copy(`http://localhost:3000${newUrl}`);
-    return true;
-  };
+  const [foodInProgress, setFoodInProgress] = useState([]);
+  const [copyLink, setCopyLink] = useState(false);
+  const [disabled, setDisabled] = useState(true);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [count, setCount] = useState(zero);
+  const [sizeIngredient, setSizeIngredient] = useState();
+  const [redirect, setRedirect] = useState(false);
 
   const fetchFood = async () => {
     const getFood = await apiFoods(`lookup.php?i=${id}`);
     setFoodInProgress(getFood);
   };
 
+  const initialSize = () => {
+    if (foodInProgress.length === zero) return 1;
+    const detalhes = foodInProgress[0];
+    const ingre = ingredientsListMeals(detalhes).length;
+    setSizeIngredient(ingre);
+  };
+
+  const changeDisabled = () => {
+    if (sizeIngredient === count) return setDisabled(false);
+    return setDisabled(true);
+  };
+
   useEffect(() => {
     fetchFood();
+    setIsFavorite(changeFavorites(id));
   }, []);
+
+  useEffect(() => {
+    initialSize();
+    changeDisabled();
+  }, [count]);
+
+  console.log('sizeIngredient', sizeIngredient);
+  console.log('count', count);
 
   if (foodInProgress && foodInProgress.length === zero) return (<h1>Carregando...</h1>);
 
   const {
     strMealThumb,
     strMeal,
+    strArea,
     strCategory,
     strInstructions,
-    strArea,
   } = foodInProgress[0];
 
   const detail = foodInProgress[0];
+
+  function countIngredients({ target }) {
+    if (target.checked === true) return setCount((p) => p + 1);
+    return setCount((p) => p - 1);
+  }
 
   function favoriteRecipes() {
     const favoritesRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -90,7 +113,7 @@ function ProcessoComidas({ match: { params: { id } }, history }) {
       <button
         data-testid="share-btn"
         type="button"
-        onClick={ () => setCopyLink(handleClick()) }
+        onClick={ () => setCopyLink(handleClickinProcess(history)) }
         src={ shareIcon }
       >
         <img
@@ -124,8 +147,11 @@ function ProcessoComidas({ match: { params: { id } }, history }) {
               >
                 <input
                   id={ ingredient }
+                  value={ ingredient }
                   type="checkbox"
+                  name="ingredients-checkbox"
                   key={ index }
+                  onClick={ (event) => countIngredients(event) }
                 />
                 <label
                   htmlFor={ ingredient }
@@ -141,9 +167,12 @@ function ProcessoComidas({ match: { params: { id } }, history }) {
       <button
         type="button"
         data-testid="finish-recipe-btn"
+        disabled={ disabled }
+        onClick={ () => setRedirect(true) }
       >
         Finalizar Receita
       </button>
+      {redirect && <Redirect to="/receitas-feitas" />}
     </div>
   );
 }

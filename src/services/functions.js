@@ -17,9 +17,11 @@ export const innitialLocalStorage = () => {
 
 export const changeFavorites = (id) => {
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  const getID = favoriteRecipes.find((favorite) => favorite.id === id);
-  if (getID) return true;
-  return false;
+  if (favoriteRecipes) {
+    const getID = favoriteRecipes.find((favorite) => favorite.id === id);
+    if (getID) return true;
+    return false;
+  }
 };
 
 export const verifyIdMeals = (id) => {
@@ -71,4 +73,13 @@ export const ingredientsListDrinks = (detail) => {
     }
   }
   return list;
+};
+
+const three = 3;
+
+export const handleClickinProcess = (history) => {
+  const url = history.location.pathname;
+  const urlCut = url.split('/', three);
+  copy(`http://localhost:3000/${urlCut[1]}/${urlCut[2]}`);
+  return true;
 };
