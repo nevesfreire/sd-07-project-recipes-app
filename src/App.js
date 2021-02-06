@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import './App.css';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Provider from './context/Provider';
 import Login from './pages/Login';
@@ -51,6 +52,7 @@ function App() {
           <Route exact path="/receitas-favoritas" component={ RecipesFavorites } />
           <Route exact path="/detalhes-receita/:id" component={ FoodDetails } />
         </Switch>
+        <Footer />
       </div>
     </Provider>
   );

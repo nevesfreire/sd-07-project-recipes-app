@@ -13,11 +13,12 @@ function RecipesDoneCard() {
     const { id } = target;
     const divButtonsGet = document.getElementById(`${id}-div-buttons`);
     const messageExist = document.getElementById(`${id}-message-span`);
-    if (!messageExist) {
-      const spamFromMessage = document.createElement('span');
-      spamFromMessage.id = `${id}-message-span`;
-      spamFromMessage.textContent = 'Link copiado!';
-      divButtonsGet.appendChild(spamFromMessage);
+    console.log(messageExist);
+    if (messageExist === null) {
+      const spanFromMessage = document.createElement('Alert');
+      spanFromMessage.id = `${id}-message-span`;
+      spanFromMessage.textContent = 'Link copiado!';
+      divButtonsGet.appendChild(spanFromMessage);
     } else {
       messageExist.remove();
     }
@@ -33,10 +34,13 @@ function RecipesDoneCard() {
     .filter((recipe) => recipe.type !== selectedTypeItem);
   const zero = 0;
   return (
-    <div className="card-my-recipes">
+    <>
       {filtredRecipesDone.map((recipe, index) => (
-        <div key={ index }>
-          <div className="card-combined-itens">
+        <div
+          key={ index }
+          className="card-recipes"
+        >
+          <div className="class-image">
             <Link to={ `/${recipe.type}s/${recipe.id}` }>
               <img
                 className="card-img-done"
@@ -45,7 +49,11 @@ function RecipesDoneCard() {
                 data-testid={ `${index}-horizontal-image` }
               />
             </Link>
-            <div>
+          </div>
+          <div className="class-items">
+            <div
+              className="card-combined-itens"
+            >
               <span
                 data-testid={ `${index}-horizontal-top-text` }
               >
@@ -53,8 +61,6 @@ function RecipesDoneCard() {
                   ? `${recipe.area} - ${recipe.category}`
                   : recipe.alcoholicOrNot }
               </span>
-            </div>
-            <div id={ `${index}-div-buttons` }>
               <button
                 type="button"
                 onClick={ (event) => copyLink(event, `http://localhost:3000/${recipe.type}s/${recipe.id}`) }
@@ -67,37 +73,40 @@ function RecipesDoneCard() {
                 />
               </button>
             </div>
-          </div>
-          <Link to={ `/${recipe.type}s/${recipe.id}` }>
-            <h3 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h3>
-          </Link>
-          <div>
-            <span>Receita feita em: </span>
-            <span
-              data-testid={ `${index}-horizontal-done-date` }
-            >
-              { recipe.doneDate }
-            </span>
-          </div>
-          { recipe.tags.length === zero ? null : (
+            <div id={ `${index}-div-buttons` } />
             <div>
-              <button
-                type="button"
-                data-testid={ `${index}-${recipe.tags[0]}-horizontal-tag` }
-              >
-                { recipe.tags[0] }
-              </button>
-              <button
-                type="button"
-                data-testid={ `${index}-${recipe.tags[1]}-horizontal-tag` }
-              >
-                { recipe.tags[1] }
-              </button>
+              <Link to={ `/${recipe.type}s/${recipe.id}` }>
+                <h5 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h5>
+              </Link>
+              <div>
+                <span>Receita feita em: </span>
+                <span
+                  data-testid={ `${index}-horizontal-done-date` }
+                >
+                  { recipe.doneDate }
+                </span>
+              </div>
             </div>
-          )}
+            { recipe.tags.length === zero ? null : (
+              <div className="buttons-tags">
+                <button
+                  type="button"
+                  data-testid={ `${index}-${recipe.tags[0]}-horizontal-tag` }
+                >
+                  { recipe.tags[0] }
+                </button>
+                <button
+                  type="button"
+                  data-testid={ `${index}-${recipe.tags[1]}-horizontal-tag` }
+                >
+                  { recipe.tags[1] }
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       ))}
-    </div>
+    </>
   );
 }
 

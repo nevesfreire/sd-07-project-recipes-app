@@ -76,18 +76,31 @@ body {
   background-image: linear-gradient(yellow, yellow, red);
 }
 
-.card-my-recipes {
-  max-height: 250px;
-  max-width: 350px;
+.card-recipes {
+  border: 1px solid;
+  border-radius: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding: 1px;
+  width: 360px;
 }
 
 .card-combined-itens {
   display: flex;
+  justify-content: space-between;
 }
 
 .card-img-done {
-  height: 100px;
-  width: 100px;
+  border-radius: 5px;
+  height: 120px;
+  width: 135px;
+}
+
+.buttons-tags {
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .favorited-recipe {

@@ -47,9 +47,12 @@ function RecipesFavoriteCard() {
   const filtredRecipesDone = recipesIsDone
     .filter((recipe) => recipe.type !== selectedTypeItem);
   return (
-    <div className="card-my-recipes">
+    <>
       {filtredRecipesDone.map((recipe, index) => (
-        <div key={ index }>
+        <div
+          key={ index }
+          className="card-recipes"
+        >
           <div
             className="card-combined-itens"
             id={ `${index}-recipe-div` }
@@ -102,7 +105,7 @@ function RecipesFavoriteCard() {
           </div>
         </div>
       ))}
-    </div>
+    </>
   );
 }
 
