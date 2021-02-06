@@ -72,21 +72,20 @@ function ProcessoReceita({ match: { params: { id } } }) {
     const date = new Date();
     const currentDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
     const tag = foodDetails.strTags ? foodDetails.strTags.split(',') : null;
+    const loadStorage = loadState('doneRecipes', []);
+    loadStorage.push({
+      id,
+      type: 'comida',
+      area: foodDetails.strArea,
+      category: foodDetails.strCategory,
+      alcoholicOrNot: '',
+      name: foodDetails.strMeal,
+      image: foodDetails.strMealThumb,
+      doneDate: currentDate,
+      tags: tag,
+    });
 
-    saveState('doneRecipes', [
-      ...loadState('doneRecpies', []),
-      {
-        id,
-        type: 'comida',
-        area: foodDetails.strArea,
-        category: foodDetails.strCategory,
-        alcoholicOrNot: '',
-        name: foodDetails.strMeal,
-        image: foodDetails.strMealThumb,
-        doneDate: currentDate,
-        tags: tag,
-      },
-    ]);
+    saveState('doneRecipes', [...loadStorage]);
   };
 
   const callApi = async () => {
