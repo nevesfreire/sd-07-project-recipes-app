@@ -43,7 +43,6 @@ export default function GlobalProvider({ children }) {
   }, []);
 
   const selectedTypeFood = useCallback(async (chooseType, func) => {
-
     switch (chooseType) {
     case 'initial':
       return setData(await getInitialFood(''));

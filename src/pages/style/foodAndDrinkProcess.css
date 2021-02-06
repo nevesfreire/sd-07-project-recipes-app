@@ -1,0 +1,92 @@
+.recipe-in-progress-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.recipe-in-progress-image {
+  border-radius: 10px;
+  width: 80%;
+}
+
+.recipe-in-progress-name {
+  color: white;
+  font-size: 40px;
+  text-align: center;
+  text-shadow: black 1px -1px , black -1px 1px , black 1px 1px , black -1px -1px;
+}
+
+.favorite-and-share-btn-container {
+  display: flex;
+  margin: 10px;
+}
+
+.favorite-btn {
+  background: none;
+  border: none;
+}
+
+.d-block {
+  width: 50%;
+}
+
+.recipe-in-progress-category {
+  display: flex;
+  font-size: 24px;
+  font-weight: 900;
+  justify-content: space-around;
+  margin-top: 25px;
+  text-align: center;
+}
+
+/* https://www.w3schools.com/howto/howto_js_todolist.asp */
+ul li {
+  background: #eee;
+  cursor: pointer;
+  font-size: 18px;
+  list-style-type: none;
+  margin-left: 20px;
+  margin-top: 20px;
+  padding: 12px 8px 12px 40px;
+  position: relative;
+  transition: 0.2s;
+  user-select: none;
+}
+
+/* Set all odd list items to a different color (zebra-stripes) */
+ul li:nth-child( odd ) {
+  background: #f9f9f9;
+}
+
+/* Darker background-color on hover */
+ul li:hover {
+  background: #ddd;
+}
+
+/* When clicked on, add a background color and strike out text */
+ul li .is-checked {
+  background: grey;
+  color: white;
+  text-decoration: line-through;
+}
+
+/* Add a "checked" mark when clicked on */
+ul li .is-checked:before {
+  border-color: white;
+  border-style: solid;
+  border-width: 0 2px 2px 0;
+  content: '';
+  height: 15px;
+  left: 16px;
+  position: absolute;
+  top: 10px;
+  transform: rotate(45deg);
+  width: 7px;
+}
+
+.recipe-in-progress-instructions {
+  border: 1px solid silver;
+  margin: 20px;
+  text-align: justify;
+}

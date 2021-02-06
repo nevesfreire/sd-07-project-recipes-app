@@ -115,7 +115,8 @@ export const unLikeRecipe = (valueId) => {
 
 export const fetchRecommendationsMeals = async (
   fnSetRecommendations1,
-  fnSetRecommendations2) => {
+  fnSetRecommendations2,
+) => {
   const path = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   const response = await fetch(path);
   const result = await response.json();
@@ -124,14 +125,82 @@ export const fetchRecommendationsMeals = async (
   const maximumRecommendations2 = 6;
   const getRecommendations1 = result.meals.filter(
     (recommendation, index) => index < maximumRecommendations1
-      && recommendation,
+    && recommendation,
   );
   // console.log(getRecommendations1);
   const getRecommendations2 = result.meals.filter(
     (recommendation, index) => index >= maximumRecommendations1
-    && index < maximumRecommendations2
-    && recommendation,
+      && index < maximumRecommendations2
+      && recommendation,
   );
   fnSetRecommendations1(getRecommendations1);
   fnSetRecommendations2(getRecommendations2);
+};
+
+export const tagsMount = (fnSetRecipeTags, result) => {
+  const tags = result.meals[0].strTags;
+  if (tags) {
+    if (tags.split(',').length === 1) {
+      fnSetRecipeTags(tags.split(','));
+    } else {
+      fnSetRecipeTags([tags.split(',')[0], tags.split(',')[1]]);
+    }
+  }
+};
+
+export const saveProgress = (fnSetInProgressRecipes, ingredient, valueId) => {
+  const previousProgress = JSON.parse(
+    localStorage.getItem('inProgressRecipes'),
+  );
+
+  if (previousProgress.meals[valueId]) {
+    if (previousProgress.meals[valueId].includes(ingredient)) {
+      previousProgress.meals[valueId] = previousProgress.meals[valueId].filter(
+        (item) => item !== ingredient,
+      );
+    } else {
+      previousProgress.meals[valueId].push(ingredient);
+    }
+  } else {
+    previousProgress.meals[valueId] = [ingredient];
+  }
+  localStorage.setItem('inProgressRecipes', JSON.stringify(previousProgress));
+  fnSetInProgressRecipes(previousProgress);
+};
+
+export const dateFormat = () => {
+  const monthCorrection = 1;
+  const twoDecimalPlaces = 10;
+  const date = new Date();
+  const day = date.getDate();
+  const month = date.getMonth() + monthCorrection;
+  const year = date.getFullYear();
+
+  let formatterDay;
+  if (day < twoDecimalPlaces) {
+    formatterDay = `0${day}`;
+  } else {
+    formatterDay = day;
+  }
+
+  let formatterMonth;
+  if (month < twoDecimalPlaces) {
+    formatterMonth = `0${month}`;
+  } else {
+    formatterMonth = month;
+  }
+
+  return `${formatterDay}/${formatterMonth}/${year}`;
+};
+
+export const handleCheckedFromLocalStorage = (item, valueId) => {
+  if (localStorage.getItem('inProgressRecipes')) {
+    const previousLocalStorage = JSON.parse(
+      localStorage.getItem('inProgressRecipes'),
+    );
+    return previousLocalStorage.meals[valueId].find(
+      (currentItem) => currentItem === item,
+    );
+  }
+  return false;
 };
