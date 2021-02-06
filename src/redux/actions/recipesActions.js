@@ -44,9 +44,9 @@ export const changeCurrentCategoryAction = (category) => ({
   category,
 });
 
-
 export const changeSearchBarAction = () => ({
   type: CHANGE_SEARCH_BAR,
+});
 
 export const requestArea = () => ({
   type: REQUEST_AREA,
@@ -56,6 +56,7 @@ export const requestAreaFailed = (error) => ({
   type: REQUEST_AREA_FAILED,
   error,
 });
+
 export const selectedArea = (meals) => ({
   type: SELECT_AREA,
   meals,
