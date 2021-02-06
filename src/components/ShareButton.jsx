@@ -5,6 +5,7 @@ import { Button, CopiedMSG } from './Contructors';
 import { shareIcon } from '../images';
 
 export default function ShareButton() {
+  const location = 'http://localhost:3000';
   const { pathname } = useLocation();
   const [copied, setState] = useState(false);
   const treeSecond = 3000;
@@ -15,7 +16,7 @@ export default function ShareButton() {
         testid="share-btn"
         icon={ shareIcon }
         func={ () => {
-          copy(pathname);
+          copy(location + pathname);
           setState(true);
           setTimeout(() => {
             setState(false);

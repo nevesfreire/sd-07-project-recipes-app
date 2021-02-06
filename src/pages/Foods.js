@@ -3,13 +3,12 @@ import {
   Header, Footer, CategoryButtons, CardsFactory,
 } from '../components';
 import { CupNodesContext } from '../contexts';
-import { UperCaseFirstLetter } from '../Services';
 
 function filterURL({ option, text }) {
-  const newText = text.toLowerCase().split(' ', '_');
+  const newText = text.toLowerCase();
   switch (option) {
   case 'ingrediente':
-    return `https://www.themealdb.com/api/json/v1/1/filter.php?i=${UperCaseFirstLetter(text)}`;
+    return `https://www.themealdb.com/api/json/v1/1/filter.php?i=${text.toLowerCase()}`;
   case 'nome':
     return `https://www.themealdb.com/api/json/v1/1/search.php?s=${newText}`;
   case 'primeiraLetra':
