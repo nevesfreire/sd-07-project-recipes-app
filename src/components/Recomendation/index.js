@@ -23,6 +23,7 @@ export default function Recomendation() {
         >
           <RecomendationCard
             recipe={ recipe }
+            index={ index }
           />
         </StyledCarousel.Item>
       ))}
