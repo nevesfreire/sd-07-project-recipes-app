@@ -20,6 +20,7 @@ function CocktailDetails() {
   const [mealsRecommendations, setMealsRecommendations] = useState([]);
 
   useEffect(() => {
+    
     setRecipeId(params.id);
     getMealsRecommendations()
       .then((res) => setMealsRecommendations(res));
