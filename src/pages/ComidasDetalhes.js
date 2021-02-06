@@ -15,7 +15,7 @@ function ComidasDetalhes() {
     getIdFromUrl();
   });
   return (
-    <div className='detalhes-main'>
+    <div className="detalhes-main">
       <Details itemId={ itemId } mealType="Meal" />
     </div>
   );

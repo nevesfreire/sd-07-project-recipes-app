@@ -3,7 +3,10 @@ import CardInProgress from '../components/CardInProgress';
 
 function ComidasProcesso() {
   return (
-    <CardInProgress />
+    <div className="detalhes-main">
+      <CardInProgress />
+    </div>
+
   );
 }
 

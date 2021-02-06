@@ -134,7 +134,7 @@ function Comidas() {
       <CardList
         arrayOfCard={ dataToRender }
         typeOfCard="Meal"
-        sideScroll=''
+        sideScroll=""
       />
       <Footer />
     </div>

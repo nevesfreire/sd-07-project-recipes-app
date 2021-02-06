@@ -6,7 +6,9 @@ function ReceitasFeitas() {
   return (
     <div>
       <Header title="Receitas Feitas" hideSearchIcon="true" />
-      <Completed />
+      <div className="detalhes-main">
+        <Completed />
+      </div>
     </div>
   );
 }

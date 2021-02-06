@@ -13,24 +13,24 @@ function Header({ title,
   return (
     <header className="main-header">
       <div className="header">
-      <a data-testid="profile-top-btn" href="/perfil" src={ profileIcon }>
-        <img src={ profileIcon } alt="profile icon" />
-      </a>
-      <h1 className="page-title" data-testid="page-title">{title}</h1>
-      {!JSON.parse(hideSearchIcon) && (
-        <button
-          className="header-button"
-          data-testid="search-top-btn"
-          type="button"
-          src={ searchIcon }
-          onClick={ () => setShowSearchBar(!showSearchBar) }
-        >
-          <img src={ searchIcon } alt="search icon" />
-        </button>
-      )}
+        <a data-testid="profile-top-btn" href="/perfil" src={ profileIcon }>
+          <img src={ profileIcon } alt="profile icon" />
+        </a>
+        <h1 className="page-title" data-testid="page-title">{title}</h1>
+        {!JSON.parse(hideSearchIcon) && (
+          <button
+            className="header-button"
+            data-testid="search-top-btn"
+            type="button"
+            src={ searchIcon }
+            onClick={ () => setShowSearchBar(!showSearchBar) }
+          >
+            <img src={ searchIcon } alt="search icon" />
+          </button>
+        )}
       </div>
       {showSearchBar && (
-        <div className='shearchTags'>
+        <div className="shearchTags">
           <input
             className="search-input"
             type="text"
@@ -42,8 +42,9 @@ function Header({ title,
           />
           <br />
           <label
-          className='search-radio'
-          htmlFor="ingredient">
+            className="search-radio"
+            htmlFor="ingredient"
+          >
             Ingredient
             <input
               type="radio"
@@ -55,8 +56,9 @@ function Header({ title,
             />
           </label>
           <label
-          className='search-radio'
-          htmlFor="name">
+            className="search-radio"
+            htmlFor="name"
+          >
             Name
             <input
               type="radio"
@@ -68,8 +70,9 @@ function Header({ title,
             />
           </label>
           <label
-          className='search-radio'
-          htmlFor="first-letter">
+            className="search-radio"
+            htmlFor="first-letter"
+          >
             First Letter
             <input
               type="radio"
@@ -81,7 +84,7 @@ function Header({ title,
             />
           </label>
           <button
-          className="button-tag"
+            className="button-tag"
             data-testid="exec-search-btn"
             type="button"
             onClick={ () => getEndPointAndFetch() }

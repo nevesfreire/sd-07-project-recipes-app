@@ -28,8 +28,9 @@ function Completed() {
   }, []);
 
   return (
-    <div>
+    <div className="navbar">
       <button
+        className="navbar-button"
         onClick={ () => filtro('comida', setFinishedList) }
         type="button"
         data-testid="filter-by-food-btn"
@@ -38,6 +39,7 @@ function Completed() {
       </button>
 
       <button
+        className="navbar-button"
         onClick={ () => filtro('bebida', setFinishedList) }
         type="button"
         data-testid="filter-by-drink-btn"
@@ -46,6 +48,7 @@ function Completed() {
       </button>
 
       <button
+        className="navbar-button"
         onClick={ () => filtro('all', setFinishedList) }
         type="button"
         data-testid="filter-by-all-btn"
@@ -60,6 +63,7 @@ function Completed() {
             <div key={ `receita-${index}` }>
               <a href={ `http://localhost:3000/${receita.type === 'comida' ? 'comidas' : 'bebidas'}/${receita.id}` }>
                 <img
+                  className="details-img-main"
                   src={ receita.image }
                   width="100%"
                   alt="foto de uma comida"
@@ -67,11 +71,12 @@ function Completed() {
                 />
               </a>
               <a href={ `http://localhost:3000/${receita.type === 'comida' ? 'comidas' : 'bebidas'}/${receita.id}` }>
-                <p
+                <h5
+                  className="horizontal-name"
                   data-testid={ `${index}-horizontal-name` }
                 >
                   {receita.name}
-                </p>
+                </h5>
               </a>
 
               <p

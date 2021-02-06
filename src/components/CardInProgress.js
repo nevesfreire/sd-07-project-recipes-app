@@ -12,6 +12,7 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import RedirectToDone from './Redirect';
 import ingredientsAndFavorites from './ingredientsAndFavorites';
+import shareIcon from '../images/shareIcon.svg';
 
 function CardInProgress() {
   const history = useHistory();
@@ -84,7 +85,7 @@ function CardInProgress() {
   );
 
   return (
-    <div>
+    <div className="details">
       <img
         alt="Meal Thumbnail"
         width="100%"
@@ -92,39 +93,47 @@ function CardInProgress() {
         src={ details[`str${mealType}Thumb`] }
         tagName="img"
       />
-      <h3 data-testid="recipe-title">{details[`str${mealType}`]}</h3>
-      <button
-        type="button"
-        data-testid="share-btn"
-        onClick={ () => copyLink(window.location.href, setShowMessage) }
+      <h3
+        className="detalhes-title"
+        data-testid="recipe-title"
       >
-        Compartilhar
-      </button>
-      <button
-        type="button"
-        data-testid="favorite-btn"
-        onClick={ () => addToFavorites(itemId, mealType, details, setIsFavorite) }
-        src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-        tabIndex="0"
-      >
-        <img
-          src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-          alt="heartIcon"
-        />
-        Favoritar
-      </button>
-      <h5 hidden={ showMessage }>Link copiado!</h5>
-      <h4 width="90%" data-testid="recipe-category">
-        {
-          mealType === 'Meal'
-            ? details.strCategory
-            : details.strAlcoholic
-        }
-      </h4>
+        {details[`str${mealType}`]}
+      </h3>
+      <div className="detalhes-top">
+        <h5 width="90%" data-testid="recipe-category">
+          {
+            mealType === 'Meal'
+              ? details.strCategory
+              : details.strAlcoholic
+          }
+        </h5>
+        <span>
+          <button
+            type="button"
+            data-testid="share-btn"
+            onClick={ () => copyLink(window.location.href, setShowMessage) }
+          >
+            <img src={ shareIcon } alt="share-icon" />
+          </button>
+          <button
+            type="button"
+            data-testid="favorite-btn"
+            onClick={ () => addToFavorites(itemId, mealType, details, setIsFavorite) }
+            src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+            tabIndex="0"
+          >
+            <img
+              src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+              alt="heartIcon"
+            />
+          </button>
+          <h5 hidden={ showMessage }>Link copiado!</h5>
+        </span>
+      </div>
       {loadIngredients()}
       <p width="90%" data-testid="instructions">{details.strInstructions}</p>
       <button
-        className="button-begin"
+        className="button-begin form-button"
         type="button"
         width="100%"
         data-testid="finish-recipe-btn"

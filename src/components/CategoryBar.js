@@ -27,7 +27,7 @@ function CategoryBar({ arrayOfCategories, setCategory, category }) {
       { arrayOfCategories.length > magicNumberZero
         && arrayOfCategories.map((item) => (
           <button
-          className="navbar-button"
+            className="navbar-button"
             type="button"
             data-testid={ `${item.strCategory}-category-filter` }
             key={ item.strCategory }

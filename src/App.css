@@ -20,7 +20,6 @@ body {
 }
 
 .form-button {
-width: 100px;
 height: 50px;
 left: 129px;
 top: 569px;
@@ -29,7 +28,7 @@ background: #D60000;
 border-radius: 50px;
 border: none;
 box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
-
+padding: 0 15px;
 font-family: 'Baloo Thambi 2', cursive;
 font-style: normal;
 font-weight: bold;
@@ -192,10 +191,8 @@ text-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
   width: 100%;
   display: flex;
   flex-direction: row;
-  margin-left:10px;
-}
-.detalhes-top button {
-  justify-self: flex-end;
+  justify-content: space-between;
+  margin: 0  8px;
 }
 .details h5 {
 font-family: 'Noto Sans', sans-serif;
@@ -207,7 +204,38 @@ color: #3C3C3C;
 text-shadow: 0px 0px 0px rgba(0, 0, 0, 0.25);
 margin: 0;
 }
-
+.details p {
+font-family: 'Noto Sans', sans-serif;
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 22px;
+margin: 5px 10px;
+color: #3C3C3C;
+text-shadow: 0px 0px 0px rgba(0, 0, 0, 0.25);
+}
+.details li {
+font-family: 'Noto Sans', sans-serif;
+font-style: normal;
+font-weight: 600;
+font-size: 14px;
+line-height: 19px;
+color: #3C3C3C;
+text-shadow: 0px 0px 0px rgba(0, 0, 0, 0.25);
+}
+.horizontal-name {
+  font-family: 'Baloo Thambi 2', cursive;
+font-style: normal;
+font-weight: bold;
+font-size: 36px;
+line-height: 55px;
+display: flex;
+align-items: flex-end;
+text-decoration: none;
+margin:0 10px;
+color: #3C3C3C;
+text-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+}
 .meals > .logo {
   animation: shake 1.5s infinite ease;
   color: aliceblue;
@@ -293,6 +321,7 @@ top: 0px;
 .button-begin {
   bottom: 0;
   position: fixed;
+  margin: 0;
 }
 
 .details {
@@ -329,7 +358,7 @@ font-size: 20px;
 line-height: 23px;
 color: #FFFFFF;
 padding: 3px 7px;
-margin:0 2px;
+margin:0 2px 6px 2px;
 }
 
 .search-input {
