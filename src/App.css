@@ -3,6 +3,7 @@
 /* CSS GERAL */
 
 body {
+  box-sizing: border-box;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -19,7 +20,6 @@ body {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 3%;
   width: 100vw;
 }
 
@@ -83,54 +83,118 @@ body {
   font-family: 'Montserrat', sans-serif;
   flex-direction: row;
   justify-content: space-around;
-  height: 10vh;
+  height: 60px;
   width: 100%;
   margin-bottom: 15px;
 }
 
 .header_title {
+  color: aliceblue;
   margin: 0 10px;
 }
 
 .header_btn, .header_btn_search {
   margin: 5px;
+  border: none;
   border-radius: 50%;
-  height: 40px;
-  width: 40px;
+  height: 35px;
+  width: 35px;
+  background-image: rgb(224, 223, 213);
 }
 
 .header_btn--image, .header_btn_search--image {
+  height: 100%;
   width: 100%;
 }
 
-.meals-content {
-  background-color: rgba(224, 223, 213);
-}
-
-.footer {
-  background-color: grey;
-  bottom: 0;
-  padding: 5%;
-  position: fixed;
-  width: 100%;
-}
-
-.meals {
-
-  /* align-items: center;
-  background: #0fa36b;
-  color: #464646;
+.search-bar {
   display: flex;
-  flex-direction: column;
-  font-family: sans-serif;
-  height: 100vh;
-  justify-content: center; */
-  width: 30%;
+  justify-content: center;
+  background-color: rgb(239, 239, 239);
+  position: absolute;
+  top: 60px;
+  width: 360px;
 }
 
-.links {
-  text-decoration: none;
+.search-bar_input {
+  color: black;
+  font-size: large;
+  border-radius: 15px;
+  background-color: aliceblue;
+  border: none;
+  margin: 5px 10px;
+  padding: 3px 10px;
+  width: 80%;
 }
+
+/* MEALS PAGE */
+
+.meals_content {
+  background-size: cover;
+  background: linear-gradient(rgba(224, 223, 213, 1), rgba(224, 223, 213, 0.9));
+  width: 100%;
+}
+
+.meals_filters {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 5px;
+  width: 340px;
+  margin: 35px 0 10px;
+}
+
+.btn-small {
+  color: aliceblue;
+  font-family: 'Roboto', sans-serif;
+  box-shadow: 0px 0px 10px black;
+  font-size: 0.8em;
+  font-weight: 600;
+  border: none;
+  padding: 5px;
+  border-radius: 10px;
+  background-color: rgb(140, 28, 19);
+  width: 65px;
+  margin: 5px 15px;
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 360px;
+  padding-bottom: 80px;
+}
+
+.card-meals {
+  align-items: center;
+  padding: 0;
+  border-radius: 20px;
+  border: none;
+  display: flex;
+  height: 142px;
+  width: 80%;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.card-meals_img-top {
+  border-radius: 20px;
+  width: 50%;
+}
+
+.card-meals_info {
+  width: 50%;
+}
+
+.card-meals_info--name {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* FOOTER */
+
+
 
 .rocksGlass {
   animation: shake 1s infinite ease;
@@ -163,6 +227,8 @@ body {
   bottom: 0;
   position: fixed;
 }
+
+
 
 @keyframes shake {
 

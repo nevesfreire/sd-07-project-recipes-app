@@ -7,8 +7,13 @@ function SearchBar() {
 
   if (barIsShowing) {
     return (
-      <form>
-        <input data-testid="search-input" type="text" />
+      <form className="search-bar">
+        <input
+          data-testid="search-input"
+          type="text"
+          className="search-bar_input"
+          placeholder="Digite o que você procura aqui"
+        />
       </form>
     );
   } return null;

@@ -70,7 +70,7 @@ function Meals() {
       return (
         <button
           type="button"
-          className="btn btn-secondary"
+          className="btn-small"
           key={ category.strCategory }
           data-testid={ `${category.strCategory}-category-filter` }
           onClick={ () => turnFilterOn(category.strCategory) }
@@ -90,18 +90,21 @@ function Meals() {
           onClick={ () => history.push(`/comidas/${meal.idMeal}`) }
           data-testid={ `${index}-recipe-card` }
           key={ `card-${index}` }
-          className="card meals"
+          className="card-meals"
         >
           <img
-            className="card-img-top"
+            className="card-meals_img-top"
             key={ `meal-thumb-${index}` }
             src={ meal.strMealThumb }
             alt="meal thumb"
             data-testid={ `${index}-card-img` }
           />
-          <div key={ `card-body-${index}` }>
+          <div
+            key={ `card-body-${index}` }
+            className="card-meals_info"
+          >
             <h2
-              className="card-title links"
+              className="card-meals_info--name"
               key={ meal.strMeal }
               data-testid={ `${index}-card-name` }
             >
@@ -121,22 +124,22 @@ function Meals() {
   }
 
   return (
-    <div className="meals-content">
+    <div className="meals_content">
       <Header />
-      <FlexContainer>
+      <div className="meals_filters">
         <button
           type="button"
-          className="btn btn-secondary"
+          className="btn-small"
           data-testid="All-category-filter"
           onClick={ () => setFilterOn(false) }
         >
           All
         </button>
         {mealCategories.map((category, index) => renderFilters(category, index))}
-      </FlexContainer>
-      <FlexContainer>
+      </div>
+      <div className="content">
         {cardsArray.map((meal, index) => renderCards(meal, index))}
-      </FlexContainer>
+      </div>
       <Footer />
     </div>
   );
