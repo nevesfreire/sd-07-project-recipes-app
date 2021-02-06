@@ -1,7 +1,9 @@
 import React, { useContext } from 'react';
+import { Button, InputGroup, FormControl } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from '../../Context/RecipesContext';
 import { setStorage } from '../../services/localStorage';
+import './style.css';
 
 function Login() {
   const { handleChange, btActive, login } = useContext(RecipesContext);
@@ -20,37 +22,47 @@ function Login() {
   };
 
   return (
-    <div>
-      <label htmlFor="email">
-        Email:
-        <br />
-        <input
+    <div className="container">
+      <div>
+        <div className="title-left">
+          Shellf Service
+        </div>
+        <div className="title-right">
+          com Parrilla
+        </div>
+      </div>
+      <div className="subtitle">
+        O melhor sabor você encontra aqui !!!
+      </div>
+      <InputGroup className="mb-3" size="lg">
+        <InputGroup.Prepend>
+          <InputGroup.Text id="basic-addon1">📧</InputGroup.Text>
+        </InputGroup.Prepend>
+        <FormControl
+          placeholder="e-mail"
           type="email"
-          data-testid="email-input"
-          id="email"
           onChange={ (event) => handleChange(event, 'email') }
         />
-      </label>
-      <br />
-      <label htmlFor="password">
-        Pass:
-        <br />
-        <input
+      </InputGroup>
+      <InputGroup size="lg">
+        <InputGroup.Prepend>
+          <InputGroup.Text id="basic-addon2">🔑</InputGroup.Text>
+        </InputGroup.Prepend>
+        <FormControl
+          placeholder="senha"
           type="password"
-          data-testid="password-input"
-          id="password"
           onChange={ (event) => handleChange(event, 'password') }
         />
-      </label>
+      </InputGroup>
       <br />
-      <button
-        type="button"
-        data-testid="login-submit-btn"
+      <Button
+        variant="light"
+        size="lg"
         disabled={ !btActive || password.length <= numberCharacters }
         onClick={ handleClick }
       >
         Entrar
-      </button>
+      </Button>
     </div>
   );
 }

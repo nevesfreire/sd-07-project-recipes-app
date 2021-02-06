@@ -7,11 +7,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-    <Provider>
-      <BrowserRouter>
-        <Router />
-      </BrowserRouter>
-    </Provider>
+    <div className="main-container">
+      <Provider>
+        <BrowserRouter>
+          <Router />
+        </BrowserRouter>
+      </Provider>
+    </div>
   );
 }
 
