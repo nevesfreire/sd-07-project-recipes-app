@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { Row } from 'react-bootstrap';
 import FavoriteRecipesCard from './FavoriteRecipesCard';
 
@@ -11,24 +10,20 @@ class FavoriteRecipesList extends Component {
       <div className="recipes-list">
         <Row>
           {filterRecipes().map((recipe, recipeIndex) => (
-            <Link
+            <FavoriteRecipesCard
               key={ recipe.id }
-              to={ `/${recipe.type}s/${recipe.id}` }
-            >
-              <FavoriteRecipesCard
-                key={ recipe.id }
-                recipe={ recipe }
-                recipeIndex={ recipeIndex }
-                handleShare={ handleShare }
-                deleteFavorite={ deleteFavorite }
-              />
-            </Link>
+              recipe={ recipe }
+              recipeIndex={ recipeIndex }
+              handleShare={ handleShare }
+              deleteFavorite={ deleteFavorite }
+            />
           ))}
         </Row>
       </div>
     );
   }
 }
+
 
 FavoriteRecipesList.propTypes = {
   filterRecipes: PropTypes.func.isRequired,

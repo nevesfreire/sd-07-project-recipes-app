@@ -36,14 +36,8 @@ class ReceitasFavoritas extends Component {
     });
   }
 
-  handleShare(type, id) {
-    return (
-      <div>
-        { type }
-        { id }
-        <p>Link copiado!</p>
-      </div>
-    );
+  handleShare() {
+    return (<p>Link copiado!</p>);
   }
 
   saveRecipesToState() {

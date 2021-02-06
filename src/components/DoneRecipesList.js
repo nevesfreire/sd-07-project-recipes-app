@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { Row } from 'react-bootstrap';
 import DoneRecipesCard from './DoneRecipesCard';
 
@@ -11,17 +10,12 @@ class DoneRecipesList extends Component {
       <div className="recipes-list">
         <Row>
           {filterRecipes().map((recipe, recipeIndex) => (
-            <Link
+            <DoneRecipesCard
               key={ recipe.id }
-              to={ `/${recipe.type}s/${recipe.id}` }
-            >
-              <DoneRecipesCard
-                key={ recipe.id }
-                recipe={ recipe }
-                recipeIndex={ recipeIndex }
-                handleShare={ handleShare }
-              />
-            </Link>
+              recipe={ recipe }
+              recipeIndex={ recipeIndex }
+              handleShare={ handleShare }
+            />
           ))}
         </Row>
       </div>
