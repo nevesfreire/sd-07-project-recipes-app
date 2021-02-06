@@ -1,78 +1,31 @@
-.meals {
-  align-items: center;
-  background: #0fa36b;
-  color: #464646;
-  display: flex;
-  flex-direction: column;
-  font-family: sans-serif;
-  height: 100vh;
-  justify-content: center;
-  width: 100%;
-}
-
 .footer {
-  background-color: #cfcfcf;
+  background-color: #ddd;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
   bottom: 0;
-  left: 0;
-  padding: 5px;
+  list-style: none;
+  padding: 4px;
   position: fixed;
-  right: 0;
+  right: -250px;
   text-align: center;
 }
 
-.rocksGlass {
-  animation: shake 1s infinite ease;
-  max-height: 80vh;
+.footer button {
+  background-color: transparent;
+  border: none;
 }
 
-/*
-#iceLeft {
-  animation: clink .8s infinite ease;
-  opacity: 0.6;
-  transform-origin: 36px 66px;
+.footer button img {
+  margin: 5px 0;
+  width: 34px;
 }
 
-#iceRight {
-  animation: clink .8s .2s infinite ease;
-  opacity: 0.6;
-  transform-origin: 60px 78px;
-}
-*/
-
-.meals > .logo {
-  animation: shake 1.5s infinite ease;
-  color: aliceblue;
-  font-family: Montserrat , sans-serif;
-  font-size: 3em;
-  font-weight: 900;
+.check:checked ~ .footer {
+  right: 0;
 }
 
-@keyframes shake {
-
-  0% {
-    transform: rotate(5deg);
-  }
-
-  50% {
-    transform: rotate(-5deg);
-  }
-
-  100% {
-    transform: rotate(5deg);
-  }
-}
-
-@keyframes clink {
-
-  0% {
-    transform: rotate(-10deg);
-  }
-
-  50% {
-    transform: rotate(20deg);
-  }
-
-  100% {
-    transform: rotate(-10deg);
-  }
+.check {
+  bottom: 0;
+  position: fixed;
+  right: 0;
 }

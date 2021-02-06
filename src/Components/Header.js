@@ -12,25 +12,33 @@ const Header = ({ children }) => {
   const path = '/explorar/comidas/area';
 
   return (
-    <header>
-      <Link to="/perfil">
-        <button type="button" data-testid="profile-top-btn" src={ ImgPerfil }>
-          <img src={ ImgPerfil } alt="SVG Perfil" />
-        </button>
-      </Link>
-      <h2 data-testid="page-title">{children}</h2>
-      {(children === 'Comidas' || children === 'Bebidas' || pathname === path) && (
-        <button
-          type="button"
-          onClick={ () => {
-            changeSearchBarState();
-          } }
-        >
-          <img data-testid="search-top-btn" src={ searchIcon } alt="SVG Search" />
-        </button>
-      )}
+    <>
+      <header className="heads">
+        <Link to="/perfil">
+          <button
+            className="icon-btn"
+            type="button"
+            data-testid="profile-top-btn"
+            src={ ImgPerfil }
+          >
+            <img src={ ImgPerfil } alt="SVG Perfil" />
+          </button>
+        </Link>
+        <h2 data-testid="page-title">{children}</h2>
+        {(children === 'Comidas' || children === 'Bebidas' || pathname === path) && (
+          <button
+            className="icon-btn"
+            type="button"
+            onClick={ () => {
+              changeSearchBarState();
+            } }
+          >
+            <img data-testid="search-top-btn" src={ searchIcon } alt="SVG Search" />
+          </button>
+        )}
+      </header>
       {searchBar && <SearchBarComp context={ children } />}
-    </header>
+    </>
   );
 };
 

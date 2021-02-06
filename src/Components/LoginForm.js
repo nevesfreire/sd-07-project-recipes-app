@@ -27,7 +27,8 @@ function LoginForm() {
   };
 
   return (
-    <div>
+    <div className="login-page">
+      <div className="hold-image">imagem</div>
       <form>
         <label htmlFor="email">
           <input
@@ -47,16 +48,15 @@ function LoginForm() {
             onChange={ ({ target }) => handlechange(target.name, target.value) }
           />
         </label>
-        <button
-          data-testid="login-submit-btn"
-          type="button"
-          id="btn-entra"
-          onClick={ handleClick }
-        >
-          Entrar
-        </button>
       </form>
-      <Link to="/">Esqueceu a senha?</Link>
+      <button
+        data-testid="login-submit-btn"
+        type="button"
+        id="btn-entra"
+        onClick={ handleClick }
+      >
+        Entrar
+      </button>
     </div>
   );
 }

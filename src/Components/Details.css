@@ -1,8 +1,19 @@
-.start-recipe {
-  bottom: 0;
-  position: fixed;
-}
-
 .copy-feedback {
   color: green;
+}
+
+.details-page img {
+  max-width: 100%;
+}
+
+.details-page iframe {
+  max-width: 100%;
+}
+
+.details-info {
+  margin: 20px;
+}
+
+.ingredient-info {
+  margin: 5px 0;
 }

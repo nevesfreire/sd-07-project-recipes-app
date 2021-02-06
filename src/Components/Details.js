@@ -58,87 +58,88 @@ const Details = ({ type, recipe, recommend, ingredientes, id, medidas }) => {
   };
 
   return (
-    <div>
+    <div className="details-page">
       <img
         data-testid="recipe-photo"
         src={ recipe[image] }
         alt="Thumb Food"
-        width="400"
       />
-      <h2 data-testid="recipe-title">{recipe[name]}</h2>
-      {copied && <p className="copy-feedback">Link copiado!</p>}
-      <button type="button" onClick={ handleCopy }>
-        <img src={ ShareIcon } data-testid="share-btn" alt="thumbShare" />
-      </button>
-      <button type="button" onClick={ handleFavorite }>
-        <img
-          src={ iconFavorite }
-          data-testid="favorite-btn"
-          alt="thumbFavorite"
-        />
-      </button>
-      <h3 data-testid="recipe-category">
-        {recipe.strAlcoholic || recipe.strCategory}
-      </h3>
-      {ingredientes.map((ingrediente, index) => (
-        <p
-          key={ ingrediente }
-          data-testid={ `${index}-ingredient-name-and-measure` }
-        >
-          {ingrediente}
-        </p>
-      ))}
-      {medidas.map((medida, index) => (
-        <p key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-          {medida}
-        </p>
-      ))}
-      <p data-testid="instructions">{recipe.strInstructions}</p>
-      {type === 'comida' && (
-        <iframe
-          data-testid="video"
-          title="recipe"
-          width="560"
-          height="315"
-          src={
-            recipe.strYoutube && recipe.strYoutube.replace('watch?v=', 'embed/')
-          }
-          frameBorder="0"
-          allowFullScreen
-        />
-      )}
-      <Carousel>
-        {recommend.map((card, index) => (
-          <Carousel.Item key={ card[rcmdName] }>
-            <div data-testid={ `${index}-recomendation-card` }>
-              <img src={ card[rcmdImg] } alt="Recommended thumb" width="70" />
-              <p data-testid={ `${index}-recomendation-title` }>
-                {card[rcmdName]}
-              </p>
-            </div>
-            {!index && (
-              <div data-testid="1-recomendation-title">
-                <img
-                  src={ recommend[1][rcmdImg] }
-                  alt="Recommended thumb"
-                  width="70"
-                />
-                <p data-testid="1-recomendation-title">
-                  {recommend[1][rcmdName]}
+      <div className="details-info">
+        <h2 data-testid="recipe-title">{recipe[name]}</h2>
+        {copied && <p className="copy-feedback">Link copiado!</p>}
+        <button type="button" onClick={ handleCopy }>
+          <img src={ ShareIcon } data-testid="share-btn" alt="thumbShare" />
+        </button>
+        <button type="button" onClick={ handleFavorite }>
+          <img
+            src={ iconFavorite }
+            data-testid="favorite-btn"
+            alt="thumbFavorite"
+          />
+        </button>
+        <h3 data-testid="recipe-category">
+          {recipe.strAlcoholic || recipe.strCategory}
+        </h3>
+        {ingredientes.map((ingrediente, index) => (
+          <p
+            className="ingredient-info"
+            key={ ingrediente }
+            data-testid={ `${index}-ingredient-name-and-measure` }
+          >
+            {ingrediente}
+            {' '}
+            |
+            {' '}
+            {medidas[index]}
+          </p>
+        ))}
+        <p data-testid="instructions">{recipe.strInstructions}</p>
+        {type === 'comida' && (
+          <iframe
+            data-testid="video"
+            title="recipe"
+            width="560"
+            height="315"
+            src={
+              recipe.strYoutube && recipe.strYoutube.replace('watch?v=', 'embed/')
+            }
+            frameBorder="0"
+            allowFullScreen
+          />
+        )}
+        <Carousel>
+          {recommend.map((card, index) => (
+            <Carousel.Item key={ card[rcmdName] }>
+              <div data-testid={ `${index}-recomendation-card` }>
+                <img src={ card[rcmdImg] } alt="Recommended thumb" width="70" />
+                <p data-testid={ `${index}-recomendation-title` }>
+                  {card[rcmdName]}
                 </p>
               </div>
-            )}
-          </Carousel.Item>
-        ))}
-      </Carousel>
-      <button
-        data-testid="start-recipe-btn"
-        type="button"
-        className="start-recipe"
-        onClick={ handleStartRecipe }
-      >
-        Iniciar receita
-      </button>
+              {!index && (
+                <div data-testid="1-recomendation-title">
+                  <img
+                    src={ recommend[1][rcmdImg] }
+                    alt="Recommended thumb"
+                    width="70"
+                  />
+                  <p data-testid="1-recomendation-title">
+                    {recommend[1][rcmdName]}
+                  </p>
+                </div>
+              )}
+            </Carousel.Item>
+          ))}
+        </Carousel>
+        <button
+          data-testid="start-recipe-btn"
+          type="button"
+          className="start-recipe"
+          onClick={ handleStartRecipe }
+        >
+          Iniciar receita
+        </button>
+      </div>
     </div>
   );
 };

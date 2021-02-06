@@ -19,15 +19,25 @@ const SearchBarComp = ({ context }) => {
   }, [data, history, whichId, context]);
 
   return (
-    <div>
-      <input
-        type="text"
-        data-testid="search-input"
-        onChange={ ({ target }) => {
-          setInputText(target.value);
-        } }
-      />
-      <div>
+    <div className="srch-bar">
+      <div className="srch-feats">
+        <input
+          className="inpt-text"
+          type="text"
+          data-testid="search-input"
+          onChange={ ({ target }) => {
+            setInputText(target.value);
+          } }
+        />
+        <button
+          data-testid="exec-search-btn"
+          type="button"
+          onClick={ searchWithFilter }
+        >
+          Buscar
+        </button>
+      </div>
+      <div className="options">
         <label htmlFor="Ingredient">
           <input
             type="radio"
@@ -65,13 +75,6 @@ const SearchBarComp = ({ context }) => {
           />
           Primeira letra
         </label>
-        <button
-          data-testid="exec-search-btn"
-          type="button"
-          onClick={ searchWithFilter }
-        >
-          Buscar
-        </button>
       </div>
     </div>
   );

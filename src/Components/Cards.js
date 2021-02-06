@@ -10,14 +10,13 @@ function Cards({ card, context, index }) {
 
   return (
     <Link to={ `/${pageContext.toLowerCase()}/${id}` }>
-      <div data-testid={ `${index}-recipe-card` }>
-        <h3 data-testid={ `${index}-card-name` }>{title}</h3>
+      <div data-testid={ `${index}-recipe-card` } className="srch-card">
         <img
           data-testid={ `${index}-card-img` }
           src={ image }
           alt="Imagem da comida ou bebida"
-          width="200"
         />
+        <h3 data-testid={ `${index}-card-name` }>{title}</h3>
       </div>
     </Link>
   );
