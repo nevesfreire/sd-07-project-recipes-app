@@ -78,6 +78,53 @@ const recipes = (state = INITIAL_STATE, action) => {
       ...state,
       ...action.payload,
     };
+  case recipesTypes.CHECK_INGREDIENT:
+  {
+    if (action.payload.checked) {
+      if (Object.prototype.hasOwnProperty
+        .call(state.inProgressRecipes[action.payload.recipeType],
+          action.payload.recipeId)) {
+        return {
+          ...state,
+          inProgressRecipes: {
+            ...state.inProgressRecipes,
+            [action.payload.recipeType]: {
+              ...state.inProgressRecipes[action.payload.recipeType],
+              [action.payload.recipeId]: [
+                ...state
+                  .inProgressRecipes[action.payload.recipeType][action.payload.recipeId],
+                action.payload.ingredient,
+              ],
+            },
+          },
+        };
+      }
+      return {
+        ...state,
+        inProgressRecipes: {
+          ...state.inProgressRecipes,
+          [action.payload.recipeType]: {
+            ...state.inProgressRecipes[action.payload.recipeType],
+            [action.payload.recipeId]: [
+              action.payload.ingredient,
+            ],
+          },
+        },
+      };
+    }
+    return {
+      ...state,
+      inProgressRecipes: {
+        ...state.inProgressRecipes,
+        [action.payload.recipeType]: {
+          ...state.inProgressRecipes[action.payload.recipeType],
+          [action.payload.recipeId]:
+              state.inProgressRecipes[action.payload.recipeType][action.payload.recipeId]
+                .filter((ingredient) => ingredient !== action.payload.ingredient),
+        },
+      },
+    };
+  }
   default:
     return state;
   }

@@ -7,3 +7,4 @@ export { default as FavoriteButton } from './FavoriteButton';
 export { default as ShareButton } from './ShareButton';
 export { default as Recomendation } from './Recomendation';
 export { default as RecipeButton } from './RecipeButton';
+export { default as RecipeIngredients } from './RecipeIngredients';

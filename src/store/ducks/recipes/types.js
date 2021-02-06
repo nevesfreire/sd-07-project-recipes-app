@@ -10,6 +10,7 @@ const recipesTypes = {
   UNFAVORITE_RECIPE: 'recipes/UNFAVORITE_RECIPE',
   GET_RECOMENDATIONS: 'recipes/GET_RECOMENDATIONS',
   UPDATE_FROM_LS: 'recipes/UPDATE_FROM_LS',
+  CHECK_INGREDIENT: 'recipes/CHECK_INGREDIENT',
 };
 
 export default recipesTypes;

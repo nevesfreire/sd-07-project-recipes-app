@@ -1,4 +1,5 @@
-import React, { useEffect/* , useState */ } from 'react';
+import React, { useEffect, /* , useState */
+  useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import ReactPlayer from 'react-player';
@@ -8,16 +9,42 @@ import {
   ShareButton,
   Recomendation,
   RecipeButton,
+  RecipeIngredients,
 } from '../../components';
 import { mapIngredientsAndMeasuresToList } from '../../services/helper';
 import { fetchRecipeById, updateFromLS } from '../../store/ducks/recipes';
 
 import StyledCard from './styles';
 
+const PATH_IS_IN_PROGRESS = 'in-progress';
+const isInProgress = (pathname, inProgressRecipes, id) => inProgressRecipes && Object
+  .prototype.hasOwnProperty.call(inProgressRecipes[
+    pathname.includes('comida') ? 'meals' : 'cocktails'
+  ], id);
+
+const getButtonName = (pathname, inProgressRecipes, id) => {
+  if (!pathname.includes(PATH_IS_IN_PROGRESS)) {
+    return isInProgress(pathname, inProgressRecipes, id)
+      ? 'Continuar Receita'
+      : 'Iniciar Receita';
+  }
+  return 'Finalizar Receita';
+};
+
+/* const isAllIngredientsDone = (
+  recipe,
+  inProgressRecipes,
+) => recipe && inProgressRecipes && mapIngredientsAndMeasuresToList(recipe)
+  .every((ingredient) => inProgressRecipes[recipe
+    .type === 'comida' ? 'meals' : 'cocktails'][recipe.id]
+    .includes(ingredient)); */
+
 const RecipeDetails = () => {
   const { recipeId } = useParams();
   const { pathname } = useLocation();
   const dispatch = useDispatch();
+  const [isPageInProgress, setIsPageInProgress] = useState(false);
+  const [isAllDone, setIsAllDone] = useState(false);
   const detailsRecipe = useSelector((state) => state.recipes.detailsRecipe);
   const doneRecipes = loadKeyFromLS(LS_KEYS.DONE_RECIPES_KEY, []);
   const inProgressRecipes = loadKeyFromLS(LS_KEYS.IN_PROGRESS_RECIPES_KEY, {
@@ -26,17 +53,10 @@ const RecipeDetails = () => {
 
   const isDone = () => doneRecipes
     && doneRecipes.some(({ id }) => id === detailsRecipe.id);
-  const isInProgress = () => inProgressRecipes && Object
-    .prototype.hasOwnProperty.call(inProgressRecipes[
-      pathname.includes('comida') ? 'meals' : 'cocktails'
-    ], detailsRecipe.id);
 
-  // VERIFICAR ROTA PARA SABER SE É DETALHE OU PROGRESSO
-
-  // OBTER RECEITA PELO ID >> MAPEAR EM DATAILS_RECIPE
-  // fetch da receita por ID caso o detalhe no redux não esteja preenchido
   useEffect(() => {
     dispatch(fetchRecipeById(pathname, recipeId));
+    setIsPageInProgress(pathname.includes(PATH_IS_IN_PROGRESS));
   }, [dispatch, pathname, recipeId]);
 
   useEffect(() => {
@@ -51,19 +71,7 @@ const RecipeDetails = () => {
     }
   }, [dispatch, inProgressRecipes]);
 
-  /* useEffect(() => {
-    dispatch(updateFromLS({ [LS_KEYS.DONE_RECIPES_KEY]: doneRecipes }));
-  }, [dispatch, doneRecipes]); */
-
-  // VERIFICAR SE RECEITA É FAVORITA
-  // MAPEIA DO REDUX >> favoriteRecipes
-  // VERIFICA SE O ARRAY TEM UM OBJETO COM O ID DA RECEITA, SE SIM, SALVA NO ESTADO
-
-  // VERIFICAR SE RECEITA ESTÁ EM PROGRESSO
-  // MAPEIA DO REDUX >> inProgressRecipes
-  // SE FOR COMIDA >> inProgressRecipes.meals[recipeId]
-  // SE FOR COMIDA >> inProgressRecipes.meals[recipeId]
-  // SE ESTIVER EM PROGRESSO - COMPARAR INGREDIENTES
+  const handleAllIsDone = (allIsDone) => setIsAllDone(allIsDone);
 
   return (
     <>
@@ -89,19 +97,11 @@ const RecipeDetails = () => {
           </StyledCard.Text>
         </StyledCard.Body>
         <StyledCard.Body>
-          <h4>Ingredients:</h4>
-          <ul>
-            {
-              mapIngredientsAndMeasuresToList(detailsRecipe).map(({ text }, index) => (
-                <li
-                  key={ text }
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {text}
-                </li>
-              ))
-            }
-          </ul>
+          <RecipeIngredients
+            ingredients={ mapIngredientsAndMeasuresToList(detailsRecipe) }
+            isInProgress={ isPageInProgress }
+            handleIngredients={ handleAllIsDone }
+          />
         </StyledCard.Body>
         <StyledCard.Body>
           <StyledCard.Text data-testid="instructions">
@@ -117,14 +117,18 @@ const RecipeDetails = () => {
                 url={ detailsRecipe.strYoutube }
               />
             </StyledCard.Body>)}
-        <StyledCard.Body>
-          <Recomendation />
-        </StyledCard.Body>
+        {!isPageInProgress
+        && (
+          <StyledCard.Body>
+            <Recomendation />
+          </StyledCard.Body>
+        )}
       </StyledCard>
       {!isDone()
       && <RecipeButton
-        title={ isInProgress() ? 'Continuar Receita' : 'Iniciar Receita' }
+        title={ getButtonName(pathname, inProgressRecipes, detailsRecipe.id) }
         path={ pathname }
+        isDisabled={ pathname.includes(PATH_IS_IN_PROGRESS) && !isAllDone }
       /> }
     </>
   );

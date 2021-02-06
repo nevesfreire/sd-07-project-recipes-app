@@ -47,3 +47,10 @@ export function getRecomendations(recipes) {
 export function updateFromLS(stateLS) {
   return { type: recipesTypes.UPDATE_FROM_LS, payload: stateLS };
 }
+
+export function checkIngredient(checked, ingredient, recipeId, recipeType) {
+  return {
+    type: recipesTypes.CHECK_INGREDIENT,
+    payload: { checked, ingredient, recipeId, recipeType },
+  };
+}

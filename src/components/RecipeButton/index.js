@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import { StyledButton } from './styles';
 
 function RecipeButton(props) {
   const [propsState, setPropsState] = useState(props);
-  const { title, path } = propsState;
+  const { title, path, isDisabled } = propsState;
+  const { pathname } = useLocation();
   const history = useHistory();
 
-  const handleClick = (value) => {
-    history.push(`${path}${value}`);
+  const handleClick = () => {
+    if (!pathname.includes('in-progress')) {
+      history.push(`${path}/in-progress`);
+    } else {
+      history.push('/receitas-feitas');
+    }
   };
 
   useEffect(() => setPropsState(props), [props]);
@@ -17,21 +22,17 @@ function RecipeButton(props) {
   return (
 
     <StyledButton
-      data-testid="start-recipe-btn"
+      data-testid={ pathname.includes('in-progress')
+        ? 'finish-recipe-btn'
+        : 'start-recipe-btn' }
       type="button"
-      onClick={ () => handleClick('/in-progress') }
+      onClick={ handleClick }
+      disabled={ isDisabled }
     >
       {title}
     </StyledButton>
 
   );
 }
-
-/* <StyledNavBar
-fixed="bottom"
-data-testid="footer"
-className="justify-content-center"
->
-</StyledNavBar> */
 
 export default RecipeButton;
