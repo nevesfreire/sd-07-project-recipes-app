@@ -15,7 +15,7 @@ function RecipesDoneCard() {
     const messageExist = document.getElementById(`${id}-message-span`);
     console.log(messageExist);
     if (messageExist === null) {
-      const spanFromMessage = document.createElement('Alert');
+      const spanFromMessage = document.createElement('div');
       spanFromMessage.id = `${id}-message-span`;
       spanFromMessage.textContent = 'Link copiado!';
       divButtonsGet.appendChild(spanFromMessage);
@@ -51,9 +51,7 @@ function RecipesDoneCard() {
             </Link>
           </div>
           <div className="class-items">
-            <div
-              className="card-combined-itens"
-            >
+            <div className="card-combined-itens">
               <span
                 data-testid={ `${index}-horizontal-top-text` }
               >

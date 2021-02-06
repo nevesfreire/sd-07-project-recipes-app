@@ -87,6 +87,10 @@ body {
   width: 360px;
 }
 
+.class-items {
+  width: 220px;
+}
+
 .card-combined-itens {
   display: flex;
   justify-content: space-between;
