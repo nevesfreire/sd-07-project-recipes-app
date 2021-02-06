@@ -7,6 +7,10 @@ function Provider({ children }) {
   const [password, setPassword] = useState('');
   const [cardFood, setCardFood] = useState([]);
   const [cardDrink, setCardDrink] = useState([]);
+  const [drinkDetails, setDrinkDetails] = useState([]);
+  const [foodDetails, setFoodDetails] = useState([]);
+  const [copyVisibility, setCopyVisibility] = useState('hidden');
+
   const [categoriesButtonDrink, setCategoriesButtonDrink] = useState([]);
   const [categoriesButtonFood, setCategoriesButtonFood] = useState([]);
   const [ingredientsAndMeasures, setIngredientsAndMeasures] = useState([]);
@@ -20,12 +24,18 @@ function Provider({ children }) {
     setCardDrink,
     cardFood,
     cardDrink,
+    drinkDetails,
+    setDrinkDetails,
     categoriesButtonDrink,
     categoriesButtonFood,
     setCategoriesButtonDrink,
     setCategoriesButtonFood,
     ingredientsAndMeasures,
     setIngredientsAndMeasures,
+    foodDetails,
+    setFoodDetails,
+    copyVisibility,
+    setCopyVisibility,
   };
 
   return (

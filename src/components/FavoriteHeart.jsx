@@ -1,11 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import { saveState, loadState } from '../services/localStorage';
+import CoffeeAndCodeContext from '../context/CoffeeAndCodeContext';
 
-function FavoriteHeart({ id, foodDetails, drinkDetails }) {
+function FavoriteHeart({ id, drink, food }) {
   const [favoriteButton, setFavoriteButton] = useState('');
+
+  const {
+    foodDetails,
+    drinkDetails,
+  } = useContext(CoffeeAndCodeContext);
 
   const handleFavoriteRecipe = () => {
     const loadStorage = loadState('favoriteRecipes', []);
@@ -15,7 +21,7 @@ function FavoriteHeart({ id, foodDetails, drinkDetails }) {
       saveState('favoriteRecipes', filteredStorage);
     }
 
-    if (drinkDetails) {
+    if (drink) {
       const expectedObject = {
         id: drinkDetails.idDrink,
         type: 'bebida',
@@ -28,7 +34,7 @@ function FavoriteHeart({ id, foodDetails, drinkDetails }) {
       saveState('favoriteRecipes', [...loadStorage, expectedObject]);
     }
 
-    if (foodDetails) {
+    if (food) {
       const expectedObject = {
         id: foodDetails.idMeal,
         type: 'comida',
@@ -80,20 +86,8 @@ function FavoriteHeart({ id, foodDetails, drinkDetails }) {
 
 FavoriteHeart.propTypes = {
   id: PropTypes.number.isRequired,
-  drinkDetails: PropTypes.shape({
-    idDrink: PropTypes.number.isRequired,
-    strCategory: PropTypes.string.isRequired,
-    strDrink: PropTypes.string.isRequired,
-    strDrinkThumb: PropTypes.string.isRequired,
-    strAlcoholic: PropTypes.string.isRequired,
-  }).isRequired,
-  foodDetails: PropTypes.shape({
-    idMeal: PropTypes.number.isRequired,
-    strCategory: PropTypes.string.isRequired,
-    strMeal: PropTypes.string.isRequired,
-    strMealThumb: PropTypes.string.isRequired,
-    strArea: PropTypes.string.isRequired,
-  }).isRequired,
+  drink: PropTypes.bool.isRequired,
+  food: PropTypes.bool.isRequired,
 };
 
 export default FavoriteHeart;

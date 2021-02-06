@@ -34,16 +34,26 @@ const filterIngredientsAndMeasures = (
   });
 };
 
+const getExpectedArray = (filteredIngredients, filteredMeasures) => (
+  filteredIngredients.map((ingredient, index) => (
+    `${ingredient} ${
+      filteredMeasures[index] ? filteredMeasures[index] : ''
+    }`
+  ))
+);
+
 function DetalhesBebidas({ match: { params: { id } } }) {
-  const [drinkDetails, setDrinkDetails] = useState([]);
   const [recommendedForThisDrink, setRecommendedForThisDrink] = useState([]);
   const [startRecipeButton, setStartRecipeButton] = useState('Iniciar Receita');
   const [startButtonVisibility, setStartButtonVisibility] = useState({});
-  const [copyVisibility, setCopyVisibility] = useState('hidden');
 
   const {
+    drinkDetails,
+    setDrinkDetails,
     ingredientsAndMeasures,
     setIngredientsAndMeasures,
+    copyVisibility,
+    setCopyVisibility,
   } = useContext(CoffeAndCodeContext);
 
   const sliderSettings = {
@@ -56,18 +66,11 @@ function DetalhesBebidas({ match: { params: { id } } }) {
 
   const getIngredientsAndMeasures = () => {
     const detailsEntries = Object.entries(drinkDetails);
-    const expectedArray = [];
     const filteredIngredients = [];
     const filteredMeasures = [];
 
     filterIngredientsAndMeasures(detailsEntries, filteredMeasures, filteredIngredients);
-
-    filteredIngredients.forEach((ingredient, index) => {
-      expectedArray.push(`${ingredient} ${
-        filteredMeasures[index] ? filteredMeasures[index] : ''
-      }`);
-    });
-
+    const expectedArray = getExpectedArray(filteredIngredients, filteredMeasures);
     setIngredientsAndMeasures(expectedArray);
   };
 
@@ -84,7 +87,7 @@ function DetalhesBebidas({ match: { params: { id } } }) {
   const setStateOfStartRecipe = () => {
     if (localStorage.getItem('inProgressRecipes')) {
       const loadStorage = loadState('inProgressRecipes', '');
-      if (loadStorage.cocktails[id] !== undefined) {
+      if (loadStorage.cocktails && loadStorage.cocktails[id]) {
         setStartRecipeButton('Continuar Receita');
       }
     }
@@ -145,7 +148,7 @@ function DetalhesBebidas({ match: { params: { id } } }) {
             <img src={ shareIcon } alt="Share icon" />
           </button>
         </CopyToClipboard>
-        <FavoriteHeart id={ id } drinkDetails={ drinkDetails } />
+        <FavoriteHeart id={ id } drink />
         <small style={ { visibility: copyVisibility } }>Link copiado!</small>
         {/* </div> */}
       </div>

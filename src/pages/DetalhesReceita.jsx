@@ -35,16 +35,18 @@ const filteredIngredientsAndMeasures = (
 };
 
 function DetalhesReceitas({ match: { params: { id } } }) {
-  const [foodDetails, setFoodDetails] = useState([]);
   const [videoLink, setVideoLink] = useState('');
   const [recommendedForThisFood, setRecommendedForThisFood] = useState([]);
   const [startRecipeButton, setStartRecipeButton] = useState('Iniciar Receita');
   const [startButtonVisibility, setStartButtonVisibility] = useState({});
-  const [copyVisibility, setCopyVisibility] = useState('hidden');
 
   const {
     ingredientsAndMeasures,
     setIngredientsAndMeasures,
+    foodDetails,
+    setFoodDetails,
+    copyVisibility,
+    setCopyVisibility,
   } = useContext(CoffeAndCodeContext);
 
   const sliderSettings = {
@@ -95,7 +97,7 @@ function DetalhesReceitas({ match: { params: { id } } }) {
   const setStateOfStartRecipe = () => {
     if (localStorage.getItem('inProgressRecipes')) {
       const loadStorage = loadState('inProgressRecipes', '');
-      if (loadStorage.meals[id] !== undefined) {
+      if (loadStorage.meals && loadStorage.meals[id]) {
         setStartRecipeButton('Continuar Receita');
       }
     }
@@ -156,7 +158,7 @@ function DetalhesReceitas({ match: { params: { id } } }) {
             <img src={ shareIcon } alt="Share icon" />
           </button>
         </CopyToClipboard>
-        <FavoriteHeart id={ id } foodDetails={ foodDetails } />
+        <FavoriteHeart id={ id } food />
         <small style={ { visibility: copyVisibility } }>Link copiado!</small>
       </div>
       <div>
