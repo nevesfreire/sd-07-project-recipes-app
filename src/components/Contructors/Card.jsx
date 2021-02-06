@@ -9,7 +9,7 @@ export default function CardConstructor({
 }) {
   return (
     <Link to={ link } onClick={ callback }>
-      <Card style={ { width: '18rem' } } data-testid={ testidCard }>
+      <Card style={ { width: '18rem' } } data-testid={ testidCard } src={ img }>
         <Card.Img
           variant="top"
           src={ img }

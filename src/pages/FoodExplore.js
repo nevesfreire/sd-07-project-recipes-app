@@ -6,7 +6,7 @@ export default function FoodExplore() {
   const { push } = useHistory();
   return (
     <div>
-      <Header title="Explorar" search={ false } />
+      <Header title="Explorar Comidas" search={ false } />
       <Button
         testid="explore-by-ingredient"
         text="Por Ingredientes"
