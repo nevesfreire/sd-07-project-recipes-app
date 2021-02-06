@@ -164,7 +164,7 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   width: 360px;
-  padding-bottom: 80px;
+  padding-bottom: 10px;
 }
 
 .card-meals {
@@ -194,7 +194,16 @@ body {
 
 /* FOOTER */
 
-
+.footer {
+  align-items: center;
+  background-color: rgb(167, 138, 127);
+  display: flex;
+  justify-content: space-around;
+  height: 60px;
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+}
 
 .rocksGlass {
   animation: shake 1s infinite ease;

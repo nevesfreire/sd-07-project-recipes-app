@@ -3,11 +3,10 @@ import { Link } from 'react-router-dom';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
-import FlexContainer from './FlexContainer';
 
 function Footer() {
   return (
-    <FlexContainer className="footer" data-testid="footer">
+    <div className="footer" data-testid="footer">
       <div>
         <Link to="/bebidas">
           <img
@@ -35,7 +34,7 @@ function Footer() {
           />
         </Link>
       </div>
-    </FlexContainer>
+    </div>
   );
 }
 
