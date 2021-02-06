@@ -5,10 +5,7 @@ import {
   Button, CardsFactory, LoadingCard, ShareButton, FavoriteFoodButton,
 } from '../components';
 import { useFetchApi } from '../hooks';
-
-const filterMeals = (arr, str) => Object.entries(arr).filter((key) => (
-  key[0].includes(str) && !!key[1]
-));
+import { getKeys } from '../Services';
 
 const getLink = (idFood) => (
   Number.isNaN(Number(idFood))
@@ -21,6 +18,9 @@ export default function DetailsFood({
   const { params: { idFood } } = match;
   const URL = getLink(idFood);
   const [loading, { meals }] = useFetchApi(URL);
+  const ingredienteList = meals && getKeys(meals[0], 'strIngredient');
+  const measuresList = meals && getKeys(meals[0], 'strMeasure');
+
   return (
     loading
       ? (<LoadingCard />)
@@ -38,17 +38,14 @@ export default function DetailsFood({
               <h4>Ingredients</h4>
               <ul>
                 {
-                  filterMeals(meals[0], 'strIngredient').map((key, i) => {
-                    const measures = filterMeals(meals[0], 'strMeasure');
-                    return (
-                      <li
-                        data-testid={ `${i}-ingredient-name-and-measure` }
-                        key={ i }
-                      >
-                        {`${key[1]} - ${measures[i][1]}`}
-                      </li>
-                    );
-                  })
+                  ingredienteList.map((key, i) => (
+                    <li
+                      data-testid={ `${i}-ingredient-name-and-measure` }
+                      key={ i }
+                    >
+                      {`${key[1]} - ${measuresList[i][1]}`}
+                    </li>
+                  ))
                 }
               </ul>
             </div>
