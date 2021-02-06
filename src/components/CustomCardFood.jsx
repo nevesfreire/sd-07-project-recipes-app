@@ -7,7 +7,6 @@ export default function CustomCardFood({ index, recipe, recipeType }) {
   if (recipe) {
     recipeId = (recipeType === 'comidas') ? recipe.idMeal : recipe.idDrink;
   }
-  console.log(recipe);
   return (
     <div>
       {

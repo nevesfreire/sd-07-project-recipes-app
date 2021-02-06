@@ -34,7 +34,6 @@ class Recipes extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log(prevProps.type);
     const { type } = this.props;
     if (!prevProps.type) return;
     if (prevProps.type !== type) this.getTypeOfRecipe();
@@ -57,6 +56,7 @@ class Recipes extends Component {
 
   handleRecipes() {
     const { recipes, isFetching } = this.props;
+    if (isFetching) return <div>Loading...</div>;
     if (recipes) {
       if (!recipes.length && !isFetching) return this.renderAlertError();
       if (recipes.length === 1) return this.redirectToRecipeDetail(recipes);
@@ -189,9 +189,8 @@ Recipes.propTypes = {
   currentCategoryFood: PropTypes.string.isRequired,
   dispatchUpdateFoodIsFetching: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
-  recipes: PropTypes.shape({
-    length: PropTypes.number.isRequired,
-    slice: PropTypes.func.isRequired,
-  }).isRequired,
+  recipes: PropTypes.arrayOf(PropTypes.object).isRequired,
+/*   length: PropTypes.number.isRequired,
+  slice: PropTypes.func.isRequired, */
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Recipes);

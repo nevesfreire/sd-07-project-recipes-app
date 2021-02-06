@@ -39,6 +39,12 @@ export default class RecipeDetails extends Component {
     this.fetchRecipe(id, path);
   }
 
+  componentDidUpdate(prevProps) {
+    console.log(prevProps.match.path);
+    const { match: { params: { id }, path } } = this.props;
+    if (prevProps.match.path !== path) this.fetchRecipe(id, path);
+  }
+
   getSuggestedRecipes() {
     const { suggestedRecipes, recipeType } = this.state;
     if (!suggestedRecipes) return <div> Sem Sugestões </div>;
@@ -52,7 +58,9 @@ export default class RecipeDetails extends Component {
             .map((recipe, index) => (
               <Carousel.Item key={ index }>
                 <CustomCardSuggested
+                  type={ recipeType }
                   index={ index }
+                  id={ recipe[`id${sufixeRecipe}`] }
                   thumb={ recipe[`str${sufixeRecipe}Thumb`] }
                   title={ recipe[`str${sufixeRecipe}`] }
                 />

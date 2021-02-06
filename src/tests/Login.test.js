@@ -4,12 +4,17 @@ import { fireEvent } from '@testing-library/react';
 import renderWithRedux from './helpers/renderWithRedux';
 import App from '../App';
 
+const EMAIL = 'daniel_mld@hotmail.com';
+const DATA_TEST_ID_EMAIL = 'email-input';
+const DATA_TEST_ID_PASSWORD = 'password-input';
+const DATA_TEST_ID_BUTTON = 'login-submit-btn';
+
 describe('Teste se a página de login', () => {
   it('renderiza os elementos na tela', () => {
     const { getByTestId } = renderWithRedux(<App />);
-    const emailInput = getByTestId('email-input');
-    const passwordInput = getByTestId('password-input');
-    const loginButton = getByTestId('login-submit-btn');
+    const emailInput = getByTestId(DATA_TEST_ID_EMAIL);
+    const passwordInput = getByTestId(DATA_TEST_ID_PASSWORD);
+    const loginButton = getByTestId(DATA_TEST_ID_BUTTON);
     expect(emailInput).toBeInTheDocument();
     expect(passwordInput).toBeInTheDocument();
     expect(loginButton).toBeInTheDocument();
@@ -17,9 +22,8 @@ describe('Teste se a página de login', () => {
 
   it('se é possível escrever nos inputs', () => {
     const { getByTestId } = renderWithRedux(<App />);
-    const emailInput = getByTestId('email-input');
-    const passwordInput = getByTestId('password-input');
-    const EMAIL = 'daniel@mld@hotmail.com';
+    const emailInput = getByTestId(DATA_TEST_ID_EMAIL);
+    const passwordInput = getByTestId(DATA_TEST_ID_PASSWORD);
     const PASSWORD = '12345678';
     fireEvent.change(emailInput, { target: { value: EMAIL } });
     fireEvent.change(passwordInput, { target: { value: PASSWORD } });
@@ -29,10 +33,9 @@ describe('Teste se a página de login', () => {
 
   it('se botão de login é habilitado após os campos email e senha sejam válidos', () => {
     const { getByTestId } = renderWithRedux(<App />);
-    const emailInput = getByTestId('email-input');
-    const passwordInput = getByTestId('password-input');
-    const loginButton = getByTestId('login-submit-btn');
-    const EMAIL = 'daniel@mld@hotmail.com';
+    const emailInput = getByTestId(DATA_TEST_ID_EMAIL);
+    const passwordInput = getByTestId(DATA_TEST_ID_PASSWORD);
+    const loginButton = getByTestId(DATA_TEST_ID_BUTTON);
     const PASSWORD = '12345678';
     expect(loginButton.disabled).toBeTruthy();
     fireEvent.change(emailInput, { target: { value: EMAIL } });
@@ -42,25 +45,23 @@ describe('Teste se a página de login', () => {
 
   it('se o email é salvo no localStorage', () => {
     const { getByTestId } = renderWithRedux(<App />);
-    const emailInput = getByTestId('email-input');
-    const passwordInput = getByTestId('password-input');
-    const loginButton = getByTestId('login-submit-btn');
+    const emailInput = getByTestId(DATA_TEST_ID_EMAIL);
+    const passwordInput = getByTestId(DATA_TEST_ID_PASSWORD);
+    const loginButton = getByTestId(DATA_TEST_ID_BUTTON);
     localStorage.clear();
-    const EMAIL = 'daniel@mld@hotmail.com';
     const PASSWORD = '12345678';
     fireEvent.change(emailInput, { target: { value: EMAIL } });
     fireEvent.change(passwordInput, { target: { value: PASSWORD } });
     fireEvent.click(loginButton);
     const item = localStorage.getItem('user');
-    expect(item).toContain('daniel@mld@hotmail.com');
+    expect(item).toContain('daniel_mld@hotmail.com');
   });
 
   it('se redireciona a pessoa para a página de receitas', () => {
     const { getByTestId, history } = renderWithRedux(<App />);
-    const emailInput = getByTestId('email-input');
-    const passwordInput = getByTestId('password-input');
-    const loginButton = getByTestId('login-submit-btn');
-    const EMAIL = 'daniel@mld@hotmail.com';
+    const emailInput = getByTestId(DATA_TEST_ID_EMAIL);
+    const passwordInput = getByTestId(DATA_TEST_ID_PASSWORD);
+    const loginButton = getByTestId(DATA_TEST_ID_BUTTON);
     const PASSWORD = '12345678';
     expect(history.location.pathname).toBe('/');
     fireEvent.change(emailInput, { target: { value: EMAIL } });

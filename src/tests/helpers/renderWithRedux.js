@@ -5,13 +5,12 @@ import { applyMiddleware, createStore, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
-import { loginReducer, recipesReducer, areaReducer } from '../../redux/reducer';
+import { loginReducer, recipesReducer } from '../../redux/reducer';
 
 const createMockStore = (initialState) => (
   createStore(combineReducers({
     loginReducer,
     recipesReducer,
-    areaReducer,
   }), initialState, applyMiddleware(thunk))
 );
 
@@ -22,7 +21,7 @@ const renderWithRedux = (
   } = {},
 ) => {
   const history = createMemoryHistory();
-  return ({
+  return {
     ...render(
       <Router history={ history }>
         <Provider store={ store }>
@@ -30,8 +29,8 @@ const renderWithRedux = (
         </Provider>
       </Router>,
     ),
-    store,
     history,
-  });
+    store,
+  };
 };
 export default renderWithRedux;

@@ -1,16 +1,23 @@
 import React from 'react';
 /* import { MemoryRouter } from 'react-router-dom'; */
-import { fireEvent } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import renderWithRedux from './helpers/renderWithRedux';
-import App from '../App';
-import { } from '../pages';
+import { Recipes } from '../pages';
 
-describe('Teste se o componente Header', () => {
-  it('renderiza os elementos na tela', () => {
-    const { getByTestId, history } = renderWithRedux(<App />);
-    const route = '/comidas';
-    history.push(route);
-    expect(history.location.pathname).toBe('/comidas');
+const mealsMock = require('./Mocks/meals');
+
+describe('Teste se a página de receitas', () => {
+  beforeEach(() => {
+    global.fetch = jest.fn(() => Promise.resolve({
+      json: () => Promise.resolve(mealsMock),
+    }));
+  });
+  afterEach(() => (
+    jest.clearAllMocks()
+  ));
+
+  it('renderiza o componente Header e seus elementos na tela', () => {
+    const { getByTestId } = renderWithRedux(<Recipes type="comidas" />);
     const profileButton = getByTestId('profile-top-btn');
     const pageTitle = getByTestId('page-title');
     const searchButton = getByTestId('search-top-btn');
@@ -19,59 +26,64 @@ describe('Teste se o componente Header', () => {
     expect(searchButton).toBeInTheDocument();
   });
 
-  /* it('se é possível escrever nos inputs', () => {
-    const { getByTestId } = renderWithRedux(<App />);
-    const emailInput = getByTestId('email-input');
-    const passwordInput = getByTestId('password-input');
-    const EMAIL = 'daniel@mld@hotmail.com';
-    const PASSWORD = '12345678';
-    fireEvent.change(emailInput, { target: { value: EMAIL } });
-    fireEvent.change(passwordInput, { target: { value: PASSWORD } });
-    expect(emailInput.value).toBe(EMAIL);
-    expect(passwordInput.value).toBe(PASSWORD);
-  }); */
+  it('se ao clicar no botão de busca o componente SearchBar é renderizado', () => {
+    const { getByTestId, queryByTestId } = renderWithRedux(<Recipes type="comidas" />);
+    const searchButton = getByTestId('search-top-btn');
+    expect(queryByTestId('search-input')).not.toBeInTheDocument();
+    expect(queryByTestId('ingredient-search-radio')).not.toBeInTheDocument();
+    expect(queryByTestId('name-search-radio')).not.toBeInTheDocument();
+    expect(queryByTestId('first-letter-search-radio')).not.toBeInTheDocument();
+    expect(queryByTestId('exec-search-btn')).not.toBeInTheDocument();
+    fireEvent.click(searchButton);
+    expect(queryByTestId('search-input')).toBeInTheDocument();
+    expect(queryByTestId('ingredient-search-radio')).toBeInTheDocument();
+    expect(queryByTestId('name-search-radio')).toBeInTheDocument();
+    expect(queryByTestId('first-letter-search-radio')).toBeInTheDocument();
+    expect(queryByTestId('exec-search-btn')).toBeInTheDocument();
+  });
 
-  /* it('se botão de login é habilitado após os campos email e senha sejam válidos', () => {
-    const { getByTestId } = renderWithRedux(<App />);
-    const emailInput = getByTestId('email-input');
-    const passwordInput = getByTestId('password-input');
-    const loginButton = getByTestId('login-submit-btn');
-    const EMAIL = 'daniel@mld@hotmail.com';
-    const PASSWORD = '12345678';
-    expect(loginButton.disabled).toBeTruthy();
-    fireEvent.change(emailInput, { target: { value: EMAIL } });
-    fireEvent.change(passwordInput, { target: { value: PASSWORD } });
-    expect(loginButton.disabled).toBeFalsy();
-  }); */
+  it('se ao apertar o botão de perfil é redirecionada para página de perfil', () => {
+    const { getByTestId, history } = renderWithRedux(<Recipes type="comidas" />);
+    fireEvent.click(getByTestId('profile-top-btn'));
+    expect(history.location.pathname).toBe('/perfil');
+  });
 
-  /* it('se o email é salvo no localStorage', () => {
-    const { getByTestId } = renderWithRedux(<App />);
-    const emailInput = getByTestId('email-input');
-    const passwordInput = getByTestId('password-input');
-    const loginButton = getByTestId('login-submit-btn');
-    localStorage.clear();
-    const EMAIL = 'daniel@mld@hotmail.com';
-    const PASSWORD = '12345678';
-    fireEvent.change(emailInput, { target: { value: EMAIL } });
-    fireEvent.change(passwordInput, { target: { value: PASSWORD } });
-    fireEvent.click(loginButton);
-    const item = localStorage.getItem('user');
-    expect(item).toContain('daniel@mld@hotmail.com');
-  }); */
+  it('Renderiza somente 12 receitas na página', async () => {
+    const INITIAL_INDEX = 0;
+    const MAX_INDEX = 14;
+    const INDEX_ADD = 1;
+    const ITEMS_INDEX = 11;
+    renderWithRedux(<Recipes type="comidas" />);
+    const recipesNames = await screen.findAllByTestId(/card-name/);
+    for (let index = INITIAL_INDEX; index < MAX_INDEX; index += INDEX_ADD) {
+      if (index <= ITEMS_INDEX) {
+        expect(recipesNames[index]).toBeInTheDocument();
+      } else {
+        expect(screen.queryByTestId(`${index}-card-name`)).toBeNull();
+      }
+    }
+  });
 
-  /* it('se redireciona a pessoa para a página de receitas', () => {
-    const { getByTestId, history } = renderWithRedux(<App />);
-    const emailInput = getByTestId('email-input');
-    const passwordInput = getByTestId('password-input');
-    const loginButton = getByTestId('login-submit-btn');
-    const EMAIL = 'daniel@mld@hotmail.com';
-    const PASSWORD = '12345678';
-    expect(history.location.pathname).toBe('/');
-    fireEvent.change(emailInput, { target: { value: EMAIL } });
-    fireEvent.change(passwordInput, { target: { value: PASSWORD } });
-    fireEvent.click(loginButton);
-    expect(history.location.pathname).toBe('/comidas');
-  }); */
+  it('se o card das receitas renderiza todos os elementos', async () => {
+    renderWithRedux(<Recipes type="comidas" />);
+    const recipeName = await screen.findByTestId('0-card-name');
+    const recipeImage = await screen.findByTestId('0-card-img');
+    const recipeCard = await screen.findByTestId('0-recipe-card');
+    const recipeNameText = await screen.findAllByText('Corba');
+    expect(recipeName).toBeInTheDocument();
+    expect(recipeImage).toBeInTheDocument();
+    expect(recipeCard).toBeInTheDocument();
+    expect(recipeImage.src).toBe('https://www.themealdb.com/images/media/meals/58oia6s1564916529.jpg');
+    expect(recipeNameText[0]).toBeInTheDocument();
+
+  });
+
+  it('se redireciona a pessoa para a página de detalhes da receita', async () => {
+    const { history } = renderWithRedux(<Recipes type="comidas" />);
+    const recipeItem = await screen.findByTestId('0-card-name');
+    fireEvent.click(recipeItem);
+    expect(history.location.pathname).toBe('/comidas/52977');
+  });
 
   /* test('when clicked in about link should redirect to url "/about" ', () => {
     const { getByText, history } = renderWithRouter(<App />);
