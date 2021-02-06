@@ -153,7 +153,9 @@ body {
 }
 
 .div-recipes-details .recomendations .div-recomendations 
-  .item-recommended:first-of-type {
+  .item-recommended:first-of-type,
+  .div-recipes-details .recomendations .div-recomendations 
+  .item-recommended + .item-recommended {
     margin-right: 1rem;
 }
 
