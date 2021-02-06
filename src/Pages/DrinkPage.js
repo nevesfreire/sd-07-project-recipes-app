@@ -1,10 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from 'react';
 import { Redirect, useParams } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 import Header from '../Components/Header';
 import Card from '../Components/Card';
 import Footer from '../Components/Footer';
 import RecipesContext from '../context/RecipesContext';
+import './style/DrinkPage.css';
 
 function DrinkPage() {
   const {
@@ -75,32 +77,36 @@ function DrinkPage() {
   return (
     <div>
       <Header title="Bebidas" showSearcIcon />
-      <button
-        onClick={ clearFilter }
-        type="button"
-        data-testid="All-category-filter"
-      >
-        All
-      </button>
-      {!isFetching && (
-        fiveCategories.map(({ strCategory }) => (
-          <button
-            key={ strCategory }
-            type="button"
-            onClick={ () => filterByCategory(strCategory) }
-            data-testid={ `${strCategory}-category-filter` }
-          >
-            {strCategory}
-          </button>
-        ))
-      )}
+      <div className="filters">
+        <Button
+          onClick={ clearFilter }
+          type="button"
+          data-testid="All-category-filter"
+        >
+          All
+        </Button>
+        {!isFetching && (
+          fiveCategories.map(({ strCategory }) => (
+            <Button
+              key={ strCategory }
+              onClick={ () => filterByCategory(strCategory) }
+              data-testid={ `${strCategory}-category-filter` }
+              variant="secondary"
+            >
+              {strCategory}
+            </Button>
+          ))
+        )}
+      </div>
       {!isFetching
         ? (
-          firstTwelveRecipes.map(
-            (recipe, index) => (
-              <Card key={ index } item={ recipe } index={ index } />
-            ),
-          )
+          <div style={ { display: 'flex', flexWrap: 'wrap', width: '100%' } }>
+            {firstTwelveRecipes.map(
+              (recipe, index) => (
+                <Card key={ index } item={ recipe } index={ index } />
+              ),
+            )}
+          </div>
         )
         : null}
       <Footer />

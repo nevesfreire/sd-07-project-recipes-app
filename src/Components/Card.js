@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
+import './style/Card.css';
 
 function Card(props) {
   const {
@@ -59,34 +61,48 @@ function Card(props) {
   return (
     isFood
       ? (
-        <Link to={ `/comidas/${item.idMeal}` }>
-          <div key={ index } data-testid={ `${index}-recipe-card` }>
+        <Link to={ `/comidas/${item.idMeal}` } className="card-container">
+          <div
+            key={ index }
+            data-testid={ `${index}-recipe-card` }
+            className="card"
+          >
             <img
               src={ item.strMealThumb }
               data-testid={ `${index}-card-img` }
               alt="Meal"
+              style={ { margin: '15px', width: '80%', borderRadius: '15px' } }
             />
-            <h2
+            <Button
               data-testid={ `${index}-card-name` }
+              variant="info"
+              style={ { width: '80%' } }
             >
               {item.strMeal}
-            </h2>
+            </Button>
           </div>
         </Link>
       )
       : (
-        <Link to={ `/bebidas/${item.idDrink}` }>
-          <div key={ index } data-testid={ `${index}-recipe-card` }>
+        <Link to={ `/bebidas/${item.idDrink}` } className="card-container">
+          <div
+            key={ index }
+            data-testid={ `${index}-recipe-card` }
+            className="card"
+          >
             <img
               src={ item.strDrinkThumb }
               data-testid={ `${index}-card-img` }
               alt="Drink"
+              style={ { margin: '15px', width: '80%', borderRadius: '15px' } }
             />
-            <h2
+            <Button
               data-testid={ `${index}-card-name` }
+              variant="info"
+              style={ { width: '80%' } }
             >
               {item.strDrink}
-            </h2>
+            </Button>
           </div>
         </Link>
       )
