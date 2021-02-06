@@ -84,7 +84,6 @@ class CategorySelector extends React.Component {
   render() {
     let { categories } = this.state;
     // const { currentCategory } = this.state;
-
     const maxCategories = 5;
     const firstCategory = 0;
 
