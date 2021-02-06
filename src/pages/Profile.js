@@ -25,7 +25,7 @@ export default function Profile() {
         testid="profile-logout-btn"
         text="Sair"
         func={ () => {
-          setStorage({ email: '' });
+          localStorage.clear();
           push('/');
         } }
       />
