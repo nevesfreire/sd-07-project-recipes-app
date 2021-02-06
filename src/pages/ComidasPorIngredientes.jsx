@@ -32,7 +32,7 @@ function ComidasPorIngredientes() {
   }, []);
 
   if (!ingredientList) return <span>Loading</span>;
-  if (toFoods) return <Redirect to='/comidas' />
+  if (toFoods) return <Redirect to="/comidas" />;
 
   return (
     <div>
@@ -41,7 +41,8 @@ function ComidasPorIngredientes() {
         {
           ingredientList.slice(firstCard, cardAmount)
             .map(({ strIngredient }, index) => (
-              <div
+              <button
+                type="button"
                 key={ strIngredient }
                 data-testid={ `${index}-ingredient-card` }
                 onClick={ () => redirectToMainRecipePage(strIngredient) }
@@ -56,8 +57,8 @@ function ComidasPorIngredientes() {
                 >
                   { strIngredient }
                 </p>
-              </div>
-          ))
+              </button>
+            ))
         }
         <button
           type="button"
