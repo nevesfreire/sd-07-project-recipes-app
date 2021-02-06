@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import copy from '../helper/Require';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
@@ -8,25 +9,18 @@ class FavoriteRecipesCard extends Component {
   constructor() {
     super();
 
-    this.handleShareFeedback = this.handleShareFeedback.bind(this);
-
     this.state = {
-      sendMessageLinkCopiado: false,
+      copied: false,
     };
   }
 
-  handleShareFeedback() {
-    this.setState({
-      sendMessageLinkCopiado: true,
-    });
-  }
-
   render() {
-    const { recipe, handleShare, deleteFavorite, recipeIndex } = this.props;
-    const { sendMessageLinkCopiado } = this.state;
+    const { recipe, deleteFavorite, recipeIndex } = this.props;
+    const { copied } = this.state;
     const { id, name, image, category, area, type } = recipe;
     const mealType = `${area} - ${category}`;
     const isAlcoholic = 'Alcoholic';
+    const url = `http://localhost:3000/${type}s/${id}`;
     return (
       <div name={ recipeIndex }>
         <Link
@@ -49,8 +43,8 @@ class FavoriteRecipesCard extends Component {
           type="button"
           name={ id }
           onClick={ () => {
-            handleShare(type, id);
-            this.handleShareFeedback();
+            this.setState({ copied: true });
+            copy(url);
           } }
         >
           <img
@@ -59,9 +53,7 @@ class FavoriteRecipesCard extends Component {
             alt="share button"
           />
         </button>
-        {sendMessageLinkCopiado === true
-          ? <p>Link copiado!</p>
-          : ''}
+        {copied ? <span style={ { color: 'red' } }>Link copiado!</span> : null}
         <button
           type="button"
           name={ id }
@@ -89,7 +81,6 @@ FavoriteRecipesCard.propTypes = {
     strMealThumb: PropTypes.string,
   }).isRequired,
   recipeIndex: PropTypes.number.isRequired,
-  handleShare: PropTypes.func.isRequired,
   deleteFavorite: PropTypes.func.isRequired,
 };
 

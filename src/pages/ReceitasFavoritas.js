@@ -10,7 +10,6 @@ class ReceitasFavoritas extends Component {
     this.handleFilterButton = this.handleFilterButton.bind(this);
     this.saveRecipesToState = this.saveRecipesToState.bind(this);
     this.filterRecipes = this.filterRecipes.bind(this);
-    this.handleShare = this.handleShare.bind(this);
     this.deleteFavorite = this.deleteFavorite.bind(this);
 
     this.state = {
@@ -34,10 +33,6 @@ class ReceitasFavoritas extends Component {
     this.setState({
       filterButton: name,
     });
-  }
-
-  handleShare() {
-    return (<p>Link copiado!</p>);
   }
 
   saveRecipesToState() {
@@ -77,7 +72,6 @@ class ReceitasFavoritas extends Component {
         />
         <FavoriteRecipesList
           filterRecipes={ this.filterRecipes }
-          handleShare={ this.handleShare }
           deleteFavorite={ this.deleteFavorite }
         />
       </div>

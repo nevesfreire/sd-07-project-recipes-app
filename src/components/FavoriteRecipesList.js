@@ -5,7 +5,7 @@ import FavoriteRecipesCard from './FavoriteRecipesCard';
 
 class FavoriteRecipesList extends Component {
   render() {
-    const { filterRecipes, handleShare, deleteFavorite } = this.props;
+    const { filterRecipes, deleteFavorite } = this.props;
     return (
       <div className="recipes-list">
         <Row>
@@ -14,7 +14,6 @@ class FavoriteRecipesList extends Component {
               key={ recipe.id }
               recipe={ recipe }
               recipeIndex={ recipeIndex }
-              handleShare={ handleShare }
               deleteFavorite={ deleteFavorite }
             />
           ))}
@@ -26,7 +25,6 @@ class FavoriteRecipesList extends Component {
 
 FavoriteRecipesList.propTypes = {
   filterRecipes: PropTypes.func.isRequired,
-  handleShare: PropTypes.func.isRequired,
   deleteFavorite: PropTypes.func.isRequired,
 };
 

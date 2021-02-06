@@ -10,7 +10,6 @@ class ReceitasFeitas extends Component {
     this.handleFilterButton = this.handleFilterButton.bind(this);
     this.saveRecipesToState = this.saveRecipesToState.bind(this);
     this.filterRecipes = this.filterRecipes.bind(this);
-    this.handleShare = this.handleShare.bind(this);
 
     this.state = {
       filterButton: 'All',
@@ -33,16 +32,6 @@ class ReceitasFeitas extends Component {
     this.setState({
       filterButton: name,
     });
-  }
-
-  handleShare(type, id) {
-    return (
-      <div>
-        { type }
-        { id }
-        <p>Link copiado!</p>
-      </div>
-    );
   }
 
   saveRecipesToState() {
@@ -71,7 +60,6 @@ class ReceitasFeitas extends Component {
         />
         <DoneRecipesList
           filterRecipes={ this.filterRecipes }
-          handleShare={ this.handleShare }
         />
       </div>
     );

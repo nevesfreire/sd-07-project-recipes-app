@@ -1,31 +1,25 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import copy from '../helper/Require';
 import shareIcon from '../images/shareIcon.svg';
 
 class DoneRecipesCard extends Component {
   constructor() {
     super();
 
-    this.handleShareFeedback = this.handleShareFeedback.bind(this);
-
     this.state = {
-      sendMessageLinkCopiado: false,
+      copied: false,
     };
   }
 
-  handleShareFeedback() {
-    this.setState({
-      sendMessageLinkCopiado: true,
-    });
-  }
-
   render() {
-    const { recipe, handleShare, recipeIndex } = this.props;
+    const { recipe, recipeIndex } = this.props;
+    const { copied } = this.state;
     const { id, name, image, category, area, tags, doneDate, type } = recipe;
-    const { sendMessageLinkCopiado } = this.state;
     const mealType = `${area} - ${category}`;
     const isAlcoholic = 'Alcoholic';
+    const url = `http://localhost:3000/${type}s/${id}`;
     const tagsBottomLimit = 0;
     const tagsUpperLimit = 2;
 
@@ -63,8 +57,8 @@ class DoneRecipesCard extends Component {
           type="button"
           name={ id }
           onClick={ () => {
-            handleShare(type, id);
-            this.handleShareFeedback();
+            this.setState({ copied: true });
+            copy(url);
           } }
         >
           <img
@@ -73,9 +67,7 @@ class DoneRecipesCard extends Component {
             alt="share button"
           />
         </button>
-        {sendMessageLinkCopiado === true
-          ? <p>Link copiado!</p>
-          : ''}
+        {copied ? <span style={ { color: 'red' } }>Link copiado!</span> : null}
       </div>
     );
   }
@@ -93,7 +85,6 @@ DoneRecipesCard.propTypes = {
     type: PropTypes.string,
   }).isRequired,
   recipeIndex: PropTypes.number.isRequired,
-  handleShare: PropTypes.func.isRequired,
 };
 
 export default DoneRecipesCard;

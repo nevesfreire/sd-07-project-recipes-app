@@ -14,7 +14,6 @@ class DoneRecipesList extends Component {
               key={ recipe.id }
               recipe={ recipe }
               recipeIndex={ recipeIndex }
-              handleShare={ handleShare }
             />
           ))}
         </Row>
