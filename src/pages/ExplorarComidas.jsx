@@ -5,13 +5,14 @@ import Footer from '../components/Footer';
 import { requestApiMealSurprise } from '../services/requestFood';
 
 function ExplorarComidas() {
-  const [mealSurpriseId, setMealSurpriseId] = useState('')
+  const [mealSurpriseId, setMealSurpriseId] = useState('');
 
   useEffect(() => {
     const handleSurpriseEndpoint = async () => {
       const endpoint = await requestApiMealSurprise();
       setMealSurpriseId(endpoint[0].idMeal);
-    }
+    };
+
     handleSurpriseEndpoint();
   }, []);
 
@@ -27,7 +28,7 @@ function ExplorarComidas() {
         Por Local de Origem
       </Link>
       <Link
-        to={`/comidas/${mealSurpriseId}`}
+        to={ `/comidas/${mealSurpriseId}` }
         data-testid="explore-surprise"
       >
         Me Surpreenda!
