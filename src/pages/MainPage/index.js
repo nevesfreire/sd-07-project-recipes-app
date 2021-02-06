@@ -17,6 +17,8 @@ function MainPage(props) {
     setData,
     setFilters,
     setIsMeal,
+    explorer,
+    setExplorer,
   } = useContext(context);
 
   useEffect(() => {
@@ -34,14 +36,7 @@ function MainPage(props) {
   });
 
   useEffect(() => {
-    const recipeType = (pathname === '/comidas') ? 'meal' : 'cocktail';
     let URL = '';
-    if (activeFilter) {
-      URL = `https://www.the${recipeType}db.com/api/json/v1/1/filter.php?c=${activeFilter}`;
-    } else {
-      URL = `https://www.the${recipeType}db.com/api/json/v1/1/search.php?s=`;
-    }
-
     async function fetchData() {
       await setData([]);
       let dataRequest = [];
@@ -56,8 +51,30 @@ function MainPage(props) {
       }
       await setData(dataRequest);
     }
+    if (pathname === '/comidas') {
+      setIsMeal(true);
+    } else {
+      setIsMeal(false);
+    }
+    if (explorer) {
+      // console.log('moacyr');
+      const recipeType = (pathname === '/comidas') ? 'meal' : 'cocktail';
 
-    fetchData();
+      if (activeFilter) {
+        URL = `https://www.the${recipeType}db.com/api/json/v1/1/filter.php?c=${activeFilter}`;
+      } else {
+        URL = `https://www.the${recipeType}db.com/api/json/v1/1/search.php?s=`;
+      }
+      fetchData();
+    } else {
+      // if (pathname === '/comidas') {
+      //   setIsMeal(true);
+      // } else {
+      //   setIsMeal(false);
+      // }
+      setExplorer(true);
+      // console.log('disjuntor caindo');
+    }
   }, [setData, setIsMeal, activeFilter, pathname]);
 
   const cardsPerPage = 12;
@@ -74,6 +91,7 @@ function MainPage(props) {
     const zero = 0;
     return (
       data.slice(zero, cardsPerPage).map((item, index) => (
+      // {console.log(isMeal, item.strMeal)}
         <Card
           key={ index }
           index={ index }
@@ -81,6 +99,9 @@ function MainPage(props) {
           name={ (isMeal) ? item.strMeal : item.strDrink }
           thumb={ (isMeal) ? item.strMealThumb : item.strDrinkThumb }
           recipeType={ (isMeal) ? 'comidas' : 'bebidas' }
+          testIdCard={ `${index}-recipe-card` }
+          testIdThumb={ `${index}-card-img` }
+          testIdTitle={ `${index}-card-name` }
         />
       ))
     );

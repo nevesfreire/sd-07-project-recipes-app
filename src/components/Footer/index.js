@@ -10,7 +10,7 @@ function Footer() {
     <div className="footer-container" data-testid="footer">
       <Link to="/bebidas">
         <img
-          className="footer-icon-drink"
+          className="footer-img"
           src={ drinkIcon }
           alt="Ir para a página de bebibas"
           data-testid="drinks-bottom-btn"
@@ -18,7 +18,7 @@ function Footer() {
       </Link>
       <Link to="/explorar">
         <img
-          className="footer-icon-explore"
+          className="footer-img"
           src={ exploreIcon }
           alt="Ir para a página de exploração"
           data-testid="explore-bottom-btn"
@@ -26,7 +26,7 @@ function Footer() {
       </Link>
       <Link to="/comidas">
         <img
-          className="footer-icon-meal"
+          className="footer-img"
           src={ mealIcon }
           alt="Ir para a página de comidas"
           data-testid="food-bottom-btn"

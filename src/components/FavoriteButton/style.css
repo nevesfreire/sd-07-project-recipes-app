@@ -1,0 +1,13 @@
+.favorite-button-container {
+  display: flex;
+}
+
+.favorite-button-button {
+  background-color: white;
+  border: none;
+  outline: none;
+}
+
+.favorite-button-image {
+  width: 26px;
+}

@@ -28,18 +28,19 @@ function ExploreByIngredient() {
   async function Request() {
     const URL = `https://www.${link}.com/api/json/v1/1/list.php?i=list`;
     const list = await RequestData(URL);
-    // console.log(list);
     const zero = 0;
     const end = 12;
-    const list12 = await list[key].slice(zero, end);
-    // if (isFood) list12 = await list.meals.slice(zero, end);
-    // if (isDrink) list12 = await list.drinks.slice(zero, end);
-    list12.forEach((element, key2) => {
-      if (isFood) list12[key2].thumb = `https://www.themealdb.com/images/ingredients/${element.strIngredient}-Small.png`;
-      if (isDrink) list12[key2].thumb = `https://www.thecocktaildb.com/images/ingredients/${element.strIngredient1}-Small.png`;
+    // for (let i = list[key].length - 1; i >= 0; i = i -1) {
+    //   if (list[key][i][keyCard].indexOf(' ') > 0) {
+    //     list[key].splice(i,1)
+    //   }
+    // }
+    await list[key].forEach((element) => {
+      element.thumb = `https://www.${link}.com/images/ingredients/${element[keyCard]}-Small.png`;
+      // console.log(element.thumb)
     });
-    setData(list12);
-    console.log(list12);
+    const list12 = await list[key].slice(zero, end);
+    await setData(list12);
   }
 
   useEffect(() => {
@@ -51,15 +52,16 @@ function ExploreByIngredient() {
       <Header />
       {
         data
-          ? data.map((element, key3) => (
+          ? data.map((element3, key3) => (
             <Card
-              data-testid={ key3 }
-              key={ key3 }
-              name={ element[keyCard] }
-              index={ key3 }
-              id={ element.idIngredient }
+              name={ element3[keyCard] }
+              thumb={ element3.thumb }
+              id={ element3[keyCard] }
               recipeType={ recipeType }
-              thumb={ element.thumb }
+              testIdCard={ `${key3}-card-name` }
+              testIdThumb={ `${key3}-card-img` }
+              testIdTitle={ `${key3}-ingredient-card` }
+              key={ key3 }
             />))
           : <span>Carregando</span>
       }

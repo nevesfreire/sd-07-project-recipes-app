@@ -1,0 +1,13 @@
+.share-button-container {
+  display: flex;
+}
+
+.share-button-button {
+  background-color: white;
+  border: none;
+  outline: none;
+}
+
+.share-button-image {
+  width: 26px;
+}

@@ -1,0 +1,38 @@
+.details-header-container {
+  display: flex;
+  flex-flow: column;
+}
+
+.details-header-img {
+  height: 200px;
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+}
+
+.details-header-content {
+  align-items: flex-start;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 10px 0;
+  width: 100%;
+}
+
+.details-header-title {
+  display: flex;
+  font-size: 30px;
+  margin: 0;
+}
+
+.details-header-buttons {
+  display: flex;
+}
+
+.details-header-footer {
+  color: darkgray;
+  font-size: 21px;
+  margin: 0;
+  padding: 0;
+  padding-left: 10px;
+}
