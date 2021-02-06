@@ -52,7 +52,7 @@ class MealsOrigin extends React.Component {
         </div>
         <div>
           { firstMeals.map((meal, index) => (
-            <MealCard key={ index } meals={ meal } index={ index } />
+            <MealCard key={ index } meals={ meal } index={ index } testid="recipe-card" />
           ))}
         </div>
         <Footer />

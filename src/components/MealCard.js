@@ -9,13 +9,13 @@ class MealCard extends Component {
     return (
       <div>
         <Link to={ `/comidas/${idMeal}` }>
-          <div data-testid={ `${index}-${testid}` }>{ idMeal }</div>
           <img
             src={ strMealThumb }
             alt={ strMeal }
             data-testid={ `${index}-card-img` }
             className="recipe-photo"
           />
+          <div data-testid={ `${index}-${testid}` }>{ idMeal }</div>
           <p data-testid={ `${index}-card-name` }>{ strMeal }</p>
         </Link>
       </div>
