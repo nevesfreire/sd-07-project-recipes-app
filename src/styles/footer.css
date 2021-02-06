@@ -27,6 +27,10 @@
   width: 41px;
 }
 
+.footer button:focus {
+  outline: none;
+}
+
 .footer p {
   color: white;
   font-size: 12px;

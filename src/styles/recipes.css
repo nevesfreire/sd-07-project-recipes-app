@@ -1,52 +1,56 @@
 .div-category {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 3fr);
+  padding: 1rem;
+  padding-bottom: .5rem;
+  gap: 1rem 1rem;
+  background-color: #EDF2F4;
 }
 
 .div-category button {
-  background-color: #be1003;
+  background-color: white;
   border: none;
-  color: aliceblue;
-  font-size: 12pt;
-  margin-left: 10px;
-  margin-top: 15px;
-  padding: 5px 10px;
-  width: 15%;
+  color: #2B2D42;
+  padding-top: .2rem;
+  padding-left: .5rem;
+  padding-bottom: .1rem;
+  font-size: 14px;
+  border-radius: 4px;
+  text-align: initial;
+ /*  box-shadow: -3px 5px 15px -10px #000000; */
+ box-shadow: 1px 5px 11px -6px rgba(0,0,0,0.85); 
 }
 
+.section-meals {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 1rem 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 6rem;
+  padding-top: 1rem;
+}
 
 .div-meals {
   border: 1px solid black;
-  border-radius: 10px;
+  border-radius: 6px;
   border-style: none;
   box-shadow: 2px 2px 1px rgb(65, 64, 64);
   display: flex;
-  flex-direction: column;
-  height: 172px;
+  flex-direction: column;  
   justify-content: space-around;
-  margin: auto;
-  margin-top: 10px;
-  width: 161px;
 }
 
 .div-meals img {
   border-radius: 10px 10px 0 0;
-  height: 109px;
-  width: 161px;
+  height: 82px;
+  width: 100%;
 }
 
 .div-meals p {
   margin: auto;
-}
-
-.section-meals {
-  align-self: center;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: auto;
-  margin-top: 20px;
-  width: 80%;
+  padding-top: .4rem;
+  padding-bottom: .4rem;
 }
