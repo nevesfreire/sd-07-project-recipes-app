@@ -21,13 +21,10 @@ export {
   FILTERED_BY_CATEGORY,
   REQUEST_INGREDIENTS,
   CHANGE_SEARCH_BAR,
-} from './recipesActions';
-
-export {
   requestArea,
   requestAreaFailed,
   selectedArea,
   REQUEST_AREA,
   REQUEST_AREA_FAILED,
   SELECT_AREA,
-} from './areasAction';
+} from './recipesActions';

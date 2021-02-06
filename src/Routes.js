@@ -45,7 +45,11 @@ function Rotas() {
         component={ DrinksIngredients }
       />
       <Route exact path="/explorar/bebidas/area" component={ NotFound } />
-      <Route exact path="/explorar/comidas/area" component={ FoodsOrigin } />
+      <Route
+        exact
+        path="/explorar/comidas/area"
+        render={ (props) => <FoodsOrigin { ...props } type="comidas" /> }
+      />
       <Route exact path="/perfil" component={ Profile } />
       <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
       <Route path="/receitas-feitas" component={ DoneRecipes } />

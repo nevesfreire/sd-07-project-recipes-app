@@ -64,12 +64,9 @@ class Recipes extends Component {
 
   getTypeOfRecipe() {
     const { type } = this.props;
-    this.setState(
-      {
-        recipeType: type,
-      },
-      () => this.fetchAllRecipes(),
-    );
+    this.setState({
+      recipeType: type,
+    }, () => this.fetchAllRecipes());
   }
 
   fetchAllRecipes() {
