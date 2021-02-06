@@ -21,14 +21,18 @@ function InProgressRecipes({ match }) {
 
   return (
     <div className="div-recipes-details">
-      <ImageDetails recipes={ recipes } />
-      <TitleDetails
-        recipes={ recipes }
-        pathname={ `http://localhost:3000/${recipes}/${id}` }
-        id={ id }
-      />
+      <div className="image-title-detail">
+        <ImageDetails recipes={ recipes } />
+        <TitleDetails
+          recipes={ recipes }
+          pathname={ `http://localhost:3000/${recipes}/${id}` }
+          id={ id }
+        />
+      </div>
       <Ingredient recipes={ recipes } inProgress id={ id } />
-      <Instructions recipes={ recipes } />
+      <div className="instruction-progress">
+        <Instructions recipes={ recipes } />
+      </div>
       <ButtonRecipeDone
         recipes={ recipes }
         id={ id }
