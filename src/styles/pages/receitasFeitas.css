@@ -10,7 +10,7 @@
   width: 200px;
 }
 
-.image:after {
+.image::after {
   bottom: -20px;
   content: attr(data-title); /* estilo que coloco a legenda no lugar */
   left: 0;
