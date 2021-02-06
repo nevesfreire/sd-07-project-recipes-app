@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
+import '../style/login.css';
 
 function Login() {
   const [loginInfo, setLoginInfo] = useState({
@@ -39,24 +40,29 @@ function Login() {
   }
 
   return (
-    <div>
-      <form>
+    <div className="main">
+      <p className="sign" align="center">Login</p>
+      <form className="form1">
         <input
           type="email"
+          className="un"
           name="loginEmail"
           data-testid="email-input"
-          placeholder="alguem@alguem.com"
+          placeholder="Email"
           onChange={ handleChange }
         />
         <input
           type="password"
+          className="pass"
           name="password"
+          placeholder="Password"
           data-testid="password-input"
           required
           onChange={ handleChange }
         />
         <button
           type="button"
+          className="submit"
           data-testid="login-submit-btn"
           disabled={ !verifyInput() }
           onClick={ handleClick }

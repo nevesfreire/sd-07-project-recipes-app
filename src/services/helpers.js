@@ -10,7 +10,7 @@ export const handleIngredients = (recipe) => {
   const ingredients = Object.entries(recipe)
     .filter((key) => (key[1] === null ? false : key[0].includes('strIngredient')));
   const measures = Object.entries(recipe)
-    .filter((key) => (key[1] === null ? false : key[0].includes('strMeasure')));
+    .filter((key) => (key[0].includes('strMeasure')));
   return ingredients
     .filter((recipes) => recipes[1] !== '')
     .map((ingredient, index) => (
