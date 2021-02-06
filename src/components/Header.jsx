@@ -2,8 +2,10 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import profileIcon from '../images/profileIcon.svg';
-import searchIcon from '../images/searchIcon.svg';
+// import profileIcon from '../images/profileIcon.svg';
+import profileIcon from '../images/profileHeader.png';
+// import searchIcon from '../images/searchIcon.svg';
+import searchIcon from '../images/searchIcon.png';
 import '../styles/header.css';
 import SearchBar from './SearchBar';
 import FoodAppContext from '../context/FoodAppContext';
@@ -32,7 +34,7 @@ function Header({ title, isSearchable }) {
   );
 
   return (
-    <div>
+    <div className="content-header">
       <header>
         <Link
           to="/perfil"
@@ -41,7 +43,7 @@ function Header({ title, isSearchable }) {
         >
           <img src={ profileIcon } data-testid="profile-top-btn" alt="Profile Icon" />
         </Link>
-        <h1 className="title" data-testid="page-title">{title}</h1>
+        <h3 className="title" data-testid="page-title">{title}</h3>
         {isSearchable && renderSearchIcon()}
       </header>
       { showSearch && <SearchBar title={ title } />}

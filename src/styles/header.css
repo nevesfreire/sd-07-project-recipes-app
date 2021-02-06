@@ -1,29 +1,37 @@
-*, h1 {
+*, h3 {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-header {
-  background-color: #c4c4c4;
+.content-header {  
+  height: 50px;
+}
+
+.content-header header {
+  height: 100%;
+  background-color: #EF233C;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 }
 
-.profile, .search {
+.content-header .profile, .search {
   align-self: center;
 }
 
-.title {
+.content-header .title {
   justify-self: center;
+  text-align: center;
+  align-self: center;
+  color: white;
 }
 
-.profile {
+.content-header .profile {
   justify-self: left;
   padding-left: 1rem;
 }
 
-.search {
+.content-header .search {
   justify-self: right;
   padding-right: 1rem;
 }
