@@ -1,9 +1,13 @@
 import styled from 'styled-components';
-import { Image } from 'react-bootstrap';
+import { Image, Alert, Button } from 'react-bootstrap';
 
-const StyledImage = styled(Image)`
+export const StyledImage = styled(Image)`
   width: 26px;
   height: 26px;
 `;
 
-export default StyledImage;
+export const StyledAlert = styled(Alert)`
+`;
+
+export const StyledButton = styled(Button)`
+`;

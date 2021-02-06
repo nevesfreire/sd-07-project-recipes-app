@@ -3,7 +3,7 @@ export const mapMealAndDrinkToRecipe = (recipesList) => (!recipesList
   : recipesList.map((mealOrDrink) => (
     Object.prototype.hasOwnProperty.call(mealOrDrink, 'idMeal')
       ? {
-        type: 'meal',
+        type: 'comida',
         id: mealOrDrink.idMeal,
         name: mealOrDrink.strMeal,
         strDrinkAlternate: mealOrDrink.strDrinkAlternate,
@@ -57,7 +57,7 @@ export const mapMealAndDrinkToRecipe = (recipesList) => (!recipesList
         strMeasure19: mealOrDrink.strMeasure19,
         strMeasure20: mealOrDrink.strMeasure20,
       } : {
-        type: 'drink',
+        type: 'bebida',
         id: mealOrDrink.idDrink,
         name: mealOrDrink.strDrink,
         strDrinkAlternate: mealOrDrink.strDrinkAlternate,
@@ -119,12 +119,12 @@ export const mapShortMealAndDrinkToRecipe = (recipesList) => (!recipesList
     .map((mealOrDrink) => (
       Object.prototype.hasOwnProperty.call(mealOrDrink, 'idMeal')
         ? {
-          type: 'meal',
+          type: 'comida',
           id: mealOrDrink.idMeal,
           name: mealOrDrink.strMeal,
           image: mealOrDrink.strMealThumb,
         } : {
-          type: 'drink',
+          type: 'bebida',
           id: mealOrDrink.idDrink,
           name: mealOrDrink.strDrink,
           image: mealOrDrink.strDrinkThumb,
@@ -132,22 +132,22 @@ export const mapShortMealAndDrinkToRecipe = (recipesList) => (!recipesList
     )));
 
 export const resumeMealAndDrinkRecipe = ({
-  type,
   id,
-  name,
-  image,
+  type,
+  area,
   category,
   alcoholicOrNot,
-  area,
+  name,
+  image,
 }) => (
   {
-    type,
     id,
+    type,
+    area: area || '',
+    category,
+    alcoholicOrNot: alcoholicOrNot || '',
     name,
     image,
-    category,
-    alcoholicOrNot,
-    area,
   }
 );
 

@@ -9,7 +9,10 @@ const INITIAL_STATE = {
     cocktailsToken: 1,
     doneRecipes: [],
     favoriteRecipes: [],
-    inProgressRecipes: {},
+    inProgressRecipes: {
+      cocktails: {},
+      meals: {},
+    },
     detailsRecipe: {
       id: 0,
     },

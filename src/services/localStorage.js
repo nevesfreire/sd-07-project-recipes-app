@@ -12,14 +12,14 @@ export const LS_KEYS = {
   IN_PROGRESS_RECIPES_KEY: 'inProgressRecipes',
 };
 
-export const loadKeyFromLS = (key) => {
+export const loadKeyFromLS = (key, defaultValue) => {
   try {
     const serializedStateKey = localStorage.getItem(key);
     const resultStateKey = JSON.parse(serializedStateKey);
     return resultStateKey;
   } catch (error) {
     console.log(error);
-    return typeof (key) === 'object' ? {} : [];
+    return defaultValue;
   }
 };
 

@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { StyledButton } from './styles';
 
 function RecipeButton(props) {
-  const [propsState] = useState(props);
+  const [propsState, setPropsState] = useState(props);
   const { title, path } = propsState;
   const history = useHistory();
 
   const handleClick = (value) => {
     history.push(`${path}${value}`);
   };
+
+  useEffect(() => setPropsState(props), [props]);
 
   return (
 

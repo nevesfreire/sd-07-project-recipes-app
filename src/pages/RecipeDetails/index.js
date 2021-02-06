@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect/* , useState */ } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import ReactPlayer from 'react-player';
-// import { LS_KEYS, loadKeyFromLS } from '../../services/localStorage';
+import { LS_KEYS, loadKeyFromLS } from '../../services/localStorage';
 import {
   FavoriteButton,
   ShareButton,
@@ -10,7 +10,7 @@ import {
   RecipeButton,
 } from '../../components';
 import { mapIngredientsAndMeasuresToList } from '../../services/helper';
-import { fetchRecipeById/* , updateFromLS */ } from '../../store/ducks/recipes';
+import { fetchRecipeById, updateFromLS } from '../../store/ducks/recipes';
 
 import StyledCard from './styles';
 
@@ -19,14 +19,17 @@ const RecipeDetails = () => {
   const { pathname } = useLocation();
   const dispatch = useDispatch();
   const detailsRecipe = useSelector((state) => state.recipes.detailsRecipe);
-  // const doneRecipes = loadKeyFromLS(LS_KEYS.DONE_RECIPES_KEY);
-  const [isDone] = useState(false); /* , doneRecipes
-    .some(({ id }) => id === recipeId) */
+  const doneRecipes = loadKeyFromLS(LS_KEYS.DONE_RECIPES_KEY, []);
+  const inProgressRecipes = loadKeyFromLS(LS_KEYS.IN_PROGRESS_RECIPES_KEY, {
+    cocktails: {}, meals: {},
+  });
 
-  const inProgressRecipes = useSelector((state) => state.recipes.inProgressRecipes);
-  const [isInProgress] = useState(
-    Object.prototype.hasOwnProperty.call(inProgressRecipes, recipeId),
-  );
+  const isDone = () => doneRecipes
+    && doneRecipes.some(({ id }) => id === detailsRecipe.id);
+  const isInProgress = () => inProgressRecipes && Object
+    .prototype.hasOwnProperty.call(inProgressRecipes[
+      pathname.includes('comida') ? 'meals' : 'cocktails'
+    ], detailsRecipe.id);
 
   // VERIFICAR ROTA PARA SABER SE É DETALHE OU PROGRESSO
 
@@ -35,6 +38,18 @@ const RecipeDetails = () => {
   useEffect(() => {
     dispatch(fetchRecipeById(pathname, recipeId));
   }, [dispatch, pathname, recipeId]);
+
+  useEffect(() => {
+    if (doneRecipes) {
+      dispatch(updateFromLS({ [LS_KEYS.DONE_RECIPES_KEY]: doneRecipes }));
+    }
+  }, [dispatch, doneRecipes]);
+
+  useEffect(() => {
+    if (inProgressRecipes) {
+      dispatch(updateFromLS({ [LS_KEYS.IN_PROGRESS_RECIPES_KEY]: inProgressRecipes }));
+    }
+  }, [dispatch, inProgressRecipes]);
 
   /* useEffect(() => {
     dispatch(updateFromLS({ [LS_KEYS.DONE_RECIPES_KEY]: doneRecipes }));
@@ -69,7 +84,7 @@ const RecipeDetails = () => {
             type={ pathname.includes('comidas') ? 'comidas' : 'bebidas' }
           />
           <StyledCard.Text data-testid="recipe-category">
-            {detailsRecipe.type === 'meal'
+            {detailsRecipe.type === 'comida'
               ? detailsRecipe.category : detailsRecipe.alcoholicOrNot}
           </StyledCard.Text>
         </StyledCard.Body>
@@ -106,9 +121,9 @@ const RecipeDetails = () => {
           <Recomendation />
         </StyledCard.Body>
       </StyledCard>
-      {!isDone
+      {!isDone()
       && <RecipeButton
-        title={ isInProgress ? 'Continuar Receita' : 'Iniciar Receita' }
+        title={ isInProgress() ? 'Continuar Receita' : 'Iniciar Receita' }
         path={ pathname }
       /> }
     </>
