@@ -24,7 +24,6 @@ class FavoriteRecipesList extends Component {
   }
 }
 
-
 FavoriteRecipesList.propTypes = {
   filterRecipes: PropTypes.func.isRequired,
   handleShare: PropTypes.func.isRequired,
