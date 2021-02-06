@@ -17,16 +17,18 @@
   display: inline-block;
   justify-content: center;
 }
-.image-carousel {
-  width: 200px;
+
+.image {
   margin: 10px;
   position: relative;
   text-align: center;
+  width: 200px;
 }
-.image-carousel::after {
+
+.image::after {
+  bottom: -20px;
   content: attr(data-title); /* estilo que coloco a legenda no lugar */
+  left: 0;
   position: absolute;
   width: 100%;
-  bottom: -20px;
-  left: 0;
 }
