@@ -2,12 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, FoodRecomendation, LoadingCard, ShareButton, FavoriteDrinkButton,
 } from '../components';
-import { useFetchApi } from '../hooks';
-import '../components/components.css';
-
-const filterDrinks = (arr, str) => Object.entries(arr).filter((key) => (
-  key[0].includes(str) && !!key[1]
-));
+import { useFetchApi, useLocalStorage } from '../hooks';
+import { getKeys } from '../Services';
 
 const getLink = (idDrink) => (
   Number.isNaN(Number(idDrink))
@@ -19,6 +15,12 @@ export default function DetailsDrink({ history, match }) {
   const { params: { idDrink } } = match;
   const URL = getLink(idDrink);
   const [loading, { drinks }] = useFetchApi(URL);
+  const ingredienteList = drinks && getKeys(drinks[0], 'strIngredient');
+  const measuresList = drinks && getKeys(drinks[0], 'strMeasure');
+  /* const [{ cocktails }] = useLocalStorage('inProgressRecipes');
+  const recipeInProgress = !!cocktails[idDrink]
+    && (ingredienteList.length === cocktails[idDrink].length);
+  console.log(recipeInProgress); */
   return (
     loading
       ? (<LoadingCard />)
@@ -41,17 +43,14 @@ export default function DetailsDrink({ history, match }) {
               <h4>Ingredients</h4>
               <ul>
                 {
-                  filterDrinks(drinks[0], 'strIngredient').map((key, i) => {
-                    const measures = filterDrinks(drinks[0], 'strMeasure');
-                    return (
-                      <li
-                        data-testid={ `${i}-ingredient-name-and-measure` }
-                        key={ i }
-                      >
-                        {`${key && key[1]} - ${measures[i] && measures[i][1]}`}
-                      </li>
-                    );
-                  })
+                  ingredienteList.map((key, i) => (
+                    <li
+                      data-testid={ `${i}-ingredient-name-and-measure` }
+                      key={ i }
+                    >
+                      {`${key && key[1]} - ${measuresList[i] && measuresList[i][1]}`}
+                    </li>
+                  ))
                 }
               </ul>
             </div>
