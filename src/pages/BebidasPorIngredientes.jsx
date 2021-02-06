@@ -8,7 +8,7 @@ import {
   requestApiDrinkListIngredients,
 } from '../services/requestDrink';
 
-function ComidasPorIngredientes() {
+function BebidasPorIngredients() {
   const maxCardAmount = 12;
   const firstCard = 0;
   const [cardAmount, setCardAmount] = useState(maxCardAmount);
@@ -73,4 +73,4 @@ function ComidasPorIngredientes() {
   );
 }
 
-export default ComidasPorIngredientes;
+export default BebidasPorIngredients;
