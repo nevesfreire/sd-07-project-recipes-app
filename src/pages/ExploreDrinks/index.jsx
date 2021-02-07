@@ -1,8 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Header, Footer } from '../../components';
+import { fetchRandomDrink } from '../../services/mandaFoods';
 
 export default function ExploreDrinks() {
+  const [randomDrink, setRandomDrink] = useState();
+  const handleFetchingDrink = async () => {
+    console.log('xablau blau');
+    const result = await fetchRandomDrink();
+    if (result) {
+      setRandomDrink(result.drinks[0].idDrink);
+      console.log(randomDrink);
+    }
+  };
+
+  useEffect(() => {
+    handleFetchingDrink();
+  }, []);
+
   return (
     <div>
       <Header title="Explorar Bebidas" />
@@ -15,7 +30,8 @@ export default function ExploreDrinks() {
         </Link>
         <Link
           data-testid="explore-surprise"
-          to="/explorar/bebidas"
+          to={ `/bebidas/${randomDrink}` }
+          onClick={ handleFetchingDrink }
         >
           Me Surpreenda!
         </Link>
