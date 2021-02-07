@@ -75,7 +75,7 @@ function MainRecipes(props) {
   const resetFoodsToRender = () => {
     setFoodsToRender(foodData.meals);
     setFiltered(false);
-  };
+  }; //teste
 
   const renderFilveFilters = (array) => {
     const four = 4;
