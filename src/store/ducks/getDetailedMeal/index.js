@@ -9,6 +9,8 @@ const getDetailedMealReducer = (state = INITIAL_STATE, action) => {
     return { ...state, meal: action.payload };
   case DetailedMealTypes.GETRECOMMEND:
     return { ...state, mealRecommend: action.payload };
+  case DetailedMealTypes.SETDONEMEALS:
+    return { ...state, doneMeals: action.payload };
   default:
     return state;
   }

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Button, Card, ListGroup, ListGroupItem } from 'react-bootstrap';
-import { Redirect } from 'react-router-dom';
 import { Header } from '../../components';
 import mealRecipe from '../../mocks/data';
 import shareIcon from '../../images/shareIcon.svg';
@@ -19,7 +18,7 @@ class ReceitasFeitas extends Component {
 
   redirectDetail(id) {
     const { history } = this.props;
-    history.push(`/comidas/${id}`)
+    history.push(`/comidas/${id}`);
   }
 
   render() {

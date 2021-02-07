@@ -45,7 +45,7 @@ class TelaDetalheComida extends Component {
     const { mealsRecommendStore } = this.props;
     const settings = {
       dots: true,
-      infinite: true,
+      infinite: false,
       speed: 500,
       slidesToShow: 2,
       slidesToScroll: 2,

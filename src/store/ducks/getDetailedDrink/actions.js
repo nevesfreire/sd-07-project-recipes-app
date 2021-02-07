@@ -6,7 +6,7 @@ export const getDrinkDetail = (drink) => ({
 });
 
 export const getRecommendationDrinks = (RecommendatedDrink) => ({
-  type: DetailedDrinkTypes.GETRECOMMEND,
+  type: DetailedDrinkTypes.SETDONEDRINKS,
   payload: RecommendatedDrink,
 });
 
@@ -23,3 +23,10 @@ export const getRecommendatedDrinks = () => async (dispatch) => {
   const response = await request.json();
   dispatch(getRecommendationDrinks(response));
 };
+
+// export const getDoneMeals = (idDoneDrinks, hour) => async (dispatch) => {
+//   const URL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idDoneDrinks}`;
+//   const request = await fetch(URL);
+//   const response = await request.json();
+//   dispatch(setDoneMeals(response, hour));
+// };

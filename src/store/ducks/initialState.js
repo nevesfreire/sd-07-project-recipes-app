@@ -22,6 +22,7 @@ export default {
   detalhesDaReceitaComida: {
     meal: '',
     mealRecommend: '',
+    doneMeals: '',
   },
   exploreDrinks: {
     drinks: '',
