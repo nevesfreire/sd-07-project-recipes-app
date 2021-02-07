@@ -10,6 +10,41 @@
   max-width: 100%;
 }
 
+.infos-button {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+}
+
+.infos-button button {
+  background-color: #16757b;
+  border: none;
+  border-radius: 4px;
+  color: #dbb786;
+  margin: 12px;
+  padding: 6px 12px;
+}
+
+.next-page-button button {
+  background-color: #16757b;
+  border: none;
+  border-radius: 4px;
+  color: #dbb786;
+  font-size: 30px;
+  padding: 6px;
+  width: 100%;
+}
+
+
+.buttons-hero button {
+  background-color: transparent;
+  border: none;
+}
+
+.next-page-button button:disabled {
+  opacity: 0.6;
+}
+
 .details-info {
   margin: 20px;
 }
@@ -17,3 +52,108 @@
 .ingredient-info {
   margin: 5px 0;
 }
+
+.hero-title {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.hero-title h2 {
+  font-size: 58px;
+  margin: 0;
+}
+
+.subtitle {
+  color: #aaa;
+  margin-bottom: 14px;
+}
+
+.ingredients-title, .directions-title, .video-title, .geral-titles {
+  font-size: 32px;
+  margin: 46px 0 8px;
+}
+
+.ingredients-info, .directions-info {
+  background-color: #ebd4b7;
+  border-radius: 20px;
+  font-size: 20px;
+  margin-bottom: 10px;
+  padding: 24px;
+}
+
+.carousel-card {
+  background-color: #fdc4ae;
+  border-radius: 10px;
+  margin: 20px;
+  padding: 20px;
+  text-align: flex-start;
+}
+
+.table-measures {
+  display: flex;
+  font-weight: 500;
+  justify-content: space-between;
+}
+
+.check-ingredients {
+  display: flex;
+  flex-direction: column;
+}
+
+.measure-info {
+  float: right;
+}
+
+.ingredient-checkbox:checked ~ .ingredient-step-info {
+  opacity: 0.6;
+  text-decoration: line-through;
+  transition: ease-in-out 0.2s;
+}
+
+.ingredient-checkbox {
+  align-items: center;
+  margin-right: 2px;
+}
+
+.done-card {
+  align-items: center;
+  background-color: #e6a748;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 10px;
+  padding: 8px;
+}
+
+.done-card .card-img {
+  border-radius: 10px;
+  width: 100px;
+}
+
+.done-card-infos {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.done-button-icons button {
+  background-color: transparent;
+  border: none;
+}
+
+.done-card-title {
+  color: #16757b;
+  font-size: 28px;
+  margin: 0 90px 0 5px;
+  padding: 0;
+}
+
+.done-card-subtitle, .done-card-date {
+  font-size: 18px;
+  margin-left: 5px;
+  max-width: 150px;
+  opacity: 0.7;
+}
+

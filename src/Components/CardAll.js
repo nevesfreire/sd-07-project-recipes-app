@@ -11,11 +11,11 @@ function CardAll({ FoodOrDrink }) {
 
   const handleDeslike = (id) => {
     if (favorited) {
-      const newFavorite = FoodOrDrink.filter(
-        (foodsOrDrinks) => foodsOrDrinks.id !== id,
-      );
+      // const newFavorite = FoodOrDrink.filter(
+      //   (foodsOrDrinks) => foodsOrDrinks.id !== id,
+      // );
       // setRenderAll(newFavorite);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(...newFavorite));
+      // localStorage.setItem('favoriteRecipes', JSON.stringify(...newFavorite));
       return setFavorite(false);
     }
     return setFavorite(true);
@@ -29,42 +29,47 @@ function CardAll({ FoodOrDrink }) {
   return (
     FoodOrDrink
     && FoodOrDrink.map((foodAndDrink, index) => (
-      <div key={ foodAndDrink.id }>
+      <div key={ foodAndDrink.id } className="done-card">
         <Link to={ `/${foodAndDrink.type}s/${foodAndDrink.id}` }>
           <img
             data-testid={ `${index}-horizontal-image` }
+            className="card-img"
             src={ foodAndDrink.image }
-            width="300"
             alt="Imagem do produto"
           />
-          <div data-testid={ `${index}-horizontal-name` }>
-            Nome:
-            {' '}
+        </Link>
+        <div className="done-card-infos">
+          <h4 data-testid={ `${index}-horizontal-name` } className="done-card-title">
             {foodAndDrink.name}
-          </div>
-          <div data-testid={ `${index}-horizontal-top-text` }>
-            Categoria:
-            {' '}
+          </h4>
+          <h4
+            data-testid={ `${index}-horizontal-top-text` }
+            className="done-card-subtitle"
+          >
             {`${foodAndDrink.area || foodAndDrink.alcoholicOrNot} - ${
               foodAndDrink.category
             }`}
-          </div>
-          <div data-testid={ `${index}-horizontal-done-date` }>
-            Salva:
-            {' '}
-            {foodAndDrink.doneDate}
-          </div>
-          <div>
-            {foodAndDrink.tags
+          </h4>
+          {foodAndDrink.doneDate && (
+            <h4
+              data-testid={ `${index}-horizontal-done-date` }
+              className="done-card-date"
+            >
+              Done:
+              {' '}
+              {foodAndDrink.doneDate}
+            </h4>
+          )}
+          {foodAndDrink.tags
               && foodAndDrink.tags.map((tag, indexs) => (
-                <span key={ indexs } data-testid={ `${index}-${tag}-horizontal-tag` }>
-                  {' - '}
+                <h4 key={ indexs } data-testid={ `${index}-${tag}-horizontal-tag` } className="done-card-date">
+                  { indexs <= 0 && 'Tags: '}
                   {tag}
-                </span>
+                  { indexs > 0 && ' | '}
+                </h4>
               ))}
-          </div>
-        </Link>
-        <div>
+        </div>
+        <div className="done-button-icons">
           <label htmlFor="btn-copied">
             {copied && <p className="copy-feedback">Link copiado!</p>}
             <button
@@ -79,7 +84,6 @@ function CardAll({ FoodOrDrink }) {
               />
             </button>
           </label>
-
           <button
             type="button"
             onClick={ ({ target }) => handleDeslike(target.name) }

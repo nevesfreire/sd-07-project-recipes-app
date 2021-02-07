@@ -3,10 +3,13 @@ import { CardAll, Header } from '../../Components';
 
 function DoneRecipes() {
   const filtrar = JSON.parse(localStorage.getItem('doneRecipes'));
-  const [getRecipe, setRecipe] = useState(filtrar);
-  const [FoodOrDrink, setRenderAll] = useState(getRecipe);
+  const [FoodOrDrink, setRenderAll] = useState([]);
 
-  useEffect(() => { setRecipe(FoodOrDrink); }, [FoodOrDrink]);
+  useEffect(() => {
+    if (filtrar) {
+      setRenderAll(filtrar);
+    }
+  }, []);
 
   const handleDrink = () => {
     const drink = filtrar.filter(
@@ -26,29 +29,30 @@ function DoneRecipes() {
 
   return (
     <div>
-      <Header />
-      <h2 data-testid="page-title">Receitas Feitas</h2>
-      <button
-        type="button"
-        onClick={ handleFoodAndDrink }
-        data-testid="filter-by-all-btn"
-      >
-        All
-      </button>
-      <button
-        type="button"
-        onClick={ handleFood }
-        data-testid="filter-by-food-btn"
-      >
-        Food
-      </button>
-      <button
-        type="button"
-        onClick={ handleDrink }
-        data-testid="filter-by-drink-btn"
-      >
-        Drinks
-      </button>
+      <Header>Receitas Feitas</Header>
+      <div className="infos-button">
+        <button
+          type="button"
+          onClick={ handleFoodAndDrink }
+          data-testid="filter-by-all-btn"
+        >
+          All
+        </button>
+        <button
+          type="button"
+          onClick={ handleFood }
+          data-testid="filter-by-food-btn"
+        >
+          Food
+        </button>
+        <button
+          type="button"
+          onClick={ handleDrink }
+          data-testid="filter-by-drink-btn"
+        >
+          Drinks
+        </button>
+      </div>
       <div>
         <CardAll setRenderAll={ setRenderAll } FoodOrDrink={ FoodOrDrink } />
       </div>

@@ -65,35 +65,43 @@ const Details = ({ type, recipe, recommend, ingredientes, id, medidas }) => {
         alt="Thumb Food"
       />
       <div className="details-info">
-        <h2 data-testid="recipe-title">{recipe[name]}</h2>
-        {copied && <p className="copy-feedback">Link copiado!</p>}
-        <button type="button" onClick={ handleCopy }>
-          <img src={ ShareIcon } data-testid="share-btn" alt="thumbShare" />
-        </button>
-        <button type="button" onClick={ handleFavorite }>
-          <img
-            src={ iconFavorite }
-            data-testid="favorite-btn"
-            alt="thumbFavorite"
-          />
-        </button>
-        <h3 data-testid="recipe-category">
+        <div className="hero-title">
+          <h2 data-testid="recipe-title">{recipe[name]}</h2>
+          {copied && <p className="copy-feedback">Link copiado!</p>}
+          <div className="buttons-hero">
+            <button type="button" onClick={ handleCopy }>
+              <img src={ ShareIcon } data-testid="share-btn" alt="thumbShare" />
+            </button>
+            <button type="button" onClick={ handleFavorite }>
+              <img
+                src={ iconFavorite }
+                data-testid="favorite-btn"
+                alt="thumbFavorite"
+              />
+            </button>
+          </div>
+        </div>
+        <h3 data-testid="recipe-category" className="subtitle">
           {recipe.strAlcoholic || recipe.strCategory}
         </h3>
-        {ingredientes.map((ingrediente, index) => (
-          <p
-            className="ingredient-info"
-            key={ ingrediente }
-            data-testid={ `${index}-ingredient-name-and-measure` }
-          >
-            {ingrediente}
-            {' '}
-            |
-            {' '}
-            {medidas[index]}
-          </p>
-        ))}
-        <p data-testid="instructions">{recipe.strInstructions}</p>
+        <h3 className="ingredients-title">Ingredients</h3>
+        <div className="check-ingredients ingredients-info">
+          <div className="table-measures">
+            <h4>Ingredient</h4>
+            <h4>Measure</h4>
+          </div>
+          {ingredientes.map((ingrediente, index) => (
+            <div>
+              <span className="ingredient-step-info">{ingrediente}</span>
+              <span className="measure-info">{medidas[index]}</span>
+            </div>
+          ))}
+        </div>
+        <h3 className="directions-title">Directions</h3>
+        <div className="directions-info">
+          <p data-testid="instructions">{recipe.strInstructions}</p>
+        </div>
+        <h3 className="video-title">Video</h3>
         {type === 'comida' && (
           <iframe
             data-testid="video"
@@ -110,35 +118,28 @@ const Details = ({ type, recipe, recommend, ingredientes, id, medidas }) => {
         <Carousel>
           {recommend.map((card, index) => (
             <Carousel.Item key={ card[rcmdName] }>
-              <div data-testid={ `${index}-recomendation-card` }>
+              <div
+                data-testid={ `${index}-recomendation-card` }
+                className="carousel-card"
+              >
                 <img src={ card[rcmdImg] } alt="Recommended thumb" width="70" />
                 <p data-testid={ `${index}-recomendation-title` }>
                   {card[rcmdName]}
                 </p>
               </div>
-              {!index && (
-                <div data-testid="1-recomendation-title">
-                  <img
-                    src={ recommend[1][rcmdImg] }
-                    alt="Recommended thumb"
-                    width="70"
-                  />
-                  <p data-testid="1-recomendation-title">
-                    {recommend[1][rcmdName]}
-                  </p>
-                </div>
-              )}
             </Carousel.Item>
           ))}
         </Carousel>
-        <button
-          data-testid="start-recipe-btn"
-          type="button"
-          className="start-recipe"
-          onClick={ handleStartRecipe }
-        >
-          Iniciar receita
-        </button>
+        <div className="next-page-button">
+          <button
+            data-testid="start-recipe-btn"
+            type="button"
+            className="start-recipe"
+            onClick={ handleStartRecipe }
+          >
+            Iniciar receita
+          </button>
+        </div>
       </div>
     </div>
   );

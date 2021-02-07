@@ -25,8 +25,7 @@ function FavoriteRecipes() {
 
   return (
     <div>
-      <Header />
-      <h2 data-testid="page-title">Receitas Feitas</h2>
+      <Header>Receitas Favoritas</Header>
       <button
         type="button"
         onClick={ handleFoodAndDrink }
