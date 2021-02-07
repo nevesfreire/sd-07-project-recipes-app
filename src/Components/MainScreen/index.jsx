@@ -6,6 +6,7 @@ import { fetchAllCocktails } from '../../API/apiCocktails';
 import RecipeContext from '../../Context/RecipeContext';
 import CardFood from '../CardFood';
 import CategoryList from '../CategoryList';
+import './style.css';
 
 const MainScreen = (props) => {
   const { page } = props;
@@ -58,7 +59,7 @@ const MainScreen = (props) => {
   };
 
   const mealsDoc = () => (
-    <div>
+    <div className="container-cards">
       {mealsData.map(({ strMealThumb, strMeal, idMeal }, index) => (
         <CardFood
           idFood={ idMeal }
@@ -74,7 +75,7 @@ const MainScreen = (props) => {
   );
 
   const cockTailsDoc = () => (
-    <div>
+    <div className="container-cards">
       {cocktailsData.map(({ strDrinkThumb, strDrink, idDrink }, index) => (
         <CardFood
           idFood={ idDrink }

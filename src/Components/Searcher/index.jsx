@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import RecipeContext from '../../Context/RecipeContext';
+import './style.css';
 
 const Searcher = () => {
   const { dispatch } = useContext(RecipeContext);
@@ -27,9 +28,9 @@ const Searcher = () => {
         value={ textFind }
         onChange={ (e) => setTextFind(e.target.value) }
         data-testid="search-input"
+        className="input-search"
       />
       <label htmlFor="s">
-        Nome
         <input
           type="radio"
           name="findBy"
@@ -38,9 +39,9 @@ const Searcher = () => {
           onClick={ () => setTypeFind('s') }
           data-testid="name-search-radio"
         />
+        Nome
       </label>
       <label htmlFor="f">
-        Primeira Letra
         <input
           type="radio"
           name="findBy"
@@ -49,9 +50,9 @@ const Searcher = () => {
           onClick={ () => setTypeFind('f') }
           data-testid="first-letter-search-radio"
         />
+        Primeira Letra
       </label>
       <label htmlFor="i">
-        Ingrediente
         <input
           type="radio"
           name="findBy"
@@ -60,8 +61,14 @@ const Searcher = () => {
           onClick={ () => setTypeFind('i') }
           data-testid="ingredient-search-radio"
         />
+        Ingrediente
       </label>
-      <button type="button" data-testid="exec-search-btn" onClick={ setFilterParams }>
+      <button
+        type="button"
+        data-testid="exec-search-btn"
+        className="btn-search"
+        onClick={ setFilterParams }
+      >
         Pesquisar
       </button>
     </div>

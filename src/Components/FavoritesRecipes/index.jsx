@@ -45,7 +45,7 @@ const FavoritesRecipes = () => {
     return <h1>Loading...</h1>;
   }
   return (
-    <div>
+    <div className="container-buttons">
       <button
         type="button"
         data-testid="filter-by-all-btn"

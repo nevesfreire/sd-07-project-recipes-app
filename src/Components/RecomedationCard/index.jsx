@@ -6,7 +6,7 @@ const RecomendationCard = (props) => {
   const { thumb, foodName, index, page, idFood } = props;
   return (
     <Link to={ `/${page}/${idFood}` }>
-      <div data-testid={ `${index}-recomendation-card` }>
+      <div data-testid={ `${index}-recomendation-card` } className="recomendation-card">
         <img data-testid={ `${index}-card-img` } src={ thumb } alt={ foodName } />
         <p data-testid={ `${index}-recomendation-title` }>{foodName}</p>
       </div>

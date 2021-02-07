@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import CardComplete from '../CardComplete';
+import './style.css';
 
 const CompleteScreen = () => {
   const [arrDone, setArrDone] = useState([]);
@@ -19,7 +20,7 @@ const CompleteScreen = () => {
   const arrFilter = arrDone.filter((elem) => elem.type.includes(filter));
 
   return (
-    <>
+    <div className="container-buttons">
       <button
         type="button"
         data-testid="filter-by-all-btn"
@@ -56,7 +57,7 @@ const CompleteScreen = () => {
           id={ elem.id }
         />
       ))}
-    </>
+    </div>
   );
 };
 

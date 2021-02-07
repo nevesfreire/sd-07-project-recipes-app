@@ -7,6 +7,7 @@ import { singleMeal } from '../../API/apiMeals';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import dateBrModel from '../../helper/dateConverter';
+import './style.css';
 
 const ProgressScreen = (props) => {
   const { idReceita } = props;
@@ -143,47 +144,59 @@ const ProgressScreen = (props) => {
 
   return (
     <div>
-      <img
-        src={ recipe.imgRecipe }
-        alt=""
-        width="200"
-        data-testid="recipe-photo"
-      />
-      <p data-testid="recipe-title">{recipe.nameRecipe}</p>
+      <div className="image-container">
+        <img
+          src={ recipe.imgRecipe }
+          alt=""
+          width="200"
+          data-testid="recipe-photo"
+        />
+      </div>
+      <p data-testid="recipe-title" className="title-recipe">
+        {recipe.nameRecipe}
+      </p>
       <button
         type="button"
         data-testid="share-btn"
         onClick={ () => copy(copyLink()) }
+        className="share-button"
       >
         {copyBtn}
       </button>
-      <button type="button" onClick={ favoriteBtn }>
+      <button type="button" onClick={ favoriteBtn } className="share-button">
         {defineFavorite()}
       </button>
-      <p data-testid="recipe-category">{recipe.categoryRecipe}</p>
-      {ingredients.map((elem, index) => (
-        <label
-          htmlFor={ elem[0] }
-          key={ elem[0] }
-          style={ { display: 'block' } }
-          data-testid={ `${index}-ingredient-step` }
-        >
-          <input
-            type="checkbox"
-            id={ elem[0] }
-            name={ elem[0] }
-            checked={ elem[1] }
-            onChange={ handleProgress }
-          />
-          {`${elem[0]} - ${recipe.measurements[index] || ''}`}
-        </label>
-      ))}
-      <p data-testid="instructions">{recipe.instructionRecipe}</p>
+      <p data-testid="recipe-category" className="instruction-title">
+        {recipe.categoryRecipe}
+      </p>
+      <div className="container-ingredient">
+        {ingredients.map((elem, index) => (
+          <label
+            htmlFor={ elem[0] }
+            key={ elem[0] }
+            style={ { display: 'block' } }
+            data-testid={ `${index}-ingredient-step` }
+          >
+            <input
+              type="checkbox"
+              id={ elem[0] }
+              name={ elem[0] }
+              checked={ elem[1] }
+              onChange={ handleProgress }
+            />
+            {`${elem[0]} - ${recipe.measurements[index] || ''}`}
+          </label>
+        ))}
+      </div>
+      <p data-testid="instructions" className="instructions">
+        {recipe.instructionRecipe}
+      </p>
       <button
         type="button"
         data-testid="finish-recipe-btn"
         disabled={ complete }
         onClick={ doneRecipe }
+        className="btn-start"
       >
         Finalizar
       </button>

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { fetchCategoriesCocktails } from '../../API/apiCocktails';
 import RecipeContext from '../../Context/RecipeContext';
 import { fetchCategoriesMeals } from '../../API/apiMeals';
+import './style.css';
 
 const CategoryList = (props) => {
   const { page } = props;
@@ -54,12 +55,14 @@ const CategoryList = (props) => {
           type="button"
           data-testid={ `${strCategory}-category-filter` }
           onClick={ handleCategoryMeals }
+          className="btn-filter"
         >
           {strCategory}
         </button>
       ))}
       <button
         name="All"
+        className="btn-filter"
         key="All"
         type="button"
         data-testid="All-category-filter"
@@ -81,12 +84,14 @@ const CategoryList = (props) => {
           type="button"
           data-testid={ `${strCategory}-category-filter` }
           onClick={ handleCategoryDrinks }
+          className="btn-filter"
         >
           {strCategory}
         </button>
       ))}
       <button
         name="All"
+        className="btn-filter"
         key="All"
         type="button"
         data-testid="All-category-filter"
