@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen, fireEvent, cleanup } from '@testing-library/react';
+import { screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helper/renderWithRouter';
 import App from '../App';
@@ -20,12 +20,8 @@ const INVALID_EMAILS = [
 ];
 
 beforeEach(() => {
-  const { history } = renderWithRouter(<App />);
+  renderWithRouter(<App />);
 });
-
-// afterEach(() => {
-//   cleanup();
-// });
 
 describe('check if all elements are rendered in the screen', () => {
   it('should render email input', () => {
@@ -117,6 +113,15 @@ describe('test if localStorage has the right tokens', () => {
   });
 
   it('the key "user" should have the right email', () => {
+    renderWithRouter(<App />);
     expect(JSON.parse(localStorage.getItem('user')).email).toBe(EMAIL);
+  });
+});
+
+describe('redirect to the main food page', () => {
+  it('check if the user is redirected to main food page', () => {
+    const foodTitle = screen.getByText('Comidas');
+
+    expect(foodTitle).toBeInTheDocument();
   });
 });

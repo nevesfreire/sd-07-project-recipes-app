@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-// import Slider from 'react-slick';
+import Slider from 'react-slick';
 import { useHistory } from 'react-router-dom';
 
 export default function Recomendations() {
@@ -38,35 +38,35 @@ export default function Recomendations() {
   }, []);
 
   return (
-    // <Slider { ...settings }>
-  // {
-    recomendationList
-      .filter((_, i) => i < six)
-      .map((item, index) => (
-        <div
-          key={ index }
-          className="container-title-image"
-          data-testid={ `${index}-recomendation-card` }
-        >
-          <img
-            className="recipe-photo"
-            data-testid="recipe-photo"
-            src={ item.strMealThumb || item.strDrinkThumb }
-            alt="imagem do produto"
-            width="200"
-          />
-          <h1 data-testid={ `${index}-recomendation-title` }>
-            { item.strMeal || item.strDrink }
-          </h1>
-          <h4
-            className="recipe-category"
-            data-testid="recipe-category"
-          >
-            { item.strAlcoholic || item.strCategory }
-          </h4>
-        </div>
-      ))
-      // }
-  // </Slider>
+    <Slider { ...settings }>
+      {
+        recomendationList
+          .filter((_, i) => i < six)
+          .map((item, index) => (
+            <div
+              key={ index }
+              className="container-title-image"
+              data-testid={ `${index}-recomendation-card` }
+            >
+              <img
+                className="recipe-photo"
+                data-testid="recipe-photo"
+                src={ item.strMealThumb || item.strDrinkThumb }
+                alt="imagem do produto"
+                width="200"
+              />
+              <h1 data-testid={ `${index}-recomendation-title` }>
+                { item.strMeal || item.strDrink }
+              </h1>
+              <h4
+                className="recipe-category"
+                data-testid="recipe-category"
+              >
+                { item.strAlcoholic || item.strCategory }
+              </h4>
+            </div>
+          ))
+      }
+    </Slider>
   );
 }
