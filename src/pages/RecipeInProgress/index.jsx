@@ -40,10 +40,6 @@ export default function RecipeInProgress({ history, match: { params: { id } } })
     strDrinkThumb,
   } = recipesInProgress;
 
-  useEffect(() => {
-    fetchFoodDetails();
-  }, []);
-
   const teste = Object.keys(recipesInProgress);
   console.log(recipesInProgress);
   console.log(teste);
@@ -51,9 +47,20 @@ export default function RecipeInProgress({ history, match: { params: { id } } })
   console.log(ingredients);
   const measures = teste.filter((item) => item.includes('strMeasure'));
 
-  const ops = ingredients
-    .map((item, index) => [item, measures[index]]);
-  console.log(measures);
+  const arrayVazio = [];
+  ingredients.forEach((ingredient, index) => {
+    if (
+      (recipesInProgress[ingredient]
+      && recipesInProgress[ingredient] !== ' '
+      && recipesInProgress[ingredient] !== null)) {
+      arrayVazio.push([recipesInProgress[ingredient],
+        recipesInProgress[measures[index]]]);
+    }
+  });
+
+  useEffect(() => {
+    fetchFoodDetails();
+  }, []);
 
   return (
     <div className="recipe-detail">
@@ -82,7 +89,7 @@ export default function RecipeInProgress({ history, match: { params: { id } } })
         </h4>
       </div>
       <div className="container-ingredients">
-        { ops
+        { arrayVazio
           .map((name, index) => (
             <label
               key={ index }
@@ -96,7 +103,7 @@ export default function RecipeInProgress({ history, match: { params: { id } } })
                 value={ index }
               />
               <span>
-                { `${recipesInProgress[name[0]]} - ${recipesInProgress[name[1]]}`}
+                { name[1] !== null ? `${name[0]} - ${name[1]}` : `${name[0]}` }
               </span>
             </label>
           ))}
@@ -107,7 +114,7 @@ export default function RecipeInProgress({ history, match: { params: { id } } })
       <div data-testid={ `${idMeal || idDrink}-recomendation-card` }>
         { strDrinkAlternate }
       </div>
-      <button type="button" data-testid="start-recipe-btn">
+      <button type="button" data-testid="finish-recipe-btn">
         Finalizar Receita
       </button>
     </div>
