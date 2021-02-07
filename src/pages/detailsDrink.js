@@ -63,8 +63,6 @@ function DetailsDrink() {
 
   const startRecipe = () => (
     <button
-      style={ { position: 'fixed',
-    bottom: 0 } }
       className="startRecipeBtn"
       type="button"
       data-testid="start-recipe-btn"
