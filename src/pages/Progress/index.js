@@ -7,6 +7,44 @@ import IngredientsTable from '../../components/IngredientsTable';
 import Actions from './Actions';
 import './style.css';
 
+const getIngredients = (acc, curr) => (
+  curr[0].includes('strIngredient') && curr[1] !== '' && curr[1] !== null
+    ? [...acc, curr[1]]
+    : acc
+);
+
+const getMeasures = (acc, curr) => (
+  curr[0].includes('strMeasure') && curr[1] !== '' && curr[1] !== null
+    ? [...acc, curr[1]]
+    : acc
+);
+
+const getIngredientsList = (list) => {
+  const ing = Object.entries(list).reduce(getIngredients, []);
+  const meas = Object.entries(list).reduce(getMeasures, []);
+
+  const ingredientsList = [];
+
+  ing.forEach((_, index) => {
+    ingredientsList.push(`${ing[index]} - ${meas[index]}`);
+  });
+
+  return ingredientsList;
+};
+
+const formatData = (data) => ({
+  id: data.idMeal || data.idDrink,
+  name: data.strMeal || data.strDrink,
+  image: data.strMealThumb || data.strDrinkThumb,
+  category: data.strCategory,
+  instructions: data.strInstructions,
+  video: data.strYoutube || '',
+  ingredients: getIngredientsList(data),
+  alcoholic: data.strAlcoholic !== undefined,
+  area: data.strArea,
+  tags: data.strTags ? data.strTags.trim().split(',') : [],
+});
+
 function Progress({ history, match: { params: { id } } }) {
   const {
     api,
@@ -61,43 +99,9 @@ function Progress({ history, match: { params: { id } } }) {
   useEffect(() => {
     if (!result) return;
     if (!Object.keys(result).length) return;
-    const getIngredients = (acc, curr) => (
-      curr[0].includes('strIngredient') && curr[1] !== '' && curr[1] !== null
-        ? [...acc, curr[1]]
-        : acc
-    );
 
-    const getMeasures = (acc, curr) => (
-      curr[0].includes('strMeasure') && curr[1] !== '' && curr[1] !== null
-        ? [...acc, curr[1]]
-        : acc
-    );
-
-    const getIngredientsList = (list) => {
-      const ing = Object.entries(list).reduce(getIngredients, []);
-      const meas = Object.entries(list).reduce(getMeasures, []);
-
-      const ingredientsList = [];
-
-      ing.forEach((_, index) => {
-        ingredientsList.push(`${ing[index]} - ${meas[index]}`);
-      });
-
-      return ingredientsList;
-    };
-
-    setData({
-      id: result.idMeal || result.idDrink,
-      name: result.strMeal || result.strDrink,
-      image: result.strMealThumb || result.strDrinkThumb,
-      category: result.strCategory,
-      instructions: result.strInstructions,
-      video: result.strYoutube || '',
-      ingredients: getIngredientsList(result),
-      alcoholic: result.strAlcoholic !== undefined,
-      area: result.strArea,
-      tags: result.strTags ? result.strTags.trim().split(',') : [],
-    });
+    const formatedData = formatData(result);
+    setData(formatedData);
   }, [result]);
 
   useEffect(() => {
@@ -159,26 +163,63 @@ function Progress({ history, match: { params: { id } } }) {
   }, [id, api, done, result]);
 
   return (
-    <div>
-      {result && <h1 data-testid="recipe-title">{result[name]}</h1>}
-      {result && <h2 data-testid="recipe-category">{ result.strCategory }</h2>}
-      {result && <img data-testid="recipe-photo" src={ result[image] } alt="thumbnail" />}
-      <h2>Ingredients list</h2>
-      <IngredientsTable
-        ingredients={ ingredients }
-        measures={ measures }
-        done={ done }
-        setDone={ setDone }
-      />
-      <h2>instructions</h2>
-      {result && <p data-testid="instructions">{result.strInstructions}</p>}
-      <Actions
-        data={ data }
-        isFavorite={ isFavorite }
-        setIsFavorite={ setIsFavorite }
-        canFinish={ canFinish }
-      />
-    </div>
+    <section>
+      {result && (
+        <>
+          <img
+            className="detail__image"
+            data-testid="recipe-photo"
+            src={ result[image] }
+            alt="thumbnail"
+          />
+          <div
+            className="detail__header"
+            style={ { padding: '15px 30px 0' } }
+          >
+            <div>
+              <p
+                data-testid="recipe-title"
+                className="detail__title"
+              >
+                {result[name]}
+              </p>
+              <p
+                data-testid="recipe-category"
+                className="detail__category"
+              >
+                { result.strCategory }
+              </p>
+            </div>
+            <Actions
+              data={ data }
+              isFavorite={ isFavorite }
+              setIsFavorite={ setIsFavorite }
+              canFinish={ canFinish }
+            />
+          </div>
+        </>
+      )}
+      <div style={ { padding: '0 30px', marginBottom: 52 } }>
+        <p className="detail__field">Lista de Ingredientes:</p>
+        <div className="detail__box">
+          <IngredientsTable
+            ingredients={ ingredients }
+            measures={ measures }
+            done={ done }
+            setDone={ setDone }
+          />
+        </div>
+        <p className="detail__field" style={ { paddingTop: 10 } }>Instruções:</p>
+        {result && (
+          <p
+            data-testid="instructions"
+            className="detail__box"
+          >
+            {result.strInstructions}
+          </p>
+        )}
+      </div>
+    </section>
   );
 }
 

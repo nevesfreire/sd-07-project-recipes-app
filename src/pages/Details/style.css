@@ -1,6 +1,6 @@
 .detail__image {
-  object-fit: cover;
   max-height: 250px;
+  object-fit: cover;
   width: 100%;
 }
 
@@ -35,7 +35,7 @@
   list-style-type: none;
 }
 
-.detail__actions > button {
+.detail__actions > button:not( :last-of-type ) {
   margin-left: 5px;
 }
 
@@ -48,6 +48,7 @@
 
 .detail__button {
   background: #007bff;
+  border-radius: 4px;
   bottom: 0;
   color: white;
   font-weight: 600;
@@ -59,4 +60,11 @@
   right: 0;
   width: calc(100% - 30px);
   z-index: 1;
+}
+
+.detail__button:disabled {
+  background: white;
+  border: 1px solid #666;
+  color: #666;
+  cursor: not-allowed;
 }

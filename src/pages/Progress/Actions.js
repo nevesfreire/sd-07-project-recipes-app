@@ -1,10 +1,10 @@
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
 import copy from 'clipboard-copy';
 import PropTypes from 'prop-types';
 import { Context } from '../../context/Provider';
 import { getItem, saveItem } from '../../services/localStorage';
+import shareIcon from '../../images/shareIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 
@@ -101,36 +101,43 @@ function Actions({ data, isFavorite, setIsFavorite, canFinish }) {
   };
 
   return (
-    <nav>
-      <Button
-        onClick={ setAsFavorite }
-      >
-        <img
-          data-testid="favorite-btn"
-          src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-          alt="heartIcon"
-        />
-        Favorite
-      </Button>
-      <Button
+    <div className="detail__actions">
+      <button
         data-testid="share-btn"
+        type="button"
         onClick={ () => {
           const recipe = (api === 'meal' ? 'comidas' : 'bebidas');
           copy(`http://localhost:3000/${recipe}/${data.id}`);
           setMsg('Link copiado!');
         } }
       >
-        Share
-      </Button>
-      <Button
+        <img
+          src={ shareIcon }
+          alt="shareIcon"
+        />
+      </button>
+      <button
+        type="button"
+        onClick={ setAsFavorite }
+      >
+        <img
+          data-testid="favorite-btn"
+          src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+          style={ { maxWidth: 26 } }
+          alt="heartIcon"
+        />
+      </button>
+      <button
+        type="button"
+        className="detail__button"
         data-testid="finish-recipe-btn"
         disabled={ canFinish }
         onClick={ handleFinish }
       >
-        Finish
-      </Button>
+        Terminar Receita
+      </button>
       <div>{msg}</div>
-    </nav>
+    </div>
   );
 }
 

@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './style.css';
 
 function IngredientsTable({ done, setDone, ingredients, measures }) {
   return (
-    <table>
+    <table className="ingredient__table">
       <tbody>
         {ingredients.map((ingredient, index) => (
           <tr key={ index }>
@@ -15,6 +16,7 @@ function IngredientsTable({ done, setDone, ingredients, measures }) {
               >
                 <input
                   type="checkbox"
+                  className="ingredient__table__input"
                   id={ `${index}-ingredient` }
                   name={ `${index}-ingredient` }
                   checked={ done[index] }

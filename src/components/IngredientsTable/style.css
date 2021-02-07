@@ -1,0 +1,19 @@
+.ingredient__table tr:not( :last-of-type ) {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.ingredient__table tr td {
+  padding: 10px 0;
+}
+
+.ingredient__table tr td + td {
+  padding-left: 10px;
+}
+
+.ingredient__table tr td > label {
+  margin: 0;
+}
+
+.ingredient__table__input {
+  margin-right: 5px;
+}
