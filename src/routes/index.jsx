@@ -87,6 +87,10 @@ const Routes = () => (
       component={ RecipeDetails }
     />
     <Route
+      path="/bebidas/:id"
+      component={ RecipeDetails }
+    />
+    <Route
       path="*"
       component={ NotFound }
     />
