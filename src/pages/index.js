@@ -10,6 +10,7 @@ import FoodArea from './FoodArea';
 import Profile from './Profile';
 import DoneRecipes from './DoneRecipes';
 import FavoritesRecipes from './FavoritesRecipes';
+import RecipeInProgress from './RecipeInProgress';
 import RecipeDetails from './RecipeDetails';
 import NotFound from './NotFound';
 
@@ -26,6 +27,7 @@ export {
   Profile,
   DoneRecipes,
   FavoritesRecipes,
+  RecipeInProgress,
   RecipeDetails,
   NotFound,
 };

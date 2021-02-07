@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Header, DoneCard } from '../../components';
 import { RecipesContext } from '../../context';
+import './DoneRecipes.css';
 
 export default function DoneRecipes() {
   const { doneRecipes, setDoneRecipes } = useContext(RecipesContext);
@@ -8,7 +9,7 @@ export default function DoneRecipes() {
   console.log(doneRecipes);
 
   return (
-    <div>
+    <div className="done-recipes-container">
       <Header title="Receitas Feitas" />
       <main>
         <button

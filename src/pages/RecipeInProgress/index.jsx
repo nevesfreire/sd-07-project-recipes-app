@@ -2,17 +2,15 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ShareIcon from '../../images/shareIcon.svg';
 import WhiteHeartIcon from '../../images/whiteHeartIcon.svg';
-import Recomendations from './Recomendations';
 
-// import BlackHeartIcon from '../../images/blackHeartIcon.svg';
-
-export default function RecipeDetails({ history, match: { params: { id } } }) {
-  const [recipeDetails, setRecipeDetails] = useState([]);
-  const fetchMealDetails = async () => {
+export default function RecipeInProgress({ history, match: { params: { id } } }) {
+  const [recipesInProgress, setRecipesInProgress] = useState([]);
+  const fetchFoodDetails = async () => {
     try {
       let endpoint = '';
       const { location: { pathname } } = history;
       const path = pathname.split('/')[1];
+      console.log(path);
       if (path === 'comidas') {
         endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
       } else {
@@ -21,53 +19,41 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
       const results = await fetch(endpoint)
         .then((response) => response.json())
         .then((details) => (details.meals ? details.meals : details.drinks));
-      setRecipeDetails(results[0]);
+      console.log(results);
+      // const resultsFiltered = await results.filter((key) => key.value !== null);
+      setRecipesInProgress(results[0]);
     } catch (error) {
       console.log(error);
     }
   };
 
   const {
+    idMeal,
     strMealThumb,
     strMeal,
     strCategory,
     strInstructions,
-    strYoutube,
+    strDrinkAlternate,
+    idDrink,
     strDrink,
     strAlcoholic,
     strDrinkThumb,
-  } = recipeDetails;
-
-  const url = () => {
-    const youTubeURL = strYoutube.split('=')[1];
-    return (
-      <iframe
-        data-testid="video"
-        title="video"
-        height="200"
-        width="300"
-        src={ `https://www.youtube.com/embed/${youTubeURL}` }
-      />
-    );
-  };
-
-  const teste = Object.keys(recipeDetails);
-  const ingredients = teste.filter((item) => item.includes('strIngredient'));
-  const measures = teste.filter((item) => item.includes('strMeasure'));
-
-  const arrayVazio = [];
-  ingredients.forEach((ingredient, index) => {
-    if (
-      (recipeDetails[ingredient]
-      && recipeDetails[ingredient] !== ' '
-      && recipeDetails[ingredient] !== null)) {
-      arrayVazio.push([recipeDetails[ingredient], recipeDetails[measures[index]]]);
-    }
-  });
+  } = recipesInProgress;
 
   useEffect(() => {
-    fetchMealDetails();
+    fetchFoodDetails();
   }, []);
+
+  const teste = Object.keys(recipesInProgress);
+  console.log(recipesInProgress);
+  console.log(teste);
+  const ingredients = teste.filter((item) => item.includes('strIngredient'));
+  console.log(ingredients);
+  const measures = teste.filter((item) => item.includes('strMeasure'));
+
+  const ops = ingredients
+    .map((item, index) => [item, measures[index]]);
+  console.log(measures);
 
   return (
     <div className="recipe-detail">
@@ -92,33 +78,43 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
           className="recipe-category"
           data-testid="recipe-category"
         >
-          { strAlcoholic || strCategory }
+          { strCategory || strAlcoholic }
         </h4>
       </div>
-      <ul className="container-ingredients">
-        { arrayVazio.map((name, index) => (
-          <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-            { name[1] !== null ? `${name[0]} - ${name[1]}` : `${name[0]}` }
-          </li>
-        ))}
-      </ul>
+      <div className="container-ingredients">
+        { ops
+          .map((name, index) => (
+            <label
+              key={ index }
+              htmlFor={ `${index}-ingredient` }
+              data-testid={ `${index}-ingredient-step` }
+            >
+              <input
+                type="checkbox"
+                key={ index }
+                data-testid={ `${index}-ingredient` }
+                value={ index }
+              />
+              <span>
+                { `${recipesInProgress[name[0]]} - ${recipesInProgress[name[1]]}`}
+              </span>
+            </label>
+          ))}
+      </div>
       <p data-testid="instructions">
         { strInstructions }
       </p>
-      { strYoutube && url() }
-      <Recomendations />
-      <button
-        type="button"
-        className="start-recipe-btn"
-        data-testid="start-recipe-btn"
-      >
-        Iniciar Receita
+      <div data-testid={ `${idMeal || idDrink}-recomendation-card` }>
+        { strDrinkAlternate }
+      </div>
+      <button type="button" data-testid="start-recipe-btn">
+        Finalizar Receita
       </button>
     </div>
   );
 }
 
-RecipeDetails.propTypes = {
+RecipeInProgress.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
