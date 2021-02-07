@@ -1,7 +1,7 @@
 .search-btn {
-    background-color: #eeeeee5b;
-    border: none;
-    padding:5px;
+  background-color: #eeeeee5b;
+  border: none;
+  padding:5px;
 }
 
 .search-container {
@@ -11,23 +11,23 @@
 }
 
 .search-container input {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 .input-search {
-    background-color: white;  
-    border: 1px solid #f7a782;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    padding: 5px;
+  background-color: white;  
+  border: 1px solid #f7a782;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding: 5px;
 }
 
 
 .btn-search {
-    background-color: #F7A782;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    padding: 5px;
+  background-color: #F7A782;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 5px;
 }
     
