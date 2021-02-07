@@ -12,6 +12,7 @@ import useCopyToClipboard from '../../Hooks/useCopyToClipboard';
 import RecomendationCard from '../RecomedationCard';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import './style.css';
 
 const DetailScreen = (props) => {
   const TIME = 5000;
@@ -110,25 +111,30 @@ const DetailScreen = (props) => {
   };
 
   return (
-    <div>
-      <img
-        src={ recipe.imgRecipe }
-        alt=""
-        width="200px"
-        data-testid="recipe-photo"
-      />
-      <p data-testid="recipe-title">{recipe.nameRecipe}</p>
+    <div className="container-int">
+      <div className="image-container">
+        <img
+          src={ recipe.imgRecipe }
+          alt=""
+          width="200px"
+          data-testid="recipe-photo"
+        />
+      </div>
+      <p data-testid="recipe-title" className="title-recipe">
+        {recipe.nameRecipe}
+      </p>
       <button
         type="button"
+        className="share-button"
         data-testid="share-btn"
         onClick={ () => setCopied(`/${page}/${id}`) }
       >
         {copied ? 'Link copiado!' : 'Compartilhar'}
       </button>
-      <button type="button" onClick={ favoriteBtn }>
+      <button type="button" onClick={ favoriteBtn } className="share-button">
         {favoriteIcon(favorite)}
       </button>
-      <p data-testid="recipe-category">
+      <p data-testid="recipe-category" className="ingredient-title">
         {`${recipe.categoryRecipe} - ${recipe.alcoholic}`}
       </p>
       <ul>
@@ -138,14 +144,17 @@ const DetailScreen = (props) => {
           </li>
         ))}
       </ul>
-      <p data-testid="instructions">{recipe.instructionRecipe}</p>
+      <h4 className="instruction-title">Instruction</h4>
+      <p data-testid="instructions" className="instructions">
+        {recipe.instructionRecipe}
+      </p>
       <div className="container-video">
         <div className="video" data-testid="video" />
       </div>
-      <div className="container-cards">
+      <div className="container-cards-carrousel">
         {recommendationMount(recommendation)}
       </div>
-      {startRecipe()}
+      <div className="container-button">{startRecipe()}</div>
     </div>
   );
 };

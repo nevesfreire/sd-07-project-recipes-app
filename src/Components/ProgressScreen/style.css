@@ -1,0 +1,66 @@
+.image-container img {
+  width: 100%;
+}
+
+.image-container {
+  margin-bottom: 10px;
+}
+
+.title-recipe {
+  font-size: 20pt;
+  margin: 0;
+}
+
+.share-button {
+  border: 1px solid #f7a782;
+  border-radius: 5px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+.container-cards-carrousel {
+  display: flex;
+  background-color: #c9c9c9;
+  overflow-x: scroll;
+  padding: 5px;
+}
+
+.recomendation-card img {
+  margin-right: 10px;
+  width: 150px;
+}
+
+.container-button {
+  display: flex;
+}
+
+.btn-start {
+    border: 1px solid #f7a782;
+    padding: 10px;
+    width: 100%;
+}
+
+.instructions {
+  text-indent: 30px;
+  text-align: justify;
+  padding: 10px;
+}
+
+.ingredient-title {
+  font-size: 15pt;
+  margin-left: 10px;
+}
+
+.instruction-title {
+  margin-left: 15px;
+}
+
+.container-ingredient {
+  padding-left: 10px;
+}
+
+.container-ingredient input {
+  margin-right: 10px;
+}
+
