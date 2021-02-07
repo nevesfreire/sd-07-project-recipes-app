@@ -9,6 +9,7 @@ const Provider = ({ children }) => {
   const [activeFilter, setActiveFilter] = useState('');
   const [isMeal, setIsMeal] = useState(false);
   const [details, setDetails] = useState({});
+  const [explorer, setExplorer] = useState(true);
 
   const context = {
     data,
@@ -16,6 +17,8 @@ const Provider = ({ children }) => {
     activeFilter,
     details,
     isMeal,
+    explorer,
+    setExplorer,
     setData,
     setFilters,
     setIsMeal,

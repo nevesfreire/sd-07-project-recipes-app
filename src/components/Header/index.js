@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import imageProfile from '../../images/profileIcon.svg';
 import imageSearch from '../../images/searchIcon.svg';
-import SearchBar from '../SearchBar';
 import './style.css';
+import SearchBar from '../SearchBar';
 
 function Title(pathname) {
   let title = '';

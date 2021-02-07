@@ -8,7 +8,6 @@ function Profile() {
 
   useEffect(() => {
     const localStorageEmail = getStorage('user');
-    console.log(localStorageEmail.email);
     setEmail(localStorageEmail.email);
   }, [user]);
 
