@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import CoffeAndCodeContext from '../context/CoffeeAndCodeContext';
 import { saveState } from '../services/localStorage';
 import '../styles/components/login.css';
+import coffee from '../images/coffee.svg';
 
 function Login() {
   const {
@@ -38,6 +39,13 @@ function Login() {
         <h1>Coffee and Code</h1>
       </header>
       <section className="login">
+        <div>
+          <img
+            className="coffee"
+            src={ coffee }
+            alt="login icon"
+          />
+        </div>
         <div>
           <input
             type="email"
