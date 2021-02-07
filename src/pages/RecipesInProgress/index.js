@@ -112,7 +112,7 @@ function RecipesInProgress() {
         && takeIngredients().map((ingredients, index) => (
           <div key={ index } data-testid={ `${index}-ingredient-step` }>
             <input
-              className="strikethrough-input"
+              className="strikethrough-inpu"
               onClick={ handleProgress }
               type="checkbox"
               id={ index }
