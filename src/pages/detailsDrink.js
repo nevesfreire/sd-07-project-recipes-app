@@ -63,7 +63,8 @@ function DetailsDrink() {
 
   const startRecipe = () => (
     <button
-      style={ { position: 'fixed', bottom: 0 } }
+      style={ { position: 'fixed',
+    bottom: 0 } }
       className="startRecipeBtn"
       type="button"
       data-testid="start-recipe-btn"
@@ -140,6 +141,7 @@ function DetailsDrink() {
 
   return (
     <div>
+      {console.log('drink:', dataDrink)}
       {
         dataDrink.length > ZERO ? cardDrink() : 'Carregando...'
       }

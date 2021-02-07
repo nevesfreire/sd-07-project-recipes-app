@@ -66,16 +66,33 @@ function Food() {
     return 'Loading...';
   };
 
-  const showListFoodCategories = () => listFoodCategories.map((item) => (
-    <button
-      key={ item.strCategory }
-      type="button"
-      data-testid={ `${item.strCategory}-category-filter` }
-      onClick={ () => getFilterFoodCategory(item.strCategory) }
-    >
-      {item.strCategory}
-    </button>
-  ));
+  const setsCategory = () => {
+    setRenderCategory(false);
+    setCategoryName(undefined);
+  };
+
+  const showListFoodCategories = () => (
+    <div>
+      {
+        listFoodCategories.map((item) => (
+          <button
+            type="button"
+            key={ item.strCategory }
+            data-testid={ `${item.strCategory}-category-filter` }
+            onClick={ () => getFilterFoodCategory(item.strCategory) }
+          >
+            {item.strCategory}
+          </button>))
+      }
+      <button
+        type="button"
+        onClick={ () => setsCategory() }
+        data-testid="All-category-filter"
+      >
+        All
+      </button>
+    </div>
+  );
 
   const optionsRender = () => {
     if (renderCategory) {

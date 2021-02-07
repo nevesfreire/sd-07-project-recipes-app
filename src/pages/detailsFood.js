@@ -61,23 +61,10 @@ function DetailsFood() {
     return getFavorited();
   };
 
-  /* const localStorageRecipes = () => {
-    const recipeDone = [{
-      id: dataFood[0].idMeal,
-      type: 'meals',
-      area: dataFood[0].strArea,
-      category: dataFood[0].strCategory,
-      alcoholicOrNot: 'not',
-      name: dataFood[0].strMeal,
-      image: dataFood[0].strMealThumb,
-      doneDate: dataFood[0].dateModified,
-      tags: dataFood[0].strTags,
-    }];
-  }; */
-
   const startRecipe = () => (
     <button
-      style={ { position: 'fixed', bottom: 0 } }
+      style={ { position: 'fixed',
+    bottom: 0 } }
       className="startRecipeBtn"
       type="button"
       data-testid="start-recipe-btn"
