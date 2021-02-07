@@ -93,7 +93,7 @@ function Actions({ data }) {
     else setRenderButton(true);
 
     const inProgressObj = getItem('inProgressRecipes');
-    const field = api === 'meals' ? 'meals' : 'cocktails';
+    const field = api === 'meal' ? 'meals' : 'cocktails';
     if (inProgressObj[field]) {
       const isProgress = Object.keys(inProgressObj[field]).some((id) => id === data.id);
       if (isProgress) setInProgress(true);

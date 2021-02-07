@@ -41,7 +41,7 @@ const formatData = (data) => ({
   video: data.strYoutube || '',
   ingredients: getIngredientsList(data),
   alcoholic: data.strAlcoholic !== undefined,
-  area: data.strArea,
+  area: data.strArea || '',
   tags: data.strTags ? data.strTags.trim().split(',') : [],
 });
 

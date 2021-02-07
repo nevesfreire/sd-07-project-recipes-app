@@ -21,9 +21,11 @@ function Profile({ history, search = false }) {
   return (
     <>
       <Header history={ history } search={ search } />
-      <main>
-        <p data-testid="profile-email">{ email }</p>
-        <Link to="receitas-feitas">
+      <main className="explore">
+        <h4 data-testid="profile-email" className="profile__email">
+          { email }
+        </h4>
+        <Link to="receitas-feitas" className="explore__button">
           <button
             type="button"
             data-testid="profile-done-btn"
@@ -31,7 +33,7 @@ function Profile({ history, search = false }) {
             Receitas Feitas
           </button>
         </Link>
-        <Link to="receitas-favoritas">
+        <Link to="receitas-favoritas" className="explore__button">
           <button
             type="button"
             data-testid="profile-favorite-btn"
@@ -39,7 +41,7 @@ function Profile({ history, search = false }) {
             Receitas Favoritas
           </button>
         </Link>
-        <Link to="/">
+        <Link to="/" className="explore__button">
           <button
             type="button"
             data-testid="profile-logout-btn"
