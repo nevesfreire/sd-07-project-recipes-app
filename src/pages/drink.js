@@ -13,14 +13,14 @@ import {
 
 function Drink() {
   const FIVE = 5;
-  const MAX_RENDER_FILTERS = 1;
   const ZERO = 0;
   const [loading, setLoading] = useState(false);
   const [arrayListDrink, setArrayListDrink] = useState([]);
   const [arrayCategory, setArrayCategory] = useState([]);
-  const [countButtonFilter, setCountButtonFilter] = useState(ZERO);
-  const [ListDrinkCategories, setListDrinkCategories] = useState([]);
+  const [renderCategory, setRenderCategory] = useState(false);
+  const [categoryName, setCategoryName] = useState(undefined);
   const { showBtn, data, setData } = useContext(RecipeContext);
+  const [ListDrinkCategories, setListDrinkCategories] = useState([]);
 
   useEffect(() => {
     if (!data.drink) setData({ ...data, drink: [] });
@@ -37,8 +37,9 @@ function Drink() {
   }, []);
 
   const getFilterDrinkCategory = async (category) => {
+    if (category === categoryName) return setRenderCategory(true);
     setArrayCategory(await filterDrinkCategory(category));
-    setCountButtonFilter((countButton) => countButton + 1);
+    setCategoryName(category);
   };
   useEffect(() => {
     const getDrinkByIngredients = async () => {
@@ -76,11 +77,9 @@ function Drink() {
     </button>
   ));
 
-  const renderFirstCardsDrink = () => ListCardsDrink(data.drink);
-
   const optionsRender = () => {
-    if (countButtonFilter > MAX_RENDER_FILTERS) {
-      return renderFirstCardsDrink();
+    if (renderCategory) {
+      return ListCardsDrinkCategory(data.drink);
     }
 
     if (arrayCategory.length > ZERO) return ListCardsDrinkCategory(arrayCategory);
@@ -88,6 +87,7 @@ function Drink() {
     if (data.drink === 'error' || data.drink === null) {
       return getAlert();
     }
+
     return getLoading();
   };
 

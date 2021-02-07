@@ -13,12 +13,12 @@ import {
 
 function Food() {
   const FIVE = 5;
-  const MAX_RENDER_FILTERS = 1;
   const ZERO = 0;
   const [loading, setLoading] = useState(false);
   const [arrayListFood, setArrayListFood] = useState([]);
   const [arrayCategory, setArrayCategory] = useState([]);
-  const [countButtonFilter, setCountButtonFilter] = useState(ZERO);
+  const [renderCategory, setRenderCategory] = useState(false);
+  const [categoryName, setCategoryName] = useState(undefined);
   const { showBtn, data, setData } = useContext(RecipeContext);
   const [listFoodCategories, setListFoodCategories] = useState([]);
 
@@ -37,8 +37,9 @@ function Food() {
   }, []);
 
   const getFilterFoodCategory = async (category) => {
+    if (category === categoryName) return setRenderCategory(true);
     setArrayCategory(await filterFoodCategory(category));
-    setCountButtonFilter((countButton) => countButton + 1);
+    setCategoryName(category);
   };
   useEffect(() => {
     const getFoodByIngredients = async () => {
@@ -76,11 +77,9 @@ function Food() {
     </button>
   ));
 
-  const renderFirstCardsFood = () => ListCardsFood(data.food);
-
   const optionsRender = () => {
-    if (countButtonFilter > MAX_RENDER_FILTERS) {
-      return renderFirstCardsFood();
+    if (renderCategory) {
+      return ListCardsFoodCategory(data.food);
     }
 
     if (arrayCategory.length > ZERO) return ListCardsFoodCategory(arrayCategory);
@@ -88,6 +87,7 @@ function Food() {
     if (data.food === 'error' || data.food === null) {
       return getAlert();
     }
+
     return getLoading();
   };
 
