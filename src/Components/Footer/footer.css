@@ -3,9 +3,10 @@
   bottom: 0;
   display: flex;
   justify-content: space-around;
+  padding-top: 5px;
   position: fixed;
   width: 100vw;
-  padding-top: 5px;
+  
 }
 
 .btn-navigation {

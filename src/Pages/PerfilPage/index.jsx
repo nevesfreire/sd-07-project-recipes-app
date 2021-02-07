@@ -9,8 +9,10 @@ const Perfil = () => (
   <div className="container-over">
     <div className="container-int">
       <Header title="Perfil" />
-      <UserProfile />
-      <LogoutButton />
+      <div className="container-buttons-profile">
+        <UserProfile />
+        <LogoutButton />
+      </div>
       <Footer />
     </div>
   </div>
