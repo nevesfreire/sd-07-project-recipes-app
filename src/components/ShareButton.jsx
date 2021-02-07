@@ -10,7 +10,7 @@ export default function ShareButton() {
   const [copied, setState] = useState(false);
   const treeSecond = 3000;
   return (
-    <div>
+    <>
       { copied && (<CopiedMSG />)}
       <Button
         testid="share-btn"
@@ -23,6 +23,6 @@ export default function ShareButton() {
           }, treeSecond);
         } }
       />
-    </div>
+    </>
   );
 }

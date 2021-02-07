@@ -40,14 +40,14 @@ export default function DetailsFood({
             alt="foto"
             style={ { width: 360 } }
           />
+          <h3 data-testid="recipe-title">{meals[0].strMeal}</h3>
           <div>
-            <div>
-              <h3 data-testid="recipe-title">{meals[0].strMeal}</h3>
+            <div className="favoriteShare">
               <ShareButton />
               <FavoriteFoodButton foodArr={ meals[0] } />
             </div>
             <h5 data-testid="recipe-category">{meals[0].strCategory}</h5>
-            <div>
+            <div className="ingredients">
               <h4>Ingredients</h4>
               <ul>
                 {

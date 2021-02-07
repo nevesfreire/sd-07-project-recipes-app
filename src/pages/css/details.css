@@ -1,12 +1,67 @@
 .details {
-  display: inline-block;
+  display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
+  box-sizing: border-box;
 }
 
-.carousel-div {
+/* preciso redimencionar essa imagem */
+.details > img {
+  object-fit: fill;
+  object-position: center center;
+  width: 100%;
+}
+
+/* porque não consigo alinhar os item em linha */
+.favoriteShare {
+  background-color: blue;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  max-height: 50px;
+}
+
+.favoriteShare button {
+  background-color: blueviolet;
+  display: flex;
+  align-self: flex-end;
+  margin: 0px;
+}
+
+.ingredients {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: row;
+}
+
+.details div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 80%;
+}
+
+.slick-slider {
   padding: 0 40px;
+  width: 80vw;
+}
+
+.slick-list {
+  width: 100%;
+}
+
+.carousel-div button {
+  background-color: black;
+  height: 100%;
+}
+
+.slideCard img {
+  display: inline;
+  height: auto;
+  width: 70%;
 }
 
 .btn-fixed {

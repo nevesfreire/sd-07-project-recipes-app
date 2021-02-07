@@ -32,6 +32,7 @@ export default function DrinkRecomendation() {
                   <Link
                     to={ `/bebidas/${idDrink}` }
                     key={ i }
+                    className="slideCard"
                     data-testid={ `${i}-recomendation-card` }
                   >
                     <img src={ strDrinkThumb } alt="ico" className="recomendation-card" />
