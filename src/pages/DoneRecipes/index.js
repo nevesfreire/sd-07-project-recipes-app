@@ -9,7 +9,7 @@ import Header from '../../components/Header';
 import DoneCards from './DoneCards';
 
 const renderFilters = (callback) => (
-  <div>
+  <div className="categories">
     <Button
       type="button"
       data-testid="filter-by-all-btn"
@@ -54,7 +54,14 @@ function DoneRecipes({ history, search = false }) {
     <>
       <Header history={ history } search={ search } />
       {renderFilters(handleFilter)}
-      <CardDeck>
+      <CardDeck
+        style={ {
+          alignItems: 'center',
+          display: 'flex',
+          flexDirection: 'column',
+          padding: '15px 30px',
+        } }
+      >
         {doneRecipes.map((recipe, index) => (
           <DoneCards key={ index + 1 } data={ recipe } index={ index } />
         ))}
