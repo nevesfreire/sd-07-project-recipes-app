@@ -84,7 +84,7 @@ body {
 
 .btn-login:hover {
   background-color: white;
-  color: #0C6D8E;
+  color: #0c6d8e;
   transition-duration: 0.5s;
 }
 
@@ -213,11 +213,11 @@ body {
     background-color: white;
     color: #0c6d8e;
   }
-  
+
   .title-login {
     color: white;
-    font-weight: 700;
     font-size: 20pt;
+    font-weight: 700;
     margin-bottom: 20px;
     margin-top: -80px;
     text-align: center;

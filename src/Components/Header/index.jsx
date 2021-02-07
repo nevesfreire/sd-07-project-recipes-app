@@ -16,7 +16,11 @@ const Header = (props) => {
 
   const isHeader = () => (
     <div className="search">
-      <button type="button" className="search-btn" onClick={ () => setSearchBar(!searchBar) }>
+      <button
+        type="button"
+        className="search-btn"
+        onClick={ () => setSearchBar(!searchBar) }
+      >
         <img src={ searchicon } alt="serchIcon" data-testid="search-top-btn" />
       </button>
     </div>
