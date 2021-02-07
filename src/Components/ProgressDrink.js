@@ -42,7 +42,7 @@ function ProgressFood() {
       setRecipe(drink.drinks[0]);
       setLoading(false);
       const array = Object.values(drink.drinks[0]).slice(twentyOne, fiftyOne);
-      const pos = array.indexOf(null || '');
+      const pos = array.indexOf(null);
       const ingredients = array.map((ingredient, index) => {
         if (array[index + fifteen] === null) {
           return { [ingredient]: '' };

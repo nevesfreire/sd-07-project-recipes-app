@@ -17,7 +17,13 @@ const Header = (props) => {
 
   return (
     <div style={ { backgroundColor: '#c4c4c4' } }>
-      <header style={ { backgroundColor: '#c4c4c4', display: 'flex', alignItems: 'center', justifyContent: 'space-between' } }>
+      <header
+        style={ {
+          backgroundColor: '#c4c4c4',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between' } }
+      >
         {showSearcIcon && (
           <Button
             variant="text"
