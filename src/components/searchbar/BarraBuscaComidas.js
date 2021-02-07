@@ -67,8 +67,8 @@ class BarraBuscaComidas extends Component {
     const { busca } = this.state;
     return (
       <div>
-        <fieldset>
-          <label htmlFor="busca">
+        <fieldset className="form-searchbar">
+          <label htmlFor="busca" className="form-label">
             <input
               type="text"
               name="busca"
@@ -76,10 +76,10 @@ class BarraBuscaComidas extends Component {
               value={ busca }
               onChange={ this.handleChange }
               data-testid="search-input"
+              className="form-control"
             />
           </label>
-          <label htmlFor="name">
-            Nome
+          <label htmlFor="name" className="form-label">
             <input
               name="select"
               id="name"
@@ -88,9 +88,9 @@ class BarraBuscaComidas extends Component {
               value="nome"
               onChange={ this.handleChange }
             />
+            Nome
           </label>
-          <label htmlFor="ingredient">
-            Ingrediente
+          <label htmlFor="ingredient" className="form-label">
             <input
               name="select"
               id="ingredient"
@@ -99,9 +99,9 @@ class BarraBuscaComidas extends Component {
               value="ingrediente"
               onChange={ this.handleChange }
             />
+            Ingrediente
           </label>
-          <label htmlFor="letter">
-            Primeira letra
+          <label htmlFor="letter" className="form-label">
             <input
               name="select"
               id="letter"
@@ -110,12 +110,14 @@ class BarraBuscaComidas extends Component {
               value="letra"
               onChange={ this.handleChange }
             />
+            Primeira letra
           </label>
           <button
             type="button"
             id="botão"
             data-testid="exec-search-btn"
             onClick={ this.searchContent }
+            className="btn btn-primary"
           >
             Buscar
           </button>

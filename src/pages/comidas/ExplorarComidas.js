@@ -26,6 +26,7 @@ class ExplorarComidas extends React.Component {
           type="button"
           data-testid="explore-by-ingredient"
           onClick={ () => history.push('/explorar/comidas/ingredientes') }
+          className="btn btn-info"
         >
           Por Ingredientes
         </button>
@@ -33,6 +34,7 @@ class ExplorarComidas extends React.Component {
           type="button"
           data-testid="explore-by-area"
           onClick={ () => history.push('/explorar/comidas/area') }
+          className="btn btn-info"
         >
           Por Local de Origem
         </button>
@@ -40,6 +42,7 @@ class ExplorarComidas extends React.Component {
           type="button"
           data-testid="explore-surprise"
           onClick={ this.fetchData }
+          className="btn btn-info"
         >
           Me Surpreenda!
         </button>

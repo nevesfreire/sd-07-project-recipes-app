@@ -60,6 +60,7 @@ class Bebidas extends React.Component {
             data-testid={ `${index}-recipe-card` }
             key={ drink.idDrink }
             onClick={ () => this.detailRecipe(drink.idDrink) }
+            className="border-card"
           >
             <img
               src={ drink.strDrinkThumb }
@@ -110,6 +111,7 @@ class Bebidas extends React.Component {
           type="button"
           data-testid="Ordinary Drink-category-filter"
           onClick={ () => this.searchCategory('Ordinary Drink') }
+          className="btn btn-secondary"
         >
           Ordinary Drink
         </button>
@@ -117,6 +119,7 @@ class Bebidas extends React.Component {
           type="button"
           data-testid="Cocktail-category-filter"
           onClick={ () => this.searchCategory('Cocktail') }
+          className="btn btn-secondary"
         >
           Cocktail
         </button>
@@ -124,6 +127,7 @@ class Bebidas extends React.Component {
           type="button"
           data-testid="Milk / Float / Shake-category-filter"
           onClick={ () => this.searchCategory('Milk / Float / Shake') }
+          className="btn btn-secondary"
         >
           Milk / Float / Shake
         </button>
@@ -131,6 +135,7 @@ class Bebidas extends React.Component {
           type="button"
           data-testid="Other/Unknown-category-filter"
           onClick={ () => this.searchCategory('Other/Unknown') }
+          className="btn btn-secondary"
         >
           Other/Unknown
         </button>
@@ -138,6 +143,7 @@ class Bebidas extends React.Component {
           type="button"
           data-testid="Cocoa-category-filter"
           onClick={ () => this.searchCategory('Cocoa') }
+          className="btn btn-secondary"
         >
           Cocoa
         </button>
@@ -145,6 +151,7 @@ class Bebidas extends React.Component {
           type="button"
           data-testid="All-category-filter"
           onClick={ () => this.allCategories() }
+          className="btn btn-primary"
         >
           All
         </button>

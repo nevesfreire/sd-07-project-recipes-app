@@ -61,6 +61,7 @@ class Comidas extends Component {
             data-testid={ `${index}-recipe-card` }
             key={ food.idMeal }
             onClick={ () => this.detailRecipe(food.idMeal) }
+            className="border-card"
           >
             <img
               src={ food.strMealThumb }
@@ -111,6 +112,7 @@ class Comidas extends Component {
           type="button"
           data-testid="Beef-category-filter"
           onClick={ () => this.searchCategory('Beef') }
+          className="btn btn-secondary"
         >
           Beef
         </button>
@@ -118,6 +120,7 @@ class Comidas extends Component {
           type="button"
           data-testid="Breakfast-category-filter"
           onClick={ () => this.searchCategory('Breakfast') }
+          className="btn btn-secondary"
         >
           Breakfast
         </button>
@@ -125,6 +128,7 @@ class Comidas extends Component {
           type="button"
           data-testid="Chicken-category-filter"
           onClick={ () => this.searchCategory('Chicken') }
+          className="btn btn-secondary"
         >
           Chicken
         </button>
@@ -132,6 +136,7 @@ class Comidas extends Component {
           type="button"
           data-testid="Dessert-category-filter"
           onClick={ () => this.searchCategory('Dessert') }
+          className="btn btn-secondary"
         >
           Dessert
         </button>
@@ -139,6 +144,7 @@ class Comidas extends Component {
           type="button"
           data-testid="Goat-category-filter"
           onClick={ () => this.searchCategory('Goat') }
+          className="btn btn-secondary"
         >
           Goat
         </button>
@@ -146,6 +152,7 @@ class Comidas extends Component {
           type="button"
           data-testid="All-category-filter"
           onClick={ () => this.allCategories() }
+          className="btn btn-primary"
         >
           All
         </button>
