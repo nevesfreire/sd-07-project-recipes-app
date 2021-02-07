@@ -40,7 +40,6 @@ export default class RecipeDetails extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log(prevProps.match.path);
     const { match: { params: { id }, path } } = this.props;
     if (prevProps.match.path !== path) this.fetchRecipe(id, path);
   }

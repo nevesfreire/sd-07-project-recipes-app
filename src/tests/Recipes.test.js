@@ -6,12 +6,27 @@ import { Recipes } from '../pages';
 
 const mealsMock = require('./Mocks/meals');
 const beefMealsMock = require('./Mocks/beefMeals');
+const mealCategories = require('./Mocks/mealCategories');
+
+const mockFetchMeals = Promise.resolve({
+  json: () => Promise.resolve(mealsMock),
+});
+
+const mockFetchMealCategories = Promise.resolve({
+  json: () => Promise.resolve(mealCategories),
+});
+
+const mockFetchBeefMeals = Promise.resolve({
+  json: () => Promise.resolve(beefMealsMock),
+});
+
+const DATA_TEST_ID_SEARCH_TOP = 'search-top-btn';
+const DATA_TEST_ID_SEARCH_INPUT = 'search-input';
+const DATA_TEST_ID_EXEC_SEARCH = 'exec-search-btn';
 
 describe('Teste se a página de receitas', () => {
   beforeEach(() => {
-    global.fetch = jest.fn(() => Promise.resolve({
-      json: () => Promise.resolve(mealsMock),
-    }));
+    jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchMeals);
   });
   afterEach(() => (
     jest.clearAllMocks()
@@ -21,7 +36,7 @@ describe('Teste se a página de receitas', () => {
     const { getByTestId } = renderWithRedux(<Recipes type="comidas" />);
     const profileButton = getByTestId('profile-top-btn');
     const pageTitle = getByTestId('page-title');
-    const searchButton = getByTestId('search-top-btn');
+    const searchButton = getByTestId(DATA_TEST_ID_SEARCH_TOP);
     expect(profileButton).toBeInTheDocument();
     expect(pageTitle).toBeInTheDocument();
     expect(searchButton).toBeInTheDocument();
@@ -29,18 +44,18 @@ describe('Teste se a página de receitas', () => {
 
   it('se ao clicar no botão de busca o componente SearchBar é renderizado', () => {
     const { getByTestId, queryByTestId } = renderWithRedux(<Recipes type="comidas" />);
-    const searchButton = getByTestId('search-top-btn');
-    expect(queryByTestId('search-input')).not.toBeInTheDocument();
+    const searchButton = getByTestId(DATA_TEST_ID_SEARCH_TOP);
+    expect(queryByTestId(DATA_TEST_ID_SEARCH_INPUT)).not.toBeInTheDocument();
     expect(queryByTestId('ingredient-search-radio')).not.toBeInTheDocument();
     expect(queryByTestId('name-search-radio')).not.toBeInTheDocument();
     expect(queryByTestId('first-letter-search-radio')).not.toBeInTheDocument();
-    expect(queryByTestId('exec-search-btn')).not.toBeInTheDocument();
+    expect(queryByTestId(DATA_TEST_ID_EXEC_SEARCH)).not.toBeInTheDocument();
     fireEvent.click(searchButton);
-    expect(queryByTestId('search-input')).toBeInTheDocument();
+    expect(queryByTestId(DATA_TEST_ID_SEARCH_INPUT)).toBeInTheDocument();
     expect(queryByTestId('ingredient-search-radio')).toBeInTheDocument();
     expect(queryByTestId('name-search-radio')).toBeInTheDocument();
     expect(queryByTestId('first-letter-search-radio')).toBeInTheDocument();
-    expect(queryByTestId('exec-search-btn')).toBeInTheDocument();
+    expect(queryByTestId(DATA_TEST_ID_EXEC_SEARCH)).toBeInTheDocument();
   });
 
   it('se ao apertar o botão de perfil é redirecionada para página de perfil', () => {
@@ -87,16 +102,49 @@ describe('Teste se a página de receitas', () => {
 
   it(`se ao clicar no filtro beef,
     renderiza receitas com este ingrediente`, async () => {
+    global.fetch.mockClear();
+    jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchMealCategories);
     renderWithRedux(<Recipes type="comidas" />);
-    const recipeNameText = await screen.findAllByText('Corba');
     const beefFilterButton = await screen.findByTestId('Beef-category-filter');
+    global.fetch.mockClear();
+    jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchBeefMeals);
     fireEvent.click(beefFilterButton);
-    expect(recipeNameText[0]).toBeInTheDocument();
-    global.fetch = jest.fn(() => Promise.resolve({
-      json: () => Promise.resolve(beefMealsMock),
-    }));
     const recipeItem = await screen.findByText('Beef and Mustard Pie');
     expect(recipeItem).toBeInTheDocument();
+  });
+
+  it(`se ao pesquisar por beef na busca por ingrediente,
+    renderiza receitas com este ingrediente`, async () => {
+    renderWithRedux(<Recipes type="comidas" />);
+    fireEvent.click(await screen.findByTestId(DATA_TEST_ID_SEARCH_TOP));
+    fireEvent.click(await screen.findByTestId(DATA_TEST_ID_SEARCH_INPUT), {
+      target: { value: 'beef' },
+    });
+    global.fetch.mockClear();
+    jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchBeefMeals);
+    fireEvent.click(await screen.findByTestId(DATA_TEST_ID_EXEC_SEARCH));
+    const recipeItem = await screen.findByText('Beef and Mustard Pie');
+    expect(recipeItem).toBeInTheDocument();
+  });
+
+  it('renderiza o componente Footer e seus elementos na tela', () => {
+    const { getByTestId } = renderWithRedux(<Recipes type="comidas" />);
+    const footer = getByTestId('footer');
+    const drinkButton = getByTestId('drinks-bottom-btn');
+    const exploreButton = getByTestId('explore-bottom-btn');
+    const foodButton = getByTestId('food-bottom-btn');
+    expect(footer).toBeInTheDocument();
+    expect(drinkButton).toBeInTheDocument();
+    expect(exploreButton).toBeInTheDocument();
+    expect(foodButton).toBeInTheDocument();
+  });
+
+  it('se ao clicar no ícone de explorar, renderiza a página de explorar', async () => {
+    const { getByTestId, history } = renderWithRedux(<Recipes type="comidas" />);
+    const exploreButton = getByTestId('explore-bottom-btn');
+    fireEvent.click(exploreButton);
+    const { location: { pathname } } = history;
+    expect(pathname).toBe('/explorar');
   });
 
   /* test('when clicked in about link should redirect to url "/about" ', () => {

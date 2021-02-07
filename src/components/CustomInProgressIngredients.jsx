@@ -40,7 +40,6 @@ export default class CustomInProgressIngredients extends Component {
   getIngredientIsChecked(ingredientName) {
     const { recipeType, recipeId } = this.props;
     const recipes = getStorage('inProgressRecipes');
-    console.log(recipes);
     const recipeInProgress = (recipeType === 'comidas')
       ? recipes.meals[recipeId]
       : recipes.cocktails[recipeId];
