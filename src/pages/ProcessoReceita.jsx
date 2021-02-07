@@ -7,6 +7,7 @@ import CoffeAndCodeContext from '../context/CoffeeAndCodeContext';
 import shareIcon from '../images/shareIcon.svg';
 import { loadState, saveState } from '../services/localStorage';
 import { requestApiFoodDetails } from '../services/requestFood';
+import '../styles/pages/processoReceita.css';
 
 const filteredIngredientsAndMeasures = (
   detailsEntries,
@@ -147,6 +148,7 @@ function ProcessoReceita({ match: { params: { id } } }) {
   return (
     <div>
       <img
+        className="image"
         data-testid="recipe-photo"
         src={ foodDetails.strMealThumb }
         alt="thumb"
@@ -185,20 +187,22 @@ function ProcessoReceita({ match: { params: { id } } }) {
               const checked = checkBoxArray.some((check) => check === ingredient);
 
               return (
-                <label
-                  htmlFor={ `${ingredient}-${index}` }
-                  data-testid={ `${index}-ingredient-step` }
-                  key={ `${ingredient}-${index}` }
-                >
-                  <input
-                    type="checkbox"
-                    name={ `${ingredient}-${index}` }
-                    id={ `${ingredient}-${index}` }
-                    checked={ checked }
-                    onChange={ (event) => handleChecked(event, ingredient) }
-                  />
-                  { ingredient }
-                </label>
+                <div key={ `${ingredient}-${index}` }>
+                  <label
+                    htmlFor={ `${ingredient}-${index}` }
+                    data-testid={ `${index}-ingredient-step` }
+                    key={ `${ingredient}-${index}` }
+                  >
+                    <input
+                      type="checkbox"
+                      name={ `${ingredient}-${index}` }
+                      id={ `${ingredient}-${index}` }
+                      checked={ checked }
+                      onChange={ (event) => handleChecked(event, ingredient) }
+                    />
+                    { ingredient }
+                  </label>
+                </div>
               );
             })
           }
