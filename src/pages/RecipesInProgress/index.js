@@ -64,8 +64,8 @@ function RecipesInProgress() {
   // }
 
   function handleProgress({ target }) {
-    const { name, value, checked } = target;
-    console.log(name, value, checked);
+    const { value, checked } = target;
+    // console.log(name, value, checked);
     let array = [];
     if (checked) {
       array = [...progress, value];
@@ -112,6 +112,7 @@ function RecipesInProgress() {
         && takeIngredients().map((ingredients, index) => (
           <div key={ index } data-testid={ `${index}-ingredient-step` }>
             <input
+              className="strikethrough-input"
               onClick={ handleProgress }
               type="checkbox"
               id={ index }
@@ -124,7 +125,7 @@ function RecipesInProgress() {
               }
               value={ details[ingredients] }
             />
-            <label className="strikethrough" htmlFor={ index }>
+            <label className="strikethrough-label" htmlFor={ index }>
               {' '}
               {`${details[ingredients]} - ${
                 details[takeMeasure()[index]] || ''
