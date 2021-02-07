@@ -90,7 +90,7 @@ function Details({ itemId, mealType }) {
       }
     }
     return (
-      <ul>
+      <ul type="none">
         {ingredientsList.map((item, index) => (
           <li
             key={ `ìngredient${index}` }
@@ -169,6 +169,7 @@ function Details({ itemId, mealType }) {
             type="button"
             data-testid="share-btn"
             onClick={ () => copyLink() }
+            className="icon-button"
           >
             <img src={ shareIcon } alt="share-icon" />
           </button>
@@ -178,6 +179,7 @@ function Details({ itemId, mealType }) {
             onClick={ () => addToFavorites() }
             src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
             tabIndex="0"
+            className="icon-button"
           >
             <img
               src={ isFavorite ? blackHeartIcon : whiteHeartIcon }

@@ -51,7 +51,7 @@ function CardInProgress() {
   }, [itemId, mealType]);
 
   const loadIngredients = () => (
-    <ul>
+    <ul type="none">
       {getIngredients(details).map((item, index) => (
         <li
           key={ `ìngredient${index}` }
@@ -109,6 +109,7 @@ function CardInProgress() {
         </h5>
         <span>
           <button
+            className="icon-button"
             type="button"
             data-testid="share-btn"
             onClick={ () => copyLink(window.location.href, setShowMessage) }
@@ -116,6 +117,7 @@ function CardInProgress() {
             <img src={ shareIcon } alt="share-icon" />
           </button>
           <button
+            className="icon-button"
             type="button"
             data-testid="favorite-btn"
             onClick={ () => addToFavorites(itemId, mealType, details, setIsFavorite) }

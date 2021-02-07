@@ -10,17 +10,19 @@ function Profile() {
     history.push('/');
   };
   return (
-    <div>
+    <div className="profile">
       <p data-testid="profile-email">{email && email.email}</p>
       <Link
         to="/receitas-feitas"
         data-testid="profile-done-btn"
+        className="form-button"
       >
         Receitas Feitas
       </Link>
       <Link
         to="/receitas-favoritas"
         data-testid="profile-favorite-btn"
+        className="form-button"
       >
         Receitas Favoritas
       </Link>

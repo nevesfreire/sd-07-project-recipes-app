@@ -21,8 +21,6 @@ body {
 
 .form-button {
 height: 50px;
-left: 129px;
-top: 569px;
 margin-top: 10px;
 background: #D60000;
 border-radius: 50px;
@@ -311,16 +309,11 @@ top: 0px;
 .sideScroll {
   display: flex;
   flex-flow: row nowrap;
-  height: 300px;
+  height: 230px;
   justify-content: flex-start;
   overflow: auto;
   overflow-x: scroll;
   width: 100vw;
-}
-
-.button-begin {
-  bottom: 0;
-  position: fixed;
   margin: 0;
 }
 
@@ -396,3 +389,54 @@ padding: 3px 7px;
 margin:0 8px;
 }
 
+.icon-button {
+  background: rgba(255, 252, 252, 0.85);
+  border: none;
+  margin-right: 10px;
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 200px auto;
+  width: 341px;
+  background: rgba(255, 252, 252, 0.85);
+  border-radius: 8px;
+}
+
+.profile p {
+  font-family: 'Baloo Thambi 2', cursive;
+  font-weight: 600;
+  font-size: 25px;
+}
+
+.profile a {
+  text-decoration: none;
+  text-align: center;
+  height: 35px;
+}
+
+.profile button {
+  border-radius: 50%;
+  height: 80px;
+  width: 80px;
+  border: none;
+  color: white;
+  background: #2C29AF;
+  font-family: 'Baloo Thambi 2', cursive;
+  font-weight: bold;
+  font-size: 25px;
+  margin: 30px;
+}
+
+.alert {
+  font-family: 'Noto Sans', sans-serif;
+font-style: normal;
+font-weight: 600;
+font-size: 20px;
+line-height: 27px;
+color: #3C3C3C;
+text-shadow: 0px 0px 0px rgba(0, 0, 0, 0.25);
+margin: 0;
+}

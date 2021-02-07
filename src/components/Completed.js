@@ -58,7 +58,7 @@ function Completed() {
 
       {
         finishedList.length === zero
-          ? <h3>Nenhuma Receita Finalizada =]</h3>
+          ? <h3 className="alert">Nenhuma Receita Finalizada =]</h3>
           : finishedList.map((receita, index) => (
             <div key={ `receita-${index}` }>
               <a href={ `http://localhost:3000/${receita.type === 'comida' ? 'comidas' : 'bebidas'}/${receita.id}` }>
@@ -98,6 +98,7 @@ function Completed() {
                 {receita.doneDate}
               </p>
               <button
+                className="navbar-button"
                 type="button"
                 data-testid={ `${index}-horizontal-share-btn` }
                 src="../src/images/shareIcon.svg"
@@ -107,6 +108,7 @@ function Completed() {
               </button>
 
               <button
+                className="navbar-button"
                 type="button"
                 data-testid={ `${index}-horizontal-favorite-btn` }
                 src="../src/images/blackHeartIcon.svg"
