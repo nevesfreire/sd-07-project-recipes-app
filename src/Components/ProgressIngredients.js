@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import './ProgressIngredients.css';
+import './style/ProgressIngredients.css';
 import RecipesContext from '../context/RecipesContext';
 
 function ProgressIngredients(props) {
