@@ -56,9 +56,10 @@ function DoneRecipes({ history, search = false }) {
       {renderFilters(handleFilter)}
       <CardDeck
         style={ {
-          alignItems: 'center',
           display: 'flex',
-          flexDirection: 'column',
+          flexWrap: 'wrap',
+          gap: 10,
+          justifyContent: 'center',
           padding: '15px 30px',
         } }
       >

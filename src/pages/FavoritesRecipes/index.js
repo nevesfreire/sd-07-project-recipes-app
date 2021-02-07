@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Button, CardDeck } from 'react-bootstrap';
 import { getItem, saveItem, initialize } from '../../services/localStorage';
-import shareIcon from '../../images/shareIcon.svg';
-import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
-const copy = require('clipboard-copy');
+import Header from '../../components/Header';
+import FavoriteCard from './FavoriteCard';
 
-function FavoriteRecipes() {
+function FavoriteRecipes({ history, search = false }) {
   const [favoritesRecipes, setFavoritesRecipes] = useState([]);
-  const [showCopiedMessage, setCopiedMessage] = useState('hidden');
   const [isUpdate, setUptade] = useState(false);
   const [filterType, setFilterType] = useState('all');
 
@@ -26,15 +25,9 @@ function FavoriteRecipes() {
     }
   }, [favoritesRecipes]);
 
-  const copyLink = (type, id) => {
-    const twoSecondes = 2000;
-    let kindOfFood = '';
-    if (type === 'comida') kindOfFood = 'comidas';
-    else kindOfFood = 'bebidas';
-    const getUrl = `http://localhost:3000/${kindOfFood}/${id}`;
-    copy(getUrl);
-    setCopiedMessage('');
-    setTimeout(() => { setCopiedMessage('hidden'); }, twoSecondes);
+  const filterByCondition = (event) => {
+    const { value } = event.target;
+    setFilterType(value);
   };
 
   const disfavorItem = (id) => {
@@ -46,108 +39,71 @@ function FavoriteRecipes() {
     saveItem('favoriteRecipes', newFavoritesRecipe);
   };
 
-  const filterByCondition = (event) => {
-    const { value } = event.target;
-    setFilterType(value);
-  };
-
   return (
-    <div>
-      <ul>
-        <li>
-          <button
-            type="button"
-            data-testid="filter-by-all-btn"
-            value="all"
-            onClick={ (e) => filterByCondition(e) }
-          >
-            Filter All
-          </button>
-        </li>
-        <li>
-          <button
-            type="button"
-            data-testid="filter-by-food-btn"
-            value="comida"
-            onClick={ (e) => filterByCondition(e) }
-          >
-            Filter by Food
-          </button>
-        </li>
-        <li>
-          <button
-            type="button"
-            data-testid="filter-by-drink-btn"
-            value="bebida"
-            onClick={ (e) => filterByCondition(e) }
-          >
-            Filter by Drink
-          </button>
-        </li>
-      </ul>
-      <section>
+    <>
+      <Header history={ history } search={ search } />
+      <div className="categories">
+        <Button
+          type="button"
+          data-testid="filter-by-all-btn"
+          value="all"
+          onClick={ (e) => filterByCondition(e) }
+        >
+          Filter All
+        </Button>
+        <Button
+          type="button"
+          data-testid="filter-by-food-btn"
+          value="comida"
+          onClick={ (e) => filterByCondition(e) }
+        >
+          Filter by Food
+        </Button>
+        <Button
+          type="button"
+          data-testid="filter-by-drink-btn"
+          value="bebida"
+          onClick={ (e) => filterByCondition(e) }
+        >
+          Filter by Drink
+        </Button>
+      </div>
+      <CardDeck
+        style={ {
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: 10,
+          justifyContent: 'center',
+          padding: '15px 30px',
+        } }
+      >
         {favoritesRecipes
           .filter((recipe) => (
             filterType !== 'all'
               ? recipe.type === filterType
               : favoritesRecipes))
-          .map(
-            ({ alcoholicOrNot,
-              area,
-              category,
-              id,
-              image,
-              name,
-              type,
-            }, index) => (
-              <div key={ id }>
-                <Link to={ `/${type}s/${id}` }>
-                  <p data-testid={ `${index}-horizontal-name` }>
-                    { name }
-                  </p>
-                </Link>
-                <Link to={ `/${type}s/${id}` }>
-                  <img
-                    data-testid={ `${index}-horizontal-image` }
-                    src={ image }
-                    width="75px"
-                    alt="Foto de Alimento"
-                  />
-                </Link>
-                <p data-testid={ `${index}-horizontal-top-text` }>
-                  { type === 'bebida' ? alcoholicOrNot : `${area} - ${category}` }
-                </p>
-                <button
-                  type="button"
-                  data-testid={ `${index}-horizontal-share-btn` }
-                  src={ shareIcon }
-                  onClick={ () => copyLink(type, id) }
-                >
-                  <img
-                    src={ shareIcon }
-                    alt="Ícone de Compartilhar"
-                  />
-                  Compartilhar
-                </button>
-                <p hidden={ showCopiedMessage }>Link copiado!</p>
-                <button
-                  type="button"
-                  data-testid={ `${index}-horizontal-favorite-btn` }
-                  src={ blackHeartIcon }
-                  onClick={ () => disfavorItem(id) }
-                >
-                  <img
-                    src={ blackHeartIcon }
-                    alt="Ícone de Favoritar"
-                  />
-                  Favoritar
-                </button>
-              </div>
-            ),
-          )}
-      </section>
-    </div>
+          .map((data, index) => (
+            <FavoriteCard
+              key={ index + 1 }
+              disfavorItem={ disfavorItem }
+              data={ data }
+              index={ index }
+            />
+          ))}
+      </CardDeck>
+    </>
   );
 }
+
+FavoriteRecipes.defaultProps = { search: false };
+
+FavoriteRecipes.propTypes = {
+  search: PropTypes.bool,
+  history: PropTypes.shape({
+    location: PropTypes.shape({
+      pathname: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+};
 
 export default FavoriteRecipes;
