@@ -57,7 +57,7 @@ export default function InputLogin() {
   const setLocalStorageData = () => {
     localStorage.setItem('mealsToken', JSON.stringify(1));
     localStorage.setItem('cocktailsToken', JSON.stringify(1));
-    localStorage.setItem('user', JSON.stringify({ _email: state.user }));
+    localStorage.setItem('user', JSON.stringify({ email: state.user }));
   };
 
   const callRoute = async () => {

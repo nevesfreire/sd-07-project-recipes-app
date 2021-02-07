@@ -1,0 +1,12 @@
+.profile-main {
+  align-items: center;
+  width: 360px;
+}
+
+.profile-button {
+  display: flex;
+  flex-direction: column;
+  height: 150px;
+  justify-content: space-between;
+  width: 200px;
+}
