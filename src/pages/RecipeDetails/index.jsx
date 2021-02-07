@@ -8,11 +8,11 @@ import Recomendations from './Recomendations';
 
 export default function RecipeDetails({ history, match: { params: { id } } }) {
   const [recipeDetails, setRecipeDetails] = useState([]);
+  const { location: { pathname } } = history;
+  const path = pathname.split('/')[1];
   const fetchMealDetails = async () => {
     try {
       let endpoint = '';
-      const { location: { pathname } } = history;
-      const path = pathname.split('/')[1];
       if (path === 'comidas') {
         endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
       } else {
@@ -28,12 +28,14 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
   };
 
   const {
+    idMeal,
     strMealThumb,
     strMeal,
     strCategory,
     strInstructions,
     strYoutube,
     strDrink,
+    idDrink,
     strAlcoholic,
     strDrinkThumb,
   } = recipeDetails;
@@ -64,6 +66,12 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
       arrayVazio.push([recipeDetails[ingredient], recipeDetails[measures[index]]]);
     }
   });
+
+  const startRecipe = () => (
+    idMeal
+      ? history.push(`/comidas/${idMeal}/in-progress`)
+      : history.push(`/bebidas/${idDrink}/in-progress`)
+  );
 
   useEffect(() => {
     fetchMealDetails();
@@ -111,6 +119,7 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
         type="button"
         className="start-recipe-btn"
         data-testid="start-recipe-btn"
+        onClick={ startRecipe }
       >
         Iniciar Receita
       </button>
@@ -128,5 +137,6 @@ RecipeDetails.propTypes = {
     location: PropTypes.shape({
       pathname: PropTypes.string.isRequired,
     }),
+    push: PropTypes.func.isRequired,
   }).isRequired,
 };
