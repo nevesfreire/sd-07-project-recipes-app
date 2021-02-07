@@ -1,5 +1,5 @@
 /* Resolução do avaliador: 360px W x 640px H */
-body {
+/* body {
   background-color: black;
   font-size: 16px;
   margin: auto;
@@ -92,7 +92,7 @@ body {
   padding: 8px 10px;
   text-align: center;
   transition: 0.5s;
-}
+} */
 
 .footer {
   align-items: center;
@@ -117,7 +117,7 @@ body {
   transform-origin: 36px 66px;
 } */
 
-.footer img {
+/* .footer img {
   padding: 5px;
 }
 
@@ -165,4 +165,4 @@ a:visited {
   padding: 8px;
   text-align: center;
   transition: 0.5s;
-}
+} */
