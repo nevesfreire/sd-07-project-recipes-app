@@ -101,7 +101,7 @@ function RecipesInProgress() {
     }
     const zero = 0;
     if (currRecipe.length !== zero) setProgress(currRecipe[0][1]);
-  }, []);
+  }, [category, idReceita]);
 
   return (
     <div>
@@ -136,7 +136,15 @@ function RecipesInProgress() {
         ))}
 
       <h2>Instructions</h2>
-      {details && <p data-testid="instructions">{details.strInstructions}</p>}
+      {details
+      && (
+        <p
+          data-testid="instructions"
+          className="recipes-instructions"
+        >
+          {details.strInstructions}
+        </p>
+      )}
 
       <Link to="/receitas-feitas">
         <button

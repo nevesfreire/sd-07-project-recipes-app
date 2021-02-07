@@ -1,3 +1,8 @@
 .strikethrough-input:checked ~ .strikethrough-label {
   text-decoration: line-through;
 }
+
+.recipes-instructions {
+  height: 100px;
+  overflow: hidden;
+}
