@@ -74,3 +74,4 @@ Perfil.propTypes = {
     push: PropTypes.func,
   }).isRequired,
 };
+// adicionei só pra conseguir commitar
