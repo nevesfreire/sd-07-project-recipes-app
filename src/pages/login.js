@@ -41,7 +41,7 @@ function Login() {
 
   return (
     <div className="div-body-login">
-      <h1 className="h1-txt-login">Login</h1>
+      <h2>Login</h2>
       <label htmlFor="userEmail" className="label-email">
         <input
           className="input-email"
