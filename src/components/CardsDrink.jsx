@@ -58,7 +58,7 @@ function CardsDrink() {
             );
           })
       }
-      <div>
+      <div className="container-btn">
         <button
           className="see-more"
           type="button"

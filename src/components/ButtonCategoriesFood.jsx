@@ -5,6 +5,7 @@ import {
   requestApiFoodFilterName,
   requestApiFoodFilterCategories,
 } from '../services/requestFood';
+import '../styles/components/btnCategories.css';
 
 function ButtonCategoriesFood() {
   const [categorySelectedPreviously, setCategorySelectedPreviously] = useState('All');
@@ -44,10 +45,11 @@ function ButtonCategoriesFood() {
   if (!categoriesButtonFood.length) return <span>Loading...</span>;
 
   return (
-    <div>
+    <div className="container-btn">
       {
         categoriesButtonFood.map((category) => (
           <button
+            className="btn-categories"
             data-testid={ `${category}-category-filter` }
             type="button"
             key={ category }

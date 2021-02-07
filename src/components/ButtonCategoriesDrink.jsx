@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import CoffeAndCodeContext from '../context/CoffeeAndCodeContext';
+import '../styles/components/btnCategories.css';
 
 import {
   requestApiDrinkListCategories,
@@ -45,10 +46,11 @@ function ButtonCategoriesDrink() {
   if (!categoriesButtonDrink.length) return <span>Loading...</span>;
 
   return (
-    <div>
+    <div className="container-btn">
       {
         categoriesButtonDrink.map((category) => (
           <button
+            className="btn-categories"
             data-testid={ `${category}-category-filter` }
             type="button"
             key={ category }

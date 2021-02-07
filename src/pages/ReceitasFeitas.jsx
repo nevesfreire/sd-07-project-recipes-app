@@ -41,8 +41,9 @@ function ReceitasFeitas() {
   return (
     <div>
       <Header name="Receitas Feitas" button={ false } />
-      <div>
+      <div className="container-btn">
         <button
+          className="btn-recipes"
           type="button"
           data-testid="filter-by-all-btn"
           name="All"
@@ -51,6 +52,7 @@ function ReceitasFeitas() {
           All
         </button>
         <button
+          className="btn-recipes"
           type="button"
           data-testid="filter-by-food-btn"
           name="Food"
@@ -59,6 +61,7 @@ function ReceitasFeitas() {
           Food
         </button>
         <button
+          className="btn-recipes"
           type="button"
           data-testid="filter-by-drink-btn"
           name="Drinks"

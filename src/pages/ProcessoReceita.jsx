@@ -22,7 +22,6 @@ const filteredIngredientsAndMeasures = (
       if (ingredientRegex.test(currentArray[0]) && currentArray[1].trim() !== '') {
         filteredIngredients.push(currentArray[1]);
       }
-
       if (measureRegex.test(currentArray[0]) && currentArray[1].trim() !== '') {
         filteredMeasures.push(currentArray[1]);
       }
@@ -36,8 +35,7 @@ const initialCountValue = (id) => {
   if (getMealsFromStorage.meals && getMealsFromStorage.meals[id]) {
     const getCurrentIdArray = getMealsFromStorage.meals[id];
     return getCurrentIdArray.length;
-  }
-  return zero;
+  } return zero;
 };
 
 function ProcessoReceita({ match: { params: { id } } }) {
@@ -54,8 +52,7 @@ function ProcessoReceita({ match: { params: { id } } }) {
       if (thereIsTheIdKey) {
         return loadStorage.meals[id];
       }
-    }
-    return emptyArray;
+    } return emptyArray;
   };
 
   const [checkBoxArray, setCheckBoxArray] = useState(getInitialCheckBoxArray());
@@ -85,7 +82,6 @@ function ProcessoReceita({ match: { params: { id } } }) {
       doneDate: currentDate,
       tags: tag,
     });
-
     saveState('doneRecipes', [...loadStorage]);
   };
 
@@ -126,7 +122,6 @@ function ProcessoReceita({ match: { params: { id } } }) {
 
   useEffect(() => {
     const loadStorage = loadState('inProgressRecipes', {});
-
     saveState('inProgressRecipes', {
       ...loadStorage,
       meals: { ...loadStorage.meals, [id]: [...checkBoxArray] },
@@ -148,40 +143,37 @@ function ProcessoReceita({ match: { params: { id } } }) {
   return (
     <div>
       <img
-        className="image"
+        className="image-recipe"
         data-testid="recipe-photo"
         src={ foodDetails.strMealThumb }
         alt="thumb"
       />
-      <div>
-        <span
-          data-testid="recipe-title"
-        >
+      <div className="container-one">
+        <h1 data-testid="recipe-title">
           { foodDetails.strMeal }
-        </span>
-        <hr />
-        <span
-          data-testid="recipe-category"
-        >
-          { foodDetails.strCategory }
-        </span>
-      </div>
-      <div>
+          <h3 data-testid="recipe-category">
+            { foodDetails.strCategory }
+          </h3>
+        </h1>
         <CopyToClipboard text={ url }>
           <button
             type="button"
             data-testid="share-btn"
             onClick={ () => setCopyVisibility('visible') }
           >
-            <img src={ shareIcon } alt="Share icon" />
+            <img
+              src={ shareIcon }
+              alt="Share icon"
+            />
           </button>
         </CopyToClipboard>
         <FavoriteHeart id={ id } food />
         <small style={ { visibility: copyVisibility } }>Link copiado!</small>
       </div>
+      <hr />
       <div>
-        <p>Ingredients</p>
-        <div>
+        <p className="title">Ingredients</p>
+        <div className="ingredient-step">
           {
             ingredientsAndMeasures.map((ingredient, index) => {
               const checked = checkBoxArray.some((check) => check === ingredient);
@@ -194,6 +186,7 @@ function ProcessoReceita({ match: { params: { id } } }) {
                     key={ `${ingredient}-${index}` }
                   >
                     <input
+                      className="check"
                       type="checkbox"
                       name={ `${ingredient}-${index}` }
                       id={ `${ingredient}-${index}` }
@@ -207,22 +200,30 @@ function ProcessoReceita({ match: { params: { id } } }) {
             })
           }
         </div>
-        <p>Instructions</p>
+        <p className="title">Instructions</p>
         <div>
-          <p data-testid="instructions">{ foodDetails.strInstructions }</p>
+          <p
+            className="instructions"
+            data-testid="instructions"
+          >
+            { foodDetails.strInstructions }
+          </p>
         </div>
       </div>
-      <Link to="/receitas-feitas">
-        <button
-          type="button"
-          data-testid="finish-recipe-btn"
-          disabled={ ingredientsAndMeasures.length !== countCheck }
-          // disabled={ handleDisable }
-          onClick={ doneRecipe }
-        >
-          Finalizar Receita
-        </button>
-      </Link>
+      <div className="container-btn">
+        <Link to="/receitas-feitas">
+          <button
+            className="btn-finish"
+            type="button"
+            data-testid="finish-recipe-btn"
+            disabled={ ingredientsAndMeasures.length !== countCheck }
+            // disabled={ handleDisable }
+            onClick={ doneRecipe }
+          >
+            Finalizar Receita
+          </button>
+        </Link>
+      </div>
     </div>
   );
 }
@@ -234,5 +235,4 @@ ProcessoReceita.propTypes = {
     }).isRequired,
   }).isRequired,
 };
-
 export default ProcessoReceita;
