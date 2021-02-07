@@ -8,13 +8,12 @@
   margin: auto;
   margin-top: 25px;
   width: 80%;
- }
- 
+}
+
  .container-buttons button {
-     border: none;
-     border-radius: 5px;
-     box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.5);
-     margin-bottom: 25px;
-     padding: 10px;
- }
- 
+    border: none;
+    border-radius: 5px;
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.5);
+    margin-bottom: 25px;
+    padding: 10px;
+}

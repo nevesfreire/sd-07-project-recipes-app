@@ -14,16 +14,16 @@
 .share-button {
   border: 1px solid #f7a782;
   border-radius: 5px;
-  margin-left: 10px;
   margin-bottom: 10px;
+  margin-left: 10px;
   padding: 5px;
 }
 
 .container-cards-carrousel {
-  display: flex;
   background-color: #c9c9c9;
-  padding: 5px;
+  display: flex;
   overflow-x: scroll;
+  padding: 5px;
 }
 
 .recomendation-card img {
@@ -42,9 +42,9 @@
 }
 
 .instructions {
-  text-indent: 30px;
-  text-align: justify;
   padding: 10px;
+  text-align: justify;
+  text-indent: 30px;
 }
 
 .ingredient-title {
@@ -63,4 +63,3 @@
 .container-ingredient input {
   margin-right: 10px;
 }
-

@@ -6,7 +6,6 @@
   padding-top: 5px;
   position: fixed;
   width: 100vw;
-  
 }
 
 .btn-navigation {
@@ -19,6 +18,6 @@
 }
 
 .btn-navigation:hover {
-  background-color: #0C6D8E;
+  background-color: #0c6d8e;
   transition-duration: 1s;
 }

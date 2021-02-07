@@ -20,8 +20,8 @@
 }
 
 .container-cards-carrousel {
-  display: flex;
   background-color: #c9c9c9;
+  display: flex;
   overflow-x: scroll;
   padding: 5px;
 }
@@ -42,9 +42,9 @@
 }
 
 .instructions {
-  text-indent: 30px;
-  text-align: justify;
   padding: 10px;
+  text-align: justify;
+  text-indent: 30px;  
 }
 
 .ingredient-title {

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import '../../App.css';
-import './style.css';
+// import './style.css';
 import profileicon from '../../images/profileIcon.svg';
 import searchicon from '../../images/searchIcon.svg';
 import Searcher from '../Searcher';
