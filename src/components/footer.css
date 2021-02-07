@@ -1,34 +1,17 @@
-.drinkIcon {
-  height: 40px;
-  left: 16px;
-  position: absolute;
-  top: 10px;
-  width: 40px;
-
-  /* background: url(cocktail.png); */
-}
-
-.exploreIcon {
-  height: 40px;
-  left: 160px;
-  position: absolute;
-  top: 10px;
-  width: 40px;
-}
-
-.mealIcon {
-  height: 40px;
-  left: 302px;
-  position: absolute;
-  top: 10px;
-  width: 40px;
+.exploreIcon, .mealIcon,.drinkIcon {
+  height: 100%;
+  width: 100%;
+  padding: 4% 0 4% 0;
 }
 
 .footer {
-  background: #c4c4c4;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  border-top: 1px solid black;
+  background: white;
   bottom: 0;
-  height: 58px;
-  left: 0;
+  height: 8.5%;
   position: fixed;
-  width: 360px;
+  width: 100vw;
 }
