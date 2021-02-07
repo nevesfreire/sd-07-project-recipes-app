@@ -1,0 +1,109 @@
+.categorys {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  width: 100vw;
+  height: 3vw;
+}
+
+.header {
+  height: auto;
+  width: 100%;
+  display: flex;
+  opacity: 0.7;
+  justify-content: space-between;
+
+}
+
+.searchBar {
+  background-color: rgba(255, 255, 255, 0.466);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.searchBar > input{
+  background-color: rgba(#6c757d);
+  display: block;
+  width: 50%;
+}
+
+.searchBar label{
+  background-color: rgba(#6c757d);
+  font-size:large;
+}
+
+.searchBar > button{
+  background-color: rgba(#6c757d);
+  display: inline-block;
+  margin-left: 10px;
+  width: 15%;
+}
+
+.cardLink {
+  width: 18rem;
+  align-items: center;
+  padding: 0px;
+  margin: 15px;
+}
+
+.card {
+  width: 18rem;
+  color: black;
+  align-items: center;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding-top: 50px;
+  justify-content: space-around;
+}
+
+.footer {
+  background-color: white;
+  bottom: 0;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  position: fixed;
+  width: 100%;
+  height: auto;
+  left: 0px;
+  opacity: 0.7;
+}
+
+@media screen and (max-width: 400px) {
+  .categorys {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    width: 100vw;
+    height: 3vw;
+  }
+  
+  .header {
+    height: auto;
+    width: 100%;
+    display: flex;
+    opacity: 0.7;
+    justify-content: space-between;
+  
+  }
+  
+  .searchBar {
+    background-color: rgba(255, 255, 255, 0.466);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .searchBar > button{
+    background-color: rgba(#6c757d);
+    display: inline-block;
+    margin-left: 10px;
+    width: 100px;
+  }
+
+}

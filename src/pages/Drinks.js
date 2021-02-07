@@ -3,6 +3,7 @@ import {
   Header, Footer, CardsFactory, CategoryButtons,
 } from '../components';
 import { CupNodesContext } from '../contexts';
+import './css/recomendedScreen.css';
 
 function filterURL({ option, text }) {
   const newText = text.toLowerCase();

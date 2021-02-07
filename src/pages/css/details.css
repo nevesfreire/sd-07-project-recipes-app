@@ -1,0 +1,18 @@
+.details {
+  display: inline-block;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.carousel-div {
+  padding: 0 40px;
+}
+
+.btn-fixed {
+  background-color: rgb(67, 84, 107);
+  color: white;
+  bottom: 0;
+  display: flex;
+  position: fixed;
+}

@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Button, DrinkRecomendation, LoadingCard, ShareButton, FavoriteFoodButton,
+  Button, DrinkRecomendation, NotFound,
+  LoadingCard, ShareButton, FavoriteFoodButton,
 } from '../components';
-import { useFetchApi } from '../hooks';
+import { useFetchApi, useLocalStorage } from '../hooks';
 import { getKeys } from '../Services';
+import './css/details.css';
 
 const getLink = (idFood) => (
   Number.isNaN(Number(idFood))
@@ -20,11 +22,18 @@ export default function DetailsFood({
   const ingredienteList = meals && getKeys(meals[0], 'strIngredient');
   const measuresList = meals && getKeys(meals[0], 'strMeasure');
 
+  const zero = 0;
+  const [inProgress] = useLocalStorage('inProgressRecipes');
+  if (!loading && !meals) return (<NotFound />);
+  const include = inProgress && Object.keys(inProgress.meals || {}).includes(idFood);
+  const recipeInProgress = (include && ingredienteList)
+    && inProgress.meals[idFood].length !== zero
+    && ingredienteList.length > inProgress.meals[idFood].length;
   return (
     loading
       ? (<LoadingCard />)
       : (
-        <div>
+        <div className="details">
           <img
             data-testid="recipe-photo"
             src={ meals[0].strMealThumb }
@@ -73,7 +82,7 @@ export default function DetailsFood({
             <DrinkRecomendation />
             <Button
               testid="start-recipe-btn"
-              text="Iniciar Receita"
+              text={ recipeInProgress ? 'Continuar Receita' : 'Iniciar Receita' }
               position="btn-fixed"
               func={ () => { push(`/comidas/${idFood}/in-progress`); } }
             />

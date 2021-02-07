@@ -12,6 +12,7 @@ import {
   DrinkExplore,
   AreaExploreFood,
   RecipeFoodInProgress,
+  RecipeDrinkInProgress,
   IngredientsExploreDrink,
   IngredientsExploreFood,
 } from './pages';
@@ -50,7 +51,7 @@ export default function Routes() {
         <Route
           exact
           path="/bebidas/:idDrink/in-progress"
-          component={ RecipeFoodInProgress }
+          component={ RecipeDrinkInProgress }
         />
       </Switch>
     </BrowserRouter>

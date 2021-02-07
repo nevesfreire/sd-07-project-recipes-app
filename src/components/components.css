@@ -1,41 +1,4 @@
-.footer {
-  align-items: center;
-  background-color: gray;
-  bottom: 0;
-  display: flex;
-  flex-flow: row wrap;
-  height: 70px;
-  justify-content: space-around;
-  position: fixed;
-  width: 360px;
-}
 
-.header {
-  height: 60px;
-  top: 0;
-  width: 100%;
-}
-
-.categorys {
-  display: inline-block;
-  height: 60px;
-}
-
-.carousel-div {
-  padding: 0 40px;
-}
-
-.recomendation-card {
-  height: 100px;
-}
-
-.btn-fixed {
-  background-color: gray;
-  bottom: 0;
-  display: flex;
-  position: fixed;
-}
-
-.checked {
+input:checked + label[class="checked"] {
   text-decoration-line: line-through;
 }

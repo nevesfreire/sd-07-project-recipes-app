@@ -1,8 +1,10 @@
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
+import { Button } from '../components';
 import { useValideEmailAndPassword, useLocalStorage } from '../hooks';
 import { SUBMIT_EMAIL } from '../reducers';
 import { CupNodesContext } from '../contexts';
+import './css/login.css';
 
 const initialState = { email: '', password: '' };
 
@@ -29,44 +31,33 @@ export default function Login({ history: { push } }) {
   };
 
   return (
-    <div>
-      <label htmlFor="email-input">
-        Email:
-        <input
-          data-testid="email-input"
-          type="email"
-          onChange={ changeState }
+    <div className="container">
+      <div className="loginBox">
+        <label htmlFor="email-input">
+          Email:
+          <input
+            data-testid="email-input"
+            type="email"
+            onChange={ changeState }
+          />
+        </label>
+        <label htmlFor="password-input">
+          Senha:
+          <input
+            data-testid="password-input"
+            type="password"
+            onChange={ changeState }
+          />
+        </label>
+        <Button
+          type="submit"
+          testid="login-submit-btn"
+          onClick={ submitUser }
+          text="Entrar"
+          func={ submitUser }
+          disabled={ !valid }
         />
-      </label>
-      <label htmlFor="password-input">
-        Senha:
-        <input
-          data-testid="password-input"
-          type="password"
-          onChange={ changeState }
-        />
-      </label>
-      {
-        valid
-          ? (
-            <button
-              type="submit"
-              data-testid="login-submit-btn"
-              onClick={ submitUser }
-            >
-              Entrar
-            </button>
-          )
-          : (
-            <button
-              type="submit"
-              data-testid="login-submit-btn"
-              disabled
-            >
-              Entrar
-            </button>
-          )
-      }
+      </div>
     </div>
   );
 }

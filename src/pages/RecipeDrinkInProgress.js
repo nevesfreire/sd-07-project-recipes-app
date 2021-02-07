@@ -21,7 +21,7 @@ export default function RecipeDrinkInProgress({ history: { push }, match }) {
   const [loading, { drinks }] = useFetchApi(URL);
 
   const [inProgressRecipes, setRecipeStorage] = useLocalStorage('inProgressRecipes');
-  const initialRecipeInProgress = inProgressRecipes
+  const initialRecipeInProgress = (inProgressRecipes && drinks)
     && inProgressRecipes.cocktails[idDrink]
     ? inProgressRecipes
     : initialState(idDrink);
@@ -47,6 +47,13 @@ export default function RecipeDrinkInProgress({ history: { push }, match }) {
         ...recipeInProgress,
         cocktails: { [idDrink]: [...itens, value] },
       });
+  };
+
+  const clearItem = () => {
+    setRecipeStorage({
+      ...recipeInProgress,
+      cocktails: { [idDrink]: [''] },
+    });
   };
   return (
     loading
@@ -78,6 +85,7 @@ export default function RecipeDrinkInProgress({ history: { push }, match }) {
                   testid="finish-recipe-btn"
                   text="Finalizar receita"
                   func={ () => {
+                    clearItem();
                     push('/receitas-feitas');
                   } }
                 />

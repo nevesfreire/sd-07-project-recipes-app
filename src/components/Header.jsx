@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { profileIcon, searchIcon } from '../images';
 import SearchBar from './SearchBar';
 import { Button } from './Contructors';
+import './components.css';
 
 export default function Header({ title, profile, search }) {
   const { push } = useHistory();

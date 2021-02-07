@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, FoodRecomendation, LoadingCard, ShareButton, FavoriteDrinkButton,
+import { Button, FoodRecomendation, LoadingCard,
+  ShareButton, FavoriteDrinkButton, NotFound,
 } from '../components';
 import { useFetchApi, useLocalStorage } from '../hooks';
 import { getKeys } from '../Services';
@@ -15,12 +16,17 @@ export default function DetailsDrink({ history, match }) {
   const { params: { idDrink } } = match;
   const URL = getLink(idDrink);
   const [loading, { drinks }] = useFetchApi(URL);
+
   const ingredienteList = drinks && getKeys(drinks[0], 'strIngredient');
   const measuresList = drinks && getKeys(drinks[0], 'strMeasure');
-  /* const [{ cocktails }] = useLocalStorage('inProgressRecipes');
-  const recipeInProgress = !!cocktails[idDrink]
-    && (ingredienteList.length === cocktails[idDrink].length);
-  console.log(recipeInProgress); */
+
+  const zero = 0;
+  const [inProgress] = useLocalStorage('inProgressRecipes');
+  if (!loading && !drinks) return (<NotFound />);
+  const include = inProgress && Object.keys(inProgress.cocktails || {}).includes(idDrink);
+  const recipeInProgress = (include && ingredienteList)
+    && inProgress.cocktails[idDrink].length !== zero
+    && ingredienteList.length > inProgress.cocktails[idDrink].length;
   return (
     loading
       ? (<LoadingCard />)
@@ -66,7 +72,7 @@ export default function DetailsDrink({ history, match }) {
             </div>
             <Button
               testid="start-recipe-btn"
-              text="Iniciar Receita"
+              text={ recipeInProgress ? 'Continuar Receita' : 'Iniciar Receita' }
               position="btn-fixed"
               func={ () => { history.push(`/bebidas/${idDrink}/in-progress`); } }
             />

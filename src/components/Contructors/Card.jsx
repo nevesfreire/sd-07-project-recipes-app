@@ -8,8 +8,8 @@ export default function CardConstructor({
   title, img, testidImg, testidCard, testidTitle, link, callback,
 }) {
   return (
-    <Link to={ link } onClick={ callback }>
-      <Card style={ { width: '18rem' } } data-testid={ testidCard }>
+    <Link to={ link } onClick={ callback } className="cardLink">
+      <Card data-testid={ testidCard }>
         <Card.Img
           variant="top"
           src={ img }

@@ -21,13 +21,7 @@ export default function SearchBar({ title }) {
     dispatchFilter({ type: SUBMIT_SEARCH, payload: state });
   };
   return (
-    <div>
-      <input
-        id="text"
-        data-testid="search-input"
-        type="text"
-        onChange={ handleChange }
-      />
+    <div className="searchBar">
       <div onChange={ handleChange }>
         <label htmlFor="ingredient-search-radio">
           Ingrediente
@@ -60,6 +54,12 @@ export default function SearchBar({ title }) {
           />
         </label>
       </div>
+      <input
+        id="text"
+        data-testid="search-input"
+        type="text"
+        onChange={ handleChange }
+      />
       <Button
         testid="exec-search-btn"
         text="Buscar..."

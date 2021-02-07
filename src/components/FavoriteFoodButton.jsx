@@ -24,7 +24,7 @@ export default function FavoriteFoodButton({ foodArr }) {
     const favorites = favoriteRecipes && favoriteRecipes
       .find(({ id }) => recipe.id === id);
     setState(favorites);
-  }, [favoriteRecipes]);
+  }, [favoriteRecipes, recipe.id]);
 
   const setFavorite = () => (
     favoriteRecipes

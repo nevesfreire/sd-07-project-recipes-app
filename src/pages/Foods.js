@@ -3,6 +3,7 @@ import {
   Header, Footer, CategoryButtons, CardsFactory,
 } from '../components';
 import { CupNodesContext } from '../contexts';
+import './css/recomendedScreen.css';
 
 function filterURL({ option, text }) {
   const newText = text.toLowerCase();
@@ -33,7 +34,7 @@ const whatchCards = (category, search) => {
 export default function Foods() {
   const { filterDates: { category, search } } = useContext(CupNodesContext);
   return (
-    <div>
+    <div className="cardsList">
       <Header title="Comidas" />
       <CategoryButtons number={ 5 } drink={ false } />
       {whatchCards(category, search)}

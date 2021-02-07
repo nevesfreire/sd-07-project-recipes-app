@@ -8,7 +8,7 @@ import { useFetchApi, useLocalStorage } from '../hooks';
 import { getKeys } from '../Services';
 
 const initialState = (id) => (
-  { cocktails: { [id]: [] } }
+  { meals: { [id]: [] } }
 );
 
 const removeItem = (itemRm, arr) => (
@@ -16,15 +16,16 @@ const removeItem = (itemRm, arr) => (
 );
 
 export default function RecipeFoodInProgress({ history: { push }, match }) {
-  const { params: { idDrink } } = match;
-  const URL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idDrink}`;
-  const [loading, { drinks }] = useFetchApi(URL);
+  const { params: { idFood } } = match;
+  const URL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idFood}`;
+  const [loading, { meals }] = useFetchApi(URL);
+  console.log(meals);
 
   const [inProgressRecipes, setRecipeStorage] = useLocalStorage('inProgressRecipes');
-  const initialRecipeInProgress = inProgressRecipes
-    && inProgressRecipes.cocktails[idDrink]
+  const initialRecipeInProgress = (inProgressRecipes && meals)
+    && inProgressRecipes.meals[idFood]
     ? inProgressRecipes
-    : initialState(idDrink);
+    : initialState(idFood);
   const [recipeInProgress, setRecipe] = useState(initialRecipeInProgress);
 
   const setStorage = useCallback((date) => setRecipeStorage(date), [setRecipeStorage]);
@@ -32,44 +33,51 @@ export default function RecipeFoodInProgress({ history: { push }, match }) {
     setStorage(recipeInProgress);
   }, [recipeInProgress, setStorage]);
 
-  if (!loading && !drinks) return (<NotFound />);
+  if (!loading && !meals) return (<NotFound />);
 
-  const itens = recipeInProgress.cocktails[idDrink];
-  const legthIngredients = drinks && getKeys(drinks[0], 'strIngredient').length;
+  const itens = recipeInProgress.meals[idFood];
+  const legthIngredients = meals && getKeys(meals[0], 'strIngredient').length;
   const checkItem = (value) => {
     const exist = itens.includes(value);
     return exist
       ? setRecipe({
         ...recipeInProgress,
-        cocktails: { [idDrink]: removeItem(value, itens) },
+        meals: { [idFood]: removeItem(value, itens) },
       })
       : setRecipe({
         ...recipeInProgress,
-        cocktails: { [idDrink]: [...itens, value] },
+        meals: { [idFood]: [...itens, value] },
       });
+  };
+
+  const clearItem = () => {
+    setRecipeStorage({
+      ...recipeInProgress,
+      meals: { [idFood]: [''] },
+    });
   };
   return (
     loading
       ? (<LoadingCard />)
       : (
         <div>
-          <img data-testid="recipe-photo" src={ drinks[0].strDrinkThumb } alt="foto" />
+          <img data-testid="recipe-photo" src={ meals[0].strMealThumb } alt="foto" />
           <div>
             <div>
-              <h3 data-testid="recipe-title">{drinks[0].strDrink}</h3>
+              <h3 data-testid="recipe-title">{meals[0].strMeal}</h3>
               <ShareButton />
-              <FavoriteDrinkButton drinksArr={ drinks[0] } />
+              <FavoriteDrinkButton mealsArr={ meals[0] } />
             </div>
-            <h5 data-testid="recipe-category">{drinks[0].strAlcoholic}</h5>
+            <h5 data-testid="recipe-category">{meals[0].strCategory}</h5>
             <CheckListIngredients
-              ingreObj={ drinks[0] }
+              ingreObj={ meals[0] }
               checkItem={ checkItem }
               itens={ itens }
             />
             <div>
               <h4>Instruções</h4>
               <p data-testid="instructions">
-                {drinks[0].strInstructions}
+                {meals[0].strInstructions}
               </p>
             </div>
             { legthIngredients === itens.length && !!itens.length
@@ -78,6 +86,7 @@ export default function RecipeFoodInProgress({ history: { push }, match }) {
                   testid="finish-recipe-btn"
                   text="Finalizar receita"
                   func={ () => {
+                    clearItem();
                     push('/receitas-feitas');
                   } }
                 />
@@ -97,6 +106,6 @@ export default function RecipeFoodInProgress({ history: { push }, match }) {
 RecipeFoodInProgress.propTypes = {
   history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired,
   match: PropTypes.shape({
-    params: PropTypes.shape({ idDrink: PropTypes.string.isRequired }).isRequired,
+    params: PropTypes.shape({ idFood: PropTypes.string.isRequired }).isRequired,
   }).isRequired,
 };

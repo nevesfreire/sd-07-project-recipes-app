@@ -22,7 +22,6 @@ export default function CheckListIngredients({ ingreObj, checkItem, itens }) {
                   <input
                     defaultChecked
                     type="checkbox"
-                    className="checked"
                     id={ i }
                     autoComplete="off"
                     data-testid={ `${i}-ingredient-step` }
@@ -39,6 +38,7 @@ export default function CheckListIngredients({ ingreObj, checkItem, itens }) {
                 )
             }
             <label
+              className="checked"
               htmlFor={ i }
             >
               { `${key && key[1]}${measures[i] ? ` - ${measures[i][1]}` : ''}` }
