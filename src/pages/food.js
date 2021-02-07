@@ -13,7 +13,7 @@ import {
 
 function Food() {
   const FIVE = 5;
-  const MAX_RENDER_BUTTON_FILTERS = 2;
+  const MAX_RENDER_FILTERS = 1;
   const ZERO = 0;
   const [loading, setLoading] = useState(false);
   const [arrayListFood, setArrayListFood] = useState([]);
@@ -76,22 +76,29 @@ function Food() {
     </button>
   ));
 
+  const renderFirstCardsFood = () => ListCardsFood(data.food);
+
+  const optionsRender = () => {
+    if (countButtonFilter > MAX_RENDER_FILTERS) {
+      return renderFirstCardsFood();
+    }
+
+    if (arrayCategory.length > ZERO) return ListCardsFoodCategory(arrayCategory);
+
+    if (data.food === 'error' || data.food === null) {
+      return getAlert();
+    }
+    return getLoading();
+  };
+
   return (
     <div>
       <Header />
       { showBtn && <SearchHeaderBar />}
 
-      {(arrayListFood.length > ZERO
-        && countButtonFilter < MAX_RENDER_BUTTON_FILTERS)
-        && showListFoodCategories()}
+      {(arrayListFood.length > ZERO && showListFoodCategories())}
 
-      {(arrayCategory.length > ZERO) && ListCardsFoodCategory(arrayCategory)}
-
-      {
-        (data.food === 'erro' || data.food === null)
-          ? getAlert()
-          : getLoading()
-      }
+      {optionsRender()}
 
       <Footer />
     </div>

@@ -5,19 +5,22 @@ import Footer from '../components/Footer';
 import RecipeContext from '../context/RecipeContext';
 import ListCardsDrinkCategory from '../components/ListCardsDrinkCategory';
 import ListCardsDrink from '../components/ListCardsDrink';
-import { getCategoryDrinks,
+import {
+  getCategoryDrinks,
   filterDrinkCategory,
   getDrinkIngredients,
 } from '../services/Api';
 
 function Drink() {
+  const FIVE = 5;
+  const MAX_RENDER_FILTERS = 1;
+  const ZERO = 0;
   const [loading, setLoading] = useState(false);
   const [arrayListDrink, setArrayListDrink] = useState([]);
   const [arrayCategory, setArrayCategory] = useState([]);
-  const [ListFoodCategories, setListFoodCategories] = useState([]);
+  const [countButtonFilter, setCountButtonFilter] = useState(ZERO);
+  const [ListDrinkCategories, setListDrinkCategories] = useState([]);
   const { showBtn, data, setData } = useContext(RecipeContext);
-  const FIVE = 5;
-  const ZERO = 0;
 
   useEffect(() => {
     if (!data.drink) setData({ ...data, drink: [] });
@@ -28,13 +31,14 @@ function Drink() {
     const getListCategories = async () => {
       const listDrinkCategories = await getCategoryDrinks();
       listDrinkCategories.length = FIVE;
-      setListFoodCategories(listDrinkCategories);
+      setListDrinkCategories(listDrinkCategories);
     };
     getListCategories();
   }, []);
 
   const getFilterDrinkCategory = async (category) => {
     setArrayCategory(await filterDrinkCategory(category));
+    setCountButtonFilter((countButton) => countButton + 1);
   };
   useEffect(() => {
     const getDrinkByIngredients = async () => {
@@ -61,7 +65,7 @@ function Drink() {
     return 'Loading...';
   };
 
-  const showListDrinksCategories = () => ListFoodCategories.map((category) => (
+  const showListDrinksCategories = () => ListDrinkCategories.map((category) => (
     <button
       key={ category.strCategory }
       type="button"
@@ -72,6 +76,21 @@ function Drink() {
     </button>
   ));
 
+  const renderFirstCardsDrink = () => ListCardsDrink(data.drink);
+
+  const optionsRender = () => {
+    if (countButtonFilter > MAX_RENDER_FILTERS) {
+      return renderFirstCardsDrink();
+    }
+
+    if (arrayCategory.length > ZERO) return ListCardsDrinkCategory(arrayCategory);
+
+    if (data.drink === 'error' || data.drink === null) {
+      return getAlert();
+    }
+    return getLoading();
+  };
+
   return (
     <div>
       <Header />
@@ -79,13 +98,8 @@ function Drink() {
 
       {(arrayListDrink.length > ZERO) && showListDrinksCategories()}
 
-      {(arrayCategory.length > ZERO) && ListCardsDrinkCategory(arrayCategory)}
+      {optionsRender()}
 
-      {
-        (data.drink === 'erro' || data.drink === null)
-          ? getAlert()
-          : getLoading()
-      }
       <Footer />
     </div>
   );
