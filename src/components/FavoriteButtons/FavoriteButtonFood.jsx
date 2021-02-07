@@ -5,7 +5,7 @@ import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import * as Actions from '../../actions/index';
 
-function FavoriteButtonFood({ id, fetchAgain, testId = 'favorite-btn', setTrue }) {
+function FavoriteButtonFood({ id, fetchAgain, testId, setTrue }) {
   const [favorite, setFavorite] = useState(false);
   const { details } = useSelector((state) => state.recipes);
   const dispatch = useDispatch();
@@ -49,6 +49,7 @@ function FavoriteButtonFood({ id, fetchAgain, testId = 'favorite-btn', setTrue }
       const removedRecipeStringfy = JSON.stringify(removedRecipe);
       setFavorite(false);
       localStorage.setItem('favoriteRecipes', removedRecipeStringfy);
+
       if (setTrue !== undefined) setTrue();
     } else {
       setFavorite(true);
@@ -74,14 +75,15 @@ function FavoriteButtonFood({ id, fetchAgain, testId = 'favorite-btn', setTrue }
 }
 
 FavoriteButtonFood.propTypes = {
-  id: PropTypes.string.isRequired,
-  fetchAgain: PropTypes.string.isRequired,
-  testId: PropTypes.string.isRequired,
-  setTrue: PropTypes.func,
+  id: PropTypes.string,
+  fetchAgain: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  testId: PropTypes.string,
+  setTrue: PropTypes.func.isRequired,
 };
-
 FavoriteButtonFood.defaultProps = {
-  setTrue: PropTypes.undefined,
+  id: '',
+  fetchAgain: false,
+  testId: 'favorite-btn',
 };
 
 export default FavoriteButtonFood;
