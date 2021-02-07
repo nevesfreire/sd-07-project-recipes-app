@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import Provider from './provider';
 import {
   DoneRecipes,
@@ -13,6 +13,7 @@ import {
   Profile,
   RecipeDetails,
   RecipesInProgress,
+  NotFound,
 } from './pages';
 
 function App() {
@@ -67,12 +68,17 @@ function App() {
           />
           <Route
             exact
-            path="/:recipes"
+            path="/comidas"
             render={ (props) => (<MainPage { ...props } />) }
           />
-          <Route path="/perfil" component={ Profile } />
+          <Route
+            exact
+            path="/bebidas"
+            render={ (props) => (<MainPage { ...props } />) }
+          />
+          <Route exact path="/perfil" component={ Profile } />
           <Route exact path="/" component={ Login } />
-          {/* <Redirect to="/404" /> */}
+          <Route path="/*" component={ NotFound } />
         </Switch>
       </BrowserRouter>
     </Provider>

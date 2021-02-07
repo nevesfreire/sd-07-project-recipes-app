@@ -9,3 +9,4 @@ export { default as MainPage } from './MainPage';
 export { default as Profile } from './Profile';
 export { default as RecipeDetails } from './RecipeDetails';
 export { default as RecipesInProgress } from './RecipesInProgress';
+export { default as NotFound } from './NotFound';
