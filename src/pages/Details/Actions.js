@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { Context } from '../../context/Provider';
 import { getItem, saveItem, initialize } from '../../services/localStorage';
 
+import shareIcon from '../../images/shareIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 
@@ -31,7 +32,7 @@ const button = (renderButton, inProgress, api, id) => {
       {renderButton && (
         <button
           type="button"
-          className="button"
+          className="detail__button"
           data-testid="start-recipe-btn"
           onClick={ () => beginRecipe(id) }
         >
@@ -120,32 +121,31 @@ function Actions({ data }) {
   };
 
   return (
-    <ul>
-      <li>
-        <button
-          type="button"
-          data-testid="share-btn"
-          onClick={ copyLink }
-        >
-          Compartilhar
-        </button>
-      </li>
-      <li>
-        <button
-          type="button"
-          onClick={ setAsFavorite }
-        >
-          <img
-            data-testid="favorite-btn"
-            src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-            alt="heartIcon"
-          />
-          Favoritar
-        </button>
-      </li>
+    <div className="detail__actions">
+      <button
+        type="button"
+        data-testid="share-btn"
+        onClick={ copyLink }
+      >
+        <img
+          src={ shareIcon }
+          alt="shareIcon"
+        />
+      </button>
+      <button
+        type="button"
+        onClick={ setAsFavorite }
+      >
+        <img
+          data-testid="favorite-btn"
+          src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+          alt="heartIcon"
+          style={ { maxWidth: 26 } }
+        />
+      </button>
       {button(renderButton, inProgress, api, data.id)}
       <p hidden={ showCopiedMessage }>Link copiado!</p>
-    </ul>
+    </div>
   );
 }
 

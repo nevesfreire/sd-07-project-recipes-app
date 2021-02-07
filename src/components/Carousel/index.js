@@ -20,28 +20,31 @@ function CarouselList({ history }) {
   }, [pathname]);
 
   return (
-    <Carousel>
-      {results.map((res, index) => (
-        <Carousel.Item
-          key={ res.idMeal || res.idDrink }
-          data-testid={ `${index}-recomendation-card` }
-          width="100px"
-        >
-          <img
-            alt="thumbnail"
+    <div style={ { padding: '15px 30px' } }>
+      <p className="detail__field">Recomendados:</p>
+      <Carousel style={ { marginBottom: 52 } }>
+        {results.map((res, index) => (
+          <Carousel.Item
+            key={ res.idMeal || res.idDrink }
+            data-testid={ `${index}-recomendation-card` }
             width="100px"
-            src={ res.strMealThumb || res.strDrinkThumb }
-          />
-          <Carousel.Caption>
-            <p
-              data-testid={ `${index}-recomendation-title` }
-            >
-              {res.strMeal || res.strDrink}
-            </p>
-          </Carousel.Caption>
-        </Carousel.Item>
-      ))}
-    </Carousel>
+          >
+            <img
+              alt="thumbnail"
+              style={ { width: '100%' } }
+              src={ res.strMealThumb || res.strDrinkThumb }
+            />
+            <Carousel.Caption>
+              <p
+                data-testid={ `${index}-recomendation-title` }
+              >
+                {res.strMeal || res.strDrink}
+              </p>
+            </Carousel.Caption>
+          </Carousel.Item>
+        ))}
+      </Carousel>
+    </div>
   );
 }
 
