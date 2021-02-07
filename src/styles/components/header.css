@@ -9,6 +9,7 @@ how-to-align-3-divs-left-center-right-inside-another-div
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-around;
+  padding-top: 10px;
 }
 
 h1 {

@@ -8,27 +8,33 @@ import '../styles/components/footer.css';
 function Footer() {
   return (
     <footer className="footer" data-testid="footer">
-      <Link to="/bebidas">
-        <img
-          data-testid="drinks-bottom-btn"
-          src={ drinkIcon }
-          alt="drinks"
-        />
-      </Link>
-      <Link to="/explorar">
-        <img
-          data-testid="explore-bottom-btn"
-          src={ exploreIcon }
-          alt="explore"
-        />
-      </Link>
-      <Link to="/comidas">
-        <img
-          data-testid="food-bottom-btn"
-          src={ mealIcon }
-          alt="meal"
-        />
-      </Link>
+      <div>
+        <Link to="/bebidas">
+          <img
+            data-testid="drinks-bottom-btn"
+            src={ drinkIcon }
+            alt="drinks"
+          />
+        </Link>
+      </div>
+      <div>
+        <Link to="/explorar">
+          <img
+            data-testid="explore-bottom-btn"
+            src={ exploreIcon }
+            alt="explore"
+          />
+        </Link>
+      </div>
+      <div>
+        <Link to="/comidas">
+          <img
+            data-testid="food-bottom-btn"
+            src={ mealIcon }
+            alt="meal"
+          />
+        </Link>
+      </div>
     </footer>
   );
 }

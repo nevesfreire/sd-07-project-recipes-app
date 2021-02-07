@@ -58,13 +58,16 @@ function CardsDrink() {
             );
           })
       }
-      <button
-        type="button"
-        onClick={ () => setCardAmount(cardAmount + maxCardAmount) }
-        disabled={ cardDrink.length < cardAmount }
-      >
-        See More
-      </button>
+      <div>
+        <button
+          className="see-more"
+          type="button"
+          onClick={ () => setCardAmount(cardAmount + maxCardAmount) }
+          disabled={ cardDrink.length < cardAmount }
+        >
+          See More
+        </button>
+      </div>
     </div>
   );
 }

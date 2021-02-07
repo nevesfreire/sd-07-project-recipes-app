@@ -1,6 +1,14 @@
 .footer {
+  background-color: lightgray;
   bottom: 0;
-  margin-bottom: 20px;
-  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  margin-bottom: 0px;
+  margin-top: 1000px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  position: fixed;
   width: 100vw;
 }
