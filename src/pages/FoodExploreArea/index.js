@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { FoodContext } from '../../providers/AllProviders';
 import Footer from '../../Components/Footer';
 import Header from '../../Components/Header';
+import './style.css';
 
 const FoodExploreArea = () => {
   const maxLength = 12;

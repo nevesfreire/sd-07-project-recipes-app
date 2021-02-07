@@ -3,6 +3,7 @@ import { Link, Redirect } from 'react-router-dom';
 import RequestRandomFood from '../../services/randomFood';
 import Footer from '../../Components/Footer';
 import Header from '../../Components/Header';
+import './style.css';
 
 const FoodExplore = () => {
   const [randomId, setRandomId] = useState(false);
@@ -24,9 +25,11 @@ const FoodExplore = () => {
       <Link to="/explorar/comidas/area">
         <button type="button" data-testid="explore-by-area">Por Local de Origem</button>
       </Link>
-      <button type="button" data-testid="explore-surprise" onClick={ randomRecipe }>
-        Me Surpreenda!
-      </button>
+      <div>
+        <button type="button" data-testid="explore-surprise" onClick={ randomRecipe }>
+          Me Surpreenda!
+        </button>
+      </div>
       <Footer />
     </div>
   );

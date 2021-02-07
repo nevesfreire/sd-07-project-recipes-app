@@ -36,6 +36,7 @@ function LoginForm() {
             name="email"
             type="email"
             value={ login.email }
+            placeholder="Login"
             onChange={ ({ target }) => handlechange(target.name, target.value) }
           />
         </label>
@@ -44,6 +45,7 @@ function LoginForm() {
             data-testid="password-input"
             name="senha"
             type="password"
+            placeholder="Password"
             value={ login.senha }
             onChange={ ({ target }) => handlechange(target.name, target.value) }
           />
