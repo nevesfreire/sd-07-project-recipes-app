@@ -15,6 +15,16 @@ body {
   width: 339px;
 }
 
+.div-button-progress button {
+  background: #6ce34f;
+  border: none;
+  bottom: 0;
+  font-size: 20pt;
+  height: 76px;
+  position: fixed;
+  width: 339px;
+}
+
 .div-ingredient {
   background-color: #e5e5e5;
   border-radius: 5px;

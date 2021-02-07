@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 
 import {
   Ingredient,
-  ImageDetails, TitleDetails, Instructions, ButtonRecipeDone,
+  ImageDetails,
+  TitleDetails,
 } from '../components/index';
 import FoodAppContext from '../context/FoodAppContext';
+import '../styles/details.css';
 
 function InProgressRecipes({ match }) {
   const { handleClickDetail } = useContext(FoodAppContext);
@@ -28,13 +30,6 @@ function InProgressRecipes({ match }) {
         id={ id }
       />
       <Ingredient recipes={ recipes } inProgress id={ id } />
-      <Instructions recipes={ recipes } />
-      <ButtonRecipeDone
-        recipes={ recipes }
-        id={ id }
-        textBtn="Finalizar Receita"
-        dataTestId="finish-recipe-btn"
-      />
     </div>
   );
 }

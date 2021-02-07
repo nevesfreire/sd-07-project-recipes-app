@@ -1,39 +1,34 @@
-import React, { useContext } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import '../styles/details.css';
 
-import FoodAppContext from '../context/FoodAppContext';
 import useInProgressRecipe from '../hooks/useInProgressRecipe';
+import ButtonRecipeDone from './ButtonRecipeDone';
+import Instructions from './Instructions';
+import useProgressIngredient from '../hooks/useProgressIngredient';
 
 function Ingredient({ recipes, inProgress, id }) {
-  const { detailRecipe } = useContext(FoodAppContext);
-  const [handleChange, inProgressRecipes] = useInProgressRecipe();
-  const { meals } = detailRecipe;
-  const { drinks } = detailRecipe;
-  const details = recipes === 'comidas' ? meals : drinks;
-  const zero = 0;
-  const two = 2;
-  let ingredients = [];
-  let measures = [];
+  const [/* handleClick */, disable, setIngredientCount, inProgressRecipes,
+    buttonToDisable, handleChange] = useInProgressRecipe();
+  const [ingredients, measures, two] = useProgressIngredient(id, recipes);
+  const ingredCount = document.querySelectorAll('.div-ingredient-count').length;
 
   const toogleChecked = (ingredient) => {
-    if (recipes === 'comidas') {
-      const { meals: mealsProgress } = inProgressRecipes;
-      return mealsProgress[id] && mealsProgress[id].find((ingr) => ingr === ingredient);
+    if (inProgressRecipes) {
+      if (recipes === 'comidas') {
+        const { meals: mealsProgress } = inProgressRecipes;
+        return mealsProgress[id]
+          && mealsProgress[id].find((ingr) => ingr === ingredient);
+      }
+      const { cocktails } = inProgressRecipes;
+      return cocktails[id] && cocktails[id].find((ingr) => ingr === ingredient);
     }
-    const { cocktails } = inProgressRecipes;
-    return cocktails[id] && cocktails[id].find((ingr) => ingr === ingredient);
   };
 
-  if (details) {
-    const keyAndValueArray = Object.entries(details[0]);
-    ingredients = keyAndValueArray.filter(([key, value]) => (
-      key.includes('strIngredient') && (value !== null && value.length > zero)
-    ));
-    measures = keyAndValueArray.filter(([key, value]) => (
-      key.includes('strMeasure') && (value !== null && value.length > zero)
-    ));
-  }
+  useEffect(() => {
+    setIngredientCount(ingredCount);
+    buttonToDisable(id, recipes, ingredCount);
+  });
 
   if (inProgress) {
     if (measures.length <= two) {
@@ -41,15 +36,14 @@ function Ingredient({ recipes, inProgress, id }) {
         <div>
           <h3>Ingredient</h3>
           <div className="div-ingredient">
-            {ingredients.map(([key, value], index) => (
-              <div key={ key }>
+            {ingredients.map(([/* key */, value], index) => (
+              <div key={ index } className="div-ingredient-count">
                 <label
-                  className=""
                   htmlFor={ value }
                   data-testid={ `${index}-ingredient-step` }
                 >
                   <input
-                    onChange={ (e) => handleChange(e, id, recipes, ingredients) }
+                    onChange={ (e) => handleChange(e, id, recipes, ingredCount) }
                     name={ value }
                     id={ value }
                     type="checkbox"
@@ -60,6 +54,13 @@ function Ingredient({ recipes, inProgress, id }) {
               </div>
             ))}
           </div>
+          <Instructions recipes={ recipes } />
+          <ButtonRecipeDone
+            recipes={ recipes }
+            textBtn="Finalizar Receita"
+            dataTestId="finish-recipe-btn"
+            disable={ disable }
+          />
         </div>
       );
     }
@@ -67,27 +68,38 @@ function Ingredient({ recipes, inProgress, id }) {
       <div>
         <h3>Ingredient</h3>
         <div className="div-ingredient">
-          {ingredients.map(([key, value], index) => (
-            <div key={ key }>
+          {ingredients.map(([/* key */, value], index) => (
+            <div key={ index } className="div-ingredient-count">
               <label
-                className=""
                 htmlFor={ value }
                 data-testid={ `${index}-ingredient-step` }
               >
                 <input
-                  onChange={ (e) => handleChange(e, id, recipes, ingredients) }
+                  onChange={ (e) => handleChange(e, id, recipes, ingredCount) }
                   name={ value }
                   id={ value }
                   type="checkbox"
                   checked={ toogleChecked(value) }
                 />
-                {value}
-                -
-                {measures[index][1]}
+                {' '}
+                <span
+                  className={ toogleChecked(value) ? 'checkedIngredient' : '' }
+                >
+                  {value}
+                  -
+                  {measures[index][1]}
+                </span>
               </label>
             </div>
           ))}
         </div>
+        <Instructions recipes={ recipes } />
+        <ButtonRecipeDone
+          recipes={ recipes }
+          textBtn="Finalizar Receita"
+          dataTestId="finish-recipe-btn"
+          disable={ disable }
+        />
       </div>
     );
   }
@@ -97,9 +109,9 @@ function Ingredient({ recipes, inProgress, id }) {
       <div>
         <h3>Ingredient</h3>
         <div className="div-ingredient">
-          {ingredients.map(([key, value], index) => (
+          {ingredients.map(([/* key */, value], index) => (
             <p
-              key={ key }
+              key={ index }
               data-testid={ `${index}-ingredient-name-and-measure` }
             >
               { `- ${value} - 1/2 part`}
@@ -113,9 +125,9 @@ function Ingredient({ recipes, inProgress, id }) {
     <div>
       <h3>Ingredient</h3>
       <div className="div-ingredient">
-        {ingredients.map(([key, value], index) => (
+        {ingredients.map(([/* key */, value], index) => (
           <p
-            key={ key }
+            key={ index }
             data-testid={ `${index}-ingredient-name-and-measure` }
           >
             -
@@ -130,9 +142,15 @@ function Ingredient({ recipes, inProgress, id }) {
 }
 
 Ingredient.propTypes = {
-  recipes: PropTypes.string.isRequired,
-  inProgress: PropTypes.bool.isRequired,
-  id: PropTypes.string.isRequired,
+  recipes: PropTypes.string,
+  inProgress: PropTypes.bool,
+  id: PropTypes.string,
+};
+
+Ingredient.defaultProps = {
+  recipes: '',
+  inProgress: false,
+  id: '',
 };
 
 export default Ingredient;

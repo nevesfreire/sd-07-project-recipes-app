@@ -27,6 +27,15 @@ function Provider({ children }) {
     setIsLoading(false);
   };
 
+  if (!JSON.parse(localStorage.getItem('inProgressRecipes'))) {
+    localStorage.setItem('inProgressRecipes',
+      JSON.stringify({ meals: {}, cocktails: {} }));
+  }
+  if (!JSON.parse(localStorage.getItem('doneRecipes'))) {
+    localStorage.setItem('doneRecipes',
+      JSON.stringify([]));
+  }
+
   useEffect(() => {
     getMealsDrinks();
   }, []);
