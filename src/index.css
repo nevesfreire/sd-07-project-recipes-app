@@ -1,13 +1,282 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+#root {
+  font-size: 62.5%;
+}
+.app {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  background-color: rgb(238, 203, 138);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Login */
+.app div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  font-size: 1rem;
+}
+
+.app div div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2%;
+  border: 1.5px solid rgba(0, 0, 0, .3);
+  border-radius: 14px;
+  height: 80%;
+  width: 40%;
+  background-color: white;
+  box-shadow: 0.6rem 0.6rem 1.2rem 0.2rem rgba(0, 0, 0, 0.25);
+}
+
+.app div div img {
+  height: 80%;
+  width: 80%;
+}
+
+#form-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#form-login input {
+  font-size: 1.2rem;
+  border: 1px solid rgba(0, 0, 0, .3);
+  padding: 4%;
+  border-radius: 10px;
+  margin-bottom: 4%;
+  height: 80%;
+  width: 90%;
+}
+
+#form-login a {
+  display: flex;
+  justify-content: center;
+}
+
+#form-login a button {
+  font-size: 1.2rem;
+  padding:  4% 20% 4% 20%;
+  background-color: rgb(224, 129, 40);
+  color: white;
+  border: 1px;
+}
+
+#form-login a {
+  width: 40%;
+  height: 20%;
+}
+
+/* Main Recipes */
+#foodElements {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem 0 8rem 0
+}
+
+header div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+header h2 {
+  margin: 1rem 0 1rem 0;
+  font-size: 2rem;
+  color: white;
+  background-color: black;
+  padding: 0.6rem 1.6rem 0.6rem 1.6rem;
+}
+
+header button {
+  background: none;
+  border: 1px;
+}
+
+header button img, header a img {
+  height: 60%;
+  width: 100%;
+  padding: 6px 12px 6px 12px;
+}
+
+#filterButtons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 80vw;
+}
+
+#filterButtons button {
+  margin: 1rem 1rem 1rem 1rem;
+  background-color: rgb(224, 129, 40);
+  color: white;
+  font-weight: 700;
+  font-size: 1.4rem;
+  border: 1px;
+  padding: 0.6% 2% 0.6% 2%;
+  min-width: 8rem;
+}
+
+#foods {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 60vw;
+}
+
+#foods a div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  background-color: white;
+}
+
+#foods a div img {
+  width: 15rem;
+  border-radius: 20px 20px 0 0;
+}
+
+#foods a div div p {
+  font-weight: 500;
+  color:orange;
+  font-size: 1.4rem;
+  padding-top: 10px;
+}
+
+#foods a {
+  border-radius: 20px;
+  box-shadow: 0.6rem 0.6rem 1.2rem 0.2rem rgba(0, 0, 0, 0.25);
+  margin: 20px;
+}
+
+/* Main recipes > Header serach bar */
+#headerSearchBar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(0, 0, 0, .3);
+  border-radius: 20px;
+  padding: 2rem 1rem 2rem 1rem;
+  margin: 1rem;
+  background-color: white;
+  font-size: 1.2rem;
+  box-shadow: 0.6rem 0.6rem 1.2rem 0.2rem rgba(0, 0, 0, 0.25);
+}
+
+#headerSearchBar #searchInput {
+  padding: 1%;
+  width: 80%;
+}
+
+#headerSearchBar button {
+  background-color: rgba(0, 0, 0, 0.15);
+  padding: 0.4rem 1.4rem 0.4rem 1.4rem;
+  border: none;
+  border-radius: 20px;
+  margin-top: 0.4rem;
+  font-weight: 500;
+}
+
+#headerSearchBar div {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+#headerSearchBar div label {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  margin: 0.5rem;
+}
+
+#headerSearchBar div label input{
+  margin-right: 0.4rem;
+}
+
+@media only screen and (max-width: 425px) {
+  #headerSearchBar div label {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin: 0 2.6rem 0 2.6rem;
+  }
+
+  #headerSearchBar div {
+    display: inline;
+    align-items: center;
+    margin: 0.5rem 0 0.5rem 0;;
+  }
+}
+
+/* Recipes details */
+.main_recipe {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+  font-size: 1.6rem;
+}
+
+.main_recipe button img{
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+#interation-buttons button {
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  background: none;
+}
+
+#interation-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0 2rem 0;
+}
+
+#ingredients {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#ingredients div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#ingredients div span {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0;
+  margin-bottom: 0.8rem;
+  font-size: 1.4rem;
+}
+
+#ingredients div span p {
+  margin: 0px;
+}
+
+#measure {
+  color: rgb(90, 88, 88);
+  font-style: italic;
+  font-size: 1.3rem;
 }
