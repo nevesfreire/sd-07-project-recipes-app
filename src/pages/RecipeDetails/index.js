@@ -85,9 +85,12 @@ const RecipeDetails = () => {
           <StyledCard.Title data-testid="recipe-title">
             {detailsRecipe.name}
           </StyledCard.Title>
-          <FavoriteButton recipeId={ recipeId } />
+          <FavoriteButton
+            recipeId={ recipeId }
+            dataTestId="favorite-btn"
+          />
           <ShareButton
-            data-testid="favorite-btn"
+            dataTestId="share-btn"
             recipeId={ recipeId }
             type={ pathname.includes('comidas') ? 'comidas' : 'bebidas' }
           />

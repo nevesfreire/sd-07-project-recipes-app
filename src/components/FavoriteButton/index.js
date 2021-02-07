@@ -7,7 +7,7 @@ import StyledImage from './styles';
 
 export default function FavoriteButton(props) {
   const [propsState] = useState(props);
-  const { recipeId } = propsState;
+  const { recipeId, dataTestId } = propsState;
   const favoriteRecipes = useSelector((state) => state.recipes.favoriteRecipes);
   const [isFavorite, setIsFavorite] = useState(favoriteRecipes
     .some(({ id }) => id === recipeId));
@@ -31,7 +31,7 @@ export default function FavoriteButton(props) {
       src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
       onClick={ handleClick }
       alt="Favorite"
-      data-testid="favorite-btn"
+      data-testid={ dataTestId }
     />
   );
 }

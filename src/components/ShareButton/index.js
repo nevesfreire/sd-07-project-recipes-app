@@ -6,7 +6,7 @@ import { StyledImage, StyledAlert, StyledButton } from './styles';
 
 export default function ShareButton(props) {
   const [propsState] = useState(props);
-  const { recipeId, type } = propsState;
+  const { recipeId, type, dataTestId } = propsState;
   const [show, setShow] = useState(false);
 
   const handleClick = () => {
@@ -29,7 +29,7 @@ export default function ShareButton(props) {
           src={ shareIcon }
           onClick={ handleClick }
           alt="Share"
-          data-testid="share-btn"
+          data-testid={ dataTestId }
         />}
     </>
 
