@@ -32,7 +32,7 @@ describe('Testando arquivo Login.js', () => {
     fireEvent.change(senha, { target: { value: '12345' } });
     expect(botão).toHaveAttribute('disabled');
   });
-  test('Ao prenecher email e senha válidos o botão deve estar habilitado', () => {
+  test('Ao preencher email e senha válidos o botão deve estar habilitado', () => {
     const { getByTestId } = render(<Login />);
     const email = getByTestId(EMAIL_IMPUT);
     const senha = getByTestId(PASSWORD_IMPUT);
