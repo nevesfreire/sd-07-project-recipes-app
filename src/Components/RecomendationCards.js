@@ -43,7 +43,7 @@ function RecomendationCards(props) {
           alignItems: 'center',
           justifyContent: 'center' } }
       >
-        <h2>Recomendações:</h2>
+        <h5 style={ { margin: '2px', color: 'maroon' } }>Recomendadas:</h5>
         <Carousel>
           {recomendations.map((recomendation, index, array) => {
             const nextIndex = () => {
@@ -99,7 +99,7 @@ function RecomendationCards(props) {
               <Carousel.Item key={ index }>
                 <div data-testid={ `${index}-recomendation-card` }>
                   <div>
-                    <Link to={ `/comidas/${recomendation.idDrink}` }>
+                    <Link to={ `/bebidas/${recomendation.idDrink}` }>
                       <img
                         src={ recomendation.strDrinkThumb }
                         data-testid={ `${index}-card-img` }
@@ -121,7 +121,7 @@ function RecomendationCards(props) {
                 >
                   <div>
                     <Link
-                      to={ `/comidas/${array[nextIndex()].idDrink}` }
+                      to={ `/bebidas/${array[nextIndex()].idDrink}` }
                     >
                       <img
                         src={ array[nextIndex()].strDrinkThumb }

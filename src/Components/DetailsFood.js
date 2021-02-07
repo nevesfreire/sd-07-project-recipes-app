@@ -46,13 +46,42 @@ function DetailsFood() {
     const { strMealThumb, strMeal, strCategory, strInstructions, strYoutube } = recipe;
     const youtube = strYoutube.replace('.com', '.com/embed');
     return (
-      <div>
-        <img src={ strMealThumb } data-testid="recipe-photo" alt="" />
+      <div
+        style={ {
+          alignItems: 'center',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+        } }
+      >
+        <img
+          src={ strMealThumb }
+          data-testid="recipe-photo"
+          alt="recipe"
+          style={ { marginTop: '10px', width: '80%', borderRadius: '15px' } }
+        />
         <ButtonsShareAndFavFood fav={ fav } setFav={ setFav } recipe={ recipe } />
         <h1 data-testid="recipe-title">{strMeal}</h1>
-        <h3 data-testid="recipe-category">{strCategory}</h3>
+        <h5
+          style={ { margin: '15px', fontStyle: 'italic' } }
+          data-testid="recipe-category"
+        >
+          { strCategory }
+        </h5>
+        <h5 style={ { margin: '2px', color: 'maroon' } }>Ingredientes:</h5>
         <RecipeIngredients recipeIngredients={ recipeIngredients } />
-        <p data-testid="instructions">{strInstructions}</p>
+        <h5 style={ { margin: '15px 2px 2px 2px', color: 'maroon' } }>Instruções:</h5>
+        <p
+          data-testid="instructions"
+          style={ {
+            backgroundColor: '#c4c4c4',
+            margin: '2px 10px 30px 10px',
+            padding: '3px',
+            borderRadius: '0 0 20px 20px',
+            width: '100%' } }
+        >
+          {strInstructions}
+        </p>
         <iframe
           data-testid="video"
           src={ youtube }

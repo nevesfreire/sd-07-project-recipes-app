@@ -45,13 +45,42 @@ function DetailsDrink() {
   if (!loading) {
     const { strDrinkThumb, strDrink, strAlcoholic, strInstructions } = recipe;
     return (
-      <div>
-        <img src={ strDrinkThumb } data-testid="recipe-photo" alt="" />
+      <div
+        style={ {
+          alignItems: 'center',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+        } }
+      >
+        <img
+          src={ strDrinkThumb }
+          data-testid="recipe-photo"
+          alt="recipe"
+          style={ { marginTop: '10px', width: '80%', borderRadius: '15px' } }
+        />
         <ButtonsShareAndFavDrinks fav={ fav } setFav={ setFav } recipe={ recipe } />
         <h1 data-testid="recipe-title">{strDrink}</h1>
-        <h3 data-testid="recipe-category">{ strAlcoholic }</h3>
+        <h5
+          style={ { margin: '15px', fontStyle: 'italic' } }
+          data-testid="recipe-category"
+        >
+          { strAlcoholic }
+        </h5>
+        <h5 style={ { margin: '2px', color: 'maroon' } }>Ingredientes:</h5>
         <RecipeIngredients recipeIngredients={ recipeIngredients } />
-        <p data-testid="instructions">{strInstructions}</p>
+        <h5 style={ { margin: '15px 2px 2px 2px', color: 'maroon' } }>Instruções:</h5>
+        <p
+          data-testid="instructions"
+          style={ {
+            backgroundColor: '#c4c4c4',
+            margin: '2px 10px 30px 10px',
+            padding: '3px',
+            borderRadius: '0 0 20px 20px',
+            width: '100%' } }
+        >
+          {strInstructions}
+        </p>
         <RecomendationCards type="bebida" />
       </div>
     );
