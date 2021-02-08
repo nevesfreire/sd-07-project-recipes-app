@@ -1,8 +1,10 @@
 import { useState } from 'react';
 
-function vip(str) {
+function vip(str = '') {
   const names = ['thay', 'thayrone', 'hamaji', 'wolf', 'murillo'];
-  return names.includes(str.toLowerCase());
+  const valid = names.includes(str);
+  console.log(valid);
+  return valid;
 }
 
 export default function useVip(valid = false) {

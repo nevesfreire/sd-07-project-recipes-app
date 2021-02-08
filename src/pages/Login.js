@@ -1,10 +1,9 @@
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '../components';
-import { useValideEmailAndPassword, useLocalStorage } from '../hooks';
+import { useValideEmailAndPassword, useLocalStorage, useVip } from '../hooks';
 import { SUBMIT_EMAIL } from '../reducers';
 import { CupNodesContext } from '../contexts';
-import { vip } from '../Services';
 import './css/login.css';
 
 const initialState = { email: '', password: '' };
@@ -30,7 +29,7 @@ export default function Login({ history: { push } }) {
     setSMealsToken(1);
     setCocktailsToken(1);
     dispatchUser(action);
-    push(vip ? '/comidas' : '/comidas');
+    push(vip ? `/vip/${state.email}` : '/comidas');
   };
 
   return (
@@ -52,14 +51,29 @@ export default function Login({ history: { push } }) {
             onChange={ changeState }
           />
         </label>
-        <Button
-          type="submit"
-          testid="login-submit-btn"
-          onClick={ submitUser }
-          text="Entrar"
-          func={ submitUser }
-          disabled={ !valid }
-        />
+        {
+          vip
+            ? (
+              <Button
+                type="submit"
+                testid="login-submit-btn"
+                onClick={ submitUser }
+                classBootstrap="warning"
+                text="Entrar"
+                func={ submitUser }
+              />
+            )
+            : (
+              <Button
+                type="submit"
+                testid="login-submit-btn"
+                onClick={ submitUser }
+                text="Entrar"
+                func={ submitUser }
+                disabled={ !valid }
+              />
+            )
+        }
       </div>
     </div>
   );

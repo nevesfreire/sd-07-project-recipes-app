@@ -23,6 +23,7 @@ export default function Routes() {
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={ Login } />
+        <Route exact path="/vip/:name" component={ Foods } />
         <Route exact path="/comidas" component={ Foods } />
         <Route exact path="/comidas/:idFood" component={ DetailsFood } />
         <Route exact path="/bebidas" component={ Drinks } />
