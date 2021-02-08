@@ -4,7 +4,7 @@ function Description() {
   return (
     <div className="description-login">
       <div className="top-title">
-        <h2>App de Receitas</h2>
+        <h1>App de Receitas</h1>
       </div>
       <div className="title-login">
         <span>Context&Churras</span>

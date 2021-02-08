@@ -1,5 +1,5 @@
 const siteMap = {
-  comidas: {
+  '/comidas': {
     header: {
       profileButton: true,
       searchButton: true,
@@ -15,7 +15,7 @@ const siteMap = {
       name: 'strIngredient',
     },
   },
-  bebidas: {
+  '/bebidas': {
     header: {
       profileButton: true,
       searchButton: true,
@@ -32,22 +32,14 @@ const siteMap = {
     },
 
   },
-  explorar: {
+  '/explorar': {
     header: {
       profileButton: true,
       searchButton: false,
       title: 'Explorar',
     },
-  },
-  explorarBebidas: {
-    header: {
-      profileButton: true,
-      searchButton: false,
-      title: 'Explorar Bebidas',
-    },
-    recipeType: 'drinks',
-  },
-  explorarComidas: {
+  },  
+  '/explorar/comidas': {
     header: {
       profileButton: true,
       searchButton: false,
@@ -55,21 +47,29 @@ const siteMap = {
     },
     recipeType: 'meals',
   },
-  explorarComidasIngredientes: {
+  '/explorar/bebidas': {
+    header: {
+      profileButton: true,
+      searchButton: false,
+      title: 'Explorar Bebidas',
+    },
+    recipeType: 'drinks',
+  },
+  '/explorar/comidas/ingredientes': {
     header: {
       profileButton: true,
       searchButton: false,
       title: 'Explorar Ingredientes',
     },
   },
-  explorarBebidasIngredientes: {
+  '/explorar/bebidas/ingredientes': {
     header: {
       profileButton: true,
       searchButton: false,
       title: 'Explorar Ingredientes',
     },
   },
-  explorarComidasLocalOrigem: {
+  '/explorar/comidas/area': {
     header: {
       profileButton: true,
       searchButton: true,
@@ -79,25 +79,25 @@ const siteMap = {
       type: 'meals',
     },
   },
-  perfil: {
+  '/perfil': {
     header: {
       profileButton: true,
       searchButton: false,
       title: 'Perfil',
     },
   },
-  receitasFavoritas: {
-    header: {
-      profileButton: true,
-      searchButton: false,
-      title: 'Receitas Favoritas',
-    },
-  },
-  receitasFeitas: {
+  '/receitas-feitas': {
     header: {
       profileButton: true,
       searchButton: false,
       title: 'Receitas Feitas',
+    },
+  },
+  '/receitas-favoritas': {
+    header: {
+      profileButton: true,
+      searchButton: false,
+      title: 'Receitas Favoritas',
     },
   },
 };

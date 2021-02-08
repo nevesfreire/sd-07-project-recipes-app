@@ -26,17 +26,18 @@ function Card(props) {
   const {
     id,
     pathname,
-    recipeName,
-    recipeThumb,
-    recipeIndex,
+    Name,
+    Thumb,
+    Index,
+    test,
   } = props;
 
   return (
     <Paper className="paper-style" elevation={ 6 }>
       <Link to={ `${pathname}/${id}` } replace>
-        <div className="image-card" data-testid={ `${recipeIndex}-recipe-card` }>
-          {recipeImg(recipeThumb, recipeIndex)}
-          {recipeTextData(recipeName, recipeIndex)}
+        <div className="image-card" data-testid={ `${Index}-${test}` }>
+          {recipeImg(Thumb, Index)}
+          {recipeTextData(Name, Index)}
         </div>
       </Link>
     </Paper>

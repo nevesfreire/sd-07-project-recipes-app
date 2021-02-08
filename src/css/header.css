@@ -30,6 +30,11 @@
     margin-left: 40em;
 }
 
+.noShowBtn {
+  width: 64px;
+  height: 54px;
+}
+
 .input-searchbar {
     margin-top: 25px;
 }
