@@ -1,7 +1,9 @@
 import styled from 'styled-components';
-import { Accordion, Card, Image } from 'react-bootstrap';
+import { Navbar, Card, Image } from 'react-bootstrap';
 
-export const StyledAccordion = styled(Accordion)`
+export const StyledNavbar = styled(Navbar)`
+  padding: 0;
+  background: #C4C4C4;
 `;
 
 export const StyledTitle = styled.span`
@@ -18,6 +20,7 @@ export const StyledImage = styled(Image)`
 
 export const StyledCard = styled(Card)`
   background: #C4C4C4;
+  flex-basis: 360px;
   div {
     display: flex;
     flex-flow: row nowrap;

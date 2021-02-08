@@ -40,12 +40,12 @@ const RecipeExploreArea = () => {
           <option value="All" data-testid="All-option">All</option>
           {areas.map((area, i) => (
             <option
-              data-testid={ `${area.strArea}-option` }
+              data-testid={ `${area.area}-option` }
               key={ i }
-              value={ area.strArea }
+              value={ area.area }
             >
               {' '}
-              {area.strArea}
+              {area.area}
             </option>))}
 
         </select>

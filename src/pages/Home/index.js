@@ -47,7 +47,7 @@ const Home = () => {
     <div>
       <Header
         title={ pathname.includes('comidas') ? 'Comidas' : 'Bebidas' }
-        showSearchBar
+        showSearchIcon
       />
       { resultValidation() }
       {isLoading ? 'Loading...' : ''}

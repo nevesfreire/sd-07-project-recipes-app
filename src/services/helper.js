@@ -3,103 +3,31 @@ export const mapMealAndDrinkToRecipe = (recipesList) => (!recipesList
   : recipesList.map((mealOrDrink) => (
     Object.prototype.hasOwnProperty.call(mealOrDrink, 'idMeal')
       ? {
-        type: 'meal',
+        ...mealOrDrink,
+        type: 'comida',
         id: mealOrDrink.idMeal,
         name: mealOrDrink.strMeal,
-        strDrinkAlternate: mealOrDrink.strDrinkAlternate,
-        strCategory: mealOrDrink.strCategory,
-        strTags: mealOrDrink.strTags,
+        category: mealOrDrink.strCategory,
+        tags: mealOrDrink.strTags != null ? mealOrDrink.strTags.split(',') : [],
         strYoutube: mealOrDrink.strYoutube,
         strInstructions: mealOrDrink.strInstructions,
-        strThumb: mealOrDrink.strMealThumb,
-        dateModified: mealOrDrink.dateModified,
-        strGlass: null,
-        strAlcoholic: null,
-        strArea: mealOrDrink.strArea,
-        strIngredient1: mealOrDrink.strIngredient1,
-        strIngredient2: mealOrDrink.strIngredient2,
-        strIngredient3: mealOrDrink.strIngredient3,
-        strIngredient4: mealOrDrink.strIngredient4,
-        strIngredient5: mealOrDrink.strIngredient5,
-        strIngredient6: mealOrDrink.strIngredient6,
-        strIngredient7: mealOrDrink.strIngredient7,
-        strIngredient8: mealOrDrink.strIngredient8,
-        strIngredient9: mealOrDrink.strIngredient9,
-        strIngredient10: mealOrDrink.strIngredient10,
-        strIngredient11: mealOrDrink.strIngredient11,
-        strIngredient12: mealOrDrink.strIngredient12,
-        strIngredient13: mealOrDrink.strIngredient13,
-        strIngredient14: mealOrDrink.strIngredient14,
-        strIngredient15: mealOrDrink.strIngredient15,
-        strMeasure1: mealOrDrink.strMeasure1,
-        strMeasure2: mealOrDrink.strMeasure2,
-        strMeasure3: mealOrDrink.strMeasure3,
-        strMeasure4: mealOrDrink.strMeasure4,
-        strMeasure5: mealOrDrink.strMeasure5,
-        strMeasure6: mealOrDrink.strMeasure6,
-        strMeasure7: mealOrDrink.strMeasure7,
-        strMeasure8: mealOrDrink.strMeasure8,
-        strMeasure9: mealOrDrink.strMeasure9,
-        strMeasure10: mealOrDrink.strMeasure10,
-        strMeasure11: mealOrDrink.strMeasure11,
-        strMeasure12: mealOrDrink.strMeasure12,
-        strMeasure13: mealOrDrink.strMeasure13,
-        strMeasure14: mealOrDrink.strMeasure14,
-        strMeasure15: mealOrDrink.strMeasure15,
-        strIngredient16: mealOrDrink.strIngredient16,
-        strIngredient17: mealOrDrink.strIngredient17,
-        strIngredient18: mealOrDrink.strIngredient18,
-        strIngredient19: mealOrDrink.strIngredient19,
-        strIngredient20: mealOrDrink.strIngredient20,
-        strMeasure16: mealOrDrink.strMeasure16,
-        strMeasure17: mealOrDrink.strMeasure17,
-        strMeasure18: mealOrDrink.strMeasure18,
-        strMeasure19: mealOrDrink.strMeasure19,
-        strMeasure20: mealOrDrink.strMeasure20,
+        image: mealOrDrink.strMealThumb,
+        strGlass: '',
+        alcoholicOrNot: '',
+        area: mealOrDrink.strArea,
       } : {
-        type: 'drink',
+        ...mealOrDrink,
+        type: 'bebida',
         id: mealOrDrink.idDrink,
         name: mealOrDrink.strDrink,
-        strDrinkAlternate: mealOrDrink.strDrinkAlternate,
-        strCategory: mealOrDrink.strCategory,
-        strTags: mealOrDrink.strTags,
-        strYoutube: null,
+        category: mealOrDrink.strCategory,
+        tags: mealOrDrink.strTags != null ? mealOrDrink.strTags.split(',') : [],
+        strYoutube: '',
         strInstructions: mealOrDrink.strInstructions,
-        strThumb: mealOrDrink.strDrinkThumb,
-        dateModified: mealOrDrink.dateModified,
+        image: mealOrDrink.strDrinkThumb,
         strGlass: mealOrDrink.strGlass,
-        strAlcoholic: mealOrDrink.strAlcoholic,
-        strArea: null,
-        strIngredient1: mealOrDrink.strIngredient1,
-        strIngredient2: mealOrDrink.strIngredient2,
-        strIngredient3: mealOrDrink.strIngredient3,
-        strIngredient4: mealOrDrink.strIngredient4,
-        strIngredient5: mealOrDrink.strIngredient5,
-        strIngredient6: mealOrDrink.strIngredient6,
-        strIngredient7: mealOrDrink.strIngredient7,
-        strIngredient8: mealOrDrink.strIngredient8,
-        strIngredient9: mealOrDrink.strIngredient9,
-        strIngredient10: mealOrDrink.strIngredient10,
-        strIngredient11: mealOrDrink.strIngredient11,
-        strIngredient12: mealOrDrink.strIngredient12,
-        strIngredient13: mealOrDrink.strIngredient13,
-        strIngredient14: mealOrDrink.strIngredient14,
-        strIngredient15: mealOrDrink.strIngredient15,
-        strMeasure1: mealOrDrink.strMeasure1,
-        strMeasure2: mealOrDrink.strMeasure2,
-        strMeasure3: mealOrDrink.strMeasure3,
-        strMeasure4: mealOrDrink.strMeasure4,
-        strMeasure5: mealOrDrink.strMeasure5,
-        strMeasure6: mealOrDrink.strMeasure6,
-        strMeasure7: mealOrDrink.strMeasure7,
-        strMeasure8: mealOrDrink.strMeasure8,
-        strMeasure9: mealOrDrink.strMeasure9,
-        strMeasure10: mealOrDrink.strMeasure10,
-        strMeasure11: mealOrDrink.strMeasure11,
-        strMeasure12: mealOrDrink.strMeasure12,
-        strMeasure13: mealOrDrink.strMeasure13,
-        strMeasure14: mealOrDrink.strMeasure14,
-        strMeasure15: mealOrDrink.strMeasure15,
+        alcoholicOrNot: mealOrDrink.strAlcoholic,
+        area: '',
         strIngredient16: null,
         strIngredient17: null,
         strIngredient18: null,
@@ -119,14 +47,76 @@ export const mapShortMealAndDrinkToRecipe = (recipesList) => (!recipesList
     .map((mealOrDrink) => (
       Object.prototype.hasOwnProperty.call(mealOrDrink, 'idMeal')
         ? {
-          type: 'meal',
+          type: 'comida',
           id: mealOrDrink.idMeal,
           name: mealOrDrink.strMeal,
-          strThumb: mealOrDrink.strMealThumb,
+          image: mealOrDrink.strMealThumb,
         } : {
-          type: 'drink',
+          type: 'bebida',
           id: mealOrDrink.idDrink,
           name: mealOrDrink.strDrink,
-          strThumb: mealOrDrink.strDrinkThumb,
+          image: mealOrDrink.strDrinkThumb,
         }
     )));
+
+export const resumeMealAndDrinkRecipe = ({
+  id, type, area, category, alcoholicOrNot, name, image,
+}) => (
+  {
+    id,
+    type,
+    area: area || '',
+    category,
+    alcoholicOrNot: alcoholicOrNot || '',
+    name,
+    image,
+  }
+);
+
+export const nowDateFormated = () => {
+  const TWO = 2;
+  const date = new Date();
+  const day = date.getDate().toString().padStart(TWO, '0');
+  const month = (date.getMonth() + 1).toString().padStart(TWO, '0');
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
+};
+
+export const getDoneMealAndDrinkRecipe = ({
+  id, type, area, category, alcoholicOrNot, name, image, tags,
+}) => (
+  {
+    id,
+    type,
+    area: area || '',
+    category,
+    alcoholicOrNot: alcoholicOrNot || '',
+    name,
+    image,
+    doneDate: nowDateFormated(),
+    tags,
+  }
+);
+
+export const mapIngredientsAndMeasuresToList = (recipe) => {
+  const NUM_MAX_INGREDIENTS = 20;
+  const ingredientsAndMeasuresList = [];
+  let index = 1;
+  let ingredient = recipe[`strIngredient${index}`];
+  let measure = recipe[`strMeasure${index}`];
+  while (
+    (ingredient && measure
+    && ingredient !== '' && ingredient !== null
+    && measure !== '' && measure !== null)
+    && index <= NUM_MAX_INGREDIENTS) {
+    ingredientsAndMeasuresList.push({
+      ingredient,
+      measure,
+      text: `${ingredient} - ${measure}`,
+    });
+    index += 1;
+    ingredient = recipe[`strIngredient${index}`];
+    measure = recipe[`strMeasure${index}`];
+  }
+  return ingredientsAndMeasuresList;
+};

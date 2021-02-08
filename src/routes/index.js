@@ -16,10 +16,12 @@ import {
 export default function Routes() {
   return (
     <Switch>
-      <Route path="/bebidas/:recipeId" component={ RecipeDetails } />
-      <Route path="/comidas/:recipeId" component={ RecipeDetails } />
-      <Route path="/receitas-feitas" component={ RecipeDone } />
-      <Route path="/receitas-favoritas" component={ RecipeDone } />
+      <Route exact path="/bebidas/:recipeId/in-progress" component={ RecipeDetails } />
+      <Route exact path="/comidas/:recipeId/in-progress" component={ RecipeDetails } />
+      <Route exact path="/bebidas/:recipeId" component={ RecipeDetails } />
+      <Route exact path="/comidas/:recipeId" component={ RecipeDetails } />
+      <Route exact path="/receitas-feitas" component={ RecipeDone } />
+      <Route exact path="/receitas-favoritas" component={ RecipeDone } />
       <Route exact path="/bebidas" component={ Home } />
       <Route exact path="/comidas" component={ Home } />
       <Route exact path="/" component={ Login } />

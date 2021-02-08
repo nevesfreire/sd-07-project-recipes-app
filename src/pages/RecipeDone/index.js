@@ -1,185 +1,63 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { useLocation, Link } from 'react-router-dom';
-import copy from 'clipboard-copy';
-import { Header, RecipeFilter } from '../../components';
-import ShareIcon from '../../images/shareIcon.svg';
-import blackHeart from '../../images/blackHeartIcon.svg';
+import React, { useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { CardGroup } from 'react-bootstrap';
+import { updateFromLS } from '../../store/ducks/recipes';
+
+import { Header, RecipeFilter, RecipeDoneFavCard } from '../../components';
+import { LS_KEYS, loadKeyFromLS } from '../../services/localStorage';
 
 const RecipeDone = () => {
   const { pathname } = useLocation();
-  const recipes = useSelector((state) => state.recipes);
-  let cards;
-  if (pathname.includes('feitas')) {
-    cards = recipes.doneRecipes;
-  } else {
-    cards = recipes.favoriteRecipes;
-  }
+  const dispatch = useDispatch();
+  const filter = useSelector((state) => state.recipes.filter);
+  const doneRecipes = loadKeyFromLS(LS_KEYS.DONE_RECIPES_KEY, []);
+  const favoriteRecipes = loadKeyFromLS(LS_KEYS.FAVORITE_RECIPES_KEY, []);
+  const cardsFiltered = useRef([]);
 
-  const typeOfCardDone = (item, index) => {
-    if (item.type === 'meal') {
-      return (
-        <div key={ item.id }>
-          <h5 data-testid={ `${index}-horizontal-top-text` }>
-            { `${item.strArea} - ${item.strCategory}` }
-          </h5>
-          <Link to={ `/comidas/${item.id}` }>
-            <h2 data-testid={ `${index}-horizontal-name` }>
-              {item.name}
-            </h2>
-          </Link>
-          <p data-testid={ `${index}-horizontal-done-date` }>
-            { `Feita em: ${item.doneDate}` }
-          </p>
-          { item.strTags !== null
-            && item.strTags.split(',').map(
-              (itemTag) => (
-                <span
-                  key={ itemTag }
-                  data-testid={ `${index}-${itemTag}-horizontal-tag` }
-                >
-                  { itemTag }
-                </span>
-              ),
-            )}
-          <button
-            type="button"
-            onClick={ () => copy(` http://localhost:3000/comidas/${item.id} `) }
-            data-testid={ `${index}-horizontal-share-btn` }
-          >
-            <img src={ ShareIcon } alt="compartilhar item" />
-          </button>
-          <Link to={ `/comidas/${item.id}` }>
-            <img
-              src={ item.strThumb }
-              height="100px"
-              alt="Receita"
-              data-testid={ `${index}-horizontal-image` }
-            />
-          </Link>
-        </div>
-      );
-    }
+  const cards = pathname.includes('feitas')
+    ? doneRecipes : favoriteRecipes;
+  console.log('cards:', cards);
 
-    if (item.type === 'drink') {
-      return (
-        <div key={ item.id }>
-          <h5 data-testid={ `${index}-horizontal-top-text` }>
-            {item.trAlcoholic}
-          </h5>
-          <Link to={ `/bebidas/${item.id}` }>
-            <h2 data-testid={ `${index}-horizontal-name` }>
-              {item.name}
-            </h2>
-          </Link>
-          <p data-testid={ `${index}-horizontal-done-date` }>
-            { `Feita em: ${item.doneDate}` }
-          </p>
-          <button
-            type="button"
-            onClick={ () => copy(` http://localhost:3000/bebidas/${item.id} `) }
-            data-testid={ `${index}-horizontal-share-btn` }
-          >
-            <img src={ ShareIcon } alt="compartilhar item" />
-          </button>
-          <Link to={ `/bebidas/${item.id}` }>
-            <img
-              src={ item.strThumb }
-              height="100px"
-              alt="Receita"
-              data-testid={ `${index}-horizontal-image` }
-            />
-          </Link>
-        </div>
-      );
+  useEffect(() => {
+    if (doneRecipes) {
+      dispatch(updateFromLS({ [LS_KEYS.DONE_RECIPES_KEY]: doneRecipes }));
     }
-  };
+  }, [dispatch, doneRecipes]);
 
-  const typeOfCardFavorites = (item, index) => {
-    if (item.type === 'meal') {
-      return (
-        <div key={ item.id }>
-          <h5 data-testid={ `${index}-horizontal-top-text` }>
-            { `${item.strArea} - ${item.strCategory}` }
-          </h5>
-          <Link to={ `/comidas/${item.id}` }>
-            <h2 data-testid={ `${index}-horizontal-name` }>
-              {item.name}
-            </h2>
-          </Link>
-          <button
-            type="button"
-            onClick={ () => copy(` http://localhost:3000/comidas/${item.id} `) }
-            data-testid={ `${index}-horizontal-favorite-btn` }
-          >
-            <img src={ blackHeart } alt="favoritar item" />
-          </button>
-          <button
-            type="button"
-            onClick={ () => copy(` http://localhost:3000/comidas/${item.id} `) }
-            data-testid={ `${index}-horizontal-share-btn` }
-          >
-            <img src={ ShareIcon } alt="compartilhar item" />
-          </button>
-          <Link to={ `/comidas/${item.id}` }>
-            <img
-              src={ item.strThumb }
-              height="100px"
-              alt="Receita"
-              data-testid={ `${index}-horizontal-image` }
-            />
-          </Link>
-        </div>
-      );
+  useEffect(() => {
+    if (favoriteRecipes) {
+      dispatch(updateFromLS({ [LS_KEYS.FAVORITE_RECIPES_KEY]: favoriteRecipes }));
     }
+  }, [dispatch, favoriteRecipes]);
 
-    if (item.type === 'drink') {
-      return (
-        <div key={ item.id }>
-          <h5 data-testid={ `${index}-horizontal-top-text` }>
-            {item.strAlcoholic}
-          </h5>
-          <Link to={ `/bebidas/${item.id}` }>
-            <h2 data-testid={ `${index}-horizontal-name` }>
-              {item.name}
-            </h2>
-          </Link>
-          <button
-            type="button"
-            data-testid={ `${index}-horizontal-favorite-btn` }
-          >
-            <img src={ blackHeart } alt="favoritar item" />
-          </button>
-          <button
-            type="button"
-            onClick={ () => copy(` http://localhost:3000/bebidas/${item.id} `) }
-            data-testid={ `${index}-horizontal-share-btn` }
-          >
-            <img src={ ShareIcon } alt="compartilhar item" />
-          </button>
-          <Link to={ `/bebidas/${item.id}` }>
-            <img
-              src={ item.strThumb }
-              height="100px"
-              alt="Receita"
-              data-testid={ `${index}-horizontal-image` }
-            />
-          </Link>
-        </div>
-      );
+  useEffect(() => {
+    console.log('filter:', filter);
+    if (filter.type === 'foodOrDrink' && filter.term !== 'all') {
+      cardsFiltered.current = [...cards].filter((recipe) => recipe.type === filter.term);
+    } else {
+      cardsFiltered.current = [...cards];
     }
-  };
+    console.log('cardsFiltered:', cardsFiltered);
+  }, [filter, cards]);
 
   return (
     <>
       <Header
         title={ pathname.includes('feitas') ? 'Receitas Feitas' : 'Receitas Favoritas' }
-        showSearchBar={ false }
+        showSearchIcon={ false }
       />
       <RecipeFilter />
-      {pathname.includes('feitas')
-        ? cards.map((card, index) => (typeOfCardDone(card, index)))
-        : cards.map((card, index) => (typeOfCardFavorites(card, index)))}
+      <CardGroup>
+        { cardsFiltered.current && cardsFiltered.current.map((card, index) => (
+          <RecipeDoneFavCard
+            key={ card.id }
+            doneOrFavorite={ pathname.includes('feitas') ? 'done' : 'favorite' }
+            cardInfo={ card }
+            index={ index }
+          />
+        ))}
+      </CardGroup>
     </>
   );
 };

@@ -9,9 +9,10 @@ const BASE_COCKTAIL_URL = 'https://www.thecocktaildb.com/api/json/v1/1';
 const END_POINT_SEARCH = '/search.php?s=';
 const END_POINT_SEARCH_BY_FIRST_LETTER = '/search.php?f=';
 const END_POINT_CATEGORY_LIST = '/list.php?c=list';
-const END_POINT_RANDOM = '/random.php';
 const END_POINT_INGREDIENT_LIST = '/list.php?i=list';
 const END_POINT_AREA_LIST = '/list.php?a=list';
+const END_POINT_RANDOM = '/random.php';
+const END_POINT_LOOKUP_BY_ID = '/lookup.php?i=';
 
 const END_POINT_FILTER = '/filter.php?';
 const BY_CATEGORY = 'c=';
@@ -92,8 +93,8 @@ export const getCategories = async (type) => {
   const response = await fetch(GET_CATEGORIES_URL);
   const result = await response.json();
   return type.includes('comidas')
-    ? mapShortMealAndDrinkToRecipe(result.meals)
-    : mapShortMealAndDrinkToRecipe(result.drinks);
+    ? result.meals
+    : result.drinks;
 };
 
 export const getRandom = async (type) => {
@@ -119,4 +120,16 @@ export const getAreas = async () => {
   const response = await fetch(GET_AREAS);
   const result = await response.json();
   return result.meals;
+};
+
+export const getRecipeById = async (type, recipeId) => {
+  const GET_RECIPE_BY_ID = (type.includes('comidas')
+    ? BASE_MEAL_URL : BASE_COCKTAIL_URL)
+    + END_POINT_LOOKUP_BY_ID
+    + recipeId;
+  const response = await fetch(GET_RECIPE_BY_ID);
+  const result = await response.json();
+  return type.includes('comidas')
+    ? mapMealAndDrinkToRecipe(result.meals)
+    : mapMealAndDrinkToRecipe(result.drinks);
 };

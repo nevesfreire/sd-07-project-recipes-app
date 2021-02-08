@@ -15,13 +15,13 @@ const RecipeCardList = (props) => {
   const { recipeList } = recipeListState;
   return (
     <StyledCardDeck>
-      { recipeList.map(({ id, name, strThumb }, index) => (
+      { recipeList.map(({ id, name, image }, index) => (
         <Link
           to={ pathname.includes('comidas') ? `/comidas/${id}`
             : `/bebidas/${id}` }
           key={ id }
         >
-          <RecipeCard key={ id } cardInfo={ { name, strThumb, index } } />
+          <RecipeCard key={ id } cardInfo={ { name, image, index } } />
         </Link>
       ))}
     </StyledCardDeck>

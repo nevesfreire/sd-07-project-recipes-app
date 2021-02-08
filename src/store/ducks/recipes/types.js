@@ -6,6 +6,12 @@ const recipesTypes = {
   SET_RECIPE_DETAILS: 'recipes/SET_RECIPE_DETAILS',
   SET_AREAS: 'recipes/SET_AREAS',
   SET_FILTER: 'recipes/SET_FILTER',
+  FAVORITE_RECIPE: 'recipes/FAVORITE_RECIPE',
+  UNFAVORITE_RECIPE: 'recipes/UNFAVORITE_RECIPE',
+  GET_RECOMENDATIONS: 'recipes/GET_RECOMENDATIONS',
+  UPDATE_FROM_LS: 'recipes/UPDATE_FROM_LS',
+  CHECK_INGREDIENT: 'recipes/CHECK_INGREDIENT',
+  DONE_RECIPE: 'recipes/DONE_RECIPE',
 };
 
 export default recipesTypes;

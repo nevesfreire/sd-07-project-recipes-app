@@ -20,8 +20,12 @@ export function setFilter(type, term = '') {
   return { type: recipesTypes.SET_FILTER, payload: { type, term } };
 }
 
-export function setFilterByIngredient(ingredientFilter) {
-  return { type: recipesTypes.SET_FILTER_BY_INGREDIENT, payload: ingredientFilter };
+export function favoriteRecipe(recipe) {
+  return { type: recipesTypes.FAVORITE_RECIPE, payload: recipe };
+}
+
+export function unFavoriteRecipe(recipeId) {
+  return { type: recipesTypes.UNFAVORITE_RECIPE, payload: recipeId };
 }
 
 export function setRecipeDetails(recipe) {
@@ -34,4 +38,23 @@ export function setAreas(areas) {
 
 export function setIngredients(ingredients) {
   return { type: recipesTypes.SET_AREAS, payload: ingredients };
+}
+
+export function getRecomendations(recipes) {
+  return { type: recipesTypes.GET_RECOMENDATIONS, payload: recipes };
+}
+
+export function updateFromLS(stateLS) {
+  return { type: recipesTypes.UPDATE_FROM_LS, payload: stateLS };
+}
+
+export function checkIngredient(checked, ingredient, recipeId, recipeType) {
+  return {
+    type: recipesTypes.CHECK_INGREDIENT,
+    payload: { checked, ingredient, recipeId, recipeType },
+  };
+}
+
+export function doneRecipe(recipe) {
+  return { type: recipesTypes.DONE_RECIPE, payload: recipe };
 }

@@ -1,30 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { profileIcon, searchIcon } from '../../images';
 
 import SearchBar from '../SearchBar';
 
-import { StyledCard, StyledAccordion, StyledImage, StyledTitle } from './styles';
+import { StyledCard, StyledNavbar, StyledImage, StyledTitle } from './styles';
 
 function Header(props) {
   const history = useHistory();
+  const [propsState, setPropsState] = useState(props);
+  const [showSearchBar, setShowSearchBar] = useState(false);
+  const { title, showSearchIcon } = propsState;
 
-  function handleClick() {
-    history.push('/perfil');
-  }
-  const [propsState] = useState(props);
-
-  const { title, showSearchBar } = propsState;
+  useEffect(() => {
+    setPropsState(props);
+  }, [props]);
 
   return (
-    <StyledAccordion>
+    <StyledNavbar
+      sticky="top"
+      className="justify-content-between"
+    >
       <StyledCard>
         <StyledCard.Header>
           <StyledImage
             data-testid="profile-top-btn"
             src={ profileIcon }
             alt="Icone de perfil"
-            onClick={ handleClick }
+            onClick={ () => history.push('/perfil') }
           />
           <StyledTitle
             data-testid="page-title"
@@ -32,24 +35,21 @@ function Header(props) {
             { title }
           </StyledTitle>
           {
-            showSearchBar
+            showSearchIcon
             && (
-              <StyledAccordion.Toggle
-                as={ StyledImage }
-                eventKey="0"
+              <StyledImage
                 src={ searchIcon }
                 alt="Search"
                 data-testid="search-top-btn"
+                onClick={ () => setShowSearchBar(!showSearchBar) }
               />
-
             )
           }
         </StyledCard.Header>
-        <StyledAccordion.Collapse eventKey="0">
-          <StyledCard.Body><SearchBar /></StyledCard.Body>
-        </StyledAccordion.Collapse>
+        {showSearchBar
+        && <StyledCard.Body><SearchBar /></StyledCard.Body> }
       </StyledCard>
-    </StyledAccordion>
+    </StyledNavbar>
   );
 }
 
