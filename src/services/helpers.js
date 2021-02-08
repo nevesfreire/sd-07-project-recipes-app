@@ -6,6 +6,13 @@ export const fetchAPI = async (URL) => {
   return data;
 };
 
+const handleNull = (measure) => {
+  if (measure === null) {
+    return '';
+  }
+  return `- ${measure}`;
+};
+
 export const handleIngredients = (recipe) => {
   const ingredients = Object.entries(recipe)
     .filter((key) => (key[1] === null ? false : key[0].includes('strIngredient')));
@@ -15,7 +22,7 @@ export const handleIngredients = (recipe) => {
     .filter((recipes) => recipes[1] !== '')
     .map((ingredient, index) => (
       <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-        { `${ingredient[1]} - ${measures[index][1]}` }
+        { `${ingredient[1]} ${handleNull(measures[index][1])}` }
       </li>
     ));
 };

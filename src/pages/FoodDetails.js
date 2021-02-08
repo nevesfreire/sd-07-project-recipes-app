@@ -98,7 +98,12 @@ function FoodDetails() {
 
   return (
     <div>
-      <img data-testid="recipe-photo" src={ recipeDetailFood.strMealThumb } alt="food" />
+      <img
+        width="300"
+        data-testid="recipe-photo"
+        src={ recipeDetailFood.strMealThumb }
+        alt="food"
+      />
       <h2 data-testid="recipe-title">{recipeDetailFood.strMeal}</h2>
       <button type="button" onClick={ handleCopyClick }>
         <img data-testid="share-btn" src={ shareIcon } alt="share" />
@@ -131,6 +136,7 @@ function FoodDetails() {
                 >
                   <img
                     data-testid={ `${index}-card-img` }
+                    width="300"
                     src={ drinks.strDrinkThumb }
                     alt={ drinks.strDrink }
                   />
