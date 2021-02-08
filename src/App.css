@@ -96,12 +96,15 @@ body {
 
 .itemCard {
 	text-align: center;
-	font-size: 1.5em;
+  font-size: 1.5em;
+  border-radius: 3rem;
 }
 
 .itemImage {
   max-width: 200px;
+  
 }
+
 
 .foodorDrinkContainer {
   background-color: blueviolet;
