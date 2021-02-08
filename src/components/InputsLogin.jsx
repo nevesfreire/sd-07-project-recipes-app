@@ -1,64 +1,79 @@
 import React, { useContext } from 'react';
-import { Input, Button } from '@material-ui/core';
+// import { Input, Button } from '@material-ui/core';
+// import { fetchApi, allFood } from '../services/fetchApi';
 import context from '../contextAPI/context';
-import UseChange from '../helpers/useChanges';
 import '../css/login.css';
+import useRedirect from '../hooks/useRedirect';
 
-export default function Render() {
+const inputText = (onChange, login) => (
+  <div className="input-email">
+    <input
+      data-testid="email-input"
+      type="email"
+      name="user"
+      value={ login.user }
+      placeholder="email@email.com"
+      onChange={ (e) => onChange(e) }
+    />
+  </div>
+);
+
+const inputPasswd = (onChange, login) => (
+  <div className="input-senha">
+    <input
+      data-testid="password-input"
+      type="password"
+      name="passwd"
+      value={ login.passwd }
+      placeholder="sua senha aqui"
+      onChange={ (e) => onChange(e) }
+    />
+  </div>
+);
+
+const buttonLogin = (onClick, enable) => (
+  <div className="input-button">
+    <button
+      data-testid="login-submit-btn"
+      type="button"
+      variant="contained"
+      color="primary"
+      disabled={ enable }
+      onClick={ (e) => onClick(e) }
+    >
+      Entrar
+    </button>
+  </div>
+);
+
+export default function InputLogin() {
+  const PATH = '/comidas';
+  const [setPath] = useRedirect();
+  const { login, setLogin } = useContext(context);
   const { state, setState } = useContext(context);
+  const { isDisabled } = state;
 
-  // const HandleStateChange = ({ target: { name, value } }) => {
-  //   // const { state, setState } = useContext(context);
-  //   setState({ ...state, [name]: value });
-  // };
+  const loginChanges = ({ target: { name, value } }) => {
+    setLogin({ ...login, [name]: value });
+  };
 
-  const inputText = () => (
-    <div className="input-text">
-      <Input
-        data-testid="email-input"
-        type="email"
-        name="user"
-        placeholder="email@email.com"
-        onChange={ (e) => UseChange(e) }
-      />
-    </div>
-  );
-
-  const inputPasswd = () => (
-    <div className="input-senha">
-      <Input
-        data-testid="password-input"
-        type="password"
-        name="passwd"
-        placeholder="sua senha aqui"
-        onChange={ (e) => UseChange(e) }
-      />
-    </div>
-  );
-
-  const buttonLogin = () => (
-    <div className="input-button">
-      <Button
-        data-testid="login-submit-btn"
-        variant="contained"
-        collor="primary"
-        // disable={ xablau }
-        // onClick={ }
-      >
-        Logar
-      </Button>
-    </div>
-  );
+  const callRoute = async () => {
+    setState((s) => ({
+      ...s,
+      profileButton: true,
+      title: 'Comidas',
+      searchButton: true,
+      toggleSearch: false,
+    }));
+    localStorage.setItem('user', JSON.stringify({ email: state.user }));
+    return setPath(PATH);
+  };
 
   return (
-    <div>
-      {inputText()}
-      {inputPasswd()}
-      {buttonLogin()}
+    <div className="input-login">
+      {inputText(loginChanges, login)}
+      {inputPasswd(loginChanges, login)}
+      {buttonLogin(callRoute, isDisabled)}
     </div>
   );
 }
-
-/* O input de email deve possuir o atributo data-testid="email-input";
-O input de senha deve possuir o atributo data-testid="password-input";
-O botão "Entrar" deve possuir o atributo data-testid="login-submit-btn". */

@@ -1,18 +1,17 @@
 import { useContext } from 'react';
 import context from '../contextAPI/context';
 
-const LoginValidation = (email, senha) => {
-  const { state, setState } = useContext(context);
-  const NUM_PASSWORD = 6;
+const LoginValidation = () => {
+  const { user, passwd, setState } = useContext(context);
+  const NUM_PASSWORD = 5;
 
-  !((/^[^\s@]+@[^\s@]+\.[^\s@]+$/).test(email) && senha.length > NUM_PASSWORD);
-
-  setState([
-    ...state,
-    {
-      LoginValidation: false,
-    },
-  ]);
+  if (user && passwd) {
+    const emailTest = (/^[^\s@]+@[^\s@]+\.[^\s@]+$/).test(user);
+    const passLength = (passwd.length > NUM_PASSWORD);
+    if (emailTest && passLength) {
+      setState((s) => ({ ...s, user, passwd, isDisabled: false }));
+    }
+  }
 };
 
 export default LoginValidation;
