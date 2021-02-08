@@ -1,3 +1,19 @@
 .strikethrough-input:checked ~ .strikethrough-label {
   text-decoration: line-through;
 }
+
+.recipes-instructions {
+  height: 100px;
+  overflow: hidden;
+}
+
+.footer-button {
+  background-color: rgb(112, 211, 104);
+  bottom: 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  position: fixed;
+  width: 100vw;
+}

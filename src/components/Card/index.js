@@ -46,7 +46,7 @@ function Card({
       className="card-container"
       data-testid={ testIdCard }
       to={
-        pathname.includes('explorar')
+        pathname.includes('ingredientes')
           ? { pathname: `/${recipeType}` }
           : { pathname: `/${recipeType}/${id}` }
       }

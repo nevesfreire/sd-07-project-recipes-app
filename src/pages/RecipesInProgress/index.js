@@ -101,7 +101,30 @@ function RecipesInProgress() {
     }
     const zero = 0;
     if (currRecipe.length !== zero) setProgress(currRecipe[0][1]);
-  }, []);
+  }, [category, idReceita]);
+
+  function handleFinish() {
+    let localDoneRecipes = getStorage('doneRecipes');
+    if (!localDoneRecipes) localDoneRecipes = [];
+    const now = new Date();
+    const decimal = 2;
+    const dd = String(now.getDate()).padStart(decimal, '0');
+    const mm = String(now.getMonth() + 1).padStart(decimal, '0'); // January is 0!
+    const yyyy = now.getFullYear();
+    const obj = {
+      id: idReceita,
+      type: category.replace('s', ''),
+      area: details.strArea || '',
+      category: details.strCategory,
+      alcoholicOrNot: details.strAlcoholic || '',
+      name: details.strDrink || details.strMeal,
+      image: details.strDrinkThumb || details.strMealThumb,
+      doneDate: `Feita em: ${dd}/${mm}/${yyyy}`,
+      tags: [details.strTags] || [],
+    };
+    localDoneRecipes.push(obj);
+    setStorage('doneRecipes', localDoneRecipes);
+  }
 
   return (
     <div>
@@ -136,13 +159,23 @@ function RecipesInProgress() {
         ))}
 
       <h2>Instructions</h2>
-      {details && <p data-testid="instructions">{details.strInstructions}</p>}
+      {details
+      && (
+        <p
+          data-testid="instructions"
+          className="recipes-instructions"
+        >
+          {details.strInstructions}
+        </p>
+      )}
 
       <Link to="/receitas-feitas">
         <button
+          className="footer-button"
           disabled={ disabled }
-          type="submit"
+          type="button"
           data-testid="finish-recipe-btn"
+          onClick={ handleFinish }
         >
           Finalizar Receita
         </button>
