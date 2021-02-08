@@ -15,7 +15,7 @@ export const getRecipesDone = () => {
       alcoholicOrNot: '',
       name: 'Spicy Arrabiata Penne',
       image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-      doneDate: '23/06/2020',
+      doneDate: '22/06/2020',
       tags: ['Pasta', 'Curry'],
     },
     {
@@ -26,7 +26,7 @@ export const getRecipesDone = () => {
       alcoholicOrNot: 'Alcoholic',
       name: 'Aquamarine',
       image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-      doneDate: '23/06/2020',
+      doneDate: '27/06/2020',
       tags: [],
     }];
   localStorage.setItem('doneRecipes', JSON.stringify(otherTest));
@@ -45,7 +45,7 @@ export const getRecipesFavorites = () => {
       alcoholicOrNot: '',
       name: 'Spicy Arrabiata Penne',
       image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-      doneDate: '23/06/2020',
+      doneDate: '29/06/2020',
       tags: ['Pasta', 'Curry'],
     },
     {
@@ -56,7 +56,7 @@ export const getRecipesFavorites = () => {
       alcoholicOrNot: 'Alcoholic',
       name: 'Aquamarine',
       image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-      doneDate: '23/06/2020',
+      doneDate: '21/06/2020',
       tags: [],
     }];
   localStorage.setItem('favoriteRecipes', JSON.stringify(otherTest));
