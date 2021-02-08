@@ -13,6 +13,7 @@ export default class Explorar extends React.Component {
           type="button"
           data-testid="explore-food"
           onClick={ () => history.push('/explorar/comidas') }
+          className="btn btn-info"
         >
           Explorar Comidas
         </button>
@@ -20,6 +21,7 @@ export default class Explorar extends React.Component {
           type="button"
           data-testid="explore-drinks"
           onClick={ () => history.push('/explorar/bebidas') }
+          className="btn btn-info"
         >
           Explorar Bebidas
         </button>

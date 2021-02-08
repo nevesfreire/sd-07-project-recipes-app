@@ -41,28 +41,30 @@ export default class Perfil extends React.Component {
     return (
       <div>
         <Header2 title="Perfil" />
-        <div data-testid="profile-email">{this.getEmail()}</div>
-        <button
-          type="button"
-          data-testid="profile-done-btn"
-          onClick={ this.redirectDone }
-        >
-          Receitas Feitas
-        </button>
-        <button
-          type="button"
-          data-testid="profile-favorite-btn"
-          onClick={ this.redirectFavorite }
-        >
-          Receitas Favoritas
-        </button>
-        <button
-          type="button"
-          data-testid="profile-logout-btn"
-          onClick={ this.logout }
-        >
-          Sair
-        </button>
+        <div data-testid="profile-email" className="profile-email">{this.getEmail()}</div>
+        <div className="profile-buttons">
+          <button
+            type="button"
+            data-testid="profile-done-btn"
+            onClick={ this.redirectDone }
+          >
+            Receitas Feitas
+          </button>
+          <button
+            type="button"
+            data-testid="profile-favorite-btn"
+            onClick={ this.redirectFavorite }
+          >
+            Receitas Favoritas
+          </button>
+          <button
+            type="button"
+            data-testid="profile-logout-btn"
+            onClick={ this.logout }
+          >
+            Sair
+          </button>
+        </div>
         <Footer />
       </div>
     );

@@ -26,6 +26,7 @@ class BebidasExplorar extends React.Component {
           type="button"
           data-testid="explore-by-ingredient"
           onClick={ () => history.push('/explorar/bebidas/ingredientes') }
+          className="btn btn-info"
         >
           Por Ingredientes
         </button>
@@ -33,6 +34,7 @@ class BebidasExplorar extends React.Component {
           type="button"
           data-testid="explore-surprise"
           onClick={ this.fetchData }
+          className="btn btn-info"
         >
           Me Surpreenda!
         </button>

@@ -54,4 +54,3 @@ describe('Testando arquivo BebidasExplorar.js', () => {
     expect(pathname).toBe('/explorar/bebidas/ingredientes');
   });
 });
-// adicionei pra conseguir commitar;

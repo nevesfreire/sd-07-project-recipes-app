@@ -118,7 +118,12 @@ export default class BebidasDetalhes extends React.Component {
     const { recipe, copyClipboard, isFavorite, isDone } = this.state;
     return (
       <div>
-        <img data-testid="recipe-photo" src={ recipe.strDrinkThumb } alt="drink pic" />
+        <img
+          data-testid="recipe-photo"
+          src={ recipe.strDrinkThumb }
+          alt="drink pic"
+          width="50%"
+        />
         <h1 data-testid="recipe-title">{recipe.strDrink}</h1>
         <button
           type="button"

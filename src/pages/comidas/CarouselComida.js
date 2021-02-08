@@ -39,7 +39,7 @@ export default class Carousel extends React.Component {
             data-testid={ `${index}-recomendation-card` }
             className={ this.setClasseId(index) }
           >
-            <img src={ r.strDrinkThumb } alt="alt" />
+            <img src={ r.strDrinkThumb } alt="alt" width="50%" />
             <p data-testid={ `${index}-recomendation-title` }>{r.strDrink}</p>
           </div>
         ))}

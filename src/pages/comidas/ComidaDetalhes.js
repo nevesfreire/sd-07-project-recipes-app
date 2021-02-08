@@ -124,7 +124,7 @@ class ComidaDetalhes extends React.Component {
           data-testid="recipe-photo"
           src={ recipe.strMealThumb }
           alt="imagem da receita"
-          width="200px"
+          width="50%"
         />
         <h1 data-testid="recipe-title">{recipe.strMeal}</h1>
         <div>
