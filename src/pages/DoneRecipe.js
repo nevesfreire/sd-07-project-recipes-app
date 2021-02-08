@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import copy from 'clipboard-copy';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { copyButton } from '../actions';
 import shareIcon from '../images/shareIcon.svg';
@@ -21,11 +22,11 @@ class DoneRecipe extends Component {
 
   handleTags(tags) {
     if (tags && typeof tags === 'object') {
-      console.log(tags);
+      // console.log(tags);
       return tags;
     }
     if (tags && typeof tags === 'string') {
-      console.log(tags.split(','));
+      // console.log(tags.split(','));
       return tags.split(',');
     }
   }
@@ -49,11 +50,19 @@ class DoneRecipe extends Component {
 
           {readLocalStorage.map((card, index) => (
             <div key={ card.id }>
-              <img
+
+
+              <Link
+                to={ `/${card.type}s/${card.id}` }
+                className="link-categories"
+              >
+                <img
                 data-testid={ `${index}-horizontal-image` }
                 src={ card.image }
                 alt="foto da receita"
               />
+              </Link>
+              
 
               {card.type === 'comida' ? (
                 <h2 data-testid={ `${index}-horizontal-top-text` }>
