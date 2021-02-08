@@ -76,7 +76,6 @@ function App() {
             path="/bebidas"
             render={ (props) => (<MainPage { ...props } />) }
           />
-          <Route exact path="/perfil" component={ Profile } />
           <Route exact path="/" component={ Login } />
           <Route path="/*" component={ NotFound } />
         </Switch>
