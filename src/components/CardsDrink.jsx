@@ -35,14 +35,14 @@ function CardsDrink() {
 
             return (
               <div
-                className="holder"
+                className="holder-drink"
                 key={ idDrink }
                 data-testid={ `${index}-recipe-card` }
               >
                 <Link to={ `/bebidas/${idDrink}` }>
                   <div>
                     <img
-                      className="image"
+                      className="image-drink"
                       src={ strDrinkThumb }
                       alt={ strDrink }
                       data-testid={ `${index}-card-img` }

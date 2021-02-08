@@ -3,19 +3,19 @@ https://pt.stackoverflow.com/questions/288878/
 como-dispor-imagens-uma-ao-lado-da-outra-com-t%C3%ADtulos-abaixo-em-css
 */
 
-.holder {
+.holder-drink {
   display: inline-block;
   justify-content: center;
 }
 
-.image {
+.image-drink {
   margin: 10px;
   position: relative;
   text-align: center;
   width: 200px;
 }
 
-.image:after {
+.image-drink:after {
   bottom: -20px;
   content: attr(data-title); /* estilo que coloco a legenda no lugar */
   left: 0;

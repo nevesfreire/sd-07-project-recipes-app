@@ -64,9 +64,10 @@ function Login() {
             placeholder="password"
           />
         </div>
-        <div>
+        <div className="container-btn">
           <Link to="/comidas">
             <button
+              className="btn-login"
               data-testid="login-submit-btn"
               type="button"
               disabled={ !email || !password }

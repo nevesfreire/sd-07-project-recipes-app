@@ -50,7 +50,7 @@ function DetalhesReceitas({ match: { params: { id } } }) {
   } = useContext(CoffeAndCodeContext);
   const sliderSettings = {
     dots: true,
-    infinite: false,
+    infinite: true,
     speed: 500,
     slidesToShow: 2,
     slidesToScroll: 2,
@@ -131,23 +131,18 @@ function DetalhesReceitas({ match: { params: { id } } }) {
   return (
     <div>
       <img
-        className="image"
+        className="image-recipe"
         src={ foodDetails.strMealThumb }
         alt={ foodDetails.strMeal }
         data-testid="recipe-photo"
       />
-      <div>
-        <div>
-          <h2 data-testid="recipe-title">
-            { foodDetails.strMeal }
-          </h2>
-          <hr />
-          <span data-testid="recipe-category">
+      <div className="container-one">
+        <h1 data-testid="recipe-title">
+          { foodDetails.strMeal }
+          <h3 data-testid="recipe-category">
             { foodDetails.strCategory }
-          </span>
-        </div>
-      </div>
-      <div>
+          </h3>
+        </h1>
         <CopyToClipboard text={ window.location.href }>
           <button
             type="button"
@@ -160,8 +155,9 @@ function DetalhesReceitas({ match: { params: { id } } }) {
         <FavoriteHeart id={ id } food />
         <small style={ { visibility: copyVisibility } }>Link copiado!</small>
       </div>
+      <hr />
       <div>
-        <p>Ingredients</p>
+        <p className="title">Ingredients</p>
         <div className="ingredients">
           {
             ingredientsAndMeasures.map((element, index) => (
@@ -174,7 +170,7 @@ function DetalhesReceitas({ match: { params: { id } } }) {
             ))
           }
         </div>
-        <p>Instructions</p>
+        <p className="title">Instructions</p>
         <div className="instructions">
           <p data-testid="instructions">
             { foodDetails.strInstructions }
@@ -207,25 +203,25 @@ function DetalhesReceitas({ match: { params: { id } } }) {
               >
                 <div>
                   <img
-                    className="image-carousel"
+                    className="carousel"
                     src={ drink.strDrinkThumb }
                     alt={ drink.strDrinkThumb }
                   />
-                  <h3 data-testid={ `${index}-recomendation-title` }>
+                  <h4 data-testid={ `${index}-recomendation-title` }>
                     { drink.strDrink }
-                  </h3>
+                  </h4>
                 </div>
               </div>
             ))
           }
         </Slider>
       </div>
-      <div>
+      <div className="container-btn">
         <Link to={ `/comidas/${id}/in-progress` }>
           <button
             type="button"
             data-testid="start-recipe-btn"
-            className="footer"
+            className="footer-food"
             style={ startButtonVisibility }
           >
             { startRecipeButton }

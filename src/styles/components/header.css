@@ -3,17 +3,14 @@ https://qastack.com.br/programming/2603700/
 how-to-align-3-divs-left-center-right-inside-another-div
 */
 
-.container {
+.container-header {
   background-color: lightgray;
+  color: black;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-around;
-  padding-top: 10px;
-}
-
-h1 {
-  color: black;
+  margin-top: -70px;
 }
 
 .color-btn {
@@ -21,14 +18,15 @@ h1 {
   border:none!important;
 }
 
-.left {
-  margin-top: 20px;
+.left-header {
+  margin-top: 5px;
 }
 
-.center {
-  margin-top: -100px;
+.center-header {
+  margin-top: 5px;
+  margin-bottom: 50px;
 }
 
-.right {
-  margin-top: 20px;
+.right-header {
+  margin-top: 5px;
 }

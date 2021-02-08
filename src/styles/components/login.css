@@ -31,11 +31,41 @@ h1 {
   text-align: center;
 }
 
-button {
-  color: black;
-}
-
 .coffee {
   width: 150px;
   padding-bottom: 35px;
+}
+
+.container-btn {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+/*
+https://www.visualdicas.com.br/programacao/css/
+12-criando-botoes-personalizados-css
+*/
+.btn-login {
+  background: linear-gradient(to bottom, black 5%, grey 100%);
+  border: 1px solid lightslategray;
+  border-radius: 3px;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 15px;
+  margin-right: 35px;
+  margin-top: 10px;
+  padding: 4px 15px;
+} 
+
+.btn-login:hover {
+  background: linear-gradient(to bottom, grey 5%, black 100%);
+}
+
+.btn-login:active {
+  position: relative;
+  top: 2px;
 }

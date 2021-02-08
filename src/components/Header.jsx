@@ -10,8 +10,8 @@ function Header({ name, button }) {
   const [searchBar, setSearchBar] = useState(false);
 
   return (
-    <header className="container">
-      <div className="left">
+    <header className="container-header">
+      <div className="left-header">
         <button
           className="color-btn"
           type="button"
@@ -25,10 +25,10 @@ function Header({ name, button }) {
           </Link>
         </button>
       </div>
-      <div className="center">
+      <div className="center-header">
         <h1 data-testid="page-title">{ name }</h1>
       </div>
-      <div className="right">
+      <div className="right-header">
         {
           button && (
             <button
