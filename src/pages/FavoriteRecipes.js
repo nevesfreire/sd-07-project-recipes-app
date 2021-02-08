@@ -92,6 +92,7 @@ function FavoriteRecipes() {
               { element.name }
             </h3>
           </Link>
+
           <ButtonsFavoritePage
             storage={ { element, index } }
             handleClick={ updateLocalStorage }

@@ -70,6 +70,7 @@ function ButtonsFavoritePage({ storage, handleClick }) {
         src={ heartStatus === 'white' ? whiteHeartIcon : blackHeartIcon }
         onClick={ handleAction }
       />
+
       { copyLink === true ? (<span>Link copiado!</span>) : false }
     </div>
   );

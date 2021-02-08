@@ -93,7 +93,6 @@ function MealDetails() {
         height="315"
         src={ videoUrl }
       />
-
       <h3>Recomendações</h3>
       <Recommendations api={ cocktailsRecommendations } />
       <ButtonStart data={ { key: 'meal', recipeId, ingredMeasures } } />

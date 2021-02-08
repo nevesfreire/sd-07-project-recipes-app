@@ -82,6 +82,7 @@ function CocktailDetails() {
           );
         })}
       </ul>
+
       <h3>Instruções</h3>
       <p data-testid="instructions">{instructions}</p>
       <h3>Recomendações</h3>
