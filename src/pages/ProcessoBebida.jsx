@@ -141,25 +141,18 @@ function ProcessoReceita({ match: { params: { id } } }) {
   return (
     <div>
       <img
-        className="image"
+        className="image-recipe-process-drink"
         data-testid="recipe-photo"
         src={ drinkDetails.strDrinkThumb }
         alt="thumb"
       />
-      <div>
-        <span
-          data-testid="recipe-title"
-        >
-          { drinkDetails.strDrink }
-        </span>
-        <hr />
-        <span
-          data-testid="recipe-category"
-        >
+      <h1 data-testid="title-process-drink">
+        { drinkDetails.strDrink }
+        <h3 data-testid="recipe-category">
           { drinkDetails.strCategory }
-        </span>
-      </div>
-      <div>
+        </h3>
+      </h1>
+      <div className="container-copy-favorite-drink">
         <CopyToClipboard text={ url }>
           <button
             type="button"
@@ -170,11 +163,12 @@ function ProcessoReceita({ match: { params: { id } } }) {
           </button>
         </CopyToClipboard>
         <FavoriteHeart id={ id } drink />
-        <small style={ { visibility: copyVisibility } }>Link copiado!</small>
+        <small style={ { visibility: copyVisibility } }> Link copiado!</small>
       </div>
+      <hr />
       <div>
-        <p>Ingredients</p>
-        <div>
+        <p className="title">Ingredients</p>
+        <div className="ingredient-step">
           {
             ingredientsAndMeasures.map((ingredient, index) => {
               const checked = checkBoxArray.some((check) => check === ingredient);
@@ -187,6 +181,7 @@ function ProcessoReceita({ match: { params: { id } } }) {
                     key={ `${ingredient}-${index}` }
                   >
                     <input
+                      className="check"
                       type="checkbox"
                       name={ `${ingredient}-${index}` }
                       id={ `${ingredient}-${index}` }
@@ -200,21 +195,24 @@ function ProcessoReceita({ match: { params: { id } } }) {
             })
           }
         </div>
-        <p>Instructions</p>
-        <div>
+        <p className="title">Instructions</p>
+        <div className="instructions">
           <p data-testid="instructions">{ drinkDetails.strInstructions }</p>
         </div>
       </div>
-      <Link to="/receitas-feitas">
-        <button
-          type="button"
-          data-testid="finish-recipe-btn"
-          disabled={ ingredientsAndMeasures.length !== countCheck }
-          onClick={ doneRecipe }
-        >
-          Finalizar Receita
-        </button>
-      </Link>
+      <div className="container-btn">
+        <Link to="/receitas-feitas">
+          <button
+            className="btn-finish"
+            type="button"
+            data-testid="finish-recipe-btn"
+            disabled={ ingredientsAndMeasures.length !== countCheck }
+            onClick={ doneRecipe }
+          >
+            Finalizar Receita
+          </button>
+        </Link>
+      </div>
     </div>
   );
 }

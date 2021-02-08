@@ -17,7 +17,7 @@ function Perfil() {
       <h4 data-testid="profile-email">
         {userEmail}
       </h4>
-      <div className="container-btn">
+      <div className="container-btn-perfil">
         <Link to="/receitas-feitas">
           <button
             className="btn-perfil"

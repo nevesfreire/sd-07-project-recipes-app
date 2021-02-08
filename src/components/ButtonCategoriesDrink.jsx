@@ -46,7 +46,7 @@ function ButtonCategoriesDrink() {
   if (!categoriesButtonDrink.length) return <span>Loading...</span>;
 
   return (
-    <div className="container-btn">
+    <div className="container-btn-categories">
       {
         categoriesButtonDrink.map((category) => (
           <button

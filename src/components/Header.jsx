@@ -10,10 +10,10 @@ function Header({ name, button }) {
   const [searchBar, setSearchBar] = useState(false);
 
   return (
-    <header className="container-header">
-      <div className="left-header">
+    <div>
+      <header className="container-header">
         <button
-          className="color-btn"
+          className="left-header"
           type="button"
         >
           <Link to="/perfil">
@@ -24,29 +24,32 @@ function Header({ name, button }) {
             />
           </Link>
         </button>
-      </div>
-      <div className="center-header">
-        <h1 data-testid="page-title">{ name }</h1>
-      </div>
-      <div className="right-header">
-        {
-          button && (
-            <button
-              className="color-btn"
-              type="button"
-              onClick={ () => setSearchBar(!searchBar) }
-            >
-              <img
-                src={ searchIcon }
-                alt="search icon"
-                data-testid="search-top-btn"
-              />
-            </button>
-          )
-        }
+        <div className="center-header">
+          <h1 data-testid="page-title">{ name }</h1>
+        </div>
+        <div className="right-header">
+          {
+            button && (
+              <button
+                className="color-btn-header"
+                type="button"
+                onClick={ () => setSearchBar(!searchBar) }
+              >
+                <img
+                  src={ searchIcon }
+                  alt="search icon"
+                  data-testid="search-top-btn"
+                />
+              </button>
+            )
+          }
+        </div>
+
+      </header>
+      <div className="search-bar">
         { searchBar && <HeaderSearch name={ name } /> }
       </div>
-    </header>
+    </div>
   );
 }
 

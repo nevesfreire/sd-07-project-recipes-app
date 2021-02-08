@@ -36,7 +36,11 @@ function Login() {
   return (
     <div className="container-login">
       <header>
-        <h1>Coffee and Code</h1>
+        <h1
+          className="header-login"
+        >
+          Coffee and Code
+        </h1>
       </header>
       <section className="login">
         <div>
@@ -64,7 +68,7 @@ function Login() {
             placeholder="password"
           />
         </div>
-        <div className="container-btn">
+        <div className="container-btn-enter">
           <Link to="/comidas">
             <button
               className="btn-login"

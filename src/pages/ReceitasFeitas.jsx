@@ -74,13 +74,13 @@ function ReceitasFeitas() {
         {
           doneRecipeList.map((card, index) => (
             <div
-              className="holder"
+              className="holder-finished-recipes"
               key={ `${index}-${card.name}` }
             >
               <div>
                 <Link to={ `${card.type}s/${card.id}` }>
                   <img
-                    className="image"
+                    className="image-finished-recipes"
                     src={ card.image }
                     alt={ card.name }
                     style={ { width: '20vw' } }
@@ -122,6 +122,7 @@ function ReceitasFeitas() {
                   card.tags && (
                     card.tags.map((tag) => (
                       <span
+                        className="span-tag"
                         key={ tag }
                         data-testid={ `${index}-${tag}-horizontal-tag` }
                       >
@@ -134,6 +135,7 @@ function ReceitasFeitas() {
               <div>
                 <CopyToClipboard text={ getUrl(card.type, card.id) }>
                   <button
+                    className="btn-copy"
                     onClick={ () => setCopyVisibility('visible') }
                     type="button"
                   >

@@ -123,23 +123,22 @@ function DetalhesBebidas({ match: { params: { id } } }) {
   return (
     <div>
       <img
-        className="image-recipe"
+        className="image-recipe-drink"
         src={ drinkDetails.strDrinkThumb }
         alt={ drinkDetails.strDrink }
         data-testid="recipe-photo"
       />
-      <div className="container-one">
-        <h1 data-testid="recipe-title">
-          { drinkDetails.strDrink }
-          <h3
-            data-testid="recipe-category"
-          >
-            <span>{ drinkDetails.strAlcoholic }</span>
-            <br />
-            <span>{ drinkDetails.strCategory }</span>
-          </h3>
-        </h1>
-        {/* <div> */}
+      <h1 data-testid="recipe-title">
+        { drinkDetails.strDrink }
+        <h3
+          data-testid="recipe-category"
+        >
+          <span>{ drinkDetails.strAlcoholic }</span>
+          <br />
+          <span>{ drinkDetails.strCategory }</span>
+        </h3>
+      </h1>
+      <div className="copy-favorite-drink">
         <CopyToClipboard text={ window.location.href }>
           <button
             type="button"
@@ -150,8 +149,11 @@ function DetalhesBebidas({ match: { params: { id } } }) {
           </button>
         </CopyToClipboard>
         <FavoriteHeart id={ id } drink />
-        <small style={ { visibility: copyVisibility } }>Link copiado!</small>
-        {/* </div> */}
+        <small
+          style={ { visibility: copyVisibility } }
+        >
+          <p>Link copiado!</p>
+        </small>
       </div>
       <hr />
       <div>

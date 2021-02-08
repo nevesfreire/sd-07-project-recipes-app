@@ -4,29 +4,35 @@ how-to-align-3-divs-left-center-right-inside-another-div
 */
 
 .container-header {
-  background-color: lightgray;
+  background-color: lightgrey!important;
+  border:none!important;
   color: black;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-around;
-  margin-top: -70px;
+  margin-top: 0px;
 }
 
-.color-btn {
+.color-btn-header {
   background-color: lightgrey!important;
   border:none!important;
 }
 
 .left-header {
-  margin-top: 5px;
+  background-color: lightgrey!important;
+  border:none!important;
+  margin-top: 0px;
 }
 
 .center-header {
-  margin-top: 5px;
-  margin-bottom: 50px;
+  color: black;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .right-header {
-  margin-top: 5px;
+  background-color: lightgrey!important;
+  border:none!important;
+  margin-top: 50px;
 }

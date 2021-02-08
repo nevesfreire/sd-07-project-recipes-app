@@ -1,0 +1,27 @@
+.header-search {
+  display: inline-block;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.input-header-text {
+  margin-left: 10px;
+  width: 400px;
+}
+
+.input-header-search {
+  margin-left: 10px;
+  margin-right: 5px;
+}
+
+.btn-header-search {
+  background: linear-gradient(to bottom, lightslategray 5%, lightgray 100%);
+  border-radius: 2px;
+  color: black;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 13px;
+  margin-left: 10px;
+  margin-top: 10px;
+  padding: 4px 10px;
+}

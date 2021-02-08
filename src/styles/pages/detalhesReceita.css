@@ -1,10 +1,10 @@
-.container-one {
+.container-one-recipe {
   display: flex;
   margin-bottom: 10px;
-  margin-top: -50px;
+  margin-top: 0px;
 }
 
-.image-recipe {
+.image-recipe-food {
   height: 40vh;
   margin: 0;
   width: 100%;
@@ -20,18 +20,12 @@ h3 {
   font-size: 15px;
 }
 
-button {
+.copy-favorite-food {
   background-color: white!important;
   border:none!important;
   display: block;
-  margin-left: 50px;
-  margin-top: 110px;
-}
-
-small {
-  color: black;
-  margin-left: 30px;
-  margin-top: 133px;
+  margin-left: 20px;
+  margin-top: 15px;
 }
 
 .title {

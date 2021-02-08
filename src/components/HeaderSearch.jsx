@@ -12,6 +12,7 @@ import {
   requestApiDrinkFilterName,
   requestApiDrinkFilterFirstLetter,
 } from '../services/requestDrink';
+import '../styles/components/headerSearch.css';
 
 function HeaderSearch({ name }) {
   const [textSearch, setTextSearch] = useState('');
@@ -85,11 +86,12 @@ function HeaderSearch({ name }) {
   }, [cardDrink, cardFood]);
 
   return (
-    <section>
+    <section className="header-search">
       { redirectDrink && <Redirect to={ `/bebidas/${cardDrink[0].idDrink}` } /> }
       { redirectFood && <Redirect to={ `/comidas/${cardFood[0].idMeal}` } /> }
       <div>
         <input
+          className="input-header-text"
           type="text"
           name="searchInput"
           id="searchInput"
@@ -101,6 +103,7 @@ function HeaderSearch({ name }) {
       <div>
         <label htmlFor="ingredientSearch">
           <input
+            className="input-header-search"
             type="radio"
             name="searchFilter"
             id="ingredientSearch"
@@ -111,6 +114,7 @@ function HeaderSearch({ name }) {
         </label>
         <label htmlFor="nameSearch">
           <input
+            className="input-header-search"
             type="radio"
             name="searchFilter"
             id="nameSearch"
@@ -121,6 +125,7 @@ function HeaderSearch({ name }) {
         </label>
         <label htmlFor="firstLetterSearch">
           <input
+            className="input-header-search"
             type="radio"
             name="searchFilter"
             id="firstLetterSearch"
@@ -130,15 +135,16 @@ function HeaderSearch({ name }) {
           Primeira letra
         </label>
       </div>
-
       <div>
         <button
+          className="btn-header-search"
           type="button"
           data-testid="exec-search-btn"
           onClick={ searchOnClick }
         >
           Buscar
         </button>
+        <hr />
       </div>
     </section>
   );

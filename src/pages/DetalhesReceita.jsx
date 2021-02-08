@@ -55,7 +55,6 @@ function DetalhesReceitas({ match: { params: { id } } }) {
     slidesToShow: 2,
     slidesToScroll: 2,
   };
-
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trim
   const getIngredientsAndMeasures = () => {
     const detailsEntries = Object.entries(foodDetails);
@@ -68,7 +67,6 @@ function DetalhesReceitas({ match: { params: { id } } }) {
     filteredMeasures.forEach((measure, index) => {
       expectedArray.push(`${filteredIngredients[index]} ${measure}`);
     });
-
     setIngredientsAndMeasures(expectedArray);
   };
 
@@ -131,18 +129,18 @@ function DetalhesReceitas({ match: { params: { id } } }) {
   return (
     <div>
       <img
-        className="image-recipe"
+        className="image-recipe-food"
         src={ foodDetails.strMealThumb }
         alt={ foodDetails.strMeal }
         data-testid="recipe-photo"
       />
-      <div className="container-one">
-        <h1 data-testid="recipe-title">
-          { foodDetails.strMeal }
-          <h3 data-testid="recipe-category">
-            { foodDetails.strCategory }
-          </h3>
-        </h1>
+      <h1 data-testid="recipe-title">
+        { foodDetails.strMeal }
+        <h3 data-testid="recipe-category">
+          { foodDetails.strCategory }
+        </h3>
+      </h1>
+      <div className="copy-favorite-food">
         <CopyToClipboard text={ window.location.href }>
           <button
             type="button"
@@ -153,7 +151,11 @@ function DetalhesReceitas({ match: { params: { id } } }) {
           </button>
         </CopyToClipboard>
         <FavoriteHeart id={ id } food />
-        <small style={ { visibility: copyVisibility } }>Link copiado!</small>
+        <small
+          style={ { visibility: copyVisibility } }
+        >
+          <p>Link copiado!</p>
+        </small>
       </div>
       <hr />
       <div>

@@ -143,32 +143,33 @@ function ProcessoReceita({ match: { params: { id } } }) {
   return (
     <div>
       <img
-        className="image-recipe"
+        className="image-recipe-process-food"
         data-testid="recipe-photo"
         src={ foodDetails.strMealThumb }
         alt="thumb"
       />
-      <div className="container-one">
-        <h1 data-testid="recipe-title">
-          { foodDetails.strMeal }
-          <h3 data-testid="recipe-category">
-            { foodDetails.strCategory }
-          </h3>
-        </h1>
+      <h1 data-testid="title-process-food">
+        { foodDetails.strMeal }
+        <h3 data-testid="recipe-category">
+          { foodDetails.strCategory }
+        </h3>
+      </h1>
+      <div className="container-copy-favorite-food">
         <CopyToClipboard text={ url }>
           <button
             type="button"
             data-testid="share-btn"
             onClick={ () => setCopyVisibility('visible') }
           >
-            <img
-              src={ shareIcon }
-              alt="Share icon"
-            />
+            <img src={ shareIcon } alt="Share icon" />
           </button>
         </CopyToClipboard>
         <FavoriteHeart id={ id } food />
-        <small style={ { visibility: copyVisibility } }>Link copiado!</small>
+        <small
+          style={ { visibility: copyVisibility } }
+        >
+          Link copiado!
+        </small>
       </div>
       <hr />
       <div>
