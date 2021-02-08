@@ -10,8 +10,27 @@ import '../css/recipe.css';
 class DoneRecipe extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      recipes: [],
+    };
+
     this.handleClipBoard = this.handleClipBoard.bind(this);
     this.handleTags = this.handleTags.bind(this);
+    this.handleState = this.handleState.bind(this);
+    this.filterRecipes = this.filterRecipes.bind(this);
+  }
+
+  componentDidMount() {
+    this.handleState();
+  }
+
+  handleState() {
+    const readLocalStorage = JSON.parse(localStorage.getItem('doneRecipes'));
+    this.setState({
+      recipes: readLocalStorage,
+    });
+    console.log('handle state', readLocalStorage);
   }
 
   handleClipBoard(type, id) {
@@ -31,24 +50,54 @@ class DoneRecipe extends Component {
     }
   }
 
-  render() {
+  filterRecipes(typeButton) {
     const readLocalStorage = JSON.parse(localStorage.getItem('doneRecipes'));
+    this.setState(
+      {
+        recipes: readLocalStorage,
+      },
+      () => {
+        const { recipes } = this.state;
+        const newRecipes = recipes.filter(
+          (recipe) => recipe.type === typeButton,
+        );
+        this.setState({
+          recipes: newRecipes,
+        });
+      },
+    );
+  }
+
+  render() {
+    const { recipes } = this.state;
     const { valueCopied } = this.props;
-    // console.log(readLocalStorage[0].tags);
-    if (readLocalStorage) {
+    console.log('render done', recipes);
+    if (recipes) {
       return (
         <div>
-          <button type="button" data-testid="filter-by-all-btn">
+          <button
+            type="button"
+            data-testid="filter-by-all-btn"
+            onClick={ this.handleState }
+          >
             All
           </button>
-          <button type="button" data-testid="filter-by-food-btn">
+          <button
+            type="button"
+            data-testid="filter-by-food-btn"
+            onClick={ () => this.filterRecipes('comida') }
+          >
             Food
           </button>
-          <button type="button" data-testid="filter-by-drink-btn">
+          <button
+            type="button"
+            data-testid="filter-by-drink-btn"
+            onClick={ () => this.filterRecipes('bebida') }
+          >
             Drinks
           </button>
 
-          {readLocalStorage.map((card, index) => (
+          {recipes.map((card, index) => (
             <div key={ card.id }>
               <Link
                 to={ `/${card.type}s/${card.id}` }
