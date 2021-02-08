@@ -14,14 +14,12 @@ const recipeImg = (recipeThumb, recipeIndex) => (
 );
 
 const recipeTextData = (recipeName, recipeIndex) => (
-  <div>
-    <h3
-      data-testid={ `${recipeIndex}-card-name` }
-      className="card-title"
-    >
-      {recipeName}
-    </h3>
-  </div>
+  <h3
+    data-testid={ `${recipeIndex}-card-name` }
+    className="card-title"
+  >
+    {recipeName}
+  </h3>
 );
 
 function Card(props) {

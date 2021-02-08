@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import context from '../contextAPI/context';
 import { allDrink } from '../services/fetchApi';
 import drinkIcon from '../images/drinkIcon.svg';
+import useRedirect from '../hooks/useRedirect';
 
 const DrinkBtn = () => {
+  const PAGE = '/bebidas';
+  const [setPath] = useRedirect();
   const { setRecipesUrl, setState } = useContext(context);
-  const history = useHistory();
-  const page = 'bebidas';
 
   const onClick = () => {
     setRecipesUrl(allDrink);
@@ -19,7 +19,7 @@ const DrinkBtn = () => {
       searchButton: true,
       toggleSearch: false,
     }));
-    history.push(`/${page}`);
+    setPath(PAGE);
   };
 
   return (

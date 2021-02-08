@@ -18,6 +18,7 @@ function Provider({ children }) {
 
   useEffect(() => {
     setState((s) => ({ ...s, isDisabled: true }));
+    localStorage.clear();
   }, []);
 
   useEffect(() => {
@@ -29,6 +30,8 @@ function Provider({ children }) {
       if (emailTest && passLength) {
         setState((s) => ({ ...s, user, passwd, isDisabled: false }));
       }
+      localStorage.setItem('mealsToken', JSON.stringify(1));
+      localStorage.setItem('cocktailsToken', JSON.stringify(1));
     }
   }, [login]);
 

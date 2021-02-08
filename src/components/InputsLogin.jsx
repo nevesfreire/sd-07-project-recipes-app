@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 // import { Input, Button } from '@material-ui/core';
-import { fetchApi, allFood } from '../services/fetchApi';
+// import { fetchApi, allFood } from '../services/fetchApi';
 import context from '../contextAPI/context';
 import '../css/login.css';
+import useRedirect from '../hooks/useRedirect';
 
 const inputText = (onChange) => (
   <div className="input-email">
@@ -45,8 +46,9 @@ const buttonLogin = (onClick, enable) => (
 );
 
 export default function InputLogin() {
+  const PATH = '/comidas';
+  const [setPath] = useRedirect();
   const { login, setLogin } = useContext(context);
-  const history = useHistory();
   const { state, setState } = useContext(context);
   const { isDisabled } = state;
 
@@ -54,30 +56,22 @@ export default function InputLogin() {
     setLogin({ ...login, [name]: value });
   };
 
-  const setLocalStorageData = () => {
-    localStorage.setItem('mealsToken', JSON.stringify(1));
-    localStorage.setItem('cocktailsToken', JSON.stringify(1));
-    localStorage.setItem('user', JSON.stringify({ email: state.user }));
-  };
-
   const callRoute = async () => {
-    const data = await fetchApi(allFood);
     setState((s) => ({
       ...s,
       profileButton: true,
       title: 'Comidas',
       searchButton: true,
       toggleSearch: false,
-      data,
     }));
-    setLocalStorageData();
-    return history.push('/comidas');
+    localStorage.setItem('user', JSON.stringify({ email: state.user }));
+    return setPath(PATH);
   };
 
   return (
-    <div className="input-login-controller">
-      {inputText(loginChanges)}
-      {inputPasswd(loginChanges)}
+    <div className="input-login">
+      {inputText(loginChanges, login)}
+      {inputPasswd(loginChanges, login)}
       {buttonLogin(callRoute, isDisabled)}
     </div>
   );
