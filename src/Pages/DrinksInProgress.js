@@ -132,8 +132,10 @@ function DrinksInProgress() {
   }
   return (
     <div onLoad={ enableButton }>
-      <img src={ strDrinkThumb } data-testid="recipe-photo" alt={ strDrink } />
+      <img className="datailsImage" src={ strDrinkThumb } data-testid="recipe-photo" alt={ strDrink } />
+      <div className="iconsAndTitle">
       <h1 data-testid="recipe-title">{strDrink}</h1>
+      <div>
       <button
         onClick={ () => copyToClipBoard(url) }
         type="button"
@@ -152,8 +154,10 @@ function DrinksInProgress() {
           data-testid="favorite-btn"
         />
       </button>
+      </div>
+      </div>
       <p data-testid="recipe-category">{strCategory}</p>
-      <div id="ingredients-div">
+      <div className="ingredientsList">
         {allIngredients && allIngredients
           .map((item, index) => (
             <div key={ index } data-testid={ `${index}-ingredient-step` }>
@@ -177,6 +181,7 @@ function DrinksInProgress() {
       </div>
       <p
         data-testid="instructions"
+        className="ingredientsList"
       >
         {strInstructions}
 

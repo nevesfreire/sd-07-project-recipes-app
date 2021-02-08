@@ -35,6 +35,7 @@ function RecipesMade() {
   console.log('receitas feitas', doneRecipes);
   return (
     <div>
+      <div className="recipesMadeButtons">
       <button
         type="button"
         data-testid="filter-by-all-btn"
@@ -56,6 +57,7 @@ function RecipesMade() {
       >
         Drinks
       </button>
+      </div>
       {doneRecipes.map((doneRecipe, index) => (
         <CardMadeRecipes key={ doneRecipe.id } recipe={ doneRecipe } index={ index } />
       ))}

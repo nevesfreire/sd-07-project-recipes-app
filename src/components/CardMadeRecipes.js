@@ -80,6 +80,7 @@ function CardMadeRecipes({ recipe, index }) {
               data-testid={ `${index}-horizontal-image` }
             >
               <img
+                className="datailsImage"
                 alt="recipeImg"
                 src={ image }
               />
@@ -94,6 +95,7 @@ function CardMadeRecipes({ recipe, index }) {
               data-testid={ `${index}-horizontal-image` }
             >
               <img
+                className="datailsImage"
                 alt="recipeImg"
                 src={ image }
               />

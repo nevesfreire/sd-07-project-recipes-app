@@ -38,6 +38,7 @@ function Login() {
         <Form.Group controlId="formBasicPassword">
           <Form.Label>Senha</Form.Label>
             <Form.Control
+            type="password"
               placeholder="Password"
               data-testid="password-input"
               onChange={ ({ target }) => setPassword(target.value) } />
