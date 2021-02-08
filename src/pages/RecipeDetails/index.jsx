@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
+import { RecipesContext } from '../../context';
 import ShareIcon from '../../images/shareIcon.svg';
 import WhiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import Recomendations from './Recomendations';
-
-// import BlackHeartIcon from '../../images/blackHeartIcon.svg';
+import BlackHeartIcon from '../../images/blackHeartIcon.svg';
 
 export default function RecipeDetails({ history, match: { params: { id } } }) {
   const [recipeDetails, setRecipeDetails] = useState([]);
+  const { favorites, disfavor, addToFavorites } = useContext(RecipesContext);
   const fetchMealDetails = async () => {
     try {
       let endpoint = '';
@@ -65,6 +66,25 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
     }
   });
 
+  const isFavorited = () => {
+    // const zero = 0;
+    // console.log(recipeDetails);
+    if (recipeDetails.idMeal) {
+      // console.log(recipeDetails);
+      return favorites.some((recipe) => recipe.id === id);
+    }
+  };
+
+  const addOrRemoveFavorites = () => {
+    // console.log(isFavorited());
+    if (isFavorited()) {
+      disfavor(id);
+    } else {
+      // console.log(recipeDetails);
+      addToFavorites(recipeDetails);
+    }
+  };
+
   useEffect(() => {
     fetchMealDetails();
   }, []);
@@ -84,8 +104,15 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
         <button type="button" data-testid="share-btn">
           <img src={ ShareIcon } alt="share" />
         </button>
-        <button type="button" data-testid="favorite-btn">
-          <img src={ WhiteHeartIcon } alt="favorite recipe" />
+        <button
+          type="button"
+          data-testid="favorite-btn"
+          onClick={ addOrRemoveFavorites }
+        >
+          <img
+            src={ isFavorited() ? BlackHeartIcon : WhiteHeartIcon }
+            alt="favorite recipe"
+          />
           {/* acrescentar lógica para mudar icone se favoritada */}
         </button>
         <h4
