@@ -27,11 +27,14 @@ class TelaDeReceitaEmProcesso extends Component {
     );
     return ingredientsArray;
   }
-  /*
-  handleTime() {
+
+  handleRecipeDone(item) {
     const HoraInicial = new Date();
     const horaFinal = HoraInicial.toLocaleDateString();
-  } */
+    console.log(horaFinal);
+    const { history } = this.props;
+    history.push(`/endereçoMagico/${item.idDrink}`);
+  }
 
   handleMeasure(recipe) {
     const recipeArray = Object.entries(recipe[0]);
@@ -56,15 +59,16 @@ class TelaDeReceitaEmProcesso extends Component {
         </Container>
         <Container>
           <Form>
+            <h4>Ingredients</h4>
             {ingredientsArray.map((item, index) => (
               <Form.Check
                 type="checkbox"
                 label={ `${item[1]} - ${measuresArray[index][1]}` }
-                data-testid={ `${index}-ingredient-step` }
+                data-testid="ingredient-step"
                 key={ item }
               />
             ))}
-
+            <h4>Instructions</h4>
             <p data-testid="instructions">{meal[0].strInstructions}</p>
 
             <Button
@@ -72,7 +76,7 @@ class TelaDeReceitaEmProcesso extends Component {
               block
               size="lg"
               data-testid="finish-recipe-btn"
-              onClick={ this.handleTime }
+              onClick={ this.handleRecipeDone }
             >
               Finalizar Receita
             </Button>
@@ -102,7 +106,7 @@ class TelaDeReceitaEmProcesso extends Component {
               <Form.Check
                 type="checkbox"
                 label={ `${item[1]} - ${measuresArray[index][1]}` }
-                data-testid={ `${index}-ingredient-step` }
+                data-testid="ingredient-step"
                 key={ item }
               />
             ))}
@@ -114,7 +118,7 @@ class TelaDeReceitaEmProcesso extends Component {
               block
               size="lg"
               data-testid="finish-recipe-btn"
-              onClick={ this.handleTime }
+              onClick={ this.handleRecipeDone }
             >
               Finalizar Receita
             </Button>
@@ -138,7 +142,6 @@ class TelaDeReceitaEmProcesso extends Component {
 
 TelaDeReceitaEmProcesso.propTypes = {
   drinkDetailStore: PropTypes.arrayOf(PropTypes.Object).isRequired,
-
   meal: PropTypes.arrayOf(PropTypes.Object).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
@@ -146,6 +149,10 @@ TelaDeReceitaEmProcesso.propTypes = {
     }).isRequired,
   }).isRequired,
   getDetailedMealDispatch: PropTypes.func.isRequired,
+  getDetailedDrinkDispatch: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 const mapStateToProps = (state) => ({
