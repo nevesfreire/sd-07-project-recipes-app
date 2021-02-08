@@ -53,7 +53,8 @@ class Login extends Component {
     const { sendLoginInfoDispatch } = this.props;
 
     return (
-      <div>
+      <div className="d-flex align-items-center
+      justify-content-center">
         <h1>App de Receitas</h1>
         <form>
           <input
