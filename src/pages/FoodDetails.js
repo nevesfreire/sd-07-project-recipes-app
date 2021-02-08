@@ -190,7 +190,9 @@ class FoodDetails extends Component {
               ))}
           </div>
         </div>
-        <div className="finish-button-container">{ showButton(id, 'meals', history) }</div>
+        <div className="finish-button-container">
+          { showButton(id, 'meals', history) }
+        </div>
       </div>
     );
   }

@@ -36,7 +36,7 @@ class DrinkInProgress extends Component {
     const { requestRecipes, match: { params: { id } } } = this.props;
     requestRecipes(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
     this.createFavoriteLocalStorage('favoriteRecipes', 'favorite');
-    this.createFavoriteLocalStorage('doneRecipes', 'done' );
+    this.createFavoriteLocalStorage('doneRecipes', 'done');
     checkProgressDrinkLocalStorage(id);
     this.handleButtonEnabled();
   }

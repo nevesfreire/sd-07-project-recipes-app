@@ -13,11 +13,11 @@ const exploreArea = (state = INITIAL_STATE, action) => {
       ...state,
       areas: action.payload,
     };
-    case FILTERED_AREA:
-      return {
-        ...state,
-        areasFiltered: action.payload,
-      };
+  case FILTERED_AREA:
+    return {
+      ...state,
+      areasFiltered: action.payload,
+    };
   case ERROR:
     return {
       ...state,

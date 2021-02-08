@@ -4,7 +4,7 @@ class DrinkArea extends Component {
   render() {
     return (
       <h1>Not Found</h1>
-    )
+    );
   }
 }
 

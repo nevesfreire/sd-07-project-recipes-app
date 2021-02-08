@@ -16,7 +16,7 @@ class FoodArea extends Component {
 
     this.state = {
       areaFilter: 'All',
-    }
+    };
   }
 
   componentDidMount() {
@@ -54,66 +54,66 @@ class FoodArea extends Component {
   render() {
     const { history, areas, areasFiltered } = this.props;
     const { areaFilter } = this.state;
-    const MIN_LENGTH_CARD = 12
+    const MIN_LENGTH_CARD = 12;
     if (!areas.meals) return <Loading />;
     return (
       <div>
         <Header title="Explorar Origem" history={ history } />
         <section>
           <select
-            name='areaFilter'
+            name="areaFilter"
             value={ areaFilter }
             onChange={ this.filterAreas }
             data-testid="explore-by-area-dropdown"
           >
             <option
-            key='All'
-            data-testid='All-option'
+              key="All"
+              data-testid="All-option"
             >
               All
             </option>
             {
-              areas.meals.map((area) => 
+              areas.meals.map((area) => (
                 <option
                   key={ area.strArea }
                   data-testid={ `${area.strArea}-option` }
                 >
                   {area.strArea}
-                </option>)
+                </option>))
             }
           </select>
         </section>
         <section>
-            {
-              areasFiltered.meals
+          {
+            areasFiltered.meals
               ? areasFiltered.meals
                 .filter((_card, index) => index < MIN_LENGTH_CARD)
                 .map((area, index) => {
-                    const { strMeal, strMealThumb, idMeal } = area;
-                    return (
-                      <div
-                        key={ idMeal }
-                        data-testid={`${index}-recipe-card`}
+                  const { strMeal, strMealThumb, idMeal } = area;
+                  return (
+                    <div
+                      key={ idMeal }
+                      data-testid={ `${index}-recipe-card` }
+                    >
+                      <button
+                        type="button"
+                        onClick={ () => this.redirectRecipe(idMeal) }
                       >
-                        <button
-                          type="button"
-                          onClick={ () => this.redirectRecipe(idMeal) }
-                        >
-                          <img
-                            src={ strMealThumb }
-                            alt={ strMeal }
-                            data-testid={`${index}-card-img`}
-                            width="200"
-                          />
-                          <h1 data-testid={`${index}-card-name`}>
-                            {strMeal}
-                          </h1>
-                        </button>
-                      </div>
-                    )
-                  })
+                        <img
+                          src={ strMealThumb }
+                          alt={ strMeal }
+                          data-testid={ `${index}-card-img` }
+                          width="200"
+                        />
+                        <h1 data-testid={ `${index}-card-name` }>
+                          {strMeal}
+                        </h1>
+                      </button>
+                    </div>
+                  );
+                })
               : <Loading />
-            }
+          }
         </section>
         <Footer history={ history } />
       </div>
@@ -124,12 +124,12 @@ class FoodArea extends Component {
 const mapStateToProps = ({ exploreAreaReducer }) => ({
   areas: exploreAreaReducer.areas,
   areasFiltered: exploreAreaReducer.areasFiltered,
-})
+});
 
 const mapDispatchToProps = (dispatch) => ({
   requestArea: (endpoint) => dispatch(fetchArea(endpoint)),
   requestFoodArea: (endpoint) => dispatch(fetchFilteredArea(endpoint)),
-})
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(FoodArea);
 
@@ -137,4 +137,12 @@ FoodArea.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
+  areas: PropTypes.shape({
+    meals: Proptypes.arrayOf(PropTypes.object).isRequired,
+  }).isRequired,
+  areasFiltered: PropTypes.shape({
+    meals: Proptypes.arrayOf(PropTypes.object).isRequired,
+  }).isRequired,
+  requestArea: PropTypes.func.isRequired,
+  requestFoodArea: PropTypes.func.isRequired,
 };

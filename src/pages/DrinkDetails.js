@@ -180,7 +180,9 @@ class DrinkDetails extends Component {
               ))}
           </div>
         </div>
-        <div className="finish-button-container">{ showButton(id, 'cocktails', history) }</div>
+        <div className="finish-button-container">
+          { showButton(id, 'cocktails', history) }
+        </div>
       </div>
     );
   }
