@@ -45,7 +45,6 @@ const recipes = (state = INITIAL_STATE, action) => {
   case RETRIEVE_DRINK_DETAILS:
     return { ...state, detailsDrink: action.value.drinks };
   case DONE_RECIPES_ADD:
-    console.log(action.value);
     storageRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     doneRecipe = JSON.stringify([...storageRecipes, action.value[0]]);
     localStorage.setItem('doneRecipes', doneRecipe);
