@@ -3,10 +3,7 @@ import { LoginForm } from '../../Components';
 import './styles.css';
 
 const Login = () => (
-  <>
-    <LoginForm />
-    <div className="dev-by">Credits</div>
-  </>
+  <LoginForm />
 );
 
 export default Login;

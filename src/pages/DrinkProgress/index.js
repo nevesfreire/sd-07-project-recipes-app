@@ -4,7 +4,7 @@ import ProgressDrink from '../../Components/ProgressDrink';
 import RequestDrinkById from '../../services/drinkByIdApi';
 import { DrinkContext } from '../../providers/DrinkProvider';
 
-const FoodProgress = ({ match: { params: { id } } }) => {
+const DrinkProgress = ({ match: { params: { id } } }) => {
   const [currentRecipe, setCurrentRecipe] = useState({});
   const { data } = useContext(DrinkContext);
   const maxLength = 6;
@@ -29,7 +29,7 @@ const FoodProgress = ({ match: { params: { id } } }) => {
     <div>
       <ProgressDrink
         id={ id }
-        type="bebidas"
+        type="bebida"
         recipe={ currentRecipe }
         recommend={ recommend }
         ingredientes={ ingredientes }
@@ -39,7 +39,7 @@ const FoodProgress = ({ match: { params: { id } } }) => {
   );
 };
 
-FoodProgress.propTypes = {
+DrinkProgress.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,
@@ -47,4 +47,4 @@ FoodProgress.propTypes = {
   }).isRequired,
 };
 
-export default FoodProgress;
+export default DrinkProgress;

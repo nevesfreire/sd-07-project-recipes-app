@@ -54,8 +54,6 @@ const Details = ({ type, recipe, recommend, ingredientes, id, medidas }) => {
     return setCopied(true);
   };
 
-  console.log(recommend);
-
   return (
     <div className="details-page">
       <img
@@ -120,30 +118,65 @@ const Details = ({ type, recipe, recommend, ingredientes, id, medidas }) => {
         <Carousel>
           {recommend.map((_, index, cardArray) => {
             if (index > 2) return null;
-            const firstCardSlide = cardArray[index][rcmdName];
-            const firstCardOthers = cardArray[index + 1][rcmdName];
-            const secondCardOthers = cardArray[index + 2][rcmdName];
+            let typeid = 'idMeal';
+            let reverseType = 'bebidas';
+            if (type === 'comida') typeid = 'idDrink';
+            if (type === 'bebida') reverseType = 'comidas';
+            let firstCard = null;
+            let secondCard = null;
+            let firstImage = null;
+            let secondImage = null;
+            let firstId = null;
+            let secondId = null;
+            if (index === 0) {
+              firstCard = cardArray[index][rcmdName];
+              firstImage = cardArray[index][rcmdImg];
+              firstId = cardArray[index][typeid];
+              secondCard = cardArray[index + 1][rcmdName];
+              secondImage = cardArray[index + 1][rcmdImg];
+              secondId = cardArray[index + 1][typeid];
+            }
+            if (index === 1) {
+              firstCard = cardArray[index + 1][rcmdName];
+              firstImage = cardArray[index + 1][rcmdImg];
+              firstId = cardArray[index + 1][typeid];
+              secondCard = cardArray[index + 2][rcmdName];
+              secondImage = cardArray[index + 2][rcmdImg];
+              secondId = cardArray[index + 2][typeid];
+            }
+            if (index === 2) {
+              firstCard = cardArray[index + 2][rcmdName];
+              firstImage = cardArray[index + 2][rcmdImg];
+              firstId = cardArray[index + 2][typeid];
+              secondCard = cardArray[index + 3][rcmdName];
+              secondImage = cardArray[index + 3][rcmdImg];
+              secondId = cardArray[index + 3][typeid];
+            }
 
             return (
-              <Carousel.Item key={ index <= 0 ? firstCardSlide : firstCardOthers }>
+              <Carousel.Item key={ firstCard }>
                 <div className="carousel-items">
                   <div
                     data-testid={ `${index}-recomendation-card` }
                     className="carousel-card"
                   >
-                    <img src={ cardArray[index][rcmdImg] } alt="Recommended thumb" width="70" />
-                    <p data-testid={ `${index}-recomendation-title` }>
-                      {index <= 0 ? firstCardSlide : firstCardOthers}
-                    </p>
+                    <Link to={ `/${reverseType}/${firstId}` } style={ { color: 'inherit' } }>
+                      <img src={ firstImage } alt="Recommended thumb" width="70" />
+                      <p data-testid={ `${index}-recomendation-title` }>
+                        {firstCard}
+                      </p>
+                    </Link>
                   </div>
                   <div
                     data-testid={ `${index}-recomendation-card` }
                     className="carousel-card"
                   >
-                    <img src={ cardArray[index][rcmdImg] } alt="Recommended thumb" width="70" />
-                    <p data-testid={ `${index}-recomendation-title` }>
-                      {index <= 0 ? firstCardOthers : secondCardOthers}
-                    </p>
+                    <Link to={ `/${reverseType}/${secondId}` } style={ { color: 'inherit' } }>
+                      <img src={ secondImage } alt="Recommended thumb" width="70" />
+                      <p data-testid={ `${index}-recomendation-title` }>
+                        {secondCard}
+                      </p>
+                    </Link>
                   </div>
                 </div>
               </Carousel.Item>

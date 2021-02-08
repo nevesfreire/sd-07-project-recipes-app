@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import reciperestImg from '../assets/Reciperest.png';
 
 function LoginForm() {
   const [login, setLogin] = useState({ email: '', senha: '' });
@@ -28,7 +29,7 @@ function LoginForm() {
 
   return (
     <div className="login-page">
-      <div className="hold-image">imagem</div>
+      <img src={ reciperestImg } alt="Reciperst thumb" className="login-logo" />
       <form>
         <label htmlFor="email">
           <input

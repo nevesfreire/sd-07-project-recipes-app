@@ -1,14 +1,14 @@
-.hold-image {
-  background-color: black;
-  margin: 0 50px;
-  padding: 140px 10px;
+.login-logo {
+  width: 100%;
 }
 
 .login-page {
-  background-color: #ddb887;
-  padding: 40px 0;
+  background: url('../../assets/ooeooe.gif');
+  background-size: cover;
+  padding: 164px 0;
   text-align: center;
 }
+
 
 .login-page form {
   margin-top: 40px;
@@ -17,8 +17,8 @@
 .login-page input {
   border: none;
   border-radius: 5px;
-  opacity: 0.6;
-  padding: 8px 24px;
+  opacity: 1;
+  padding: 8px 50px;
 }
 
 .login-page button {
@@ -38,6 +38,7 @@
 }
 
 .dev-by {
-  background-color: #15757a;
-  padding: 23.5px;
+  background-color: white;
+  opacity: 0.2;
+  padding: 40px;
 }
