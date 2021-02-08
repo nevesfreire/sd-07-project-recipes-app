@@ -19,6 +19,7 @@ class CustomCartegory extends Component {
       <button
         type="button"
         data-testid={ `${category.strCategory}-category-filter` }
+        className="btn btn-outline-danger btn-category-main-page"
         onClick={ () => {
           if (currentCategory === category.strCategory) {
             return title === 'comidas' ? dispatchFoodRecipes({})

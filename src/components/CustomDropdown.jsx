@@ -21,10 +21,12 @@ class CustomDropdown extends Component {
       <select
         data-testid="explore-by-area-dropdown"
         onChange={ (e) => this.areaFromOrigin(e) }
+        className="btn btn-danger"
       >
         <option
           data-testid="All-option"
           value="all"
+          className="options-origins-dropdown"
         >
           All
         </option>

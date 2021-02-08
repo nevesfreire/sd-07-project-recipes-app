@@ -19,31 +19,42 @@ export default function CustomHeader({
     setShow(!show);
   };
   return (
-    <header>
-      <h1 data-testid="page-title">{title}</h1>
+    <header className="header-content">
       <button
         type="button"
         onClick={ routeChange }
         data-testid="profile-top-btn"
         src={ profile }
+        className="btn btn-light"
       >
         <img src={ profile } alt="profile" />
       </button>
+      <h1
+        data-testid="page-title"
+        className="main-page-name"
+      >
+        {title}
+      </h1>
       {showSearchTopBtn
       && title !== 'Explorar'
       && title !== 'Receitas Favoritas'
       && title !== 'Receitas Feitas'
         ? (
           <div>
-            <button
-              type="button"
-              data-testid="search-top-btn"
-              onClick={ () => showSearchBar() }
-              src={ search }
-            >
-              <img src={ search } alt="buscar" />
-            </button>
-            {show && <CustomSearchBar title={ title } />}
+            <div>
+              <button
+                type="button"
+                data-testid="search-top-btn"
+                onClick={ () => showSearchBar() }
+                src={ search }
+                className="btn btn-light"
+              >
+                <img src={ search } alt="buscar" />
+              </button>
+            </div>
+            <div>
+              {show && <CustomSearchBar title={ title } />}
+            </div>
           </div>
         )
         : null}

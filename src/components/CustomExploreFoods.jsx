@@ -21,19 +21,28 @@ export default class CustomExploreFoods extends Component {
     const { id } = this.state;
 
     return (
-      <div>
+      <div className="explore-choose-type-content">
         <Link to="/explorar/comidas/ingredientes" data-testid="explore-by-ingredient">
-          <button type="button">
+          <button
+            className="btn btn-danger btn-explore-choose-type"
+            type="button"
+          >
             Por Ingredientes
           </button>
         </Link>
         <Link to="/explorar/comidas/area" data-testid="explore-by-area">
-          <button type="button">
+          <button
+            className="btn btn-danger btn-explore-choose-type"
+            type="button"
+          >
             Por Local de Origem
           </button>
         </Link>
         <Link to={ `/comidas/${id}` } data-testid="explore-surprise">
-          <button type="button">
+          <button
+            className="btn btn-danger btn-explore-choose-type"
+            type="button"
+          >
             Me Surpreenda!
           </button>
         </Link>

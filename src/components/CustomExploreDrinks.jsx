@@ -20,9 +20,10 @@ export default class CustomExploreDrinks extends Component {
   render() {
     const { id } = this.state;
     return (
-      <div>
+      <div className="explore-choose-type-content">
         <Link to="/explorar/bebidas/ingredientes" data-testid="explore-by-ingredient">
           <button
+            className="btn btn-danger btn-explore-choose-type"
             type="button"
           >
             Por Ingredientes
@@ -30,6 +31,7 @@ export default class CustomExploreDrinks extends Component {
         </Link>
         <Link to={ `/bebidas/${id}` } data-testid="explore-surprise">
           <button
+            className="btn btn-danger btn-explore-choose-type"
             type="button"
           >
             Me Surpreenda!

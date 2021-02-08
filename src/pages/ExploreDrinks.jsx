@@ -5,7 +5,7 @@ import CustomHeader from '../components/CustomHeader';
 export default class ExploreDrinks extends Component {
   render() {
     return (
-      <div>
+      <div className="explore-content">
         <CustomHeader
           title="Explorar Bebidas"
           showSearchTopBtn={ false }

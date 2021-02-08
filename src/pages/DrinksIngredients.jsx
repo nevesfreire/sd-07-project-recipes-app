@@ -38,7 +38,7 @@ class DrinksIngredients extends Component {
     const INITIAL_LENGTH = 0;
     const MAX_LENGTH = drinks.length > LENGTH ? LENGTH : drinks.length;
     return (
-      <div>
+      <div className="explore-ingredients-content">
         { drinks.slice(INITIAL_LENGTH, MAX_LENGTH).map((drink, index) => (
           <CustomIngredientsDrinks
             key={ drink.idIngredient }
