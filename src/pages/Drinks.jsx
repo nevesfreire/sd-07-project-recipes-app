@@ -59,10 +59,10 @@ function Drinks() {
 
   return (
     <div>
-      <div>
+      <div className="profile-buttons">
         <button
-          className="btn btn-outline-dark btn-sm btn-block"
-          style={ { width: '22.5rem' } }
+          className="btn color-button main-pages-buttons"
+          style={ { width: '23.4rem' } }
           data-testid="All-category-filter"
           name="all"
           type="button"
@@ -73,8 +73,8 @@ function Drinks() {
         {apiCategoriesDrinks !== undefined ? (
           apiCategoriesDrinks.map((item) => (
             <button
-              className="btn btn-outline-dark btn-sm btn-block"
-              style={ { width: '22.5rem' } }
+              className="btn color-button main-pages-buttons"
+              style={ { width: '23.4rem' } }
               data-testid={ `${item.strCategory}-category-filter` }
               name={ item.strCategory }
               type="button"
