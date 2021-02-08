@@ -3,6 +3,8 @@ import { Form, Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { initialize, saveItem } from '../../services/localStorage';
 
+import './style.css';
+
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -40,37 +42,40 @@ function Login() {
   };
 
   return (
-    <Form>
-      <Form.Group controlId="formBasicEmail">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control
-          type="email"
-          placeholder="Enter email"
-          data-testid="email-input"
-          value={ email }
-          onChange={ ({ target: { value } }) => setEmail(value) }
-        />
-      </Form.Group>
-      <Form.Group controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
-        <Form.Control
-          type="password"
-          placeholder="Password"
-          data-testid="password-input"
-          value={ password }
-          onChange={ ({ target: { value } }) => setPassword(value) }
-        />
-      </Form.Group>
-      <Button
-        variant="primary"
-        type="button"
-        data-testid="login-submit-btn"
-        disabled={ disabled }
-        onClick={ handleSubmit }
-      >
-        Submit
-      </Button>
-    </Form>
+    <main className="wrapper">
+      <Form className="form__login">
+        <Form.Group controlId="formBasicEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="Enter email"
+            data-testid="email-input"
+            value={ email }
+            onChange={ ({ target: { value } }) => setEmail(value) }
+          />
+        </Form.Group>
+        <Form.Group controlId="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Password"
+            data-testid="password-input"
+            value={ password }
+            onChange={ ({ target: { value } }) => setPassword(value) }
+          />
+        </Form.Group>
+        <Button
+          variant="primary"
+          type="button"
+          data-testid="login-submit-btn"
+          disabled={ disabled }
+          className="form__login__btn"
+          onClick={ handleSubmit }
+        >
+          Submit
+        </Button>
+      </Form>
+    </main>
   );
 }
 

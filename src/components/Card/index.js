@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import './style.css';
 
 function Card({
   data: {
@@ -19,6 +20,7 @@ function Card({
   return (
     <button
       type="button"
+      className="card"
       data-testid={ `${index}-recipe-card` }
       onClick={ () => setShouldRedirect(true) }
     >
@@ -27,7 +29,6 @@ function Card({
           data-testid={ `${index}-card-img` }
           alt="thumbnail"
           src={ img }
-          width="100px"
         />
       </header>
       <main>

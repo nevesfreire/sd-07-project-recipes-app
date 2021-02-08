@@ -1,16 +1,18 @@
-nav {
+.header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+}
+
+.header__nav {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
-  margin: auto;
-  width: 90%;
+  justify-content: space-between;
+  margin: 0 auto;
+  width: 80%;
 }
 
-nav > p {
+nav > h5 {
   margin: 0;
-}
-
-header {
-  background-color: rgb(108, 159, 218);
 }

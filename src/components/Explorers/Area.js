@@ -51,10 +51,16 @@ function Area() {
   }, [selectedArea]);
 
   return (
-    <div>
-      <label htmlFor="method-input">
+    <main
+      style={ { marginTop: 10, marginBottom: 52 } }
+    >
+      <label
+        htmlFor="method-input"
+        style={ { width: '100%', padding: '15px 30px' } }
+      >
         Área:
         <select
+          className="search__input"
           data-testid="explore-by-area-dropdown"
           onChange={ (event) => selectArea(event) }
         >
@@ -69,26 +75,30 @@ function Area() {
           )))}
         </select>
       </label>
-      <section>
+      <section className="card__container">
         {isFetching && data.map((recipe, index) => (
-          <div key={ recipe.idMeal }>
-            <Link to={ `/comidas/${recipe.idMeal}` }>
-              <div data-testid={ `${index}-recipe-card` }>
-                <p data-testid={ `${index}-card-name` }>
-                  { recipe.strMeal }
-                </p>
-                <img
-                  data-testid={ `${index}-card-img` }
-                  alt="Foto do Alimento"
-                  src={ recipe.strMealThumb }
-                  width="50px"
-                />
-              </div>
-            </Link>
-          </div>
+          <Link
+            to={ `/comidas/${recipe.idMeal}` }
+            className="card"
+            key={ recipe.idMeal }
+          >
+            <header>
+              <img
+                data-testid={ `${index}-card-img` }
+                alt="Foto do Alimento"
+                src={ recipe.strMealThumb }
+                width="50px"
+              />
+            </header>
+            <main data-testid={ `${index}-recipe-card` }>
+              <p data-testid={ `${index}-card-name` }>
+                { recipe.strMeal }
+              </p>
+            </main>
+          </Link>
         ))}
       </section>
-    </div>
+    </main>
   );
 }
 

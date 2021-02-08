@@ -42,24 +42,27 @@ function Ingredients({ path }) {
 
   function renderIngMeal() {
     return (
-      <div>
+      <div className="card__container">
         { ingredients.map((element, index) => (
           <button
             type="button"
+            className="card"
             data-testid={ `${index}-ingredient-card` }
             key={ index }
             onClick={ () => handleRedirect(element.strIngredient) }
           >
-            <img
-              data-testid={ `${index}-card-img` }
-              src={ `https://www.themealdb.com/images/ingredients/${element.strIngredient}-Small.png` }
-              alt="meal-ingredient"
-            />
-            <span
-              data-testid={ `${index}-card-name` }
-            >
-              { element.strIngredient }
-            </span>
+            <header>
+              <img
+                data-testid={ `${index}-card-img` }
+                src={ `https://www.themealdb.com/images/ingredients/${element.strIngredient}-Small.png` }
+                alt="meal-ingredient"
+              />
+            </header>
+            <main>
+              <span data-testid={ `${index}-card-name` }>
+                { element.strIngredient }
+              </span>
+            </main>
           </button>
         )) }
       </div>
@@ -68,24 +71,27 @@ function Ingredients({ path }) {
 
   function renderIngDrink() {
     return (
-      <div>
+      <div className="card__container">
         { ingredients.map((element, index) => (
           <button
+            className="card"
             type="button"
             data-testid={ `${index}-ingredient-card` }
             key={ index }
             onClick={ () => handleRedirect(element.strIngredient1) }
           >
-            <img
-              data-testid={ `${index}-card-img` }
-              src={ `https://www.thecocktaildb.com/images/ingredients/${element.strIngredient1}-Small.png` }
-              alt="drink-ingredient"
-            />
-            <span
-              data-testid={ `${index}-card-name` }
-            >
-              { element.strIngredient1 }
-            </span>
+            <header>
+              <img
+                data-testid={ `${index}-card-img` }
+                src={ `https://www.thecocktaildb.com/images/ingredients/${element.strIngredient1}-Small.png` }
+                alt="drink-ingredient"
+              />
+            </header>
+            <main>
+              <span data-testid={ `${index}-card-name` }>
+                { element.strIngredient1 }
+              </span>
+            </main>
           </button>
         )) }
       </div>
@@ -93,11 +99,11 @@ function Ingredients({ path }) {
   }
 
   return (
-    <div>
+    <main style={ { marginTop: 10, marginBottom: 52 } }>
       { (!ingredients) && isLoading() }
       { path === '/explorar/comidas/ingredientes' && renderIngMeal() }
       { path === '/explorar/bebidas/ingredientes' && renderIngDrink() }
-    </div>
+    </main>
   );
 }
 

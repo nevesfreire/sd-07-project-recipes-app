@@ -16,46 +16,55 @@ function Info({ data }) {
 
   return (
     <>
-      <header>
-        <main>
-          <p data-testid="recipe-title">{name}</p>
-        </main>
-        <img
-          data-testid="recipe-photo"
-          alt="thumbnail"
-          src={ src }
-          width="100px"
-        />
-        <p data-testid="recipe-category">
-          {category}
-          {alcoholic && ' | Alcoholic'}
-        </p>
-        <p data-testid="instructions">
-          {instructions}
-        </p>
-        <ul>
+      <img
+        data-testid="recipe-photo"
+        className="detail__image"
+        alt="thumbnail"
+        src={ src }
+      />
+      <div style={ { padding: '15px 30px' } }>
+        <div className="detail__header">
+          <div>
+            <p
+              data-testid="recipe-title"
+              className="detail__title"
+            >
+              {name}
+            </p>
+            <p
+              data-testid="recipe-category"
+              className="detail__category"
+            >
+              {category}
+              {alcoholic && ' | Alcoholic'}
+            </p>
+          </div>
+          <Actions data={ data } />
+        </div>
+        <p className="detail__field">Ingredientes:</p>
+        <ul className="detail__box">
           {ingredients.map((ing, index) => (
             <li
               key={ ing }
               data-testid={ `${index}-ingredient-name-and-measure` }
             >
-              {ing}
+              {`- ${ing}`}
             </li>
           ))}
         </ul>
-        <video
-          width="200"
-          height="200"
-          controls
-          data-testid="video"
-          src={ video }
-        >
-          <track kind="captions" />
-        </video>
-      </header>
-      <section>
-        <Actions data={ data } />
-      </section>
+        <p className="detail__field">Instruções:</p>
+        <p data-testid="instructions" className="detail__box">
+          {instructions}
+        </p>
+        {video !== '' && (
+          <iframe
+            className="detail__video"
+            data-testid="video"
+            title="video"
+            src={ `https://www.youtube.com/embed/${video.split('=')[1]}` }
+          />
+        )}
+      </div>
     </>
   );
 }

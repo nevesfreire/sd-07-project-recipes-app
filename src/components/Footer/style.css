@@ -1,8 +1,11 @@
 .footer {
-  background-color: rgb(108, 159, 218);
+  background: white;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
   bottom: 0;
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: space-around;
+  padding: 10px;
   position: fixed;
   width: 100%;
 }

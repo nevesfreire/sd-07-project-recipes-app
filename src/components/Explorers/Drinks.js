@@ -5,14 +5,14 @@ import SurpriseMe from './SurpriseMe';
 
 function Drinks({ path }) {
   return (
-    <main>
+    <main className="explore">
       <Link
+        className="explore__button"
         data-testid="explore-by-ingredient"
         to="/explorar/bebidas/ingredientes"
       >
         Por Ingredientes
       </Link>
-      <br />
       <SurpriseMe path={ path } />
     </main>
   );

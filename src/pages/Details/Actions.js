@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { Context } from '../../context/Provider';
 import { getItem, saveItem, initialize } from '../../services/localStorage';
 
+import shareIcon from '../../images/shareIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 
@@ -12,12 +13,12 @@ const copy = require('clipboard-copy');
 
 const button = (renderButton, inProgress, api, id) => {
   let path = '';
-  if (api === 'meals') path = 'comidas';
+  if (api === 'meal') path = 'comidas';
   else path = 'bebidas';
 
   const beginRecipe = (dataId) => {
     const inProgressObj = getItem('inProgressRecipes');
-    const field = api === 'meals' ? 'meals' : 'cocktails';
+    const field = api === 'meal' ? 'meals' : 'cocktails';
     const isProgress = Object.keys(inProgressObj[field])
       .some((progressId) => progressId === dataId);
     if (!isProgress) {
@@ -31,7 +32,7 @@ const button = (renderButton, inProgress, api, id) => {
       {renderButton && (
         <button
           type="button"
-          className="button"
+          className="detail__button"
           data-testid="start-recipe-btn"
           onClick={ () => beginRecipe(id) }
         >
@@ -44,7 +45,7 @@ const button = (renderButton, inProgress, api, id) => {
 
 function formatFavorite(data, api) {
   let drinkOrMeal = '';
-  if (api === 'meals') drinkOrMeal = 'comida';
+  if (api === 'meal') drinkOrMeal = 'comida';
   else drinkOrMeal = 'bebida';
 
   const favoriteRecipesArray = getItem('favoriteRecipes');
@@ -92,7 +93,7 @@ function Actions({ data }) {
     else setRenderButton(true);
 
     const inProgressObj = getItem('inProgressRecipes');
-    const field = api === 'meals' ? 'meals' : 'cocktails';
+    const field = api === 'meal' ? 'meals' : 'cocktails';
     if (inProgressObj[field]) {
       const isProgress = Object.keys(inProgressObj[field]).some((id) => id === data.id);
       if (isProgress) setInProgress(true);
@@ -120,32 +121,31 @@ function Actions({ data }) {
   };
 
   return (
-    <ul>
-      <li>
-        <button
-          type="button"
-          data-testid="share-btn"
-          onClick={ copyLink }
-        >
-          Compartilhar
-        </button>
-      </li>
-      <li>
-        <button
-          type="button"
-          onClick={ setAsFavorite }
-        >
-          <img
-            data-testid="favorite-btn"
-            src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-            alt="heartIcon"
-          />
-          Favoritar
-        </button>
-      </li>
+    <div className="detail__actions">
+      <button
+        type="button"
+        data-testid="share-btn"
+        onClick={ copyLink }
+      >
+        <img
+          src={ shareIcon }
+          alt="shareIcon"
+        />
+      </button>
+      <button
+        type="button"
+        onClick={ setAsFavorite }
+      >
+        <img
+          data-testid="favorite-btn"
+          src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+          alt="heartIcon"
+          style={ { maxWidth: 26 } }
+        />
+      </button>
       {button(renderButton, inProgress, api, data.id)}
       <p hidden={ showCopiedMessage }>Link copiado!</p>
-    </ul>
+    </div>
   );
 }
 

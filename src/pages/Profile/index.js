@@ -21,40 +21,36 @@ function Profile({ history, search = false }) {
   return (
     <>
       <Header history={ history } search={ search } />
-      <p data-testid="profile-email">{ email }</p>
-      <ul>
-        <li>
-          <Link to="receitas-feitas">
-            <button
-              type="button"
-              data-testid="profile-done-btn"
-            >
-              Receitas Feitas
-            </button>
-          </Link>
-        </li>
-        <li>
-          <Link to="receitas-favoritas">
-            <button
-              type="button"
-              data-testid="profile-favorite-btn"
-            >
-              Receitas Favoritas
-            </button>
-          </Link>
-        </li>
-        <li>
-          <Link to="/">
-            <button
-              type="button"
-              data-testid="profile-logout-btn"
-              onClick={ () => localStorageClear() }
-            >
-              Sair
-            </button>
-          </Link>
-        </li>
-      </ul>
+      <main className="explore">
+        <h4 data-testid="profile-email" className="profile__email">
+          { email }
+        </h4>
+        <Link to="receitas-feitas" className="explore__button">
+          <button
+            type="button"
+            data-testid="profile-done-btn"
+          >
+            Receitas Feitas
+          </button>
+        </Link>
+        <Link to="receitas-favoritas" className="explore__button">
+          <button
+            type="button"
+            data-testid="profile-favorite-btn"
+          >
+            Receitas Favoritas
+          </button>
+        </Link>
+        <Link to="/" className="explore__button">
+          <button
+            type="button"
+            data-testid="profile-logout-btn"
+            onClick={ () => localStorageClear() }
+          >
+            Sair
+          </button>
+        </Link>
+      </main>
       <Footer />
     </>
   );

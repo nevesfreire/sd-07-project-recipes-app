@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import SearchBar from '../SearchBar';
 import ProfileIcon from '../../images/profileIcon.svg';
 import SearchIcon from '../../images/searchIcon.svg';
-import FavoriteRecipes from '../../pages/FavoritesRecipes';
 import './style.css';
 
 function Header({ history, search = false }) {
@@ -49,8 +48,8 @@ function Header({ history, search = false }) {
   }
 
   return (
-    <header>
-      <nav>
+    <header className="header">
+      <nav className="header__nav">
         <Link to="/perfil">
           <img
             src={ ProfileIcon }
@@ -58,20 +57,21 @@ function Header({ history, search = false }) {
             data-testid="profile-top-btn"
           />
         </Link>
-        <p data-testid="page-title">{path}</p>
-        {path === 'Receitas Favoritas' ? <FavoriteRecipes /> : null}
-        {search && (
-          <button
-            type="button"
-            onClick={ () => setSearchInput((prev) => !prev) }
-          >
-            <img
-              src={ SearchIcon }
-              alt="search icon"
-              data-testid="search-top-btn"
-            />
-          </button>
-        )}
+        <h5 data-testid="page-title">{path}</h5>
+        {search
+          ? (
+            <button
+              type="button"
+              onClick={ () => setSearchInput((prev) => !prev) }
+            >
+              <img
+                src={ SearchIcon }
+                alt="search icon"
+                data-testid="search-top-btn"
+              />
+            </button>
+          )
+          : <div />}
       </nav>
       {searchInput && (
         <SearchBar history={ history } />

@@ -47,9 +47,7 @@ function DoneCards({ index, data }) {
           {type === 'bebida' && alcoholic}
         </Card.Subtitle>
         <Link to={ `/${type}s/${id}` }>
-          <Card.Title
-            data-testid={ `${index}-horizontal-name` }
-          >
+          <Card.Title data-testid={ `${index}-horizontal-name` }>
             {name}
           </Card.Title>
         </Link>
