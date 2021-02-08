@@ -9,8 +9,6 @@ import ButtonStart from '../components/ButtonStart';
 function MealDetails() {
   const params = useParams();
   const [recipeId, setRecipeId] = useState('');
-  const [storeIngredients, setStoreIngredients] = useState([]);
-  const [storeMeasures, setStoreMeasures] = useState([]);
   const [ingredMeasures, setIngredMeasures] = useState([]);
   const [title, setTitle] = useState('');
   const [source, setSource] = useState('');
@@ -47,13 +45,11 @@ function MealDetails() {
             measureArray.push(measure);
           }
         });
-        setStoreIngredients(...storeIngredients, ingredientsArray);
-        setStoreMeasures(...storeMeasures, measureArray);
         const getTogether = ingredientsArray
           .map((ingredient, index) => ({ [ingredient]: measureArray[index] }));
         setIngredMeasures(getTogether);
       });
-  }, []);
+  }, [params]);
 
   const videoUrl = video.replace('watch?v=', 'embed/');
   return (
@@ -97,7 +93,6 @@ function MealDetails() {
         height="315"
         src={ videoUrl }
       />
-
       <h3>Recomendações</h3>
       <Recommendations api={ cocktailsRecommendations } />
       <ButtonStart data={ { key: 'meal', recipeId, ingredMeasures } } />
