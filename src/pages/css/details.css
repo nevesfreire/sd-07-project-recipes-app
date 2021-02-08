@@ -1,73 +1,197 @@
-.details {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex-wrap: wrap;
-  box-sizing: border-box;
-}
+  /* container principal */
+  .details div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  /* imagens */
+  .detailsThumb {
+    display: flex;
+  }
 
-/* preciso redimencionar essa imagem */
-.details > img {
-  object-fit: fill;
-  object-position: center center;
-  width: 100%;
-}
+  .detailsThumb > img {
+    object-fit: cover;
+    height: 300px;
+  }
+  
+  /* compartilhar e favoritar */
+  .favoriteShare {
+    display: flex;
+    padding: 30px 0px 0px 1200px;
+    height: 50px;
+  }
+  
+  .favoriteShare button {
+    display: inline-block;
+    width: 75px;
+  }
 
-/* porque não consigo alinhar os item em linha */
-.favoriteShare {
-  background-color: blue;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: flex-end;
-  max-height: 50px;
-}
+  /* instruções */
+  .instuctionsDetails {
+    display: flex;
+    align-items: center;
+    padding: 0px 50px 0px 30px;
+  }
 
-.favoriteShare button {
-  background-color: blueviolet;
-  display: flex;
-  align-self: flex-end;
-  margin: 0px;
-}
+  .instuctionsDetails h4 {
+    padding: 30px 0px 0px 30px;
+  }
 
-.ingredients {
-  display: flex;
-  align-items: flex-end;
-  flex-direction: row;
-}
+  /* ingredientes */
+  .ingredients {
+    background-color: rgba(92, 102, 98, 0.192);
+    display: flex;
+    align-items: flex-start;
+    padding: 10px;
 
-.details div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex-wrap: wrap;
-  width: 80%;
-}
+  }
 
-.slick-slider {
-  padding: 0 40px;
-  width: 80vw;
-}
+  /* video */
+  .videoDetails {
+    display: flex;
+    align-items: center;
+  }
 
-.slick-list {
-  width: 100%;
-}
+  .detailsThumb iframe {
+    object-fit: fill;
+    width: 100%;
+  }
 
-.carousel-div button {
-  background-color: black;
-  height: 100%;
-}
+  /* carousel */
+  .slick-slider {
+    width: 330px;
+  }
+  
+  .slick-active{
+    width: 300px;
+    height: 300px;
+  }
 
-.slideCard img {
-  display: inline;
-  height: auto;
-  width: 70%;
-}
+  .slick-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 300px;
+    height: 300px;
 
-.btn-fixed {
-  background-color: rgb(67, 84, 107);
-  color: white;
-  bottom: 0;
-  display: flex;
-  position: fixed;
+  }
+  
+  .carousel-div button {
+    background-color: black;
+    height: 300px;
+  }
+  
+  .slideCard img {
+    height: 300px;
+    width: 200px;
+  }
+  
+  /* botão de iniciar receita */
+  .btn-fixed {
+    background-color: rgb(67, 84, 107);
+    color: white;
+    bottom: 0px;
+    position: fixed;
+    width: 100%;
+  }
+
+@media screen and (max-width: 360px) {
+  /* container principal */
+  .details div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  /* imagens */
+  .detailsThumb {
+    display: flex;
+    padding: 10px 0px -60px 0px;
+  }
+
+  .detailsThumb > img {
+    object-fit: fill;
+    width: 100%;
+  }
+  
+  /* compartilhar e favoritar */
+  .favoriteShare {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-end;
+    height: 50px;
+    padding: 30px 300px 30px 0px;
+  }
+  
+  .favoriteShare button {
+    display: inline-block;
+  }
+
+  /* instruções */
+  .instuctionsDetails {
+    display: flex;
+    align-items: center;
+    padding: 0px 10px 0px 10px;
+  }
+
+  /* ingredientes */
+  .ingredients {
+    background-color: rgba(92, 102, 98, 0.192);
+    display: flex;
+    align-items: flex-start;
+    padding: 10px;
+
+  }
+
+  /* video */
+  .videoDetails {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .detailsThumb iframe {
+    object-fit: fill;
+    width: 80%;
+    height: 500px;
+  }
+
+  /* carousel */
+  .slick-slider {
+    width: 330px;
+  }
+  
+  .slick-active{
+    width: 300px;
+    height: 300px;
+  }
+
+  .slick-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 300px;
+    height: 300px;
+
+  }
+  
+  .carousel-div button {
+    background-color: black;
+    height: 300px;
+  }
+  
+  .slideCard img {
+    height: 300px;
+    width: 200px;
+  }
+  
+  /* botão de iniciar receita */
+  .btn-fixed {
+    background-color: rgb(67, 84, 107);
+    color: white;
+    bottom: 0px;
+    position: fixed;
+    width: 100%;
+  }
 }

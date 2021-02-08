@@ -31,6 +31,7 @@ export default function CategoryButtons({ number, drink }) {
               <Button
                 testid="All-category-filter"
                 classBootstrap="btn btn-secondary"
+                id="allBtn"
                 text="All"
                 func={ submitCategory }
               />

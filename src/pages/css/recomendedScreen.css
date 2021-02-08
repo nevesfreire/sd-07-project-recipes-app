@@ -1,6 +1,5 @@
-.categorys {
+.btn-group {
   display: flex;
-  justify-content: flex-start;
   flex-wrap: wrap;
   width: 100vw;
   height: 3vw;
@@ -74,36 +73,39 @@
   opacity: 0.7;
 }
 
-@media screen and (max-width: 400px) {
-  .categorys {
+@media screen and (max-width: 360px) {
+  /* barra de categorias */
+  .btn-group {
     display: flex;
-    justify-content: flex-start;
     flex-wrap: wrap;
-    width: 100vw;
-    height: 3vw;
-  }
-  
-  .header {
-    height: auto;
     width: 100%;
-    display: flex;
-    opacity: 0.7;
-    justify-content: space-between;
+    height: 3vw;
+  }  
   
-  }
-  
+  /* barra de pesquisa */
   .searchBar {
     background-color: rgba(255, 255, 255, 0.466);
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    padding-bottom: 10px;
   }
-
+  .searchBar > input{
+    background-color: rgba(#6c757d);
+    display: block;
+    width: 50%;
+  }
+  
+  .searchBar label{
+    background-color: rgba(#6c757d);
+    font-size:large;
+    padding: 10px;
+  }
+  
   .searchBar > button{
     background-color: rgba(#6c757d);
     display: inline-block;
     margin-left: 10px;
-    width: 100px;
+    width: 30vw;
   }
-
 }

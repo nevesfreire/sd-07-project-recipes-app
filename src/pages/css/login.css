@@ -1,11 +1,15 @@
+body {
+  padding: 0px ;
+  margin: 0px;
+}
+
 .container {
   background-image: url('https://images.wallpaperscraft.com/image/soup_tray_food_dishes_87369_1600x900.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
   display: flex;
-  align-items: stretch;
+  flex-direction: row;
   justify-content: center;
-  box-sizing: border-box;
 }
 
 .loginBox {
@@ -39,10 +43,11 @@ button[class*="btn"]:disabled {
   color: black
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 360px) {
   .loginBox {
     display: flex;
     background-color: rgb(53, 41, 41);
+    min-width: 300px;
     margin: 1vw;
     opacity: 0.7;
     flex-direction: column;
@@ -50,14 +55,5 @@ button[class*="btn"]:disabled {
     align-items: center;
     height: 600px;
     width: 300px;
-  }
-
-  body{
-    background-image: url('https://images.wallpaperscraft.com/image/soup_tray_food_dishes_87369_1600x900.jpg');
-    background-repeat: no-repeat;
-    background-position: -5px -10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 }
