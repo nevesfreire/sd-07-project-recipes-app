@@ -1,6 +1,6 @@
 body {
-  background-color: gray;
-  font-family: Ubuntu, sans-serif;
+  background-color: rgba(175, 120, 76, 0.418);
+  font-family: Ubuntu , sans-serif;
 }
 
 .main {
@@ -49,11 +49,10 @@ body {
   border-radius: 20px;
   box-sizing: border-box;
   color: rgb(38, 50, 56);
-  font-family: Ubuntu, sans-serif;
+  font-family: Ubuntu , sans-serif;
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 1px;
-  margin-bottom: 27px;
   margin-bottom: 50px;
   margin-left: 46px;
   outline: none;
@@ -76,7 +75,7 @@ body {
   font-family: Ubuntu , sans-serif;
   font-size: 13px;
   margin-left: 35%;
-  padding: 10px 40px 10px 40px;
+  padding: 10px 40px
 }
 
 a {
@@ -85,7 +84,7 @@ a {
   text-shadow: 0 0 3px rgba(117, 117, 117, 0.12);
 }
 
-@media ( max-width : 600px ) {
+@media screen and ( max-width : 600px ) {
   .main {
     border-radius: 0;
   }
