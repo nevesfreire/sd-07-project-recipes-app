@@ -123,6 +123,9 @@ margin-bottom: 5px;
   animation: shake 1s infinite ease;
   max-height: 80vh;
 }
+.item-card p {
+margin: 2px;
+}
 
 .item-card {
   display: flex;
@@ -130,7 +133,7 @@ margin-bottom: 5px;
   justify-content: center;
   align-items: center;
   width: 165px;
-  height: 180px;
+  height: fit-content;
   background: #FFFFFF;
   border: 1px solid #FFFFFF;
   box-sizing: border-box;
@@ -154,8 +157,47 @@ margin-bottom: 5px;
   text-decoration: none;
 }
 .item-card img {
-  width: 130px;
+  width: 160px;
 }
+
+.icon-button img {
+  width: 40px;
+}
+
+.favoritePage {
+display: flex;
+flex-flow: wrap;
+}
+
+.favorite-item-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: center;
+  width: 165px;
+  height: 180px;
+  background: #FFFFFF;
+  border: 1px solid #FFFFFF;
+  box-sizing: border-box;
+  box-shadow: 2px 2px 4px rgba(43, 41, 41, 0.41);
+  border-radius: 8px;
+  margin: 5px;
+  padding: 5px;
+}
+.favorite-card-list {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: space-evenly;
+  /* margin-top: 50px;
+  padding-top: 50px; */
+  padding: 5px;
+  margin-bottom: 60px;
+}
+
+ .favorite-item-card a {
+   text-decoration: none;
+ }
+ 
 .card-list {
   display: flex;
   flex-flow: wrap;
@@ -361,6 +403,22 @@ text-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
 
 .navbar-button {
 background: #000000;
+border: 1px solid #FFFFFF;
+box-sizing: border-box;
+box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.25);
+border-radius: 2px;
+font-family: 'Noto Sans', sans-serif;
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 23px;
+color: #FFFFFF;
+padding: 3px 7px;
+margin:0 2px 6px 2px;
+}
+
+.favorites {
+  background: #000000;
 border: 1px solid #FFFFFF;
 box-sizing: border-box;
 box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.25);

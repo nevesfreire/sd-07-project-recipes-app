@@ -19,12 +19,6 @@ class LikeRecipes extends React.Component {
       .getItem('favoriteRecipes'));
     this.setState({ favoriteRecipes });
   }
-
-  // `[{ id, type, area, category, alcoholicOrNot, name, image }]`.
-
-  /* [{ id: "52977", type: "Meal", area: "Turkish" , category: "Side", alcoholicOrNot: false, name: "Corba", image: "https://www.themealdb.com/images/media/meals/58oia61564916529.jpg" },
-  { id:"15997", type:"Drink", area:"", category:"Ordinary Drink", alcoholicOrNot:true, name:"GG", image:"https://www.thecocktaildb.com/images/media/drink/vyxwut1468875960.jpg" }] */
-
   render() {
     const { favoriteRecipes } = this.state;
     const magicNumber = 0;
@@ -33,7 +27,9 @@ class LikeRecipes extends React.Component {
     }
 
     return (
-      <div>
+      <div 
+      // className="card-list"
+      >
         <RecipesLiked
           favoriteRecipes={ favoriteRecipes }
         />

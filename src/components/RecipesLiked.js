@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import heartIcon from '../images/blackHeartIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
 
 const copy = require('clipboard-copy');
 
@@ -9,6 +11,7 @@ class RecipesLiked extends React.Component {
     this.state = {
       showMessage: 'hidden',
       favoriteList: [],
+
     };
     this.deleteFavorites = this.deleteFavorites.bind(this);
     this.copyLink = this.copyLink.bind(this);
@@ -52,84 +55,104 @@ class RecipesLiked extends React.Component {
     const { showMessage } = this.state;
 
     return (
-      <div>
-        <button
-          onClick={ () => this.filtro('comida') }
-          type="button"
-          data-testid="filter-by-food-btn"
-        >
-          Food
+      <div  
+      >
+        <div className="navbar">
+          <button
+            className="navbar-button"
+            onClick={() => this.filtro('comida')}
+            type="button"
+            data-testid="filter-by-food-btn"
+          >
+            Food
         </button>
 
-        <button
-          onClick={ () => this.filtro('bebida') }
-          type="button"
-          data-testid="filter-by-drink-btn"
-        >
-          Drinks
+          <button
+            className="navbar-button"
+            onClick={() => this.filtro('bebida')}
+            type="button"
+            data-testid="filter-by-drink-btn"
+          >
+            Drinks
         </button>
-
-        <button
-          onClick={ () => this.filtro('all') }
-          type="button"
-          data-testid="filter-by-all-btn"
-        >
-          All
+          <button
+            className="navbar-button"
+            onClick={() => this.filtro('all')}
+            type="button"
+            data-testid="filter-by-all-btn"
+          >
+            All
         </button>
-
-        {favoriteList.map((receita, index) => (
-          <div key={ `receita-${index}` }>
-            <a href={ `http://localhost:3000/${receita.type === 'comida' ? 'comidas' : 'bebidas'}/${receita.id}` }>
-              <img
-                src={ receita.image }
-                width="100%"
-                alt="foto de uma comida"
-                data-testid={ `${index}-horizontal-image` }
-              />
-            </a>
-            <a href={ `http://localhost:3000/${receita.type === 'comida' ? 'comidas' : 'bebidas'}/${receita.id}` }>
-              <p
-                data-testid={ `${index}-horizontal-name` }
-              >
-                {receita.name}
-              </p>
-            </a>
-
-            <p
-              data-testid={ `${index}-horizontal-top-text` }
-            >
-              {receita.type === 'Drink' ? null
-                : `${receita.area} - ${receita.category}`}
-            </p>
-
-            { receita.type === 'Meal'
-              ? null
-              : (
+        </div>
+        <div
+          className="card-list"
+        >
+          {favoriteList.map((receita, index) => (
+            <div key={`receita-${index}`} className="item-card">
+              <a href={`http://localhost:3000/${receita.type === 'comida' ? 'comidas' : 'bebidas'}/${receita.id}`}>
+                <img
+                  src={receita.image}
+                  width="100%"
+                  alt="foto de uma comida"
+                  data-testid={`${index}-horizontal-image`}
+                />
+              </a>
+              <a href={`http://localhost:3000/${receita.type === 'comida' ? 'comidas' : 'bebidas'}/${receita.id}`}>
                 <p
-                  data-testid={ `${index}-horizontal-top-text` }
+                  data-testid={`${index}-horizontal-name`}
                 >
-                  {receita.alcoholicOrNot}
-                </p>)}
+                  {receita.name}
+                </p>
+              </a>
+              <p
+                data-testid={`${index}-horizontal-top-text`}
+              >
+                {receita.type === 'Drink' ? null
+                  : `${receita.area} - ${receita.category}`}
+              </p>
+              { receita.type === 'Meal'
+                ? null
+                : (
+                  <p
+                    data-testid={`${index}-horizontal-top-text`}
+                  >
+                    {receita.alcoholicOrNot}
+                  </p>)}
+              <div className="detalhes-top">
 
-            <button
-              type="button"
-              data-testid={ `${index}-horizontal-share-btn` }
-              src="../src/images/shareIcon.svg"
-              onClick={ () => this.copyLink(receita.id, receita.type) }
-            >
-              Compartilhar
-            </button>
+                <button
+                  className="icon-button"
+                  type="button"
+                  data-testid={`${index}-horizontal-share-btn`}
+                  onClick={() => this.copyLink(receita.id, receita.type)}
+                >
+                  <img
+                    className="button-img"
+                    src={shareIcon}
+                    alt="share-icon"
+                    width="10px"
+                  />
+                </button>
 
-            <button
-              type="button"
-              data-testid={ `${index}-horizontal-favorite-btn` }
-              src="../src/images/blackHeartIcon.svg"
-              onClick={ () => this.deleteFavorites(receita.id) }
-            >
-              Favoritar
-            </button>
-            <h4 hidden={ showMessage }>Link copiado!</h4>
-          </div>))}
+                <button
+                  className="icon-button"
+                  type="button"
+                  tabIndex="0"
+                  data-testid={`${index}-horizontal-favorite-btn`}
+                  onClick={() => this.deleteFavorites(receita.id)}
+                >
+                  <img
+                    className="button-img"
+                    src={heartIcon}
+                    alt="heartIcon"
+                    width="50px"
+                  />
+                </button>
+              </div>
+
+              <h4 hidden={showMessage}>Link copiado!</h4>
+            </div>))}
+        </div>
       </div>
     );
   }
