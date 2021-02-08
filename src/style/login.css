@@ -15,9 +15,9 @@ body {
 
 .sign {
   color: #8d6243;
-  font-family: Ubuntu, sans-serif;
+  font-family: Ubuntu , sans-serif;
   font-size: 23px;
-  font-weight: bold;
+  font-weight: 500;
   padding-top: 40px;
 }
 
@@ -27,12 +27,11 @@ body {
   border-radius: 20px;
   box-sizing: border-box;
   color: rgb(38, 50, 56);
-  font-family: Ubuntu, sans-serif;
+  font-family: Ubuntu , sans-serif;
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 1px;
   margin-bottom: 50px;
-  margin-bottom: 27px;
   margin-left: 46px;
   outline: none;
   padding: 10px 20px;
@@ -51,8 +50,8 @@ body {
   box-sizing: border-box;
   color: rgb(38, 50, 56);
   font-family: Ubuntu, sans-serif;
-  font-weight: 700;
   font-size: 14px;
+  font-weight: 700;
   letter-spacing: 1px;
   margin-bottom: 27px;
   margin-bottom: 50px;
@@ -64,7 +63,7 @@ body {
 }
 
 .un:focus, .pass:focus {
-  border: 2px solid rgba(0, 0, 0, 0.18) ! important;
+  border: 2px solid rgba(0, 0, 0, 0.18);
 }
 
 .submit {
@@ -74,13 +73,10 @@ body {
   box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
   color: white;
   cursor: pointer;
-  font-family: Ubuntu, sans-serif;
+  font-family: Ubuntu , sans-serif;
   font-size: 13px;
   margin-left: 35%;
-  padding-bottom: 10px;
-  padding-left: 40px;
-  padding-right: 40px;
-  padding-top: 10px;
+  padding: 10px 40px 10px 40px;
 }
 
 a {
@@ -89,7 +85,7 @@ a {
   text-shadow: 0 0 3px rgba(117, 117, 117, 0.12);
 }
 
-@media (max-width: 600px) {
+@media ( max-width : 600px ) {
   .main {
     border-radius: 0;
   }
