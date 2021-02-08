@@ -18,17 +18,22 @@ function Card(props) {
       <Link
         to={ `/explorar/comidas/ingredientes/${item.strIngredient}` }
       >
-        <div key={ index } data-testid={ `${index}-ingredient-card` }>
+        <div
+          key={ index }
+          className="ingredient-card"
+          data-testid={ `${index}-ingredient-card` }
+        >
           <img
             src={ `https://www.themealdb.com/images/ingredients/${item.strIngredient}-Small.png` }
             data-testid={ `${index}-card-img` }
             alt="Ingredient"
           />
-          <h2
+          <Button
+            variant="light"
             data-testid={ `${index}-card-name` }
           >
             {item.strIngredient}
-          </h2>
+          </Button>
         </div>
       </Link>
     );
@@ -43,17 +48,22 @@ function Card(props) {
           `/explorar/bebidas/ingredientes/${nameIngredient}`
         }
       >
-        <div key={ index } data-testid={ `${index}-ingredient-card` }>
+        <div
+          key={ index }
+          data-testid={ `${index}-ingredient-card` }
+          className="ingredient-card"
+        >
           <img
             src={ `https://www.thecocktaildb.com/images/ingredients/${item.strIngredient1}-Small.png` }
             data-testid={ `${index}-card-img` }
             alt="Ingredient"
           />
-          <h2
+          <Button
+            variant="light"
             data-testid={ `${index}-card-name` }
           >
             {item.strIngredient1}
-          </h2>
+          </Button>
         </div>
       </Link>
     );
