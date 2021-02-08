@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { setIngredient } from '../actions';
+import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Loading from '../components/Loading';
 import '../css/recipe.css';
@@ -44,6 +45,7 @@ class FoodIngredients extends Component {
         .filter((_ingredient, index) => index < INGREDIENTS_LENGTH);
       return (
         <div>
+          <Header title="Explorar Ingredientes" history={ history } />
           <div className="main-recipes-categories">
             {array12Ingredients.map((ingredient, index) => (
               <div

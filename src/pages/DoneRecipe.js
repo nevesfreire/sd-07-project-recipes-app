@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { copyButton } from '../actions';
+import Loading from '../components/Loading';
+import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 import '../css/recipe.css';
 
@@ -70,89 +72,87 @@ class DoneRecipe extends Component {
 
   render() {
     const { recipes } = this.state;
-    const { valueCopied } = this.props;
+    const { valueCopied, history } = this.props;
     console.log('render done', recipes);
-    if (recipes) {
-      return (
-        <div>
-          <button
-            type="button"
-            data-testid="filter-by-all-btn"
-            onClick={ this.handleState }
-          >
-            All
-          </button>
-          <button
-            type="button"
-            data-testid="filter-by-food-btn"
-            onClick={ () => this.filterRecipes('comida') }
-          >
-            Food
-          </button>
-          <button
-            type="button"
-            data-testid="filter-by-drink-btn"
-            onClick={ () => this.filterRecipes('bebida') }
-          >
-            Drinks
-          </button>
+    return (
+      <div>
+        <Header title="Receitas Feitas" history={ history } />
+        <button
+          type="button"
+          data-testid="filter-by-all-btn"
+          onClick={ this.handleState }
+        >
+          All
+        </button>
+        <button
+          type="button"
+          data-testid="filter-by-food-btn"
+          onClick={ () => this.filterRecipes('comida') }
+        >
+          Food
+        </button>
+        <button
+          type="button"
+          data-testid="filter-by-drink-btn"
+          onClick={ () => this.filterRecipes('bebida') }
+        >
+          Drinks
+        </button>
 
-          {recipes.map((card, index) => (
-            <div key={ card.id }>
-              <Link
-                to={ `/${card.type}s/${card.id}` }
-                className="link-categories"
-              >
-                <img
-                  data-testid={ `${index}-horizontal-image` }
-                  src={ card.image }
-                  alt="foto da receita"
-                />
-                <h1 data-testid={ `${index}-horizontal-name` }>{card.name}</h1>
-              </Link>
+        {recipes.map((card, index) => (
+          <div key={ card.id }>
+            <Link
+              to={ `/${card.type}s/${card.id}` }
+              className="link-categories"
+            >
+              <img
+                data-testid={ `${index}-horizontal-image` }
+                src={ card.image }
+                alt="foto da receita"
+              />
+              <h1 data-testid={ `${index}-horizontal-name` }>{card.name}</h1>
+            </Link>
 
-              {card.type === 'comida' ? (
-                <h2 data-testid={ `${index}-horizontal-top-text` }>
-                  {`${card.area} - ${card.category}`}
-                </h2>
-              ) : (
-                <h2 data-testid={ `${index}-horizontal-top-text` }>
-                  {card.alcoholicOrNot}
-                </h2>
-              )}
-              <p data-testid={ `${index}-horizontal-done-date` }>
-                {card.doneDate}
-              </p>
-              <p>{valueCopied}</p>
-              <button
-                type="button"
-                onClick={ () => this.handleClipBoard(card.type, card.id) }
-              >
-                <img
-                  data-testid={ `${index}-horizontal-share-btn` }
-                  alt="icone de compartilhamento"
-                  src={ shareIcon }
-                />
-              </button>
+            {card.type === 'comida' ? (
+              <h2 data-testid={ `${index}-horizontal-top-text` }>
+                {`${card.area} - ${card.category}`}
+              </h2>
+            ) : (
+              <h2 data-testid={ `${index}-horizontal-top-text` }>
+                {card.alcoholicOrNot}
+              </h2>
+            )}
+            <p data-testid={ `${index}-horizontal-done-date` }>
+              {card.doneDate}
+            </p>
+            <p>{valueCopied}</p>
+            <button
+              type="button"
+              onClick={ () => this.handleClipBoard(card.type, card.id) }
+            >
+              <img
+                data-testid={ `${index}-horizontal-share-btn` }
+                alt="icone de compartilhamento"
+                src={ shareIcon }
+              />
+            </button>
 
-              {card.tags ? (
-                this.handleTags(card.tags).map((cardTag, indexTag) => (
-                  <p
-                    data-testid={ `${index}-${cardTag}-horizontal-tag` }
-                    key={ indexTag }
-                  >
-                    {cardTag}
-                  </p>
-                ))
-              ) : (
-                <p />
-              )}
-            </div>
-          ))}
-        </div>
-      );
-    }
-    return <p>Loading</p>;
+            {card.tags ? (
+              this.handleTags(card.tags).map((cardTag, indexTag) => (
+                <p
+                  data-testid={ `${index}-${cardTag}-horizontal-tag` }
+                  key={ indexTag }
+                >
+                  {cardTag}
+                </p>
+              ))
+            ) : (
+              <p />
+            )}
+          </div>
+        ))}
+      </div>
+    );
   }
 }
 
@@ -169,4 +169,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(DoneRecipe);
 DoneRecipe.propTypes = {
   executeCopy: PropTypes.func.isRequired,
   valueCopied: PropTypes.string.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
