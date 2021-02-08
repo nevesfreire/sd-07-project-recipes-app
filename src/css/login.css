@@ -56,37 +56,3 @@
 .input-button {
     margin-left: 200px;
 }
-
-@media screen and (max-width: 550px) {
-    .main-container {
-        margin-top: 100px;
-        margin-left: 0.01em;
-        border: 1px solid rgba(0, 0, 0, 0.342);
-        background-color: rgba(0, 0, 0, 0.171);
-        border-radius: 19px;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        width: 50%;
-        height: 50%;
-    }
-
-    .main-input {
-       margin-left: 6px;
-    }
-
-    .input-email {
-        /* margin-left: 30px; */
-        width: 300px;
-    }
-
-    .input-senha {
-        /* margin-left: 30px; */
-        width: 300px;
-    }
-
-    .input-button {
-        margin-left: 100px;
-    }
-
-}

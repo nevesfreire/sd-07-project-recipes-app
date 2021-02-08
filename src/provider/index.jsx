@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from 'react';
+// import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Context from '../contextAPI/context';
 import { fetchApi } from '../services/fetchApi';
+import siteMap from '../helpers/siteMap';
+
+const findMatch = (string, object) => (
+  Object.keys(object).find((key) => key.match(string))
+);
 
 function Provider({ children }) {
   const [login, setLogin] = useState({});
   const [state, setState] = useState({});
   const [RecipesUrl, setRecipesUrl] = useState({});
+  // const { history } = props;
+  // const { location: { pathname } } = history;
 
   useEffect(() => {
     setState((s) => ({ ...s, isDisabled: true }));
@@ -30,6 +38,11 @@ function Provider({ children }) {
         .then((r) => setState((s) => ({ ...s, data: r })));
     }
   }, [RecipesUrl]);
+
+  // useEffect(() => {
+  //   findMatch(pathname, siteMap)
+
+  // }, [pathname])
 
   const context = {
     state,

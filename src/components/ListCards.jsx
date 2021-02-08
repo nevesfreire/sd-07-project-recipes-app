@@ -27,14 +27,17 @@ const ListCard = () => {
   if (recipes.length > 1) {
     return (
       recipes.filter((_recipe, index) => index < maxRecipesNumber)
-        .map((recipe, index) => (<Card
-          key={ recipe[findMatch('id', recipe)] }
-          pathname={ Object.keys(data) }
-          id={ recipe[findMatch('id', recipe)] }
-          recipeName={ recipe[findMatch(recipeStr, recipe)] }
-          recipeThumb={ recipe[findMatch(/Thumb/, recipe)] }
-          recipeIndex={ index }
-        />))
+        .map((recipe, index) => (
+          <Card
+            key={ recipe[findMatch('id', recipe)] }
+            pathname={ Object.keys(data) }
+            id={ recipe[findMatch('id', recipe)] }
+            Name={ recipe[findMatch(recipeStr, recipe)] }
+            Thumb={ recipe[findMatch(/Thumb/, recipe)] }
+            Index={ index }
+            test="recipe-card"
+          />
+        ))
     );
   }
 

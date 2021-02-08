@@ -25,16 +25,24 @@ const profileTopBtn = (profileButton, history) => {
       </Button>
     );
   }
+  return (
+    <div className="noShowBtn">
+      X
+    </div>
+  )
 };
 
-const pageTitle = (title) => (
-  <h1
-    data-testid="page-title"
-    className="header"
-  >
-    {title}
-  </h1>
-);
+const pageTitle = (title) => {
+  if (!title) return ('Aqui um Titulo')
+  return (
+    <h1
+      data-testid="page-title"
+      className="header"
+    >
+      {title}
+    </h1>
+  )
+};
 
 const searchRecipeComponent = (pathname, toggleSearch, title) => (
   toggleSearch ? (
@@ -46,24 +54,23 @@ const searchRecipeComponent = (pathname, toggleSearch, title) => (
 );
 
 const searchBtn = (searchButton, toggleSearch, onClick) => {
-  if (searchButton) {
-    return (
-      <Button
-        type="button"
-        data-testid="header_search_bar"
-        variant="contained"
-        // color="primary"
-        onClick={ (e) => onClick(e) }
-        className="header"
-      >
-        <img
-          data-testid="search-top-btn"
-          src={ searchIcon }
-          alt="search-icon"
-        />
-      </Button>
-    );
-  }
+  if (!searchButton) return (<div className="noShowBtn">X</div>);
+  return (
+    <Button
+      type="button"
+      data-testid="header_search_bar"
+      variant="contained"
+      // color="primary"
+      onClick={ (e) => onClick(e) }
+      className="header"
+    >
+      <img
+        data-testid="search-top-btn"
+        src={ searchIcon }
+        alt="search-icon"
+      />
+    </Button>
+  );
 };
 
 export default function Header() {
