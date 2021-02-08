@@ -36,7 +36,7 @@ export default function FoodIngredients() {
     <div className="food-ingredient-container">
       <Header title="Explorar Ingredientes" />
       <p>comidas</p>
-      <div className="ingredient-card">
+      <div className="ingredient-food-content">
         {
           ingredients.filter((_, index) => index < twelve)
             .map((ingredient, index) => (

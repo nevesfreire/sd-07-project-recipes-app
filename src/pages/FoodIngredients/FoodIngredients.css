@@ -22,7 +22,6 @@
 .ingredient-card img {
   border-radius: 5px;
   display: flex-start;
-  height: 260px;
   margin: 0;
-  width: 260px;
+  width: auto;
 }
