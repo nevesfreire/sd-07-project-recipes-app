@@ -20,10 +20,17 @@ export default class CustomButtonShare extends Component {
 
   render() {
     const { isShared } = this.state;
+    const { testDone = false, index } = this.props;
+    console.log(testDone);
     return (
       <div>
-        { (isShared) && <p>Link copiado!</p> }
-        <button type="button" data-testid="share-btn" onClick={ this.handleButtonClick }>
+        {isShared && <p>Link copiado!</p>}
+        <button
+          type="button"
+          data-testid={ !testDone ? 'share-btn' : `${index}-horizontal-share-btn` }
+          onClick={ this.handleButtonClick }
+          src={ shareIcon }
+        >
           <img src={ shareIcon } alt="" />
         </button>
       </div>
@@ -33,4 +40,6 @@ export default class CustomButtonShare extends Component {
 
 CustomButtonShare.propTypes = {
   url: PropTypes.string.isRequired,
+  testDone: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
 };

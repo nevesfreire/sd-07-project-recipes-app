@@ -4,10 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { CustomCardFood, CustomFooter, CustomCartegory } from '../components';
 import CustomHeader from '../components/CustomHeader';
-import {
-  listRecipes,
-  requestRecipes,
-} from '../redux/actions';
+import { listRecipes, requestRecipes } from '../redux/actions';
 import {
   getAllFoodCategories,
   getFoodRecipes,
@@ -34,7 +31,6 @@ class Recipes extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log(prevProps.type);
     const { type } = this.props;
     if (!prevProps.type) return;
     if (prevProps.type !== type) this.getTypeOfRecipe();
@@ -56,10 +52,12 @@ class Recipes extends Component {
   }
 
   handleRecipes() {
-    const { recipes, isFetching } = this.props;
+    const { recipes, isFetching, isSearchBar } = this.props;
     if (recipes) {
       if (!recipes.length && !isFetching) return this.renderAlertError();
-      if (recipes.length === 1) return this.redirectToRecipeDetail(recipes);
+      if (recipes.length === 1 && isSearchBar) {
+        return this.redirectToRecipeDetail(recipes);
+      }
       return this.renderRecipes();
     }
   }
@@ -96,14 +94,18 @@ class Recipes extends Component {
 
   redirectToRecipeDetail(recipes) {
     const { recipeType } = this.state;
-    const recipeSufixe = (recipeType === 'comidas') ? 'Meal' : 'Drink';
-    return <Redirect to={ `/${recipeType}/${recipes[0][`id${recipeSufixe}`]}` } />;
+    const recipeSufixe = recipeType === 'comidas' ? 'Meal' : 'Drink';
+    return (
+      <Redirect to={ `/${recipeType}/${recipes[0][`id${recipeSufixe}`]}` } />
+    );
   }
 
   renderAlertError() {
     const { dispatchUpdateFoodIsFetching } = this.props;
     dispatchUpdateFoodIsFetching();
-    return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    return alert(
+      'Sinto muito, não encontramos nenhuma receita para esses filtros.',
+    );
   }
 
   renderRecipes() {
@@ -111,17 +113,17 @@ class Recipes extends Component {
     const { recipeType } = this.state;
     const LENGTH = 12;
     const INITIAL_LENGTH = 0;
-    const MAX_LENGTH = (recipes.length > LENGTH) ? LENGTH : recipes.length;
+    const MAX_LENGTH = recipes.length > LENGTH ? LENGTH : recipes.length;
     return (
       <div>
-        { recipes.slice(INITIAL_LENGTH, MAX_LENGTH)
-          .map((recipe, index) => (
-            <CustomCardFood
-              key={ (recipeType === 'comidas') ? recipe.idMeal : recipe.idDrink }
-              index={ index }
-              recipe={ recipe }
-              recipeType={ recipeType }
-            />))}
+        {recipes.slice(INITIAL_LENGTH, MAX_LENGTH).map((recipe, index) => (
+          <CustomCardFood
+            key={ recipeType === 'comidas' ? recipe.idMeal : recipe.idDrink }
+            index={ index }
+            recipe={ recipe }
+            recipeType={ recipeType }
+          />
+        ))}
       </div>
     );
   }
@@ -137,22 +139,22 @@ class Recipes extends Component {
           <button
             data-testid="All-category-filter"
             type="button"
-            onClick={ () => (
-              (recipeType === 'comidas')
-                ? dispatchFoodRecipes(getFoodRecipes({}))
-                : dispatchFoodRecipes(getDrinkRecipes({}))
-            ) }
+            onClick={ () => (recipeType === 'comidas'
+              ? dispatchFoodRecipes(getFoodRecipes({}))
+              : dispatchFoodRecipes(getDrinkRecipes({}))) }
           >
             All
           </button>
-          { recipesCategories.slice(INITIAL_LENGTH, MAX_LENGTH)
+          {recipesCategories
+            .slice(INITIAL_LENGTH, MAX_LENGTH)
             .map((category, index) => (
               <CustomCartegory
                 key={ index }
                 index={ index }
                 category={ category }
                 title={ recipeType }
-              />))}
+              />
+            ))}
         </div>
       );
     }
@@ -162,9 +164,11 @@ class Recipes extends Component {
     const { recipeType } = this.state;
     return (
       <div>
-        <CustomHeader title={ (recipeType === 'comidas') ? 'Comidas' : 'Bebidas' } />
-        { this.renderCategories()}
-        { this.handleRecipes()}
+        <CustomHeader
+          title={ recipeType === 'comidas' ? 'Comidas' : 'Bebidas' }
+        />
+        {this.renderCategories()}
+        {this.handleRecipes()}
         <CustomFooter />
       </div>
     );
@@ -174,6 +178,7 @@ const mapStateToProps = (state) => ({
   isFetching: state.recipesReducer.isFetching,
   recipes: state.recipesReducer.recipes,
   currentCategoryFood: state.recipesReducer.currentCategory,
+  isSearchBar: state.recipesReducer.isSearchBar,
 });
 const mapDispatchToProps = (dispatch) => ({
   dispatchFoodRecipes: (getRecipe) => dispatch(getRecipe),
@@ -188,6 +193,7 @@ Recipes.propTypes = {
   dispatchFoodRecipes: PropTypes.func.isRequired,
   currentCategoryFood: PropTypes.string.isRequired,
   dispatchUpdateFoodIsFetching: PropTypes.func.isRequired,
+  isSearchBar: PropTypes.bool.isRequired,
   isFetching: PropTypes.bool.isRequired,
   recipes: PropTypes.shape({
     length: PropTypes.number.isRequired,

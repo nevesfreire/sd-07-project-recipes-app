@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getFoodRecipes, getDrinkRecipes } from '../services';
-import { requestRecipes } from '../redux/actions';
+import { requestRecipes, changeSearchBarAction } from '../redux/actions';
 
 class CustomSearchBar extends Component {
   constructor(props) {
@@ -29,7 +29,12 @@ class CustomSearchBar extends Component {
   }
 
   async handleButtonClick() {
-    const { dispatchFoodRecipes, dispatchDrinkRecipes, title } = this.props;
+    const {
+      dispatchFoodRecipes,
+      dispatchDrinkRecipes,
+      title,
+      dispatchSearchBar,
+    } = this.props;
     const { searchHeader } = this.state;
     const { searchRadio, searchInput } = searchHeader;
     if (searchRadio === 'f' && searchInput.length > 1) {
@@ -37,6 +42,7 @@ class CustomSearchBar extends Component {
     }
     if (title === 'Comidas') await dispatchFoodRecipes(searchHeader);
     if (title === 'Bebidas') await dispatchDrinkRecipes(searchHeader);
+    await dispatchSearchBar();
   }
 
   render() {
@@ -101,12 +107,14 @@ const mapDispatchToProps = (dispatch) => ({
   dispatchFoodRecipes: (searchHeader) => dispatch(getFoodRecipes(searchHeader)),
   dispatchDrinkRecipes: (searchHeader) => dispatch(getDrinkRecipes(searchHeader)),
   dispatchUpdateFoodIsFetching: () => dispatch(requestRecipes()),
+  dispatchSearchBar: () => dispatch(changeSearchBarAction()),
 });
 
 CustomSearchBar.propTypes = {
   dispatchFoodRecipes: PropTypes.func.isRequired,
   dispatchDrinkRecipes: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
+  dispatchSearchBar: PropTypes.func.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(CustomSearchBar);
