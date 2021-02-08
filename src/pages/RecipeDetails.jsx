@@ -128,41 +128,56 @@ export default class RecipeDetails extends Component {
 
     if (isLoading) return <div> Loading... </div>;
     return (
-      <div data-testid="0-recipe-card">
+      <div
+        className="card recipe-details-content"
+        data-testid="0-recipe-card"
+      >
         <img
           data-testid="recipe-photo"
           src={ (recipeType === 'comidas') ? recipe.strMealThumb : recipe.strDrinkThumb }
           alt="recipe-exemple"
+          className="card-img-top"
         />
-        <h2
-          data-testid="recipe-title"
+        <div
+          className="card-body"
         >
-          { (recipeType === 'comidas') ? recipe.strMeal : recipe.strDrink }
-        </h2>
-        <CustomButtonShare url={ url } />
-        <CustomButtonFavorite
-          recipeType={ recipeType }
-          recipe={ recipe }
-        />
-        <h3 data-testid="recipe-category">
-          { (recipeType === 'comidas') ? recipe.strCategory : recipe.strAlcoholic }
-        </h3>
-        <p data-testid="instructions">{ strInstructions }</p>
-        <ul>
-          { (!isLoading)
+          <div className="share-like-btn">
+            <CustomButtonShare url={ url } />
+            <CustomButtonFavorite
+              recipeType={ recipeType }
+              recipe={ recipe }
+            />
+          </div>
+          <h2
+            data-testid="recipe-title"
+            className="card-title"
+          >
+            { (recipeType === 'comidas') ? recipe.strMeal : recipe.strDrink }
+          </h2>
+          <h3 data-testid="recipe-category">
+            { (recipeType === 'comidas') ? recipe.strCategory : recipe.strAlcoholic }
+          </h3>
+          <p
+            data-testid="instructions"
+            className="card-text"
+          >
+            { strInstructions }
+          </p>
+          <ul className="list-group list-group-flush">
+            { (!isLoading)
            && (
              <CustomDetailsIngredients recipeType={ recipeType } recipe={ recipe } />) }
-        </ul>
-        { (recipeType === 'comidas') && <iframe
-          data-testid="video"
-          src={ this.getYoutubeEmbedUrl() }
-          frame-border="0"
-          allow="autoplay; encrypted-media"
-          allow-fullscreen
-          title="video"
-        /> }
-        { (!isLoading) && this.getSuggestedRecipes() }
-        { (!isDone)
+          </ul>
+          { (recipeType === 'comidas') && <iframe
+            data-testid="video"
+            src={ this.getYoutubeEmbedUrl() }
+            frame-border="0"
+            allow="autoplay; encrypted-media"
+            allow-fullscreen
+            title="video"
+          /> }
+          { (!isLoading) && this.getSuggestedRecipes() }
+          { (!isDone)
           && (
             <CustomDetailsButton
               recipeId={ recipeId }
@@ -170,6 +185,7 @@ export default class RecipeDetails extends Component {
               recipe={ recipe }
             />
           )}
+        </div>
       </div>
     );
   }

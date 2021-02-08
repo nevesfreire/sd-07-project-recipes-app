@@ -5,7 +5,7 @@ import CustomHeader from '../components/CustomHeader';
 export default class ExploreFoods extends Component {
   render() {
     return (
-      <div>
+      <div className="explore-content">
         <CustomHeader title="Explorar Comidas" showSearchTopBtn={ false } />
         <CustomExploreFoods />
         <CustomFooter />

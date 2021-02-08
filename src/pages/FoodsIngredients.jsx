@@ -38,7 +38,7 @@ class FoodsIngredients extends Component {
     const INITIAL_LENGTH = 0;
     const MAX_LENGTH = meals.length > LENGTH ? LENGTH : meals.length;
     return (
-      <div>
+      <div className="explore-ingredients-content">
         { meals.slice(INITIAL_LENGTH, MAX_LENGTH).map((meal, index) => (
           <CustomIngredientsFoods
             key={ meal.idIngredient }

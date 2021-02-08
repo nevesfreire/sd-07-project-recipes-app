@@ -22,10 +22,15 @@ export default class CustomButtonShare extends Component {
     const { isShared } = this.state;
     return (
       <div>
-        { (isShared) && <p>Link copiado!</p> }
-        <button type="button" data-testid="share-btn" onClick={ this.handleButtonClick }>
+        <button
+          type="button"
+          data-testid="share-btn"
+          onClick={ this.handleButtonClick }
+          className="btn btn-light"
+        >
           <img src={ shareIcon } alt="" />
         </button>
+        { (isShared) && <p>Link copiado!</p> }
       </div>
     );
   }

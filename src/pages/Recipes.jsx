@@ -57,6 +57,7 @@ class Recipes extends Component {
 
   handleRecipes() {
     const { recipes, isFetching } = this.props;
+    if (isFetching) return <div>Loading...</div>;
     if (recipes) {
       if (!recipes.length && !isFetching) return this.renderAlertError();
       if (recipes.length === 1) return this.redirectToRecipeDetail(recipes);
@@ -113,7 +114,7 @@ class Recipes extends Component {
     const INITIAL_LENGTH = 0;
     const MAX_LENGTH = (recipes.length > LENGTH) ? LENGTH : recipes.length;
     return (
-      <div>
+      <div className="cards-main-page-content">
         { recipes.slice(INITIAL_LENGTH, MAX_LENGTH)
           .map((recipe, index) => (
             <CustomCardFood
@@ -133,10 +134,11 @@ class Recipes extends Component {
     const INITIAL_LENGTH = 0;
     if (recipesCategories !== undefined) {
       return (
-        <div>
+        <div className="category-choose-content">
           <button
             data-testid="All-category-filter"
             type="button"
+            className="btn btn-outline-danger btn-category-main-page"
             onClick={ () => (
               (recipeType === 'comidas')
                 ? dispatchFoodRecipes(getFoodRecipes({}))
@@ -161,7 +163,7 @@ class Recipes extends Component {
   render() {
     const { recipeType } = this.state;
     return (
-      <div>
+      <div className="recipes-main-content">
         <CustomHeader title={ (recipeType === 'comidas') ? 'Comidas' : 'Bebidas' } />
         { this.renderCategories()}
         { this.handleRecipes()}

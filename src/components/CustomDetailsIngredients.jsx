@@ -45,6 +45,7 @@ export default class CustomDetailsIngredients extends Component {
           <li
             key={ index }
             data-testid={ `${index}-ingredient-name-and-measure` }
+            className="list-group-item"
           >
             { `${(measureList[index]) ? (measureList[index]) : ''} ${ingredient}` }
           </li>

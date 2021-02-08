@@ -6,7 +6,7 @@ import CustomHeader from '../components/CustomHeader';
 export default class Explore extends Component {
   render() {
     return (
-      <div>
+      <div className="explore-content">
         <CustomHeader title="Explorar" />
         <CustomExplore />
         <CustomFooter />
