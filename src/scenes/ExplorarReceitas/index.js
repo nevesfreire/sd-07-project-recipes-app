@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import Header from '../../common/Header';
 import ExplorarComidas from './components/ExplorarComidas';
 import ExplorarBebidas from './components/ExplorarBebidas';
+import BottonBar from '../../common/BottomBar';
 
 export default function ExplorarReceitas() {
   const { pathname } = useHistory().location;
@@ -17,6 +18,7 @@ export default function ExplorarReceitas() {
         <main>
           <ExplorarComidas />
         </main>
+        <BottonBar />
       </div>
     );
 
@@ -29,6 +31,7 @@ export default function ExplorarReceitas() {
         <main>
           <ExplorarBebidas />
         </main>
+        <BottonBar />
       </div>
     );
 

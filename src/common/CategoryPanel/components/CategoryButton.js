@@ -6,6 +6,7 @@ function CategoryButton({ categoryName, categoryType }) {
   const { filterByCategory } = useContext(AppContext);
   return (
     <button
+      className="buttonPattern"
       data-testid={ `${categoryName}-category-filter` }
       name={ categoryName }
       onClick={ (e) => filterByCategory(e, categoryType) }

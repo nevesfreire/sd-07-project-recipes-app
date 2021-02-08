@@ -4,7 +4,7 @@ import CategoryButton from './components/CategoryButton';
 
 function CategoryPanel({ categoryType, categoryList }) {
   return (
-    <div>
+    <div className="containerSize">
       <CategoryButton
         categoryName="All"
         categoryType={ `all-${categoryType}` }

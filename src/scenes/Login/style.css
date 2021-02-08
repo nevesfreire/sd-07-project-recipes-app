@@ -1,11 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap') ;
-
-body {
-  background: url('../../images/backend.png') no-repeat center center fixed;
-  background-size: cover;
-  font-family: Roboto , sans-serif;
-}
-
 .main-section {
   margin: 0 auto;
   margin-top: 130px;
@@ -13,60 +5,49 @@ body {
 }
 
 .modal-content {
-  background-color: #3b4652;
-  box-shadow: 0 0 3px #848484;
-  opacity: 0.95;
-  padding: 0 18px;
+  align-items: center;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  display: flex;
+  height: 430px;
+  justify-content: center;
+  margin: 0 auto;
+  margin-top: 110px;
+  width: 300px;
 }
 
-.logo-img {
-  margin-bottom: 35px;
-  margin-top: -50px;
+.modal-content input {
+  background: #ececec;
+  border: none;
+  color: #959595;
+  height: 52px;
+  width: 235px;
 }
 
-.logo-img img {
-  border-radius: 5px;
-  box-shadow: 0 0 2px #3b4652;
-  height: 100px;
-  width: 100px;
-}
-
-.form-group {
-  margin-bottom: 25px;
-}
-
-.form-group input {
-  border: 0;
-  border-radius: 5px;
-  font-size: 18px;
-  height: 42px;
-}
-
-button {
-  margin: 5px 0 25px;
-  width: 40%;
-}
-
-.btn {
-  background-color: #27c2a5;
-  border-bottom: 4px solid #219882;
-  border-radius: 5px;
+.modal-content button {
+  background: #32b35d;
   color: white;
-  font-size: 19px;
-  font-weight: 500;
-  padding: 7px 14px;
+  height: 52px;
+  width: 235px;
 }
 
-.btn:hover, .btn:focus {
-  background-color: #25a890;
-  border-bottom: 4px solid  #25a890;
-  color: white;
+.modal-content a {
+  padding-bottom: 10px;
+  padding-top: 10px;
 }
 
-.forgot {
-  padding: 5px 0 25px;
+.logo-login {
+  background-color: #32b35d;
+  border-radius: 10px;
+  height: 85px;
+  margin: 0 auto;
+  position: relative;
+  top: -470px;
+  width: 85px;
 }
 
-.forgot a {
-  color: #c2fbfe;
+.welcome {
+  font-family: Jomhuria , cursive;
+  font-size: 48px;
 }

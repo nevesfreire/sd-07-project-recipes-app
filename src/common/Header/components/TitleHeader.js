@@ -85,9 +85,9 @@ export default class TitleHeader extends Component {
   render() {
     const { h1 } = this.state;
     return (
-      <div data-testid="page-title" className="title-header">
+      <h1 data-testid="page-title" className="title-header">
         {h1}
-      </div>
+      </h1>
     );
   }
 }
