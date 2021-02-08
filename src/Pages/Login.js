@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 
-
 function Login() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState('0');
@@ -23,44 +22,47 @@ function Login() {
   }
 
   return (
-  <div className="container alinhamento-central">
-    <Form>
-      <Form.Group controlId="formBasicEmail">
-        <Form.Label>Email</Form.Label>
+    <div className="container alinhamento-central">
+      <Form>
+        <Form.Group controlId="formBasicEmail">
+          <Form.Label>Email</Form.Label>
           <Form.Control
             data-testid="email-input"
             type="input"
-            onChange={ ({ target }) => setEmail(target.value) } />
-              <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-              </Form.Text>
+            onChange={ ({ target }) => setEmail(target.value) }
+          />
+          <Form.Text className="text-muted">
+            We'll never share your email with anyone else.
+          </Form.Text>
         </Form.Group>
         <Form.Group controlId="formBasicPassword">
           <Form.Label>Senha</Form.Label>
-            <Form.Control
+          <Form.Control
             type="password"
-              placeholder="Password"
-              data-testid="password-input"
-              onChange={ ({ target }) => setPassword(target.value) } />
+            placeholder="Password"
+            data-testid="password-input"
+            onChange={ ({ target }) => setPassword(target.value) }
+          />
         </Form.Group>
         <div className="divButton">
-        <Link to="/comidas">
-          <Button
-            className="item"
-            variant="success"
-            disabled={ !dataVerify() }
-            onClick={ handleClick }
-            type="submit"
-            data-testid="login-submit-btn">
-            Entrar
-          </Button>
-        </Link>
+          <Link to="/comidas">
+            <Button
+              className="item"
+              variant="warning"
+              disabled={ !dataVerify() }
+              onClick={ handleClick }
+              type="submit"
+              data-testid="login-submit-btn"
+            >
+              Entrar
+            </Button>
+          </Link>
         </div>
-       
-    </Form>
-  </div>
 
-  )
+      </Form>
+    </div>
+
+  );
 }
 
 export default Login;

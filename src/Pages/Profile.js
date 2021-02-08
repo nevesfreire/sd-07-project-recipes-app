@@ -9,16 +9,15 @@ function Profile() {
     localStorage.clear();
   }
 
-  const x = localStorage.getItem('user');
+  const x = JSON.parse(localStorage.getItem('user'));
   return (
     <div>
       <Header title="Perfil" />
-      <p data-testid="profile-email">{x}</p>
+      <p data-testid="profile-email" className="emailProfile">{x.email}</p>
       <div className="profileButtons">
         <Link to="/receitas-feitas">
           <Button type="button" data-testid="profile-done-btn">Receitas Feitas</Button>
         </Link>
-        <br />
         <Link to="/receitas-favoritas">
           <Button
             type="button"
@@ -27,18 +26,16 @@ function Profile() {
             Receitas Favoritas
 
           </Button>
-          <br />
-          <Link to="/">
-            <Button
-              className="secondary"
-              type="button"
-              data-testid="profile-logout-btn"
-              onClick={ cleanLocalStorage }
-            >
-              Sair
-
-            </Button>
-          </Link>
+        </Link>
+        <Link to="/">
+          <Button
+            className="secondary"
+            type="button"
+            data-testid="profile-logout-btn"
+            onClick={ cleanLocalStorage }
+          >
+            Sair
+          </Button>
         </Link>
       </div>
       <FooterMenu />

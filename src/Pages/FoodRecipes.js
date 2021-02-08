@@ -53,17 +53,17 @@ function FoodRecipes() {
   }
 
   return (
-    <div >
+    <div>
       {console.log('console dentro do return')}
       <Header title="Comidas" explore funcFetch={ foodFetch } />
       <div className="divButton">
-      <Categories list={ categoriesFood } type="meals" />
+        <Categories list={ categoriesFood } type="meals" />
       </div>
       <div className="foodorDrinkContainer">
-      {recipes.meals && !recipes.type && recipes.meals.length === um
-        ? handleDatails()
-        : handleRoutes()}
-        </div>
+        {recipes.meals && !recipes.type && recipes.meals.length === um
+          ? handleDatails()
+          : handleRoutes()}
+      </div>
       <FooterMenu />
     </div>
   );

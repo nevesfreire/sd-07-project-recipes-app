@@ -6,24 +6,24 @@ import RecipeContext from '../Context/Context';
 function Card({ name, thumb, index, id, type }) {
   const { setTypeAndIdDetails } = useContext(RecipeContext);
   return (
-    <div className = "cardContainer">
-      <div className = "itemCard">
-      <Link to={ `/${type}/${id}` }>
-      <div
-        onKeyDown=""
-        role="button"
-        tabIndex="0"
-        onClick={ () => setTypeAndIdDetails({
-          type,
-          id,
-        }) }
-        data-testid={ `${index}-recipe-card` }
-      >
-        <p data-testid={ `${index}-card-name` }>{ name }</p>
-        <img className="itemImage " src={ thumb } alt={ name } data-testid={ `${index}-card-img` } />
+    <div className="cardContainer">
+      <div className="itemCard">
+        <Link to={ `/${type}/${id}` }>
+          <div
+            onKeyDown=""
+            role="button"
+            tabIndex="0"
+            onClick={ () => setTypeAndIdDetails({
+              type,
+              id,
+            }) }
+            data-testid={ `${index}-recipe-card` }
+          >
+            <p className="text-img" data-testid={ `${index}-card-name` }>{ name }</p>
+            <img className="itemImage " src={ thumb } alt={ name } data-testid={ `${index}-card-img` } />
+          </div>
+        </Link>
       </div>
-    </Link>
-    </div>
     </div>
   );
 }

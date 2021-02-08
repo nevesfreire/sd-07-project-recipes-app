@@ -58,26 +58,28 @@ function Categories({ list, type }) {
   return (
     <div className="divButtons">
       <div>
-      <Button
-        className="buttonCategories" 
-        type="button"
-        onClick={ () => allFilter() }
-        data-testid="All-category-filter"
-      >
-        All
-
-      </Button>
-      {list.map((category) => (
         <Button
-          className="buttonCategories" 
-          onClick={ (event) => handleClick(category, type, event) }
-          value={ category.strCategory }
+          variant="dark"
+          className="buttonCategories"
           type="button"
-          key={ category.strCategory }
-          data-testid={ `${category.strCategory}-category-filter` }
+          onClick={ () => allFilter() }
+          data-testid="All-category-filter"
         >
-          { category.strCategory }
-        </Button>))}
+          All
+
+        </Button>
+        {list.map((category) => (
+          <Button
+            variant="dark"
+            className="buttonCategories"
+            onClick={ (event) => handleClick(category, type, event) }
+            value={ category.strCategory }
+            type="button"
+            key={ category.strCategory }
+            data-testid={ `${category.strCategory}-category-filter` }
+          >
+            { category.strCategory }
+          </Button>))}
       </div>
     </div>
   );
