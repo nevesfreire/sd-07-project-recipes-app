@@ -115,15 +115,15 @@ class Recipes extends Component {
     const INITIAL_LENGTH = 0;
     const MAX_LENGTH = recipes.length > LENGTH ? LENGTH : recipes.length;
     return (
-      <div>
-        {recipes.slice(INITIAL_LENGTH, MAX_LENGTH).map((recipe, index) => (
-          <CustomCardFood
-            key={ recipeType === 'comidas' ? recipe.idMeal : recipe.idDrink }
-            index={ index }
-            recipe={ recipe }
-            recipeType={ recipeType }
-          />
-        ))}
+      <div className="cards-main-page-content">
+        { recipes.slice(INITIAL_LENGTH, MAX_LENGTH)
+          .map((recipe, index) => (
+            <CustomCardFood
+              key={ (recipeType === 'comidas') ? recipe.idMeal : recipe.idDrink }
+              index={ index }
+              recipe={ recipe }
+              recipeType={ recipeType }
+            />))}
       </div>
     );
   }
@@ -135,13 +135,16 @@ class Recipes extends Component {
     const INITIAL_LENGTH = 0;
     if (recipesCategories !== undefined) {
       return (
-        <div>
+        <div className="category-choose-content">
           <button
             data-testid="All-category-filter"
             type="button"
-            onClick={ () => (recipeType === 'comidas'
-              ? dispatchFoodRecipes(getFoodRecipes({}))
-              : dispatchFoodRecipes(getDrinkRecipes({}))) }
+            className="btn btn-outline-danger btn-category-main-page"
+            onClick={ () => (
+              (recipeType === 'comidas')
+                ? dispatchFoodRecipes(getFoodRecipes({}))
+                : dispatchFoodRecipes(getDrinkRecipes({}))
+            ) }
           >
             All
           </button>
@@ -163,12 +166,10 @@ class Recipes extends Component {
   render() {
     const { recipeType } = this.state;
     return (
-      <div>
-        <CustomHeader
-          title={ recipeType === 'comidas' ? 'Comidas' : 'Bebidas' }
-        />
-        {this.renderCategories()}
-        {this.handleRecipes()}
+      <div className="recipes-main-content">
+        <CustomHeader title={ (recipeType === 'comidas') ? 'Comidas' : 'Bebidas' } />
+        { this.renderCategories()}
+        { this.handleRecipes()}
         <CustomFooter />
       </div>
     );

@@ -77,6 +77,7 @@ export default class CustomButtonFavorite extends Component {
         data-testid="favorite-btn"
         onClick={ this.handleButtonClick }
         src={ (isFavorite) ? blackHeartIcon : whiteHeartIcon }
+        className="btn btn-light"
       >
         <img
           src={ (isFavorite) ? blackHeartIcon : whiteHeartIcon }

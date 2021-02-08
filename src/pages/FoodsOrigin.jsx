@@ -53,7 +53,7 @@ class ExploreArea extends Component {
     const INITIAL_LENGTH = 0;
     const MAX_LENGTH = meals.length > LENGTH ? LENGTH : meals.length;
     return (
-      <div>
+      <div className="explore-by-origin-cards">
         {meals && meals
           .slice(INITIAL_LENGTH, MAX_LENGTH)
           .map((meal, index) => (
@@ -79,7 +79,7 @@ class ExploreArea extends Component {
   render() {
     const { data } = this.state;
     return (
-      <div>
+      <div className="origins-main-content">
         <CustomHeader title="Explorar Origem" />
         <CustomDropdown
           data={ data }

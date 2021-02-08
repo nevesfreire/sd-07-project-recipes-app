@@ -8,27 +8,34 @@ export default function CustomCardFood({ index, recipe, recipeType }) {
     recipeId = (recipeType === 'comidas') ? recipe.idMeal : recipe.idDrink;
   }
   return (
-    <div>
+    <div className="card single-card-main-page-content" style={ { width: '8rem' } }>
       {
         !recipe
           ? 'loading'
           : (
             <Link to={ `/${recipeType}/${recipeId}` }>
-              <p data-testid={ `${index}-recipe-card` }>
-                { `receita ${index}` }
-              </p>
               <img
                 data-testid={ `${index}-card-img` }
+                className="card-img-top img-card-main-page"
                 src={ (recipeType === 'comidas')
                   ? recipe.strMealThumb
                   : recipe.strDrinkThumb }
                 alt="imagem de uma receita"
               />
-              <p
-                data-testid={ `${index}-card-name` }
-              >
-                { (recipeType === 'comidas') ? recipe.strMeal : recipe.strDrink }
-              </p>
+              <div className="card-body">
+                <p
+                  data-testid={ `${index}-recipe-card` }
+                  className="card-text card-text-main-page"
+                >
+                  { `receita ${index + 1}` }
+                </p>
+                <p
+                  data-testid={ `${index}-card-name` }
+                  className="card-title card-title-main-page"
+                >
+                  { (recipeType === 'comidas') ? recipe.strMeal : recipe.strDrink }
+                </p>
+              </div>
             </Link>
           )
       }

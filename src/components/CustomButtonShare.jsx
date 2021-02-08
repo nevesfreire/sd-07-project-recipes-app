@@ -33,6 +33,7 @@ export default class CustomButtonShare extends Component {
         >
           <img src={ shareIcon } alt="" />
         </button>
+        { (isShared) && <p>Link copiado!</p> }
       </div>
     );
   }
