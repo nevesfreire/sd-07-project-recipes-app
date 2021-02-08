@@ -10,7 +10,7 @@ function Provider({ children }) {
   const [inputValues, setInputValues] = useState({ radio: 'Nome', input: '' });
   const [meals, setMeals] = useState([]);
   const [drinks, setDrinks] = useState([]);
-
+  const [showCopied, setShowCopied] = useState(false);
   const [favorites, setFavorites] = useState([]);
   const [doneRecipes, setDoneRecipes] = useState([]);
 
@@ -60,6 +60,7 @@ function Provider({ children }) {
     inputValues,
     favorites,
     doneRecipes,
+    showCopied,
     setLogin,
     setDisabled,
     setMeals,
@@ -70,6 +71,7 @@ function Provider({ children }) {
     setDoneRecipes,
     disfavor,
     addToFavorites,
+    setShowCopied,
   };
 
   return (
