@@ -23,13 +23,13 @@ function Header({ title, explore, funcFetch }) {
   }
 
   return (
-    <div>
+    <div className="header">
       <Link to="/perfil">
         <button type="button" data-testid="profile-top-btn">
           <img src={ profileIcon } alt="profileIcon" />
         </button>
       </Link>
-      <h1 data-testid="page-title">{title}</h1>
+      <h1 data-testid="page-title" className="header">{title}</h1>
       {explore && resolveProblem()}
 
       {searchBar && <SearchBar theFetch={ funcFetch } />}

@@ -72,6 +72,7 @@ function DetailsDrink() {
 
   return (
     <div>
+
       <h1 data-testid="recipe-title">{strDrink}</h1>
       <img className = "itemImage" src={ strDrinkThumb } data-testid="recipe-photo" alt={ strDrink } />
       <button

@@ -105,6 +105,7 @@ function CardMadeRecipes({ recipe, index }) {
         ? (
           <button type="button" onClick={ () => copyToClipBoard(urlComidas) }>
             <img
+              className="images"
               data-testid={ `${index}-horizontal-share-btn` }
               src={ shareIcon }
               alt="img "
@@ -114,6 +115,7 @@ function CardMadeRecipes({ recipe, index }) {
         : (
           <button type="button" onClick={ () => copyToClipBoard(urlBebidas) }>
             <img
+              className="images"
               data-testid={ `${index}-horizontal-share-btn` }
               src={ shareIcon }
               alt="img "
