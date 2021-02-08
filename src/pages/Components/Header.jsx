@@ -53,6 +53,9 @@ function Header(props) {
       break;
     }
   }, [pathname]);
+  if (pathname === undefined) {
+    return <div />;
+  }
   if (pathname === '/'
   || (pathname.includes('/comidas/') && !pathname.includes('/ingredientes')
   && !pathname.includes('area'))
@@ -100,8 +103,8 @@ function Header(props) {
 }
 
 Header.propTypes = {
-  location: PropTypes.objectOf().isRequired,
-  history: PropTypes.objectOf().isRequired,
+  location: PropTypes.objectOf(Object).isRequired,
+  history: PropTypes.objectOf(Object).isRequired,
 };
 
 export default withRouter(Header);

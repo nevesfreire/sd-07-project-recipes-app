@@ -2,7 +2,6 @@ import React from 'react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './renderWithRouter';
 import Login from '../pages/Login';
-import App from '../App';
 
 const emailInput = 'email-input';
 const passInput = 'password-input';
@@ -41,13 +40,16 @@ describe('Teste página de Login', () => {
   });
 
   it(' Redirecione para a tela principal de receitas após a submissão do login', () => {
-    const { getByTestId, history } = renderWithRouter(<App />);
+    const { getByTestId, history } = renderWithRouter(<Login />);
     const email = getByTestId(emailInput);
     const senha = getByTestId(passInput);
     const button = getByTestId(loginSubmitBtn);
     userEvent.type(email, 'alguem@email.com');
-    userEvent.type(senha, '1234567');
+    userEvent.type(senha, '12345677');
     userEvent.click(button);
+    expect(email).toBeInTheDocument();
+    expect(senha).toBeInTheDocument();
+    expect(button).toBeInTheDocument();
     const { pathname } = history.location;
     expect(pathname).toBe('/comidas');
   });

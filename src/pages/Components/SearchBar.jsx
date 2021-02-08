@@ -77,8 +77,8 @@ function SearchBar(props) {
 }
 
 SearchBar.propTypes = {
-  location: PropTypes.objectOf().isRequired,
-  history: PropTypes.objectOf().isRequired,
+  location: PropTypes.objectOf(Object).isRequired,
+  history: PropTypes.objectOf(Object).isRequired,
 };
 
 export default withRouter(SearchBar);
