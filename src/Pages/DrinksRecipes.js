@@ -57,9 +57,11 @@ function DrinksRecipes() {
     <div>
       <Header title="Bebidas" explore funcFetch={ drinkFetch } />
       <Categories list={ categoriesDrinks } type="drinks" />
+      <div className="foodorDrinkContainer">
       {recipes.drinks && !recipes.type && recipes.drinks.length === um
         ? handleDatails()
         : handleRoutes()}
+        </div>
       <FooterMenu />
     </div>
   );

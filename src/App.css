@@ -1,3 +1,9 @@
+
+/* .meals {
+  align-items: center;
+  background: #0fa36b;
+  color: #464646;
+=======
 body {
   background-color:rgb(242, 242, 242);
   box-sizing: border-box;
@@ -22,28 +28,86 @@ body {
     display: flex;
     width: 100%;
     justify-content: center;
-    
+ 
 
+#iceLeft {
+  animation: clink .8s infinite ease;
+  opacity: 0.6;
+  transform-origin: 36px 66px;
+}
+
+#iceRight {
+  animation: clink .8s .2s infinite ease;
+  opacity: 0.6;
+  transform-origin: 60px 78px;
 }
 
 .Divbuttons {
   width: 80%;
   display: flex ;
   justify-content: space-around;
-
-
 }
 
-
-
-
 .images {
-
   border-style: solid;
   border-radius: 2rem;
 }
 
-.footer {
+  100% {
+    transform: rotate(-10deg);
+  }
 
+body {
+  background-color: gray;
+}
 
+.container {
+  background-color: white;
+  display: flex;
+	max-width: 420px;
+	margin: 0 auto;
+	display: flex;
+	border: 1px solid #ccc;
+}
+
+.alinhamento-central {
+	height: 400px;
+	justify-content: center;
+	align-items: center;
+}
+
+.item {
+  display: flex;
+	flex: 1;
+  font-size: 1.3em;
+}
+
+.divButton {
+  display: flex;
+  justify-content: center;
+}
+
+.cardContainer {
+  display: flex;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  background-color:red;
+  max-width: 300px;
+  margin: 2px;
+}
+
+.itemCard {
+	text-align: center;
+	font-size: 1.5em;
+}
+
+.itemImage {
+  max-width: 200px;
+}
+
+.foodorDrinkContainer {
+  background-color: blueviolet;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 5px;
 }
