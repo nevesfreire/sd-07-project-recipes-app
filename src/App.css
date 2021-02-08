@@ -68,7 +68,7 @@
   font-size: 0.55em;
   height: 30px;
   margin: 5px 2px 25px;
-  padding: 1px !important;
+  padding: 1px;
   width: 15%;
   word-wrap: break-word;
 }
@@ -102,7 +102,7 @@
 }
 
 .card-body {
-  padding: 0 !important;
+  padding: 0;
 }
 
 .card-text.card-text-main-page {
@@ -186,9 +186,6 @@
 .share-like-btn {
   display: flex;
 }
-
-
-
 
 .ingredient {
   text-decoration: line-through;
