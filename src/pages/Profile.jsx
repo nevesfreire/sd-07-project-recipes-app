@@ -30,7 +30,7 @@ function Profile() {
           onClick={ () => setHeaderName(titleHeaderNames.receitasfeitas) }
         >
           <button
-            className="button-list"
+            className="btn btn-sm color-button"
             type="button"
             data-testid="profile-done-btn"
           >
@@ -42,7 +42,7 @@ function Profile() {
           onClick={ () => setHeaderName(titleHeaderNames.receitasfavoritas) }
         >
           <button
-            className="button-list"
+            className="btn btn-sm color-button"
             type="button"
             data-testid="profile-favorite-btn"
           >
@@ -51,7 +51,7 @@ function Profile() {
         </Link>
         <Link to="/">
           <button
-            className="button-list"
+            className="btn btn-sm color-button"
             type="button"
             onClick={ () => eraseLocalStorage() }
             data-testid="profile-logout-btn"

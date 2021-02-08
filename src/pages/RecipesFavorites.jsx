@@ -15,7 +15,7 @@ function RecipesFavorites() {
       <section className="profile-buttons">
         <button
           type="button"
-          className="button-list"
+          className="btn btn-sm color-button"
           data-testid="filter-by-all-btn"
           onClick={ () => setFilterRecipesDone('all') }
         >
@@ -23,7 +23,7 @@ function RecipesFavorites() {
         </button>
         <button
           type="button"
-          className="button-list"
+          className="btn btn-sm color-button"
           data-testid="filter-by-food-btn"
           onClick={ () => setFilterRecipesDone('bebida') }
         >
@@ -31,7 +31,7 @@ function RecipesFavorites() {
         </button>
         <button
           type="button"
-          className="button-list"
+          className="btn btn-sm color-button"
           data-testid="filter-by-drink-btn"
           onClick={ () => setFilterRecipesDone('comida') }
         >

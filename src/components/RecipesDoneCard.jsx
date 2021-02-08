@@ -16,6 +16,7 @@ function RecipesDoneCard() {
     console.log(messageExist);
     if (messageExist === null) {
       const spanFromMessage = document.createElement('div');
+      spanFromMessage.className = 'message-span';
       spanFromMessage.id = `${id}-message-span`;
       spanFromMessage.textContent = 'Link copiado!';
       divButtonsGet.appendChild(spanFromMessage);
