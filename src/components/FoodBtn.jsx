@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import context from '../contextAPI/context';
 import { allFood } from '../services/fetchApi';
 import mealIcon from '../images/mealIcon.svg';
+import useRedirect from '../hooks/useRedirect';
 
 const FoodBtn = () => {
+  const PATH = '/comidas';
+  const [setPath] = useRedirect();
   const { setState, setRecipesUrl } = useContext(context);
-  const page = 'comidas';
-  const history = useHistory();
 
   const onClick = () => {
     setRecipesUrl(allFood);
@@ -19,7 +19,7 @@ const FoodBtn = () => {
       searchButton: true,
       toggleSearch: false,
     }));
-    history.push(`/${page}`);
+    setPath(PATH);
   };
 
   return (

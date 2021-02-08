@@ -6,15 +6,17 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchRecipes from './SearchRecipes';
 import '../css/header.css';
+import UseRedirect from '../hooks/useRedirect';
 
-const profileTopBtn = (profileButton, history) => {
+const profileTopBtn = (profileButton) => {
+  const PATH = '/perfil';
+  const [setPath] = UseRedirect();
   if (profileButton) {
     return (
       <Button
         type="button"
         variant="contained"
-        // color="primary"
-        onClick={ () => history.push('/perfil') }
+        onClick={ () => setPath(PATH) }
         className="header"
       >
         <img
@@ -83,7 +85,7 @@ export default function Header() {
   const render = () => (
     <div className="main-reader-controller">
       <div className="header">
-        {profileTopBtn(profileButton, history)}
+        {profileTopBtn(profileButton)}
         {pageTitle(title)}
         {searchBtn(searchButton, toggleSearch, callSearch)}
       </div>
