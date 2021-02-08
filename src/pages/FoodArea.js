@@ -138,10 +138,10 @@ FoodArea.propTypes = {
     push: PropTypes.func,
   }).isRequired,
   areas: PropTypes.shape({
-    meals: Proptypes.arrayOf(PropTypes.object).isRequired,
+    meals: PropTypes.arrayOf(PropTypes.object).isRequired,
   }).isRequired,
   areasFiltered: PropTypes.shape({
-    meals: Proptypes.arrayOf(PropTypes.object).isRequired,
+    meals: PropTypes.arrayOf(PropTypes.object).isRequired,
   }).isRequired,
   requestArea: PropTypes.func.isRequired,
   requestFoodArea: PropTypes.func.isRequired,

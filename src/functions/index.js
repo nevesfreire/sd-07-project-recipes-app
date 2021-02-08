@@ -6,7 +6,7 @@ function handleCopy(executeCopy) {
   executeCopy('Link copiado!');
 }
 
-function handleClick(type, history) {
+function handleClick(type, history, id) {
   if (type === 'meals') {
     history.push(`/comidas/${id}/in-progress`);
   } else {
@@ -30,7 +30,7 @@ function showButton(id, type, history) {
         <button
           type="button"
           data-testid="start-recipe-btn"
-          onClick={ () => handleClick(type, history) }
+          onClick={ () => handleClick(type, history, id) }
           className="finish-button-recipe"
         >
           Continuar Receita
@@ -42,7 +42,7 @@ function showButton(id, type, history) {
       <button
         type="button"
         data-testid="start-recipe-btn"
-        onClick={ () => handleClick(type, history) }
+        onClick={ () => handleClick(type, history, id) }
         className="finish-button-recipe"
       >
         Iniciar Receita
