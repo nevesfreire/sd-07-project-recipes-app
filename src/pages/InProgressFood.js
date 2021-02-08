@@ -16,6 +16,7 @@ export default function InProgressFood() {
 
   const history = useHistory();
   const path = history.location.pathname;
+  const dois = 2;
   const nove = 9;
   const catorze = 14;
   const vinte = 20;
@@ -81,8 +82,42 @@ export default function InProgressFood() {
     }
   };
 
+  const getDate = () => {
+    const date = new Date();
+    const day = date.getDate().toString().padStart(dois, '0');
+    const month = (date.getMonth() + 1).toString().padStart(dois, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
   const handleFinishRecipeBtn = () => {
     setDone([...done, recipe]);
+    const dataDone = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (dataDone) {
+      localStorage.setItem('doneRecipes', JSON.stringify([...dataDone, {
+        id: recipe.idMeal,
+        type: 'comida',
+        area: recipe.strArea,
+        category: recipe.strCategory,
+        alcoholicOrNot: '',
+        name: recipe.strMeal,
+        image: recipe.strMealThumb,
+        doneDate: getDate(),
+        tags: recipe.strTags.split(','),
+      }]));
+    } else {
+      localStorage.setItem('doneRecipes', JSON.stringify([{
+        id: recipe.idMeal,
+        type: 'comida',
+        area: recipe.strArea,
+        category: recipe.strCategory,
+        alcoholicOrNot: '',
+        name: recipe.strMeal,
+        image: recipe.strMealThumb,
+        doneDate: getDate(),
+        tags: recipe.strTags.split(','),
+      }]));
+    }
     history.push('/receitas-feitas');
   };
 

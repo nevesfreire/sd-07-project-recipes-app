@@ -1,10 +1,11 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from '../../context/RecipesContext';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
 function FavButton() {
+  const [id, setId] = useState('');
   const {
     favorite,
     setFavorite,
@@ -13,31 +14,20 @@ function FavButton() {
 
   const history = useHistory();
   const path = history.location.pathname;
-  const zero = 0;
   const data = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
   useEffect(() => {
-    const verifyFavorite = () => {
-      if (data) {
-        if (path.includes('comidas')) {
-          const newData = data.filter((item) => item.id === recipe.idMeal);
-          if (newData.length > zero) {
-            setFavorite(true);
-          } else {
-            setFavorite(false);
-          }
-        } else {
-          const newData = data.filter((item) => item.id === recipe.idDrink);
-          if (newData.length > zero) {
-            setFavorite(true);
-          } else {
-            setFavorite(false);
-          }
-        }
-      }
-    };
-    verifyFavorite();
-  }, [data, path, recipe.idDrink, recipe.idMeal, setFavorite]);
+    if (path.includes('comidas')) {
+      setId(recipe.idMeal);
+    } else {
+      setId(recipe.idDrink);
+    }
+  }, [path, recipe.idDrink, recipe.idMeal]);
+
+  useEffect(() => {
+    const isFavorite = data && data.some((item) => item.id === id);
+    return isFavorite ? setFavorite(true) : setFavorite(false);
+  }, [data, id, setFavorite]);
 
   const handleFavBtn = () => {
     setFavorite(false);
@@ -75,30 +65,6 @@ function FavButton() {
     }
   };
 
-  // const isFavorite = () => {
-  //   if (!favorited.includes(recipe.idMeal)) {
-  //     setFavorited([recipe.idMeal, ...favorited]);
-  //     const dataMeal = JSON.parse(localStorage.getItem('favoriteRecipes'))
-  //       ? JSON.parse(localStorage.getItem('favoriteRecipes'))
-  //       : [];
-  //     localStorage.setItem('favoriteRecipes', JSON.stringify([...dataMeal, {
-  //       id: recipe.idMeal,
-  //       type: 'comida',
-  //       area: recipe.strArea,
-  //       category: recipe.strCategory,
-  //       alcoholicOrNot: '',
-  //       name: recipe.strMeal,
-  //       image: recipe.strMealThumb,
-  //     }]));
-  //   } else {
-  //     setFavorited(favorited.filter((item) => recipe.idMeal !== item));
-  //     const dataMeal = JSON.parse(localStorage.getItem('favoriteRecipes'))
-  //       ? JSON.parse(localStorage.getItem('favoriteRecipes'))
-  //       : [];
-  //     const newDataMeal = dataMeal.filter((item) => recipe.idMeal !== item.id);
-  //     localStorage.setItem('favoriteRecipes', JSON.stringify(newDataMeal));
-  //   }
-  // };
   return (
     <button
       type="button"

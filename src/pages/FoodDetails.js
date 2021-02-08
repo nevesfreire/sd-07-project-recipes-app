@@ -83,15 +83,14 @@ export default function FoodDetails() {
 
   useEffect(() => {
     const dataFav = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (dataFav) {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([...dataFav]));
-    } else { localStorage.setItem('favoriteRecipes', JSON.stringify([])); }
+    if (!dataFav) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    }
 
     const dataDone = JSON.parse(localStorage.getItem('doneRecipes'));
-    if (dataDone) {
-      localStorage.setItem('doneRecipes', JSON.stringify([...dataDone]));
-    } else { localStorage.setItem('doneRecipes', JSON.stringify([])); }
-    localStorage.setItem('doneRecipes', JSON.stringify([]));
+    if (!dataDone) {
+      localStorage.setItem('doneRecipes', JSON.stringify([]));
+    }
   }, []);
 
   return (

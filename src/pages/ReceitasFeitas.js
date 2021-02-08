@@ -52,7 +52,7 @@ function ReceitasFavoritas(props) {
         Drink
       </button>
       {data.map((value, index) => (
-        <div key={ value.id }>
+        <div key={ index }>
           <button
             type="button"
             onClick={ () => history.push(`/${value.type}s/${value.id}`) }
@@ -71,9 +71,9 @@ function ReceitasFavoritas(props) {
               ? `${value.area} - ${value.category}` : value.alcoholicOrNot}
           </p>
           <p data-testid={ `${index}-horizontal-done-date` }>{value.doneDate}</p>
-          {value.tags.map((tag) => (
+          {value.tags.map((tag, key) => (
             <p
-              key={ tag.id }
+              key={ key }
               data-testid={ `${index}-${tag}-horizontal-tag` }
             >
               {tag}

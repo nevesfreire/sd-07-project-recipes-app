@@ -33,27 +33,19 @@ function StartButton() {
   useEffect(() => {
     const dataProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (dataProgress) {
-      const dataIds = Object.keys(dataProgress.meals)
-        .concat(Object.keys(dataProgress.cocktails));
+      const dataIds = path.includes('comidas') ? Object.keys(dataProgress.meals)
+        : Object.keys(dataProgress.cocktails);
       const isInProgress = dataIds.some((item) => item === id);
       return isInProgress ? setBtnText('Continuar Receita')
         : setBtnText('Iniciar Receita');
     }
-  }, [id]);
+  }, [id, path]);
 
   useEffect(() => {
     const dataDone = JSON.parse(localStorage.getItem('doneRecipes'));
-    console.log(dataDone);
-    if (dataDone) {
-      const isDone = dataDone.some((item) => item.id === id);
-      console.log(id);
-      console.log(isDone);
-      return isDone ? setShowBtn(false) : setShowBtn(true);
-    }
-    return setShowBtn(true);
+    const isDone = dataDone && dataDone.some((item) => item.id === id);
+    return isDone ? setShowBtn(false) : setShowBtn(true);
   }, [id]);
-
-  console.log(showBtn);
 
   return (
     <Button
