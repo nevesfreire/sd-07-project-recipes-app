@@ -16,16 +16,13 @@
 
 input {
   border-radius: 4px;
-  -moz-border-radius: 4px;
   box-shadow: 1px 1px 2px;
-  -webkit-border-radius: 4px;
   margin-bottom: 10px;
 }
 
 .header-login {
   color: black;
   font-size: 50px;
-  font-weight: bold;
   margin-bottom: 0;
   margin-top: 100px;
   text-align: center;
