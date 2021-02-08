@@ -38,6 +38,7 @@ function RecomendationDrinkCard() {
             <div data-testid={ `${index}-recomendation-title` }>
               { recomendation.strMeal }
               <img
+                className="datailsImage"
                 alt={ recomendation.strMeal }
                 src={ recomendation.strMealThumb }
                 data-testid="recipe-photo"

@@ -56,8 +56,10 @@ function Categories({ list, type }) {
     }
   }
   return (
-    <div className="Divbuttons">
+    <div className="divButtons">
+      <div>
       <Button
+        className="buttonCategories" 
         type="button"
         onClick={ () => allFilter() }
         data-testid="All-category-filter"
@@ -67,6 +69,7 @@ function Categories({ list, type }) {
       </Button>
       {list.map((category) => (
         <Button
+          className="buttonCategories" 
           onClick={ (event) => handleClick(category, type, event) }
           value={ category.strCategory }
           type="button"
@@ -75,6 +78,7 @@ function Categories({ list, type }) {
         >
           { category.strCategory }
         </Button>))}
+      </div>
     </div>
   );
 }

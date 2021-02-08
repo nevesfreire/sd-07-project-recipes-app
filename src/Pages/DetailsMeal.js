@@ -63,9 +63,10 @@ function DetailsMeal() {
   return (
     <div>
       <div>
+      <img className="datailsImage" src={ strMealThumb } data-testid="recipe-photo" alt={ strMeal } />
+      <div className="iconsAndTitle">
       <h1 data-testid="recipe-title">{strMeal}</h1>
-      <img className="itemImage" src={ strMealThumb } data-testid="recipe-photo" alt={ strMeal } />
-      </div>
+      <div>
       <button
         onClick={ () => copyToClipBoard(url) }
         type="button"
@@ -84,6 +85,10 @@ function DetailsMeal() {
           data-testid="favorite-btn"
         />
       </button>
+      </div>
+      </div>
+      </div>
+      <div className="ingredientsList">
       <p data-testid="recipe-category">{strCategory}</p>
       <ul>
         {
@@ -95,7 +100,8 @@ function DetailsMeal() {
             </li>))
         }
       </ul>
-      <p data-testid="instructions">{strInstructions}</p>
+      </div>
+      <p className="ingredientsList" data-testid="instructions">{strInstructions}</p>
       <video data-testid="video" width="100">
         <source src={ strYoutube } type="video/mp4" />
         <track default kind="captions" srcLang="en" src={ strYoutube } />

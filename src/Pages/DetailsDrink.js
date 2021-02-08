@@ -72,9 +72,11 @@ function DetailsDrink() {
 
   return (
     <div>
-
+      <div>
+      <img className="datailsImage" src={ strDrinkThumb } data-testid="recipe-photo" alt={ strDrink } />
+      <div className="iconsAndTitle">
       <h1 data-testid="recipe-title">{strDrink}</h1>
-      <img className = "itemImage" src={ strDrinkThumb } data-testid="recipe-photo" alt={ strDrink } />
+      <div>
       <button
         onClick={ () => copyToClipBoard(url) }
         type="button"
@@ -93,6 +95,10 @@ function DetailsDrink() {
           data-testid="favorite-btn"
         />
       </button>
+      </div>
+      </div>
+      </div>
+      <div className="ingredientsList">
       <p data-testid="recipe-category">{strCategory}</p>
       <p data-testid="recipe-category">{strAlcoholic}</p>
       <ul>
@@ -105,7 +111,8 @@ function DetailsDrink() {
             </li>))
         }
       </ul>
-      <p data-testid="instructions">{strInstructions}</p>
+      </div>
+      <p className="ingredientsList" data-testid="instructions">{strInstructions}</p>
       <video data-testid="video" width="100">
         <source src={ strYoutube } type="video/mp4" />
         <track default kind="captions" srcLang="en" src={ strYoutube } />
@@ -124,13 +131,6 @@ function DetailsDrink() {
           </button>
         </Link>
       )}
-      {/* { getLengthOfIngredients() > 0
-      ? drinkStateButton && <Link to={ `/bebidas/${newUrlId}/in-progress` }>
-        <button className="buttn-bottom" type="button" data-testid="start-recipe-btn">Iniciar receita</button>
-      </Link>
-      : drinkStateButton && <Link to={ `/bebidas/${newUrlId}/in-progress` }>
-      <button className="buttn-bottom" type="button" data-testid="start-recipe-btn">Continuar Receita</button>
-    </Link> } */}
     </div>
   );
 }
