@@ -8,6 +8,7 @@
 }
 
 @keyframes is-rotating {
+
   to {
     transform: rotate(2turn);
   }
