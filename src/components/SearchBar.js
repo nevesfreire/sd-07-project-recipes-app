@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Row, Col, Button } from 'react-bootstrap';
 import apiTheCocktailDB from '../services/apiTheCocktailDB';
 import apiTheMealDB from '../services/apiTheMealDB';
 import { sendDrinkRecipes, sendMealRecipes } from '../redux/actions';
@@ -75,54 +76,70 @@ class SearchBar extends React.Component {
   render() {
     return (
       <div>
-        <input
-          type="text"
-          id="searchInput"
-          data-testid="search-input"
-          placeholder="Busar Receita"
-          name="searchText"
-          onChange={ this.handleSearch }
-        />
-        <label htmlFor="ingredients">
-          Ingrediente
+        <Row>
           <input
-            type="radio"
-            id="ingredients"
-            name="searchType"
-            value="ingrediente"
-            onClick={ this.handleSearch }
-            data-testid="ingredient-search-radio"
+            style={ { borderRadius: '5px', border: '1px solid rgb(224,224,224)' } }
+            type="text"
+            id="searchInput"
+            data-testid="search-input"
+            placeholder="Busar Receita"
+            name="searchText"
+            onChange={ this.handleSearch }
           />
-        </label>
-        <label htmlFor="name">
-          Nome
-          <input
-            type="radio"
-            id="name"
-            name="searchType"
-            value="nome"
-            onClick={ this.handleSearch }
-            data-testid="name-search-radio"
-          />
-        </label>
-        <label htmlFor="firtLetter">
-          Primeira letra
-          <input
-            type="radio"
-            id="firtLetter"
-            name="searchType"
-            value="primeiraLetra"
-            onClick={ this.handleSearch }
-            data-testid="first-letter-search-radio"
-          />
-        </label>
-        <button
-          type="button"
-          data-testid="exec-search-btn"
-          onClick={ this.submitSearch }
-        >
-          Buscar
-        </button>
+          <Button
+            className="ml-1"
+            variant="danger"
+            type="button"
+            data-testid="exec-search-btn"
+            onClick={ this.submitSearch }
+          >
+            Buscar
+          </Button>
+        </Row>
+        <Row>
+          <Row className="mr-4">
+            <label htmlFor="ingredients">
+              <input
+                className="mr-1"
+                type="radio"
+                id="ingredients"
+                name="searchType"
+                value="ingrediente"
+                onClick={ this.handleSearch }
+                data-testid="ingredient-search-radio"
+              />
+              Ingrediente
+            </label>
+          </Row>
+          <Row className="mr-4">
+            <label htmlFor="name">
+              <input
+                className="mr-1"
+                type="radio"
+                id="name"
+                name="searchType"
+                value="nome"
+                onClick={ this.handleSearch }
+                data-testid="name-search-radio"
+              />
+              Nome
+            </label>
+          </Row>
+          <Row className="mr-3">
+            <label htmlFor="firtLetter">
+              <input
+                className="mr-1"
+                type="radio"
+                id="firtLetter"
+                name="searchType"
+                value="primeiraLetra"
+                onClick={ this.handleSearch }
+                data-testid="first-letter-search-radio"
+              />
+              Primeira letra
+            </label>
+          </Row>
+        </Row>
       </div>
     );
   }

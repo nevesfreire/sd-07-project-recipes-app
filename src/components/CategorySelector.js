@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import { Row } from 'react-bootstrap';
+import { Row, Button } from 'react-bootstrap';
 import { apiTheMealDB, apiTheCocktailDB } from '../services';
 import { sendDrinkRecipes, sendMealRecipes } from '../redux/actions';
 
@@ -92,25 +92,27 @@ class CategorySelector extends React.Component {
     return (
       <div className="categories">
         <Row style={ { margin: 30 } }>
-          <button
-            // className={ (currentCategory === 'All' ? 'current' : '') }
+          <Button
+            className="mr-1 mb-1"
+            variant="warning"
             key="all"
             type="button"
             data-testid="All-category-filter"
             onClick={ () => this.selectCategory('All') }
           >
             All
-          </button>
+          </Button>
           {categories.map((category) => (
-            <button
-              // className={ (currentCategory === category.strCategory ? 'current' : '') }
+            <Button
+              className="mr-1 mb-1"
+              variant="warning"
               key={ category.strCategory }
               type="button"
               data-testid={ `${category.strCategory}-category-filter` }
               onClick={ () => this.selectCategory(category.strCategory) }
             >
               {category.strCategory}
-            </button>
+            </Button>
           ))}
         </Row>
       </div>
