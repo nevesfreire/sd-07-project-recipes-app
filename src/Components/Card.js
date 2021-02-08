@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
+import './style/Card.css';
 
 function Card(props) {
   const {
@@ -16,17 +18,22 @@ function Card(props) {
       <Link
         to={ `/explorar/comidas/ingredientes/${item.strIngredient}` }
       >
-        <div key={ index } data-testid={ `${index}-ingredient-card` }>
+        <div
+          key={ index }
+          className="ingredient-card"
+          data-testid={ `${index}-ingredient-card` }
+        >
           <img
             src={ `https://www.themealdb.com/images/ingredients/${item.strIngredient}-Small.png` }
             data-testid={ `${index}-card-img` }
             alt="Ingredient"
           />
-          <h2
+          <Button
+            variant="light"
             data-testid={ `${index}-card-name` }
           >
             {item.strIngredient}
-          </h2>
+          </Button>
         </div>
       </Link>
     );
@@ -41,17 +48,22 @@ function Card(props) {
           `/explorar/bebidas/ingredientes/${nameIngredient}`
         }
       >
-        <div key={ index } data-testid={ `${index}-ingredient-card` }>
+        <div
+          key={ index }
+          data-testid={ `${index}-ingredient-card` }
+          className="ingredient-card"
+        >
           <img
             src={ `https://www.thecocktaildb.com/images/ingredients/${item.strIngredient1}-Small.png` }
             data-testid={ `${index}-card-img` }
             alt="Ingredient"
           />
-          <h2
+          <Button
+            variant="light"
             data-testid={ `${index}-card-name` }
           >
             {item.strIngredient1}
-          </h2>
+          </Button>
         </div>
       </Link>
     );
@@ -59,34 +71,48 @@ function Card(props) {
   return (
     isFood
       ? (
-        <Link to={ `/comidas/${item.idMeal}` }>
-          <div key={ index } data-testid={ `${index}-recipe-card` }>
+        <Link to={ `/comidas/${item.idMeal}` } className="card-container">
+          <div
+            key={ index }
+            data-testid={ `${index}-recipe-card` }
+            className="card"
+          >
             <img
               src={ item.strMealThumb }
               data-testid={ `${index}-card-img` }
               alt="Meal"
+              style={ { margin: '15px', width: '80%', borderRadius: '15px' } }
             />
-            <h2
+            <Button
               data-testid={ `${index}-card-name` }
+              variant="info"
+              style={ { width: '80%' } }
             >
               {item.strMeal}
-            </h2>
+            </Button>
           </div>
         </Link>
       )
       : (
-        <Link to={ `/bebidas/${item.idDrink}` }>
-          <div key={ index } data-testid={ `${index}-recipe-card` }>
+        <Link to={ `/bebidas/${item.idDrink}` } className="card-container">
+          <div
+            key={ index }
+            data-testid={ `${index}-recipe-card` }
+            className="card"
+          >
             <img
               src={ item.strDrinkThumb }
               data-testid={ `${index}-card-img` }
               alt="Drink"
+              style={ { margin: '15px', width: '80%', borderRadius: '15px' } }
             />
-            <h2
+            <Button
               data-testid={ `${index}-card-name` }
+              variant="info"
+              style={ { width: '80%' } }
             >
               {item.strDrink}
-            </h2>
+            </Button>
           </div>
         </Link>
       )

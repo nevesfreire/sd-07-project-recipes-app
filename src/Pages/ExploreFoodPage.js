@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useContext, useEffect } from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
 import RecipesContext from '../context/RecipesContext';
@@ -29,30 +30,40 @@ function ExploreFoodPage() {
   return (
     <div>
       <Header title="Explorar Comidas" />
-      <main>
+      <main
+        style={ {
+          alignItems: 'center',
+          display: 'flex',
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          justifyContent: 'space-evenly',
+        } }
+      >
         <Link to="/explorar/comidas/ingredientes">
-          <button
-            type="button"
+          <Button
+            style={ { marginTop: '30px' } }
+            variant="info"
             data-testid="explore-by-ingredient"
           >
             Por Ingredientes
-          </button>
+          </Button>
         </Link>
         <Link to="/explorar/comidas/area">
-          <button
-            type="button"
+          <Button
+            style={ { marginTop: '30px' } }
+            variant="info"
             data-testid="explore-by-area"
           >
             Por Local de Origem
-          </button>
+          </Button>
         </Link>
-        <button
-          type="button"
+        <Button
+          variant="info"
           data-testid="explore-surprise"
           onClick={ () => setIsRandom(true) }
         >
           Me Surpreenda!
-        </button>
+        </Button>
       </main>
       <Footer />
     </div>

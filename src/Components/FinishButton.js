@@ -17,7 +17,7 @@ function FinishButton(props) {
         name: strMeal,
         image: strMealThumb,
         doneDate: new Date(),
-        tags: strTags.split(',') || '',
+        tags: strTags !== null ? strTags.split(',') || '' : [],
       }]));
       setFinnished(true);
       return true;
@@ -34,7 +34,7 @@ function FinishButton(props) {
           name: strMeal,
           image: strMealThumb,
           doneDate: new Date(),
-          tags: strTags.split(',') || '',
+          tags: strTags !== null ? strTags.split(',') || '' : [],
         },
       ]));
       setFinnished(true);

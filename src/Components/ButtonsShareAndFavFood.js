@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Button } from 'react-bootstrap';
 import share from '../images/shareIcon.svg';
 import blackHeart from '../images/blackHeartIcon.svg';
 import whiteHeart from '../images/whiteHeartIcon.svg';
@@ -57,17 +58,17 @@ function ButtonsShareAndFavFood(props) {
 
   return (
     <div>
-      <button data-testid="share-btn" type="button">
+      <Button data-testid="share-btn" variant="text">
         <img src={ share } alt="" />
-      </button>
-      <button
+      </Button>
+      <Button
         data-testid="favorite-btn"
-        type="button"
+        variant="text"
         onClick={ saveFavorites }
         src={ fav ? blackHeart : whiteHeart }
       >
         <img src={ fav ? blackHeart : whiteHeart } alt="" />
-      </button>
+      </Button>
     </div>
   );
 }

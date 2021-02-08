@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import drikIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
-import './Footer.css';
+import './style/Footer.css';
 
 const Footer = () => (
   <div data-testid="footer" className="footer">

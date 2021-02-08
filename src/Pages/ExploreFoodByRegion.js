@@ -65,13 +65,15 @@ function ExploreFoodByRegion() {
   }
   return (
     <div>
-      <form>
+      <Header title="Explorar Origem" showSearcIcon />
+      <form style={ { display: 'flex', justifyContent: 'center' } }>
         <select
           data-testid="explore-by-area-dropdown"
           onChange={ ({ target: { value } }) => {
             filterByRegion(value);
           } }
           value={ filter }
+          style={ { width: '90%', height: '50px', marginTop: '15px', fontSize: '30px' } }
         >
           <option
             data-testid="All-option"
@@ -91,14 +93,15 @@ function ExploreFoodByRegion() {
             )))}
         </select>
       </form>
-      <Header title="Explorar Origem" showSearcIcon />
       {!isFetching
         ? (
-          firstTwelveRecipes.map(
-            (recipe, index) => (
-              <Card key={ index } item={ recipe } index={ index } isFood />
-            ),
-          )
+          <div style={ { display: 'flex', flexWrap: 'wrap', width: '100%' } }>
+            {firstTwelveRecipes.map(
+              (recipe, index) => (
+                <Card key={ index } item={ recipe } index={ index } isFood />
+              ),
+            )}
+          </div>
         )
         : null}
       <Footer />

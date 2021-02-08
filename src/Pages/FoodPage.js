@@ -1,10 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from 'react';
 import { Redirect, useParams } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 import Header from '../Components/Header';
 import Card from '../Components/Card';
 import Footer from '../Components/Footer';
 import RecipesContext from '../context/RecipesContext';
+import './style/FoodPage.css';
 
 function FoodPage() {
   const {
@@ -13,9 +15,12 @@ function FoodPage() {
     setFirstTwelveRecipes,
     isFetching,
     setIsFetching,
-    firstTwelveRecipes } = useContext(RecipesContext);
-  const [filtered, setFiltered] = useState(false);
-  const [filter, setFilter] = useState('');
+    firstTwelveRecipes,
+    filter,
+    filtered,
+    setFiltered,
+    setFilter,
+    filterFoodByCategory } = useContext(RecipesContext);
   const [fiveCategories, setFiveCategories] = useState([]);
   const { ingredient } = useParams();
   const twelve = 12;
@@ -51,21 +56,14 @@ function FoodPage() {
     }
   }, [filtered]);
 
-  const filterByCategory = async (category) => {
-    if (!filtered || filter !== category) {
-      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
-      const filteredMeals = await response.json();
-      setFirstTwelveRecipes(filteredMeals.meals.slice(zero, twelve));
-      setIsFetching(false);
-      setFilter(category);
-      setFiltered(true);
-    } else {
-      setFiltered(false);
-    }
-  };
-
   const clearFilter = () => {
     setFiltered(false);
+    setFilter('All');
+  };
+
+  const isPrimary = (currentFilter, category) => {
+    if (currentFilter === category) return 'primary';
+    return 'secondary';
   };
 
   if (isOnlyOne) {
@@ -75,32 +73,37 @@ function FoodPage() {
   return (
     <div>
       <Header title="Comidas" showSearcIcon />
-      <button
-        onClick={ clearFilter }
-        type="button"
-        data-testid="All-category-filter"
-      >
-        All
-      </button>
-      {!isFetching && (
-        fiveCategories.map(({ strCategory }) => (
-          <button
-            key={ strCategory }
-            onClick={ () => filterByCategory(strCategory) }
-            type="button"
-            data-testid={ `${strCategory}-category-filter` }
-          >
-            {strCategory}
-          </button>
-        ))
-      )}
+      <div className="filters">
+        <Button
+          onClick={ clearFilter }
+          type="button"
+          data-testid="All-category-filter"
+          variant={ isPrimary(filter, 'All') }
+        >
+          All
+        </Button>
+        {!isFetching && (
+          fiveCategories.map(({ strCategory }) => (
+            <Button
+              key={ strCategory }
+              onClick={ () => filterFoodByCategory(strCategory) }
+              data-testid={ `${strCategory}-category-filter` }
+              variant={ isPrimary(filter, strCategory) }
+            >
+              {strCategory}
+            </Button>
+          ))
+        )}
+      </div>
       {!isFetching
         ? (
-          firstTwelveRecipes.map(
-            (recipe, index) => (
-              <Card key={ index } item={ recipe } index={ index } isFood />
-            ),
-          )
+          <div style={ { display: 'flex', flexWrap: 'wrap', width: '100%' } }>
+            {firstTwelveRecipes.map(
+              (recipe, index) => (
+                <Card key={ index } item={ recipe } index={ index } isFood />
+              ),
+            )}
+          </div>
         )
         : null}
       <Footer />
