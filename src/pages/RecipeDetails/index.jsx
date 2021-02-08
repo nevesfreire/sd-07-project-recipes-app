@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ShareIcon from '../../images/shareIcon.svg';
 import WhiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import Recomendations from './Recomendations';
+
 // import BlackHeartIcon from '../../images/blackHeartIcon.svg';
 
 export default function RecipeDetails({ history, match: { params: { id } } }) {
@@ -11,7 +13,6 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
       let endpoint = '';
       const { location: { pathname } } = history;
       const path = pathname.split('/')[1];
-      console.log(path);
       if (path === 'comidas') {
         endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
       } else {
@@ -27,14 +28,11 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
   };
 
   const {
-    idMeal,
     strMealThumb,
     strMeal,
     strCategory,
     strInstructions,
-    strDrinkAlternate,
     strYoutube,
-    idDrink,
     strDrink,
     strAlcoholic,
     strDrinkThumb,
@@ -42,7 +40,6 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
 
   const url = () => {
     const youTubeURL = strYoutube.split('=')[1];
-    console.log(youTubeURL);
     return (
       <iframe
         data-testid="video"
@@ -55,14 +52,18 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
   };
 
   const teste = Object.keys(recipeDetails);
-  console.log(teste);
   const ingredients = teste.filter((item) => item.includes('strIngredient'));
-  console.log(ingredients);
   const measures = teste.filter((item) => item.includes('strMeasure'));
 
-  const ops = ingredients
-    .map((item, index) => [item, measures[index]]);
-  console.log(ops);
+  const arrayVazio = [];
+  ingredients.forEach((ingredient, index) => {
+    if (
+      (recipeDetails[ingredient]
+      && recipeDetails[ingredient] !== ' '
+      && recipeDetails[ingredient] !== null)) {
+      arrayVazio.push([recipeDetails[ingredient], recipeDetails[measures[index]]]);
+    }
+  });
 
   useEffect(() => {
     fetchMealDetails();
@@ -91,13 +92,13 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
           className="recipe-category"
           data-testid="recipe-category"
         >
-          { strCategory || strAlcoholic }
+          { strAlcoholic || strCategory }
         </h4>
       </div>
       <ul className="container-ingredients">
-        { ops.map((name, index) => (
+        { arrayVazio.map((name, index) => (
           <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-            { `${recipeDetails[name[0]]} - ${recipeDetails[name[1]]}` }
+            { name[1] !== null ? `${name[0]} - ${name[1]}` : `${name[0]}` }
           </li>
         ))}
       </ul>
@@ -105,10 +106,12 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
         { strInstructions }
       </p>
       { strYoutube && url() }
-      <div data-testid={ `${idMeal || idDrink}-recomendation-card` }>
-        { strDrinkAlternate }
-      </div>
-      <button type="button" data-testid="start-recipe-btn">
+      <Recomendations />
+      <button
+        type="button"
+        className="start-recipe-btn"
+        data-testid="start-recipe-btn"
+      >
         Iniciar Receita
       </button>
     </div>

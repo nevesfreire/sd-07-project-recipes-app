@@ -63,3 +63,23 @@ export const fetchRandomFoods = async () => {
     console.log(error);
   }
 };
+
+export const fetchRandomDrink = async () => {
+  try {
+    const URL = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+    const drink = await fetch(URL).then((response) => response.json());
+    return drink;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchRandomFood = async () => {
+  try {
+    const URL = 'https://www.themealdb.com/api/json/v1/1/random.php';
+    const food = await fetch(URL).then((response) => response.json());
+    return food;
+  } catch (error) {
+    console.log(error);
+  }
+};
