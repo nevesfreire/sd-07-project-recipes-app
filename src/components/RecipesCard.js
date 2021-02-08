@@ -111,6 +111,7 @@ class RecipesCard extends React.Component {
     );
   }
 }
+
 RecipesCard.propTypes = {
   recipe: PropTypes.shape({
     idMeal: PropTypes.string,
