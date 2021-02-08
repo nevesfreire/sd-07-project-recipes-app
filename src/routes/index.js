@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import {
   Home,
   Login,
+  Profile,
   RecipeDetails,
   RecipeExplore,
   RecipeExploreMore,
@@ -46,6 +47,11 @@ export default function Routes() {
         exact
         path="/explorar/comidas/area"
         component={ RecipeExploreArea }
+      />
+      <Route
+        exact
+        path="/perfil"
+        component={ Profile }
       />
     </Switch>
   );
