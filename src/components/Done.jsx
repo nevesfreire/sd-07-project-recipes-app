@@ -6,6 +6,8 @@ import shareIcon from '../images/shareIcon.svg';
 
 function Done({ recipesStorage }) {
   const [copy, setCopy] = useState(false);
+  const zero = 0;
+  const two = 2;
 
   const copyLink = () => {
     const delay = 2000;
@@ -76,7 +78,7 @@ function Done({ recipesStorage }) {
               </h6>
             </div>
             <div className="div-tags">
-              {tags && tags.map((tag) => (
+              {tags && tags.splice(zero, two).map((tag) => (
                 <h6
                   key={ index }
                   data-testid={ `${index}-${tag}-horizontal-tag` }
@@ -93,9 +95,7 @@ function Done({ recipesStorage }) {
 }
 
 Done.propTypes = {
-  recipesStorage: PropTypes.arrayOf(PropTypes.shape({
-    map: PropTypes.func.isRequired,
-  }).isRequired).isRequired,
+  recipesStorage: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
 
 export default Done;

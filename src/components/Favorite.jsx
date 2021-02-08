@@ -96,7 +96,7 @@ function Favorite({ recipesStorage, setRecipesStorage }) {
 
 Favorite.propTypes = {
   recipesStorage: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
-  setRecipesStorage: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
+  setRecipesStorage: PropTypes.func.isRequired,
 };
 
 export default Favorite;

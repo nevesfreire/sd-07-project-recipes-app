@@ -1,76 +1,96 @@
-import { useEffect } from 'react';
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 function useInProgressRecipe() {
-  let inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const [inProgressRecipes, setInProgressRecipes] = useState(
+    JSON.parse(localStorage.getItem('inProgressRecipes')),
+  );
+  const [ingredientCount, setIngredientCount] = useState([]);
+  const [disable, setDisable] = useState(true);
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
 
   const removeIngredient = (type, id, ingredient) => {
-    if (type === 'comidas') {
-      const { meals } = inProgressRecipes;
-      const ingredientExcluded = meals[id]
-        .filter((ingredients) => ingredients !== ingredient);
-      localStorage.setItem('inProgressRecipes', JSON.stringify({
-        ...inProgressRecipes,
-        meals: {
-          ...inProgressRecipes.meals,
-          [id]: ingredientExcluded,
-        },
-      }));
-    } else {
-      const { cocktails } = inProgressRecipes;
-      const ingredientExcluded = cocktails[id]
-        .filter((ingredients) => ingredients !== ingredient);
-      localStorage.setItem('inProgressRecipes', JSON.stringify({
-        ...inProgressRecipes,
-        cocktails: {
-          ...inProgressRecipes.cocktails,
-          [id]: ingredientExcluded,
-        },
-      }));
+    if (inProgressRecipes) {
+      if (type === 'comidas') {
+        const { meals } = inProgressRecipes;
+        const ingredientExcluded = meals[id]
+          .filter((ingredients) => ingredients !== ingredient);
+        localStorage.setItem('inProgressRecipes', JSON.stringify({
+          ...inProgressRecipes,
+          meals: {
+            ...inProgressRecipes.meals,
+            [id]: ingredientExcluded,
+          },
+        }));
+      } else {
+        const { cocktails } = inProgressRecipes;
+        const ingredientExcluded = cocktails[id]
+          .filter((ingredients) => ingredients !== ingredient);
+        localStorage.setItem('inProgressRecipes', JSON.stringify({
+          ...inProgressRecipes,
+          cocktails: {
+            ...inProgressRecipes.cocktails,
+            [id]: ingredientExcluded,
+          },
+        }));
+      }
+      setInProgressRecipes(JSON.parse(localStorage.getItem('inProgressRecipes')));
     }
-    inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
   };
 
   const addIngredient = (type, id, ingredient) => {
-    if (type === 'comidas') {
-      localStorage.setItem('inProgressRecipes', JSON.stringify({
-        ...inProgressRecipes,
-        meals: {
-          ...inProgressRecipes.meals,
-          [id]: [...(inProgressRecipes.meals[id] || []), ingredient],
-        },
-      }));
-    } else {
-      localStorage.setItem('inProgressRecipes', JSON.stringify({
-        ...inProgressRecipes,
-        cocktails: {
-          ...inProgressRecipes.cocktails,
-          [id]: [...(inProgressRecipes.cocktails[id] || []), ingredient],
-        },
-      }));
+    if (inProgressRecipes) {
+      if (type === 'comidas') {
+        localStorage.setItem('inProgressRecipes', JSON.stringify({
+          ...inProgressRecipes,
+          meals: {
+            ...inProgressRecipes.meals,
+            [id]: [...(inProgressRecipes.meals[id] || []), ingredient],
+          },
+        }));
+      } else {
+        localStorage.setItem('inProgressRecipes', JSON.stringify({
+          ...inProgressRecipes,
+          cocktails: {
+            ...inProgressRecipes.cocktails,
+            [id]: [...(inProgressRecipes.cocktails[id] || []), ingredient],
+          },
+        }));
+      }
+      setInProgressRecipes(JSON.parse(localStorage.getItem('inProgressRecipes')));
     }
-    inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
   };
 
-  const handleChange = ({ target }, id, type) => {
+  const buttonToDisable = (ids, type, setIngred) => {
+    setIngredientCount(setIngred);
+    let ingredientStorage = [];
+    const inIngrendits = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+    if (inIngrendits) {
+      const { meals } = inIngrendits;
+      const { cocktails } = inIngrendits;
+
+      if (type === 'comidas') {
+        ingredientStorage = meals[ids] ? meals[ids].length : [];
+      } else {
+        ingredientStorage = cocktails[ids] ? cocktails[ids].length : [];
+      }
+      if (ingredientCount === ingredientStorage) {
+        setDisable(false);
+      } else {
+        setDisable(true);
+      }
+    }
+  };
+
+  const handleChange = ({ target }, id, type, setIngred) => {
     const { name, checked } = target;
     if (checked) {
       addIngredient(type, id, name);
     } else {
       removeIngredient(type, id, name);
     }
-  };
-
-  const setInitialLocalStorage = () => {
-    if (!inProgressRecipes) {
-      localStorage.setItem('inProgressRecipes',
-        JSON.stringify({ meals: {}, cocktails: {} }));
-    }
-    if (!doneRecipes) {
-      localStorage.setItem('doneRecipes',
-        JSON.stringify([]));
-    }
+    buttonToDisable(id, type, setIngred);
   };
 
   const history = useHistory();
@@ -137,11 +157,12 @@ function useInProgressRecipe() {
     history.push('/receitas-feitas');
   };
 
-  useEffect(() => {
+  /*   useEffect(() => {
     setInitialLocalStorage();
-  }, []);
+  }, []); */
 
-  return [handleChange, inProgressRecipes, handleClick];
+  return [handleClick, disable, setIngredientCount,
+    inProgressRecipes, buttonToDisable, handleChange];
 }
 
 export default useInProgressRecipe;

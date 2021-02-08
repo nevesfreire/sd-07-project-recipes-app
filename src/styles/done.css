@@ -73,6 +73,7 @@
   display: flex;
   flex-direction: column;
   margin-left: 10px;
+  width: 200px;
 }
 
 .div-recipes-favorite .div-span-h6 span {
@@ -87,7 +88,7 @@
 }
 
 .div-data {
-  bottom: 80px;
+  bottom: 75px;
   left: 180px;
   position: relative;
   width: fit-content;
@@ -98,13 +99,13 @@
 }
 
 .div-tags {
-  bottom: 85px;
+  bottom: 70px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  left: 180px;
+  left: 170px;
   position: relative;
-  width: 135px;
+  width: 150px;
 }
 
 .div-tags h6 {
