@@ -2,14 +2,27 @@ import React from 'react';
 import { fireEvent, screen } from '@testing-library/react';
 import renderWithRouter from './renderWithRouter';
 import LoginPage from '../Pages/LoginPage';
-import App from '../App';
 
 describe('Test with Login Module', () => {
-  it('should have a login field', async () => {
+  beforeEach(() => {
     renderWithRouter(<LoginPage />);
+  });
 
-    const imgMain = await screen.findByRole('textbox');
+  it('should have a login field', async () => {
+    const inputLogin = await screen.findByRole('textbox');
 
-    expect(imgMain).toBeInTheDocument();
+    expect(inputLogin).toBeInTheDocument();
+  });
+
+  it('should have password field', async () => {
+    const inputPassword = await screen.findByTestId('password-input');
+
+    expect(inputPassword).toBeInTheDocument();
+  });
+
+  it('should have sign in button', async () => {
+    const signButton = await screen.findByTestId('password-input');
+
+    expect(signButton).toBeInTheDocument();
   });
 });
