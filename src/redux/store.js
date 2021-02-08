@@ -1,8 +1,6 @@
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import fastFood from './reducer';
-
-const rootReducer = combineReducers({ fastFood });
+import rootReducer from './reducer';
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 

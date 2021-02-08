@@ -6,40 +6,12 @@ import Footer from '../../components/footer';
 class ExplorarComidas extends Component {
   constructor() {
     super();
-    this.state = {
-      receita: {},
-    };
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick() {
     const { history } = this.props;
     history.push('/comidas/52771');
-  }
-
-  Meals() {
-    const { receita } = this.state;
-    return (
-      <button
-        className="card"
-        name={ receita.idMeal }
-        type="button"
-        onClick={ ({ target }) => this.handleClick(target.name) }
-      >
-        <img
-          className="card"
-          name={ receita.idMeal }
-          src={ receita.strMealThumb }
-          alt="imagem da receita"
-        />
-        <h1
-          className="card"
-          name={ receita.idMeal }
-        >
-          {receita.strMeal}
-        </h1>
-      </button>
-    );
   }
 
   render() {

@@ -1,3 +1,5 @@
+import { combineReducers } from 'redux';
+
 const INITIAL_STATE = {
   receitas: {
     reload: true,
@@ -36,4 +38,6 @@ function fastFood(state = INITIAL_STATE, action) {
   }
 }
 
-export default fastFood;
+const rootReducer = combineReducers({ fastFood });
+
+export default rootReducer;
