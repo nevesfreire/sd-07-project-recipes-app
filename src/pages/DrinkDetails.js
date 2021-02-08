@@ -128,6 +128,7 @@ function DrinkDetails() {
               <div
                 data-testid={ `${index}-recomendation-card` }
                 key="index"
+                className="container-recomend"
               >
                 <p
                   data-testid={ `${index}-recomendation-title` }

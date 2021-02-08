@@ -49,11 +49,13 @@ function Header() {
           </button>
 
         </Link>
-        <div className="page-title">
+        
+          <h1  data-testid="page-title" className="page-title" >
           <Title>
             {checkLocation === '/bebidas' ? 'Bebidas' : 'Comidas'}
           </Title>
-        </div>
+          </h1>
+        
         <button
           className="header-icon"
           type="button"
