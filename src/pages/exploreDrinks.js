@@ -1,9 +1,22 @@
-import React, { } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import profileIcon from '../images/profileIcon.svg';
+import { getRandomDrink } from '../services/Api';
 
 function ExploreDrinks() {
+  const { push } = useHistory();
+  const [fetchDrink, setFetchDrink] = useState();
+
+  useEffect(() => {
+    async function randomDrink() {
+      const fetch = await getRandomDrink();
+      setFetchDrink(fetch[0]);
+    }
+    randomDrink();
+  }, []);
+  console.log(fetchDrink);
+
   return (
     <div>
       <header>
@@ -25,14 +38,13 @@ function ExploreDrinks() {
             Por Ingredientes
           </button>
         </Link>
-        <Link to="/AQUI VAI A API">
-          <button
-            data-testid="explore-surprise"
-            type="button"
-          >
-            Me Surpreenda!
-          </button>
-        </Link>
+        <button
+          data-testid="explore-surprise"
+          type="button"
+          onClick={ () => push(`/bebidas/${fetchDrink.idDrink}`) }
+        >
+          Me Surpreenda!
+        </button>
       </div>
       <Footer />
     </div>

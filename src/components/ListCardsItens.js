@@ -7,33 +7,33 @@ function ListCardsItens(cardsFoods) {
   const path = history.location.pathname;
   const titleArray = path.split('/');
   const pathPage = titleArray[2];
-  console.log(pathPage);
 
   const { data, setData } = useContext(RecipeContext);
   const MAX_ARRAY = 12;
   if (cardsFoods.length > MAX_ARRAY) cardsFoods.length = MAX_ARRAY;
 
   function foodCardsItens() {
-    return cardsFoods.map((item, index) => (
-      <Link
-        key={ item.idIngredient }
-        to="/comidas"
-        data-testid={ `${index}-ingredient-card` }
-        onClick={ () => setData({ ...data, ingredient: item.strIngredient }) }
-      >
-        <img
-          style={ { width: '30%' } }
-          src={ `https://www.themealdb.com/images/ingredients/${item.strIngredient}-Small.png` }
-          alt={ item.strIngredient }
-          data-testid={ `${index}-card-img` }
-        />
-        <h5
-          data-testid={ `${index}-card-name` }
+    return !Array.isArray(cardsFoods) ? []
+      : cardsFoods.map((item, index) => (
+        <Link
+          key={ item.idIngredient }
+          to="/comidas"
+          data-testid={ `${index}-ingredient-card` }
+          onClick={ () => setData({ ...data, ingredient: item.strIngredient }) }
         >
-          {item.strIngredient}
-        </h5>
-      </Link>
-    ));
+          <img
+            style={ { width: '30%' } }
+            src={ `https://www.themealdb.com/images/ingredients/${item.strIngredient}-Small.png` }
+            alt={ item.strIngredient }
+            data-testid={ `${index}-card-img` }
+          />
+          <h5
+            data-testid={ `${index}-card-name` }
+          >
+            {item.strIngredient}
+          </h5>
+        </Link>
+      ));
   }
 
   function drinkCardsItens() {

@@ -26,6 +26,10 @@ const endPointFoodByArea = 'https://www.themealdb.com/api/json/v1/1/list.php?a=l
 
 const endPoitFilterFoodByArea = 'https://www.themealdb.com/api/json/v1/1/filter.php?a=';
 
+const endPoitRandomFood = 'https://www.themealdb.com/api/json/v1/1/random.php';
+
+const endPoitRandomDrink = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+
 export const getFoodIngredients = async (ingredients) => {
   try {
     const { meals } = await fetch(`${endPointFoodIngredients}${ingredients}`)
@@ -179,6 +183,26 @@ export const getFilterFoodListByArea = async (area) => {
     const { meals } = await fetch(`${endPoitFilterFoodByArea}${area}`)
       .then((result) => result.json());
     return meals;
+  } catch (err) {
+    return 'erro';
+  }
+};
+
+export const getRandomFood = async () => {
+  try {
+    const { meals } = await fetch(`${endPoitRandomFood}`)
+      .then((result) => result.json());
+    return meals;
+  } catch (err) {
+    return 'erro';
+  }
+};
+
+export const getRandomDrink = async () => {
+  try {
+    const { drinks } = await fetch(`${endPoitRandomDrink}`)
+      .then((result) => result.json());
+    return drinks;
   } catch (err) {
     return 'erro';
   }
