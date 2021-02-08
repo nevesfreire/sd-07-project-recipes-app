@@ -79,8 +79,8 @@
 
 .start-recipe-btn-hidden {
   bottom: 0;
-  position: fixed;
   display: none;
+  position: fixed;
 }
 
 .progress-ingr-list {
