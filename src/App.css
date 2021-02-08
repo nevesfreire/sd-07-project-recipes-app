@@ -15,7 +15,7 @@ body {
   display: flex;
   justify-content: center;
   /* align-items: flex-end; */
-}
+
 .backLogImage {
   background-image: url('./images/PAODEQUEIJO.png');
   background-repeat: no-repeat;
@@ -28,6 +28,7 @@ body {
     display: flex;
     width: 100%;
     justify-content: center;
+}
  
 
 #iceLeft {
@@ -53,9 +54,6 @@ body {
   border-radius: 2rem;
 }
 
-  100% {
-    transform: rotate(-10deg);
-  }
 
 body {
   background-color: gray;
