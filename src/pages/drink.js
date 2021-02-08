@@ -10,6 +10,7 @@ import {
   filterDrinkCategory,
   getDrinkIngredients,
 } from '../services/Api';
+import ListCardsFoodCategory from '../components/ListCardsFoodCategory';
 
 function Drink() {
   const FIVE = 5;
@@ -20,7 +21,7 @@ function Drink() {
   const [renderCategory, setRenderCategory] = useState(false);
   const [categoryName, setCategoryName] = useState(undefined);
   const { showBtn, data, setData } = useContext(RecipeContext);
-  const [ListDrinkCategories, setListDrinkCategories] = useState([]);
+  const [listDrinkCategories, setListDrinkCategories] = useState([]);
 
   useEffect(() => {
     if (!data.drink) setData({ ...data, drink: [] });
@@ -66,16 +67,33 @@ function Drink() {
     return 'Loading...';
   };
 
-  const showListDrinksCategories = () => ListDrinkCategories.map((category) => (
-    <button
-      key={ category.strCategory }
-      type="button"
-      data-testid={ `${category.strCategory}-category-filter` }
-      onClick={ () => getFilterDrinkCategory(category.strCategory) }
-    >
-      {category.strCategory}
-    </button>
-  ));
+  const setsCategory = () => {
+    setRenderCategory(false);
+    setCategoryName(undefined);
+  };
+
+  const showListDrinkCategories = () => (
+    <div>
+      {
+        listDrinkCategories.map((item) => (
+          <button
+            type="button"
+            key={ item.strCategory }
+            data-testid={ `${item.strCategory}-category-filter` }
+            onClick={ () => getFilterDrinkCategory(item.strCategory) }
+          >
+            {item.strCategory}
+          </button>))
+      }
+      <button
+        type="button"
+        onClick={ () => setsCategory() }
+        data-testid="All-category-filter"
+      >
+        All
+      </button>
+    </div>
+  );
 
   const optionsRender = () => {
     if (renderCategory) {
@@ -96,7 +114,7 @@ function Drink() {
       <Header />
       { showBtn && <SearchHeaderBar /> }
 
-      {(arrayListDrink.length > ZERO) && showListDrinksCategories()}
+      {(arrayListDrink.length > ZERO) && showListDrinkCategories()}
 
       {optionsRender()}
 

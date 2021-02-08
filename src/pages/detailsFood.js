@@ -6,6 +6,7 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { getFoodId } from '../services/Api';
 import DrinkRecom from '../components/DrinkRecom';
+import './details.css';
 
 function DetailsFood() {
   const [dataFood, setDataFood] = useState([]);
@@ -66,7 +67,10 @@ function DetailsFood() {
       className="startRecipeBtn"
       type="button"
       data-testid="start-recipe-btn"
-      onClick={ () => push(`/comidas/${idPathName[2]}/in-progress`) }
+      onClick={ () => push({
+        pathname: `/comidas/${idPathName[2]}/in-progress`,
+        state: dataFood,
+      }) }
     >
       {start ? 'Continuar Receita' : 'Iniciar Receita'}
     </button>
