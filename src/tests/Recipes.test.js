@@ -7,6 +7,7 @@ import { Recipes } from '../pages';
 const mealsMock = require('./Mocks/meals');
 const beefMealsMock = require('./Mocks/beefMeals');
 const mealCategories = require('./Mocks/mealCategories');
+/* const oneMeal = require('./Mocks/oneMeal'); */
 
 const mockFetchMeals = Promise.resolve({
   json: () => Promise.resolve(mealsMock),
@@ -19,6 +20,10 @@ const mockFetchMealCategories = Promise.resolve({
 const mockFetchBeefMeals = Promise.resolve({
   json: () => Promise.resolve(beefMealsMock),
 });
+
+/* const mockFetchOneMeals = Promise.resolve({
+  json: () => Promise.resolve(oneMeal),
+}); */
 
 const DATA_TEST_ID_SEARCH_TOP = 'search-top-btn';
 const DATA_TEST_ID_SEARCH_INPUT = 'search-input';
@@ -127,6 +132,21 @@ describe('Teste se a página de receitas', () => {
     expect(recipeItem).toBeInTheDocument();
   });
 
+  /* it(`se ao pesquisar por nome e for apenas,
+    renderiza receitas com este ingrediente`, async () => {
+    const { history } = renderWithRedux(<Recipes type="comidas" />);
+    fireEvent.click(await screen.findByTestId(DATA_TEST_ID_SEARCH_TOP));
+    fireEvent.click(await screen.findByTestId(DATA_TEST_ID_SEARCH_INPUT), {
+      target: { value: 'Spicy Arrabiata Penne' },
+    });
+    fireEvent.click(await screen.findByTestId('name-search-radio'));
+    global.fetch.mockClear();
+    jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchOneMeals);
+    fireEvent.click(await screen.findByTestId(DATA_TEST_ID_EXEC_SEARCH));
+    const { location: { pathname } } = history;
+    expect(pathname).toBe('/comidas/52771');
+  }); */
+
   it('renderiza o componente Footer e seus elementos na tela', () => {
     const { getByTestId } = renderWithRedux(<Recipes type="comidas" />);
     const footer = getByTestId('footer');
@@ -145,6 +165,14 @@ describe('Teste se a página de receitas', () => {
     fireEvent.click(exploreButton);
     const { location: { pathname } } = history;
     expect(pathname).toBe('/explorar');
+  });
+
+  it('se ao clicar no ícone de bebidas, renderiza a página de bebidas', async () => {
+    const { getByTestId, history } = renderWithRedux(<Recipes type="comidas" />);
+    const drinkButton = getByTestId('drinks-bottom-btn');
+    fireEvent.click(drinkButton);
+    const { location: { pathname } } = history;
+    expect(pathname).toBe('/bebidas');
   });
 
   /* test('when clicked in about link should redirect to url "/about" ', () => {

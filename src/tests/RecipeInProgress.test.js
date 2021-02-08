@@ -5,14 +5,18 @@ import { RecipeInProgress } from '../pages';
 
 const mealMock = require('./Mocks/oneMeal');
 
-const mockFetchMeals = Promise.resolve({
-  json: () => Promise.resolve(mealMock),
-});
-
+const URL = 'comidas/52771';
+const PATH = '/comidas/:id';
+const ID = '52771';
+const DATA_TEST_ID_FINISH = 'finish-recipe-btn';
 const DATA_TEST_ID_PHOTO = 'recipe-photo';
 const DATA_TEST_ID_TITLE = 'recipe-title';
 const DATA_TEST_ID_CATEGORY = 'recipe-category';
 const DATA_TEST_ID_INSTRUCTIONS = 'instructions';
+
+const mockFetchMeals = Promise.resolve({
+  json: () => Promise.resolve(mealMock),
+});
 
 describe('Teste se a página de detalhes da receita', () => {
   beforeEach(() => {
@@ -25,7 +29,7 @@ describe('Teste se a página de detalhes da receita', () => {
   it('renderiza os detalhes da receita na tela', async () => {
     renderWithRedux(
       <RecipeInProgress
-        match={ { url: 'comidas/52212', path: '/comidas/:id', params: { id: '52212' } } }
+        match={ { url: URL, path: PATH, params: { id: ID } } }
       />,
     );
     const INITIAL_INDEX = 0;
@@ -49,12 +53,12 @@ describe('Teste se a página de detalhes da receita', () => {
     de favoritar e de iniciar receita`, async () => {
     renderWithRedux(
       <RecipeInProgress
-        match={ { url: 'comidas/52212', path: '/comidas/:id', params: { id: '52212' } } }
+        match={ { url: URL, path: PATH, params: { id: ID } } }
       />,
     );
     const shareButton = await screen.findByTestId('share-btn');
     const favoriteButton = await screen.findByTestId('favorite-btn');
-    const finishButton = await screen.findByTestId('finish-recipe-btn');
+    const finishButton = await screen.findByTestId(DATA_TEST_ID_FINISH);
     expect(shareButton).toBeInTheDocument();
     expect(favoriteButton).toBeInTheDocument();
     expect(finishButton).toBeInTheDocument();
@@ -64,16 +68,16 @@ describe('Teste se a página de detalhes da receita', () => {
     quando todos os ingredientes estão marcados`, async () => {
     renderWithRedux(
       <RecipeInProgress
-        match={ { url: 'comidas/52212', path: '/comidas/:id', params: { id: '52212' } } }
+        match={ { url: URL, path: PATH, params: { id: ID } } }
       />,
     );
-    const finishButtonDisabled = await screen.findByTestId('finish-recipe-btn');
+    const finishButtonDisabled = await screen.findByTestId(DATA_TEST_ID_FINISH);
     expect(finishButtonDisabled).toBeDisabled();
     const ingredientsList = await screen.findAllByRole('checkbox');
     ingredientsList.forEach((ingredient) => {
       fireEvent.click(ingredient);
     });
-    const finishButtonEnabled = await screen.findByTestId('finish-recipe-btn');
+    const finishButtonEnabled = await screen.findByTestId(DATA_TEST_ID_FINISH);
     expect(finishButtonEnabled).not.toBeDisabled();
   });
 
@@ -81,7 +85,7 @@ describe('Teste se a página de detalhes da receita', () => {
     a receita deve ser salva no localStorage`, async () => {
     renderWithRedux(
       <RecipeInProgress
-        match={ { url: 'comidas/52212', path: '/comidas/:id', params: { id: '52212' } } }
+        match={ { url: URL, path: PATH, params: { id: ID } } }
       />,
     );
     const favoriteButton = await screen.findByTestId('favorite-btn');

@@ -10,9 +10,9 @@ const mockFetchMeals = Promise.resolve({
   json: () => Promise.resolve(mealMock),
 });
 
-const URL = 'comidas/52212';
+const URL = 'comidas/52771';
 const PATH = '/comidas/:id';
-const ID = '52212';
+const ID = '52771';
 
 const DATA_TEST_ID_CARD = '0-recipe-card';
 const DATA_TEST_ID_PHOTO = 'recipe-photo';
@@ -83,5 +83,18 @@ describe('Teste se a página de detalhes da receita', () => {
     fireEvent.click(favoriteButton);
     const item = JSON.parse(localStorage.getItem('favoriteRecipes'));
     expect(item[0].id).toBe('52771');
+  });
+
+  it(`se ao clicar no botão de iniciar receita,
+    deve redirecionar para página de receita em progresso`, async () => {
+    const { history } = renderWithRedux(
+      <RecipeDetails
+        match={ { url: URL, path: PATH, params: { id: ID } } }
+      />,
+    );
+    const startButton = await screen.findByTestId('start-recipe-btn');
+    fireEvent.click(startButton);
+    const { pathname } = history.location;
+    expect(pathname).toBe('/comidas/52771/in-progress');
   });
 });

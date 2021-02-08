@@ -18,19 +18,17 @@ const renderWithRedux = (
   component, {
     initialState,
     store = createMockStore(initialState),
+    history = createMemoryHistory(),
   } = {},
-) => {
-  const history = createMemoryHistory();
-  return {
-    ...render(
-      <Router history={ history }>
-        <Provider store={ store }>
-          {component}
-        </Provider>
-      </Router>,
-    ),
-    history,
-    store,
-  };
-};
+) => ({
+  ...render(
+    <Router history={ history }>
+      <Provider store={ store }>
+        {component}
+      </Provider>
+    </Router>,
+  ),
+  history,
+  store,
+});
 export default renderWithRedux;
