@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import iconDrink from '../../images/drinkIcon.svg';
+import iconMeals from '../../images/mealIcon.svg';
+import iconSurprise from '../../images/explorersurprise.svg';
+import './style.css';
 
 const Explorer = () => {
   const history = useHistory();
@@ -29,13 +33,14 @@ const Explorer = () => {
   const redirect = () => {
     if (pathname === '/explorar/comidas') {
       return (
-        <div>
+        <div className="container-option">
           <Link
             to="/explorar/comidas/ingredientes"
             data-testid="explore-by-ingredient"
+            className="link"
           >
             <img
-              src="/"
+              src={ iconMeals }
               alt="Explorar por ingredientes"
             />
             Por Ingredientes
@@ -43,15 +48,17 @@ const Explorer = () => {
           <Link
             to="/explorar/comidas/area"
             data-testid="explore-by-area"
+            className="link"
           >
-            <img src="/" alt="Explorar por origem" />
+            <img src={ iconMeals } alt="Explorar por origem" />
             Por Local de Origem
           </Link>
           <Link
             to={ `/comidas/${sortedFood.idMeal}` }
             data-testid="explore-surprise"
+            className="link"
           >
-            <img src="/" alt="Me Surpreenda" />
+            <img src={ iconSurprise } alt="Me Surpreenda" />
             Me Surpreenda!
           </Link>
         </div>
@@ -59,19 +66,21 @@ const Explorer = () => {
     }
     if (pathname === '/explorar/bebidas') {
       return (
-        <div>
+        <div className="container-option">
           <Link
             to="/explorar/bebidas/ingredientes"
             data-testid="explore-by-ingredient"
+            className="link"
           >
-            <img src="/" alt="Explorar bebidas por ingredientes" />
+            <img src={ iconDrink } alt="Explorar bebidas por ingredientes" />
             Por Ingredientes
           </Link>
           <Link
             to={ `/bebidas/${sortedDrink.idDrink}` }
             data-testid="explore-surprise"
+            className="link"
           >
-            <img src="/" alt="Me surpreenda" />
+            <img src={ iconSurprise } alt="Me surpreenda" />
             Me Surpreenda!
           </Link>
         </div>

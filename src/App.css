@@ -287,6 +287,10 @@ body {
     margin: auto;
     width: 80%;
   }
+
+  .foodCard img {
+    width: 150px;
+  }
 }
 
 @media only screen and ( max-width : 1120px ) {
