@@ -1,5 +1,4 @@
 const initialFoods = {
-  dataFoods: [],
   foodCategories: [],
 };
 

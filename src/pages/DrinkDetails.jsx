@@ -6,7 +6,7 @@ import likeIcon from '../images/whiteHeartIcon.svg';
 import fullLikeIcon from '../images/blackHeartIcon.svg';
 import ShareButton from '../components/ShareButton';
 import ShowRecommended from '../components/RecommendedFoodOrDrinks';
-import './foodAndDrinkDetails.css';
+import './style/foodAndDrinkDetails.css';
 import {
   unLikeRecipe,
   setLikeImage,
@@ -121,7 +121,6 @@ export default function DrinkDetails(props) {
   );
 
   const fetchDrinks = async () => {
-    // const path = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=178319';
     const path = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
     const response = await fetch(path);
     // console.log(response)

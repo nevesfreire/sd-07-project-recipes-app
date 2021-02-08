@@ -40,7 +40,7 @@ describe('47 - Desenvolva a tela de maneira que contenha uma imagem da receita, 
     cy.get('[data-testid="instructions"]');
     cy.get('[data-testid="finish-recipe-btn"]');
   });
-});
+}); 
 
 describe('48 - Desenvolva um checkbox para cada item da lista de ingredientes', () => {
   it('todos os ingredientes de uma receita de comida possuem um checkbox', () => {

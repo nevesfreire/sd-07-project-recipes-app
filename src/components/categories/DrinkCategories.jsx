@@ -1,44 +1,65 @@
-import React, { useEffect, useContext, useCallback } from 'react';
-import Buttons from '../buttons';
+import React, { useEffect, useState, useCallback, useContext } from 'react';
 import GlobalContext from '../../context/GlobalContext';
 import Styles from './Styles';
+import { zero, five } from '../../services/numbers';
 
-const { BtnBar } = Styles;
+const { BtnBar, Btn } = Styles;
 
 export default function DrinkCategories() {
-  const numberOfCategories = 5;
-  const {
-    setDrinkCategories,
-    drinkCategories,
-  } = useContext(GlobalContext);
-
-  const fetchDrinkCategories = useCallback(() => {
-    fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list')
-      .then((response) => response.json())
-      .then(({ drinks }) => {
-        const filter = () => {
-          const filteredResponse = [];
-          if (drinks !== null) {
-            Object.entries(drinks).forEach((drink, index) => {
-              if (index < numberOfCategories) {
-                const { strCategory } = drink[1];
-                filteredResponse.push(strCategory);
-              }
-            });
-          }
-          return filteredResponse;
-        };
-        setDrinkCategories(filter());
-      }, []);
-  }, [setDrinkCategories]);
+  const { selectedTypeDrink } = useContext(GlobalContext);
+  const [toggle, setToggle] = useState({});
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    fetchDrinkCategories();
-  }, [fetchDrinkCategories]);
+    const newToggle = {};
+    for (let index = zero; index < categories.length; index += 1) {
+      newToggle[index] = false;
+    }
+    setToggle(newToggle);
+  }, [categories.length]);
+
+  const triggerToggle = (index) => {
+    const newToggle = toggle;
+    newToggle[index] = !toggle[index];
+    setToggle(newToggle);
+  };
+
+  const fnFetchCategories = useCallback(async () => {
+    const endpoint = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
+    const response = await endpoint.json();
+    const filtered = [];
+    Object.entries(response).forEach((category) => {
+      category[1].forEach(({ strCategory }, index) => {
+        if (index < five) filtered.push(strCategory);
+      });
+    });
+    filtered.push('All');
+    setCategories(filtered);
+  }, []);
+
+  useEffect(() => {
+    fnFetchCategories();
+  }, [fnFetchCategories]);
 
   return (
     <BtnBar>
-      {Buttons(numberOfCategories, drinkCategories)}
+      {categories.map((cat, index) => (
+        <Btn
+          toggle={ toggle[index] }
+          data-testid={ `${cat}-category-filter` }
+          key={ `${cat}-${index}-category-filter` }
+          id={ `${cat}` }
+          onClick={ ({ target }) => {
+            triggerToggle(index);
+            if (index !== five) {
+              selectedTypeDrink(!toggle[index] ? 'initial' : 'categories', target.id);
+            } else {
+              selectedTypeDrink('initial');
+            }
+          } }
+        >
+          {cat}
+        </Btn>))}
     </BtnBar>
   );
 }

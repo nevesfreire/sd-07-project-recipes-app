@@ -39,6 +39,10 @@
   text-align: center;
 }
 
+.recipe-in-progress-category {
+  margin-top: 10px;
+}
+
 .ingredients-list {
   font-family: cursive;
   font-size: 18px;

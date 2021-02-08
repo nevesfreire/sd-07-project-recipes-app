@@ -1,6 +1,31 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import GlobalContext from '../context/GlobalContext';
 
 function SearchHeader() {
+  const { pathname } = useLocation();
+  const [type, setType] = useState('nome');
+  const {
+    upSearchBar,
+    setUpSearchBar,
+    selectedTypeFood,
+    selectedTypeDrink,
+  } = useContext(
+    GlobalContext,
+  );
+
+  const handleClick = () => {
+    console.log(upSearchBar);
+    if (type === 'firstLetter' && upSearchBar.length > 1) {
+      return alert('Sua busca deve conter somente 1 (um) caracter');
+    }
+    if (pathname === '/comidas') {
+      return selectedTypeFood(type);
+    }
+    return selectedTypeDrink(type);
+  };
+  const handleChange = (e) => setType(e.target.value);
+
   return (
     <form>
       <div>
@@ -9,7 +34,8 @@ function SearchHeader() {
           placeholder="Buscar receita"
           type="text"
           data-testid="search-input"
-          // onChange={}
+          value={ upSearchBar }
+          onChange={ ({ target }) => setUpSearchBar(target.value) }
         />
       </div>
       <div>
@@ -20,10 +46,11 @@ function SearchHeader() {
             id="ingredients"
             type="radio"
             data-testid="ingredient-search-radio"
+            checked={ type === 'ingredients' }
+            onChange={ handleChange }
           />
-          Ingredientes
+          Ingrediente
         </label>
-
         <label htmlFor="name">
           <input
             name="input"
@@ -31,17 +58,20 @@ function SearchHeader() {
             id="name"
             type="radio"
             data-testid="name-search-radio"
+            checked={ type === 'name' }
+            onChange={ handleChange }
           />
           Nome
         </label>
-
-        <label htmlFor="first-letter">
+        <label htmlFor="firstLetter">
           <input
             name="input"
-            value="first-letter"
-            id="first-letter"
+            value="firstLetter"
+            id="firstLetter"
             type="radio"
             data-testid="first-letter-search-radio"
+            checked={ type === 'firstLetter' }
+            onChange={ handleChange }
           />
           Primeira letra
         </label>
@@ -50,6 +80,7 @@ function SearchHeader() {
         <button
           type="button"
           data-testid="exec-search-btn"
+          onClick={ handleClick }
         >
           Buscar
         </button>
@@ -57,5 +88,4 @@ function SearchHeader() {
     </form>
   );
 }
-
 export default SearchHeader;
