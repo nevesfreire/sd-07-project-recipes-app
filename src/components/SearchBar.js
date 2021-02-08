@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import '../styles/SearchBar.css';
 
 import {
   fetchMealsByFirstLetter,
@@ -103,7 +104,7 @@ function SearchBar(props) {
   }, [meals, cocktails, title]);
 
   return (
-    <div style={ { display: toggle ? 'inline' : 'none' } }>
+    <div className="search-container" style={ { display: toggle ? 'inline' : 'none' } }>
       {meals.length === 1 && (
         <Redirect
           to={ { pathname: `/comidas/${meals[0].idMeal}` } }
@@ -116,6 +117,7 @@ function SearchBar(props) {
       )}
       <label htmlFor="busca">
         <input
+          className="input-search"
           id="busca"
           name="word"
           value={ word }
@@ -124,8 +126,7 @@ function SearchBar(props) {
         />
       </label>
       <div>
-        <label htmlFor="ingredient">
-          Ingrediente
+        <label htmlFor="ingredient" className="label-search">
           <input
             id="ingredient"
             value={ INGREDIENT }
@@ -134,9 +135,9 @@ function SearchBar(props) {
             onChange={ (event) => setOptions(event.target.value) }
             data-testid="ingredient-search-radio"
           />
+          Ingrediente
         </label>
-        <label htmlFor="name">
-          Nome
+        <label htmlFor="name" className="label-search">
           <input
             id="name"
             value={ NAME }
@@ -145,9 +146,9 @@ function SearchBar(props) {
             onChange={ (event) => setOptions(event.target.value) }
             data-testid="name-search-radio"
           />
+          Nome
         </label>
-        <label htmlFor="first-letter">
-          Primeira letra
+        <label htmlFor="first-letter" className="label-search">
           <input
             id="first-letter"
             value={ FIRSTLETTER }
@@ -156,9 +157,11 @@ function SearchBar(props) {
             onChange={ (event) => setOptions(event.target.value) }
             data-testid="first-letter-search-radio"
           />
+          Primeira letra
         </label>
       </div>
       <button
+        className="button-search"
         type="button"
         data-testid="exec-search-btn"
         onClick={ handlerSubmit }
