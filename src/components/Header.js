@@ -54,8 +54,10 @@ function Header() {
     || title === 'Explorar Origem') {
     return (
       <header>
-        <button
-          type="button"
+        <div
+          role="button"
+          tabIndex={ 0 }
+          onKeyPress={ () => {} }
           onClick={ handleProfile }
         >
           <img
@@ -63,7 +65,7 @@ function Header() {
             src={ profileIcon }
             alt="profile-icon"
           />
-        </button>
+        </div>
         <h2 data-testid="page-title">{ title }</h2>
         <SearchIconButton />
       </header>
@@ -72,8 +74,10 @@ function Header() {
 
   return (
     <header>
-      <button
-        type="button"
+      <div
+        role="button"
+        tabIndex={ 0 }
+        onKeyPress={ () => {} }
         onClick={ handleProfile }
       >
         <img
@@ -81,7 +85,7 @@ function Header() {
           src={ profileIcon }
           alt="profile-icon"
         />
-      </button>
+      </div>
       <h2 data-testid="page-title">{ title }</h2>
     </header>
   );

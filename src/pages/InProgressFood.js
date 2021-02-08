@@ -7,9 +7,8 @@ import FavButton from '../components/DetailsComponents/FavButton';
 
 export default function InProgressFood() {
   const [usedIngr, setUsedIngr] = useState([]);
+
   const {
-    setDone,
-    done,
     recipe,
     setRecipe,
   } = useContext(RecipesContext);
@@ -42,8 +41,10 @@ export default function InProgressFood() {
     return true;
   };
 
+  const id = recipe.idMeal;
+  const dataProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
   useEffect(() => {
-    const dataProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (dataProgress) {
       localStorage.setItem('inProgressRecipes', JSON.stringify({ ...dataProgress }));
     } else {
@@ -52,31 +53,38 @@ export default function InProgressFood() {
         meals: {},
       }));
     }
-  }, []);
-
-  const data = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  }, [dataProgress]);
 
   const handleCheckbox = ({ target }) => {
-    const ids = data.meals;
-    const { name } = target;
-    const { checked } = target;
+    const { name, checked } = target;
+    const keys = dataProgress.meals;
     if (checked) {
-      setUsedIngr([...usedIngr, name]);
-
-      localStorage.setItem('inProgressRecipes', JSON.stringify({
-        ...data,
-        meals: {
-          ...ids,
-          [recipe.idMeal]: usedIngr,
-        },
-      }));
+      if (!usedIngr) {
+        setUsedIngr([name]);
+        localStorage.setItem('inProgressRecipes', JSON.stringify({
+          ...dataProgress,
+          meals: {
+            ...keys,
+            [id]: [name],
+          },
+        }));
+      } else {
+        setUsedIngr([...usedIngr, name]);
+        localStorage.setItem('inProgressRecipes', JSON.stringify({
+          ...dataProgress,
+          meals: {
+            ...keys,
+            [id]: [...usedIngr, name],
+          },
+        }));
+      }
     } else {
       setUsedIngr(usedIngr.filter((item) => item !== name));
       localStorage.setItem('inProgressRecipes', JSON.stringify({
-        ...data,
+        ...dataProgress,
         meals: {
-          ...ids,
-          [recipe.idMeal]: usedIngr.filter((item) => item !== name),
+          ...keys,
+          [id]: usedIngr.filter((item) => item !== name),
         },
       }));
     }
@@ -91,38 +99,23 @@ export default function InProgressFood() {
   };
 
   const handleFinishRecipeBtn = () => {
-    setDone([...done, recipe]);
     const dataDone = JSON.parse(localStorage.getItem('doneRecipes'));
-    if (dataDone) {
-      localStorage.setItem('doneRecipes', JSON.stringify([...dataDone, {
-        id: recipe.idMeal,
-        type: 'comida',
-        area: recipe.strArea,
-        category: recipe.strCategory,
-        alcoholicOrNot: '',
-        name: recipe.strMeal,
-        image: recipe.strMealThumb,
-        doneDate: getDate(),
-        tags: recipe.strTags.split(','),
-      }]));
-    } else {
-      localStorage.setItem('doneRecipes', JSON.stringify([{
-        id: recipe.idMeal,
-        type: 'comida',
-        area: recipe.strArea,
-        category: recipe.strCategory,
-        alcoholicOrNot: '',
-        name: recipe.strMeal,
-        image: recipe.strMealThumb,
-        doneDate: getDate(),
-        tags: recipe.strTags.split(','),
-      }]));
-    }
+    localStorage.setItem('doneRecipes', JSON.stringify(dataDone && [...dataDone, {
+      id: recipe.idMeal,
+      type: 'comida',
+      area: recipe.strArea,
+      category: recipe.strCategory,
+      alcoholicOrNot: '',
+      name: recipe.strMeal,
+      image: recipe.strMealThumb,
+      doneDate: getDate(),
+      tags: recipe.strTags.split(','),
+    }]));
     history.push('/receitas-feitas');
   };
 
   const isDisabled = () => {
-    if (usedIngr.length === listIngredients.length) return false;
+    if (usedIngr && usedIngr.length === listIngredients.length) return false;
     return true;
   };
 

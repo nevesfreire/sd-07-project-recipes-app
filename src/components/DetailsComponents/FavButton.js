@@ -31,19 +31,14 @@ function FavButton() {
 
   const handleFavBtn = () => {
     setFavorite(false);
-    if (path.includes('/comidas')) {
-      const newDataMeal = data.filter((item) => recipe.idMeal !== item.id);
-      localStorage.removeItem('favoriteRecipes', JSON.stringify(newDataMeal));
-    } else {
-      const newDataDrink = data.filter((item) => recipe.idDrink !== item.id);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(newDataDrink));
-    }
+    const newData = data.filter((item) => id !== item.id);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(newData));
   };
 
   const handleNotFavBtn = () => {
     setFavorite(true);
     if (path.includes('/comidas')) {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([...data, {
+      localStorage.setItem('favoriteRecipes', JSON.stringify(data && [...data, {
         id: recipe.idMeal,
         type: 'comida',
         area: recipe.strArea,
@@ -53,7 +48,7 @@ function FavButton() {
         image: recipe.strMealThumb,
       }]));
     } else {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([...data, {
+      localStorage.setItem('favoriteRecipes', JSON.stringify(data && [...data, {
         id: recipe.idDrink,
         type: 'bebida',
         area: '',

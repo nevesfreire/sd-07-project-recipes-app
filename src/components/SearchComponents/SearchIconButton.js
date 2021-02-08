@@ -16,8 +16,10 @@ function SearchButton() {
 
   return (
     <div>
-      <button
-        type="button"
+      <div
+        role="button"
+        tabIndex={ 0 }
+        onKeyPress={ () => {} }
         onClick={ handleSearchIcon }
       >
         <img
@@ -25,7 +27,7 @@ function SearchButton() {
           alt="search-icon"
           data-testid="search-top-btn"
         />
-      </button>
+      </div>
 
       { searching && <SearchBar /> }
     </div>

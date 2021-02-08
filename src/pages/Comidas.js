@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react';
-import { Card } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -77,7 +77,6 @@ export default function Comidas() {
             to={ `/comidas/${meal.idMeal}` }
           >
             <Card
-              key={ index }
               style={ { width: '18rem' } }
               data-testid={ `${index}-recipe-card` }
             >
@@ -104,36 +103,47 @@ export default function Comidas() {
   return (
     <div>
       <Header />
-      <button
+      <Button
         type="button"
         data-testid="All-category-filter"
         onClick={ () => getCards() }
+        variant="secondary"
       >
         All
-      </button>
+      </Button>
       {categories.map(({ strCategory: category }) => (
-        <button
+        <Button
           type="button"
           key={ category }
           id="unclicked"
           data-testid={ `${category}-category-filter` }
           value={ category }
           onClick={ (event) => filterByCategory(event) }
+          variant="secondary"
         >
           {category}
-        </button>
+        </Button>
       ))}
 
       {cards.map((card, index) => (
-        <Link key={ card.id } to={ `/comidas/${card.idMeal}` }>
-          <div data-testid={ `${index}-recipe-card` }>
-            <img
-              data-testid={ `${index}-card-img` }
+        <Link key={ index } to={ `/comidas/${card.idMeal}` }>
+          <Card
+            style={ { width: '18rem' } }
+            data-testid={ `${index}-recipe-card` }
+          >
+            <Card.Img
+              variant="top"
               src={ card.strMealThumb }
-              alt="Thumb Comida"
+              data-testid={ `${index}-card-img` }
             />
-            <h1 data-testid={ `${index}-card-name` }>{card.strMeal}</h1>
-          </div>
+            <Card.Body>
+              <Card.Title
+                data-testid={ `${index}-card-name` }
+              >
+                { card.strMeal }
+              </Card.Title>
+            </Card.Body>
+          </Card>
         </Link>
       ))}
       <Footer />

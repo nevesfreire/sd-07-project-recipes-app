@@ -9,14 +9,13 @@ export default function InProgressDrink() {
   const [usedIngr, setUsedIngr] = useState([]);
 
   const {
-    setDone,
-    done,
     recipe,
     setRecipe,
   } = useContext(RecipesContext);
 
   const history = useHistory();
   const path = history.location.pathname;
+  const dois = 2;
   const nove = 9;
   const catorze = 14;
   const quinze = 15;
@@ -56,31 +55,58 @@ export default function InProgressDrink() {
     }
   }, []);
 
-  const handleCheckbox = (e) => {
-    if (e.target.checked) {
-      setUsedIngr([...usedIngr, e.target.name]);
+  const data = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const handleCheckbox = ({ target }) => {
+    const id = recipe.idDrink;
+    const keys = data.cocktails;
+    const { name, checked } = target;
+    if (checked) {
+      setUsedIngr([...usedIngr, name]);
+      localStorage.setItem('inProgressRecipes', JSON.stringify({
+        ...data,
+        cocktails: {
+          ...keys,
+          [id]: [...usedIngr, name],
+        },
+      }));
     } else {
-      setUsedIngr(usedIngr.filter((item) => item !== e.target.name));
+      setUsedIngr(usedIngr.filter((item) => item !== name));
+      localStorage.setItem('inProgressRecipes', JSON.stringify({
+        ...data,
+        meals: {
+          ...keys,
+          [id]: usedIngr.filter((item) => item !== name),
+        },
+      }));
     }
+  };
 
-    const dataProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const dataDrinks = dataProgress.cocktails;
-    localStorage.setItem('inProgressRecipes', JSON.stringify({
-      ...dataProgress,
-      cocktails: {
-        ...dataDrinks,
-        [recipe.idDrink]: usedIngr,
-      },
-    }));
+  const getDate = () => {
+    const date = new Date();
+    const day = date.getDate().toString().padStart(dois, '0');
+    const month = (date.getMonth() + 1).toString().padStart(dois, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
   };
 
   const handleFinishRecipeBtn = () => {
-    setDone([...done, recipe]);
+    const dataDone = JSON.parse(localStorage.getItem('doneRecipes'));
+    localStorage.setItem('doneRecipes', JSON.stringify(dataDone && [...dataDone, {
+      id: recipe.idDrink,
+      type: 'bebida',
+      area: '',
+      category: recipe.strCategory,
+      alcoholicOrNot: recipe.strAlcoholic,
+      name: recipe.strDrink,
+      image: recipe.strDrinkThumb,
+      doneDate: getDate(),
+      tags: recipe.strTags.split(','),
+    }]));
     history.push('/receitas-feitas');
   };
 
   const isDisabled = () => {
-    if (usedIngr.length === listIngredients.length) return false;
+    if (usedIngr && usedIngr.length === listIngredients.length) return false;
     return true;
   };
 
