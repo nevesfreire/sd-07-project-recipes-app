@@ -1,12 +1,15 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
+import { Carousel } from 'antd';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import RecipesContext from '../context/RecipesContext';
-import { fetchAPI, handleIngredients,
-  TWO_THOUSAND, SIX } from '../services/helpers';
+import {
+  fetchAPI, handleIngredients,
+  TWO_THOUSAND, SIX,
+} from '../services/helpers';
 import '../style/recipeDetail.css';
 
 function FoodDetails() {
@@ -98,12 +101,14 @@ function FoodDetails() {
 
   return (
     <div>
-      <img
-        width="300"
-        data-testid="recipe-photo"
-        src={ recipeDetailFood.strMealThumb }
-        alt="food"
-      />
+      <div className="container-img">
+        <img
+          className="img-recipe"
+          data-testid="recipe-photo"
+          src={ recipeDetailFood.strMealThumb }
+          alt="food"
+        />
+      </div>
       <h2 data-testid="recipe-title">{recipeDetailFood.strMeal}</h2>
       <button type="button" onClick={ handleCopyClick }>
         <img data-testid="share-btn" src={ shareIcon } alt="share" />
@@ -117,11 +122,11 @@ function FoodDetails() {
         {handleIngredients(recipeDetailFood)}
       </ul>
       <p data-testid="instructions">{recipeDetailFood.strInstructions}</p>
-      <video data-testid="video" width="750" height="500" controls>
+      <video className="video" data-testid="video" width="750" height="500" controls>
         <source src={ recipeDetailFood.strYoutube } type="video/mp4" />
         <track src={ recipeDetailFood.strYoutube } kind="captions" />
       </video>
-      <div>
+      <Carousel>
         {
           recommendation && recommendation.length && recommendation
             .filter((_, indexFilter) => indexFilter < SIX)
@@ -129,27 +134,30 @@ function FoodDetails() {
               <div
                 data-testid={ `${index}-recomendation-card` }
                 key={ index }
+                className="container-recomend"
               >
+                <p
+                  data-testid={ `${index}-recomendation-title` }
+                >
+                  {drinks.strDrink}
+                </p>
                 <Link
                   onClick={ () => setDrinkRecipeId(drinks.idDrink) }
                   to={ `/bebidas/${drinks.idDrink}` }
+                  className="container-img"
                 >
                   <img
+                    className="img-recipe"
                     data-testid={ `${index}-card-img` }
                     width="300"
                     src={ drinks.strDrinkThumb }
                     alt={ drinks.strDrink }
                   />
                 </Link>
-                <p
-                  data-testid={ `${index}-recomendation-title` }
-                >
-                  {drinks.strDrink}
-                </p>
               </div>
             ))
         }
-      </div>
+      </Carousel>
       <Link to={ `/comidas/${mealRecipeId}/in-progress` }>
         <button
           className={ buttonClassName }

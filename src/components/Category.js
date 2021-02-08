@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
+import { Switch } from 'antd';
 import {
   getCategoryDrinks,
   getRecipesDrinksByCategory,
@@ -9,6 +10,7 @@ import {
   getRecipesFoodsByCategory,
 } from '../services/foodAPI';
 import RecipesContext from '../context/RecipesContext';
+import '../style/category.css';
 
 function Category() {
   const {
@@ -71,28 +73,31 @@ function Category() {
   };
 
   return (
-    <div>
+    <div className="container-category">
       {categorys.map((category) => {
         const name = category.strCategory;
         const dataTestId = `${name}-category-filter`;
         return (
-          <button
-            data-testid={ dataTestId }
-            type="button"
-            onClick={ () => handleFilter(name) }
-            key={ name }
-          >
+          <div key={ name }>
+
+            <Switch
+              data-testid={ dataTestId }
+              type="button"
+              onClick={ () => handleFilter(name) }
+            />
             {name}
-          </button>
+          </div>
         );
       })}
-      <button
-        data-testid="All-category-filter"
-        type="button"
-        onClick={ () => handleAll() }
-      >
+      <div>
+
+        <Switch
+          data-testid="All-category-filter"
+          type="button"
+          onClick={ () => handleAll() }
+        />
         All
-      </button>
+      </div>
     </div>
   );
 }

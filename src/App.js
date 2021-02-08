@@ -18,6 +18,7 @@ import FoodArea from './pages/FoodArea';
 import DrinkInProgress from './pages/DrinkInProgress';
 import FoodInProgress from './pages/FoodInProgress';
 import RecipesMade from './pages/RecipesMade';
+import 'antd/dist/antd.css';
 
 function App() {
   return (

@@ -1,20 +1,20 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Category from '../components/Category';
-import SearchInput from '../components/SearchInput';
 import RecipesContext from '../context/RecipesContext';
+import Loading from '../components/Loading';
 import { getCurrenceRecipesFoodsName } from '../services/foodAPI';
+import '../style/recipes.css';
 
 function FoodRecipes() {
+  const [isFetching, setIsFetching] = useState(true);
   const zero = 0;
   const Twelve = 12;
   const {
-    searchRender,
     recipesFilters,
     setMealRecipeId,
-    mealRecipeId,
     setRecipesFilters,
     btnFilter,
     setInitialRecipes,
@@ -27,6 +27,7 @@ function FoodRecipes() {
     getCurrenceRecipesFoodsName('').then((response) => {
       setRecipesFilters(response.meals);
       setInitialRecipes(response.meals);
+      setIsFetching(false);
     });
   }, [setRecipesFilters]);
 
@@ -38,10 +39,6 @@ function FoodRecipes() {
     const { idMeal } = recipesFilters[zero];
     setMealRecipeId(idMeal);
     return <Redirect to={ `/comidas/${idMeal}` } />;
-  }
-
-  if (mealRecipeId !== '') {
-    return <Redirect to={ `/comidas/${mealRecipeId}` } />;
   }
 
   const showDetails = (id) => {
@@ -56,32 +53,36 @@ function FoodRecipes() {
     <div>
       <Header />
       <Category />
-      {searchRender ? <SearchInput /> : null}
-      {filterRecipesTwelve.map((recipe, index) => (
-        <button
-          type="button"
-          onClick={ () => showDetails(recipe.idMeal) }
-          data-testid={ `${index}-recipe-card` }
-          key={ index }
-        >
-          <p data-testid={ `${index}-card-name` }>
-            Nome:
-            {recipe.strMeal}
-          </p>
+      <div className="recipes">
+        {isFetching ? <Loading /> : filterRecipesTwelve.map((recipe, index) => (
           <Link
+            type="button"
+            onClick={ () => showDetails(recipe.idMeal) }
+            data-testid={ `${index}-recipe-card` }
+            key={ index }
+            className="cards-recipes"
             to={ `/comidas/${recipe.idMeal}` }
-            onClick={ () => handleClick(recipe.idMeal) }
           >
-            <img
-              data-testid={ `${index}-card-img` }
-              width="163px"
-              alt="receitas"
-              src={ recipe.strMealThumb }
-            />
+            <p data-testid={ `${index}-card-name` }>
+
+              {recipe.strMeal}
+            </p>
+            <Link
+              to={ `/comidas/${recipe.idMeal}` }
+              onClick={ () => handleClick(recipe.idMeal) }
+            >
+              <img
+                data-testid={ `${index}-card-img` }
+                className="imgs-cards"
+                alt="receitas"
+                src={ recipe.strMealThumb }
+              />
+            </Link>
           </Link>
-        </button>
-      ))}
+        ))}
+      </div>
       <Footer />
+
     </div>
   );
 }
