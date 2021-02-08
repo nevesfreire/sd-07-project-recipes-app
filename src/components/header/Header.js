@@ -22,6 +22,7 @@ class Header extends React.Component {
     return (
       <div className="header-content">
         <button
+          className="header-button"
           type="button"
           data-testid="profile-top-btn"
           onClick={ this.redirectPerfil }
@@ -30,7 +31,7 @@ class Header extends React.Component {
           <img src={ profileIcon } alt="profile icon" />
         </button>
         <div data-testid="page-title">{title}</div>
-        <button type="button" onClick={ toggleSearchBar }>
+        <button type="button" onClick={ toggleSearchBar } className="header-button">
           <img
             data-testid="search-top-btn"
             src={ searchIcon }

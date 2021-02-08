@@ -19,10 +19,6 @@ function Footer() {
     history.push('/explorar');
   }
 
-  function redirectNovaReceita() {
-    history.push('/nova-receita');
-  }
-
   return (
     <div data-testid="footer" className="footer">
       <button
@@ -54,13 +50,6 @@ function Footer() {
       >
         <img src={ FoodImage } alt="food-img" />
         Comidas
-      </button>
-      <button
-        className="buttonFooter"
-        type="button"
-        onClick={ redirectNovaReceita }
-      >
-        Nova Receita
       </button>
     </div>
   );
