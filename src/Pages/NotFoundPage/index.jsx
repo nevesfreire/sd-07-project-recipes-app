@@ -7,6 +7,7 @@ function NotFound() {
     <div className="container">
       {/* <h1>Not Found</h1> */}
       <img src={ notFund } alt="Página não encontrada" className="notFound" />
+      <p>Not Found</p>
     </div>
   );
 }
