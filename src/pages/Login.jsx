@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import GlobalContext from '../context/GlobalContext';
+import './style/login.css';
 
 export default function Login(props) {
   const { history } = props;
@@ -61,10 +62,12 @@ export default function Login(props) {
   }
 
   return (
-    <div>
-      <form className="form">
+    <div className="login-container">
+      <img src="/images/logo.png" alt="logo do app Cozinhe Etc." className="login-logo" />
+      <form className="login-form">
         <input
           required
+          className="login-form-email"
           id="email"
           type="email"
           name="email"
@@ -73,27 +76,31 @@ export default function Login(props) {
           data-testid="email-input"
           onChange={ (event) => setEmail(event.target.value) }
         />
-        <input
-          required
-          id="password"
-          type="password"
-          placeholder="Digite sua senha"
-          value={ password }
-          data-testid="password-input"
-          onChange={ (event) => setPassword(event.target.value) }
-        />
-        <button
-          id="submit-btn"
-          type="submit"
-          data-testid="login-submit-btn"
-          disabled={ infoVerifier() }
-          onClick={ (event) => {
-            handleChange(event);
-            history.push('/comidas');
-          } }
-        >
-          Entrar
-        </button>
+        <div>
+          <input
+            required
+            className="login-form-pass"
+            id="password"
+            type="password"
+            placeholder="Digite sua senha"
+            value={ password }
+            data-testid="password-input"
+            onChange={ (event) => setPassword(event.target.value) }
+          />
+          <button
+            className="login-form-btn"
+            id="submit-btn"
+            type="submit"
+            data-testid="login-submit-btn"
+            disabled={ infoVerifier() }
+            onClick={ (event) => {
+              handleChange(event);
+              history.push('/comidas');
+            } }
+          >
+            Entrar
+          </button>
+        </div>
       </form>
     </div>
   );

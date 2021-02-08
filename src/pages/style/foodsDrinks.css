@@ -1,0 +1,6 @@
+.foods-drinks-container {
+  align-items: center;
+  background-color: rgba(223, 225, 230, 1);
+  display: flex;
+  flex-direction: column;
+}

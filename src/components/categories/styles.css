@@ -1,0 +1,26 @@
+.btn-bar {
+  align-items: center;
+  background-color: rgba(14, 116, 77, 1);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+  overflow: scroll;
+  width: 100vw;
+}
+
+.btn-bar-category {
+  background: white;
+  border: none;
+  border-radius: 2rem;
+  font-size: 1.2em;
+  height: 2rem;
+  margin: 0.3rem;
+  width: auto;
+}
+
+.btn-bar-category:focus {
+  background: rgba(226, 226, 226, 1);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.46);
+  outline: none;
+}

@@ -1,0 +1,22 @@
+.card-container {
+  align-items: center;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 3px rgba(178, 179, 182, 1);
+  display: flex;
+  margin: 0.2rem;
+  padding: 1rem;
+  width: 80vw;
+}
+
+.card-name {
+  display: flex;
+  font-size: 2em;
+  justify-content: center;
+  width: 100%;
+}
+
+.card-img {
+  border-radius: 1rem;
+  width: 40%;
+}

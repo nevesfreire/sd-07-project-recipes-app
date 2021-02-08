@@ -1,9 +1,7 @@
 import React, { useEffect, useState, useCallback, useContext } from 'react';
 import GlobalContext from '../../context/GlobalContext';
-import Styles from './Styles';
 import { zero, five } from '../../services/numbers';
-
-const { BtnBar, Btn } = Styles;
+import './styles.css';
 
 export default function DrinkCategories() {
   const { selectedTypeDrink } = useContext(GlobalContext);
@@ -42,10 +40,11 @@ export default function DrinkCategories() {
   }, [fnFetchCategories]);
 
   return (
-    <BtnBar>
+    <div className="btn-bar">
       {categories.map((cat, index) => (
-        <Btn
-          toggle={ toggle[index] }
+        <button
+          className="btn-bar-category"
+          type="button"
           data-testid={ `${cat}-category-filter` }
           key={ `${cat}-${index}-category-filter` }
           id={ `${cat}` }
@@ -59,7 +58,7 @@ export default function DrinkCategories() {
           } }
         >
           {cat}
-        </Btn>))}
-    </BtnBar>
+        </button>))}
+    </div>
   );
 }
