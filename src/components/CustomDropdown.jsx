@@ -19,7 +19,7 @@ class CustomDropdown extends Component {
     const { data } = this.props;
     return (
       <select
-        data-testid="btn-group explore-by-area-dropdown"
+        data-testid="explore-by-area-dropdown"
         onChange={ (e) => this.areaFromOrigin(e) }
         className="btn btn-danger"
       >
