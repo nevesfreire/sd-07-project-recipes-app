@@ -97,7 +97,6 @@ export default class CustomInProgressIngredients extends Component {
     const { recipeIsDone } = this.props;
     const { ingredientsList } = this.state;
     const isDone = ingredientsList.some((ingredient) => ingredient.isChecked !== true);
-    console.log(isDone);
     recipeIsDone(!isDone);
   }
 

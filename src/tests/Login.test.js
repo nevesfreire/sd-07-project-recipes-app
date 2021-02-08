@@ -53,8 +53,8 @@ describe('Teste se a página de login', () => {
     fireEvent.change(emailInput, { target: { value: EMAIL } });
     fireEvent.change(passwordInput, { target: { value: PASSWORD } });
     fireEvent.click(loginButton);
-    const item = localStorage.getItem('user');
-    expect(item).toContain('daniel_mld@hotmail.com');
+    const item = JSON.parse(localStorage.getItem('user'));
+    expect(item.email).toBe('daniel_mld@hotmail.com');
   });
 
   it('se redireciona a pessoa para a página de receitas', () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 /* import { MemoryRouter } from 'react-router-dom'; */
-import { screen } from '@testing-library/react';
+import { screen, fireEvent } from '@testing-library/react';
 import renderWithRedux from './helpers/renderWithRedux';
 import { RecipeDetails } from '../pages';
 
@@ -9,6 +9,10 @@ const mealMock = require('./Mocks/oneMeal');
 const mockFetchMeals = Promise.resolve({
   json: () => Promise.resolve(mealMock),
 });
+
+const URL = 'comidas/52212';
+const PATH = '/comidas/:id';
+const ID = '52212';
 
 const DATA_TEST_ID_CARD = '0-recipe-card';
 const DATA_TEST_ID_PHOTO = 'recipe-photo';
@@ -29,7 +33,7 @@ describe('Teste se a página de detalhes da receita', () => {
   it('renderiza os detalhes da receita na tela', async () => {
     renderWithRedux(
       <RecipeDetails
-        match={ { url: 'comidas/52212', path: '/comidas/:id', params: { id: '52212' } } }
+        match={ { url: URL, path: PATH, params: { id: ID } } }
       />,
     );
     const INITIAL_INDEX = 0;
@@ -57,7 +61,7 @@ describe('Teste se a página de detalhes da receita', () => {
     de favoritar e de iniciar receita`, async () => {
     renderWithRedux(
       <RecipeDetails
-        match={ { url: 'comidas/52212', path: '/comidas/:id', params: { id: '52212' } } }
+        match={ { url: URL, path: PATH, params: { id: ID } } }
       />,
     );
     const shareButton = await screen.findByTestId('share-btn');
@@ -66,5 +70,18 @@ describe('Teste se a página de detalhes da receita', () => {
     expect(shareButton).toBeInTheDocument();
     expect(favoriteButton).toBeInTheDocument();
     expect(startButton).toBeInTheDocument();
+  });
+
+  it(`se ao clicar no botão de favoritar,
+    a receita deve ser salva no localStorage`, async () => {
+    renderWithRedux(
+      <RecipeDetails
+        match={ { url: URL, path: PATH, params: { id: ID } } }
+      />,
+    );
+    const favoriteButton = await screen.findByTestId('favorite-btn');
+    fireEvent.click(favoriteButton);
+    const item = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    expect(item[0].id).toBe('52771');
   });
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import renderWithRedux from './helpers/renderWithRedux';
 import { RecipeInProgress } from '../pages';
 
@@ -58,5 +58,35 @@ describe('Teste se a página de detalhes da receita', () => {
     expect(shareButton).toBeInTheDocument();
     expect(favoriteButton).toBeInTheDocument();
     expect(finishButton).toBeInTheDocument();
+  });
+
+  it(`se o botão de finalizar receita só habilita
+    quando todos os ingredientes estão marcados`, async () => {
+    renderWithRedux(
+      <RecipeInProgress
+        match={ { url: 'comidas/52212', path: '/comidas/:id', params: { id: '52212' } } }
+      />,
+    );
+    const finishButtonDisabled = await screen.findByTestId('finish-recipe-btn');
+    expect(finishButtonDisabled).toBeDisabled();
+    const ingredientsList = await screen.findAllByRole('checkbox');
+    ingredientsList.forEach((ingredient) => {
+      fireEvent.click(ingredient);
+    });
+    const finishButtonEnabled = await screen.findByTestId('finish-recipe-btn');
+    expect(finishButtonEnabled).not.toBeDisabled();
+  });
+
+  it(`se ao clicar no botão de favoritar,
+    a receita deve ser salva no localStorage`, async () => {
+    renderWithRedux(
+      <RecipeInProgress
+        match={ { url: 'comidas/52212', path: '/comidas/:id', params: { id: '52212' } } }
+      />,
+    );
+    const favoriteButton = await screen.findByTestId('favorite-btn');
+    fireEvent.click(favoriteButton);
+    const item = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    expect(item[0].id).toBe('52771');
   });
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-/* import { MemoryRouter } from 'react-router-dom'; */
+/* import { MemoryRouter, history } from 'react-router-dom'; */
 import { fireEvent, screen } from '@testing-library/react';
 import renderWithRedux from './helpers/renderWithRedux';
 import { Recipes } from '../pages';
