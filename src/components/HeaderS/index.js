@@ -72,9 +72,11 @@ class HeaderS extends React.Component {
     return (
       <div>
         <Navbar
-          bg="primary"
-          variant="dark"
-          style={ { display: 'flex', backgroundColor: 'white' } }
+          style={ {
+            display: 'flex',
+            backgroundColor: '#5271FA',
+            'justify-content': 'space-between',
+          } }
         >
           {this.renderProfileIcon()}
           <h3 data-testid="page-title">{title}</h3>

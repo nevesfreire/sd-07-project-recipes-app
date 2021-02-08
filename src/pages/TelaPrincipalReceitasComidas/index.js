@@ -51,7 +51,7 @@ class TelaPrincipalReceitasComidas extends Component {
     }
 
     return (
-      <div className="row">
+      <div className="row" style={ { margin: '8px' } }>
         {meals.map((item, index) => {
           const twelve = 12;
           if (index < twelve) {
@@ -62,6 +62,7 @@ class TelaPrincipalReceitasComidas extends Component {
                 key={ item.strMeals }
                 onClick={ () => this.handlePagerediRection(item) }
                 onKeyDown={ () => this.handlePagerediRection(item) }
+                style={ { 'margin-top': '16px' } }
                 role="button"
                 tabIndex={ 0 }
               >

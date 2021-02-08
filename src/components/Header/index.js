@@ -7,8 +7,10 @@ class Header extends React.Component {
   render() {
     const { title } = this.props;
     return (
-      <Navbar bg="primary" variant="dark">
-        <Navbar.Brand href="/perfil">
+      <Navbar bg="light">
+        <Navbar.Brand
+          href="/perfil"
+        >
           <img
             data-testid="profile-top-btn"
             src={ profileIcon }
