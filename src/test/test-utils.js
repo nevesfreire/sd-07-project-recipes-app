@@ -12,10 +12,12 @@ function render(
   {
     initialState,
     store1 = reducer,
+    route = '/',
     ...renderOptions
   } = {},
 ) {
   function Wrapper({ children }) {
+    window.history.pushState({}, 'Test page', route);
     const providerChildren = <Provider store={ store1 }>{ children }</Provider>;
     return providerChildren;
   }
