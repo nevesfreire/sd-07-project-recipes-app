@@ -28,22 +28,30 @@ const Bebidas = () => {
       <div>
         <Header />
         <CategoryPanel categoryType="drinks" categoryList={ drinksCategories } />
-        {filteredDrinks.drinks.slice(zero, doze).map((e, i) => (
-          <div
-            className="drinkContainer"
-            key={ e.idDrink }
-            data-testid={ `${i}-card-name` }
-          >
-            <img data-testid={ `${i}-card-img` } src={ e.strDrinkThumb } alt="drink" />
-            <h1>
-              <NavigationButton
-                testId={ `${i}-recipe-card` }
-                goToDetails={ goToDetails }
-                itemName={ e.strDrink }
-                idMeal={ e.idDrink }
-              />
-            </h1>
-          </div>))}
+        <div className="containerSize">
+          {filteredDrinks.drinks.slice(zero, doze).map((e, i) => (
+            <div className="recipeBox" key={ e.idMeal }>
+              <div
+                className="drinkContainer"
+                key={ e.idDrink }
+                data-testid={ `${i}-card-name` }
+              >
+                <img
+                  data-testid={ `${i}-card-img` }
+                  src={ e.strDrinkThumb }
+                  alt="drink"
+                />
+                <h1>
+                  <NavigationButton
+                    testId={ `${i}-recipe-card` }
+                    goToDetails={ goToDetails }
+                    itemName={ e.strDrink }
+                    idMeal={ e.idDrink }
+                  />
+                </h1>
+              </div>
+            </div>))}
+        </div>
         <BottomBar />
       </div>
     );

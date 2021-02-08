@@ -8,9 +8,9 @@ import shareIcon from '../../../../images/shareIcon.svg';
 import './styles.css';
 
 function DoneRecipesCard() {
-  const { saveDoneRecipes, filteredDoneRecipes } = useContext(AppContext);
   const history = useHistory();
   const [copyLink, setCopyLink] = useState(false);
+  const { saveDoneRecipes, filteredDoneRecipes } = useContext(AppContext);
 
   const copiedLink = (type, id) => {
     copy(`http://localhost:3000/${type}s/${id}`)

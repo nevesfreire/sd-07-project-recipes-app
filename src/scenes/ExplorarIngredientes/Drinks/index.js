@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../../../common/Header';
-import BottowBar from '../../../common/BottomBar';
 import { getDrinkIngredients } from '../../../services/API';
 import { AppContext } from '../../../context/AppContext';
+import BottonBar from '../../../common/BottomBar';
 
 function ExploreDrinkIngredients() {
   const fullLength = 12;
@@ -52,7 +52,7 @@ function ExploreDrinkIngredients() {
             </div>
           </button>
         ))}
-      <BottowBar />
+      <BottonBar />
     </div>
   );
 }

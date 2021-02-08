@@ -63,7 +63,7 @@ const ReceitaEmProgresso = () => {
 
   if (!isloading) {
     return (
-      <>
+      <div>
         <img
           data-testid="recipe-photo"
           src={
@@ -108,7 +108,7 @@ const ReceitaEmProgresso = () => {
         >
           Finalizar
         </button>
-      </>
+      </div>
     );
   }
   return <h1>carregando...</h1>;

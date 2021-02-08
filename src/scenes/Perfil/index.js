@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-
+import BottonBar from '../../common/BottomBar';
 import Header from '../../common/Header';
 
 const Perfil = () => {
@@ -40,6 +40,7 @@ const Perfil = () => {
       >
         Sair
       </button>
+      <BottonBar />
     </div>
   );
 };
