@@ -11,7 +11,6 @@ import ReceitasFeitas from './pages/receitas/ReceitasFeitas';
 import Perfil from './pages/Perfil';
 import Explorar from './pages/Explorar';
 import store from './redux/store';
-import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ProgressoComida from './pages/comidas/ProgressoComida';
 import ProgressoBebidas from './pages/bebidas/ProgressoBebidas';
@@ -21,6 +20,7 @@ import ExplorarComidas from './pages/comidas/ExplorarComidas';
 import BebidasExplorar from './pages/bebidas/BebidasExplorar';
 import ExplorarComidasOrigem from './pages/comidas/ExplorarComidasOrigem';
 import NotFound from './pages/bebidas/NotFound';
+import './App.css';
 
 function App() {
   return (
