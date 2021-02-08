@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import {
   NINE,
   TWENTY_ONE,
@@ -42,29 +43,7 @@ const handleChecked = (recipe, index) => {
     : null;
 };
 
-const handleIngredientsInProgress = (recipe, initial, middle, end) => {
-  const ingredients = Object.values(recipe).slice(initial, middle);
-  const measures = Object.values(recipe).slice(middle, end);
-  return ingredients
-    .filter((recipes) => recipes !== null && recipes !== '')
-    .map((ingredient, index) => (
-      <div data-testid={ `${index}-ingredient-step` } key={ `${index}-ingredient` }>
-        <input
-          onChange={ (e) => toggleCheckboxChange(e, recipe, index) }
-          type="checkbox"
-          id={ `${index}-ingredient` }
-          checked={ handleChecked(recipe, index) }
-        />
-        {' '}
-        <label htmlFor={ `${index}-ingredient` } key={ index }>
-          {`${ingredient} - ${measures[index]}`}
-          {' '}
-        </label>
-      </div>
-    ));
-};
-
-function CheckBoxProgress() {
+function CheckBoxProgress(props) {
   const { recipeDetailDrink, recipeDetailFood } = useContext(RecipesContext);
 
   useEffect(() => {
@@ -79,6 +58,34 @@ function CheckBoxProgress() {
       localStorage.setItem('inProgressRecipes', JSON.stringify(startProgress));
     }
   }, []);
+
+  const handleIngredientsInProgress = (recipe, initial, middle, end) => {
+    const ingredients = Object.values(recipe).slice(initial, middle);
+    const measures = Object.values(recipe).slice(middle, end);
+    return ingredients
+      .filter((recipes) => recipes !== null && recipes !== '')
+      .map((ingredient, index) => (
+        <div
+          data-testid={ `${index}-ingredient-step` }
+          key={ `${index}-ingredient` }
+        >
+          <input
+            onChange={ (e) => {
+              toggleCheckboxChange(e, recipe, index);
+              props.handleButtonDone();
+            } }
+            type="checkbox"
+            id={ `${index}-ingredient` }
+            checked={ handleChecked(recipe, index) }
+          />
+          {' '}
+          <label htmlFor={ `${index}-ingredient` } key={ index }>
+            {`${ingredient} - ${measures[index]}`}
+            {' '}
+          </label>
+        </div>
+      ));
+  };
 
   return (
     <div>
@@ -98,5 +105,9 @@ function CheckBoxProgress() {
     </div>
   );
 }
+
+CheckBoxProgress.propTypes = {
+  handleButtonDone: PropTypes.func.isRequired,
+};
 
 export default CheckBoxProgress;
