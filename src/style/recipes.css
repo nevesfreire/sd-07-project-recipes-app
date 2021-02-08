@@ -1,28 +1,29 @@
 .recipes {
-    display: flex;
-    flex-wrap:wrap;
-    padding: 3px;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 3px;
 }
 
 .cards-recipes {
-    padding: 3px;
-    text-decoration: none;
-    color:black;
-    text-align: center;
-    width: 163px;
-    
+  color: black;
+  margin: 5px;
+  padding: 3px;
+  text-align: center;
+  text-decoration: none;
+  width: 163px;
 }
 
 .imgs-cards {
-    width: 163px;
+  border-radius: 30px;
+  width: 163px;
 }
 
-.input-search{
-    width: 200px;
-    border-color: #1890ff;
-    border-radius: 20px;
+.input-search {
+  border-color: #1890ff;
+  border-radius: 20px;
+  width: 200px;
 }
 
-
-
-
+body {
+  background: linear-gradient(to right, #c97f3e, #a36d3e);
+}

@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import RecipesContext from '../context/RecipesContext';
 import '../style/recipes.css';
 
-
 function SearchInput() {
   const { setSearchInput } = useContext(RecipesContext);
   const handlerChange = ({ target }) => {

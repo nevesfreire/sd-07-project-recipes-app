@@ -1,13 +1,12 @@
 import React, { useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { Button, Typography } from 'antd';
 import perfilIcon from '../images/profileIcon.svg';
 import search from '../images/searchIcon.svg';
 import RecipesContext from '../context/RecipesContext';
 import requestApi from '../services/functions';
 import SearchInput from './SearchInput';
 import '../style/header.css';
-import { Button, Typography , Input } from 'antd';
-
 
 function Header() {
   const { setSearchRender,
@@ -44,7 +43,7 @@ function Header() {
           <button className="header-icon" type="button">
             <img
               data-testid="profile-top-btn"
-              src={perfilIcon}
+              src={ perfilIcon }
               alt="perfil"
             />
           </button>
@@ -58,11 +57,11 @@ function Header() {
         <button
           className="header-icon"
           type="button"
-          onClick={() => stateSearchInput(searchRender)}
+          onClick={ () => stateSearchInput(searchRender) }
         >
           <img
             data-testid="search-top-btn"
-            src={search}
+            src={ search }
             alt="busca"
           />
         </button>
@@ -70,7 +69,7 @@ function Header() {
       <div className="inputs-checkbox">
         <label className="inputs-select" htmlFor="ingredient">
           <input
-            onClick={handlerChange}
+            onClick={ handlerChange }
             value="ingredients-input"
             data-testid="ingredient-search-radio"
             name="search"
@@ -81,7 +80,7 @@ function Header() {
         </label>
         <label className="inputs-select" htmlFor="name">
           <input
-            onClick={handlerChange}
+            onClick={ handlerChange }
             value="name-input"
             data-testid="name-search-radio"
             name="search"
@@ -92,7 +91,7 @@ function Header() {
         </label>
         <label className="inputs-select" htmlFor="first">
           <input
-            onClick={handlerChange}
+            onClick={ handlerChange }
             value="first-letter-input"
             data-testid="first-letter-search-radio"
             name="search"
@@ -102,12 +101,12 @@ function Header() {
           Primeira Letra
         </label>
       </div>
-      <div className="input-conteiner" >
+      <div className="input-conteiner">
         <Button
           type="primary"
-          onClick={() => searchButton(filterSearch,
+          onClick={ () => searchButton(filterSearch,
             searchInput,
-            setRecipesFilters)}
+            setRecipesFilters) }
           data-testid="exec-search-btn"
 
         >

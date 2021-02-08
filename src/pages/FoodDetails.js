@@ -1,14 +1,16 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
+import { Carousel } from 'antd';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import RecipesContext from '../context/RecipesContext';
-import { fetchAPI, handleIngredients,
-  TWO_THOUSAND, SIX } from '../services/helpers';
+import {
+  fetchAPI, handleIngredients,
+  TWO_THOUSAND, SIX,
+} from '../services/helpers';
 import '../style/recipeDetail.css';
-import { Carousel } from 'antd';
 
 function FoodDetails() {
   const [recipeDetailFood, setRecipeDetailFood] = useState({});
@@ -99,13 +101,20 @@ function FoodDetails() {
 
   return (
     <div>
-      <img className="img-recipe" data-testid="recipe-photo" src={ recipeDetailFood.strMealThumb } alt="food" />
+      <div className="container-img">
+        <img
+          className="img-recipe"
+          data-testid="recipe-photo"
+          src={ recipeDetailFood.strMealThumb }
+          alt="food"
+        />
+      </div>
       <h2 data-testid="recipe-title">{recipeDetailFood.strMeal}</h2>
       <button type="button" onClick={ handleCopyClick }>
         <img data-testid="share-btn" src={ shareIcon } alt="share" />
       </button>
       <button type="button" onClick={ handleFavoriteClick }>
-        <img  data-testid="favorite-btn" src={ favorited } alt="favorite" />
+        <img data-testid="favorite-btn" src={ favorited } alt="favorite" />
       </button>
       <p>{copyText}</p>
       <p data-testid="recipe-category">{recipeDetailFood.strCategory}</p>
@@ -125,23 +134,26 @@ function FoodDetails() {
               <div
                 data-testid={ `${index}-recomendation-card` }
                 key={ index }
+                className="container-recomend"
               >
-                <Link
-                  onClick={ () => setDrinkRecipeId(drinks.idDrink) }
-                  to={ `/bebidas/${drinks.idDrink}` }
-                >
-                  <img
-                    className="img-recipe"
-                    data-testid={ `${index}-card-img` }
-                    src={ drinks.strDrinkThumb }
-                    alt={ drinks.strDrink }
-                  />
-                </Link>
                 <p
                   data-testid={ `${index}-recomendation-title` }
                 >
                   {drinks.strDrink}
                 </p>
+                <Link
+                  onClick={ () => setDrinkRecipeId(drinks.idDrink) }
+                  to={ `/bebidas/${drinks.idDrink}` }
+                  className="container-img"
+                >
+                  <img
+                    className="img-recipe"
+                    data-testid={ `${index}-card-img` }
+                    width="300"
+                    src={ drinks.strDrinkThumb }
+                    alt={ drinks.strDrink }
+                  />
+                </Link>
               </div>
             ))
         }

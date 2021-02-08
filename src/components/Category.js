@@ -79,7 +79,7 @@ function Category() {
         const dataTestId = `${name}-category-filter`;
         return (
           <div key={ name }>
-            
+
             <Switch
               data-testid={ dataTestId }
               type="button"
@@ -90,7 +90,7 @@ function Category() {
         );
       })}
       <div>
-        
+
         <Switch
           data-testid="All-category-filter"
           type="button"

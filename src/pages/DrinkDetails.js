@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
+import { Carousel } from 'antd';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -98,12 +99,14 @@ function DrinkDetails() {
 
   return (
     <div>
-      <img
-        data-testid="recipe-photo"
-        width="500"
-        src={ recipeDetailDrink.strDrinkThumb }
-        alt="drink"
-      />
+      <div className="container-img">
+        <img
+          data-testid="recipe-photo"
+          className="img-recipe"
+          src={ recipeDetailDrink.strDrinkThumb }
+          alt="drink"
+        />
+      </div>
       <h2 data-testid="recipe-title">{recipeDetailDrink.strDrink}</h2>
       <button type="button" onClick={ handleCopyClick }>
         <img data-testid="share-btn" src={ shareIcon } alt="share" />
@@ -117,7 +120,7 @@ function DrinkDetails() {
         {handleIngredients(recipeDetailDrink)}
       </ul>
       <p data-testid="instructions">{recipeDetailDrink.strInstructions}</p>
-      <div>
+      <Carousel>
         {
           recommendation && recommendation.length && recommendation
             .filter((_, indexs) => indexs < SIX)
@@ -126,26 +129,27 @@ function DrinkDetails() {
                 data-testid={ `${index}-recomendation-card` }
                 key="index"
               >
-                <Link
-                  onClick={ () => setMealRecipeId(meals.idMeal) }
-                  to={ `/comidas/${meals.idMeal}` }
-                >
-                  <img
-                    width="200"
-                    data-testid={ `${index}-card-img` }
-                    src={ meals.strMealThumb }
-                    alt={ meals.strMeal }
-                  />
-                </Link>
                 <p
                   data-testid={ `${index}-recomendation-title` }
                 >
                   {meals.strMeal}
                 </p>
+                <Link
+                  onClick={ () => setMealRecipeId(meals.idMeal) }
+                  to={ `/comidas/${meals.idMeal}` }
+                  className="container-img"
+                >
+                  <img
+                    className="img-recipe"
+                    data-testid={ `${index}-card-img` }
+                    src={ meals.strMealThumb }
+                    alt={ meals.strMeal }
+                  />
+                </Link>
               </div>
             ))
         }
-      </div>
+      </Carousel>
       <Link to={ `/bebidas/${drinkRecipeId}/in-progress` }>
         <button
           className={ buttonClassName }
