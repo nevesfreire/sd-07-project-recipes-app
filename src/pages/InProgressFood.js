@@ -7,7 +7,6 @@ import FavButton from '../components/DetailsComponents/FavButton';
 
 export default function InProgressFood() {
   const [usedIngr, setUsedIngr] = useState([]);
-
   const {
     setDone,
     done,
@@ -54,27 +53,29 @@ export default function InProgressFood() {
     }
   }, []);
 
-  const handleCheckbox = (e) => {
-    if (e.target.checked) {
-      setUsedIngr([...usedIngr, e.target.name]);
-      const dataProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      const dataMeals = dataProgress.meals;
+  const data = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+  const handleCheckbox = ({ target }) => {
+    const ids = data.meals;
+    const { name } = target;
+    const { checked } = target;
+    if (checked) {
+      setUsedIngr([...usedIngr, name]);
+
       localStorage.setItem('inProgressRecipes', JSON.stringify({
-        ...dataProgress,
+        ...data,
         meals: {
-          ...dataMeals,
-          [recipe.idMeal]: [...usedIngr, e.target.name],
+          ...ids,
+          [recipe.idMeal]: usedIngr,
         },
       }));
     } else {
-      setUsedIngr(usedIngr.filter((item) => item !== e.target.name));
-      const dataProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      const dataMeals = dataProgress.meals;
+      setUsedIngr(usedIngr.filter((item) => item !== name));
       localStorage.setItem('inProgressRecipes', JSON.stringify({
-        ...dataProgress,
+        ...data,
         meals: {
-          ...dataMeals,
-          [recipe.idMeal]: usedIngr.filter((item) => item !== e.target.name),
+          ...ids,
+          [recipe.idMeal]: usedIngr.filter((item) => item !== name),
         },
       }));
     }

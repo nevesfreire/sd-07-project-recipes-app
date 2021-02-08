@@ -19,6 +19,7 @@ function ShareButton() {
       copy(`http://localhost:3000${path}`);
     } else if (path.length === vinteSeis) {
       const newPath = path.substring(zero, catorze);
+      console.log(newPath);
       copy(`http://localhost:3000${newPath}`);
     } else {
       const newPath = path.substring(zero, quinze);

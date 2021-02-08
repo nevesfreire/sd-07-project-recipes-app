@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 
-import { Button, Carousel } from 'react-bootstrap';
+import { Carousel } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
-import FavButton from '../components/DetailsComponents/FavButton';
 import ShareButton from '../components/DetailsComponents/ShareButton';
+import FavButton from '../components/DetailsComponents/FavButton';
+import StartButton from '../components/DetailsComponents/StartButton';
 
 export default function FoodDetails() {
   const [recomendations, setRecomendations] = useState([]);
@@ -12,6 +13,8 @@ export default function FoodDetails() {
   const {
     recipe,
     setRecipe,
+    // favorited,
+    // setFavorited,
   } = useContext(RecipesContext);
 
   const history = useHistory();
@@ -49,6 +52,31 @@ export default function FoodDetails() {
     return true;
   };
 
+  // const isFavorite = () => {
+  //   if (!favorited.includes(recipe.idMeal)) {
+  //     setFavorited([recipe.idMeal, ...favorited]);
+  //     const dataMeal = JSON.parse(localStorage.getItem('favoriteRecipes'))
+  //       ? JSON.parse(localStorage.getItem('favoriteRecipes'))
+  //       : [];
+  //     localStorage.setItem('favoriteRecipes', JSON.stringify([...dataMeal, {
+  //       id: recipe.idMeal,
+  //       type: 'comida',
+  //       area: recipe.strArea,
+  //       category: recipe.strCategory,
+  //       alcoholicOrNot: '',
+  //       name: recipe.strMeal,
+  //       image: recipe.strMealThumb,
+  //     }]));
+  //   } else {
+  //     setFavorited(favorited.filter((item) => recipe.idMeal !== item));
+  //     const dataMeal = JSON.parse(localStorage.getItem('favoriteRecipes'))
+  //       ? JSON.parse(localStorage.getItem('favoriteRecipes'))
+  //       : [];
+  //     const newDataMeal = dataMeal.filter((item) => recipe.idMeal !== item.id);
+  //     localStorage.setItem('favoriteRecipes', JSON.stringify(newDataMeal));
+  //   }
+  // };
+
   useEffect(() => {
     getRecomendations();
   }, []);
@@ -65,10 +93,6 @@ export default function FoodDetails() {
     } else { localStorage.setItem('doneRecipes', JSON.stringify([])); }
     localStorage.setItem('doneRecipes', JSON.stringify([]));
   }, []);
-
-  const handleStartRecipeBtn = () => {
-    history.push(`/comidas/${recipe.idMeal}/in-progress`);
-  };
 
   return (
     <div>
@@ -99,7 +123,6 @@ export default function FoodDetails() {
       <span data-testid="instructions">{recipe.strInstructions}</span>
 
       <ShareButton />
-
       <FavButton />
 
       <h3>Video</h3>
@@ -141,16 +164,8 @@ export default function FoodDetails() {
         ))}
       </Carousel>
 
-      <Button
-        variant="success"
-        data-testid="start-recipe-btn"
-        className="startRecipeBtn"
-        onClick={ handleStartRecipeBtn }
-      >
-        Iniciar Receita
-      </Button>
+      <StartButton />
 
     </div>
-
   );
 }

@@ -72,9 +72,15 @@
   position: fixed;
 }
 
-.startRecipeBtn {
+.start-recipe-btn-visible {
   bottom: 0;
   position: fixed;
+}
+
+.start-recipe-btn-hidden {
+  bottom: 0;
+  position: fixed;
+  display: none;
 }
 
 .progress-ingr-list {

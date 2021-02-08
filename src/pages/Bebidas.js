@@ -54,7 +54,7 @@ export default function Bebidas() {
   useEffect(() => {
     getCards();
     getCategories();
-  }, []);
+  }, [getCards, getCategories]);
 
   const zero = 0;
 

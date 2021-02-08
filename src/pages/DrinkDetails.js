@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Carousel } from 'react-bootstrap';
+import { Carousel } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import FavButton from '../components/DetailsComponents/FavButton';
 import ShareButton from '../components/DetailsComponents/ShareButton';
+import StartButton from '../components/DetailsComponents/StartButton';
 
 export default function DrinkDetails() {
   const [recomendations, setRecomendations] = useState([]);
@@ -65,10 +66,6 @@ export default function DrinkDetails() {
     localStorage.setItem('doneRecipes', JSON.stringify([]));
   }, []);
 
-  const handleStartRecipeBtn = () => {
-    history.push(`/bebidas/${recipe.idDrink}/in-progress`);
-  };
-
   return (
     <div>
 
@@ -127,14 +124,7 @@ export default function DrinkDetails() {
         ))}
       </Carousel>
 
-      <Button
-        variant="success"
-        data-testid="start-recipe-btn"
-        className="startRecipeBtn"
-        onClick={ handleStartRecipeBtn }
-      >
-        Iniciar Receita
-      </Button>
+      <StartButton />
 
     </div>
 
