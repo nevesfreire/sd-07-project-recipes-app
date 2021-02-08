@@ -9,6 +9,12 @@ import { getSpecificMealById } from '../../store/ducks/getDetailedMeal/actions';
 import { getSpecificDrinkById } from '../../store/ducks/getDetailedDrink/actions';
 
 class TelaDeReceitaEmProcesso extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleRecipeDone = this.handleRecipeDone.bind(this);
+  }
+
   async componentDidMount() {
     const {
       match: {
@@ -31,7 +37,8 @@ class TelaDeReceitaEmProcesso extends Component {
   handleRecipeDone(item) {
     const HoraInicial = new Date();
     const horaFinal = HoraInicial.toLocaleDateString();
-    console.log(horaFinal);
+    console.log(this.props);
+    localStorage.setItem('data', horaFinal);
     const { history } = this.props;
     history.push(`/endereçoMagico/${item.idDrink}`);
   }
