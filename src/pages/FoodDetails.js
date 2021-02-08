@@ -52,31 +52,6 @@ export default function FoodDetails() {
     return true;
   };
 
-  // const isFavorite = () => {
-  //   if (!favorited.includes(recipe.idMeal)) {
-  //     setFavorited([recipe.idMeal, ...favorited]);
-  //     const dataMeal = JSON.parse(localStorage.getItem('favoriteRecipes'))
-  //       ? JSON.parse(localStorage.getItem('favoriteRecipes'))
-  //       : [];
-  //     localStorage.setItem('favoriteRecipes', JSON.stringify([...dataMeal, {
-  //       id: recipe.idMeal,
-  //       type: 'comida',
-  //       area: recipe.strArea,
-  //       category: recipe.strCategory,
-  //       alcoholicOrNot: '',
-  //       name: recipe.strMeal,
-  //       image: recipe.strMealThumb,
-  //     }]));
-  //   } else {
-  //     setFavorited(favorited.filter((item) => recipe.idMeal !== item));
-  //     const dataMeal = JSON.parse(localStorage.getItem('favoriteRecipes'))
-  //       ? JSON.parse(localStorage.getItem('favoriteRecipes'))
-  //       : [];
-  //     const newDataMeal = dataMeal.filter((item) => recipe.idMeal !== item.id);
-  //     localStorage.setItem('favoriteRecipes', JSON.stringify(newDataMeal));
-  //   }
-  // };
-
   useEffect(() => {
     getRecomendations();
   }, []);
