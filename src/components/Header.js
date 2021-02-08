@@ -94,7 +94,9 @@ class Header extends Component {
             />
           </button>
           <h1 data-testid="page-title">{title}</h1>
-          { (title === 'Comidas' || title === 'Bebidas') && (
+          { (title === 'Comidas'
+              || title === 'Bebidas'
+              || title === 'Explorar Origem') && (
             <button
               type="button"
               onClick={ this.changeDisplayInput }

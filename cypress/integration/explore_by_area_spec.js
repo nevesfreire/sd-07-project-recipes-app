@@ -23,7 +23,7 @@ const checkFirstMeals = (meals, limit = 12) => {
   cy.get(`[data-testid="${limit}-card-name"]`).should('not.exist');
 };
 
-describe('78 - Implemente os elementos da tela de explorar por local de origem respeitando os atributos descritos no protótipo', () => {
+describe.only('78 - Implemente os elementos da tela de explorar por local de origem respeitando os atributos descritos no protótipo', () => {
   it('A tela tem os data-testids de todos os 12 cards e de todos os locais de origem', () => {
     cy.visit('http://localhost:3000/explorar/comidas/area', {
       onBeforeLoad(win) {

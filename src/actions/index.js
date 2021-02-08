@@ -7,6 +7,8 @@ export const SET_CATEGORY = 'SET_CATEGORY';
 export const RECEIVED_DETAILS = 'RECEIVED_DETAILS';
 export const SET_INGREDIENT = 'SET_INGREDIENT';
 export const COPY_BUTTON = 'COPY_BUTTON';
+export const RECEIVED_AREA = 'RECEIVED_AREA';
+export const FILTERED_AREA = 'FILTERED_AREA';
 
 export const setIngredient = (payload) => ({
   type: SET_INGREDIENT,
@@ -48,6 +50,16 @@ const recievedDetails = (payload) => ({
   payload,
 });
 
+const recievedArea = (payload) => ({
+  type: RECEIVED_AREA,
+  payload,
+});
+
+const filteredArea = (payload) => ({
+  type: FILTERED_AREA,
+  payload,
+});
+
 const errorFetch = () => ({
   type: ERROR,
   error: 'deu ruim!',
@@ -83,6 +95,30 @@ export function fetchDetails(endPoint) {
       const response = await fetch(endPoint);
       const data = await response.json();
       dispatch(recievedDetails(data));
+    } catch (error) {
+      dispatch(errorFetch());
+    }
+  };
+}
+
+export function fetchArea(endPoint) {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(endPoint);
+      const data = await response.json();
+      dispatch(recievedArea(data));
+    } catch (error) {
+      dispatch(errorFetch());
+    }
+  };
+}
+
+export function fetchFilteredArea(endPoint) {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(endPoint);
+      const data = await response.json();
+      dispatch(filteredArea(data));
     } catch (error) {
       dispatch(errorFetch());
     }

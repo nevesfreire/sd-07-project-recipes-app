@@ -6,35 +6,54 @@ function handleCopy(executeCopy) {
   executeCopy('Link copiado!');
 }
 
-function showButton(id, history) {
+function showButton(id, type, history) {
   const getDoneStorage = JSON.parse(localStorage.getItem('doneRecipes'));
+
   const getProgressRecipeStorage = JSON.parse(
     localStorage.getItem('inProgressRecipes'),
   );
-  if (!getDoneStorage.length) {
-    return (
-      <button
-        type="button"
-        data-testid="start-recipe-btn"
-        onClick={ () => history.push(`/comidas/${id}/in-progress`) }
-        className="finish-button-recipe"
-      >
-        Iniciar Receita
-      </button>
-    );
-  }
+
   if (getProgressRecipeStorage) {
-    return (
-      <button
-        type="button"
-        data-testid="start-recipe-btn"
-        onClick={ () => history.push(`/comidas/${id}/in-progress`) }
-        className="finish-button-recipe"
-      >
-        Continuar Receita
-      </button>
-    );
+    const checkoutProgressRecipe = Object.keys(getProgressRecipeStorage[type])
+      .some((idRecipe) => idRecipe === id);
+    
+    if (!getDoneStorage && getProgressRecipeStorage && checkoutProgressRecipe) {
+      return (
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          onClick={ () => {
+            return type === 'meals'
+              ? history.push(`/comidas/${id}/in-progress`)
+              : history.push(`/bebidas/${id}/in-progress`)
+            }
+          }
+          className="finish-button-recipe"
+        >
+          Continuar Receita
+        </button>
+      );
+    }
+  } else {
+    if (!getDoneStorage || !getDoneStorage.length) {
+      return (
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          onClick={ () => {
+            return type === 'meals'
+              ? history.push(`/comidas/${id}/in-progress`)
+              : history.push(`/bebidas/${id}/in-progress`)
+            }
+          }
+          className="finish-button-recipe"
+        >
+          Iniciar Receita
+        </button>
+      );
+    }
   }
+
 }
 
 export {

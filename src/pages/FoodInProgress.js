@@ -37,8 +37,8 @@ class FoodInProgress extends Component {
   componentDidMount() {
     const { requestRecipes, match: { params: { id } } } = this.props;
     requestRecipes(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
-    this.createFavoriteLocalStorage('favoriteRecipes');
-    this.createFavoriteLocalStorage('doneRecipes');
+    this.createFavoriteLocalStorage('favoriteRecipes', 'favorite');
+    this.createFavoriteLocalStorage('doneRecipes', 'done' );
     checkProgressFoodLocalStorage(id);
   }
 
@@ -74,12 +74,13 @@ class FoodInProgress extends Component {
       ingredients,
       measurement,
       request: false,
-    });
+    },
+    () => this.handleButtonEnabled());
   }
 
   handleButtonEnabled() {
     const doneIngredients = document.querySelectorAll('input:checked');
-    const allIngredients = document.getElementsByClassName('form-check-input');
+    const allIngredients = document.querySelectorAll('.form-check-input');
     if (doneIngredients.length === allIngredients.length) {
       this.setState({
         button: false,
@@ -116,14 +117,14 @@ class FoodInProgress extends Component {
       }),
       () => {
         const { history } = this.props;
-        const { meal, done } = this.state;
-        doneMealLocalStorage(meal, done, 'doneRecipes');
+        const { meal, done, button } = this.state;
+        doneMealLocalStorage(meal, done, 'doneRecipes', button);
         history.push('/receitas-feitas');
       },
     );
   }
 
-  createFavoriteLocalStorage(keyStorage) {
+  createFavoriteLocalStorage(keyStorage, keyLocal) {
     const {
       match: {
         params: { id },
@@ -133,12 +134,12 @@ class FoodInProgress extends Component {
 
     if (read && read.some((obj) => obj.id === id)) {
       this.setState({
-        favorite: true,
+        [keyLocal]: true,
       });
     } else if (!read) {
       this.setState(
         {
-          favorite: false,
+          [keyLocal]: false,
         },
         () => localStorage.setItem(keyStorage, JSON.stringify([])),
       );

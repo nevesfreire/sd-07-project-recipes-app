@@ -27,6 +27,7 @@ class DrinkInProgress extends Component {
       measurement: [],
       request: true,
       favorite: false,
+      done: false,
       button: true,
     };
   }
@@ -34,9 +35,10 @@ class DrinkInProgress extends Component {
   componentDidMount() {
     const { requestRecipes, match: { params: { id } } } = this.props;
     requestRecipes(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
-    this.createFavoriteLocalStorage('favoriteRecipes');
-    this.createFavoriteLocalStorage('doneRecipes');
+    this.createFavoriteLocalStorage('favoriteRecipes', 'favorite');
+    this.createFavoriteLocalStorage('doneRecipes', 'done' );
     checkProgressDrinkLocalStorage(id);
+    this.handleButtonEnabled();
   }
 
   componentDidUpdate() {
@@ -70,7 +72,8 @@ class DrinkInProgress extends Component {
       ingredients,
       measurement,
       request: false,
-    });
+    },
+    () => this.handleButtonEnabled());
   }
 
   handleButtonEnabled() {
@@ -109,13 +112,13 @@ class DrinkInProgress extends Component {
     }),
     () => {
       const { history } = this.props;
-      const { drinks, done } = this.state;
-      doneDrinkLocalStorage(drinks, done, 'doneRecipes');
+      const { drinks, done, button } = this.state;
+      doneDrinkLocalStorage(drinks, done, 'doneRecipes', button);
       history.push('/receitas-feitas');
     });
   }
 
-  createFavoriteLocalStorage(keyStorage) {
+  createFavoriteLocalStorage(keyStorage, keyLocal) {
     const {
       match: {
         params: { id },
@@ -125,12 +128,12 @@ class DrinkInProgress extends Component {
 
     if (read && read.some((obj) => obj.id === id)) {
       this.setState({
-        favorite: true,
+        [keyLocal]: true,
       });
     } else if (!read) {
       this.setState(
         {
-          favorite: false,
+          [keyLocal]: false,
         },
         () => localStorage.setItem(keyStorage, JSON.stringify([])),
       );

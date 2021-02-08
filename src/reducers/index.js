@@ -5,6 +5,7 @@ import recipesReducer from './recipes';
 import headerReducer from './header';
 import recomendationsReducer from './details';
 import ingredientsReducer from './ingredients';
+import exploreAreaReducer from './exploreArea';
 
 const rootReducer = combineReducers({
   loginReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   categoriesReducer,
   recomendationsReducer,
   ingredientsReducer,
+  exploreAreaReducer,
 });
 
 export default rootReducer;
