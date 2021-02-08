@@ -14,6 +14,8 @@ import FavoriteRecipe from './scenes/FavoriteRecipe';
 import ExplorarReceitas from './scenes/ExplorarReceitas';
 import ExploreMealIngredients from './scenes/ExplorarIngredientes/Meals';
 import ExploreDrinkIngredients from './scenes/ExplorarIngredientes/Drinks';
+import ExplorarArea from './scenes/ExplorarArea';
+import NotFound from './scenes/NotFound';
 
 export default function Routes() {
   return (
@@ -50,11 +52,12 @@ export default function Routes() {
           exact
           component={ ExploreDrinkIngredients }
         />
-        <Route path="/explorar/comidas/area" exact component={ Perfil } />
+        <Route path="/explorar/comidas/area" exact component={ ExplorarArea } />
         <Route path="/perfil" exact component={ Perfil } />
         <Route path="/receitas-feitas" exact component={ ReceitasFeitas } />
         <Route path="/receitas-favoritas" exact component={ FavoriteRecipe } />
         <Route path="/test" exact component={ Test } />
+        <Route path="*" component={ NotFound } />
       </Switch>
     </BrowserRouter>
   );
