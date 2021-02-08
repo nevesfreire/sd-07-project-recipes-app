@@ -22,7 +22,8 @@ class HeaderS extends React.Component {
     const { isSearching } = this.state;
     if (isSearching) {
       return this.setState({ isSearching: false });
-    } this.setState({ isSearching: true });
+    }
+    this.setState({ isSearching: true });
   }
 
   renderSearchBar() {
@@ -69,14 +70,18 @@ class HeaderS extends React.Component {
   render() {
     const { title } = this.props;
     return (
-      <>
-        <Navbar bg="primary" variant="dark">
+      <div>
+        <Navbar
+          bg="primary"
+          variant="dark"
+          style={ { display: 'flex', backgroundColor: 'white' } }
+        >
           {this.renderProfileIcon()}
-          <h3 data-testid="page-title">{ title }</h3>
+          <h3 data-testid="page-title">{title}</h3>
           {this.renderSearchIcon()}
         </Navbar>
         {this.renderSearchBar()}
-      </>
+      </div>
     );
   }
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-import { HeaderS, CardC } from '../../components';
+import { HeaderS, CardC, Footer } from '../../components';
 import {
   loadMeals,
   loadMealsCategories,
@@ -92,6 +92,13 @@ class TelaPrincipalReceitasComidas extends Component {
           if (index < five) {
             return (
               <button
+                style={ {
+                  margin: '8px',
+                  backgroundColor: '#FE595A',
+                  border: 'none',
+                  color: 'white',
+                  'border-radius': '2px',
+                } }
                 type="button"
                 key={ categorie.strCategory }
                 data-testid={ `${categorie.strCategory}-category-filter` }
@@ -107,6 +114,13 @@ class TelaPrincipalReceitasComidas extends Component {
           type="button"
           data-testid="All-category-filter"
           onClick={ () => loadMealsDispatch() }
+          style={ {
+            margin: '8px',
+            backgroundColor: '#FE595A',
+            border: 'none',
+            color: 'white',
+            'border-radius': '2px',
+          } }
         >
           All
         </button>
@@ -122,6 +136,7 @@ class TelaPrincipalReceitasComidas extends Component {
         <HeaderS title={ title } />
         {categoriesStore ? this.renderCategories(categoriesStore) : null}
         {mealsStore ? this.renderMeals(mealsStore) : null}
+        <Footer />
       </div>
     );
   }
