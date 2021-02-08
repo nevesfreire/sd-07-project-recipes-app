@@ -38,8 +38,7 @@ class FoodDetails extends Component {
     requestRecomendations(
       'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
     );
-    this.createFavoriteLocalStorage('favoriteRecipes');
-    this.createFavoriteLocalStorage('doneRecipes');
+    this.createFavoriteLocalStorage('favoriteRecipes', 'favorite');
   }
 
   componentDidUpdate() {
@@ -81,7 +80,7 @@ class FoodDetails extends Component {
     });
   }
 
-  createFavoriteLocalStorage(keyStorage) {
+  createFavoriteLocalStorage(keyStorage, keyLocal) {
     const {
       match: {
         params: { id },
@@ -91,12 +90,12 @@ class FoodDetails extends Component {
 
     if (read && read.some((obj) => obj.id === id)) {
       this.setState({
-        favorite: true,
+        [keyLocal]: true,
       });
     } else if (!read) {
       this.setState(
         {
-          favorite: false,
+          [keyLocal]: false,
         },
         () => localStorage.setItem(keyStorage, JSON.stringify([])),
       );
@@ -191,7 +190,9 @@ class FoodDetails extends Component {
               ))}
           </div>
         </div>
-        <div className="finish-button-container">{ showButton(id, history) }</div>
+        <div className="finish-button-container">
+          { showButton(id, 'meals', history) }
+        </div>
       </div>
     );
   }

@@ -11,7 +11,7 @@ const date = () => {
 };
 // console.log(date());
 
-const doneMealLocalStorage = (meal, done, keyStorage) => {
+const doneMealLocalStorage = (meal, done, keyStorage, checkButton) => {
   const {
     idMeal,
     strArea,
@@ -38,6 +38,7 @@ const doneMealLocalStorage = (meal, done, keyStorage) => {
           image: strMealThumb,
           doneDate: date(),
           tags: strTags,
+          ingredientsToCheck: checkButton,
         };
         localStorage.setItem(keyStorage, JSON.stringify(newArray));
       }
@@ -57,6 +58,7 @@ const doneMealLocalStorage = (meal, done, keyStorage) => {
           image: strMealThumb,
           doneDate: date(),
           tags: strTags,
+          ingredientsToCheck: checkButton,
         },
       ];
       localStorage.setItem(keyStorage, JSON.stringify(newArray));
@@ -67,7 +69,7 @@ const doneMealLocalStorage = (meal, done, keyStorage) => {
   }
 };
 
-const doneDrinkLocalStorage = (drink, done, keyStorage) => {
+const doneDrinkLocalStorage = (drink, done, keyStorage, checkButton) => {
   const {
     idDrink,
     strCategory,
@@ -93,6 +95,7 @@ const doneDrinkLocalStorage = (drink, done, keyStorage) => {
           image: strDrinkThumb,
           doneDate: date(),
           tags: strTags,
+          ingredientsToCheck: checkButton,
         };
         localStorage.setItem(keyStorage, JSON.stringify(newArray));
       }
@@ -112,6 +115,7 @@ const doneDrinkLocalStorage = (drink, done, keyStorage) => {
           image: strDrinkThumb,
           doneDate: date(),
           tags: strTags,
+          ingredientsToCheck: checkButton,
         },
       ];
       localStorage.setItem(keyStorage, JSON.stringify(newArray));

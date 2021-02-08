@@ -94,17 +94,18 @@ class Header extends Component {
             />
           </button>
           <h1 data-testid="page-title">{title}</h1>
-          { (title === 'Comidas' || title === 'Bebidas') && (
-            <button
-              type="button"
-              onClick={ this.changeDisplayInput }
-            >
-              <img
-                data-testid="search-top-btn"
-                src={ searchIcon }
-                alt="searchIcon"
-              />
-            </button>) }
+          { (title === 'Comidas'
+              || title === 'Bebidas'
+              || title === 'Explorar Origem')
+              && (
+                <button type="button" onClick={ this.changeDisplayInput }>
+                  <img
+                    data-testid="search-top-btn"
+                    src={ searchIcon }
+                    alt="searchIcon"
+                  />
+                </button>
+              ) }
         </header>
         {showInputSearch && (
           <section>
