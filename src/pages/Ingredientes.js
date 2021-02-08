@@ -52,7 +52,7 @@ class Ingredientes extends React.Component {
       <div>
         <Header pageTitle="Explorar Ingredientes" />
         {pathname === '/explorar/comidas/ingredientes' && (
-          <Row>
+          <Row className="ml-1 mb-5 mt-2">
             {data ? data.map((item, index) => (
               <div
                 to="/comidas"
@@ -72,7 +72,7 @@ class Ingredientes extends React.Component {
           </Row>
         )}
         {pathname === '/explorar/bebidas/ingredientes' && (
-          <Row>
+          <Row className="ml-1 mb-5 mt-2">
             {data ? data.map((item, index) => (
               <div
                 to="/bebidas"
