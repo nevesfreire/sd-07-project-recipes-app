@@ -89,6 +89,10 @@
   opacity: 100%;
 }
 
+.btn-explore-choose-type a {
+  color: white;
+}
+
 .card.single-card-main-page-content a {
   text-decoration: none;
 }
@@ -131,10 +135,6 @@
   width: 40vw;
 }
 
-.btn-explore-choose-type a {
-  color: white;
-}
-
 .card.single-card-explore-ingredients a {
   text-decoration: none;
 }
@@ -167,10 +167,10 @@
 .explore-choose-type-content {
   align-items: center;
   display: flex;
-  flex-direction: column;
   flex-flow: wrap;
-  justify-content: space-between;
+  flex-direction: column;
   height: 30vh;
+  justify-content: space-between;
   margin-top: 35%;
 }
 
@@ -195,9 +195,9 @@
 }
 
 .footer {
-  background-color: rgb(255, 255, 255);
+  background-color: white;
   bottom: 0;
-  box-shadow: 0px -4px 25px 9px black;
+  box-shadow: 0 -4px 25px 9px black;
   display: flex;
   justify-content: space-between;
   padding: 5px;
