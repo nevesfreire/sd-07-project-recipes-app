@@ -32,27 +32,24 @@ function FoodsDetails({ match, location }) {
     }
     return ingredients;
   };
-  const fetchRecommendation = async () => {
-    const data = await drinkAPI.searchInitialDrink();
-    setResponse(data.drinks);
-  };
-
-  const horizontalMakerFunc = () => {
-    const firstItem = 0;
-    const lastItem = 6;
-    const array = [...response.slice(firstItem, lastItem)];
-    setRecommedation(array);
-  };
 
   useEffect(() => {
-    dispatch(Actions.retrieveFoodDetailsById(id));
+    const fetchRecommendation = async () => {
+      const data = await drinkAPI.searchInitialDrink();
+      setResponse(data.drinks);
+    };
     fetchRecommendation();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    dispatch(Actions.retrieveFoodDetailsById(id));
+  }, [dispatch, id]);
 
   useEffect(() => {
+    const horizontalMakerFunc = () => {
+      const firstItem = 0;
+      const lastItem = 6;
+      const array = [...response.slice(firstItem, lastItem)];
+      setRecommedation(array);
+    };
     horizontalMakerFunc();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
   if (loading) return <h1>Loading...</h1>;

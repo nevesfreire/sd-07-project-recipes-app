@@ -31,28 +31,26 @@ function DrinksDetails({ match, location }) {
     }
     return ingredients;
   };
-  const fetchRecommendation = async () => {
-    const data = await API.searchInitial();
-    setResponse(data.meals);
-  };
-
-  const horizontalMakerFunc = () => {
-    const firstItem = 0;
-    const lastItem = 6;
-    const array = [...response.slice(firstItem, lastItem)];
-    setRecommedation(array);
-  };
 
   useEffect(() => {
-    dispatch(Actions.retrieveDrinkDetailsById(id));
+    const fetchRecommendation = async () => {
+      const data = await API.searchInitial();
+      setResponse(data.meals);
+    };
     fetchRecommendation();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    dispatch(Actions.retrieveDrinkDetailsById(id));
+  }, [dispatch, id]);
 
   useEffect(() => {
+    const horizontalMakerFunc = () => {
+      const firstItem = 0;
+      const lastItem = 6;
+      const array = [...response.slice(firstItem, lastItem)];
+      setRecommedation(array);
+    };
     horizontalMakerFunc();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
+
   if (loading || !detailsDrink) return <h1>Loading...</h1>;
   return (
     <div>
