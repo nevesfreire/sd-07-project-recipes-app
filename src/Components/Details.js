@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
-import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import copiedLink from 'clipboard-copy';
+import { Link } from 'react-router-dom';
 import { StorageContext } from '../providers/AllProviders';
 import ShareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -10,7 +10,6 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import './Details.css';
 
 const Details = ({ type, recipe, recommend, ingredientes, id, medidas }) => {
-  const history = useHistory();
   const { addFavorite, removeFavorite } = useContext(StorageContext);
   const [favorited, setFavorite] = useState(false);
   const [doneRecipe, setDoneRecipe] = useState(false);
@@ -55,15 +54,7 @@ const Details = ({ type, recipe, recommend, ingredientes, id, medidas }) => {
     return setCopied(true);
   };
 
-  const handleStartRecipe = () => {
-    const today = new Date();
-    const doneDate = today.toLocaleDateString();
-    const novatag = recipe.strTags;
-    const tags = novatag && novatag.split(',');
-    const atributes = { name, id, type, doneDate, tags };
-    history.push(`/${type}s/${id}/in-progress`);
-    addFavorite('doneRecipes', recipe, atributes);
-  };
+  console.log(recommend);
 
   return (
     <div className="details-page">
@@ -127,32 +118,51 @@ const Details = ({ type, recipe, recommend, ingredientes, id, medidas }) => {
         )}
         <h3 className="directions-title">Other recipes</h3>
         <Carousel>
-          {recommend.map((card, index) => (
-            <Carousel.Item key={ card[rcmdName] }>
-              <div
-                data-testid={ `${index}-recomendation-card` }
-                className="carousel-card"
-              >
-                <img src={ card[rcmdImg] } alt="Recommended thumb" width="70" />
-                <p data-testid={ `${index}-recomendation-title` }>
-                  {card[rcmdName]}
-                </p>
-              </div>
-            </Carousel.Item>
-          ))}
+          {recommend.map((_, index, cardArray) => {
+            if (index > 2) return null;
+            const firstCardSlide = cardArray[index][rcmdName];
+            const firstCardOthers = cardArray[index + 1][rcmdName];
+            const secondCardOthers = cardArray[index + 2][rcmdName];
+
+            return (
+              <Carousel.Item key={ index <= 0 ? firstCardSlide : firstCardOthers }>
+                <div className="carousel-items">
+                  <div
+                    data-testid={ `${index}-recomendation-card` }
+                    className="carousel-card"
+                  >
+                    <img src={ cardArray[index][rcmdImg] } alt="Recommended thumb" width="70" />
+                    <p data-testid={ `${index}-recomendation-title` }>
+                      {index <= 0 ? firstCardSlide : firstCardOthers}
+                    </p>
+                  </div>
+                  <div
+                    data-testid={ `${index}-recomendation-card` }
+                    className="carousel-card"
+                  >
+                    <img src={ cardArray[index][rcmdImg] } alt="Recommended thumb" width="70" />
+                    <p data-testid={ `${index}-recomendation-title` }>
+                      {index <= 0 ? firstCardOthers : secondCardOthers}
+                    </p>
+                  </div>
+                </div>
+              </Carousel.Item>
+            );
+          })}
         </Carousel>
         { doneRecipe
         || (
-          <div className="next-page-button">
-            <button
-              data-testid="start-recipe-btn"
-              type="button"
-              className="start-recipe"
-              onClick={ handleStartRecipe }
-            >
-              Iniciar receita
-            </button>
-          </div>
+          <Link to={ `/${type}s/${id}/in-progress` }>
+            <div className="next-page-button">
+              <button
+                data-testid="start-recipe-btn"
+                type="button"
+                className="start-recipe"
+              >
+                Iniciar receita
+              </button>
+            </div>
+          </Link>
         )}
       </div>
     </div>

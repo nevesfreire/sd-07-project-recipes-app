@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import copiedLink from 'clipboard-copy';
+import { StorageContext } from '../providers/AllProviders';
 import ShareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { checkedIsTreu } from '../helpers';
 
 const ProgressFood = ({ type, recipe, ingredientes, id, medidas }) => {
+  const { addFavorite, removeFavorite } = useContext(StorageContext);
   const [favorited, setFavorite] = useState(false);
   const [copied, setCopied] = useState(false);
   const verifyLocalFav = localStorage.getItem('favoriteRecipes');
@@ -43,10 +45,28 @@ const ProgressFood = ({ type, recipe, ingredientes, id, medidas }) => {
     }
   }, []);
 
+  const handleFavorite = () => {
+    if (!favorited) {
+      addFavorite(recipe, name, id, type);
+      return setFavorite(true);
+    }
+    removeFavorite(id);
+    return setFavorite(false);
+  };
+
   const handleCopy = () => {
     copiedLink(`http://localhost:3000/${type}s/${id}`);
     if (copied) setCopied(false);
     else setCopied(true);
+  };
+
+  const handleStartRecipe = () => {
+    const today = new Date();
+    const doneDate = today.toLocaleDateString();
+    const novatag = recipe.strTags;
+    const tags = novatag && novatag.split(',');
+    const atributes = { name, id, type, doneDate, tags };
+    addFavorite('doneRecipes', recipe, atributes);
   };
 
   return (
@@ -66,7 +86,7 @@ const ProgressFood = ({ type, recipe, ingredientes, id, medidas }) => {
               <button type="button" data-testid="share-btn" onClick={ handleCopy }>
                 <img src={ ShareIcon } alt="thumbShare" />
               </button>
-              <button type="button">
+              <button type="button" onClick={ handleFavorite }>
                 <img src={ iconFavorite } data-testid="favorite-btn" alt="thumbFavorite" />
               </button>
             </div>
@@ -106,6 +126,7 @@ const ProgressFood = ({ type, recipe, ingredientes, id, medidas }) => {
                 type="button"
                 data-testid="finish-recipe-btn"
                 disabled={ !allChecked }
+                onClick={ handleStartRecipe }
               >
                 Finalizar!
               </button>

@@ -88,12 +88,29 @@
   padding: 24px;
 }
 
+.carousel-items {
+  display: flex;
+  flex-direction: row;
+}
+
 .carousel-card {
   background-color: #fdc4ae;
   border-radius: 10px;
-  margin: 20px;
-  padding: 20px;
+  color: #16757b;
+  font-size: 24px;
+  margin: 40px auto;
+  padding: 10px;
+  padding-bottom: 0;
   text-align: flex-start;
+}
+
+.carousel-items .carousel-card + .carousel-card {
+  margin-left: 5px;
+}
+
+.carousel-card img {
+  border-radius: 10px;
+  width: 80px;
 }
 
 .table-measures {

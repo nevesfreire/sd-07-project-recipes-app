@@ -48,7 +48,14 @@ const ProgressDrink = ({ type, recipe, ingredientes, id, medidas }) => {
     else setCopied(true);
   };
 
-  console.log(medidas);
+  const handleStartRecipe = () => {
+    const today = new Date();
+    const doneDate = today.toLocaleDateString();
+    const novatag = recipe.strTags;
+    const tags = novatag && novatag.split(',');
+    const atributes = { name, id, type, doneDate, tags };
+    addFavorite('doneRecipes', recipe, atributes);
+  };
 
   return (
     <div>
@@ -112,6 +119,7 @@ const ProgressDrink = ({ type, recipe, ingredientes, id, medidas }) => {
                 type="button"
                 data-testid="finish-recipe-btn"
                 disabled={ !allChecked }
+                onClick={ handleStartRecipe }
               >
                 Finalizar!
               </button>
