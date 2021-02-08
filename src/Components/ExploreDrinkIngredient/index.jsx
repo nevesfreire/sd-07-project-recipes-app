@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import RecipeContext from '../../Context/RecipeContext';
 import Footer from '../Footer';
+import './style.css';
 
 const ExploreDrinkIngredients = () => {
   const [drinkIngredientsCategory, setDrinkIngredientsCategory] = useState();
@@ -24,9 +25,9 @@ const ExploreDrinkIngredients = () => {
   }, []);
 
   const renderCards = () => (
-    <div>
+    <div className="container-ingredients">
       {drinkIngredientsCategory.map((ingredient, i) => (
-        <div key={ i }>
+        <div key={ i } className="item">
           <Link
             data-testid={ `${i}-ingredient-card` }
             onClick={ () => dispatch({

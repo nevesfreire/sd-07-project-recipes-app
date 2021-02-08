@@ -24,9 +24,9 @@ const ExploreFoodIngredients = () => {
   }, []);
 
   const renderCards = () => (
-    <div>
+    <div className="container-ingredients">
       {foodIngredientsCategory.map((ingredient, i) => (
-        <div key={ i }>
+        <div key={ i } className="item">
           <Link
             data-testid={ `${i}-ingredient-card` }
             onClick={ () => dispatch({

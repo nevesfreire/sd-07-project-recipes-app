@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import CardFood from '../CardFood';
+import './style.css';
 
 const requestApi = async (url) => {
   const api = await fetch(url);
@@ -35,7 +36,7 @@ function ExplorerFoodArea() {
   };
 
   return (
-    <div>
+    <div className="container-area-food">
       <select
         name="areas"
         data-testid="explore-by-area-dropdown"
@@ -48,7 +49,7 @@ function ExplorerFoodArea() {
           </option>
         ))}
       </select>
-      <div>
+      <div className="exploraArea">
         {foodArea.length >= 1 && foodArea
           .filter((_, i) => i < doze)
           .map(({ strMealThumb, strMeal, idMeal }, index) => (
