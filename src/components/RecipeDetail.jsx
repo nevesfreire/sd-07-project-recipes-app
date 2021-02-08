@@ -102,7 +102,7 @@ async function share(pathname, message) {
 }
 
 function start() {
-
+  
 }
 
 function RecipeDetail() {
