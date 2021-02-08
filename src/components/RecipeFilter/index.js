@@ -1,11 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setFilter } from '../../store/ducks/recipes';
 import { StyledButtonGroup, StyledToggleButton } from './styles';
 
 const RecipeFilter = () => {
+  const dispatch = useDispatch();
+  const [checkedValue, setCheckedValue] = useState('all');
+
+  const handleClick = ({ target: { value } }) => {
+    if (value && value !== checkedValue) {
+      setCheckedValue(value);
+    }
+  };
+
+  useEffect(() => {
+    dispatch(setFilter('foodOrDrink', checkedValue));
+    /* return () => {
+      dispatch(setFilter('')); // cleanup filter
+    }; */
+  },
+  [dispatch, checkedValue]);
+
+  useEffect(() => () => {
+    dispatch(setFilter('')); // cleanup filter
+  },
+  [dispatch]);
+
   const FILTERS_OPTIONS = [
     { name: 'All', attribute: 'all' },
-    { name: 'Food', attribute: 'food' },
-    { name: 'Drinks', attribute: 'drink' },
+    { name: 'Food', attribute: 'comida' },
+    { name: 'Drinks', attribute: 'bebida' },
   ];
 
   return (
@@ -17,8 +41,8 @@ const RecipeFilter = () => {
           type="checkbox"
           variant="secondary"
           value={ attribute }
-          /* checked={ checkedValue === attribute } */
-          /* onChange={ (e) => setToggleButton(e.currentTarget.value) } */
+          onClick={ handleClick }
+          checked={ checkedValue === attribute }
         >
           { name }
         </StyledToggleButton>

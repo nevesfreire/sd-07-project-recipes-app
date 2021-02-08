@@ -24,7 +24,7 @@ const INITIAL_STATE = {
     areas: [],
     ingredients: [],
     filter: {
-      type: '', // name, category, ingredient, firstLetter, area, random
+      type: '', // name, category, ingredient, firstLetter, area, random, type
       term: '', // term of search or filter
     },
   },
