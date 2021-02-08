@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Button } from 'react-bootstrap';
 import { sendEmail } from '../../store/ducks/login/actions';
 
 class Login extends React.Component {
@@ -47,41 +48,47 @@ class Login extends React.Component {
     const { addEmail } = this.props;
     return (
       <div>
-        <label htmlFor="email">
-          Email:
-          <input
-            type="email"
-            name="email"
-            placeholder="Digite seu email"
-            data-testid="email-input"
-            value={ email }
-            onChange={ this.handleChange }
-          />
-        </label>
+        <form action="">
+          <div className="input-group mt-2">
+            <label htmlFor="email">
+              Email:
+              <input
+                className="form-control bg-light btn-outline-secondary"
+                type="email"
+                name="email"
+                placeholder="Digite seu email"
+                data-testid="email-input"
+                value={ email }
+                onChange={ this.handleChange }
+              />
+            </label>
 
-        <label htmlFor="password">
-          Password:
-          <input
-            type="password"
-            name="password"
-            placeholder="Digite sua senha"
-            data-testid="password-input"
-            value={ password }
-            onChange={ this.handleChange }
-          />
-        </label>
-
-        <button
+            <label htmlFor="password">
+              Password:
+              <input
+                className="form-control bg-light btn-outline-secondary"
+                type="password"
+                name="password"
+                placeholder="Digite sua senha"
+                data-testid="password-input"
+                value={ password }
+                onChange={ this.handleChange }
+              />
+            </label>
+          </div>
+        </form>
+        <Button
+          class="btn btn-primary"
           type="button"
           data-testid="login-submit-btn"
           disabled={ this.validateLogin() }
-          onClick={ () => {
+          onClick={() => {
             this.handleClick();
             addEmail(email);
-          } }
+          }}
         >
           Entrar
-        </button>
+        </Button>
       </div>
     );
   }
