@@ -108,6 +108,7 @@ class DoneRecipe extends Component {
                   src={ card.image }
                   alt="foto da receita"
                 />
+                <h1 data-testid={ `${index}-horizontal-name` }>{card.name}</h1>
               </Link>
 
               {card.type === 'comida' ? (
@@ -134,7 +135,6 @@ class DoneRecipe extends Component {
                 />
               </button>
 
-              <h1 data-testid={ `${index}-horizontal-name` }>{card.name}</h1>
               {card.tags ? (
                 this.handleTags(card.tags).map((cardTag, indexTag) => (
                   <p
