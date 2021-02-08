@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import {
   TelaPrincipalReceitasBebidas,
   TelaPrincipalReceitasComidas,
+  TelaReceitasEmProcesso,
   Explorar,
   ExplorarComidas,
   ExplorarBebidas,
@@ -31,6 +32,8 @@ const Routes = () => (
     <Route exact path="/perfil" component={ Perfil } />
     <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
     <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
+    <Route path="/bebidas/:id/in-progress" component={ TelaReceitasEmProcesso } />
+    <Route path="/comidas/:id/in-progress" component={ TelaReceitasEmProcesso } />
     <Route path="/bebidas/:id" component={ TelaDetalheBebida } />
     <Route path="/comidas/:id" component={ TelaDetalheComida } />
   </Switch>

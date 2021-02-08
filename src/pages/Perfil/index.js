@@ -18,13 +18,13 @@ class Perfil extends Component {
 
   render() {
     const title = 'Perfil';
-    const emailNovo = (JSON.parse(localStorage.getItem('user'))).email;
+    const emailEdited = (JSON.parse(localStorage.getItem('user'))).email;
 
     return (
       <div>
         <Header title={ title } />
         <Container>
-          <h4 data-testid="profile-email">{emailNovo}</h4>
+          <h4 data-testid="profile-email">{emailEdited}</h4>
         </Container>
         <Container>
           <Button
