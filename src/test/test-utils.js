@@ -3,7 +3,6 @@ import { render as rtlRender } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import PropTypes from 'prop-types';
 import store from '../redux/store';
-// import Header from '../components/header/Header';
 
 const reducer = store;
 
