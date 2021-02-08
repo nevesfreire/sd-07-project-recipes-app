@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container, Row } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { sendDrinkRecipes, sendMealRecipes } from '../redux/actions';
 import { apiTheMealDB, apiTheCocktailDB } from '../services';
@@ -50,50 +50,48 @@ class Ingredientes extends React.Component {
     const { data } = this.state;
     return (
       <div>
-        <Container fluid>
-          <Header pageTitle="Explorar Ingredientes" />
-          {pathname === '/explorar/comidas/ingredientes' && (
-            <Row>
-              {data ? data.map((item, index) => (
-                <div
-                  to="/comidas"
-                  key={ index }
-                  onClick={ () => this.saveToRedux(item, 'comidas') }
-                  onKeyPress={ () => ('') }
-                  role="link"
-                  tabIndex={ index }
-                >
-                  <RecipesCards
-                    recipe={ item }
-                    search="ingredientsMeals"
-                    index={ index }
-                  />
-                </div>
-              )) : <Loading />}
-            </Row>
-          )}
-          {pathname === '/explorar/bebidas/ingredientes' && (
-            <Row>
-              {data ? data.map((item, index) => (
-                <div
-                  to="/bebidas"
-                  key={ index }
-                  onClick={ () => this.saveToRedux(item, 'bebidas') }
-                  onKeyPress={ () => ('') }
-                  role="link"
-                  tabIndex={ index }
-                >
-                  <RecipesCards
-                    recipe={ item }
-                    search="ingredientsDrinks"
-                    index={ index }
-                  />
-                </div>
-              )) : <Loading />}
-            </Row>
-          )}
-          <Footer />
-        </Container>
+        <Header pageTitle="Explorar Ingredientes" />
+        {pathname === '/explorar/comidas/ingredientes' && (
+          <Row>
+            {data ? data.map((item, index) => (
+              <div
+                to="/comidas"
+                key={ index }
+                onClick={ () => this.saveToRedux(item, 'comidas') }
+                onKeyPress={ () => ('') }
+                role="link"
+                tabIndex={ index }
+              >
+                <RecipesCards
+                  recipe={ item }
+                  search="ingredientsMeals"
+                  index={ index }
+                />
+              </div>
+            )) : <Loading />}
+          </Row>
+        )}
+        {pathname === '/explorar/bebidas/ingredientes' && (
+          <Row>
+            {data ? data.map((item, index) => (
+              <div
+                to="/bebidas"
+                key={ index }
+                onClick={ () => this.saveToRedux(item, 'bebidas') }
+                onKeyPress={ () => ('') }
+                role="link"
+                tabIndex={ index }
+              >
+                <RecipesCards
+                  recipe={ item }
+                  search="ingredientsDrinks"
+                  index={ index }
+                />
+              </div>
+            )) : <Loading />}
+          </Row>
+        )}
+        <Footer />
       </div>
     );
   }

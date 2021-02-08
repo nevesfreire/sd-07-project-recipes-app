@@ -18,10 +18,8 @@ class Bebidas extends React.Component {
     return (
       <div>
         <Header shouldRenderSearchIcon="yes" pageTitle="Bebidas" search="drinks" />
-        <div className="content">
-          <CategorySelector search="drinks" />
-          <RecipesList search="drinks" />
-        </div>
+        <CategorySelector search="drinks" />
+        <RecipesList search="drinks" />
         <Footer />
       </div>
     );

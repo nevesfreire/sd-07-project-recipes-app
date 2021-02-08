@@ -1,5 +1,5 @@
 import React from 'react'; import PropTypes from 'prop-types';
-import { Container, Col, Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import apiTheCocktailDB from '../services/apiTheCocktailDB';
 
 class InProgressDrinks extends React.Component {
@@ -85,7 +85,7 @@ class InProgressDrinks extends React.Component {
     const { ingredientsList, ingrentsMeasuresList, checkBox, buttonStatus } = this.state;
     const { history } = this.props;
     return (
-      <Container fluid>
+      <div>
         <Col>
           <img
             src={ recipe.strDrinkThumb }
@@ -151,7 +151,7 @@ class InProgressDrinks extends React.Component {
             </button>
           </Row>
         </Col>
-      </Container>
+      </div>
     );
   }
 }

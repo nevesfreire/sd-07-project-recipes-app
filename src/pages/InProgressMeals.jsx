@@ -1,5 +1,5 @@
 import React from 'react'; import PropTypes from 'prop-types';
-import { Container, Col, Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import apiTheMealDB from '../services/apiTheMealDB';
 
 class InProgressMeals extends React.Component {
@@ -87,7 +87,7 @@ class InProgressMeals extends React.Component {
       return <p>Loading...</p>;
     }
     return (
-      <Container fluid>
+      <div>
         <Col>
           <img
             src={ recipe.strMealThumb }
@@ -153,7 +153,7 @@ class InProgressMeals extends React.Component {
             </button>
           </Row>
         </Col>
-      </Container>
+      </div>
     );
   }
 }

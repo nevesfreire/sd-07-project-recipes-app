@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Col, Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -69,52 +69,50 @@ class ExplorarComidasArea extends React.Component {
     const { list, recipes } = this.state;
     return (
       <div>
-        <Container fluid>
-          <Col>
-            <Row>
-              <Header
-                shouldRenderSearchIcon="yes"
-                search="meals"
-                pageTitle="Explorar Origem"
+        <Col>
+          <Row>
+            <Header
+              shouldRenderSearchIcon="yes"
+              search="meals"
+              pageTitle="Explorar Origem"
 
-              />
-            </Row>
-          </Col>
-          {list ? (
-            <div>
-              <Row>
-                <Col>
-                  <select
-                    data-testid="explore-by-area-dropdown"
-                    onChange={ this.filterByArea }
-                  >
-                    {list.map((category) => (
-                      <option
-                        data-testid={ `${category}-option` }
-                        key={ category }
-                        value={ category }
-                      >
-                        {category}
-                      </option>
-                    ))}
-                  </select>
-                </Col>
-              </Row>
-            </div>) : <p>Loading...</p>}
-          { recipes && (
+            />
+          </Row>
+        </Col>
+        {list ? (
+          <div>
             <Row>
-              {recipes.map((item, index) => (
-                <Link to={ `/comidas/${item.idMeal}` } key={ index }>
-                  <RecipesCards
-                    recipe={ item }
-                    search="meals"
-                    index={ index }
-                  />
-                </Link>))}
+              <Col>
+                <select
+                  data-testid="explore-by-area-dropdown"
+                  onChange={ this.filterByArea }
+                >
+                  {list.map((category) => (
+                    <option
+                      data-testid={ `${category}-option` }
+                      key={ category }
+                      value={ category }
+                    >
+                      {category}
+                    </option>
+                  ))}
+                </select>
+              </Col>
             </Row>
-          )}
-          <Footer />
-        </Container>
+          </div>) : <p>Loading...</p>}
+        { recipes && (
+          <Row>
+            {recipes.map((item, index) => (
+              <Link to={ `/comidas/${item.idMeal}` } key={ index }>
+                <RecipesCards
+                  recipe={ item }
+                  search="meals"
+                  index={ index }
+                />
+              </Link>))}
+          </Row>
+        )}
+        <Footer />
       </div>
     );
   }
