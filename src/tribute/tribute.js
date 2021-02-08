@@ -19,19 +19,21 @@ export default function tribute({ match: { params: { name } } }) {
         <img src={ picture } alt="foto de perfil" />
       </header>
 
-      <div className="cardFood">
-        <h2>{foodTitle}</h2>
-        <img src={ foodImg } alt="imagem" />
-      </div>
-
-      <div className="cardDrink">
-        <h2>{drinkTitle}</h2>
-        <img src={ drinkImg } alt="imagem" />
-      </div>
-
       <div className="texto">
         <h1>{title}</h1>
         <p>{text}</p>
+      </div>
+
+      <div className="recomendation">
+        <div className="cardFood">
+          <h2>{foodTitle}</h2>
+          <img src={ foodImg } alt="imagem" />
+        </div>
+
+        <div className="cardDrink">
+          <h2>{drinkTitle}</h2>
+          <img src={ drinkImg } alt="imagem" />
+        </div>
       </div>
 
       <div className="containerVideo">
