@@ -1,7 +1,7 @@
 .container-one-drink {
   display: flex;
   margin-bottom: 10px;
-  margin-top: 0px;
+  margin-top: 0;
 }
 
 .image-recipe-drink {
@@ -21,8 +21,8 @@ h3 {
 }
 
 .copy-favorite-drink {
-  background-color: white!important;
-  border:none!important;
+  background-color: white ! important;
+  border: none ! important;
   display: block;
   margin-left: 20px;
   margin-top: 15px;
@@ -62,7 +62,7 @@ h3 {
 .container-btn {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: wrap;
   justify-content: center;
   margin-bottom: 20px;
   margin-top: 50px;

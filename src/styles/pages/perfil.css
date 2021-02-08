@@ -1,7 +1,7 @@
 .container-btn-perfil {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: wrap;
   justify-content: center;
   margin-bottom: 20px;
 }
@@ -10,6 +10,7 @@
 https://www.visualdicas.com.br/programacao/css/
 12-criando-botoes-personalizados-css
 */
+
 .btn-perfil {
   background: linear-gradient(to bottom, black 5%, grey 100%);
   border: 1px solid lightslategray;
@@ -21,7 +22,7 @@ https://www.visualdicas.com.br/programacao/css/
   margin-right: 10px;
   margin-top: 10px;
   padding: 6px 10px;
-} 
+}
 
 .btn-perfil:hover {
   background: linear-gradient(to bottom, grey 5%, black 100%);
