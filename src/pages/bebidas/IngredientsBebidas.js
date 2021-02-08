@@ -49,7 +49,8 @@ class IngredientsBebidas extends Component {
                 return (
                   <div className="cards">
                     <button
-                      className="ing"
+                      className="btn btn-outline-danger"
+                      id="ing"
                       type="button"
                       key={ index }
                       data-testid={ `${index}-ingredient-card` }
