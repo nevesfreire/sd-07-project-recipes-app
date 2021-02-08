@@ -1,0 +1,15 @@
+.container-area-food {
+  display: flex;
+  flex-direction: column;
+}
+
+.container-area-food select {
+  padding: 5px;
+  margin: 10px;
+}
+
+.exploraArea {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
