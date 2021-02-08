@@ -72,7 +72,7 @@ function DetailsDrink() {
 
   return (
     <div>
-      <img src={ strDrinkThumb } data-testid="recipe-photo" alt={ strDrink } />
+      <img className="images" src={ strDrinkThumb } data-testid="recipe-photo" alt={ strDrink } />
       <h1 data-testid="recipe-title">{strDrink}</h1>
       <button
         onClick={ () => copyToClipBoard(url) }

@@ -1,52 +1,51 @@
 body {
-  width: 90%;
-  height: 90%;
-  background-color: darkgoldenrod;
+  background-color:rgb(242, 242, 242);
+  box-sizing: border-box;
 }
 
 .login-form {
-  background-color: blue;
+  background-color: rgb(255, 102, 0);
   align-content: center;
   display: flex;
   justify-content: center;
   /* align-items: flex-end; */
 }
+.backLogImage {
+  background-image: url('./images/PAODEQUEIJO.png');
+  background-repeat: no-repeat;
 
-/* .meals {
-  align-items: center;
-  background: #0fa36b;
-  color: #464646;
-  display: flex;
-  flex-direction: column;
-  font-family: sans-serif;
-  height: 100vh;
-  justify-content: center;
-  width: 100%;
+}
+.header {
+  background-color: rgb(255, 102, 0);
+    display: fixed;
+    align-items: center;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    
+
 }
 
-.rocksGlass {
-  animation: shake 1s infinite ease;
-  max-height: 80vh;
-} */
+.Divbuttons {
+  width: 80%;
+  display: flex ;
+  justify-content: space-around;
 
-/*
-#iceLeft {
-  animation: clink .8s infinite ease;
-  opacity: 0.6;
-  transform-origin: 36px 66px;
+
 }
 
-#iceRight {
-  animation: clink .8s .2s infinite ease;
-  opacity: 0.6;
-  transform-origin: 60px 78px;
-}
-*/
+.buttonsHeader{
 
-/* .meals > .logo {
-  animation: shake 1.5s infinite ease;
-  color: aliceblue;
-  font-family: Montserrat , sans-serif;
-  font-size: 3em;
-  font-weight: 900;
-} */
+
+}
+
+.images {
+
+  border-style: solid;
+  border-radius: 2rem;
+}
+
+.footer {
+
+
+}
