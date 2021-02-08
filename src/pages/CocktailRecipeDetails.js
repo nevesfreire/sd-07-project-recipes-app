@@ -87,8 +87,8 @@ class CocktailRecipeDetails extends Component {
   verifyFavorite() {
     const { match: { params: { id } } } = this.props;
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-    const xablau = favorites.filter((item) => item.id === id);
-    if (xablau.length) {
+    const fav = favorites.filter((item) => item.id === id);
+    if (fav.length) {
       const { favorite } = this.state;
       if (!favorite) {
         this.setState({

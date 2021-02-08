@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import { getMealsDetailsById } from '../services/mealsAPI';
-import { fetchRandomCocktails } from '../actions/cocktails';
-import CocktailCard from '../components/CocktailCard';
 import shareIcon from '../images/shareIcon.svg';
 import favIconEnabled from '../images/blackHeartIcon.svg';
 import favIconDisabled from '../images/whiteHeartIcon.svg';
 import '../styles/recipes.css';
+import MealsCarousel from '../components/MealsCarousel';
 
 class MealRecipeDetails extends Component {
   constructor() {
@@ -29,8 +27,6 @@ class MealRecipeDetails extends Component {
   }
 
   componentDidMount() {
-    const { searchRandomCocktails } = this.props;
-    searchRandomCocktails();
     this.fetchAPI();
     this.verifyFavorite();
   }
@@ -77,8 +73,8 @@ class MealRecipeDetails extends Component {
   verifyFavorite() {
     const { match: { params: { id } } } = this.props;
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-    const xablau = favorites.filter((item) => item.id === id);
-    if (xablau.length) {
+    const fav = favorites.filter((item) => item.id === id);
+    if (fav.length) {
       const { favorite } = this.state;
       if (!favorite) {
         this.setState({
@@ -126,11 +122,6 @@ class MealRecipeDetails extends Component {
     } = meals.meals[0];
 
     const youtubeId = strYoutube.substring(strYoutube.indexOf('=') + 1);
-
-    const zero = 0;
-    const maxLength = 6;
-    const { cocktails } = this.props;
-    const firstCocktails = cocktails.slice(zero, maxLength);
 
     return (
       <div className="recipe-details">
@@ -203,14 +194,7 @@ class MealRecipeDetails extends Component {
           />
         </div>
         <div>
-          { firstCocktails.map((cocktail, index) => (
-            <CocktailCard
-              key={ index }
-              cocktail={ cocktail }
-              index={ index }
-              testid="recomendation-card"
-            />
-          ))}
+          <MealsCarousel />
         </div>
         <div className="start-btn">
           <Link
@@ -226,22 +210,12 @@ class MealRecipeDetails extends Component {
   }
 }
 
-const mapStateToProps = ({ cocktails }) => ({
-  cocktails: cocktails.cocktails,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  searchRandomCocktails: () => dispatch(fetchRandomCocktails()),
-});
-
 MealRecipeDetails.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
-  searchRandomCocktails: PropTypes.func.isRequired,
-  cocktails: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MealRecipeDetails);
+export default MealRecipeDetails;
