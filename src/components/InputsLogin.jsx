@@ -6,41 +6,44 @@ import context from '../contextAPI/context';
 import '../css/login.css';
 
 const inputText = (onChange, login) => (
-  <input
-    data-testid="email-input"
-    type="email"
-    name="user"
-    value={ login.user }
-    placeholder="email@email.com"
-    onChange={ (e) => onChange(e) }
-    className="input-email"
-  />
+  <div className="input-email">
+    <input
+      data-testid="email-input"
+      type="email"
+      name="user"
+      value={ login.user }
+      placeholder="email@email.com"
+      onChange={ (e) => onChange(e) }
+    />
+  </div>
 );
 
 const inputPasswd = (onChange, login) => (
-  <input
-    data-testid="password-input"
-    type="password"
-    name="passwd"
-    value={ login.passwd }
-    placeholder="sua senha aqui"
-    onChange={ (e) => onChange(e) }
-    className="input-senha"
-  />
+  <div className="input-senha">
+    <input
+      data-testid="password-input"
+      type="password"
+      name="passwd"
+      value={ login.passwd }
+      placeholder="sua senha aqui"
+      onChange={ (e) => onChange(e) }
+    />
+  </div>
 );
 
 const buttonLogin = (onClick, enable) => (
-  <button
-    type="button"
-    data-testid="login-submit-btn"
-    variant="contained"
-    color="primary"
-    disabled={ enable }
-    onClick={ (e) => onClick(e) }
-    className="input-button"
-  >
-    Entrar
-  </button>
+  <div className="input-button">
+    <button
+      data-testid="login-submit-btn"
+      type="button"
+      variant="contained"
+      color="primary"
+      disabled={ enable }
+      onClick={ (e) => onClick(e) }
+    >
+      Entrar
+    </button>
+  </div>
 );
 
 export default function InputLogin() {
