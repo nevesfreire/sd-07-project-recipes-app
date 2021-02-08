@@ -1,14 +1,14 @@
 .container-ingredients { 
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-  }
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+}
   
-  .item {
-    border: 1px solid rgb(233, 149, 54);
-    border-radius: 5px;
-    text-align: center;
-    display: block;
-    padding: 10px;
-    margin: 10px 10px 10px 10px;
-  }
+.item {
+  border: 1px solid rgb(233, 149, 54);
+  border-radius: 5px;
+  display: block;
+  margin: 10px 10px 10px 10px;
+  padding: 10px;
+  text-align: center;
+}
