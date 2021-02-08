@@ -1,17 +1,16 @@
 .filters {
-    align-items: center;
-    background-color: #c4c4c4;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    margin-bottom: 15px;
-    margin-top: 15px;
-    padding: 3px;
-  }
-  
-  .btn {
-    margin-bottom: 3px;
-    margin-top: 3px;
-    min-width: 100px;
-  }
-  
+  align-items: center;
+  background-color: #c4c4c4;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  padding: 3px;
+}
+
+.btn {
+  margin-bottom: 3px;
+  margin-top: 3px;
+  min-width: 100px;
+}
