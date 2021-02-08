@@ -71,6 +71,7 @@ export default class CustomInProgressIngredients extends Component {
   localStorageSetUp() {
     const { recipeType, recipeId } = this.props;
     if (recipeType === 'comidas' && !getStorage('inProgressRecipes')) {
+      console.log(recipeType);
       setStorage('inProgressRecipes', { cocktails: {}, meals: { [recipeId]: [] } });
     }
     if (recipeType === 'bebidas' && !getStorage('inProgressRecipes')) {

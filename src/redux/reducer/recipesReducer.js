@@ -9,6 +9,7 @@ import {
   SELECT_AREA,
   CHANGE_RECIPE_TYPE,
   CHANGE_CURRENT_CATEGORY,
+  CHANGE_SEARCH_BAR,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -17,6 +18,8 @@ const INITIAL_STATE = {
   recipes: [],
   currentCategory: 'all',
   error: false,
+  done: [],
+  isSearchBar: false,
 };
 
 const recipesReducer = (state = INITIAL_STATE, action) => {
@@ -59,6 +62,11 @@ const recipesReducer = (state = INITIAL_STATE, action) => {
       ...state,
       recipes: action.meals,
       isFetching: false,
+    };
+  case CHANGE_SEARCH_BAR:
+    return {
+      ...state,
+      isSearchBar: true,
     };
   default:
     return state;
