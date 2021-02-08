@@ -20,8 +20,8 @@
 
 .container-btn {
   display: flex;
-  flex-direction: row;
   flex-flow: wrap;
+  flex-direction: row;
   justify-content: center;
   margin-bottom: 20px;
 }

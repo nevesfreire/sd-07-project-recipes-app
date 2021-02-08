@@ -21,8 +21,8 @@ h3 {
 }
 
 .container-copy-favorite-drink {
-  background-color: white ! important;
-  border: none ! important;
+  background-color: white;
+  border: none;
   display: block;
   margin-left: 20px;
   margin-top: 15px;
@@ -48,8 +48,8 @@ h3 {
 
 .container-btn {
   display: flex;
-  flex-direction: row;
   flex-flow: wrap;
+  flex-direction: row;
   justify-content: center;
   margin-bottom: 20px;
 }

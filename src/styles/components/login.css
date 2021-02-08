@@ -15,18 +15,18 @@
 }
 
 input {
-  border-radius:4px;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
   box-shadow: 1px 1px 2px;
-  -moz-border-radius:4px;
+  -webkit-border-radius: 4px;
   margin-bottom: 10px;
-  -webkit-border-radius:4px;
 }
 
 .header-login {
   color: black;
   font-size: 50px;
   font-weight: bold;
-  margin-bottom: 0px;
+  margin-bottom: 0;
   margin-top: 100px;
   text-align: center;
 }
@@ -38,8 +38,8 @@ input {
 
 .container-btn-enter {
   display: flex;
-  flex-direction: row;
   flex-flow: wrap;
+  flex-direction: row;
   justify-content: center;
   margin-bottom: 20px;
 }

@@ -25,8 +25,8 @@ como-dispor-imagens-uma-ao-lado-da-outra-com-t%C3%ADtulos-abaixo-em-css
 
 .container-btn {
   display: flex;
-  flex-direction: row;
   flex-flow: wrap;
+  flex-direction: row;
   justify-content: center;
   margin-bottom: 20px;
 }
