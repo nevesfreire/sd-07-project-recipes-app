@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Slider from 'react-slick';
+import clipboard from 'clipboard-copy';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import { RecomendationCardMeal } from '../../components';
@@ -11,6 +12,14 @@ import {
 import { getRecommendatedDrinks } from '../../store/ducks/getDetailedDrink/actions';
 
 class TelaDetalheComida extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isClicked: false,
+    };
+    this.handleShareClick = this.handleShareClick.bind(this);
+  }
+
   async componentDidMount() {
     const {
       match: {
@@ -20,6 +29,11 @@ class TelaDetalheComida extends Component {
     const { getDetailedMealDispatch, getRecommendationDrinks } = this.props;
     await getRecommendationDrinks();
     await getDetailedMealDispatch(id);
+  }
+
+  handleShareClick() {
+    this.setState({ isClicked: true });
+    clipboard(`${document.URL}`);
   }
 
   handleIngredients(meal) {
@@ -50,6 +64,7 @@ class TelaDetalheComida extends Component {
       slidesToShow: 1,
       slidesToScroll: 2,
     };
+    const { isClicked } = this.state;
 
     return (
       <>
@@ -59,7 +74,23 @@ class TelaDetalheComida extends Component {
           src={ meal[0].strMealThumb }
         />
         <h3 data-testid="recipe-title">{meal[0].strMeal}</h3>
-        <img data-testid="share-btn" alt="share-btn" src={ shareIcon } />
+        <div
+          onClick={ this.handleShareClick }
+          onKeyDown={ this.handleShareClick }
+          role="button"
+          tabIndex={ 0 }
+        >
+          <img
+            data-testid="share-btn"
+            alt="share-btn"
+            src={ shareIcon }
+          />
+        </div>
+        <tag>
+          {
+            (isClicked) ? ('Link copiado!') : (null)
+          }
+        </tag>
         <img
           data-testid="favorite-btn"
           alt="favorite-btn"

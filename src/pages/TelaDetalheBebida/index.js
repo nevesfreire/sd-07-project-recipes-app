@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Slider from 'react-slick';
+import clipboard from 'clipboard-copy';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import { RecomendationCardDrink } from '../../components';
@@ -11,6 +12,14 @@ import {
 import { getRecommendatedMeals } from '../../store/ducks/getDetailedMeal/actions';
 
 class TelaDetalheBebida extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isClicked: false,
+    };
+    this.handleShareClick = this.handleShareClick.bind(this);
+  }
+
   async componentDidMount() {
     const {
       match: {
@@ -23,8 +32,8 @@ class TelaDetalheBebida extends Component {
   }
 
   handleShareClick() {
-    alert(document.URL);
-    // alert('Link copiado!');
+    this.setState({ isClicked: true });
+    clipboard(`${document.URL}`);
   }
 
   handleIngredients(drink) {
@@ -55,6 +64,7 @@ class TelaDetalheBebida extends Component {
       slidesToShow: 2,
       slidesToScroll: 2,
     };
+    const { isClicked } = this.state;
 
     return (
       <div>
@@ -76,6 +86,11 @@ class TelaDetalheBebida extends Component {
             src={ shareIcon }
           />
         </div>
+        <tag>
+          {
+            (isClicked) ? ('Link copiado!') : (null)
+          }
+        </tag>
         <img
           data-testid="favorite-btn"
           alt="favorite-btn"
