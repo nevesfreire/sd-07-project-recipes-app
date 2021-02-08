@@ -22,6 +22,10 @@ const endPointIngredientFoodList = 'https://www.themealdb.com/api/json/v1/1/list
 
 const endPointIngredientDrinkList = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
 
+const endPointFoodByArea = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+
+const endPoitFilterFoodByArea = 'https://www.themealdb.com/api/json/v1/1/filter.php?a=';
+
 export const getFoodIngredients = async (ingredients) => {
   try {
     const { meals } = await fetch(`${endPointFoodIngredients}${ingredients}`)
@@ -155,6 +159,26 @@ export const getIngredientsDrinkList = async () => {
     const { drinks } = await fetch(endPointIngredientDrinkList)
       .then((result) => result.json());
     return drinks;
+  } catch (err) {
+    return 'erro';
+  }
+};
+
+export const getFoodListByArea = async () => {
+  try {
+    const { meals } = await fetch(endPointFoodByArea)
+      .then((result) => result.json());
+    return meals;
+  } catch (err) {
+    return 'erro';
+  }
+};
+
+export const getFilterFoodListByArea = async (area) => {
+  try {
+    const { meals } = await fetch(`${endPoitFilterFoodByArea}${area}`)
+      .then((result) => result.json());
+    return meals;
   } catch (err) {
     return 'erro';
   }
