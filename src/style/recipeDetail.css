@@ -7,3 +7,8 @@
 .hidden {
   visibility: hidden;
 }
+
+.img-recipe {
+  width: 100%;
+}
+

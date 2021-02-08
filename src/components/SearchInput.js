@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
 import RecipesContext from '../context/RecipesContext';
+import '../style/recipes.css';
+
 
 function SearchInput() {
   const { setSearchInput } = useContext(RecipesContext);
@@ -7,7 +9,12 @@ function SearchInput() {
     setSearchInput(target.value);
   };
   return (
-    <input onChange={ handlerChange } data-testid="search-input" type="text" />
+    <input
+      className="input-search"
+      onChange={ handlerChange }
+      data-testid="search-input"
+      type="text"
+    />
   );
 }
 

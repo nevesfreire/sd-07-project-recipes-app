@@ -98,13 +98,13 @@ function FoodDetails() {
 
   return (
     <div>
-      <img data-testid="recipe-photo" src={ recipeDetailFood.strMealThumb } alt="food" />
+      <img className="img-recipe" data-testid="recipe-photo" src={ recipeDetailFood.strMealThumb } alt="food" />
       <h2 data-testid="recipe-title">{recipeDetailFood.strMeal}</h2>
       <button type="button" onClick={ handleCopyClick }>
         <img data-testid="share-btn" src={ shareIcon } alt="share" />
       </button>
       <button type="button" onClick={ handleFavoriteClick }>
-        <img data-testid="favorite-btn" src={ favorited } alt="favorite" />
+        <img  data-testid="favorite-btn" src={ favorited } alt="favorite" />
       </button>
       <p>{copyText}</p>
       <p data-testid="recipe-category">{recipeDetailFood.strCategory}</p>
@@ -130,6 +130,7 @@ function FoodDetails() {
                   to={ `/bebidas/${drinks.idDrink}` }
                 >
                   <img
+                    className="img-recipe"
                     data-testid={ `${index}-card-img` }
                     src={ drinks.strDrinkThumb }
                     alt={ drinks.strDrink }

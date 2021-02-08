@@ -16,6 +16,7 @@ import FavoriteRecipes from './pages/FavoriteRecipes';
 import DrinkArea from './pages/DrinkArea';
 import FoodArea from './pages/FoodArea';
 import RecipesMade from './pages/RecipesMade';
+import 'antd/dist/antd.css';
 
 function App() {
   return (

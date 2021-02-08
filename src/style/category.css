@@ -1,0 +1,8 @@
+.container-category {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 90px;
+    flex-wrap: wrap;
+    background-color: rgb(107, 199, 107);
+}
