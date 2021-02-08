@@ -12,6 +12,7 @@ import FavoriteHeart from '../components/FavoriteHeart';
 import CoffeAndCodeContext from '../context/CoffeeAndCodeContext';
 import { requestApiFoodDetails } from '../services/requestFood';
 import { recommendDrinksList } from '../services/requestDrink';
+import '../styles/pages/detalhesReceita.css';
 
 const filteredIngredientsAndMeasures = (
   detailsEntries,
@@ -39,7 +40,6 @@ function DetalhesReceitas({ match: { params: { id } } }) {
   const [recommendedForThisFood, setRecommendedForThisFood] = useState([]);
   const [startRecipeButton, setStartRecipeButton] = useState('Iniciar Receita');
   const [startButtonVisibility, setStartButtonVisibility] = useState({});
-
   const {
     ingredientsAndMeasures,
     setIngredientsAndMeasures,
@@ -48,7 +48,6 @@ function DetalhesReceitas({ match: { params: { id } } }) {
     copyVisibility,
     setCopyVisibility,
   } = useContext(CoffeAndCodeContext);
-
   const sliderSettings = {
     dots: true,
     infinite: false,
@@ -58,7 +57,6 @@ function DetalhesReceitas({ match: { params: { id } } }) {
   };
 
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trim
-
   const getIngredientsAndMeasures = () => {
     const detailsEntries = Object.entries(foodDetails);
     const filteredIngredients = [];
@@ -133,6 +131,7 @@ function DetalhesReceitas({ match: { params: { id } } }) {
   return (
     <div>
       <img
+        className="image"
         src={ foodDetails.strMealThumb }
         alt={ foodDetails.strMeal }
         data-testid="recipe-photo"
@@ -163,7 +162,7 @@ function DetalhesReceitas({ match: { params: { id } } }) {
       </div>
       <div>
         <p>Ingredients</p>
-        <div>
+        <div className="ingredients">
           {
             ingredientsAndMeasures.map((element, index) => (
               <p
@@ -176,13 +175,14 @@ function DetalhesReceitas({ match: { params: { id } } }) {
           }
         </div>
         <p>Instructions</p>
-        <div>
+        <div className="instructions">
           <p data-testid="instructions">
             { foodDetails.strInstructions }
           </p>
         </div>
       </div>
       <iframe
+        className="video"
         src={ videoLink }
         data-testid="video"
         title="video"
@@ -201,11 +201,13 @@ function DetalhesReceitas({ match: { params: { id } } }) {
           {
             recommendedForThisFood.map((drink, index) => (
               <div
+                className="holder"
                 key={ drink }
                 data-testid={ `${index}-recomendation-card` }
               >
                 <div>
                   <img
+                    className="image-carousel"
                     src={ drink.strDrinkThumb }
                     alt={ drink.strDrinkThumb }
                   />

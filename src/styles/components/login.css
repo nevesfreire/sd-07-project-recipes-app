@@ -1,0 +1,31 @@
+.container-login {
+  background: linear-gradient(to top, black, white);
+  bottom: 0;
+  left: -50%;
+  position: fixed;
+  right: -50%;
+  top: 0;
+}
+
+.login {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+input {
+  margin-bottom: 10px;
+}
+
+h1 {
+  color: black;
+  font-size: 50px;
+  font-weight: 400;
+  margin-top: 100px;
+  text-align: center;
+}
+
+button {
+  color: black;
+}

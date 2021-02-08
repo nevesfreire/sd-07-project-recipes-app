@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import CoffeAndCodeContext from '../context/CoffeeAndCodeContext';
 import { saveState } from '../services/localStorage';
+import '../styles/components/login.css';
 
 function Login() {
   const {
@@ -32,34 +33,41 @@ function Login() {
   };
 
   return (
-    <div>
+    <div className="container-login">
       <header>
         <h1>Coffee and Code</h1>
       </header>
-      <section>
-        <input
-          type="email"
-          name="email"
-          onChange={ isEmail }
-          data-testid="email-input"
-          placeholder="example@email.com"
-        />
-        <input
-          type="password"
-          name="password"
-          onChange={ isPassword }
-          data-testid="password-input"
-        />
-        <Link to="/comidas">
-          <button
-            data-testid="login-submit-btn"
-            type="button"
-            disabled={ !email || !password }
-            onClick={ submit }
-          >
-            Enter
-          </button>
-        </Link>
+      <section className="login">
+        <div>
+          <input
+            type="email"
+            name="email"
+            onChange={ isEmail }
+            data-testid="email-input"
+            placeholder="example@email.com"
+          />
+        </div>
+        <div>
+          <input
+            type="password"
+            name="password"
+            onChange={ isPassword }
+            data-testid="password-input"
+            placeholder="password"
+          />
+        </div>
+        <div>
+          <Link to="/comidas">
+            <button
+              data-testid="login-submit-btn"
+              type="button"
+              disabled={ !email || !password }
+              onClick={ submit }
+            >
+              Enter
+            </button>
+          </Link>
+        </div>
       </section>
     </div>
   );

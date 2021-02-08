@@ -1,0 +1,34 @@
+.ingredients {
+  margin-left: 50px;
+}
+
+.instructions {
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.video {
+  display: flex;
+  margin: 0 auto;
+  width: 500px;
+}
+
+.holder {
+  display: inline-block;
+  justify-content: center;
+}
+
+.image {
+  margin: 10px;
+  position: relative;
+  text-align: center;
+  width: 200px;
+}
+
+.image:after {
+  bottom: -20px;
+  content: attr(data-title); /* estilo que coloco a legenda no lugar */
+  left: 0;
+  position: absolute;
+  width: 100%;
+}

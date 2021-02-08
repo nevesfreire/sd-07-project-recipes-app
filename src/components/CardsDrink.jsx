@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import CoffeeAndCodeContext from '../context/CoffeeAndCodeContext';
 import { requestApiDrinkFilterName } from '../services/requestDrink';
+import '../styles/components/cardsDrink.css';
 
 function CardsDrink() {
   const maxCardAmount = 12;
@@ -34,15 +35,19 @@ function CardsDrink() {
 
             return (
               <div
+                className="holder"
                 key={ idDrink }
                 data-testid={ `${index}-recipe-card` }
               >
                 <Link to={ `/bebidas/${idDrink}` }>
-                  <img
-                    src={ strDrinkThumb }
-                    alt={ strDrink }
-                    data-testid={ `${index}-card-img` }
-                  />
+                  <div>
+                    <img
+                      className="image"
+                      src={ strDrinkThumb }
+                      alt={ strDrink }
+                      data-testid={ `${index}-card-img` }
+                    />
+                  </div>
                 </Link>
                 <div>
                   <Link to={ `/bebidas/${idDrink}` }>

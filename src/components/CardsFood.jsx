@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import CoffeeAndCodeContext from '../context/CoffeeAndCodeContext';
 import { requestApiFoodFilterName } from '../services/requestFood';
+import '../styles/components/cardsFood.css';
 
 function CardsFood() {
   const maxCardAmount = 12;
@@ -22,7 +23,7 @@ function CardsFood() {
   if (!cardFood.length) return <span>Loading...</span>;
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice
   return (
-    <div>
+    <div className="holder">
       {
         cardFood.slice(firstCard, cardAmount)
           .map((currentObject, index) => {
@@ -34,15 +35,19 @@ function CardsFood() {
 
             return (
               <div
+                className="holder"
                 key={ idMeal }
                 data-testid={ `${index}-recipe-card` }
               >
                 <Link to={ `/comidas/${idMeal}` }>
-                  <img
-                    src={ strMealThumb }
-                    alt={ strMeal }
-                    data-testid={ `${index}-card-img` }
-                  />
+                  <div>
+                    <img
+                      className="image"
+                      src={ strMealThumb }
+                      alt={ strMeal }
+                      data-testid={ `${index}-card-img` }
+                    />
+                  </div>
                 </Link>
                 <div>
                   <Link to={ `/comidas/${idMeal}` }>
