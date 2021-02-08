@@ -134,7 +134,7 @@ class Favoritas extends Component {
     return (
       <div>
         <Header title="Receitas Favoritas" searchOn="off" history={ history } />
-        <div>
+        <div className="btn-grp">
           <button
             className="btn-group col-all btn btn-danger"
             type="button"

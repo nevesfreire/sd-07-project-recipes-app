@@ -110,6 +110,12 @@ body {
   width: 30vw;
 }
 
+.btn-grp {
+  margin-top: 2vw;
+  display: flex;
+  justify-content: center;
+}
+
 .category {
   display: flex;
   top: 0;
