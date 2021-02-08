@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-// import Recomendation from '../../components/Recomendations';
+import Recomendation from '../../components/Recomendations';
 
 const RecipeDetails = () => {
   const { recipeId } = useParams();
@@ -17,7 +17,7 @@ const RecipeDetails = () => {
         {' '}
         {pathname}
       </h3>
-      {/* <Recomendation title={ pathname } /> */}
+      <Recomendation title={ pathname } />
     </>
   );
 };
