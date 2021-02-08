@@ -21,8 +21,9 @@ function ExplorarSearchBar({ hideAreaButton, mealType }) {
   };
 
   return (
-    <div>
+    <div className="navbar">
       <button
+        className="navbar-button"
         data-testid="explore-by-ingredient"
         type="button"
         onClick={ () => redirectTo('ingredientes') }
@@ -32,6 +33,7 @@ function ExplorarSearchBar({ hideAreaButton, mealType }) {
       {!JSON.parse(hideAreaButton)
            && (
              <button
+               className="navbar-button"
                data-testid="explore-by-area"
                type="button"
                onClick={ () => redirectTo('area') }
@@ -41,6 +43,7 @@ function ExplorarSearchBar({ hideAreaButton, mealType }) {
            )}
 
       <button
+        className="navbar-button"
         data-testid="explore-surprise"
         type="button"
         onClick={ () => getRamdomRecipe() }

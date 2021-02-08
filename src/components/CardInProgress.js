@@ -137,7 +137,6 @@ function CardInProgress() {
       <button
         className="button-begin form-button"
         type="button"
-        width="100%"
         data-testid="finish-recipe-btn"
         disabled={ disableButton }
         onClick={ () => {

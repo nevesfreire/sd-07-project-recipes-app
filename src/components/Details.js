@@ -210,9 +210,8 @@ function Details({ itemId, mealType }) {
         recommendation="true"
       />
       <button
-        className="button-begin form-button"
+        className="form-button"
         type="button"
-        width="100%"
         data-testid="start-recipe-btn"
         onClick={ () => forwardToInProgress() }
         hidden={ hideBtn }

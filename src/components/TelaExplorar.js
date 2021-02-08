@@ -4,8 +4,9 @@ import { useHistory } from 'react-router-dom';
 function TelaExplorar() {
   const history = useHistory();
   return (
-    <nav>
+    <nav className="navbar">
       <button
+        className="navbar-button"
         type="button"
         data-testid="explore-food"
         onClick={ () => history.push('/explorar/comidas') }
@@ -13,6 +14,7 @@ function TelaExplorar() {
         Explorar Comidas
       </button>
       <button
+        className="navbar-button"
         type="button"
         data-testid="explore-drinks"
         onClick={ () => history.push('/explorar/bebidas') }

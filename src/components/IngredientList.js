@@ -13,12 +13,13 @@ function IngredientesList({ mealType, requiredIngredients }) {
   };
 
   return (
-    <div>
+    <div className="ingredients-list">
       { requiredIngredients.map((item, index) => (
         <div
           key={ index }
         >
           <button
+            className="item-ingredients"
             data-testid={ `${index}-ingredient-card` }
             type="button"
             onClick={ () => goToMainByIngredient(`/${pathType}`, (mealType === 'Meal'
