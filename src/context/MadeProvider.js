@@ -9,7 +9,10 @@ const MadeProvider = ({ children }) => {
   const [filterButton, setFilterButton] = useState('all');
   const [pathImage, setPathImage] = useState();
 
-  const getStorage = useCallback((key) => JSON.parse(localStorage.getItem(key)), []);
+  const getStorage = useCallback(
+    (key) => JSON.parse(localStorage.getItem(key)),
+    [],
+  );
 
   const handleShare = (name, id) => {
     console.log(name, id);
@@ -42,7 +45,9 @@ const MadeProvider = ({ children }) => {
           />
         </Link>
         <p data-testid={ `${index}-horizontal-top-text` }>
-          {recipe.type === 'comida' ? `${recipe.area} - ${recipe.category}` : recipe.alcoholicOrNot}
+          {recipe.type === 'comida'
+            ? `${recipe.area} - ${recipe.category}`
+            : recipe.alcoholicOrNot}
         </p>
         <a href={ `/${recipe.type}s/${recipe.id}` }>
           <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
@@ -62,7 +67,7 @@ const MadeProvider = ({ children }) => {
               name={ recipe.type }
             />
           </button>
-          { pathImage && <p className="share-text">Link copiado!</p> }
+          {pathImage && <p className="share-text">Link copiado!</p>}
         </div>
         {recipe.tags.map((tag, index2) => (
           <span key={ index2 } data-testid={ `${index}-${tag}-horizontal-tag` }>
