@@ -1,52 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import MadeContext from './MadeContext';
 import shareIcon from '../images/shareIcon.svg';
 
 const MadeProvider = ({ children }) => {
-  const [made, setMade] = useState([
-    {
-      id: '52771',
-      type: 'comidas',
-      area: 'Italian',
-      category: 'Vegetarian',
-      alcoholicOrNot: '',
-      name: 'Spicy Arrabiata Penne',
-      image:
-        'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-      doneDate: '3/2/2021',
-      tags: ['Pasta', 'Curry'],
-    },
-    {
-      id: '52741',
-      type: 'bebidas',
-      area: '',
-      category: '',
-      alcoholicOrNot: 'Alcoholic',
-      name: 'Caipirinha',
-      image:
-        'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-      doneDate: '5/2/2021',
-      tags: [],
-    },
-  ]);
+  const [made, setMade] = useState([]);
   const [filterButton, setFilterButton] = useState('all');
   const [pathImage, setPathImage] = useState();
 
+  const getStorage = useCallback((key) => JSON.parse(localStorage.getItem(key)), []);
+
   const handleShare = (name, id) => {
     console.log(name, id);
-    const completePath = `http://localhost:3000/${name}/${id}`;
+    const completePath = `http://localhost:3000/${name}s/${id}`;
     navigator.clipboard.writeText(completePath);
     setPathImage(completePath);
   };
 
   const allMadeRecipes = () => {
-    const comida = made.filter((recipe) => recipe.type === 'comidas');
-    const bebida = made.filter((recipe) => recipe.type === 'bebidas');
+    const comida = made.filter((recipe) => recipe.type === 'comida');
+    const bebida = made.filter((recipe) => recipe.type === 'bebida');
     let list = {};
-    if (filterButton === 'comidas') {
+    if (filterButton === 'comida') {
       list = comida;
-    } else if (filterButton === 'bebidas') {
+    } else if (filterButton === 'bebida') {
       list = bebida;
     } else {
       list = made;
@@ -55,17 +33,18 @@ const MadeProvider = ({ children }) => {
 
     return list.map((recipe, index) => (
       <div key={ index }>
-        <a href={ `/${recipe.type}/${recipe.id}` }>
+        <Link to={ `/${recipe.type}s/${recipe.id}` }>
           <img
             src={ recipe.image }
             alt={ recipe.name }
             data-testid={ `${index}-horizontal-image` }
+            className="image-recipe"
           />
-        </a>
+        </Link>
         <p data-testid={ `${index}-horizontal-top-text` }>
-          {recipe.type === 'comida' ? recipe.category : recipe.alcoholicOrNot}
+          {recipe.type === 'comida' ? `${recipe.area} - ${recipe.category}` : recipe.alcoholicOrNot}
         </p>
-        <a href={ `/${recipe.type}/${recipe.id}` }>
+        <a href={ `/${recipe.type}s/${recipe.id}` }>
           <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
         </a>
         <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
@@ -73,13 +52,12 @@ const MadeProvider = ({ children }) => {
           <button
             type="button"
             className="share-btn"
-            data-testid={ `${index}-horizontal-share-btn` }
             onClick={ (e) => handleShare(e.target.name, e.target.id) }
           >
             <img
               src={ shareIcon }
               alt="share"
-              data-testid="share-btn"
+              data-testid={ `${index}-horizontal-share-btn` }
               id={ recipe.id }
               name={ recipe.type }
             />
@@ -87,7 +65,7 @@ const MadeProvider = ({ children }) => {
           { pathImage && <p className="share-text">Link copiado!</p> }
         </div>
         {recipe.tags.map((tag, index2) => (
-          <span key={ index2 } data-testid={ `${index}-tagName-horizontal-tag` }>
+          <span key={ index2 } data-testid={ `${index}-${tag}-horizontal-tag` }>
             {tag}
           </span>
         ))}
@@ -103,6 +81,7 @@ const MadeProvider = ({ children }) => {
         filterButton,
         setFilterButton,
         allMadeRecipes,
+        getStorage,
       } }
     >
       {children}

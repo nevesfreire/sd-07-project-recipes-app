@@ -1,9 +1,14 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import CategoriesButtons from './CategoriesButtons';
 import MadeContext from '../context/MadeContext';
 
 export default function Made() {
-  const { allMadeRecipes } = useContext(MadeContext);
+  const { allMadeRecipes, setMade, getStorage } = useContext(MadeContext);
+
+  useEffect(() => {
+    setMade(getStorage('doneRecipes'));
+  }, [setMade, getStorage]);
+
   return (
     <div>
       <CategoriesButtons />

@@ -20,7 +20,7 @@ export default function CategoriesButtons() {
         type="button"
         data-testid="filter-by-food-btn"
         onClick={ () => {
-          setFilterButton('comidas');
+          setFilterButton('comida');
         } }
       >
         Food
@@ -30,7 +30,7 @@ export default function CategoriesButtons() {
         type="button"
         data-testid="filter-by-drink-btn"
         onClick={ () => {
-          setFilterButton('bebidas');
+          setFilterButton('bebida');
         } }
       >
         Drinks

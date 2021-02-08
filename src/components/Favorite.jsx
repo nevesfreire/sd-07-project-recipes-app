@@ -1,9 +1,14 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import FavCategoriesButtons from './FavCategoriesButtons';
 import FavContext from '../context/FavContext';
 
 export default function Favorite() {
-  const { allFavRecipes } = useContext(FavContext);
+  const { allFavRecipes, setFavorite, getStorage } = useContext(FavContext);
+
+  useEffect(() => {
+    setFavorite(getStorage('favoriteRecipes'));
+  }, [setFavorite, getStorage]);
+
   return (
     <div>
       <FavCategoriesButtons />
