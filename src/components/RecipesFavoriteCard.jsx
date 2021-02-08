@@ -85,6 +85,7 @@ function RecipesFavoriteCard() {
             >
               <button
                 type="button"
+                className="button"
                 onClick={ (event) => copyLink(event, `http://localhost:3000/${recipe.type}s/${recipe.id}`) }
               >
                 <img
@@ -96,6 +97,7 @@ function RecipesFavoriteCard() {
               </button>
               <button
                 type="button"
+                className="button"
                 onClick={ (event) => favoriteRecipe(event) }
               >
                 <img

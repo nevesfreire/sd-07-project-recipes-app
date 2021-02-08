@@ -34,16 +34,29 @@ export default function FoodDetails(props) {
   if (isFetching || meals === undefined) return <span>Carregando...</span>;
 
   return (
-    <div>
+    <div className="recipes-details-body">
       <img
+        className="img-recipes-details"
         data-testid="recipe-photo"
         alt="Imagem da receita"
         src={ meals[0].strMealThumb }
       />
       <p data-testid="recipe-title">{meals[0].strMeal}</p>
       <div>
-        <button data-testid="share-btn" type="button">Compartilhar</button>
-        <button data-testid="favorite-btn" type="button">Favoritar</button>
+        <button
+          data-testid="share-btn"
+          type="button"
+          className="btn btn-outline-warning color-button"
+        >
+          Compartilhar
+        </button>
+        <button
+          data-testid="favorite-btn"
+          type="button"
+          className="btn btn-outline-warning color-button"
+        >
+          Favoritar
+        </button>
         <p data-testid="recipe-category">{meals[0].strCategory}</p>
         <ol className="list-ingredients">
           {listIgredient().map((content, index) => (
@@ -59,6 +72,7 @@ export default function FoodDetails(props) {
           {meals[0].strInstructions}
         </p>
         <iframe
+          className="img-recipes-details"
           data-testid="video"
           title={ meals[0].strMeal }
           id="ytplayer"
@@ -71,7 +85,11 @@ export default function FoodDetails(props) {
         <Carousel>
           {drinks.map((drinkRecomendation, index) => (
             <Carousel.Item key={ index } data-testid={ `${index}-recomendation-card` }>
-              <img alt="Recomendation" src={ drinkRecomendation.strDrinkThumb } />
+              <img
+                className="img-recipes-details"
+                alt="Recomendation"
+                src={ drinkRecomendation.strDrinkThumb }
+              />
               <Carousel.Caption>
                 <p
                   data-testid={ `${index}-recomendation-title` }
@@ -85,7 +103,7 @@ export default function FoodDetails(props) {
         <button
           type="button"
           data-testid="start-recipe-btn"
-          className="recipes-start"
+          className="btn btn-outline-warning recipes-start color-button"
         >
           Iniciar receita
         </button>

@@ -6,8 +6,8 @@ import Footer from '../components/Footer';
 function ExplorerDrinks() {
   return (
     <div>
-      <span>Explorar Bebidas</span>
       <ExplorerButtons />
+      <span>Explorar Bebidas</span>
       <Footer />
     </div>
   );

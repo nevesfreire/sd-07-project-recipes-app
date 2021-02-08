@@ -37,39 +37,46 @@ function Search() {
   }
 
   return (
-    <div>
-      <input
-        type="text"
-        data-testid="search-input"
-        value={ search }
-        onChange={ (e) => setSearch(e.target.value) }
-      />
+    <div className="profile-buttons">
       <div>
-        <label htmlFor="searchRadio">
+        <input
+          type="text"
+          className="form-control search-input"
+          placeholder="Insira os dados para pesquisa"
+          data-testid="search-input"
+          value={ search }
+          onChange={ (e) => setSearch(e.target.value) }
+        />
+      </div>
+      <div className="group-radio-buttons">
+        <label htmlFor="searchRadio" className="label">
           <input
             type="radio"
             value="ingredient"
             name="searchRadio"
+            className="input-radio"
             data-testid="ingredient-search-radio"
             onChange={ (e) => setRadioSelected(e.target.value) }
           />
           Ingrediente
         </label>
-        <label htmlFor="searchRadio">
+        <label htmlFor="searchRadio" className="label">
           <input
             type="radio"
             value="name"
             name="searchRadio"
+            className="input-radio"
             data-testid="name-search-radio"
             onChange={ (e) => setRadioSelected(e.target.value) }
           />
           Nome
         </label>
-        <label htmlFor="searchRadio">
+        <label htmlFor="searchRadio" className="label">
           <input
             type="radio"
             value="firstLetter"
             name="searchRadio"
+            className="input-radio"
             data-testid="first-letter-search-radio"
             onChange={ (e) => setRadioSelected(e.target.value) }
           />
@@ -79,6 +86,7 @@ function Search() {
       <button
         type="button"
         data-testid="exec-search-btn"
+        className="btn color-button main-pages-buttons search-button"
         onClick={ () => fetchAPI() }
       >
         Buscar
