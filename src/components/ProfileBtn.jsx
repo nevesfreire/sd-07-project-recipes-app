@@ -33,7 +33,7 @@ const profileFavorite = (history) => (
   </button>
 );
 
-const logout = (history) => {
+const logout = async (history) => {
   localStorage.clear();
   history.push('/');
 };
@@ -50,6 +50,7 @@ const profileLogout = (history) => (
 );
 
 function ProfileBtns() {
+
   const { email } = getItem('user');
   const history = useHistory();
   return (

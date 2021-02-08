@@ -41,14 +41,16 @@ const ListCards = () => {
   if (!recipes) return <div>Loading...</div>;
   return (
     recipes.filter((_recipe, index) => index < maxRecipesNumber)
-      .map((recipe, index) => (<Card
-        key={ recipe[findMatch('id', recipe)] }
-        pathname={ pathname }
-        id={ recipe[findMatch('id', recipe)] }
-        recipeName={ recipe[findMatch(recipeStr, recipe)] }
-        recipeThumb={ recipe[findMatch(/Thumb/, recipe)] }
-        recipeIndex={ index }
-      />))
+      .map((recipe, index) => (
+        <Card
+          key={ recipe[findMatch('id', recipe)] }
+          pathname={ pathname }
+          id={ recipe[findMatch('id', recipe)] }
+          Name={ recipe[findMatch(recipeStr, recipe)] }
+          Thumb={ recipe[findMatch(/Thumb/, recipe)] }
+          Index={ index }
+        />
+      ))
   );
 };
 

@@ -3,11 +3,11 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Context from '../contextAPI/context';
 import { fetchApi } from '../services/fetchApi';
-import siteMap from '../helpers/siteMap';
+// import siteMap from '../helpers/siteMap';
 
-const findMatch = (string, object) => (
-  Object.keys(object).find((key) => key.match(string))
-);
+// const findMatch = (string, object) => (
+//   Object.keys(object).find((key) => key.match(string))
+// );
 
 function Provider({ children }) {
   const [login, setLogin] = useState({});

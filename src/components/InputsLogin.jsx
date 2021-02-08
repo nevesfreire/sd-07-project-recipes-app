@@ -70,8 +70,8 @@ export default function InputLogin() {
 
   return (
     <div className="input-login">
-      {inputText(loginChanges, login)}
-      {inputPasswd(loginChanges, login)}
+      {inputText(loginChanges)}
+      {inputPasswd(loginChanges)}
       {buttonLogin(callRoute, isDisabled)}
     </div>
   );

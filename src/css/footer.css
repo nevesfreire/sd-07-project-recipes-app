@@ -1,6 +1,8 @@
 .footer {
+  bottom: 0;
   display: flex;
   flex-direction: row;
+  position: fixed;
 }
 
 .top-footer {

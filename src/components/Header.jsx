@@ -28,14 +28,12 @@ const profileTopBtn = (profileButton) => {
     );
   }
   return (
-    <div className="noShowBtn">
-      X
-    </div>
-  )
+    <div className="noShowBtn" />
+  );
 };
 
 const pageTitle = (title) => {
-  if (!title) return ('Aqui um Titulo')
+  if (!title) return ('Aqui um Titulo');
   return (
     <h1
       data-testid="page-title"
@@ -43,7 +41,7 @@ const pageTitle = (title) => {
     >
       {title}
     </h1>
-  )
+  );
 };
 
 const searchRecipeComponent = (pathname, toggleSearch, title) => (
@@ -56,7 +54,7 @@ const searchRecipeComponent = (pathname, toggleSearch, title) => (
 );
 
 const searchBtn = (searchButton, toggleSearch, onClick) => {
-  if (!searchButton) return (<div className="noShowBtn">X</div>);
+  if (!searchButton) return (<div className="noShowBtn" />);
   return (
     <Button
       type="button"
@@ -90,7 +88,7 @@ export default function Header() {
   };
 
   const render = () => (
-    <div className="main-reader-controller">
+    <div className="main-header-controller">
       <div className="header">
         {profileTopBtn(profileButton)}
         {pageTitle(title)}

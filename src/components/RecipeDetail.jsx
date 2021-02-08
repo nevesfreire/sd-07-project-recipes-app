@@ -1,5 +1,6 @@
 import React from 'react';
-import shareIcon from '../images/shareIcon.svg'
+import shareIcon from '../images/shareIcon.svg';
+import Card from './Card';
 
 const recipeImage = (url, title) => (
   <img
@@ -10,7 +11,7 @@ const recipeImage = (url, title) => (
   />
 );
 
-const recipeTitle = (tilte) => (
+const recipeTitle = (title) => (
   <h1
     data-testid="recipe-title"
     className="card-title"
@@ -19,16 +20,22 @@ const recipeTitle = (tilte) => (
   </h1>
 );
 
-const recipeShare = (share) => (
-  <button
-    data-testid="share-btn"
-    onClick={ share }
-  >
-    <img
-      src={ shareIcon }
-      alt="share"
-    />
-  </button>
+const recipeShare = (functionShare, message) => (
+  <div>
+    <button
+      data-testid="share-btn"
+      onClick={ functionShare }
+      type="button"
+    >
+      <img
+        src={ shareIcon }
+        alt="share"
+      />
+    </button>
+    <div>
+      {message}
+    </div>
+  </div>
 );
 
 const recipeCategory = (category) => (
@@ -46,8 +53,7 @@ const recipeIngredients = (ingredients, measures) => (
       >
         { `${ingredient} - ${measures[index]}` }
       </li>
-    ))
-    }
+    ))}
   </ul>
 );
 
@@ -60,8 +66,7 @@ const recipeInstructions = (instructions) => (
   </p>
 );
 
-
-const recipeVideo = (video) => {
+const recipeVideo = (video) => (
   <video
     data-testid="video"
     controls
@@ -69,10 +74,10 @@ const recipeVideo = (video) => {
   >
     <track src={ video } kind="captions" srcLang="en" />
   </video>
-};
+);
 
 const recipeRecommendation = (recommendation) => {
-  {
+  return (
     recommendation.map((recommend, index) => (
       <Card
         key={ recommend[findMatch('id', recommend)] }
@@ -84,17 +89,18 @@ const recipeRecommendation = (recommendation) => {
         test="recomendation-card"
       />
     ))
-  }
-}
+  );
+};
 
-const recipeStart = (start) => {
+const recipeStart = (funcStart) => (
   <button
     data-testid="start-recipe-btn"
     type="button"
+    onClick={ funcStart }
   >
     Iniciar Receita
   </button>
-}
+);
 
 async function share(pathname, message) {
   navigator.clipboard.writeText(`http://localhost:300${pathname}`);
@@ -102,26 +108,25 @@ async function share(pathname, message) {
 }
 
 function start() {
-  
+  console.log('COMEÇA A RECEITA');
 }
 
 function RecipeDetail() {
-  
   return (
-  <div>
-    <div className="card">
-      {recipeImage(url, title)}
-      {recipeTitle(tilte)}
-      {recipeShare(share)}
-      {recipeCategory(category)}
-      {recipeIngredients(ingredients, measures)}
-      {recipeInstructions(instructions)}
-      {recipeVideo(video)}
-      {recipeStart(start)}
+    <div>
+      <div className="card">
+        {recipeImage(url, title)}
+        {recipeTitle(tilte)}
+        {recipeShare(share, message)}
+        {recipeCategory(category)}
+        {recipeIngredients(ingredients, measures)}
+        {recipeInstructions(instructions)}
+        {recipeVideo(video)}
+        {recipeStart(start)}
+      </div>
+      {recipeRecommendation(recommendation)}
     </div>
-    {recipeRecommendation(recommendation)}
-  </div>
-  )
+  );
 }
 
 export default RecipeDetail;
