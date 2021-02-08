@@ -53,13 +53,15 @@ function FoodRecipes() {
   }
 
   return (
-    <div className="cardContainer">
+    <div >
       {console.log('console dentro do return')}
       <Header title="Comidas" explore funcFetch={ foodFetch } />
       <Categories list={ categoriesFood } type="meals" />
+      <div className="foodorDrinkContainer">
       {recipes.meals && !recipes.type && recipes.meals.length === um
         ? handleDatails()
         : handleRoutes()}
+        </div>
       <FooterMenu />
     </div>
   );

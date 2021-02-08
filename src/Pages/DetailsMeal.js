@@ -62,8 +62,10 @@ function DetailsMeal() {
 
   return (
     <div>
-      <img src={ strMealThumb } data-testid="recipe-photo" alt={ strMeal } />
+      <div>
       <h1 data-testid="recipe-title">{strMeal}</h1>
+      <img className="itemImage" src={ strMealThumb } data-testid="recipe-photo" alt={ strMeal } />
+      </div>
       <button
         onClick={ () => copyToClipBoard(url) }
         type="button"
