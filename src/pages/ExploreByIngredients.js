@@ -17,7 +17,8 @@ function ExploreByIngredients({ history, location: { pathname } }) {
   return (
     <div>
       <Header title="Explorar Ingredientes" isSearchable={ false } />
-      { ingredients
+      <div className="section-meals">
+        { ingredients
         && ingredients.map(
           (ingredient) => (
             <Item
@@ -28,6 +29,7 @@ function ExploreByIngredients({ history, location: { pathname } }) {
               handleOnClick={ handleOnClick }
             />),
         )}
+      </div>
       <Footer />
     </div>
   );

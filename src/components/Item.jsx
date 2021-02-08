@@ -8,6 +8,7 @@ function Item({ index, name, imageSrc, handleOnClick }) {
       name={ name }
       onClick={ handleOnClick }
       data-testid={ `${index}-ingredient-card` }
+      className="div-meals"
     >
       <img
         src={ imageSrc }
