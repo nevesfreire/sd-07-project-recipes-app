@@ -8,6 +8,7 @@ import RecipesContext from '../context/RecipesContext';
 import { fetchAPI, handleIngredients,
   TWO_THOUSAND, SIX } from '../services/helpers';
 import '../style/recipeDetail.css';
+import { Carousel } from 'antd';
 
 function FoodDetails() {
   const [recipeDetailFood, setRecipeDetailFood] = useState({});
@@ -112,11 +113,11 @@ function FoodDetails() {
         {handleIngredients(recipeDetailFood)}
       </ul>
       <p data-testid="instructions">{recipeDetailFood.strInstructions}</p>
-      <video data-testid="video" width="750" height="500" controls>
+      <video className="video" data-testid="video" width="750" height="500" controls>
         <source src={ recipeDetailFood.strYoutube } type="video/mp4" />
         <track src={ recipeDetailFood.strYoutube } kind="captions" />
       </video>
-      <div>
+      <Carousel>
         {
           recommendation && recommendation.length && recommendation
             .filter((_, indexFilter) => indexFilter < SIX)
@@ -144,7 +145,7 @@ function FoodDetails() {
               </div>
             ))
         }
-      </div>
+      </Carousel>
       <Link to={ `/comidas/${mealRecipeId}/in-progress` }>
         <button
           className={ buttonClassName }
