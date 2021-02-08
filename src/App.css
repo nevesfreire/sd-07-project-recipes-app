@@ -72,6 +72,7 @@ body {
 .color-button {
   background-image: linear-gradient(yellow, red);
   border: 1px solid;
+  color: rgb(112, 7, 28);
 }
 
 .card {
@@ -145,6 +146,44 @@ body {
 .favorited-recipe {
   filter: invert(27%) sepia(56%) saturate(7442%) hue-rotate(352deg)
     brightness(89%) contrast(134%);
+}
+
+.recipes-details-body {
+  border: gray;
+  padding: 2px;
+  width: 360px;
+}
+
+.img-recipes-details {
+  width: 360px;
+}
+
+.search-input {
+  background-color: rgb(197, 168, 168);
+  border-color: black;
+  color: black;
+  margin-bottom: 10px;
+  width: 350px;
+}
+
+.input-radio {
+  margin-right: 5px;
+}
+
+.label {
+  color: black;
+  display: flex;
+  justify-content: center;
+  margin-right: 15px;
+}
+
+.group-radio-buttons {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.search-button {
+  width: 360px;
 }
 
 .footer-nav {

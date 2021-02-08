@@ -28,11 +28,13 @@ function ExplorerButtons() {
   }, []);
 
   return (
-    <div>
+    <div className="profile-buttons">
       <Link to={ path === urlFoods ? `${path}/ingredientes` : `${path}/ingredientes` }>
         <button
           data-testid="explore-by-ingredient"
           type="button"
+          className="btn btn-sm color-button"
+          style={ { width: '22rem' } }
         >
           Por Ingredientes
         </button>
@@ -42,6 +44,8 @@ function ExplorerButtons() {
           <button
             data-testid="explore-by-area"
             type="button"
+            className="btn btn-sm color-button"
+            style={ { width: '22rem' } }
           >
             Por Local de Origem
           </button>
@@ -56,6 +60,8 @@ function ExplorerButtons() {
         <button
           data-testid="explore-surprise"
           type="button"
+          className="btn btn-sm color-button"
+          style={ { width: '22rem' } }
         >
           Me Surpreenda!
         </button>

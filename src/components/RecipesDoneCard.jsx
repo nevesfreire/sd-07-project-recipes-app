@@ -62,6 +62,7 @@ function RecipesDoneCard() {
               </span>
               <button
                 type="button"
+                className="button"
                 onClick={ (event) => copyLink(event, `http://localhost:3000/${recipe.type}s/${recipe.id}`) }
               >
                 <img
@@ -90,12 +91,14 @@ function RecipesDoneCard() {
               <div className="buttons-tags">
                 <button
                   type="button"
+                  className="btn btn-sm btn-dark"
                   data-testid={ `${index}-${recipe.tags[0]}-horizontal-tag` }
                 >
                   { recipe.tags[0] }
                 </button>
                 <button
                   type="button"
+                  className="btn btn-sm btn-dark"
                   data-testid={ `${index}-${recipe.tags[1]}-horizontal-tag` }
                 >
                   { recipe.tags[1] }

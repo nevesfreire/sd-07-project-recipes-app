@@ -35,16 +35,29 @@ export default function DrinkDetails(props) {
   if (isFetching || drinks === undefined) return <span>Carregando...</span>;
 
   return (
-    <div>
+    <div className="recipes-details-body">
       <img
+        className="img-recipes-details"
         data-testid="recipe-photo"
         alt="Imagem da receita"
         src={ drinks[0].strDrinkThumb }
       />
       <p data-testid="recipe-title">{drinks[0].strDrink}</p>
       <div>
-        <button data-testid="share-btn" type="button">Compartilhar</button>
-        <button data-testid="favorite-btn" type="button">Favoritar</button>
+        <button
+          className="btn btn-outline-warning color-button"
+          data-testid="share-btn"
+          type="button"
+        >
+          Compartilhar
+        </button>
+        <button
+          data-testid="favorite-btn"
+          type="button"
+          className="btn btn-outline-warning color-button"
+        >
+          Favoritar
+        </button>
         <p data-testid="recipe-category">{drinks[0].strAlcoholic}</p>
         <ol className="list-ingredients">
           {listIgredient().map((content, index) => (
@@ -72,7 +85,11 @@ export default function DrinkDetails(props) {
         <Carousel>
           {meals.map((mealRecomendation, index) => (
             <Carousel.Item key={ index } data-testid={ `${index}-recomendation-card` }>
-              <img alt="Recomendation" src={ mealRecomendation.strMealThumb } />
+              <img
+                className="img-recipes-details"
+                alt="Recomendation"
+                src={ mealRecomendation.strMealThumb }
+              />
               <Carousel.Caption>
                 <p
                   data-testid={ `${index}-recomendation-title` }
@@ -86,7 +103,7 @@ export default function DrinkDetails(props) {
         <button
           type="button"
           data-testid="start-recipe-btn"
-          className="recipes-start"
+          className="btn btn-outline-warning color-button recipes-start"
         >
           Iniciar receita
         </button>
