@@ -5,6 +5,7 @@ import { Button, FoodRecomendation, LoadingCard,
 } from '../components';
 import { useFetchApi, useLocalStorage } from '../hooks';
 import { getKeys } from '../Services';
+import './css/details.css';
 
 const getLink = (idDrink) => (
   Number.isNaN(Number(idDrink))
@@ -12,11 +13,11 @@ const getLink = (idDrink) => (
     : `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idDrink}`
 );
 
-export default function DetailsDrink({ history, match }) {
+export default function DetailsDrink({
+  history, match }) {
   const { params: { idDrink } } = match;
   const URL = getLink(idDrink);
   const [loading, { drinks }] = useFetchApi(URL);
-
   const ingredienteList = drinks && getKeys(drinks[0], 'strIngredient');
   const measuresList = drinks && getKeys(drinks[0], 'strMeasure');
 
@@ -31,52 +32,50 @@ export default function DetailsDrink({ history, match }) {
     loading
       ? (<LoadingCard />)
       : (
-        <div>
-          <img
-            data-testid="recipe-photo"
-            src={ drinks[0].strDrinkThumb }
-            alt="foto"
-            style={ { width: 360 } }
-          />
-          <div>
-            <div>
-              <h3 data-testid="recipe-title">{drinks[0].strDrink}</h3>
-              <ShareButton />
-              <FavoriteDrinkButton drinksArr={ drinks[0] } />
-            </div>
-            <h5 data-testid="recipe-category">{drinks[0].strAlcoholic}</h5>
-            <div>
-              <h4>Ingredients</h4>
-              <ul>
-                {
-                  ingredienteList.map((key, i) => (
-                    <li
-                      data-testid={ `${i}-ingredient-name-and-measure` }
-                      key={ i }
-                    >
-                      {`${key && key[1]} - ${measuresList[i] && measuresList[i][1]}`}
-                    </li>
-                  ))
-                }
-              </ul>
-            </div>
-            <div>
-              <h4>Instruções</h4>
-              <p data-testid="instructions">
-                {drinks[0].strInstructions}
-              </p>
-            </div>
-            <div>
-              <h5>Recomendadas</h5>
-              <FoodRecomendation />
-            </div>
-            <Button
-              testid="start-recipe-btn"
-              text={ recipeInProgress ? 'Continuar Receita' : 'Iniciar Receita' }
-              position="btn-fixed"
-              func={ () => { history.push(`/bebidas/${idDrink}/in-progress`); } }
+        <div className="details">
+          <div className="detailsThumb">
+            <img
+              data-testid="recipe-photo"
+              src={ drinks[0].strDrinkThumb }
+              alt="foto"
+              className="details-img"
             />
           </div>
+          <div className="favoriteShare">
+            <ShareButton />
+            <FavoriteDrinkButton drinksArr={ drinks[0] } />
+          </div>
+          <div className="instructionsDetails">
+            <h1 data-testid="recipe-title">{drinks[0].strDrink}</h1>
+            <h5 data-testid="recipe-category">{drinks[0].strAlcoholic}</h5>
+            <h4>Instruções</h4>
+            <p data-testid="instructions">
+              {drinks[0].strInstructions}
+            </p>
+          </div>
+          <div className="ingredients">
+            <h4>Ingredients</h4>
+            <ul>
+              {
+                ingredienteList.map((key, i) => (
+                  <li
+                    data-testid={ `${i}-ingredient-name-and-measure` }
+                    key={ i }
+                  >
+                    {`${key && key[1]} - ${measuresList[i] && measuresList[i][1]}`}
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+          <h5>Recomendadas</h5>
+          <FoodRecomendation />
+          <Button
+            testid="start-recipe-btn"
+            text={ recipeInProgress ? 'Continuar Receita' : 'Iniciar Receita' }
+            position="btn-fixed"
+            func={ () => { history.push(`/bebidas/${idDrink}/in-progress`); } }
+          />
         </div>
       )
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Button, DrinkRecomendation, NotFound,
+import { Button, DrinkRecomendation, NotFound,
   LoadingCard, ShareButton, FavoriteFoodButton,
 } from '../components';
 import { useFetchApi, useLocalStorage } from '../hooks';
@@ -39,6 +38,7 @@ export default function DetailsFood({
               data-testid="recipe-photo"
               src={ meals[0].strMealThumb }
               alt="foto"
+              className="details-img"
             />
           </div>
           <div className="favoriteShare">
