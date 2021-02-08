@@ -17,7 +17,7 @@ class RecipesCard extends React.Component {
       <div>
         {
           index < maxNumber && search === 'meals' ? (
-            <div data-testid={ `${index}-recipe-card` }>
+            <div className="p-1" data-testid={ `${index}-recipe-card` }>
               <Card
                 style={ { width: '10rem' } }
                 bg="warning"
@@ -40,7 +40,7 @@ class RecipesCard extends React.Component {
         }
         {
           index < maxNumber && search === 'drinks' ? (
-            <div data-testid={ `${index}-recipe-card` }>
+            <div className="p-1" data-testid={ `${index}-recipe-card` }>
               <Card
                 style={ { width: '10rem' } }
                 bg="warning"
@@ -63,7 +63,7 @@ class RecipesCard extends React.Component {
         }
         {
           index < maxNumber && search === 'ingredientsDrinks' ? (
-            <div data-testid={ `${index}-ingredient-card` }>
+            <div className="p-1" data-testid={ `${index}-ingredient-card` }>
               <Card
                 style={
                   { width: '10rem' }
@@ -87,7 +87,7 @@ class RecipesCard extends React.Component {
         }
         {
           index < maxNumber && search === 'ingredientsMeals' ? (
-            <div data-testid={ `${index}-ingredient-card` }>
+            <div className="p-1" data-testid={ `${index}-ingredient-card` }>
               <Card
                 style={ { width: '10rem' } }
                 bg="warning"

@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Container } from 'react-bootstrap';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import RecipesList from '../components/RecipesList';
@@ -23,12 +24,12 @@ class MainRecipes extends React.Component {
 
     return (
       <div>
-        <Header shouldRenderSearchIcon="yes" pageTitle="Comidas" search="meals" />
-        <div className="content">
+        <Container fluid className="p-0">
+          <Header shouldRenderSearchIcon="yes" pageTitle="Comidas" search="meals" />
           <FoodTypeSelector search="meals" />
           <RecipesList search="meals" />
-        </div>
-        <Footer />
+          <Footer />
+        </Container>
       </div>
     );
   }

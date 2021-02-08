@@ -14,7 +14,7 @@ class RecipesList extends React.Component {
     if (search === 'drinks') {
       return (
         <div className="recipes-list">
-          <Row>
+          <Row className="mb-5 ml-1">
             {drinkRecipes.slice(startList, maxNumber).map((recipe, index) => (
               <Link
                 key={ recipe.idDrink }
@@ -34,23 +34,21 @@ class RecipesList extends React.Component {
     }
 
     return (
-      <div className="recipes-list">
-        <Row>
-          {mealRecipes.slice(startList, maxNumber).map((recipe, index) => (
-            <Link
+      <Row className="mb-5 ml-1">
+        {mealRecipes.slice(startList, maxNumber).map((recipe, index) => (
+          <Link
+            key={ recipe.idMeal }
+            to={ `/comidas/${recipe.idMeal}` }
+          >
+            <RecipesCard
               key={ recipe.idMeal }
-              to={ `/comidas/${recipe.idMeal}` }
-            >
-              <RecipesCard
-                key={ recipe.idMeal }
-                recipe={ recipe }
-                index={ index }
-                search="meals"
-              />
-            </Link>
-          ))}
-        </Row>
-      </div>
+              recipe={ recipe }
+              index={ index }
+              search="meals"
+            />
+          </Link>
+        ))}
+      </Row>
     );
   }
 }
