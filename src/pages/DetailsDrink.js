@@ -32,41 +32,43 @@ export default function DetailsDrink({
     loading
       ? (<LoadingCard />)
       : (
-        <div className="details">
-          <div className="detailsThumb">
-            <img
-              data-testid="recipe-photo"
-              src={ drinks[0].strDrinkThumb }
-              alt="foto"
-              className="details-img"
-            />
-          </div>
-          <div className="favoriteShare">
-            <ShareButton />
-            <FavoriteDrinkButton drinksArr={ drinks[0] } />
-          </div>
-          <div className="instructionsDetails">
-            <h1 data-testid="recipe-title">{drinks[0].strDrink}</h1>
-            <h5 data-testid="recipe-category">{drinks[0].strAlcoholic}</h5>
-            <h4>Instruções</h4>
-            <p data-testid="instructions">
-              {drinks[0].strInstructions}
-            </p>
-          </div>
-          <div className="ingredients">
-            <h4>Ingredients</h4>
-            <ul>
-              {
-                ingredienteList.map((key, i) => (
-                  <li
-                    data-testid={ `${i}-ingredient-name-and-measure` }
-                    key={ i }
-                  >
-                    {`${key && key[1]} - ${measuresList[i] && measuresList[i][1]}`}
-                  </li>
-                ))
-              }
-            </ul>
+        <div>
+          <div className="details">
+            <div className="detailsThumb">
+              <img
+                data-testid="recipe-photo"
+                src={ drinks[0].strDrinkThumb }
+                alt="foto"
+                className="details-img"
+              />
+            </div>
+            <div className="favoriteShare">
+              <ShareButton />
+              <FavoriteDrinkButton drinksArr={ drinks[0] } />
+            </div>
+            <div className="instructionsDetails">
+              <h1 data-testid="recipe-title">{drinks[0].strDrink}</h1>
+              <h5 data-testid="recipe-category">{drinks[0].strAlcoholic}</h5>
+              <h4>Instruções</h4>
+              <p data-testid="instructions">
+                {drinks[0].strInstructions}
+              </p>
+            </div>
+            <div className="ingredients">
+              <h4>Ingredients</h4>
+              <ul>
+                {
+                  ingredienteList.map((key, i) => (
+                    <li
+                      data-testid={ `${i}-ingredient-name-and-measure` }
+                      key={ i }
+                    >
+                      {`${key && key[1]} - ${measuresList[i] && measuresList[i][1]}`}
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
           </div>
           <h5>Recomendadas</h5>
           <FoodRecomendation />

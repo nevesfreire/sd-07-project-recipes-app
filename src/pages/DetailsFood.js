@@ -32,52 +32,56 @@ export default function DetailsFood({
     loading
       ? (<LoadingCard />)
       : (
-        <div className="details">
-          <div className="detailsThumb">
-            <img
-              data-testid="recipe-photo"
-              src={ meals[0].strMealThumb }
-              alt="foto"
-              className="details-img"
-            />
+        <div>
+          <div className="details">
+            <div className="detailsThumb">
+              <img
+                data-testid="recipe-photo"
+                src={ meals[0].strMealThumb }
+                alt="foto"
+                className="details-img"
+              />
+            </div>
+            <div className="favoriteShare">
+              <ShareButton />
+              <FavoriteFoodButton foodArr={ meals[0] } />
+            </div>
+            <div className="instuctionsDetails">
+              <h1 data-testid="recipe-title">{meals[0].strMeal}</h1>
+              <h5 data-testid="recipe-category">{meals[0].strCategory}</h5>
+              <h4>Instruções</h4>
+              <p data-testid="instructions">
+                {meals[0].strInstructions}
+              </p>
+            </div>
+            <div className="ingredients">
+              <h4>Ingredients</h4>
+              <ul>
+                {
+                  ingredienteList.map((key, i) => (
+                    <li
+                      data-testid={ `${i}-ingredient-name-and-measure` }
+                      key={ i }
+                    >
+                      {`${key[1]} - ${measuresList[i][1]}`}
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+            <div className="videoDetails">
+              <h4>Video</h4>
+              <iframe
+                data-testid="video"
+                title={ meals[0].strMeal }
+                src={ meals[0].strYoutube.replace('watch?v=', 'embed/') }
+              />
+            </div>
           </div>
-          <div className="favoriteShare">
-            <ShareButton />
-            <FavoriteFoodButton foodArr={ meals[0] } />
+          <div>
+            <h5>Recomendadas</h5>
+            <DrinkRecomendation />
           </div>
-          <div className="instuctionsDetails">
-            <h1 data-testid="recipe-title">{meals[0].strMeal}</h1>
-            <h5 data-testid="recipe-category">{meals[0].strCategory}</h5>
-            <h4>Instruções</h4>
-            <p data-testid="instructions">
-              {meals[0].strInstructions}
-            </p>
-          </div>
-          <div className="ingredients">
-            <h4>Ingredients</h4>
-            <ul>
-              {
-                ingredienteList.map((key, i) => (
-                  <li
-                    data-testid={ `${i}-ingredient-name-and-measure` }
-                    key={ i }
-                  >
-                    {`${key[1]} - ${measuresList[i][1]}`}
-                  </li>
-                ))
-              }
-            </ul>
-          </div>
-          <div className="videoDetails">
-            <h4>Video</h4>
-            <iframe
-              data-testid="video"
-              title={ meals[0].strMeal }
-              src={ meals[0].strYoutube.replace('watch?v=', 'embed/') }
-            />
-          </div>
-          <h5>Recomendadas</h5>
-          <DrinkRecomendation />
           <Button
             testid="start-recipe-btn"
             text={ recipeInProgress ? 'Continuar Receita' : 'Iniciar Receita' }

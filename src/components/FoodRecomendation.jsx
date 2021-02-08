@@ -16,7 +16,9 @@ export default function FoodRecomendation() {
     speed: 500,
     slidesToShow: 2,
     slidesToScroll: 2,
+    centerMode: false,
   };
+
   if (!loading && !meals) return (<NotFound />);
   const SIX = 6;
   return (
@@ -32,6 +34,7 @@ export default function FoodRecomendation() {
                     to={ `/comidas/${idMeal}` }
                     key={ i }
                     data-testid={ `${i}-recomendation-card` }
+                    className="slideCard"
                   >
                     <img src={ strMealThumb } alt="ico" className="recomendation-card" />
                     <h5 data-testid={ `${i}-recomendation-title` }>{strMeal}</h5>
