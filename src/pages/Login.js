@@ -4,6 +4,7 @@ import { Button } from '../components';
 import { useValideEmailAndPassword, useLocalStorage } from '../hooks';
 import { SUBMIT_EMAIL } from '../reducers';
 import { CupNodesContext } from '../contexts';
+import { vip } from '../Services';
 import './css/login.css';
 
 const initialState = { email: '', password: '' };
@@ -11,6 +12,7 @@ const initialState = { email: '', password: '' };
 export default function Login({ history: { push } }) {
   const { dispatchUser } = useContext(CupNodesContext);
   const [valid, verificationUser] = useValideEmailAndPassword();
+  const [vip, verificationVip] = useVip(false);
   const [state, setState] = useState(initialState);
   const [, setUser] = useLocalStorage('user');
   const [, setSMealsToken] = useLocalStorage('mealsToken');
@@ -19,6 +21,7 @@ export default function Login({ history: { push } }) {
   const changeState = ({ target: { type: key, value } }) => {
     setState({ ...state, [key]: value });
     verificationUser(state);
+    verificationVip(value);
   };
 
   const action = { type: SUBMIT_EMAIL, payload: state.email };
@@ -27,7 +30,7 @@ export default function Login({ history: { push } }) {
     setSMealsToken(1);
     setCocktailsToken(1);
     dispatchUser(action);
-    push('/comidas');
+    push(vip ? '/comidas' : '/comidas');
   };
 
   return (
