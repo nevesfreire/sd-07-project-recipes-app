@@ -50,19 +50,16 @@ class DoneRecipe extends Component {
 
           {readLocalStorage.map((card, index) => (
             <div key={ card.id }>
-
-
               <Link
                 to={ `/${card.type}s/${card.id}` }
                 className="link-categories"
               >
                 <img
-                data-testid={ `${index}-horizontal-image` }
-                src={ card.image }
-                alt="foto da receita"
-              />
+                  data-testid={ `${index}-horizontal-image` }
+                  src={ card.image }
+                  alt="foto da receita"
+                />
               </Link>
-              
 
               {card.type === 'comida' ? (
                 <h2 data-testid={ `${index}-horizontal-top-text` }>
@@ -89,18 +86,18 @@ class DoneRecipe extends Component {
               </button>
 
               <h1 data-testid={ `${index}-horizontal-name` }>{card.name}</h1>
-              {
-                card.tags
-                  ? this.handleTags(card.tags).map((cardTag, indexTag) => (
-                    <p
-                      data-testid={ `${index}-${cardTag}-horizontal-tag` }
-                      key={ indexTag }
-                    >
-                      {cardTag}
-                    </p>
-                  ))
-                  : <p />
-              }
+              {card.tags ? (
+                this.handleTags(card.tags).map((cardTag, indexTag) => (
+                  <p
+                    data-testid={ `${index}-${cardTag}-horizontal-tag` }
+                    key={ indexTag }
+                  >
+                    {cardTag}
+                  </p>
+                ))
+              ) : (
+                <p />
+              )}
             </div>
           ))}
         </div>
