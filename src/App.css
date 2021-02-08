@@ -1,10 +1,10 @@
 .form-login {
+  align-items: center;
+  color: #0d6efd;
   display: flex;
   flex-flow: column wrap;
-  align-items: center;
+  font-family: Arial , Helvetica , sans-serif;
   margin-top: 30%;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #0d6efd;
 }
 
 .form-label {
@@ -14,18 +14,18 @@
 .header-content {
   background-color: #cecece;
   display: flex;
+  font-family: Arial , Helvetica , sans-serif;
+  font-size: 20pt;
   justify-content: space-between;
   padding: 10px 20px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 20pt;
 }
 
 .profile-email {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 18pt;
-  display: flex;
-  justify-content: center;
   color: #0d6efd;
+  display: flex;
+  font-family: Arial , Helvetica , sans-serif;
+  font-size: 18pt;
+  justify-content: center;
 }
 
 .profile-buttons {
@@ -34,11 +34,11 @@
 }
 
 .form-searchbar {
-  display: flex;
-  flex-flow: column wrap;
   align-items: center;
-  font-family: Arial, Helvetica, sans-serif;
   color: #0d6efd;
+  display: flex;
+  font-family: Arial , Helvetica , sans-serif;
+  flex-flow: column wrap;
 }
 
 .border-card {
