@@ -3,6 +3,7 @@
   display: flex;
   justify-content: center;
 }
+
 .notFound {
   max-width: 360px;
 }
