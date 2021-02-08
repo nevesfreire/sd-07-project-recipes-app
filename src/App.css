@@ -1,12 +1,12 @@
 .main {
-  background-image: url(./images/bgImage4.jpg);
+  background-image: url(./images/bgImage5.jpg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   color: #464646;
   display: flex;
   flex-direction: column;
-  font-family: sans-serif;
+  font-family: 'Pangolin', cursive, sans-serif;
   justify-content: center;
   width: 100%;
   height: 100%;
