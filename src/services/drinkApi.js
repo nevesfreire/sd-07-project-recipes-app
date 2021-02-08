@@ -15,7 +15,6 @@ export const getDrinkRecipes = ({ searchInput = '', searchRadio = 's' }) => {
     dispatch(requestRecipes());
     try {
       const response = await fetch(endpoint);
-      console.log(response)
       const data = await response.json();
       dispatch(listRecipes(data.drinks));
     } catch (error) {
