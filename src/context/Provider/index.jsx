@@ -13,6 +13,8 @@ function Provider({ children }) {
   const [favorites, setFavorites] = useState([]);
   const [doneRecipes, setDoneRecipes] = useState([]);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     const favoriteList = localStorage.getItem('favoriteRecipes');
     if (!favoriteList) {
@@ -40,6 +42,7 @@ function Provider({ children }) {
     inputValues,
     favorites,
     doneRecipes,
+    isLoading,
     setLogin,
     setDisabled,
     setMeals,
@@ -48,6 +51,7 @@ function Provider({ children }) {
     setInputValues,
     setFavorites,
     setDoneRecipes,
+    setIsLoading,
   };
 
   return (

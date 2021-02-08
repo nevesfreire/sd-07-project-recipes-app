@@ -6,6 +6,7 @@ import Category from './Category';
 import IngredientCard from './IngredientCard';
 import FavoriteCard from './FavoriteCard';
 import DoneCard from './DoneCard';
+import Loading from './Loading';
 
 export {
   Header,
@@ -16,4 +17,5 @@ export {
   IngredientCard,
   FavoriteCard,
   DoneCard,
+  Loading,
 };

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Header, Footer, RecipeCard, Category } from '../../components';
+import { Header, Footer, RecipeCard, Category, Loading } from '../../components';
 import { RecipesContext } from '../../context';
 import './MainDrink.css';
 
@@ -7,12 +7,15 @@ export default function MainDrink() {
   const {
     setDrinks,
     drinks,
+    isLoading,
+    setIsLoading,
   } = useContext(RecipesContext);
   const TWELVE = 12;
   const five = 5;
   const [categories, setCategories] = useState([]);
 
   const fetchDrinks = async () => {
+    setIsLoading(true);
     try {
       const URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
       const response = await fetch(URL).then((results) => results.json());
@@ -20,9 +23,11 @@ export default function MainDrink() {
     } catch (error) {
       console.log(error);
     }
+    setIsLoading(false);
   };
 
   const fetchDrinkCategories = async () => {
+    setIsLoading(true);
     try {
       const URL = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
       const results = await fetch(URL).then((response) => response.json());
@@ -30,6 +35,7 @@ export default function MainDrink() {
     } catch (error) {
       console.log(error);
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -51,29 +57,27 @@ export default function MainDrink() {
         >
           ALL
         </button>
-        {
-          categories && categories.filter((_, index) => index < five)
+        { isLoading ? <Loading />
+          : categories && categories.filter((_, index) => index < five)
             .map((category, index) => (
               <Category
                 fetchDrinks={ fetchDrinks }
                 key={ index }
                 category={ category }
               />
-            ))
-        }
+            ))}
       </div>
       <main>
         <div className="cards-container-drink">
-          {
-            drinks.filter((_, index) => index < TWELVE)
+          { isLoading ? <Loading />
+            : drinks.filter((_, index) => index < TWELVE)
               .map((drink, index) => (
                 <RecipeCard
                   key={ index }
                   id={ index }
                   meal={ drink }
                 />
-              ))
-          }
+              ))}
         </div>
       </main>
       <Footer />

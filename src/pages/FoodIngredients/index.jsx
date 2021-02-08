@@ -1,16 +1,17 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Header, Footer, IngredientCard } from '../../components';
+import { Header, Footer, IngredientCard, Loading } from '../../components';
 import { fetchingFoods } from '../../services/mandaFoods';
 import RecipeContext from '../../context/RecipesContext';
 import './FoodIngredients.css';
 
 export default function FoodIngredients() {
   const [ingredients, setIngredients] = useState([]);
-  const { setMeals } = useContext(RecipeContext);
+  const { setMeals, isLoading, setIsLoading } = useContext(RecipeContext);
   const { push } = useHistory();
   const twelve = 12;
   const fetchFoodIngredients = async () => {
+    setIsLoading(true);
     try {
       const URL = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
       const results = await fetch(URL).then((response) => response.json());
@@ -19,6 +20,7 @@ export default function FoodIngredients() {
     } catch (error) {
       console.log(error);
     }
+    setIsLoading(false);
   };
 
   const redirectToFoodPage = async (ingredientSelect) => {
@@ -35,10 +37,9 @@ export default function FoodIngredients() {
   return (
     <div className="food-ingredient-container">
       <Header title="Explorar Ingredientes" />
-      <p>comidas</p>
       <div className="ingredient-card">
-        {
-          ingredients.filter((_, index) => index < twelve)
+        { isLoading ? <Loading />
+          : ingredients.filter((_, index) => index < twelve)
             .map((ingredient, index) => (
               <IngredientCard
                 key={ index }
@@ -46,8 +47,7 @@ export default function FoodIngredients() {
                 ingredient={ ingredient }
                 redirectToFoodPage={ redirectToFoodPage }
               />
-            ))
-        }
+            ))}
       </div>
       <Footer />
     </div>

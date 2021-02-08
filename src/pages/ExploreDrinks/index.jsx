@@ -6,7 +6,6 @@ import { fetchRandomDrink } from '../../services/mandaFoods';
 export default function ExploreDrinks() {
   const [randomDrink, setRandomDrink] = useState();
   const handleFetchingDrink = async () => {
-    console.log('xablau blau');
     const result = await fetchRandomDrink();
     if (result) {
       setRandomDrink(result.drinks[0].idDrink);
