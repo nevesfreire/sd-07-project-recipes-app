@@ -106,23 +106,26 @@ class DetalhesComidas extends Component {
         const limit = 6;
         if (index < limit) {
           return (
-            <div key={ index } className="card">
+            <div key={ index } className="cards">
               <button
+                className="card"
                 type="button"
                 onClick={ () => this.handleClick(receita.idDrink) }
                 data-testid={ `${index}-recomendation-card` }
               >
                 <img
+                  className="img-fluid img-thumbnail"
                   data-testid={ `${index}-recomendation-img` }
                   src={ receita.strDrinkThumb }
                   alt="imagem da receita"
                 />
               </button>
-              <h1
+              <h4
+                className="display-6"
                 data-testid={ `${index}-recomendation-title` }
               >
                 {receita.strDrink}
-              </h1>
+              </h4>
             </div>
           );
         }
@@ -150,14 +153,15 @@ class DetalhesComidas extends Component {
       <div>
         <figure className="figure">
           <img
-            className="figure-img img-fluid rounded"
+            className="img-fluid img-thumbnail"
             src={ receita.strMealThumb }
             data-testid="recipe-photo"
             alt="foto-da comida"
           />
         </figure>
-        <h4 data-testid="recipe-title">{receita.strMeal}</h4>
+        <h2 className="display-6" data-testid="recipe-title">{receita.strMeal}</h2>
         <input
+          className="btn"
           type="image"
           data-testid="share-btn"
           src={ shareIcon }
@@ -166,13 +170,14 @@ class DetalhesComidas extends Component {
         />
         {mensagem}
         <input
+          className="btn"
           type="image"
           data-testid="favorite-btn"
           onClick={ () => this.favorit() }
           src={ favorito ? blackHeartIcon : whiteHeartIcon }
           alt="favoritar"
         />
-        <h4 data-testid="recipe-category">{receita.strCategory}</h4>
+        <h4 className="display-6" data-testid="recipe-category">{receita.strCategory}</h4>
         <div>
           <ul className="list-group list-group-flush">
             {
@@ -193,17 +198,14 @@ class DetalhesComidas extends Component {
             }
           </ul>
         </div>
-        <div className="card">
-          <div className="card-body">
-            <p
-              className="card-text"
-              data-testid="instructions"
-            >
-              {receita.strInstructions}
-            </p>
-          </div>
-        </div>
+        <p
+          className="card-text"
+          data-testid="instructions"
+        >
+          {receita.strInstructions}
+        </p>
         <ReactPlayer
+          className="figure-img img-fluid rounded"
           data-testid="video"
           url={ receita.strYoutube }
         />

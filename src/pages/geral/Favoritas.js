@@ -136,6 +136,7 @@ class Favoritas extends Component {
         <Header title="Receitas Favoritas" searchOn="off" history={ history } />
         <div>
           <button
+            className="btn-group col-all btn btn-danger"
             type="button"
             data-testid="filter-by-all-btn"
             onClick={ () => this.filtro('All') }
@@ -143,6 +144,7 @@ class Favoritas extends Component {
             All
           </button>
           <button
+            className="btn-group col-all btn btn-danger"
             type="button"
             data-testid="filter-by-food-btn"
             onClick={ () => this.filtro('Food') }
@@ -150,6 +152,7 @@ class Favoritas extends Component {
             Food
           </button>
           <button
+            className="btn-group col-all btn btn-danger"
             type="button"
             data-testid="filter-by-drink-btn"
             onClick={ () => this.filtro('Drinks') }

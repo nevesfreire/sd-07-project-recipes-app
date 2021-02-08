@@ -198,12 +198,14 @@ class ProcessoBebidas extends Component {
     return (
       <div>
         <img
+          className="img-fluid img-thumbnail"
           src={ receita.strDrinkThumb }
           data-testid="recipe-photo"
           alt="foto-da comida"
         />
-        <h2 data-testid="recipe-title">{receita.strDrink}</h2>
+        <h2 className="display-6" data-testid="recipe-title">{receita.strDrink}</h2>
         <input
+          className="btn"
           type="image"
           data-testid="share-btn"
           src={ shareIcon }
@@ -212,23 +214,34 @@ class ProcessoBebidas extends Component {
         />
         {mensagem}
         <input
+          className="btn"
           type="image"
           data-testid="favorite-btn"
           onClick={ () => this.favorit() }
           src={ favorito ? blackHeartIcon : whiteHeartIcon }
           alt="favoritar"
         />
-        <h3 data-testid="recipe-category">{receita.strAlcoholic}</h3>
-        <div>
+        <h3
+          className="display-6"
+          data-testid="recipe-category"
+        >
+          {receita.strAlcoholic}
+        </h3>
+        <div className="form-check">
           {
             this.lista()
           }
         </div>
         <div>
-          <p data-testid="instructions">{receita.strInstructions}</p>
+          <p
+            className="card-text"
+            data-testid="instructions"
+          >
+            {receita.strInstructions}
+          </p>
         </div>
         <button
-          className="footer"
+          className="footer btn btn-danger"
           data-testid="finish-recipe-btn"
           type="button"
           disabled={ !buton }

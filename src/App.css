@@ -92,11 +92,16 @@ body {
   justify-content: center;
 }
 
+
 .scroller {
   display: flex;
+  flex-direction: row;
   overflow-x: scroll;
   scroll-snap-type: x mandatory;
+  margin-bottom: 5vw;
+  margin-top: -6vw;
 }
+
 
 .btn-group {
   display: flex;
@@ -127,9 +132,14 @@ body {
 }
 
 .card {
-  display: flex;
-  justify-content: center;
+  margin-top: 12px;
   width: 90vw;
+}
+
+.card-text {
+  margin-top: 12px;
+  margin-left: 12px;
+  width: 75vw;
 }
 
 .ingGeneral {
@@ -185,6 +195,10 @@ body {
   align-items: center;
 }
 
+.display-6 {
+  margin-top: 12px;
+  margin-left: 6px;
+}
 
 @keyframes shake {
 

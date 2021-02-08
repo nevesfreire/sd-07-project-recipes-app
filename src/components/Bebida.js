@@ -50,11 +50,13 @@ class Bebida extends Component {
     return (
       <div>
         <button
+          className="btn"
           type="button"
           onClick={ this.Click }
         >
-          <p data-testid={ `${index}-horizontal-name` }>{name}</p>
+          <h4 className="display-6" data-testid={ `${index}-horizontal-name` }>{name}</h4>
           <input
+            className="img-fluid img-thumbnail"
             type="image"
             style={ { width: '49vw' } }
             onClick={ this.Click }
@@ -62,11 +64,12 @@ class Bebida extends Component {
             src={ image }
             alt="foto"
           />
-          <p data-testid={ `${index}-horizontal-top-text` }>
+          <h5 className="display-5" data-testid={ `${index}-horizontal-top-text` }>
             { alcoholicOrNot }
-          </p>
+          </h5>
         </button>
         <input
+          className="btn"
           type="image"
           data-testid={ `${index}-horizontal-share-btn` }
           src={ shareIcon }
@@ -75,6 +78,7 @@ class Bebida extends Component {
         />
         {mensagem}
         <input
+          className="btn"
           type="image"
           data-testid={ `${index}-horizontal-favorite-btn` }
           onClick={ () => this.favorit() }

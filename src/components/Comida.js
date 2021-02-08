@@ -52,11 +52,13 @@ class Comida extends Component {
     return (
       <div>
         <button
+          className="btn"
           type="button"
           onClick={ this.Click }
         >
-          <p data-testid={ `${index}-horizontal-name` }>{name}</p>
+          <h4 className="display-6" data-testid={ `${index}-horizontal-name` }>{name}</h4>
           <input
+            className="img-fluid img-thumbnail"
             style={ { width: '49vw' } }
             type="image"
             onClick={ this.Click }
@@ -64,11 +66,12 @@ class Comida extends Component {
             src={ image }
             alt="foto"
           />
-          <p data-testid={ `${index}-horizontal-top-text` }>
+          <h5 className="display-5" data-testid={ `${index}-horizontal-top-text` }>
             { `${area} - ${category}` }
-          </p>
+          </h5>
         </button>
         <input
+          className="btn"
           type="image"
           data-testid={ `${index}-horizontal-share-btn` }
           src={ shareIcon }
@@ -77,6 +80,7 @@ class Comida extends Component {
         />
         {mensagem}
         <input
+          className="btn"
           type="image"
           data-testid={ `${index}-horizontal-favorite-btn` }
           onClick={ () => this.favorit() }

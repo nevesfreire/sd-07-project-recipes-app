@@ -105,23 +105,25 @@ class DetalhesBebidas extends Component {
         const limit = 6;
         if (index < limit) {
           return (
-            <div key={ index } className="card">
+            <div key={ index } className="cards">
               <button
+                className="card"
                 type="button"
                 onClick={ () => this.handleClick(receita.idMeal) }
                 data-testid={ `${index}-recomendation-card` }
               >
                 <img
+                  className="img-fluid img-thumbnail"
                   data-testid={ `${index}-recomendation-img` }
                   src={ receita.strMealThumb }
                   alt="imagem da receita"
                 />
-                <h1
+                <h4
+                  className="display-6"
                   data-testid={ `${index}-recomendation-title` }
-                  className="cardrec"
                 >
                   {receita.strMeal}
-                </h1>
+                </h4>
               </button>
             </div>
           );
@@ -148,13 +150,17 @@ class DetalhesBebidas extends Component {
     const metricas = keys.filter((key) => key[0].includes('strMeasure'));
     return (
       <div>
-        <img
-          src={ receita.strDrinkThumb }
-          data-testid="recipe-photo"
-          alt="foto-da comida"
-        />
-        <h2 data-testid="recipe-title">{receita.strDrink}</h2>
+        <figure className="figure">
+          <img
+            className="img-fluid img-thumbnail"
+            src={ receita.strDrinkThumb }
+            data-testid="recipe-photo"
+            alt="foto-da comida"
+          />
+        </figure>
+        <h2 className="display-6" data-testid="recipe-title">{receita.strDrink}</h2>
         <input
+          className="btn"
           type="image"
           data-testid="share-btn"
           src={ shareIcon }
@@ -163,24 +169,26 @@ class DetalhesBebidas extends Component {
         />
         {mensagem}
         <input
+          className="btn"
           type="image"
           data-testid="favorite-btn"
           onClick={ () => this.favorit() }
           src={ favorito ? blackHeartIcon : whiteHeartIcon }
           alt="favoritar"
         />
-        <h3 data-testid="recipe-category">{receita.strAlcoholic}</h3>
+        <h4 className="display-6" data-testid="recipe-category">{receita.strAlcoholic}</h4>
         <div>
           {
             ingredientes.map((ingrediente, index) => {
               if (ingrediente[1] !== '' && ingrediente[1] !== null) {
                 return (
-                  <h4
+                  <h5
+                    className="display-6"
                     key={ `${index}-ingredient-name-and-measure` }
                     data-testid={ `${index}-ingredient-name-and-measure` }
                   >
                     {`-${ingrediente[1]}-${metricas[index][1]}`}
-                  </h4>
+                  </h5>
                 );
               }
               return null;
@@ -188,7 +196,12 @@ class DetalhesBebidas extends Component {
           }
         </div>
         <div>
-          <p data-testid="instructions">{receita.strInstructions}</p>
+          <p
+            className="card-text"
+            data-testid="instructions"
+          >
+            {receita.strInstructions}
+          </p>
         </div>
         <div className="carousel scroller">
           {
