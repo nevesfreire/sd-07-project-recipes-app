@@ -1,16 +1,15 @@
 import React, { useContext } from 'react';
-import MadeContext from '../context/MadeContext';
+import FavContext from '../context/FavContext';
 
 export default function CategoriesButtons() {
-  const { setFilterButton } = useContext(MadeContext);
-
+  const { setFilterFavButton } = useContext(FavContext);
   return (
     <div>
       <button
         type="button"
         data-testid="filter-by-all-btn"
         onClick={ () => {
-          setFilterButton('all');
+          setFilterFavButton('all');
         } }
       >
         All
@@ -20,7 +19,7 @@ export default function CategoriesButtons() {
         type="button"
         data-testid="filter-by-food-btn"
         onClick={ () => {
-          setFilterButton('comidas');
+          setFilterFavButton('comidas');
         } }
       >
         Food
@@ -30,7 +29,7 @@ export default function CategoriesButtons() {
         type="button"
         data-testid="filter-by-drink-btn"
         onClick={ () => {
-          setFilterButton('bebidas');
+          setFilterFavButton('bebidas');
         } }
       >
         Drinks
