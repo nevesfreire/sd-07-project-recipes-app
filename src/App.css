@@ -15,7 +15,7 @@
   max-height: 80vh;
 }
 
-input [type = 'checkbox'] :checked ~ label {
+input[ type = 'checkbox' ]:checked ~ label {
   text-decoration: line-through;
 }
 
