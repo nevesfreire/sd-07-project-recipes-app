@@ -29,23 +29,24 @@ const FoodExploreIngredient = () => {
 
   return (
     <div>
-      <Header />
-      <h1 data-testid="page-title">Explorar Ingredientes</h1>
-      { ingredients.map(({ strIngredient: ingredient }, index) => (
-        <button
-          key={ ingredient }
-          type="button"
-          onClick={ () => handleClick(ingredient) }
-          data-testid={ `${index}-ingredient-card` }
-        >
-          <img
-            data-testid={ `${index}-card-img` }
-            src={ `https://www.themealdb.com/images/ingredients/${ingredient}-Small.png` }
-            alt={ `${ingredient} thumb` }
-          />
-          <h2 data-testid={ `${index}-card-name` }>{ingredient}</h2>
-        </button>
-      ))}
+      <Header>Explorar ingredientes</Header>
+      <div className="explore-ingredients">
+        { ingredients.map(({ strIngredient: ingredient }, index) => (
+          <button
+            key={ ingredient }
+            type="button"
+            onClick={ () => handleClick(ingredient) }
+            data-testid={ `${index}-ingredient-card` }
+          >
+            <img
+              data-testid={ `${index}-card-img` }
+              src={ `https://www.themealdb.com/images/ingredients/${ingredient}-Small.png` }
+              alt={ `${ingredient} thumb` }
+            />
+            <h2 data-testid={ `${index}-card-name` }>{ingredient}</h2>
+          </button>
+        ))}
+      </div>
       <Footer />
     </div>
   );

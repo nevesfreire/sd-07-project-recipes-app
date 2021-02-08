@@ -9,7 +9,7 @@ export const DrinkContext = createContext();
 
 const DrinkProvider = ({ children }) => {
   const categories = [
-    'Ordinary Drink', 'Cocktail', 'Milk / Float / Shake', 'Other/Unknown', 'Cocoa',
+    'Ordinary Drink', 'Cocktail', 'Shakes', 'Cocoa', 'Others',
   ];
   const [searchBar, setSearchBar] = useState(false);
   const [inputText, setInputText] = useState('');

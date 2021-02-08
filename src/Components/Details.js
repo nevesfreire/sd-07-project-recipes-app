@@ -13,8 +13,10 @@ const Details = ({ type, recipe, recommend, ingredientes, id, medidas }) => {
   const history = useHistory();
   const { addFavorite, removeFavorite } = useContext(StorageContext);
   const [favorited, setFavorite] = useState(false);
+  const [doneRecipe, setDoneRecipe] = useState(false);
   const [copied, setCopied] = useState(false);
   const verifyLocalFav = localStorage.getItem('favoriteRecipes');
+  const verifyLocalDone = localStorage.getItem('doneRecipes');
 
   const iconFavorite = favorited ? blackHeartIcon : whiteHeartIcon;
   const name = type === 'comida' ? 'strMeal' : 'strDrink';
@@ -28,6 +30,12 @@ const Details = ({ type, recipe, recommend, ingredientes, id, medidas }) => {
         ({ id: favId }) => favId === id,
       );
       setFavorite(searchFav);
+    }
+    if (verifyLocalDone) {
+      const searchDone = JSON.parse(verifyLocalDone).some(
+        ({ id: doneId }) => doneId === id,
+      );
+      setDoneRecipe(searchDone);
     }
   }, []);
 
@@ -67,7 +75,7 @@ const Details = ({ type, recipe, recommend, ingredientes, id, medidas }) => {
       <div className="details-info">
         <div className="hero-title">
           <h2 data-testid="recipe-title">{recipe[name]}</h2>
-          {copied && <p className="copy-feedback">Link copiado!</p>}
+          <p className={ copied ? 'copy-feedback' : 'copy-none' }>Link copiado!</p>
           <div className="buttons-hero">
             <button type="button" onClick={ handleCopy }>
               <img src={ ShareIcon } data-testid="share-btn" alt="thumbShare" />
@@ -91,7 +99,7 @@ const Details = ({ type, recipe, recommend, ingredientes, id, medidas }) => {
             <h4>Measure</h4>
           </div>
           {ingredientes.map((ingrediente, index) => (
-            <div>
+            <div key={ `${ingrediente}-${index}` }>
               <span className="ingredient-step-info">{ingrediente}</span>
               <span className="measure-info">{medidas[index]}</span>
             </div>
@@ -101,20 +109,23 @@ const Details = ({ type, recipe, recommend, ingredientes, id, medidas }) => {
         <div className="directions-info">
           <p data-testid="instructions">{recipe.strInstructions}</p>
         </div>
-        <h3 className="video-title">Video</h3>
         {type === 'comida' && (
-          <iframe
-            data-testid="video"
-            title="recipe"
-            width="560"
-            height="315"
-            src={
-              recipe.strYoutube && recipe.strYoutube.replace('watch?v=', 'embed/')
-            }
-            frameBorder="0"
-            allowFullScreen
-          />
+          <>
+            <h3 className="video-title">Video</h3>
+            <iframe
+              data-testid="video"
+              title="recipe"
+              width="560"
+              height="315"
+              src={
+                recipe.strYoutube && recipe.strYoutube.replace('watch?v=', 'embed/')
+              }
+              frameBorder="0"
+              allowFullScreen
+            />
+          </>
         )}
+        <h3 className="directions-title">Other recipes</h3>
         <Carousel>
           {recommend.map((card, index) => (
             <Carousel.Item key={ card[rcmdName] }>
@@ -130,16 +141,19 @@ const Details = ({ type, recipe, recommend, ingredientes, id, medidas }) => {
             </Carousel.Item>
           ))}
         </Carousel>
-        <div className="next-page-button">
-          <button
-            data-testid="start-recipe-btn"
-            type="button"
-            className="start-recipe"
-            onClick={ handleStartRecipe }
-          >
-            Iniciar receita
-          </button>
-        </div>
+        { doneRecipe
+        || (
+          <div className="next-page-button">
+            <button
+              data-testid="start-recipe-btn"
+              type="button"
+              className="start-recipe"
+              onClick={ handleStartRecipe }
+            >
+              Iniciar receita
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

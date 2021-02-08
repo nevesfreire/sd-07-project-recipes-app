@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import propTypes from 'prop-types';
 import RecipesContext from '../providers/Context/Context';
@@ -6,7 +6,7 @@ import ImgPerfil from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBarComp from './SearchbarComp';
 
-const Header = ({ children }) => {
+const Header = ({ children, areaOptions, handleChange }) => {
   const { pathname } = useLocation();
   const { searchBar, changeSearchBarState } = useContext(RecipesContext);
   const path = '/explorar/comidas/area';
@@ -37,7 +37,7 @@ const Header = ({ children }) => {
           </button>
         )}
       </header>
-      {searchBar && <SearchBarComp context={ children } />}
+      {searchBar && <SearchBarComp context={ children } areaOptions={ areaOptions } handleChange={ handleChange } />}
     </>
   );
 };

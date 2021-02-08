@@ -33,33 +33,24 @@ const FoodExploreArea = () => {
 
   return (
     <div>
-      <Header />
-      <h1 data-testid="page-title">Explorar Origem</h1>
-      <select data-testid="explore-by-area-dropdown" onChange={ handleChange }>
-        <option value="All" data-testid="All-option">All</option>
-        {areaOptions.map((area, index) => (
-          <option
-            key={ `${area}-${index}` }
-            value={ area }
-            data-testid={ `${area}-option` }
-          >
-            {area}
-          </option>
-        ))}
-      </select>
-      { dataFiltered.map(({ strMeal, strMealThumb, idMeal }, index) => (
-        <Link to={ `/comidas/${idMeal}` } key={ strMeal }>
-          <div data-testid={ `${index}-recipe-card` }>
-            <img
-              data-testid={ `${index}-card-img` }
-              src={ strMealThumb }
-              alt={ `${strMeal} Thumb` }
-              width="100"
-            />
-            <h3 data-testid={ `${index}-card-name` }>{ strMeal }</h3>
+      <Header handleChange={ handleChange } areaOptions={ areaOptions }>
+        Explorar Origem
+      </Header>
+      <div className="all-cards">
+        { dataFiltered.map(({ strMeal, strMealThumb, idMeal }, index) => (
+          <div key={ strMeal } data-testid={ `${index}-recipe-card` } className="srch-card">
+            <Link to={ `/comidas/${idMeal}` }>
+              <img
+                data-testid={ `${index}-card-img` }
+                src={ strMealThumb }
+                alt={ `${strMeal} Thumb` }
+                width="100"
+              />
+              <h3 data-testid={ `${index}-card-name` }>{ strMeal }</h3>
+            </Link>
           </div>
-        </Link>
-      ))}
+        ))}
+      </div>
       <Footer />
     </div>
   );

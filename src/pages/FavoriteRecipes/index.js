@@ -26,27 +26,29 @@ function FavoriteRecipes() {
   return (
     <div>
       <Header>Receitas Favoritas</Header>
-      <button
-        type="button"
-        onClick={ handleFoodAndDrink }
-        data-testid="filter-by-all-btn"
-      >
-        All
-      </button>
-      <button
-        type="button"
-        onClick={ handleFood }
-        data-testid="filter-by-food-btn"
-      >
-        Food
-      </button>
-      <button
-        type="button"
-        onClick={ handleDrink }
-        data-testid="filter-by-drink-btn"
-      >
-        Drinks
-      </button>
+      <div className="infos-button">
+        <button
+          type="button"
+          onClick={ handleFoodAndDrink }
+          data-testid="filter-by-all-btn"
+        >
+          All
+        </button>
+        <button
+          type="button"
+          onClick={ handleFood }
+          data-testid="filter-by-food-btn"
+        >
+          Food
+        </button>
+        <button
+          type="button"
+          onClick={ handleDrink }
+          data-testid="filter-by-drink-btn"
+        >
+          Drinks
+        </button>
+      </div>
       <div>
         <CardAll setRenderAll={ setRenderAll } FoodOrDrink={ FoodOrDrink } />
       </div>

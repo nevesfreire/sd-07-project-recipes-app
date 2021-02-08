@@ -14,19 +14,34 @@ const FoodExplore = () => {
   if (randomId) return <Redirect to={ `/comidas/${randomId}` } />;
   return (
     <div>
-      <Header />
-      <h1 data-testid="page-title">Explorar Comidas</h1>
-      <Link to="/explorar/comidas/ingredientes">
-        <button type="button" data-testid="explore-by-ingredient">
-          Por Ingredientes
+      <Header>Explorar Comidas</Header>
+      <div className="explore-buttons">
+        <button
+          type="button"
+          data-testid="explore-by-ingredient"
+          className="first-food-explore"
+        >
+          <Link to="/explorar/comidas/ingredientes" style={ { color: 'inherit' } }>
+            Por Ingredientes
+          </Link>
         </button>
-      </Link>
-      <Link to="/explorar/comidas/area">
-        <button type="button" data-testid="explore-by-area">Por Local de Origem</button>
-      </Link>
-      <button type="button" data-testid="explore-surprise" onClick={ randomRecipe }>
-        Me Surpreenda!
-      </button>
+        <button
+          type="button"
+          data-testid="explore-by-area"
+          className="second-food-explore"
+        >
+          <Link to="/explorar/comidas/area" style={ { color: 'inherit' } }>
+            Por Local de Origem
+          </Link>
+        </button>
+        <button
+          type="button"
+          onClick={ randomRecipe }
+          className="third-food-explore"
+        >
+          Me Surpreenda!
+        </button>
+      </div>
       <Footer />
     </div>
   );

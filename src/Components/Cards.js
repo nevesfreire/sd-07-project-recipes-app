@@ -9,16 +9,16 @@ function Cards({ card, context, index }) {
   const pageContext = context;
 
   return (
-    <Link to={ `/${pageContext.toLowerCase()}/${id}` }>
-      <div data-testid={ `${index}-recipe-card` } className="srch-card">
+    <div data-testid={ `${index}-recipe-card` } className="srch-card">
+      <Link to={ `/${pageContext.toLowerCase()}/${id}` }>
         <img
           data-testid={ `${index}-card-img` }
           src={ image }
           alt="Imagem da comida ou bebida"
         />
         <h3 data-testid={ `${index}-card-name` }>{title}</h3>
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
 }
 

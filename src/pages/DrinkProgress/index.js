@@ -23,7 +23,7 @@ const FoodProgress = ({ match: { params: { id } } }) => {
     .filter((item) => item);
   const medidas = currentRecipe && Object.values(currentRecipe)
     .splice(initialMeasureCut, endCut)
-    .filter((item) => item !== ' ');
+    .filter((item) => item !== ' ' && item !== null);
 
   return (
     <div>

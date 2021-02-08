@@ -7,7 +7,7 @@ import ShareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
-const ProgressDrink = ({ type, recipe, ingredientes, id }) => {
+const ProgressDrink = ({ type, recipe, ingredientes, id, medidas }) => {
   const { addFavorite, removeFavorite } = useContext(StorageContext);
   const [favorited, setFavorite] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -48,54 +48,77 @@ const ProgressDrink = ({ type, recipe, ingredientes, id }) => {
     else setCopied(true);
   };
 
+  console.log(medidas);
+
   return (
     <div>
-      <img
-        data-testid="recipe-photo"
-        src={ recipe[image] }
-        alt="Thumb Food"
-        width="400"
-      />
-      <h2 data-testid="recipe-title">{recipe[name]}</h2>
-      { copied && <p className="copy-feedback">Link copiado!</p>}
-      <button type="button" data-testid="share-btn" onClick={ handleCopy }>
-        <img src={ ShareIcon } alt="thumbShare" />
-      </button>
-      <button type="button" onClick={ handleFavorite }>
-        <img src={ iconFavorite } data-testid="favorite-btn" alt="thumbFavorite" />
-      </button>
-      <h3 data-testid="recipe-category">{ recipe.strAlcoholic || recipe.strCategory}</h3>
-      {ingredientes.map((ingrediente, index) => (
-        <label
-          htmlFor={ `${index}-ingredient-step` }
-          key={ ingrediente }
-          data-testid={ `${index}-ingredient-step` }
-        >
-          <input
-            type="checkbox"
-            id={ `${index}-ingredient-step` }
-            name={ ingrediente }
-            onClick={ () => checkedIsTreu() }
-          />
-          {ingrediente}
-        </label>
-      ))}
-      <p data-testid="instructions">{recipe.strInstructions}</p>
-      { allChecked ? (
-        <Link to="/receitas-feitas">
-          <button type="button" data-testid="finish-recipe-btn">
-            Finalizado!
-          </button>
-        </Link>)
-        : (
-          <button
-            disabled="disabled"
-            type="button"
-            data-testid="finish-recipe-btn"
-          >
-            Finalizado!
-          </button>
-        )}
+      <div className="details-page">
+        <img
+          data-testid="recipe-photo"
+          src={ recipe[image] }
+          alt="Thumb Food"
+        />
+        <div className="details-info">
+          <div className="hero-title">
+            <h2 data-testid="recipe-title" className="recipe-title">{recipe[name]}</h2>
+            <div className="buttons-hero">
+              { copied && <p className="copy-feedback">Link copiado!</p>}
+              <button type="button" data-testid="share-btn" onClick={ handleCopy }>
+                <img src={ ShareIcon } alt="thumbShare" />
+              </button>
+              <button type="button" onClick={ handleFavorite }>
+                <img
+                  src={ iconFavorite }
+                  data-testid="favorite-btn"
+                  alt="thumbFavorite"
+                />
+              </button>
+            </div>
+          </div>
+          <h3 className="subtitle" data-testid="recipe-category">
+            { recipe.strAlcoholic || recipe.strCategory}
+          </h3>
+          <h3 className="ingredients-title">Ingredients</h3>
+          <div className="check-ingredients ingredients-info">
+            <div className="table-measures">
+              <h4>Ingredient</h4>
+              <h4>Measure</h4>
+            </div>
+            {ingredientes.map((ingrediente, index) => (
+              <label
+                htmlFor={ `${index}-ingredient-step` }
+                key={ ingrediente }
+                data-testid={ `${index}-ingredient-step` }
+              >
+                <input
+                  type="checkbox"
+                  id={ `${index}-ingredient-step` }
+                  name={ ingrediente }
+                  onClick={ () => checkedIsTreu() }
+                  className="ingredient-checkbox"
+                />
+                <span className="ingredient-step-info">{ingrediente}</span>
+                <span className="measure-info">{medidas[index]}</span>
+              </label>
+            ))}
+          </div>
+          <h3 className="directions-title">Directions</h3>
+          <div className="ingredients-info">
+            <p data-testid="instructions ">{recipe.strInstructions}</p>
+          </div>
+          <div className="next-page-button">
+            <Link to="/receitas-feitas">
+              <button
+                type="button"
+                data-testid="finish-recipe-btn"
+                disabled={ !allChecked }
+              >
+                Finalizar!
+              </button>
+            </Link>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

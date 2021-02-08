@@ -21,31 +21,35 @@ function Profile() {
   return (
     <div>
       { email && (
-        <h4 data-testid="profile-email">
+        <h4 data-testid="profile-email" className="profile-email">
           {email.email}
         </h4>
       ) }
-      <button
-        type="button"
-        onClick={ doneRecipes }
-        data-testid="profile-done-btn"
-      >
-        Receitas Feitas
-      </button>
-      <button
-        type="button"
-        onClick={ handleFavoritRecipe }
-        data-testid="profile-favorite-btn"
-      >
-        Receitas Favoritas
-      </button>
-      <button
-        type="button"
-        onClick={ handleOut }
-        data-testid="profile-logout-btn"
-      >
-        Sair
-      </button>
+      <div className="explore-buttons">
+        <button
+          type="button"
+          onClick={ doneRecipes }
+          data-testid="profile-done-btn"
+          className="first-food-explore"
+        >
+          Receitas Feitas
+        </button>
+        <button
+          type="button"
+          onClick={ handleFavoritRecipe }
+          data-testid="profile-favorite-btn"
+        >
+          Receitas Favoritas
+        </button>
+        <button
+          type="button"
+          onClick={ handleOut }
+          data-testid="profile-logout-btn"
+          className="logout-food-explore"
+        >
+          Sair
+        </button>
+      </div>
     </div>
   );
 }

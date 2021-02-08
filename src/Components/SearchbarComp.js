@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import RecipesContext from '../providers/Context/Context';
 import { DrinkContext } from '../providers/DrinkProvider';
 
-const SearchBarComp = ({ context }) => {
+const SearchBarComp = ({ context, areaOptions, handleChange }) => {
   const history = useHistory();
   const whichContext = context === 'Comidas' ? RecipesContext : DrinkContext;
   const whichId = context === 'Comidas' ? 'idMeal' : 'idDrink';
@@ -76,6 +76,23 @@ const SearchBarComp = ({ context }) => {
           Primeira letra
         </label>
       </div>
+      { areaOptions && (
+        <select
+          data-testid="explore-by-area-dropdown"
+          className="explore-dropdown"
+          onChange={ handleChange }
+        >
+          <option value="All" data-testid="All-option">All</option>
+          {areaOptions.map((area, index) => (
+            <option
+              key={ `${area}-${index}` }
+              value={ area }
+              data-testid={ `${area}-option` }
+            >
+              {area}
+            </option>
+          ))}
+        </select>)}
     </div>
   );
 };

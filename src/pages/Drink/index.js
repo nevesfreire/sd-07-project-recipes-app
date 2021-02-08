@@ -16,25 +16,30 @@ const Drink = () => {
   return (
     <div>
       <Header>Bebidas</Header>
-      { categories.map((categoryName) => (
+      <div className="buttons-category">
+        { categories.map((categoryName) => (
+          <button
+            className="categories-button"
+            id={ categoryName }
+            data-testid={ `${categoryName}-category-filter` }
+            key={ categoryName }
+            type="button"
+            onClick={ categoriesData }
+          >
+            {categoryName}
+          </button>)) }
         <button
-          id={ categoryName }
-          data-testid={ `${categoryName}-category-filter` }
-          key={ categoryName }
+          className="categories-button"
+          data-testid="All-category-filter"
           type="button"
-          onClick={ categoriesData }
+          onClick={ allButton }
         >
-          {categoryName}
-        </button>)) }
-      <button
-        data-testid="All-category-filter"
-        type="button"
-        onClick={ allButton }
-      >
-        All
-
-      </button>
-      {renderCards()}
+          All
+        </button>
+      </div>
+      <div className="all-cards">
+        {renderCards()}
+      </div>
       <Footer />
     </div>
   );

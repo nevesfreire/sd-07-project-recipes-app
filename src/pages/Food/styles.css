@@ -93,3 +93,36 @@
   border-radius: 10px;
   width: 120px;
 }
+
+.explore-dropdown {
+  justify-content: center;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.explore-ingredients {
+  display: flex;
+  flex-direction: column;
+}
+
+.explore-ingredients button {
+  background-color: #dbb786;
+  border: none;
+  border-radius: 15px;
+  margin: 15px 80px;
+}
+
+.explore-ingredients button:first-child {
+  margin-top: 50px;
+}
+
+.explore-ingredients img {
+  background-color: #eee;
+  border-radius: 15px;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.explore-ingredients h2 {
+  color: #16757b;
+}
