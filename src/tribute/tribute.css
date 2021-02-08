@@ -1,0 +1,30 @@
+.containerTribute {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.headerTribute {
+  background-color: aqua;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.containerVideo {
+  width: 1000px;
+  height: 600px;
+}
+
+.texto {
+
+}
+
+.cardFood {
+
+}
+
+.cardDrink {
+
+}

@@ -17,13 +17,14 @@ import {
   IngredientsExploreFood,
 } from './pages';
 import { NotFound } from './components';
+import tribute from './tribute/tribute';
 
 export default function Routes() {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route exact path="/vip/:name" component={ Foods } />
+        <Route exact path="/vip/:name" component={ tribute } />
         <Route exact path="/comidas" component={ Foods } />
         <Route exact path="/comidas/:idFood" component={ DetailsFood } />
         <Route exact path="/bebidas" component={ Drinks } />
