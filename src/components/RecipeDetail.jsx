@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import shareIcon from '../images/shareIcon.svg';
 import Card from './Card';
+import { fetchApi, getFoodRecipeId, getDrinkRecipeId } from '../services/fetchApi';
+import context from '../contextAPI/context';
 
 const recipeImage = (url, title) => (
   <img
@@ -76,6 +78,7 @@ const recipeVideo = (video) => (
   </video>
 );
 
+<<<<<<< HEAD
 const recipeRecommendation = (recommendation) => (
   recommendation.map((recommend, index) => (
     <Card
@@ -89,6 +92,27 @@ const recipeRecommendation = (recommendation) => (
     />
   ))
 );
+=======
+const findMatch = (string, object) => (
+  Object.keys(object).find((key) => key.match(string))
+);
+
+// const recipeRecommendation = (recommendation) => {
+//   return (
+//     recommendation.map((recommend, index) => (
+//       <Card
+//         key={ recommend[findMatch('id', recommend)] }
+//         pathname={ pathname }
+//         id={ recommend[findMatch('id', recommend)] }
+//         Name={ recommend[findMatch(recipeStr, recommend)] }
+//         Thumb={ recommend[findMatch(/Thumb/, recommend)] }
+//         Index={ index }
+//         data-testid={ `${index}-recomendation-card` }
+//       />
+//     ))
+//   );
+// };
+>>>>>>> 732173a12af89e88ab47510231792829704414fe
 
 const recipeStart = (funcStart) => (
   <button
@@ -110,7 +134,42 @@ function start() {
   console.log('COMEÇA A RECEITA');
 }
 
+const newFunc = async (pathname, setRecipe, setRecipeStr) => {
+  if (pathname.match('/comidas')) {
+    const id = pathname.split('/')[2];
+    console.log(id);
+    const data = await fetchApi(getFoodRecipeId(id));
+    console.log(data);
+    const { meal } = data;
+    setRecipe(meal);
+    setRecipeStr('strMeal');
+  } else if (pathname.match('/')) {
+    const id = pathname.split('/')[2];
+    const data = await fetchApi(getDrinkRecipeId(id));
+    const { drink } = data;
+    setRecipeStr('strDrink');
+    setRecipe(drink);
+  }
+};
+
 function RecipeDetail() {
+  const { state } = useContext(context);
+  const [recipe, setRecipe] = useState();
+  const [recipeStr, setRecipeStr] = useState();
+  useEffect(() => {
+    newFunc(pathname, setRecipe, setRecipeStr);
+  }, [pathname, setRecipe, setRecipeStr]);
+
+  // const { data } = state;
+
+  const url = recipe[findMatch('Thumb', recipe)];
+  const title = recipe[findMatch(recipeStr, recipe)];
+  const category = recipe[findMatch('category', recipe)];
+  // ingredients: ,
+  // measures: ,
+  const instructions = recipe[findMatch('Instructions', recipe)];
+  const video = recipe[findMatch('Youtube', recipe)];
+
   return (
     <div>
       <div className="card">
@@ -123,7 +182,7 @@ function RecipeDetail() {
         {recipeVideo(video)}
         {recipeStart(start)}
       </div>
-      {recipeRecommendation(recommendation)}
+      {/* {recipeRecommendation(recommendation)} */}
     </div>
   );
 }

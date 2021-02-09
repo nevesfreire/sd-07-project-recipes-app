@@ -1,10 +1,18 @@
 .header-container {
   display: flex;
   flex-direction: column;
+<<<<<<< HEAD
 }
 
 .radio-controll {
   width: 150px;
+=======
+  margin: 50px;
+}
+
+.radio-controll {
+  width: 330px;
+>>>>>>> 732173a12af89e88ab47510231792829704414fe
 }
 
 .field-set {
@@ -15,6 +23,7 @@
 
 .header {
   display: flex;
+<<<<<<< HEAD
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
@@ -22,13 +31,25 @@
 
 .header-page {
   height: 150px;
+=======
+  flex-direction: row; 
+  justify-content: space-between;
+}
+
+.header-page {
+  height: 210px;
+>>>>>>> 732173a12af89e88ab47510231792829704414fe
 }
 
 .header-buttons {
   display: flex;
   flex-direction: row;
+<<<<<<< HEAD
   width: 64px;
   height: 54px;
+=======
+  margin-left: 40em;
+>>>>>>> 732173a12af89e88ab47510231792829704414fe
 }
 
 .noShowBtn {
@@ -37,6 +58,7 @@
 }
 
 .input-searchbar {
+<<<<<<< HEAD
   margin-top: 10px;
   margin-left: 10px;
 }
@@ -46,4 +68,11 @@
   display: flex;
   justify-content: space-around;
   width: 100%;
+=======
+  margin-top: 25px;
+}
+
+.search-recipes {
+  height: 0px;
+>>>>>>> 732173a12af89e88ab47510231792829704414fe
 }

@@ -1,10 +1,10 @@
 .main-container {
-  margin: 0;
-  position: absolute;
-  top: 30%;
   left: 50%;
+  margin: 0;
   margin-right: -50%;
+  position: absolute;
   transform: translate(-50%, -50%);
+  top: 30%;
   width: 350px;
 }
 
@@ -35,15 +35,15 @@
 
 .main-input {
   align-self: center;
-  padding-top: 30px;
   background-color: rgba(33, 211, 224, 0.068);
+  display: flex;
   border: 1px solid rgba(0, 0, 0, 0.342);
   border-radius: 20px;
   box-sizing: border-box;
-  display: flex;
   flex-direction: column;
   height: 300px;
   justify-content: space-around;
+  padding-top: 30px;
   width: 350px;
 }
 

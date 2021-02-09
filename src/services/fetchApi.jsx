@@ -45,7 +45,6 @@ export const getDrinkFLetter = (inputText) => (
 export const getDrinkRecipeId = (id) => (
   `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`
 );
-
 export const getFoodList = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
 
 export const getDrinksList = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
