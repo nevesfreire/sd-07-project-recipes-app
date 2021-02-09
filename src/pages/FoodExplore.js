@@ -34,8 +34,9 @@ class FoodExplore extends Component {
       return (
         <div>
           <Header title="Explorar Comidas" history={ history } />
-          <div>
+          <div className="button-container">
             <button
+              className="btn btn-secondary btn-lg"
               type="button"
               data-testid="explore-by-ingredient"
               onClick={ () => history.push('/explorar/comidas/ingredientes') }
@@ -43,6 +44,7 @@ class FoodExplore extends Component {
               Por Ingredientes
             </button>
             <button
+              className="btn btn-secondary btn-lg"
               type="button"
               data-testid="explore-by-area"
               onClick={ () => history.push('/explorar/comidas/area') }
@@ -50,6 +52,7 @@ class FoodExplore extends Component {
               Por Local de Origem
             </button>
             <button
+              className="btn btn-secondary btn-lg"
               type="button"
               data-testid="explore-surprise"
               onClick={ () => history.push(`/comidas/${meals[0].idMeal}`) }
