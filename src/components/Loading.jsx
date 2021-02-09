@@ -4,9 +4,9 @@ import { Spinner } from 'react-bootstrap';
 class Loading extends React.Component {
   render() {
     return (
-      <div>
+      <div style={ { height: '90vh', textAlign: 'center' } }>
         <Spinner animation="border" size="xl" variant="success">
-          <span>Loading...</span>
+          <p style={ { marginLeft: '100px' } }>Loading...</p>
         </Spinner>
       </div>
     );
