@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import copy from 'clipboard-copy';
 import { copyButton } from '../actions';
 import Header from '../components/Header';
-import profileIcon from '../images/profileIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
