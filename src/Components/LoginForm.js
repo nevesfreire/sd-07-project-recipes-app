@@ -37,6 +37,7 @@ function LoginForm() {
             name="email"
             type="email"
             value={ login.email }
+            placeholder="Login"
             onChange={ ({ target }) => handlechange(target.name, target.value) }
           />
         </label>
@@ -46,6 +47,7 @@ function LoginForm() {
             name="senha"
             type="password"
             value={ login.senha }
+            placeholder="Password"
             onChange={ ({ target }) => handlechange(target.name, target.value) }
           />
         </label>
