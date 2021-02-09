@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { Header, Footer, IngredientCard } from '../../components';
 import { fetchingDrinks } from '../../services/mandaFoods';
 import RecipeContext from '../../context/RecipesContext';
+import './DrinkIngredients.css';
 
 export default function DrinksIngredients() {
   const [ingredients, setIngredients] = useState([]);
@@ -34,8 +35,8 @@ export default function DrinksIngredients() {
   return (
     <div className="drink-ingredient-container">
       <Header title="Explorar Ingredientes" />
-      <p>comidas</p>
-      <div>
+      <div className="ingredient-drink-content">
+        <p>bebidas</p>
         {
           ingredients.filter((_, index) => index < twelve)
             .map((ingredient, index) => (
