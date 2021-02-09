@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
@@ -32,6 +32,10 @@ function Card(props) {
     test,
   } = props;
 
+  // useEffect(() => {
+  //   const Newid = pathname.split('/')[2];
+  //   console.log(Newid);
+  // }, [pathname]);
   return (
     <Paper className="paper-style" elevation={ 6 }>
       <Link to={ `${pathname}/${id}` } replace>

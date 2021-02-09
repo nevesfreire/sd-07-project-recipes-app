@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import shareIcon from '../images/shareIcon.svg';
 import Card from './Card';
+import { fetchApi, getFoodRecipeId, getDrinkRecipeId } from '../services/fetchApi';
+import context from '../contextAPI/context';
 
 const recipeImage = (url, title) => (
   <img
@@ -76,21 +78,25 @@ const recipeVideo = (video) => (
   </video>
 );
 
-const recipeRecommendation = (recommendation) => {
-  return (
-    recommendation.map((recommend, index) => (
-      <Card
-        key={ recommend[findMatch('id', recommend)] }
-        pathname={ pathname }
-        id={ recommend[findMatch('id', recommend)] }
-        Name={ recommend[findMatch(recipeStr, recommend)] }
-        Thumb={ recommend[findMatch(/Thumb/, recommend)] }
-        Index={ index }
-        data-testid="${index}-recomendation-card"
-      />
-    ))
-  );
-};
+const findMatch = (string, object) => (
+  Object.keys(object).find((key) => key.match(string))
+);
+
+// const recipeRecommendation = (recommendation) => {
+//   return (
+//     recommendation.map((recommend, index) => (
+//       <Card
+//         key={ recommend[findMatch('id', recommend)] }
+//         pathname={ pathname }
+//         id={ recommend[findMatch('id', recommend)] }
+//         Name={ recommend[findMatch(recipeStr, recommend)] }
+//         Thumb={ recommend[findMatch(/Thumb/, recommend)] }
+//         Index={ index }
+//         data-testid={ `${index}-recomendation-card` }
+//       />
+//     ))
+//   );
+// };
 
 const recipeStart = (funcStart) => (
   <button
@@ -105,6 +111,7 @@ const recipeStart = (funcStart) => (
 async function share(pathname, message) {
   navigator.clipboard.writeText(`http://localhost:300${pathname}`);
   message = 'Link copiado!';
+  return message;
 }
 
 function start() {
@@ -113,14 +120,15 @@ function start() {
 
 const newFunc = async (pathname, setRecipe, setRecipeStr) => {
   if (pathname.match('/comidas')) {
-    const id = pathname.split('/')[1];
+    const id = pathname.split('/')[2];
     console.log(id);
     const data = await fetchApi(getFoodRecipeId(id));
+    console.log(data);
     const { meal } = data;
     setRecipe(meal);
     setRecipeStr('strMeal');
-  } else if (pathname.match('/bebidas')) {
-    const id = pathname.split('/')[1];
+  } else if (pathname.match('/')) {
+    const id = pathname.split('/')[2];
     const data = await fetchApi(getDrinkRecipeId(id));
     const { drink } = data;
     setRecipeStr('strDrink');
@@ -128,10 +136,24 @@ const newFunc = async (pathname, setRecipe, setRecipeStr) => {
   }
 };
 
-function RecipeDetail(recipe) {
+function RecipeDetail() {
+  const { state } = useContext(context);
+  const [recipe, setRecipe] = useState();
+  const [recipeStr, setRecipeStr] = useState();
   useEffect(() => {
-    newFunc(recipe);
-  }, [recipe]);
+    newFunc(pathname, setRecipe, setRecipeStr);
+  }, [pathname, setRecipe, setRecipeStr]);
+
+  // const { data } = state;
+
+  const url = recipe[findMatch('Thumb', recipe)];
+  const title = recipe[findMatch(recipeStr, recipe)];
+  const category = recipe[findMatch('category', recipe)];
+  // ingredients: ,
+  // measures: ,
+  const instructions = recipe[findMatch('Instructions', recipe)];
+  const video = recipe[findMatch('Youtube', recipe)];
+
   return (
     <div>
       <div className="card">
@@ -144,7 +166,7 @@ function RecipeDetail(recipe) {
         {recipeVideo(video)}
         {recipeStart(start)}
       </div>
-      {recipeRecommendation(recommendation)}
+      {/* {recipeRecommendation(recommendation)} */}
     </div>
   );
 }

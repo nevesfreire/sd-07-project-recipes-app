@@ -45,22 +45,3 @@ export const getDrinkFLetter = (inputText) => (
 export const getDrinkRecipeId = (id) => (
   `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`
 );
-
-const handleSucessAPIResponse = (recipesData, dispatchRecipes, type) => {
-  if (recipesData && recipesData[type] !== null) {
-    const recipesResults = recipesData;
-    dispatchRecipes(recipesResults);
-  }
-};
-
-const handleNullAPIResponse = (recipesData, _dispatchRecipes, type) => {
-  if (recipesData === null || recipesData[type] === null) {
-    const message = 'Não encontramos receita com o pesquisado';
-    return message;
-  }
-};
-
-export const handleAPIResponse = (recipesData, dispatchRecipes, { type }) => {
-  handleNullAPIResponse(recipesData, dispatchRecipes, type);
-  handleSucessAPIResponse(recipesData, dispatchRecipes, type);
-};
