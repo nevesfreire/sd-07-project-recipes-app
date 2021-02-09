@@ -5,6 +5,10 @@
     justify-content: center;
     flex-wrap: wrap;
   }
+
+  .details h5{
+    float: center;
+  }
   /* imagens */
   .detailsThumb {
     display: flex;
@@ -14,16 +18,19 @@
     object-fit: cover;
     height: 300px;
   }
-
+  /* pratos favoritos h5*/
+  .PratosFavoritos {
+    display: flex;
+    align-items: center;
+  }
   /* recomentations tribute */
     .redomentationsCards {
-      border: 3px solid red;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      height: 300px;
       flex-wrap: wrap;
     }
-  
+
   /* compartilhar e favoritar */
   .favoriteShare {
     display: flex;
@@ -107,7 +114,7 @@
     position: fixed;
   }
 
-@media screen and (max-width: 360px) {
+@media screen and (max-width: 450px) {
   /* container principal */
   .details div{
     display: flex;

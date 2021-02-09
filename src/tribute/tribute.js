@@ -37,7 +37,9 @@ export default function DetailsFood({ match }) {
           {text}
         </p>
       </div>
-      <h5>Pratos Favoritos</h5>
+      <div className="PratosFavoritos">
+        <h5>Pratos Favoritos</h5>
+      </div>
       <div className="redomentationsCards">
         <Card
           title={ drinkTitle }

@@ -37,7 +37,10 @@ const data = {
       foodImg: pizza,
     },
     img: { picture: hamajiProfile },
-    text: { title: 'Obrigado', text: 'Obrigado pelas aulas, pelos ensinamentos e pela dedicação.' },
+    text: {
+      title: 'Obrigado',
+      text: 'Obrigado pelas aulas, pelos ensinamentos e pela dedicação.',
+    },
   },
   wolf: {
     video: {
