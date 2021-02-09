@@ -106,10 +106,6 @@ async function share(pathname, message) {
   return message;
 }
 
-function start() {
-  console.log('COMEÇA A RECEITA');
-}
-
 function RecipeDetail() {
   return (
     <div>
