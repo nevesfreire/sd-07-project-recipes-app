@@ -98,59 +98,62 @@ class DoneRecipe extends Component {
         >
           Drinks
         </button>
+        {
+          recipes
+          ? recipes.map((card, index) => (
+            <div key={ card.id }>
+              <Link
+                to={ `/${card.type}s/${card.id}` }
+                className="link-categories"
+              >
+                <img
+                  data-testid={ `${index}-horizontal-image` }
+                  src={ card.image }
+                  alt="foto da receita"
+                />
+                <h1 data-testid={ `${index}-horizontal-name` }>{card.name}</h1>
+              </Link>
 
-        {recipes.map((card, index) => (
-          <div key={ card.id }>
-            <Link
-              to={ `/${card.type}s/${card.id}` }
-              className="link-categories"
-            >
-              <img
-                data-testid={ `${index}-horizontal-image` }
-                src={ card.image }
-                alt="foto da receita"
-              />
-              <h1 data-testid={ `${index}-horizontal-name` }>{card.name}</h1>
-            </Link>
+              {card.type === 'comida' ? (
+                <h2 data-testid={ `${index}-horizontal-top-text` }>
+                  {`${card.area} - ${card.category}`}
+                </h2>
+              ) : (
+                <h2 data-testid={ `${index}-horizontal-top-text` }>
+                  {card.alcoholicOrNot}
+                </h2>
+              )}
+              <p data-testid={ `${index}-horizontal-done-date` }>
+                {card.doneDate}
+              </p>
+              <p>{valueCopied}</p>
+              <button
+                type="button"
+                onClick={ () => this.handleClipBoard(card.type, card.id) }
+              >
+                <img
+                  data-testid={ `${index}-horizontal-share-btn` }
+                  alt="icone de compartilhamento"
+                  src={ shareIcon }
+                />
+              </button>
 
-            {card.type === 'comida' ? (
-              <h2 data-testid={ `${index}-horizontal-top-text` }>
-                {`${card.area} - ${card.category}`}
-              </h2>
-            ) : (
-              <h2 data-testid={ `${index}-horizontal-top-text` }>
-                {card.alcoholicOrNot}
-              </h2>
-            )}
-            <p data-testid={ `${index}-horizontal-done-date` }>
-              {card.doneDate}
-            </p>
-            <p>{valueCopied}</p>
-            <button
-              type="button"
-              onClick={ () => this.handleClipBoard(card.type, card.id) }
-            >
-              <img
-                data-testid={ `${index}-horizontal-share-btn` }
-                alt="icone de compartilhamento"
-                src={ shareIcon }
-              />
-            </button>
-
-            {card.tags ? (
-              this.handleTags(card.tags).map((cardTag, indexTag) => (
-                <p
-                  data-testid={ `${index}-${cardTag}-horizontal-tag` }
-                  key={ indexTag }
-                >
-                  {cardTag}
-                </p>
-              ))
-            ) : (
-              <p />
-            )}
-          </div>
-        ))}
+              {card.tags ? (
+                this.handleTags(card.tags).map((cardTag, indexTag) => (
+                  <p
+                    data-testid={ `${index}-${cardTag}-horizontal-tag` }
+                    key={ indexTag }
+                  >
+                    {cardTag}
+                  </p>
+                ))
+              ) : (
+                <p />
+              )}
+            </div>
+          ))
+          : <Loading />
+        }
       </div>
     );
   }

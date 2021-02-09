@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import copy from 'clipboard-copy';
 import { copyButton } from '../actions';
+import Header from '../components/Header';
 import profileIcon from '../images/profileIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -80,15 +81,7 @@ class FavoriteRecipe extends Component {
     const { history, valueCopied } = this.props;
     return (
       <div>
-        <header>
-          <button
-            type="button"
-            onClick={ () => history.push('/perfil') }
-          >
-            <img src={ profileIcon } alt="profileIcon" />
-          </button>
-          <h1>Receitas Favoritas</h1>
-        </header>
+        <Header title="Receitas Favoritas" history={ history } />
         <section>
           <button
             type="button"
