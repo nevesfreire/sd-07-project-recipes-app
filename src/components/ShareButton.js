@@ -19,6 +19,7 @@ class ShareButton extends React.Component {
     return (
       <div>
         <button
+          style={ { background: 'none', border: 'none' } }
           type="button"
           data-testid="share-btn"
           onClick={ () => {

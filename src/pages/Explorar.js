@@ -30,18 +30,20 @@ class Explorar extends React.Component {
         <div
           style={ { height: '90vh' } }
         >
-          <Col style={ { marginTop: '30%', marginLeft: '33%' } }>
+          <Col style={ { marginTop: '30%' } }>
             <Button
+              style={ { color: 'black' } }
+              variant="outline-warning"
               type="button"
-              variant="warning"
               data-testid="explore-food"
               onClick={ () => this.setState({ redirect: '/explorar/comidas' }) }
             >
               Explorar Comidas
             </Button>
-            <Row style={ { marginTop: '5px', marginLeft: '2px' } }>
+            <Row style={ { marginTop: '5px', marginLeft: '173px' } }>
               <Button
-                variant="warning"
+                style={ { color: 'black' } }
+                variant="outline-warning"
                 type="button"
                 data-testid="explore-drinks"
                 onClick={ () => this.setState({ redirect: '/explorar/bebidas' }) }

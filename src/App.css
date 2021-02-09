@@ -21,10 +21,7 @@ button {
 }
 
 .footer {
-  background: #fcef3b;
-  background-image: url(./images/footer.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
+  background: rgb(245, 176, 36);
   bottom: 0;
   display: flex;
   justify-content: space-around;
@@ -34,10 +31,9 @@ button {
 }
 
 .header {
-  background: #fcef3b;
+  background: rgb(245, 176, 36);
   display: flex;
   justify-content: space-evenly;
-  position: relative;
   top: 0;
   width: 100%;
 }
@@ -105,3 +101,8 @@ button {
     transform: rotate(-10deg);
   }
 } */
+
+.login {
+  height: 100vh;
+  padding-top: 150px;
+}

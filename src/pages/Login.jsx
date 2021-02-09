@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { FormControl, InputGroup, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { sendLoginInfo } from '../redux/actions';
 
@@ -53,30 +54,42 @@ class Login extends Component {
     const { sendLoginInfoDispatch } = this.props;
 
     return (
-      <div className="d-flex align-items-center justify-content-center">
+      <div className="login">
         <h1>App de Receitas</h1>
         <form>
-          <input
-            type="text"
-            name="email"
-            value={ email }
-            placeholder="Insira seu email"
-            data-testid="email-input"
-            onChange={ this.handleChange }
-            autoComplete="username"
-          />
-
-          <input
-            type="password"
-            name="password"
-            value={ password }
-            placeholder="Insira sua senha"
-            data-testid="password-input"
-            onChange={ this.handleChange }
-            autoComplete="current-password"
-          />
-
-          <button
+          <InputGroup style={ { width: '250px', marginLeft: '140px' } }>
+            <InputGroup.Prepend>
+              <InputGroup.Text style={ { backgroundColor: 'rgb(245, 176, 36)', borderColor: 'rgba(251, 125, 6, 0.973)', borderTopLeftRadius: '15px', borderBottomLeftRadius: '15px' } } id="basic-addon1">EMAIL</InputGroup.Text>
+            </InputGroup.Prepend>
+            <FormControl
+              style={{ borderColor: 'rgba(251, 125, 6, 0.973)', borderTopRightRadius: '15px', borderBottomRightRadius: '15px' }}
+              type="text"
+              name="email"
+              value={ email }
+              placeholder="Insira seu email"
+              data-testid="email-input"
+              onChange={ this.handleChange }
+              autoComplete="username"
+            />
+          </InputGroup>
+          <InputGroup style={ { width: '250px', marginLeft: '140px', marginTop: '10px' } }>
+            <InputGroup.Prepend>
+              <InputGroup.Text style={ { backgroundColor: 'rgb(245, 176, 36)', borderColor: 'rgba(251, 125, 6, 0.973)', borderTopLeftRadius: '15px', borderBottomLeftRadius: '15px' } } id="basic-addon1">PASSWORD</InputGroup.Text>
+            </InputGroup.Prepend>
+            <FormControl
+              style={ { borderColor: 'rgba(251, 125, 6, 0.973)', borderTopRightRadius: '15px', borderBottomRightRadius: '15px' } }
+              type="password"
+              name="password"
+              value={ password }
+              placeholder="Insira sua senha"
+              data-testid="password-input"
+              onChange={ this.handleChange }
+              autoComplete="current-password"
+            />
+          </InputGroup>
+          <Button
+            style={ { marginTop: '10px', color: 'black' } }
+            variant="outline-danger"
             type="button"
             disabled={ this.verifyLogin() }
             data-testid="login-submit-btn"
@@ -86,8 +99,10 @@ class Login extends Component {
             } }
           >
             Entrar
-          </button>
+          </Button>
         </form>
+
+        <p style={ { marginTop: '203px', background: 'rgb(246, 183, 89)', fontSize: '12px', opacity: '0.8' } }>Made by Group 2 - Bella, Thadeu and Vanessa </p>
       </div>
     );
   }

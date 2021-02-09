@@ -47,6 +47,7 @@ class FavoriteButton extends React.Component {
     return (
       <div>
         <button
+          style={ { background: 'none', border: 'none' } }
           type="button"
           data-testid="favorite-btn"
           onClick={ this.favoriteButtonHandle }

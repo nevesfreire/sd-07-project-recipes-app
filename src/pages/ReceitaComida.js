@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Carousel } from 'react-bootstrap';
+import { Carousel, Container, Card, Button } from 'react-bootstrap';
 import { apiTheCocktailDB, apiTheMealDB } from '../services';
 import ShareButton from '../components/ShareButton';
 import FavoriteButton from '../components/FavoriteButton';
@@ -86,26 +86,50 @@ class ReceitaComida extends React.Component {
 
     return (
       <div>
-        <h1>Receita de Comida</h1>
-        <img
-          style={ { width: 100 } }
-          src={ recipe.strMealThumb }
-          alt={ recipe.strMealThumb }
-          data-testid="recipe-photo"
-        />
-        <h4 data-testid="recipe-title">{ recipe.strMeal }</h4>
-        <p data-testid="recipe-category">{ recipe.strCategory }</p>
-        <p>Ingredientes</p>
-        <ul>
-          { ingredientsArray.map((e, index) => (
-            <li key={ e } data-testid={ `${[index]}-ingredient-name-and-measure` }>
-              {e}
-            </li>
-          )) }
-        </ul>
-        <p data-testid="instructions">{ recipe.strInstructions}</p>
-        <ShareButton url={ url } />
-        <FavoriteButton storageObj={ storageObj } />
+        <h1 style={ { background: 'rgb(245, 176, 36)', marginBottom: '10px' } }>Receita de Comida</h1>
+        <Card
+          style={ { width: '20rem',
+            background: 'rgb(254, 175, 91)',
+            marginLeft: '100px',
+            marginBottom: '20px',
+            borderRadius: '15px' } }
+        >
+          <Card.Body>
+            <Card.Img
+              src={ recipe.strMealThumb }
+              alt={ recipe.strMealThumb }
+              data-testid="recipe-photo"
+            />
+            <Card.Title>
+              <h4 data-testid="recipe-title">{ recipe.strMeal }</h4>
+            </Card.Title>
+            <Card.Subtitle>
+              <p data-testid="recipe-category">{ recipe.strCategory }</p>
+            </Card.Subtitle>
+            <p>Ingredientes</p>
+            <Card.Text>
+              <ul>
+                { ingredientsArray.map((e, index) => (
+                  <li
+                    key={ e }
+                    data-testid={ `${[index]}-ingredient-name-and-measure` }
+                    style={ { listStyle: 'none', paddingRight: '35px' } }
+                  >
+                    {e}
+                  </li>
+                )) }
+              </ul>
+            </Card.Text>
+          </Card.Body>
+        </Card>
+        <Container>
+          <p>Instruções</p>
+          <p data-testid="instructions">{ recipe.strInstructions}</p>
+        </Container>
+        <div style={ { position: 'fixed', right: '0', top: '150px' } }>
+          <ShareButton url={ url } />
+          <FavoriteButton storageObj={ storageObj } />
+        </div>
         <iframe
           title="youtube"
           width="360"
@@ -117,7 +141,7 @@ class ReceitaComida extends React.Component {
           data-testid="video"
         />
         <p>Recomendadas</p>
-        <Carousel style={ { height: '30%' } }>
+        <Carousel style={ { height: '30%', marginBottom: '30px' } }>
           { drinkList.map((item, index) => (
             index < SIX
               ? (
@@ -143,14 +167,15 @@ class ReceitaComida extends React.Component {
               : null
           ))}
         </Carousel>
-        <button
-          style={ { position: 'fixed', bottom: 0 } }
+        <Button
+          variant="warning"
+          style={ { position: 'fixed', bottom: 0, left: 0 } }
           type="button"
           data-testid="start-recipe-btn"
           onClick={ () => this.startRecipeButton() }
         >
           Iniciar receita
-        </button>
+        </Button>
       </div>
     );
   }

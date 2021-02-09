@@ -34,7 +34,7 @@ class Header extends Component {
     if (shouldRenderSearchIcon === 'yes') {
       return (
         <button
-          style={ { backgroundColor: '#fcef3b', border: 'none', marginTop: '-9px' } }
+          style={ { background: 'none', border: 'none', marginTop: '-9px' } }
           type="button"
           onClick={ () => {
             this.setState({
@@ -43,7 +43,7 @@ class Header extends Component {
           } }
         >
           <img
-            style={ { backgroundColor: '#fcef3b' } }
+            style={ { background: 'none' } }
             alt="search icon"
             data-testid="search-top-btn"
             src={ searchIcon }
@@ -61,6 +61,7 @@ class Header extends Component {
         <header className="header">
           <Link to="/perfil">
             <img
+              style={{ marginTop: '30px' }}
               className="mt-2"
               alt="profile icon"
               data-testid="profile-top-btn"
