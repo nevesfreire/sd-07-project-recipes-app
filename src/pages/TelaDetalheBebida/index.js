@@ -57,14 +57,16 @@ class TelaDetalheBebida extends Component {
     const drinkArray = Object.entries(drink[0]);
     const ingredientsArray = drinkArray.filter(
       (element) => element[0].startsWith('strIngredient') && element[1],
-    ); return ingredientsArray;
+    );
+    return ingredientsArray;
   }
 
   handleMeasure(drink) {
     const drinkArray = Object.entries(drink[0]);
     const measuresArray = drinkArray.filter(
       (element) => element[0].startsWith('strMeasure') && element[1],
-    ); return measuresArray;
+    );
+    return measuresArray;
   }
 
   handleFavoriteStart(drinkDetailStore) {
@@ -102,11 +104,6 @@ class TelaDetalheBebida extends Component {
       setStorage('favoriteRecipes', favoritesFromStorage);
       this.setState({ isFavorite: true });
     }
-  }
-
-  handleStartRecipe(drink) {
-    const { history } = this.props;
-    history.push(`/bebidas/${drink[0].idDrink}/in-progress`);
   }
 
   renderWhiteHeart() {
@@ -202,7 +199,6 @@ class TelaDetalheBebida extends Component {
         <button
           data-testid="start-recipe-btn"
           type="button"
-          onClick={ () => this.handleStartRecipe(drink) }
           style={ { position: 'fixed', bottom: '0px' } }
         >
           Iniciar Receita
@@ -235,9 +231,6 @@ TelaDetalheBebida.propTypes = {
   getDetailedDrinkDispatch: PropTypes.func.isRequired,
   mealsRecommendStore: PropTypes.arrayOf(PropTypes.Object).isRequired,
   getRecommendationMeals: PropTypes.arrayOf(PropTypes.Object).isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
