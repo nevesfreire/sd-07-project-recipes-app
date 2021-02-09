@@ -10,8 +10,6 @@ function CocktailDetails() {
   const params = useParams();
   const [area, setArea] = useState('');
   const [recipeId, setRecipeId] = useState('');
-  const [storeIngredients, setStoreIngredients] = useState([]);
-  const [storeMeasures, setStoreMeasures] = useState([]);
   const [ingredMeasures, setIngredMeasures] = useState([]);
   const [title, setTitle] = useState('');
   const [source, setSource] = useState('');
@@ -45,13 +43,11 @@ function CocktailDetails() {
             measureArray.push(measure);
           }
         });
-        setStoreIngredients(...storeIngredients, ingredientsArray);
-        setStoreMeasures(...storeMeasures, measureArray);
         const getTogether = ingredientsArray
           .map((ingredient, index) => ({ [ingredient]: measureArray[index] }));
         setIngredMeasures(getTogether);
       });
-  }, []);
+  }, [params]);
 
   return (
     <div className="meal-details-page">
@@ -86,6 +82,7 @@ function CocktailDetails() {
           );
         })}
       </ul>
+
       <h3>Instruções</h3>
       <p data-testid="instructions">{instructions}</p>
       <h3>Recomendações</h3>
