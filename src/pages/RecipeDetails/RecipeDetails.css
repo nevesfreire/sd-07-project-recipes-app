@@ -1,0 +1,31 @@
+.recipe-detail {
+  background-color: #f0f0f0;
+  color: rgb(184, 67, 0);
+  display: flex;
+  flex-direction: column;
+  font-family: Ubuntu, sans-serif;
+  font-size: 1.2em;
+  margin: auto;
+  padding: 0 10px 60px;
+  text-align: justify;
+}
+
+.recipe-detail button {
+  background-color: transparent;
+  border: 0;
+  height: 40px;
+  justify-content: right;
+  width: 40px;
+}
+
+.recipe-photo {
+  background-color: #f0f0f0;
+  display: flex;
+  margin: auto;
+  width: 349px;
+  padding: 0;
+}
+
+.recipe-buttons {
+  
+}

@@ -10,7 +10,7 @@ export default function DoneRecipes() {
   return (
     <div className="done-recipes-container">
       <Header title="Receitas Feitas" />
-      <main>
+      <main className="done-recipes-content">
         <button
           type="button"
           data-testid="filter-by-all-btn"

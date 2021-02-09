@@ -72,12 +72,14 @@ export default function RecipeInProgress({ history, match: { params: { id } } })
         <h1 data-testid="recipe-title">
           { strMeal || strDrink }
         </h1>
-        <ShareButton path={ path } id={ id } />
-        <FavoriteButton id={ id } recipeDetails={ recipesInProgress } />
-        <button type="button" data-testid="favorite-btn">
-          <img src={ WhiteHeartIcon } alt="favorite recipe" />
-          {/* acrescentar lógica para mudar icone se favoritada */}
-        </button>
+        <div className="recipe-buttons">
+          <ShareButton path={ path } id={ id } />
+          <FavoriteButton id={ id } recipeDetails={ recipesInProgress } />
+          <button type="button" data-testid="favorite-btn">
+            <img src={ WhiteHeartIcon } alt="favorite recipe" />
+            {/* acrescentar lógica para mudar icone se favoritada */}
+          </button>
+        </div>
         <h4
           className="recipe-category"
           data-testid="recipe-category"

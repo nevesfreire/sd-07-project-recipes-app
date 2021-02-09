@@ -16,7 +16,7 @@ export default function ShareButton({ path, id }) {
   };
 
   return (
-    <div>
+    <div className="recipe-buttons">
       <button type="button">
         <img
           onClick={ shareLink }

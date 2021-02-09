@@ -4,3 +4,30 @@
   flex-direction: column;
   min-height: 640px;
 }
+
+.done-recipes-content {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5em;
+  font-weight: 600;
+  justify-content: center;
+  margin: 70px auto;
+}
+
+.start-recipe-btn button {
+  background-image: linear-gradient(to right, #ff4100 0%, #d4480d  51%, #c0440f  100%);
+  background-size: 200% auto;
+  border-radius: 5px;
+  border: 0;
+  bottom: 0;
+  color: white;
+  /* font-size: 1em; */
+  font-weight: 700;
+  /* justify-content: center; */
+  margin: auto;
+  padding: 8px;
+  position: fixed;
+  text-align: center;
+  transition: 0.5s;
+  width: 150px !important;
+}

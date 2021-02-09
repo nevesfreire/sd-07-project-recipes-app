@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { FavoriteButton, ShareButton, StartButton } from '../../components';
 import Ingredients from './Ingredients';
 import Recomendations from './Recomendations';
+import './RecipeDetails.css';
 
 export default function RecipeDetails({ history, match: { params: { id } } }) {
   const [recipeDetails, setRecipeDetails] = useState([]);
@@ -67,8 +68,10 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
         <h1 data-testid="recipe-title">
           { strMeal || strDrink }
         </h1>
-        <ShareButton path={ path } id={ id } />
-        <FavoriteButton id={ id } recipeDetails={ recipeDetails } />
+        <div className="recipe-buttons">
+          <ShareButton path={ path } id={ id } />
+          <FavoriteButton id={ id } recipeDetails={ recipeDetails } />
+        </div>
         <h4
           className="recipe-category"
           data-testid="recipe-category"
@@ -82,12 +85,14 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
       </p>
       { strYoutube && url() }
       <Recomendations />
-      <StartButton
-        recipeDetails={ recipeDetails }
-        idMeal={ idMeal }
-        idDrink={ idDrink }
-        history={ history }
-      />
+      <div className="start-recipe-btn">
+        <StartButton
+          recipeDetails={ recipeDetails }
+          idMeal={ idMeal }
+          idDrink={ idDrink }
+          history={ history }
+        />
+      </div>
     </div>
   );
 }
