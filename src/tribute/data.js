@@ -1,9 +1,15 @@
-import { thayProfile, wolfProfile, hamajiProfile } from '../images';
+import { thayProfile,
+  wolfProfile,
+  hamajiProfile,
+  estrogonof,
+  pizza,
+  hamburguer,
+} from '../images';
 
 const data = {
   thay: {
     video: {
-      titleVideo: 'Musica para curtir em quanto come',
+      titleVideo: 'A Pabllo que se',
       linkVideo: 'https://www.youtube.com/watch?v=QcS9ZndErHc',
     },
     drink: {
@@ -11,15 +17,15 @@ const data = {
       drinkImg: 'Coca-cola',
     },
     food: {
-      foodTitle: 'Prato favorito',
-      foodImg: 'http',
+      foodTitle: 'Hamburguer',
+      foodImg: hamburguer,
     },
     img: { picture: thayProfile },
-    text: { title: 'Obrigado', text: 'obrigado' },
+    text: { title: 'Obrigado', text: 'Obrigado pelos plantões, pela gentileza, pela empatia e por sempre deixar nossos dias muito mais musicais!' },
   },
   hamaji: {
     video: {
-      titleVideo: 'Musica para curtir em quanto come',
+      titleVideo: 'Goku + Forró',
       linkVideo: 'https://www.youtube.com/watch?v=urv7eHp1Ivo',
     },
     drink: {
@@ -27,11 +33,11 @@ const data = {
       drinkImg: 'Coca-cola',
     },
     food: {
-      foodTitle: 'Prato favorito',
-      foodImg: 'http',
+      foodTitle: 'Pizza',
+      foodImg: pizza,
     },
     img: { picture: hamajiProfile },
-    text: { title: 'Obrigado', text: 'obrigado' },
+    text: { title: 'Obrigado', text: 'Obrigado pelas aulas, pelos ensinamentos e pela dedicação.' },
   },
   wolf: {
     video: {
@@ -43,11 +49,11 @@ const data = {
       drinkImg: 'Coca-cola',
     },
     food: {
-      foodTitle: 'Prato favorito',
-      foodImg: 'http',
+      foodTitle: 'Strogonoff de Frango com batata palha',
+      foodImg: estrogonof,
     },
     img: { picture: wolfProfile },
-    text: { title: 'Obrigado', text: 'obrigado' },
+    text: { title: 'Obrigado', text: 'Obrigado pelos plantões, pelas dicas e por tua atenção aos detalhes.' },
   },
 };
 
