@@ -1,0 +1,12 @@
+.category-item {
+  background: #b8b8b8;
+  border-radius: 8px;
+  margin-top: 4px;
+  width: 48%;
+}
+
+.category {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}

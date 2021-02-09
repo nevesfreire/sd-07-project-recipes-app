@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import '../styles/CategoriesBar.css';
 
 import {
   fetchRandomMeals,
@@ -90,8 +91,9 @@ function CategoriesBar(props) {
           to={ { pathname: `/bebidas/${cocktails[0].idDrink}` } }
         />
       )}
-      <div>
+      <div className="category">
         <button
+          className="category-item"
           type="button"
           name={ ALL }
         >
@@ -100,6 +102,7 @@ function CategoriesBar(props) {
         { title === 'Comidas' && mealsCategories.slice(zero, maxLength)
           .map((categorie, index) => (
             <button
+              className="category-item"
               type="button"
               key={ index }
               data-testid={ `${categorie.strCategory}-category-filter` }
@@ -112,6 +115,7 @@ function CategoriesBar(props) {
         { title === 'Bebidas' && cocktailsCategories.slice(zero, maxLength)
           .map((category, index) => (
             <button
+              className="category-item"
               type="button"
               key={ index }
               data-testid={ `${category.strCategory}-category-filter` }
