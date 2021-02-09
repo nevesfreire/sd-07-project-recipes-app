@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import shareIcon from '../images/shareIcon.svg';
 import Card from './Card';
 
@@ -86,7 +86,7 @@ const recipeRecommendation = (recommendation) => {
         Name={ recommend[findMatch(recipeStr, recommend)] }
         Thumb={ recommend[findMatch(/Thumb/, recommend)] }
         Index={ index }
-        test="recomendation-card"
+        data-testid="${index}-recomendation-card"
       />
     ))
   );
@@ -111,7 +111,27 @@ function start() {
   console.log('COMEÇA A RECEITA');
 }
 
-function RecipeDetail() {
+const newFunc = async (pathname, setRecipe, setRecipeStr) => {
+  if (pathname.match('/comidas')) {
+    const id = pathname.split('/')[1];
+    console.log(id);
+    const data = await fetchApi(getFoodRecipeId(id));
+    const { meal } = data;
+    setRecipe(meal);
+    setRecipeStr('strMeal');
+  } else if (pathname.match('/bebidas')) {
+    const id = pathname.split('/')[1];
+    const data = await fetchApi(getDrinkRecipeId(id));
+    const { drink } = data;
+    setRecipeStr('strDrink');
+    setRecipe(drink);
+  }
+};
+
+function RecipeDetail(recipe) {
+  useEffect(() => {
+    newFunc(recipe);
+  }, [recipe]);
   return (
     <div>
       <div className="card">

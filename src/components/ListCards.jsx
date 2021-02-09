@@ -1,4 +1,4 @@
- import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 // import context from '../contextAPI/context';
 import { fetchApi, allFood, allDrink } from '../services/fetchApi';

@@ -4,13 +4,10 @@
 
 .card-title {
   color: rgba(0, 0, 0, 0.801);
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
-    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  font-style: normal;
   font-size: medium;
-  font-weight: bolder;
-  text-decoration: none;
+  font-style: normal;
   text-align: center;
+  text-decoration: none;
 }
 
 .card-title h3 {
