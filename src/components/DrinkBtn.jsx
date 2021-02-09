@@ -6,16 +6,17 @@ import drinkIcon from '../images/drinkIcon.svg';
 import useRedirect from '../hooks/useRedirect';
 
 const DrinkBtn = () => {
-  const PAGE = '/bebidas';
+  const PATH = '/bebidas';
   const [setPath] = useRedirect();
   const { setState } = useContext(context);
 
   const onClick = () => {
     setState((s) => ({
       ...s,
+      data: null,
       toggleSearch: false,
     }));
-    setPath(PAGE);
+    setPath(PATH);
   };
 
   return (

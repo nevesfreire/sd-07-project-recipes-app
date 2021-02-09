@@ -17,6 +17,17 @@ const useCall = async (url, page) => {
     toggleSearch: false,
   }));
 
+  const ListCards = () => {
+    const { state, setState } = useContext(context);
+    const [recipes, setRecipes] = useState();
+    const history = useHistory();
+    const { location: { pathname } } = history;
+    const { data } = state;
+    const maxRecipesNumber = 12;
+  
+    useEffect(() => {
+      newFunc(pathname, setState, data);
+    }, [pathname]);
   useEffect(() => {
     if (RecipesUrl !== '') {
       fetchApi(RecipesUrl)
