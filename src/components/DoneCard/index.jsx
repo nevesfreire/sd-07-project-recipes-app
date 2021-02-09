@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import copyLink from '../../services/clipBoard';
 import shareIcon from '../../images/shareIcon.svg';
 
 export default function DoneCard({ recipe, index }) {
@@ -14,7 +15,6 @@ export default function DoneCard({ recipe, index }) {
     doneDate,
     tags,
   } = recipe;
-  console.log(recipe);
   const [showCopied, setShowCopied] = useState(false);
 
   const renderTopText = () => {
@@ -30,14 +30,9 @@ export default function DoneCard({ recipe, index }) {
     );
   };
 
-  const copyLink = () => {
-    const granted = 'granted';
-    const prompt = 'prompt';
-    navigator.permissions.query({ name: 'clipboard-write' }).then((result) => {
-      if (result.state === granted || result.state === prompt) {
-        navigator.clipboard.writeText(`http://localhost:3000/${type}s/${id}`);
-      }
-    }).then(setShowCopied(true));
+  const shareLink = () => {
+    copyLink(id, type);
+    setShowCopied(true);
   };
 
   const choosePath = () => {
@@ -68,7 +63,7 @@ export default function DoneCard({ recipe, index }) {
       </a>
       <div>
         { renderTopText() }
-        <button type="button" onClick={ copyLink }>
+        <button type="button" onClick={ shareLink }>
           <img
             src={ shareIcon }
             alt="share"

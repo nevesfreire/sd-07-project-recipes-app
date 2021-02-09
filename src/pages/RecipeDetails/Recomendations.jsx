@@ -13,7 +13,6 @@ export default function Recomendations() {
     slidesToScroll: 2,
   };
   const six = 6;
-
   const fetchRecomendations = async () => {
     try {
       let endpoint = '';
@@ -39,32 +38,34 @@ export default function Recomendations() {
 
   return (
     <Slider { ...settings }>
-      {recomendationList
-        .filter((_, i) => i < six)
-        .map((item, index) => (
-          <div
-            key={ index }
-            className="container-title-image"
-            data-testid={ `${index}-recomendation-card` }
-          >
-            <img
-              className="recipe-photo"
-              data-testid="recipe-photo"
-              src={ item.strMealThumb || item.strDrinkThumb }
-              alt="imagem do produto"
-              width="200"
-            />
-            <h1 data-testid={ `${index}-recomendation-title` }>
-              { item.strMeal || item.strDrink }
-            </h1>
-            <h4
-              className="recipe-category"
-              data-testid="recipe-category"
+      {
+        recomendationList
+          .filter((_, i) => i < six)
+          .map((item, index) => (
+            <div
+              key={ index }
+              className="container-title-image"
+              data-testid={ `${index}-recomendation-card` }
             >
-              { item.strAlcoholic || item.strCategory }
-            </h4>
-          </div>
-        ))}
+              <img
+                className="recipe-photo"
+                data-testid="recipe-photo"
+                src={ item.strMealThumb || item.strDrinkThumb }
+                alt="imagem do produto"
+                width="200"
+              />
+              <h1 data-testid={ `${index}-recomendation-title` }>
+                { item.strMeal || item.strDrink }
+              </h1>
+              <h4
+                className="recipe-category"
+                data-testid="recipe-category"
+              >
+                { item.strAlcoholic || item.strCategory }
+              </h4>
+            </div>
+          ))
+      }
     </Slider>
   );
 }
