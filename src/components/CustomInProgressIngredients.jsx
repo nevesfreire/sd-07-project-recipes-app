@@ -139,7 +139,7 @@ export default class CustomInProgressIngredients extends Component {
               value={ name }
               onClick={ (event) => this.handleInputClick(event) }
             />
-            { `${(measure !== null) ? (measure) : ''} ${name}` }
+            { `  ${(measure !== null) ? (measure) : ''} ${name}` }
           </li>))
     );
   }

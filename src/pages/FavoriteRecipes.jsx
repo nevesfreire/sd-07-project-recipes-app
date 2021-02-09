@@ -137,7 +137,7 @@ class FavoriteRecipes extends Component {
         </button>
         {
           favorites.length === numerToComper
-            ? <p>não há receitas favoritas ainda</p>
+            ? <p>Não há receitas favoritas ainda</p>
             : this.renderCardsAndBtns()
         }
       </div>
