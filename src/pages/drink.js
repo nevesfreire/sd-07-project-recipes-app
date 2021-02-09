@@ -10,7 +10,6 @@ import {
   filterDrinkCategory,
   getDrinkIngredients,
 } from '../services/Api';
-import ListCardsFoodCategory from '../components/ListCardsFoodCategory';
 
 function Drink() {
   const FIVE = 5;
@@ -30,9 +29,9 @@ function Drink() {
 
   useEffect(() => {
     const getListCategories = async () => {
-      const listDrinkCategories = await getCategoryDrinks();
+      const listDrinkCategory = await getCategoryDrinks();
       listDrinkCategories.length = FIVE;
-      setListDrinkCategories(listDrinkCategories);
+      setListDrinkCategories(listDrinkCategory);
     };
     getListCategories();
   }, []);
