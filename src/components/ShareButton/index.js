@@ -11,19 +11,23 @@ export default function ShareButton(props) {
 
   const handleClick = () => {
     copy(`${window.location.origin}/${type}/${recipeId}`);
+
     setShow(true);
   };
 
   return (
     <>
-      <StyledAlert show={ show } variant="success">
-        <StyledAlert.Heading>Link copiado!</StyledAlert.Heading>
-        <div className="d-flex justify-content-end">
-          <StyledButton onClick={ () => setShow(false) } variant="outline-success">
-            Ok!
-          </StyledButton>
-        </div>
-      </StyledAlert>
+      {show
+      && (
+        <StyledAlert variant="success">
+          <StyledAlert.Heading>Link copiado!</StyledAlert.Heading>
+          <div className="d-flex justify-content-end">
+            <StyledButton onClick={ () => setShow(false) } variant="outline-success">
+              Ok!
+            </StyledButton>
+          </div>
+        </StyledAlert>
+      )}
       {!show
         && <StyledImage
           src={ shareIcon }
