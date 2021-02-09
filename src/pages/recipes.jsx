@@ -10,7 +10,7 @@ function Recipes() {
       <div className="header-page">
         <Header />
       </div>
-      <div>
+      <div className="category-buttons">
         <CategoryPanel />
       </div>
       <div className="cards-container">

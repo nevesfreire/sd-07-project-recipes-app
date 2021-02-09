@@ -1,5 +1,5 @@
 .card-image {
-  width: 160px;
+  width: 250px;
 }
 
 .card-title {
@@ -14,7 +14,7 @@
 }
 
 .card-title h3 {
-  margin-top: 1px;
+  margin-top: 10px;
 }
 
 .paper-style {
@@ -26,7 +26,15 @@
 }
 
 .cards-container {
+  align-items: center;
   display: flex;
   flex-wrap: wrap;
-  margin: 20px;
+  justify-content: center;
+}
+
+.category-buttons {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }

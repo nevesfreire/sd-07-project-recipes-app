@@ -17,16 +17,18 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  width: 100%;
 }
 
 .header-page {
-  height: 210px;
+  height: 150px;
 }
 
 .header-buttons {
   display: flex;
   flex-direction: row;
-  margin-left: 40em;
+  width: 64px;
+  height: 54px;
 }
 
 .noShowBtn {
@@ -35,9 +37,13 @@
 }
 
 .input-searchbar {
-  margin-top: 25px;
+  margin-top: 10px;
+  margin-left: 10px;
 }
 
 .search-recipes {
-  height: 0px;
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
 }

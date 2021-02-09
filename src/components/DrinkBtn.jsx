@@ -8,15 +8,11 @@ import useRedirect from '../hooks/useRedirect';
 const DrinkBtn = () => {
   const PAGE = '/bebidas';
   const [setPath] = useRedirect();
-  const { setState/* , setRecipesUrl */ } = useContext(context);
+  const { setState } = useContext(context);
 
   const onClick = () => {
-    /* setRecipesUrl(allDrink); */
     setState((s) => ({
       ...s,
-      /* profileButton: true,
-      title: 'Bebidas',
-      searchButton: true, */
       toggleSearch: false,
     }));
     setPath(PAGE);

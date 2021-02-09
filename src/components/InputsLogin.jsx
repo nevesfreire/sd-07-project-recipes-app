@@ -7,31 +7,33 @@ import '../css/login.css';
 import useRedirect from '../hooks/useRedirect';
 
 const inputText = (onChange) => (
-  <div className="input-email">
+  <div>
     <input
       data-testid="email-input"
       type="email"
       name="user"
       placeholder="email@email.com"
       onChange={ (e) => onChange(e) }
+      className="input-email"
     />
   </div>
 );
 
 const inputPasswd = (onChange) => (
-  <div className="input-senha">
+  <div>
     <input
       data-testid="password-input"
       type="password"
       name="passwd"
       placeholder="sua senha aqui"
       onChange={ (e) => onChange(e) }
+      className="input-senha"
     />
   </div>
 );
 
 const buttonLogin = (onClick, enable) => (
-  <div className="input-button">
+  <div>
     <button
       data-testid="login-submit-btn"
       type="button"
@@ -39,6 +41,7 @@ const buttonLogin = (onClick, enable) => (
       color="primary"
       disabled={ enable }
       onClick={ (e) => onClick(e) }
+      className="input-button"
     >
       Entrar
     </button>

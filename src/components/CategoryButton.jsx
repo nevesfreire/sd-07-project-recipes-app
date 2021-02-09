@@ -33,10 +33,10 @@ const CategoryButton = (props) => {
   return (
     <Button
       variant="contained"
-      className=""
       data-testid={ `${category}-category-filter` }
       type="button"
       onClick={ () => filterCategory(pathname, category, setState) }
+      className="category-button"
     >
       {category}
     </Button>

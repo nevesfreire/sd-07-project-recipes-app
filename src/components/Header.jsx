@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import context from '../contextAPI/context';
 import profileIcon from '../images/profileIcon.svg';
@@ -18,7 +18,7 @@ const profileTopBtn = (profileButton) => {
         type="button"
         variant="contained"
         onClick={ () => setPath(PATH) }
-        className="header"
+        className="header-button"
       >
         <img
           src={ profileIcon }
@@ -38,7 +38,7 @@ const pageTitle = (title) => {
   return (
     <h1
       data-testid="page-title"
-      className="header"
+      className=""
     >
       {title}
     </h1>
@@ -63,7 +63,7 @@ const searchBtn = (searchButton, toggleSearch, onClick) => {
       variant="contained"
       // color="primary"
       onClick={ (e) => onClick(e) }
-      className="header"
+      className="header-button"
     >
       <img
         data-testid="search-top-btn"
@@ -74,17 +74,18 @@ const searchBtn = (searchButton, toggleSearch, onClick) => {
   );
 };
 
-const findMatch = (string, object) => (
-  Object.keys(object).find((key) => key.match(string))
-);
+// const findMatch = (string, object) => (
+//   Object.keys(object).find((key) => key.match(string))
+// );
 
 export default function Header() {
   const { state, setState } = useContext(context);
 
-  const history = useHistory();
-  const { location: { pathname } } = history;
+  const location = useLocation();
+  const { pathname } = location;
+
   useEffect(() => {
-    setState((s) => ({ ...s, header: siteMap[findMatch(pathname, siteMap)].header }));
+    setState((s) => ({ ...s, header: siteMap[pathname].header }));
   }, [pathname, setState]);
 
   const { header, toggleSearch } = state;
@@ -98,7 +99,7 @@ export default function Header() {
   };
 
   const render = () => (
-    <div className="main-header-controller">
+    <div className="header-container">
       <div className="header">
         {profileTopBtn(profileButton)}
         {pageTitle(title)}
