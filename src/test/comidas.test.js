@@ -6,7 +6,11 @@ import storeMock from './helper/mock';
 
 describe('[PÁGINA DE COMIDA]: ', () => {
   test('rederiza pagina', async () => {
-    const { findByText } = renderWithRouterAndStore(<Comidas />, {route: '/comidas'}, storeMock);
+    const { findByText } = renderWithRouterAndStore(
+      <Comidas />,
+      { route: '/comidas' },
+      storeMock,
+    );
     const element = await findByText(/Corba/);
 
     expect(element).toBeInTheDocument();

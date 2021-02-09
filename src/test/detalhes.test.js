@@ -10,14 +10,14 @@ describe('[PÁGINA DETALHES]: ', () => {
   test('renderiza detalhe de comidas', async () => {
     const { findByTestId, findByText, history } = renderWithRouterAndStore(
       <Comidas />,
-      {route: '/comidas'},
+      { route: '/comidas' },
       storeMock,
     );
     const elementToClick = await findByTestId('1-card-name');
     expect(elementToClick).toHaveTextContent('Kumpir');
 
     fireEvent.click(elementToClick);
-    
+
     expect(history.location.pathname).toBe('/comidas/52978');
     const element = await findByText('Kumpir');
     expect(element).toBeInTheDocument();
@@ -26,13 +26,16 @@ describe('[PÁGINA DETALHES]: ', () => {
   test('renderiza detalhe de bebidas', async () => {
     const { findByTestId, findByText, history } = renderWithRouterAndStore(
       <Bebidas />,
-      {route: '/bebidas'},
+      { route: '/bebidas' },
       storeMock,
     );
 
     const elementToClick = await findByTestId('2-card-img');
-    expect(elementToClick).toHaveAttribute('src','https://www.thecocktaildb.com/images/media/drink/tqpvqp1472668328.jpg');
-    
+    expect(elementToClick).toHaveAttribute(
+      'src',
+      'https://www.thecocktaildb.com/images/media/drink/tqpvqp1472668328.jpg',
+    );
+
     fireEvent.click(elementToClick);
 
     expect(history.location.pathname).toBe('/bebidas/13501');
@@ -46,5 +49,5 @@ describe('[PÁGINA DETALHES]: ', () => {
     expect(findByTestId('5-recomendation-card')).toBeInTheDocument();
 
     expect(element).toBeInTheDocument();
-  })
+  });
 });
