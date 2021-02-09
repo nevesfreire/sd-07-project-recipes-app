@@ -1,6 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import GlobalContext from '../context/GlobalContext';
 import Header from '../components/Header';
+import Made from '../components/Made';
+import MadeProvider from '../context/MadeProvider';
 
 export default function MadeRecipes() {
   const { setTitle, setSearchButton } = useContext(GlobalContext);
@@ -11,6 +13,11 @@ export default function MadeRecipes() {
   }, [setTitle, setSearchButton]);
 
   return (
-    <Header />
+    <MadeProvider>
+      <div>
+        <Header />
+        <Made />
+      </div>
+    </MadeProvider>
   );
 }

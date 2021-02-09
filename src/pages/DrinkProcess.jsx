@@ -124,7 +124,7 @@ function DrinkProcess({
         name: getRecipeTitle,
         image: getRecipeImage,
         doneDate: dateFormat(),
-        tags: '',
+        tags: [],
       },
     ];
 

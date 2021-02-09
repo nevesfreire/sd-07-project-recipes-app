@@ -2,9 +2,24 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import GlobalProvider from './context/GlobalProvider';
 import RecipeProviderDetails from './context/RecipeProvider';
-import { Login, Drinks, FoodDetails, DrinkDetails, Explore, FoodsExplore,
-  DrinksExplore, IngredientsFood, IngredientsDrink, AreaFoodExplore, Profile,
-  MadeRecipes, FavoriteRecipes, Foods, FoodProcess, DrinkProcess } from './pages';
+import {
+  Login,
+  Drinks,
+  FoodDetails,
+  DrinkDetails,
+  Explore,
+  FoodsExplore,
+  DrinksExplore,
+  IngredientsFood,
+  IngredientsDrink,
+  AreaFoodExplore,
+  Profile,
+  MadeRecipes,
+  FavoriteRecipes,
+  Foods,
+  FoodProcess,
+  DrinkProcess,
+} from './pages';
 import './App.css';
 
 function App() {
