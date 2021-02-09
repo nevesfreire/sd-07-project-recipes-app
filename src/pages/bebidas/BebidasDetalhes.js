@@ -117,7 +117,7 @@ export default class BebidasDetalhes extends React.Component {
   render() {
     const { recipe, copyClipboard, isFavorite, isDone } = this.state;
     return (
-      <div>
+      <div className="background-white">
         <img
           data-testid="recipe-photo"
           src={ recipe.strDrinkThumb }

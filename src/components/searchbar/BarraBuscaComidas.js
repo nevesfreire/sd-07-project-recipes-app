@@ -66,7 +66,7 @@ class BarraBuscaComidas extends Component {
   render() {
     const { busca } = this.state;
     return (
-      <div>
+      <div className="background-white">
         <fieldset className="form-searchbar">
           <label htmlFor="busca" className="form-label">
             <input

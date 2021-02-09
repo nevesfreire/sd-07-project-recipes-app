@@ -119,7 +119,7 @@ class ComidaDetalhes extends React.Component {
   render() {
     const { recipe, copyClipboard, isFavorite, isDone } = this.state;
     return (
-      <div className="ComidaDetalhes">
+      <div className="ComidaDetalhes background-white">
         <img
           data-testid="recipe-photo"
           src={ recipe.strMealThumb }

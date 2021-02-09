@@ -3,6 +3,12 @@ body {
   background-repeat: no-repeat;
   background-size: 120%;
 }
+
+.background-white {
+  background-color: white;
+  padding-bottom: 10px;
+}
+
 .div-login {
   background-color: white;
   width: 60%;
