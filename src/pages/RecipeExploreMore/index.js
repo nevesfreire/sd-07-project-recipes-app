@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
+import { Header, Footer } from '../../components';
 import { fetchRandomRecipe } from '../../store/ducks/recipes';
 
 const RecipeExploreMore = () => {
@@ -17,7 +18,10 @@ const RecipeExploreMore = () => {
   if (currentPath.includes('bebidas')) {
     return (
       <div>
-        <h2>Bebida</h2>
+        <Header
+          title="Explorar Bebidas"
+          showSearchIcon={ false }
+        />
         <Link to="/explorar/bebidas/ingredientes">
           <button type="button" data-testid="explore-by-ingredient">
             Por Ingredientes
@@ -28,12 +32,16 @@ const RecipeExploreMore = () => {
             Me Surpreenda!
           </button>
         </Link>
+        <Footer />
       </div>
     );
   } if (currentPath.includes('comidas')) {
     return (
       <div>
-        <h2>Comida</h2>
+        <Header
+          title="Explorar Comidas"
+          showSearchIcon={ false }
+        />
         <Link to="/explorar/comidas/ingredientes">
           <button type="button" data-testid="explore-by-ingredient">
             Por Ingredientes
@@ -49,6 +57,7 @@ const RecipeExploreMore = () => {
             Me Surpreenda!
           </button>
         </Link>
+        <Footer />
       </div>
     );
   }

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
+import { Header, Footer } from '../../components';
+
 import { getIngredientList, FILTER_TYPES } from '../../services/recipeAPI';
 import { setFilter } from '../../store/ducks/recipes';
 
@@ -19,6 +21,10 @@ const RecipeExploreByIngredient = () => {
   if (currentPath.includes('comidas')) {
     return (
       <div>
+        <Header
+          title="Explorar Ingredientes"
+          showSearchIcon={ false }
+        />
         {ingredientList
             && ingredientList.slice(zero, twelve).map((ing, index) => (
               <Link
@@ -43,10 +49,15 @@ const RecipeExploreByIngredient = () => {
                 </div>
               </Link>
             ))}
+        <Footer />
       </div>);
   } if (currentPath.includes('bebidas')) {
     return (
       <div>
+        <Header
+          title="Explorar Ingredientes"
+          showSearchIcon={ false }
+        />
         {ingredientList
             && ingredientList.slice(zero, twelve).map((ing, index) => (
               <Link
@@ -71,6 +82,7 @@ const RecipeExploreByIngredient = () => {
                 </div>
               </Link>
             ))}
+        <Footer />
       </div>);
   }
 };

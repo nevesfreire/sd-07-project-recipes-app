@@ -17,7 +17,6 @@ const RecipeDone = () => {
 
   const cards = pathname.includes('feitas')
     ? doneRecipes : favoriteRecipes;
-  console.log('cards:', cards);
 
   useEffect(() => {
     if (doneRecipes) {
@@ -32,13 +31,11 @@ const RecipeDone = () => {
   }, [dispatch, favoriteRecipes]);
 
   useEffect(() => {
-    console.log('filter:', filter);
     if (filter.type === 'foodOrDrink' && filter.term !== 'all') {
-      cardsFiltered.current = [...cards].filter((recipe) => recipe.type === filter.term);
+      cardsFiltered.current = cards.filter((recipe) => recipe.type === filter.term);
     } else {
-      cardsFiltered.current = [...cards];
+      cardsFiltered.current = cards || [];
     }
-    console.log('cardsFiltered:', cardsFiltered);
   }, [filter, cards]);
 
   return (
