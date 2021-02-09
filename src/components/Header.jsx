@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import context from '../contextAPI/context';
@@ -7,6 +7,7 @@ import searchIcon from '../images/searchIcon.svg';
 import SearchRecipes from './SearchRecipes';
 import '../css/header.css';
 import UseRedirect from '../hooks/useRedirect';
+import siteMap from '../helpers/siteMap';
 
 const profileTopBtn = (profileButton) => {
   const PATH = '/perfil';
@@ -73,12 +74,21 @@ const searchBtn = (searchButton, toggleSearch, onClick) => {
   );
 };
 
+const findMatch = (string, object) => (
+  Object.keys(object).find((key) => key.match(string))
+);
+
 export default function Header() {
   const { state, setState } = useContext(context);
 
   const history = useHistory();
   const { location: { pathname } } = history;
-  const { searchButton, profileButton, title, toggleSearch } = state;
+  useEffect(() => {
+    setState((s) => ({ ...s, header: siteMap[findMatch(pathname, siteMap)].header }));
+  }, [pathname, setState]);
+
+  const { header, toggleSearch } = state;
+  const { searchButton, profileButton, title } = header;
 
   const callSearch = () => {
     setState((s) => ({

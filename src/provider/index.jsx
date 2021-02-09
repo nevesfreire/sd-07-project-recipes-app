@@ -11,7 +11,7 @@ import { fetchApi } from '../services/fetchApi';
 
 function Provider({ children }) {
   const [login, setLogin] = useState({});
-  const [state, setState] = useState({});
+  const [state, setState] = useState({ toggleSearch: false });
   const [RecipesUrl, setRecipesUrl] = useState({});
   // const { history } = props;
   // const { location: { pathname } } = history;

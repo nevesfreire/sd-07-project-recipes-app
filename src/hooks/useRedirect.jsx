@@ -4,9 +4,10 @@ import { useHistory } from 'react-router-dom';
 function useRedirect() {
   const [path, setPath] = useState();
   const history = useHistory();
+
   useEffect(() => {
     history.push(path);
-  }, [history, path]);
+  }, [path, history]);
 
   return [setPath];
 }

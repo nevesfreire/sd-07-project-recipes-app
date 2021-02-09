@@ -76,21 +76,19 @@ const recipeVideo = (video) => (
   </video>
 );
 
-const recipeRecommendation = (recommendation) => {
-  return (
-    recommendation.map((recommend, index) => (
-      <Card
-        key={ recommend[findMatch('id', recommend)] }
-        pathname={ pathname }
-        id={ recommend[findMatch('id', recommend)] }
-        Name={ recommend[findMatch(recipeStr, recommend)] }
-        Thumb={ recommend[findMatch(/Thumb/, recommend)] }
-        Index={ index }
-        test="recomendation-card"
-      />
-    ))
-  );
-};
+const recipeRecommendation = (recommendation) => (
+  recommendation.map((recommend, index) => (
+    <Card
+      key={ recommend[findMatch('id', recommend)] }
+      pathname={ pathname }
+      id={ recommend[findMatch('id', recommend)] }
+      Name={ recommend[findMatch(recipeStr, recommend)] }
+      Thumb={ recommend[findMatch(/Thumb/, recommend)] }
+      Index={ index }
+      Test="recomendation-card"
+    />
+  ))
+);
 
 const recipeStart = (funcStart) => (
   <button
@@ -105,6 +103,7 @@ const recipeStart = (funcStart) => (
 async function share(pathname, message) {
   navigator.clipboard.writeText(`http://localhost:300${pathname}`);
   message = 'Link copiado!';
+  return message;
 }
 
 function start() {

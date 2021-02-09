@@ -59,9 +59,11 @@ export default function InputLogin() {
   const callRoute = async () => {
     setState((s) => ({
       ...s,
-      profileButton: true,
-      title: 'Comidas',
-      searchButton: true,
+      header: {
+        profileButton: true,
+        searchButton: true,
+        title: 'Comidas',
+      },
       toggleSearch: false,
     }));
     localStorage.setItem('user', JSON.stringify({ email: state.user }));

@@ -29,13 +29,13 @@ function Card(props) {
     Name,
     Thumb,
     Index,
-    test,
+    Test,
   } = props;
 
   return (
     <Paper className="paper-style" elevation={ 6 }>
       <Link to={ `${pathname}/${id}` } replace>
-        <div className="image-card" data-testid={ `${Index}-${test}` }>
+        <div className="image-card" data-testid={ `${Index}-${Test}` }>
           {recipeImg(Thumb, Index)}
           {recipeTextData(Name, Index)}
         </div>
@@ -47,9 +47,10 @@ function Card(props) {
 Card.propTypes = {
   id: PropTypes.string.isRequired,
   pathname: PropTypes.string.isRequired,
-  recipeName: PropTypes.string.isRequired,
-  recipeThumb: PropTypes.string.isRequired,
-  recipeIndex: PropTypes.element.isRequired,
+  Name: PropTypes.string.isRequired,
+  Thumb: PropTypes.string.isRequired,
+  Index: PropTypes.element.isRequired,
+  Test: PropTypes.string.isRequired,
 };
 
 export default Card;
