@@ -1,5 +1,5 @@
 .footer, .footer-over {
-  background-color: #e6a748;
+  background-color:#15757A;
   border-bottom-left-radius: 10px;
   border-top-left-radius: 10px;
   bottom: 0;
@@ -52,7 +52,7 @@
 }
 
 .dot {
-  color: red;
+  color: #2BEEFA;
   font-family: Arial , Helvetica , sans-serif;
   font-weight: 700;
 }

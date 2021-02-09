@@ -16,9 +16,9 @@ const Footer = () => {
             onClick={ () => setLateralBar(!lateralBar) }
           >
             <div className="dots">
-              <span className="dot">.</span>
-              <span className="dot">.</span>
-              <span className="dot">.</span>
+              <span className="dot">•</span>
+              <span className="dot">•</span>
+              <span className="dot">•</span>
             </div>
           </button>
         </div>
