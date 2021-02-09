@@ -117,7 +117,7 @@ const BebidaDetails = () => {
               <img data-testid="share-btn" src={ shareImg } alt="compartilhar" />
             </button>
             <h1>{copyOK && 'Link copiado!'}</h1>
-            <FavBtn mainData={ mainData } type="comida" />
+            <FavBtn mainData={ mainData } type="bebida" />
           </div>
         </div>
       </div>
