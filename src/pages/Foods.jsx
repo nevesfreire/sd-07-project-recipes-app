@@ -13,6 +13,7 @@ export default function Foods() {
     setTitle,
     setSearchButton,
     selectedTypeFood,
+    searchByIngredient,
   } = useContext(GlobalContext);
 
   useEffect(() => {
@@ -21,7 +22,7 @@ export default function Foods() {
   }, [setTitle, setSearchButton]);
 
   useEffect(() => {
-    selectedTypeFood('initial');
+    selectedTypeFood(searchByIngredient === '' ? 'initial' : 'ingredientsExplorer');
   }, [selectedTypeFood]);
 
   return (
