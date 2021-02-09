@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ProfileDetails from '../components/ProfileDetails';
 import '../css/profile.css';
@@ -9,9 +10,7 @@ class Profile extends Component {
     const { history } = this.props;
     return (
       <div>
-        <header>
-          <h1 data-testid="page-title">Perfil</h1>
-        </header>
+        <Header title="Perfil" history={ history } />
         <ProfileDetails history={ history } />
         <Footer history={ history } />
       </div>

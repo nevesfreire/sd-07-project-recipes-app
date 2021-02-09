@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import copy from 'clipboard-copy';
 import { copyButton } from '../actions';
-import profileIcon from '../images/profileIcon.svg';
+import Header from '../components/Header';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
@@ -80,15 +80,7 @@ class FavoriteRecipe extends Component {
     const { history, valueCopied } = this.props;
     return (
       <div>
-        <header>
-          <button
-            type="button"
-            onClick={ () => history.push('/perfil') }
-          >
-            <img src={ profileIcon } alt="profileIcon" />
-          </button>
-          <h1>Receitas Favoritas</h1>
-        </header>
+        <Header title="Receitas Favoritas" history={ history } />
         <section>
           <button
             type="button"
@@ -114,58 +106,60 @@ class FavoriteRecipe extends Component {
         </section>
         <section>
           {
-            recipes.map((recipe, index) => {
-              const { alcoholicOrNot, area, category, id, image, name, type } = recipe;
-              return (
-                <div key={ id }>
-                  <button
-                    type="button"
-                    onClick={ () => this.redirectRecipe(type, id) }
-                  >
-                    <img
-                      src={ image }
-                      alt={ name }
-                      data-testid={ `${index}-horizontal-image` }
-                      width="200"
-                    />
-                  </button>
-                  <p data-testid={ `${index}-horizontal-top-text` }>
-                    { type === 'comida' ? `${area} - ${category}` : alcoholicOrNot }
-                  </p>
-                  <button
-                    type="button"
-                    onClick={ () => this.redirectRecipe(type, id) }
-                  >
-                    <h1
-                      data-testid={ `${index}-horizontal-name` }
+            recipes
+              ? recipes.map((recipe, index) => {
+                const { alcoholicOrNot, area, category, id, image, name, type } = recipe;
+                return (
+                  <div key={ id }>
+                    <button
+                      type="button"
+                      onClick={ () => this.redirectRecipe(type, id) }
                     >
-                      {name}
-                    </h1>
-                  </button>
-                  <p>{ valueCopied }</p>
-                  <button
-                    type="button"
-                    onClick={ () => this.handleCopy(type, id) }
-                  >
-                    <img
-                      data-testid={ `${index}-horizontal-share-btn` }
-                      src={ shareIcon }
-                      alt="shareIcon"
-                    />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={ () => this.changeFavorite(id) }
-                  >
-                    <img
-                      data-testid={ `${index}-horizontal-favorite-btn` }
-                      src={ favorite ? blackHeartIcon : whiteHeartIcon }
-                      alt="favoriteIcon"
-                    />
-                  </button>
-                </div>
-              );
-            })
+                      <img
+                        src={ image }
+                        alt={ name }
+                        data-testid={ `${index}-horizontal-image` }
+                        width="200"
+                      />
+                    </button>
+                    <p data-testid={ `${index}-horizontal-top-text` }>
+                      { type === 'comida' ? `${area} - ${category}` : alcoholicOrNot }
+                    </p>
+                    <button
+                      type="button"
+                      onClick={ () => this.redirectRecipe(type, id) }
+                    >
+                      <h1
+                        data-testid={ `${index}-horizontal-name` }
+                      >
+                        {name}
+                      </h1>
+                    </button>
+                    <p>{ valueCopied }</p>
+                    <button
+                      type="button"
+                      onClick={ () => this.handleCopy(type, id) }
+                    >
+                      <img
+                        data-testid={ `${index}-horizontal-share-btn` }
+                        src={ shareIcon }
+                        alt="shareIcon"
+                      />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={ () => this.changeFavorite(id) }
+                    >
+                      <img
+                        data-testid={ `${index}-horizontal-favorite-btn` }
+                        src={ favorite ? blackHeartIcon : whiteHeartIcon }
+                        alt="favoriteIcon"
+                      />
+                    </button>
+                  </div>
+                );
+              })
+              : <div>Sem favoritos</div>
           }
         </section>
       </div>

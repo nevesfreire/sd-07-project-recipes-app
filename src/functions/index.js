@@ -2,7 +2,9 @@ import React from 'react';
 import copy from 'clipboard-copy';
 
 function handleCopy(executeCopy) {
-  copy(window.location.href);
+  const url = window.location.href;
+  const finalUrl = url.replace('/in-progress', '');
+  copy(finalUrl);
   executeCopy('Link copiado!');
 }
 
