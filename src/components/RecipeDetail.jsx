@@ -107,6 +107,10 @@ async function share(pathname, message) {
 }
 
 function RecipeDetail() {
+  // useEffect(() => {
+  //   const Newid = pathname.split('/')[2];
+  //   console.log(Newid);
+  // }, []);
   return (
     <div>
       <div className="card">
