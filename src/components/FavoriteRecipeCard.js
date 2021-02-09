@@ -1,10 +1,34 @@
 import React, { Component } from 'react';
+import copy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 class FavoriteRecipeCard extends Component {
+  constructor() {
+    super();
+    this.filterElementFromStorage = this.filterElementFromStorage.bind(this);
+  }
+
+  filterElementFromStorage(event, id) {
+    const { setFavoriteRecipes } = this.props;
+    event.preventDefault();
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const newElements = favorites.filter((item) => item.id !== id);
+    setFavoriteRecipes(newElements);
+  }
+
+  copyLink(id, type) {
+    if (type === 'bebida') {
+      copy(`http://localhost:3000/bebidas/${id}`);
+      document.getElementById('link').style = 'inline';
+    } else {
+      copy(`http://localhost:3000/comidas/${id}`);
+      document.getElementById('link').style = 'inline';
+    }
+  }
+
   render() {
     const { favoriteRecipes: {
       id,
@@ -18,20 +42,30 @@ class FavoriteRecipeCard extends Component {
 
     return (
       <div data-testid={ `${index}-recipe-card` }>
-        <img src={ image } alt={ name } data-testid={ `${index}-horizontal-image` } />
         {type === 'bebida' ? (
           <Link
             to={ `/bebidas/${id}` }
-            data-testid={ `${index}-horizontal-name` }
           >
-            { name }
+            <img
+              style={ { width: '100px' } }
+              src={ image }
+              alt={ name }
+              data-testid={ `${index}-horizontal-image` }
+            />
+            <p data-testid={ `${index}-horizontal-name` }>{ name }</p>
           </Link>
         ) : (
           <Link
             to={ `/comidas/${id}` }
-            data-testid={ `${index}-horizontal-name` }
+            src={ image }
           >
-            { name }
+            <img
+              style={ { width: '100px' } }
+              src={ image }
+              alt={ name }
+              data-testid={ `${index}-horizontal-image` }
+            />
+            <p data-testid={ `${index}-horizontal-name` }>{ name }</p>
           </Link>
         )}
         {type === 'bebida' ? (
@@ -43,16 +77,28 @@ class FavoriteRecipeCard extends Component {
             {`${area} - ${category}`}
           </p>
         )}
-        <img
+        <button
           src={ blackHeartIcon }
-          data-testid={ `${index}-horizontal-favorite-btn` }
-          alt="Favoritar/Desfavoritar"
-        />
-        <img
-          src={ shareIcon }
-          data-testid={ `${index}-horizontal-share-btn` }
-          alt="Compartilhar receita"
-        />
+          type="button"
+          onClick={ (event) => this.filterElementFromStorage(event, id) }
+        >
+          <img
+            src={ blackHeartIcon }
+            data-testid={ `${index}-horizontal-favorite-btn` }
+            alt="Favoritar/Desfavoritar"
+          />
+        </button>
+        <button
+          type="button"
+          onClick={ () => this.copyLink(id, type) }
+        >
+          <img
+            src={ shareIcon }
+            data-testid={ `${index}-horizontal-share-btn` }
+            alt="Compartilhar receita"
+          />
+        </button>
+        <p id="link" style={ { display: 'none' } }>Link copiado!</p>
       </div>
     );
   }
@@ -69,6 +115,7 @@ FavoriteRecipeCard.propTypes = {
     image: PropTypes.string.isRequired,
   }).isRequired,
   index: PropTypes.number.isRequired,
+  setFavoriteRecipes: PropTypes.func.isRequired,
 };
 
 export default FavoriteRecipeCard;

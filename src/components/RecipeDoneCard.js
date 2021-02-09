@@ -1,9 +1,20 @@
 import React, { Component } from 'react';
+import copy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 
 class RecipeDoneCard extends Component {
+  copyLink(id, type) {
+    if (type === 'bebida') {
+      copy(`http://localhost:3000/bebidas/${id}`);
+      document.getElementById('link').style = 'inline';
+    } else {
+      copy(`http://localhost:3000/comidas/${id}`);
+      document.getElementById('link').style = 'inline';
+    }
+  }
+
   render() {
     const { doneRecipes: {
       id,
@@ -22,6 +33,7 @@ class RecipeDoneCard extends Component {
         {type === 'bebida' ? (
           <Link to={ `/bebidas/${id}` }>
             <img
+              style={ { width: '100px' } }
               data-testid={ `${index}-horizontal-image` }
               src={ image }
               alt={ name }
@@ -30,6 +42,7 @@ class RecipeDoneCard extends Component {
         ) : (
           <Link to={ `/comidas/${id}` }>
             <img
+              style={ { width: '100px' } }
               data-testid={ `${index}-horizontal-image` }
               src={ image }
               alt={ name }
@@ -64,11 +77,17 @@ class RecipeDoneCard extends Component {
           Feito em:
           { doneDate }
         </p>
-        <img
-          src={ shareIcon }
-          data-testid={ `${index}-horizontal-share-btn` }
-          alt="Compartilhar receita"
-        />
+        <button
+          type="button"
+          onClick={ () => this.copyLink(id, type) }
+        >
+          <img
+            src={ shareIcon }
+            data-testid={ `${index}-horizontal-share-btn` }
+            alt="Compartilhar receita"
+          />
+        </button>
+        <p id="link" style={ { display: 'none' } }>Link copiado!</p>
         {tags.map((tag) => (
           <p key={ index + tag } data-testid={ `${index}-${tag}-horizontal-tag` }>
             {tag}
