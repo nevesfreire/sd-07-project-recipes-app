@@ -1,3 +1,5 @@
+import { thayProfile, wolfProfile, hamajiProfile } from '../images';
+
 const data = {
   thay: {
     video: {
@@ -12,7 +14,7 @@ const data = {
       foodTitle: 'Prato favorito',
       foodImg: 'http',
     },
-    img: { picture: 'https://carrefourbr.vtexassets.com/arquivos/ids/191885-800-auto?width=800&height=auto&aspect=true' },
+    img: { picture: thayProfile },
     text: { title: 'Obrigado', text: 'obrigado' },
   },
   hamaji: {
@@ -28,8 +30,8 @@ const data = {
       foodTitle: 'Prato favorito',
       foodImg: 'http',
     },
-    img: { picture: 'foto' },
-    text: { title: 'Obrigado', text: 'obrigasdfaksldjfçaksldjfçlaskjdfçajsdlfjaçsdlkado' },
+    img: { picture: hamajiProfile },
+    text: { title: 'Obrigado', text: 'obrigado' },
   },
   wolf: {
     video: {
@@ -44,7 +46,7 @@ const data = {
       foodTitle: 'Prato favorito',
       foodImg: 'http',
     },
-    img: { picture: 'foto' },
+    img: { picture: wolfProfile },
     text: { title: 'Obrigado', text: 'obrigado' },
   },
 };
