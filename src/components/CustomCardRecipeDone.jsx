@@ -35,7 +35,7 @@ class CustomCardRecipeDone extends Component {
                   ? `${recipe.area} - ${recipe.category}`
                   : recipe.alcoholicOrNot}
               </p>
-              {recipe.tags.length > 1 ? (
+              {recipe.tags.length >= 1 ? (
                 <div>
                   Tags:
                   { recipe.tags.map((item) => (

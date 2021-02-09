@@ -28,9 +28,13 @@ class DoneRecipes extends Component {
     console.log(filterDone, 'filteredDone');
     const LENGTH = 12;
     const INITIAL_LENGTH = 0;
-    if (!filterDone) return <p>Ainda não há receitas feitas</p>;
+    if (!filterDone) {
+      return <p className="recipes-main-content">Ainda não há receitas feitas!</p>;
+    }
     const MAX_LENGTH = filterDone.length > LENGTH ? LENGTH : filterDone.length;
-    if (!filterDone.length) return <p> Receita falsificada </p>;
+    if (!filterDone.length) {
+      return <p className="recipes-main-content">Ainda não há receitas feitas!</p>;
+    }
     return (
       <div className="cards-main-page-content">
         {(filterDone.filter((item) => item.type.includes(Done)))
