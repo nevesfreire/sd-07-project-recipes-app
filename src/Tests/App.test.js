@@ -1,15 +1,15 @@
 import React from 'react';
 import { screen, act, fireEvent } from '@testing-library/react';
 import renderWithRouter from './renderWithRouter';
-import LoginPage from '../Pages/LoginPage';
-// import App from '../App';
+// import LoginPage from '../Pages/LoginPage';
+import App from '../App';
 
 const emailString = 'email-input';
 const passwordString = 'password-input';
 const btnString = 'login-submit-btn';
 describe('Test with Login Module', () => {
   beforeEach(() => {
-    renderWithRouter(<LoginPage />);
+    renderWithRouter(<App />);
   });
 
   it('should have login form', () => {

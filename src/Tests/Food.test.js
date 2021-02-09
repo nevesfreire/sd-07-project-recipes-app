@@ -24,6 +24,7 @@ describe('Test with Food Module', () => {
 
   it('Should have beefButton', async () => {
     const categoryBeef = await screen.findByTestId('Beef-category-filter');
+    fireEvent.click(categoryBeef);
 
     expect(categoryBeef).toBeInTheDocument();
   });
