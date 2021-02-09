@@ -125,10 +125,6 @@ class MealRecipeDetails extends Component {
       strYoutube,
     } = meals.meals[0];
     const youtubeId = strYoutube.substring(strYoutube.indexOf('=') + 1);
-    const zero = 0;
-    const maxLength = 6;
-    const { cocktails } = this.props;
-    const firstCocktails = cocktails.slice(zero, maxLength);
 
     return (
       <div className="recipe-details">
