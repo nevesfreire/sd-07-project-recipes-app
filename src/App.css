@@ -4,18 +4,17 @@ body {
 
 .container {
   background-color: white;
+  border: 1px solid #ccc;
   display: flex;
+  margin: 0 auto;
 	max-width: 420px;
-	margin: 0 auto;
-	border: 1px solid #ccc;
 }
 
 .alinhamento-central {
-	height: 640px;
-	justify-content: center;
   align-items: center;
   background-image: url('./images/PAODEQUEIJO.png');
-
+	height: 640px;
+	justify-content: center;
 }
 
 .item {
@@ -25,27 +24,26 @@ body {
 }
 
 .divButton {
-  width: 100%;
   display: flex ;
   justify-content: space-between;
   margin: 5px;
+  width: 100%;
 }
 
 .cardContainer {
+  border: 1px solid #ccc;
+  border-radius: 5%;
   display: flex;
   margin: 2px;
-  border: 1px solid #ccc;
   max-width: 300px;
-  margin: 2px;
-  border-radius: 5%;
 }
 
 .itemCard {
-	text-align: center;
-  font-size: 1.2em;
   border-radius: 3rem;
-  word-wrap: break-word;
+  font-size: 1.2em;
   max-width: 165px;
+	text-align: center;
+  word-wrap: break-word;
 }
 
 .text-img {
@@ -64,67 +62,57 @@ color:rgb(80, 80, 80);
 }
 
 .header {
-  background-color: rgb(215, 196, 145);
-  display: fixed;
   align-items: center;
-  display: flex;
-  width: 100%;
-  justify-content: center;
+  background-color: rgb(215, 196, 145);
   color: rgb(80, 80, 80);
+  display: fixed;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 .profileButtons {
-
-  justify-content: space-around;
   display: flex;
-  /* flex-wrap: wrap; */
-
-
+  justify-content: space-around;
 }
 .footer {
-  display: fixed;
   align-items: center;
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
   background-color: rgba(215, 196, 145);
-
-
+  display: fixed;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .divButtons {
-  /* width: 100%; */
-  /* background-color: blue; */
- /* display: flex; */
- /* flex-wrap: wrap; */
  display: inline-block;
  margin: 2px;
 }
 
 .buttonCategories {
+  box-shadow: 2px 2px 2px 2px rgb(153, 153, 153);
   flex-grow: 4;
   margin: 2px;
-  box-shadow: 2px 2px 2px 2px rgb(153, 153, 153);
   width: 170px;
 }
 
 .datailsImage {
-  max-width: 100%;
   border: 1px solid #ccc;
   border-radius: 1%;
   box-shadow: 10px 5px 5px rgb(153, 153, 153);
+  max-width: 100%;
 }
 
 .ingredientsList {
-  margin-top: 15px;
-  max-width: 90%;
   align-items: center;
   box-shadow: 2px 2px 2px 2px rgb(153, 153, 153);
+  margin-top: 15px;
+  max-width: 90%;
 }
 
 .iconsAndTitle {
+  align-items: center;
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 
 .recipesMadeButtons {
