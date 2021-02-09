@@ -37,26 +37,27 @@ function ListCardsItens(cardsFoods) {
   }
 
   function drinkCardsItens() {
-    return cardsFoods.map((item, index) => (
-      <Link
-        key={ index }
-        to="/bebidas"
-        data-testid={ `${index}-ingredient-card` }
-        onClick={ () => setData({ ...data, ingredient: item.strIngredient1 }) }
-      >
-        <img
-          style={ { width: '30%' } }
-          src={ `https://www.thecocktaildb.com/images/ingredients/${item.strIngredient1}-Small.png` }
-          alt={ item.strIngredient1 }
-          data-testid={ `${index}-card-img` }
-        />
-        <h5
-          data-testid={ `${index}-card-name` }
+    return !Array.isArray(cardsFoods) ? []
+      : cardsFoods.map((item, index) => (
+        <Link
+          key={ index }
+          to="/bebidas"
+          data-testid={ `${index}-ingredient-card` }
+          onClick={ () => setData({ ...data, ingredient: item.strIngredient1 }) }
         >
-          {item.strIngredient1}
-        </h5>
-      </Link>
-    ));
+          <img
+            style={ { width: '30%' } }
+            src={ `https://www.thecocktaildb.com/images/ingredients/${item.strIngredient1}-Small.png` }
+            alt={ item.strIngredient1 }
+            data-testid={ `${index}-card-img` }
+          />
+          <h5
+            data-testid={ `${index}-card-name` }
+          >
+            {item.strIngredient1}
+          </h5>
+        </Link>
+      ));
   }
 
   return (

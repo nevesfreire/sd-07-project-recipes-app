@@ -32,15 +32,18 @@ function AreaFood() {
     setArrayListFood(filterByArea);
   };
 
-  const showListFoodArea = () => areaList.map((item, index) => (
-    <option
-      key={ index }
-      value={ item.strArea }
-      data-testid={ `${item.strArea}-option` }
-    >
-      {item.strArea}
-    </option>
-  ));
+  function showListFoodArea() {
+    return !Array.isArray(areaList) ? []
+      : areaList.map((item, index) => (
+        <option
+          key={ index }
+          value={ item.strArea }
+          data-testid={ `${item.strArea}-option` }
+        >
+          {item.strArea}
+        </option>
+      ));
+  }
 
   return (
     <div>
