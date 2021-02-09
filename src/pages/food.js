@@ -13,12 +13,12 @@ import {
 
 function Food() {
   const FIVE = 5;
-  const MAX_RENDER_BUTTON_FILTERS = 2;
   const ZERO = 0;
   const [loading, setLoading] = useState(false);
   const [arrayListFood, setArrayListFood] = useState([]);
   const [arrayCategory, setArrayCategory] = useState([]);
-  const [countButtonFilter, setCountButtonFilter] = useState(ZERO);
+  const [renderCategory, setRenderCategory] = useState(false);
+  const [categoryName, setCategoryName] = useState(undefined);
   const { showBtn, data, setData } = useContext(RecipeContext);
   const [listFoodCategories, setListFoodCategories] = useState([]);
 
@@ -37,8 +37,9 @@ function Food() {
   }, []);
 
   const getFilterFoodCategory = async (category) => {
+    if (category === categoryName) return setRenderCategory(true);
     setArrayCategory(await filterFoodCategory(category));
-    setCountButtonFilter((countButton) => countButton + 1);
+    setCategoryName(category);
   };
   useEffect(() => {
     const getFoodByIngredients = async () => {
@@ -65,33 +66,56 @@ function Food() {
     return 'Loading...';
   };
 
-  const showListFoodCategories = () => listFoodCategories.map((item) => (
-    <button
-      key={ item.strCategory }
-      type="button"
-      data-testid={ `${item.strCategory}-category-filter` }
-      onClick={ () => getFilterFoodCategory(item.strCategory) }
-    >
-      {item.strCategory}
-    </button>
-  ));
+  const setsCategory = () => {
+    setRenderCategory(false);
+    setCategoryName(undefined);
+  };
+
+  const showListFoodCategories = () => (
+    <div>
+      {
+        listFoodCategories.map((item) => (
+          <button
+            type="button"
+            key={ item.strCategory }
+            data-testid={ `${item.strCategory}-category-filter` }
+            onClick={ () => getFilterFoodCategory(item.strCategory) }
+          >
+            {item.strCategory}
+          </button>))
+      }
+      <button
+        type="button"
+        onClick={ () => setsCategory() }
+        data-testid="All-category-filter"
+      >
+        All
+      </button>
+    </div>
+  );
+
+  const optionsRender = () => {
+    if (renderCategory) {
+      return ListCardsFoodCategory(data.food);
+    }
+
+    if (arrayCategory.length > ZERO) return ListCardsFoodCategory(arrayCategory);
+
+    if (data.food === 'error' || data.food === null) {
+      return getAlert();
+    }
+
+    return getLoading();
+  };
 
   return (
     <div>
       <Header />
       { showBtn && <SearchHeaderBar />}
 
-      {(arrayListFood.length > ZERO
-        && countButtonFilter < MAX_RENDER_BUTTON_FILTERS)
-        && showListFoodCategories()}
+      {(arrayListFood.length > ZERO && showListFoodCategories())}
 
-      {(arrayCategory.length > ZERO) && ListCardsFoodCategory(arrayCategory)}
-
-      {
-        (data.food === 'erro' || data.food === null)
-          ? getAlert()
-          : getLoading()
-      }
+      {optionsRender()}
 
       <Footer />
     </div>

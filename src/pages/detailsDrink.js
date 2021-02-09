@@ -6,6 +6,7 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { getDrinkId } from '../services/Api';
 import FoodRecom from '../components/FoodRecom';
+import './details.css';
 
 function DetailsDrink() {
   const [dataDrink, setDataDrink] = useState([]);
@@ -18,6 +19,9 @@ function DetailsDrink() {
   const path = history.location.pathname;
   const idPathName = path.split('/');
   const ZERO = 0;
+
+  console.log('dtaDrink:', dataDrink);
+  console.log(idPathName[2]);
 
   useEffect(() => {
     async function calledIdDrink() {
@@ -63,7 +67,6 @@ function DetailsDrink() {
 
   const startRecipe = () => (
     <button
-      style={ { position: 'fixed', bottom: 0 } }
       className="startRecipeBtn"
       type="button"
       data-testid="start-recipe-btn"

@@ -6,6 +6,7 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { getFoodId } from '../services/Api';
 import DrinkRecom from '../components/DrinkRecom';
+import './details.css';
 
 function DetailsFood() {
   const [dataFood, setDataFood] = useState([]);
@@ -61,27 +62,15 @@ function DetailsFood() {
     return getFavorited();
   };
 
-  /* const localStorageRecipes = () => {
-    const recipeDone = [{
-      id: dataFood[0].idMeal,
-      type: 'meals',
-      area: dataFood[0].strArea,
-      category: dataFood[0].strCategory,
-      alcoholicOrNot: 'not',
-      name: dataFood[0].strMeal,
-      image: dataFood[0].strMealThumb,
-      doneDate: dataFood[0].dateModified,
-      tags: dataFood[0].strTags,
-    }];
-  }; */
-
   const startRecipe = () => (
     <button
-      style={ { position: 'fixed', bottom: 0 } }
       className="startRecipeBtn"
       type="button"
       data-testid="start-recipe-btn"
-      onClick={ () => push(`/comidas/${idPathName[2]}/in-progress`) }
+      onClick={ () => push({
+        pathname: `/comidas/${idPathName[2]}/in-progress`,
+        state: dataFood,
+      }) }
     >
       {start ? 'Continuar Receita' : 'Iniciar Receita'}
     </button>
