@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import FooterMenu from '../components/FooterMenu';
 import Header from '../components/Header';
@@ -14,13 +15,15 @@ function ExploreDrink() {
   function lintEuTeAmo() {
     return (
       <Link to={ `/bebidas/${surprise.idDrink}` }>
-        <button
+        <Button
+          className="buttonCategories"
+          variant="dark"
           data-testid="explore-surprise"
           type="button"
         >
           Me Surpreenda!
 
-        </button>
+        </Button>
       </Link>
     );
   }
@@ -33,13 +36,15 @@ function ExploreDrink() {
       <Header title="Explorar Bebidas" explore={ false } />
       <div>
         <Link to="/explorar/bebidas/ingredientes">
-          <button
+          <Button
+            variant="dark"
+            className="buttonCategories"
             data-testid="explore-by-ingredient"
             type="button"
           >
             Por Ingredientes
 
-          </button>
+          </Button>
         </Link>
         {
           surprise

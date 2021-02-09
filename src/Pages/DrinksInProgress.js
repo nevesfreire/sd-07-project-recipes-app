@@ -132,29 +132,34 @@ function DrinksInProgress() {
   }
   return (
     <div onLoad={ enableButton }>
-      <img className="datailsImage" src={ strDrinkThumb } data-testid="recipe-photo" alt={ strDrink } />
+      <img
+        className="datailsImage"
+        src={ strDrinkThumb }
+        data-testid="recipe-photo"
+        alt={ strDrink }
+      />
       <div className="iconsAndTitle">
-      <h1 data-testid="recipe-title">{strDrink}</h1>
-      <div>
-      <button
-        onClick={ () => copyToClipBoard(url) }
-        type="button"
-      >
-        <img
-          src={ shareIcon }
-          alt="icone de coração, para favoritar receita"
-          data-testid="share-btn"
-        />
-      </button>
-      <span hidden={ !spanHidden }>Link copiado!</span>
-      <button onClick={ () => handleFavDrink() } type="button">
-        <img
-          src={ favoriteDrink ? blackHeartIcon : whiteHeartIcon }
-          alt="icone de coração, para favoritar receita"
-          data-testid="favorite-btn"
-        />
-      </button>
-      </div>
+        <h1 data-testid="recipe-title">{strDrink}</h1>
+        <div>
+          <button
+            onClick={ () => copyToClipBoard(url) }
+            type="button"
+          >
+            <img
+              src={ shareIcon }
+              alt="icone de coração, para favoritar receita"
+              data-testid="share-btn"
+            />
+          </button>
+          <span hidden={ !spanHidden }>Link copiado!</span>
+          <button onClick={ () => handleFavDrink() } type="button">
+            <img
+              src={ favoriteDrink ? blackHeartIcon : whiteHeartIcon }
+              alt="icone de coração, para favoritar receita"
+              data-testid="favorite-btn"
+            />
+          </button>
+        </div>
       </div>
       <p data-testid="recipe-category">{strCategory}</p>
       <div className="ingredientsList">

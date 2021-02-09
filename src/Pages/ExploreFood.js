@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import FooterMenu from '../components/FooterMenu';
 import Header from '../components/Header';
@@ -14,13 +15,15 @@ function ExploreFood() {
   function lintEuTeAmo() {
     return (
       <Link to={ `/comidas/${surprise.idMeal}` }>
-        <button
+        <Button
+          className="buttonCategories"
+          variant="dark"
           data-testid="explore-surprise"
           type="button"
         >
           Me Surpreenda!
 
-        </button>
+        </Button>
       </Link>
     );
   }
@@ -34,16 +37,25 @@ function ExploreFood() {
       <Header title="Explorar Comidas" explore={ false } />
       <div>
         <Link to="/explorar/comidas/ingredientes">
-          <button
+          <Button
+            variant="dark"
             data-testid="explore-by-ingredient"
             type="button"
+            className="buttonCategories"
           >
             Por Ingredientes
 
-          </button>
+          </Button>
         </Link>
         <Link to="/explorar/comidas/area">
-          <button data-testid="explore-by-area" type="button">Por Local de Origem</button>
+          <Button
+            variant="dark"
+            data-testid="explore-by-area"
+            type="button"
+            className="buttonCategories"
+          >
+            Por Local de Origem
+          </Button>
         </Link>
         {
           surprise

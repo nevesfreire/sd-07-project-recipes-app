@@ -37,7 +37,6 @@ function FoodInProgress() {
       localStorage.setItem('inProgressRecipes', JSON.stringify(recipesInProgress));
     }
   }
-  console.log('checks', document.getElementsByClassName('check'));
 
   function enableButton() {
     setMealStateButton(true);
@@ -135,7 +134,12 @@ function FoodInProgress() {
 
   return (
     <div onLoad={ enableButton }>
-      <img className="datailsImage" src={ strMealThumb } data-testid="recipe-photo" alt={ strMeal } />
+      <img
+        className="datailsImage"
+        src={ strMealThumb }
+        data-testid="recipe-photo"
+        alt={ strMeal }
+      />
       <div className="iconsAndTitle">
         <h1 data-testid="recipe-title">{strMeal}</h1>
         <div>

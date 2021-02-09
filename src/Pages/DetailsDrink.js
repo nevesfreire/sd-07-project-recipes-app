@@ -73,44 +73,49 @@ function DetailsDrink() {
   return (
     <div>
       <div>
-      <img className="datailsImage" src={ strDrinkThumb } data-testid="recipe-photo" alt={ strDrink } />
-      <div className="iconsAndTitle">
-      <h1 data-testid="recipe-title">{strDrink}</h1>
-      <div>
-      <button
-        onClick={ () => copyToClipBoard(url) }
-        type="button"
-      >
         <img
-          src={ shareIcon }
-          alt="icone de coração, para favoritar receita"
-          data-testid="share-btn"
+          className="datailsImage"
+          src={ strDrinkThumb }
+          ata-testid="recipe-photo"
+          alt={ strDrink }
         />
-      </button>
-      <span hidden={ !spanHidden }>Link copiado!</span>
-      <button onClick={ () => handleFavDrink() } type="button">
-        <img
-          src={ favoriteDrink ? blackHeartIcon : whiteHeartIcon }
-          alt="icone de coração, para favoritar receita"
-          data-testid="favorite-btn"
-        />
-      </button>
-      </div>
-      </div>
+        <div className="iconsAndTitle">
+          <h1 data-testid="recipe-title">{strDrink}</h1>
+          <div>
+            <button
+              onClick={ () => copyToClipBoard(url) }
+              type="button"
+            >
+              <img
+                src={ shareIcon }
+                alt="icone de coração, para favoritar receita"
+                data-testid="share-btn"
+              />
+            </button>
+            <span hidden={ !spanHidden }>Link copiado!</span>
+            <button onClick={ () => handleFavDrink() } type="button">
+              <img
+                src={ favoriteDrink ? blackHeartIcon : whiteHeartIcon }
+                alt="icone de coração, para favoritar receita"
+                data-testid="favorite-btn"
+              />
+            </button>
+          </div>
+        </div>
       </div>
       <div className="ingredientsList">
-      <p data-testid="recipe-category">{strCategory}</p>
-      <p data-testid="recipe-category">{strAlcoholic}</p>
-      <ul>
-        {
-          allIngredients && allIngredients.map((item, index) => (
-            <li key={ item } data-testid={ `${index}-ingredient-name-and-measure` }>
-              {
-                `${index + 1} - ${item.ingredient}: ${item.measure}`
-              }
-            </li>))
-        }
-      </ul>
+        <p data-testid="recipe-category">{strCategory}</p>
+        <p data-testid="recipe-category">{strAlcoholic}</p>
+        <ul>
+          {
+            allIngredients && allIngredients.map((item, index) => (
+              <li key={ item } data-testid={ `${index}-ingredient-name-and-measure` }>
+                {
+                  `${index + 1} - ${item.ingredient}: ${item.measure}`
+                }
+              </li>))
+          }
+        </ul>
       </div>
       <p className="ingredientsList" data-testid="instructions">{strInstructions}</p>
       <video data-testid="video" width="100">

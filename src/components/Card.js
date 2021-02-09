@@ -19,8 +19,13 @@ function Card({ name, thumb, index, id, type }) {
             }) }
             data-testid={ `${index}-recipe-card` }
           >
-            <p className="text-img" data-testid={ `${index}-card-name` }>{ name }</p>
-            <img className="itemImage " src={ thumb } alt={ name } data-testid={ `${index}-card-img` } />
+            <p className="textCard" data-testid={ `${index}-card-name` }>{ name }</p>
+            <img
+              className="itemImage "
+              src={ thumb }
+              alt={ name }
+              data-testid={ `${index}-card-img` }
+            />
           </div>
         </Link>
       </div>
