@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 
-import { Carousel } from 'react-bootstrap';
-import { useHistory } from 'react-router-dom';
+import { Card, Carousel } from 'react-bootstrap';
+import { Link, useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import ShareButton from '../components/DetailsComponents/ShareButton';
 import FavButton from '../components/DetailsComponents/FavButton';
@@ -69,7 +69,7 @@ export default function FoodDetails() {
   }, []);
 
   return (
-    <div>
+    <div className="details-content">
 
       <img
         data-testid="recipe-photo"
@@ -77,27 +77,38 @@ export default function FoodDetails() {
         src={ recipe.strMealThumb }
       />
 
-      <h2 data-testid="recipe-title">{recipe.strMeal}</h2>
-
-      <h4 data-testid="recipe-category">{recipe.strCategory}</h4>
+      <div className="details-header-content">
+        <div className="details-title">
+          <h2 data-testid="recipe-title">{recipe.strMeal}</h2>
+          <h4 data-testid="recipe-category">{recipe.strCategory}</h4>
+        </div>
+        <div className="fav-share-btns">
+          <ShareButton />
+          <FavButton />
+        </div>
+      </div>
 
       <h3>Ingredientes</h3>
-      { ingredientsList() }
-      <ul>
-        {listIngredients.map((ingredients, key) => (
-          <li
-            key={ key }
-            data-testid={ `${key}-ingredient-name-and-measure` }
-          >
-            {ingredients}
-          </li>))}
-      </ul>
+      <div className="details-ingredients">
+        { ingredientsList() }
+        <ul>
+          {listIngredients.map((ingredients, key) => (
+            <li
+              key={ key }
+              data-testid={ `${key}-ingredient-name-and-measure` }
+            >
+              {ingredients}
+            </li>))}
+        </ul>
+      </div>
 
       <h3>Instruções</h3>
-      <span data-testid="instructions">{recipe.strInstructions}</span>
-
-      <ShareButton />
-      <FavButton />
+      <span
+        data-testid="instructions"
+        className="details-instructions"
+      >
+        {recipe.strInstructions}
+      </span>
 
       <h3>Video</h3>
       <iframe
@@ -114,26 +125,26 @@ export default function FoodDetails() {
       <h3>Recomendadas</h3>
 
       <Carousel>
-
-        {recomendations.map((item, index) => (
-
-          <Carousel.Item
-            key={ item.idDrink }
-            data-testid={ `${index}-recomendation-card` }
-          >
-            <img
-              className="d-block w-100"
-              src={ item.strDrinkThumb }
-              alt={ item.strDrink }
-            />
-            <Carousel.Caption>
-              <h3
-                data-testid={ `${index}-recomendation-title` }
-              >
-                {item.strDrink}
-              </h3>
-              <h4>{item.strAlcoholic}</h4>
-            </Carousel.Caption>
+        {recomendations.map((item, key) => (
+          <Carousel.Item key={ key }>
+            <Link to={ `/comidas/${item.idDrink}` }>
+              <Card className="carousel-card">
+                <Card.Img
+                  variant="top"
+                  data-testid={ `${key}-recomendation-card` }
+                  src={ item.strDrinkThumb }
+                  alt={ item.strDrink }
+                />
+                <Card.Body>
+                  <Card.Text>
+                    {item.strAlcoholic}
+                  </Card.Text>
+                  <Card.Title data-testid={ `${key}-recomendation-title` }>
+                    {item.strDrink}
+                  </Card.Title>
+                </Card.Body>
+              </Card>
+            </Link>
           </Carousel.Item>
         ))}
       </Carousel>

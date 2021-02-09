@@ -34,16 +34,19 @@ function ShareButton() {
 
   return (
     <div>
-      <button
-        type="button"
-        data-testid="share-btn"
+      <div
+        role="button"
+        tabIndex={ 0 }
+        onKeyPress={ () => {} }
         onClick={ handleShareBtn }
       >
         <img
           src={ shareIcon }
           alt="Share Icon"
+          data-testid="share-btn"
         />
-      </button>
+      </div>
+
       <Modal
         size="sm"
         show={ smShow }

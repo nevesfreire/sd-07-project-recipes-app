@@ -61,8 +61,10 @@ function FavButton() {
   };
 
   return (
-    <button
-      type="button"
+    <div
+      role="button"
+      tabIndex={ 0 }
+      onKeyPress={ () => {} }
       onClick={ favorite ? handleFavBtn : handleNotFavBtn }
     >
       <img
@@ -70,7 +72,7 @@ function FavButton() {
         alt="Favorited Icon"
         data-testid="favorite-btn"
       />
-    </button>
+    </div>
   );
 }
 

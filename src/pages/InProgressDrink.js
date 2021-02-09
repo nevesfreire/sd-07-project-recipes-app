@@ -1,4 +1,4 @@
-import { Button } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
@@ -111,57 +111,60 @@ export default function InProgressDrink() {
   };
 
   return (
-    <div>
+    <div className="details-content">
       <img
         data-testid="recipe-photo"
         src={ recipe.strDrinkThumb }
         alt={ recipe.strDrink }
       />
 
-      <h2 data-testid="recipe-title">
-        { recipe.strDrink }
-      </h2>
-
-      <h4 data-testid="recipe-category">
-        { recipe.strCategory }
-      </h4>
-
-      <ShareButton />
-
-      <FavButton />
+      <div className="details-header-content">
+        <div className="details-title">
+          <h2 data-testid="recipe-title">{recipe.strDrink}</h2>
+          <h4 data-testid="recipe-category">{recipe.strAlcoholic}</h4>
+        </div>
+        <div className="fav-share-btns">
+          <ShareButton />
+          <FavButton />
+        </div>
+      </div>
 
       <h3>Ingredientes</h3>
       { ingredientsList() }
-
-      <ul className="progress-ingr-list">
-        {listIngredients.map((ingredient, key) => (
-          <li
-            key={ key }
-          >
-            <label
-              htmlFor={ ingredient }
+      <div className="progress-ingredients">
+        <ul className="progress-ingr-list">
+          {listIngredients.map((ingredient, key) => (
+            <li
+              key={ key }
               data-testid={ `${key}-ingredient-step` }
             >
-              <input
-                name={ ingredient }
+              <Form.Check
                 type="checkbox"
+                id={ key }
+                label={ ingredient }
+                name={ ingredient }
                 onChange={ handleCheckbox }
               />
-              { ingredient }
-            </label>
-          </li>
-        ))}
-      </ul>
+            </li>
+          ))}
+        </ul>
+      </div>
 
       <h3>Instruções</h3>
-      <span data-testid="instructions">{recipe.strInstructions}</span>
+      <span
+        data-testid="instructions"
+        className="details-instructions"
+      >
+        {recipe.strInstructions}
+      </span>
 
       <Button
         variant="success"
         data-testid="finish-recipe-btn"
-        className="finishRecipeBtn"
+        className="finish-recipe-btn"
         onClick={ handleFinishRecipeBtn }
         disabled={ isDisabled() }
+        block
       >
         Finalizar Receita
       </Button>

@@ -22,6 +22,7 @@ function Footer() {
   return (
     <footer className="footer" data-testid="footer">
       <div
+        className="icon"
         role="button"
         tabIndex={ 0 }
         onKeyPress={ () => {} }
@@ -35,6 +36,7 @@ function Footer() {
       </div>
 
       <div
+        className="icon"
         role="button"
         tabIndex={ 0 }
         onKeyPress={ () => {} }
@@ -48,6 +50,7 @@ function Footer() {
       </div>
 
       <div
+        className="icon"
         role="button"
         tabIndex={ 0 }
         onKeyPress={ () => {} }

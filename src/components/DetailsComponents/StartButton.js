@@ -53,6 +53,7 @@ function StartButton() {
       data-testid="start-recipe-btn"
       className={ showBtn ? 'start-recipe-btn-visible' : 'start-recipe-btn-hidden' }
       onClick={ handleStartRecipeClick }
+      block
     >
       { btnText }
     </Button>
