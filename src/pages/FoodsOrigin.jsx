@@ -31,7 +31,7 @@ class ExploreArea extends Component {
     if (meals.length === numberToComper) {
       return <Redirect to={ `/comidas/${meals[0].idMeal}` } />;
     }
-    if (isFetching) return <p>Loading</p>;
+    if (isFetching) return this.renderLoading();
     if (!meals.length && !isFetching) return this.renderAlertError();
     if (meals.length === 1) return this.redirectToRecipeDetail();
     return this.renderRecipes();
@@ -45,6 +45,16 @@ class ExploreArea extends Component {
   allFoods() {
     const { dispatchFoodRecipes } = this.props;
     dispatchFoodRecipes({});
+  }
+
+  renderLoading() {
+    return (
+      <div className="loading">
+        <div className="spinner-border text-danger" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      </div>
+    );
   }
 
   renderRecipes() {

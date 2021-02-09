@@ -12,21 +12,24 @@ class CustomCardFavoriteRecipe extends Component {
   renderDrinkCard() {
     const { favorite: { name, image, alcoholicOrNot, id }, index, isShared } = this.props;
     return (
-      <div>
+      <div className="card single-card-main-page-content">
         <Link to={ `/bebidas/${id}` }>
           <img
             width="100vw"
             data-testid={ `${index}-horizontal-image` }
+            className="card-img-top img-card-main-page"
             src={ image }
             alt="imagem de uma receita"
           />
           <p
             data-testid={ `${index}-horizontal-name` }
+            className="card-title card-title-main-page"
           >
             {name}
           </p>
           <p
             data-testid={ `${index}-horizontal-top-text` }
+            className="card-text card-text-main-page"
           >
             {alcoholicOrNot}
           </p>
@@ -41,23 +44,26 @@ class CustomCardFavoriteRecipe extends Component {
   renderFoodCard() {
     const { favorite: { name, area, category, image, id }, index, isShared } = this.props;
     return (
-      <div>
+      <div className="card single-card-main-page-content">
         <Link to={ `/comidas/${id}` }>
           <img
             width="100vw"
             data-testid={ `${index}-horizontal-image` }
             src={ image }
             alt="imagem de uma receita"
+            className="card-img-top img-card-main-page"
           />
 
           <p
             data-testid={ `${index}-horizontal-name` }
+            className="card-title card-title-main-page"
           >
             {name}
           </p>
         </Link>
         <p
           data-testid={ `${index}-horizontal-top-text` }
+          className="card-text card-text-main-page"
         >
           {area}
           {' '}

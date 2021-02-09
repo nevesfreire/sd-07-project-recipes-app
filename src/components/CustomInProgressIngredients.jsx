@@ -131,7 +131,7 @@ export default class CustomInProgressIngredients extends Component {
           <li
             key={ index }
             data-testid={ `${index}-ingredient-step` }
-            className={ (isChecked) && 'ingredient' }
+            className={ `list-group-item ${(isChecked) && 'ingredient'}` }
           >
             <input
               type="checkbox"

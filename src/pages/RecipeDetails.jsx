@@ -51,7 +51,7 @@ export default class RecipeDetails extends Component {
     const INITIAL_INDEX = 0;
     const MAX_INDEX = 6;
     return (
-      <Carousel>
+      <Carousel className="suggested-img">
         {
           suggestedRecipes.slice(INITIAL_INDEX, MAX_INDEX)
             .map((recipe, index) => (
@@ -120,6 +120,16 @@ export default class RecipeDetails extends Component {
     this.verifyRecipeIsDone(id);
   }
 
+  renderLoading() {
+    return (
+      <div className="loading">
+        <div className="spinner-border text-danger" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      </div>
+    );
+  }
+
   render() {
     const {
       isLoading,
@@ -133,7 +143,7 @@ export default class RecipeDetails extends Component {
 
     const { match: { url } } = this.props;
 
-    if (isLoading) return <div> Loading... </div>;
+    if (isLoading) return this.renderLoading();
     return (
       <div
         className="card recipe-details-content"
@@ -176,6 +186,7 @@ export default class RecipeDetails extends Component {
              <CustomDetailsIngredients recipeType={ recipeType } recipe={ recipe } />) }
           </ul>
           { (recipeType === 'comidas') && <iframe
+            className="suggested-img"
             data-testid="video"
             src={ this.getYoutubeEmbedUrl() }
             frame-border="0"
@@ -184,7 +195,8 @@ export default class RecipeDetails extends Component {
             title="video"
           /> }
           { (!isLoading) && this.getSuggestedRecipes() }
-          { (!isDone)
+        </div>
+        { (!isDone)
           && (
             <CustomDetailsButton
               recipeId={ recipeId }
@@ -192,7 +204,6 @@ export default class RecipeDetails extends Component {
               recipe={ recipe }
             />
           )}
-        </div>
       </div>
     );
   }

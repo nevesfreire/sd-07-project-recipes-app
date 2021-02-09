@@ -51,9 +51,18 @@ class DrinksIngredients extends Component {
     );
   }
 
+  renderLoading() {
+    return (
+      <div className="loading">
+        <div className="spinner-border text-danger" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      </div>
+    );
+  }
+
   render() {
     const { isLoading } = this.state;
-    if (isLoading) return <p>Carregando</p>;
     return (
       <div>
         <CustomHeader
@@ -61,7 +70,8 @@ class DrinksIngredients extends Component {
           Explorar Ingredientes"
           showSearchTopBtn={ false }
         />
-        {this.renderIngredients()}
+        { isLoading ? this.renderLoading()
+          : this.renderIngredients()}
         <CustomFooter />
       </div>
     );

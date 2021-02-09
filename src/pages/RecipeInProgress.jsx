@@ -102,6 +102,16 @@ class RecipeInProgress extends Component {
     }
   }
 
+  renderLoading() {
+    return (
+      <div className="loading">
+        <div className="spinner-border text-danger" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      </div>
+    );
+  }
+
   render() {
     const {
       isLoading,
@@ -118,11 +128,12 @@ class RecipeInProgress extends Component {
       match: { url },
     } = this.props;
 
-    if (isLoading) return <div> Loading... </div>;
+    if (isLoading) return this.renderLoading();
     if (isRedirect) return <Redirect to="/receitas-feitas" />;
     return (
       <div>
         <img
+          className="card-img-top"
           data-testid="recipe-photo"
           src={
             recipeType === 'comidas'
@@ -131,30 +142,35 @@ class RecipeInProgress extends Component {
           }
           alt="recipe-exemple"
         />
-        <h2 data-testid="recipe-title">
-          {recipeType === 'comidas' ? recipe.strMeal : recipe.strDrink}
-        </h2>
-        <CustomButtonShare url={ url.replace('/in-progress', '') } />
-        <CustomButtonFavorite recipeType={ recipeType } recipe={ recipe } />
-        <h3 data-testid="recipe-category">
-          {recipeType === 'comidas' ? recipe.strCategory : recipe.strAlcoholic}
-        </h3>
-        <p data-testid="instructions">{strInstructions}</p>
-        <ul>
-          {!isLoading && (
-            <CustomInProgressIngredients
-              recipeType={ recipeType }
-              recipe={ recipe }
-              recipeId={ recipeId }
-              recipeIsDone={ this.verifyRecipeIsDone }
-            />
-          )}
-        </ul>
+        <div className="card-body">
+          <h2 data-testid="recipe-title" className="card-title">
+            {recipeType === 'comidas' ? recipe.strMeal : recipe.strDrink}
+          </h2>
+          <div className="share-like-btn">
+            <CustomButtonShare url={ url.replace('/in-progress', '') } />
+            <CustomButtonFavorite recipeType={ recipeType } recipe={ recipe } />
+          </div>
+          <h3 data-testid="recipe-category">
+            {recipeType === 'comidas' ? recipe.strCategory : recipe.strAlcoholic}
+          </h3>
+          <p data-testid="instructions" className="card-text">{strInstructions}</p>
+          <ul className="list-group list-group-flush">
+            {!isLoading && (
+              <CustomInProgressIngredients
+                recipeType={ recipeType }
+                recipe={ recipe }
+                recipeId={ recipeId }
+                recipeIsDone={ this.verifyRecipeIsDone }
+              />
+            )}
+          </ul>
+        </div>
         <button
           type="button"
           data-testid="finish-recipe-btn"
           disabled={ isDone }
           onClick={ this.handleButtonClick }
+          className="button-footer btn btn-dark"
         >
           Finalizar receita
         </button>
