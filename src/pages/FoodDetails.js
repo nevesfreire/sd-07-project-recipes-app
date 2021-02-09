@@ -13,8 +13,6 @@ export default function FoodDetails() {
   const {
     recipe,
     setRecipe,
-    // favorited,
-    // setFavorited,
   } = useContext(RecipesContext);
 
   const history = useHistory();
