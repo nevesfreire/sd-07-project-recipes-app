@@ -5,6 +5,7 @@ import Styles from './Styles';
 import { twelve } from '../../services/numbers';
 
 const { Content, Image, NameContainer, Name } = Styles;
+
 export default function Cards() {
   const { data } = useContext(GeralContext);
   const listOfCards = [];

@@ -34,7 +34,7 @@ export default function GlobalProvider({ children }) {
   const {
     initialState: { email, password },
   } = state;
-
+  const [searchByIngredient, setSearchByingredient] = useState('');
   const checkData = useCallback((newData) => {
     if (!newData) {
       return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
@@ -48,6 +48,8 @@ export default function GlobalProvider({ children }) {
       return setData(await getInitialFood(''));
     case 'ingredients':
       return checkData(await foodByIngredient(upSearchBar));
+    case 'ingredientsExplorer':
+      return setData(await foodByIngredient(searchByIngredient));
     case 'name':
       return checkData(await foodByName(upSearchBar));
     case 'firstLetter':
@@ -57,7 +59,7 @@ export default function GlobalProvider({ children }) {
     default:
       return data;
     }
-  }, [upSearchBar]);
+  }, [upSearchBar, searchByIngredient]);
 
   const selectedTypeDrink = useCallback(async (chooseType, func) => {
     switch (chooseType) {
@@ -65,6 +67,8 @@ export default function GlobalProvider({ children }) {
       return setData(await getInitialDrink(''));
     case 'ingredients':
       return checkData(await drinkByIngredient(upSearchBar));
+    case 'ingredientsExplorer':
+      return setData(await drinkByIngredient(searchByIngredient));
     case 'name':
       return checkData(await drinkByName(upSearchBar));
     case 'firstLetter':
@@ -74,7 +78,7 @@ export default function GlobalProvider({ children }) {
     default:
       return data;
     }
-  }, [upSearchBar]);
+  }, [upSearchBar, searchByIngredient]);
 
   const updateState = (key, value) => {
     setState((prevState) => ({
@@ -156,6 +160,8 @@ export default function GlobalProvider({ children }) {
         callRandomRecipe,
         setRandomRecipeDetail,
         idRandom,
+        searchByIngredient,
+        setSearchByingredient,
       } }
     >
       {children}
