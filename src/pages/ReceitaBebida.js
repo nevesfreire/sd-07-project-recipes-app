@@ -6,6 +6,7 @@ import { apiTheCocktailDB, apiTheMealDB } from '../services';
 import ShareButton from '../components/ShareButton';
 import FavoriteButton from '../components/FavoriteButton';
 import { startRecipeDrink } from '../redux/actions';
+import Loading from '../components/Loading';
 
 class ReceitaBebida extends React.Component {
   constructor() {
@@ -81,16 +82,24 @@ class ReceitaBebida extends React.Component {
     const ingredientsArray = this.ingredientListHandle();
     const url = window.location.pathname;
     if (recipe === '') {
-      return <p>Loading...</p>;
+      return <Loading />;
     }
 
     return (
       <div>
-        <h1 style={ { background: 'rgb(245, 176, 36)', marginBottom: '10px' } }>Receita de Bebida</h1>
+        <h1
+          style={
+            { background: 'rgb(245, 176, 36)',
+              marginBottom: '10px' }
+          }
+        >
+          Receita de Bebida
+        </h1>
         <Card
           style={ { width: '20rem',
             background: 'rgb(254, 175, 91)',
             marginLeft: '100px',
+            marginTop: '20px',
             marginBottom: '20px',
             borderRadius: '15px' } }
         >
@@ -110,7 +119,11 @@ class ReceitaBebida extends React.Component {
             <Card.Text>
               <ul>
                 { ingredientsArray.map((e, index) => (
-                  <li key={ e } data-testid={ `${[index]}-ingredient-name-and-measure` }>
+                  <li
+                    key={ e }
+                    data-testid={ `${[index]}-ingredient-name-and-measure` }
+                    style={ { listStyle: 'none', paddingRight: '35px' } }
+                  >
                     {e}
                   </li>
                 )) }
@@ -119,6 +132,7 @@ class ReceitaBebida extends React.Component {
           </Card.Body>
         </Card>
         <Container>
+          <p>Instruções</p>
           <p data-testid="instructions">{ recipe.strInstructions}</p>
         </Container>
         <div style={ { position: 'fixed', right: '0', top: '150px' } }>

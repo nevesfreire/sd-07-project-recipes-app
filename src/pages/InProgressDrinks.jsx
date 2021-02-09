@@ -1,6 +1,9 @@
 import React from 'react'; import PropTypes from 'prop-types';
-import { Col, Row } from 'react-bootstrap';
+import { Button, Row, Card, Container } from 'react-bootstrap';
 import apiTheCocktailDB from '../services/apiTheCocktailDB';
+import ShareButton from '../components/ShareButton';
+import FavoriteButton from '../components/FavoriteButton';
+import Loading from '../components/Loading';
 
 class InProgressDrinks extends React.Component {
   constructor() {
@@ -80,33 +83,39 @@ class InProgressDrinks extends React.Component {
   render() {
     const { recipe } = this.state;
     if (recipe === '') {
-      return <p>Loading...</p>;
+      return <Loading />;
     }
     const { ingredientsList, ingrentsMeasuresList, checkBox, buttonStatus } = this.state;
     const { history } = this.props;
     return (
       <div>
-        <Col>
-          <img
-            src={ recipe.strDrinkThumb }
-            style={ { width: '20%' } }
-            data-testid="recipe-photo"
-            alt="soDrinkt"
-          />
-        </Col>
-        <h3
-          data-testid="recipe-title"
+        <Card
+          style={ { width: '20rem',
+            marginTop: '30px',
+            background: 'rgb(254, 175, 91)',
+            marginLeft: '100px',
+            marginBottom: '20px',
+            borderRadius: '15px' } }
         >
-          {recipe.strDrink}
-        </h3>
-        <p
-          data-testid="recipe-category"
-        >
-          {recipe.strArea}
-        </p>
-        <Col>
-          <Row>
-            <div>
+          <Card.Body>
+            <Card.Img
+              src={ recipe.strDrinkThumb }
+              data-testid="recipe-photo"
+              alt="soDrinkt"
+            />
+            <Card.Title>
+              <h3
+                data-testid="recipe-title"
+              >
+                {recipe.strDrink}
+              </h3>
+            </Card.Title>
+            <p
+              data-testid="recipe-category"
+            >
+              {recipe.strArea}
+            </p>
+            <Card.Text style={ { marginLeft: '20px' } }>
               { ingredientsList.map((item, index) => (
                 <Row key={ index }>
                   <label
@@ -114,6 +123,7 @@ class InProgressDrinks extends React.Component {
                     htmlFor="maracutaia"
                   >
                     <input
+                      style={ { marginRight: '4px' } }
                       name={ item }
                       type="checkbox"
                       value={ item }
@@ -125,32 +135,29 @@ class InProgressDrinks extends React.Component {
                   </label>
                 </Row>
               ))}
-            </div>
-            <span data-testid="instructions">
-              {recipe.strInstructions}
-            </span>
-            <button
-              type="button"
-              data-testid="share-btn"
-            >
-              Compartilhar
-            </button>
-            <button
-              type="button"
-              data-testid="favorite-btn"
-            >
-              Favorite
-            </button>
-            <button
-              type="button"
-              data-testid="finish-recipe-btn"
-              disabled={ buttonStatus }
-              onClick={ () => history.push('/receitas-feitas') }
-            >
-              Finalizar
-            </button>
-          </Row>
-        </Col>
+            </Card.Text>
+          </Card.Body>
+        </Card>
+        <Container style={ { marginBottom: '40px' } }>
+          <p>Instruções</p>
+          <span data-testid="instructions">
+            {recipe.strInstructions}
+          </span>
+        </Container>
+        <div style={ { position: 'fixed', right: '0', top: '150px' } }>
+          <ShareButton url={ window.location.pathname } />
+          <FavoriteButton storageObj={ recipe } />
+        </div>
+        <Button
+          variant="warning"
+          style={ { position: 'fixed', bottom: 0, left: 0 } }
+          type="button"
+          data-testid="finish-recipe-btn"
+          disabled={ buttonStatus }
+          onClick={ () => history.push('/receitas-feitas') }
+        >
+          Finalizar
+        </Button>
       </div>
     );
   }

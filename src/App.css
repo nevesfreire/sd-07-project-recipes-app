@@ -39,9 +39,7 @@ button {
 }
 
 .profile {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  height: 90vh;
 }
 
 /* .rocksGlass {
@@ -105,4 +103,8 @@ button {
 .login {
   height: 100vh;
   padding-top: 150px;
+}
+
+.inProgress {
+  height: 100vh;
 }

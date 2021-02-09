@@ -6,6 +6,7 @@ import { apiTheCocktailDB, apiTheMealDB } from '../services';
 import ShareButton from '../components/ShareButton';
 import FavoriteButton from '../components/FavoriteButton';
 import { startRecipe } from '../redux/actions';
+import Loading from '../components/Loading';
 
 class ReceitaComida extends React.Component {
   constructor() {
@@ -81,12 +82,19 @@ class ReceitaComida extends React.Component {
     const ingredientsArray = this.ingredientListHandle();
     const url = window.location.pathname;
     if (recipe === '') {
-      return <p>Loading...</p>;
+      return <Loading />;
     }
 
     return (
       <div>
-        <h1 style={ { background: 'rgb(245, 176, 36)', marginBottom: '10px' } }>Receita de Comida</h1>
+        <h1
+          style={
+            { background: 'rgb(245, 176, 36)',
+              marginBottom: '10px' }
+          }
+        >
+          Receita de Comida
+        </h1>
         <Card
           style={ { width: '20rem',
             background: 'rgb(254, 175, 91)',

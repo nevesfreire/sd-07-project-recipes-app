@@ -52,17 +52,31 @@ class Login extends Component {
   render() {
     const { email, password } = this.state;
     const { sendLoginInfoDispatch } = this.props;
-
+    const color = 'rgba(251, 125, 6, 0.973)';
     return (
       <div className="login">
         <h1>App de Receitas</h1>
         <form>
           <InputGroup style={ { width: '250px', marginLeft: '140px' } }>
             <InputGroup.Prepend>
-              <InputGroup.Text style={ { backgroundColor: 'rgb(245, 176, 36)', borderColor: 'rgba(251, 125, 6, 0.973)', borderTopLeftRadius: '15px', borderBottomLeftRadius: '15px' } } id="basic-addon1">EMAIL</InputGroup.Text>
+              <InputGroup.Text
+                style={
+                  { backgroundColor: 'rgb(245, 176, 36)',
+                    borderColor: color,
+                    borderTopLeftRadius: '15px',
+                    borderBottomLeftRadius: '15px' }
+                }
+                id="basic-addon1"
+              >
+                EMAIL
+              </InputGroup.Text>
             </InputGroup.Prepend>
             <FormControl
-              style={{ borderColor: 'rgba(251, 125, 6, 0.973)', borderTopRightRadius: '15px', borderBottomRightRadius: '15px' }}
+              style={
+                { borderColor: color,
+                  borderTopRightRadius: '15px',
+                  borderBottomRightRadius: '15px' }
+              }
               type="text"
               name="email"
               value={ email }
@@ -72,12 +86,32 @@ class Login extends Component {
               autoComplete="username"
             />
           </InputGroup>
-          <InputGroup style={ { width: '250px', marginLeft: '140px', marginTop: '10px' } }>
+          <InputGroup
+            style={
+              { width: '250px',
+                marginLeft: '140px',
+                marginTop: '10px' }
+            }
+          >
             <InputGroup.Prepend>
-              <InputGroup.Text style={ { backgroundColor: 'rgb(245, 176, 36)', borderColor: 'rgba(251, 125, 6, 0.973)', borderTopLeftRadius: '15px', borderBottomLeftRadius: '15px' } } id="basic-addon1">PASSWORD</InputGroup.Text>
+              <InputGroup.Text
+                style={
+                  { backgroundColor: 'rgb(245, 176, 36)',
+                    borderColor: color,
+                    borderTopLeftRadius: '15px',
+                    borderBottomLeftRadius: '15px' }
+                }
+                id="basic-addon1"
+              >
+                PASSWORD
+              </InputGroup.Text>
             </InputGroup.Prepend>
             <FormControl
-              style={ { borderColor: 'rgba(251, 125, 6, 0.973)', borderTopRightRadius: '15px', borderBottomRightRadius: '15px' } }
+              style={
+                { borderColor: color,
+                  borderTopRightRadius: '15px',
+                  borderBottomRightRadius: '15px' }
+              }
               type="password"
               name="password"
               value={ password }
@@ -102,7 +136,16 @@ class Login extends Component {
           </Button>
         </form>
 
-        <p style={ { marginTop: '203px', background: 'rgb(246, 183, 89)', fontSize: '12px', opacity: '0.8' } }>Made by Group 2 - Bella, Thadeu and Vanessa </p>
+        <p
+          style={
+            { marginTop: '203px',
+              background: 'rgb(246, 183, 89)',
+              fontSize: '12px',
+              opacity: '0.8' }
+          }
+        >
+          Made by Group 2 - Bella, Thadeu and Vanessa
+        </p>
       </div>
     );
   }

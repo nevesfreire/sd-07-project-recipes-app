@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import apiTheMealDB from '../services/apiTheMealDB';
 import RecipesCards from '../components/RecipesCard';
+import Loading from '../components/Loading';
 
 class ExplorarComidasArea extends React.Component {
   constructor() {
@@ -99,7 +100,7 @@ class ExplorarComidasArea extends React.Component {
                 </select>
               </Col>
             </Row>
-          </div>) : <p>Loading...</p>}
+          </div>) : <Loading />}
         { recipes && (
           <Row>
             {recipes.map((item, index) => (
