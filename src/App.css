@@ -124,3 +124,8 @@ color:rgb(80, 80, 80);
   display: flex;
   justify-content: center;
 }
+
+.title {
+  top: 0;
+  position: fixed;
+}

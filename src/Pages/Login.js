@@ -24,6 +24,7 @@ function Login() {
   return (
     <div className="container alinhamento-central">
       <Form>
+        <h1 className="title" >Cadê a receita?</h1>
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email</Form.Label>
           <Form.Control
