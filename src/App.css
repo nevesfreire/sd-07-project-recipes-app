@@ -1,49 +1,49 @@
 /* login */
 .profile-main-content {
-  width: 70%;
   display: flex;
   flex-direction: column;
   margin: 50px auto;
+  width: 70%;
 }
 
 .card-done-recipes {
   margin-left: 40px;
 }
 
-.profile-main-content button{
+.profile-main-content button {
   margin-bottom: 15px;
 }
 
 .profile-main-content p {
-  text-align: center;
   margin-bottom: 35px;
+  text-align: center;
 }
 
 
 .modal-text {
+  margin: auto;
   position: absolute;
   width: 90%;
-  margin: auto;
   z-index: 20;
 }
 
 .loading {
+  align-items: stretch;
   display: flex;
   justify-content: center;
-  align-items: stretch;
   margin-top: 200px;
 }
 
 .search-login-content {
   display: flex;
   flex-direction: column;
-  width: 90%;
   margin: auto;
+  width: 90%;
 }
 
 .search-radio {
-  width: 30%;
   font-size: small;
+  width: 30%;
 }
 
 .login-content {
@@ -110,14 +110,14 @@
 }
 
 .header-content-title {
-  background-color: #DC3545;
+  background-color: #dc3545;
   box-shadow: 0 -4px 5px 9px black;
   color: white;
   text-align: center;
 }
 
 .suggested-img {
-  border: 5px solid hsla(0,0%,89.8%,.36470588235294116);
+  border: 5px solid whitesmoke;
   border-radius: 5px;
   box-shadow: 2px 2px 2px 2px grey;
   margin-bottom: 50px;
@@ -170,8 +170,8 @@
 }
 
 .card-body {
-  padding: 0;
   margin-bottom: 0;
+  padding: 0;
 }
 
 .card-text.card-text-main-page {
@@ -180,12 +180,21 @@
   opacity: 50%;
 }
 
+.card-text.card-text-done-page {
+  color: black;
+  margin-bottom: 0;
+}
+
 .card-title.card-title-main-page {
   color: red;
   font-weight: 900;
   margin: 0;
 }
 
+.card-title.card-title-done-page {
+  color: red;
+  font-weight: 900;
+}
 
 .explore-ingredients-content {
   display: flex;
@@ -206,6 +215,14 @@
 
 .card.single-card-explore-ingredients a {
   text-decoration: none;
+}
+
+.card-tags {
+  background-color: #dc3545;
+  border-radius: 5px;
+  color: white;
+  margin-left: 5px;
+  padding: 0 5px;
 }
 
 .ingredient-text-card {
@@ -282,8 +299,8 @@
 }
 
 .button-footer-fixed {
-  position: fixed;
   bottom: 0;
+  position: fixed;
   width: 100%;
   z-index: 16;
 }

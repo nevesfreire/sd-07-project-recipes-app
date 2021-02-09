@@ -79,7 +79,11 @@ class FavoriteRecipes extends Component {
                 isShared={ isShared }
               />
               <div className="share-like-btn-favorite">
-                <CustomButtonShare url={ `/${favorite.type}s/${favorite.id}` } />
+                <CustomButtonShare
+                  url={ `/${favorite.type}s/${favorite.id}` }
+                  index={ index }
+                  testDone
+                />
                 <button
                   type="button"
                   data-testid={ `${index}-horizontal-favorite-btn` }

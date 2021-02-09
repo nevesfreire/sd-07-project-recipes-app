@@ -18,42 +18,38 @@ class CustomCardRecipeDone extends Component {
             />
             <p
               data-testid={ `${index}-horizontal-name` }
-              className="card-title card-title-main-page card-done-recipes"
+              className="card-title card-title-done-page card-done-recipes"
             >
               {recipe.name}
             </p>
-            <div className="card-text card-text-main-page card-done-recipes">
+            <div className="card-text card-text-done-page card-done-recipes">
               <p
                 data-testid={ `${index}-horizontal-done-date` }
-                className="card-text card-text-main-page"
               >
                 {recipe.doneDate}
               </p>
               <p
                 data-testid={ `${index}-horizontal-top-text` }
-                className="card-text card-text-main-page"
               >
                 {recipe.type === 'comida'
                   ? `${recipe.area} - ${recipe.category}`
                   : recipe.alcoholicOrNot}
               </p>
               {recipe.tags.length > 1 ? (
-                recipe.tags.map((item) => (
-                  <p
-                    key={ index }
-                    data-testid={ `${index}-${item}-horizontal-tag` }
-                    className="card-text card-text-main-page"
-                  >
-                    Tag:
-                    {item}
-                  </p>
-                ))
+                <div>
+                  Tags:
+                  { recipe.tags.map((item) => (
+                    <span
+                      key={ index }
+                      data-testid={ `${index}-${item}-horizontal-tag` }
+                      className="card-tags"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
               ) : (
-                <p data-testid={ `${index}-${recipe.tags}-horizontal-tag` }>
-                  Tag:
-                  {' '}
-                  {recipe.tags}
-                </p>
+                <p data-testid={ `${index}-${recipe.tags}-horizontal-tag` } />
               )}
             </div>
           </Link>
