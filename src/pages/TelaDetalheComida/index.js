@@ -57,16 +57,14 @@ class TelaDetalheComida extends Component {
     const drinkArray = Object.entries(meal[0]);
     const ingredientsArray = drinkArray.filter(
       (element) => element[0].startsWith('strIngredient') && element[1],
-    );
-    return ingredientsArray;
+    ); return ingredientsArray;
   }
 
   handleMeasure(meal) {
     const drinkArray = Object.entries(meal[0]);
     const measuresArray = drinkArray.filter(
       (element) => element[0].startsWith('strMeasure') && element[1],
-    );
-    return measuresArray;
+    ); return measuresArray;
   }
 
   handleFavoriteStart(meal) {
@@ -97,32 +95,32 @@ class TelaDetalheComida extends Component {
         category: meal.strCategory,
         alcoholicOrNot: '',
         name: meal.strMeal,
-        image: meal.strMealThumb,
-      };
+        image: meal.strMealThumb };
       favoritesFromStorage.push(newLocalStorageObj);
       setStorage('favoriteRecipes', favoritesFromStorage);
       this.setState({ isFavorite: true });
     }
   }
 
+  handleStartRecipe(meal) {
+    const { history } = this.props;
+    history.push(`/comidas/${meal[0].idMeal}/in-progress`);
+  }
+
   renderWhiteHeart() {
-    return (
-      <img
-        data-testid="favorite-btn"
-        alt="favorite-btn"
-        src={ whiteHeartIcon }
-      />
-    );
+    return (<img
+      data-testid="favorite-btn"
+      alt="favorite-btn"
+      src={ whiteHeartIcon }
+    />);
   }
 
   renderBlackHeart() {
-    return (
-      <img
-        data-testid="favorite-btn"
-        alt="favorite-btn"
-        src={ blackHeartIcon }
-      />
-    );
+    return (<img
+      data-testid="favorite-btn"
+      alt="favorite-btn"
+      src={ blackHeartIcon }
+    />);
   }
 
   renderDetails(meal) {
@@ -210,12 +208,12 @@ class TelaDetalheComida extends Component {
         <button
           data-testid="start-recipe-btn"
           type="button"
+          onClick={ () => this.handleStartRecipe(meal) }
           style={ { position: 'fixed', bottom: '0px' } }
         >
           Iniciar Receita
         </button>
-      </>
-    );
+      </>);
   }
 
   render() {
@@ -235,13 +233,15 @@ TelaDetalheComida.propTypes = {
   getDetailedMealDispatch: PropTypes.func.isRequired,
   drinksRecommendStore: PropTypes.arrayOf(PropTypes.Object).isRequired,
   getRecommendationDrinks: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   meal: state.detalhesDaReceitaComida.meal.meals,
   drinksRecommendStore: state.detalhesDaReceitaBebida.drinkRecommend.drinks,
 });
-
 const mapDispatchToProps = (dispatch) => ({
   getDetailedMealDispatch: (id) => dispatch(getSpecificMealById(id)),
   getRecommendationDrinks: () => dispatch(getRecommendatedDrinks()),
