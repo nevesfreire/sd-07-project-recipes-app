@@ -8,6 +8,7 @@ import FavoriteCard from './FavoriteCard';
 import DoneCard from './DoneCard';
 import FavoriteButton from './FavoriteButton';
 import ShareButton from './ShareButton';
+import StartButton from './StartButton';
 
 export {
   Header,
@@ -20,4 +21,5 @@ export {
   DoneCard,
   FavoriteButton,
   ShareButton,
+  StartButton,
 };

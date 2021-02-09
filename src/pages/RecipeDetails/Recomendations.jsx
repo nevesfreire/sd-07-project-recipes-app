@@ -13,7 +13,6 @@ export default function Recomendations() {
     slidesToScroll: 2,
   };
   const six = 6;
-
   const fetchRecomendations = async () => {
     try {
       let endpoint = '';

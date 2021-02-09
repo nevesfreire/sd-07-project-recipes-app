@@ -10,4 +10,22 @@ const addToFavLocalStorage = (obj) => {
   localStorage.setItem('favoriteRecipes', JSON.stringify(newList));
 };
 
-export { removeFromFavorites, addToFavLocalStorage };
+const addToRecipesInProgress = (id, type) => {
+  const progressRecipes = localStorage.getItem('inProgressRecipes');
+  if (type === 'meals') {
+    localStorage
+      .setItem('inProgressRecipes', JSON.stringify(
+        { ...JSON.parse(progressRecipes), meals: { ...progressRecipes.meals, [id]: [] } },
+      ));
+  } else if (type === 'cocktails') {
+    localStorage
+      .setItem('inProgressRecipes', JSON.stringify(
+        {
+          ...JSON.parse(progressRecipes),
+          cocktails: { ...progressRecipes.cocktails, [id]: [] },
+        },
+      ));
+  }
+};
+
+export { removeFromFavorites, addToFavLocalStorage, addToRecipesInProgress };

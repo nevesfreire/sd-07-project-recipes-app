@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { FavoriteButton, ShareButton } from '../../components';
+import { FavoriteButton, ShareButton, StartButton } from '../../components';
 import Ingredients from './Ingredients';
 import Recomendations from './Recomendations';
 
@@ -50,18 +50,13 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
     }
   };
 
-  const startRecipe = () => (
-    idMeal
-      ? history.push(`/comidas/${idMeal}/in-progress`)
-      : history.push(`/bebidas/${idDrink}/in-progress`)
-  );
-
   useEffect(() => {
     fetchMealDetails();
   }, []);
 
   return (
     <div className="recipe-detail">
+      {console.log('opa')}
       <div className="container-title-image">
         <img
           className="recipe-photo"
@@ -87,14 +82,12 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
       </p>
       { strYoutube && url() }
       <Recomendations />
-      <button
-        type="button"
-        className="start-recipe-btn"
-        data-testid="start-recipe-btn"
-        onClick={ startRecipe }
-      >
-        Iniciar Receita
-      </button>
+      <StartButton
+        recipeDetails={ recipeDetails }
+        idMeal={ idMeal }
+        idDrink={ idDrink }
+        history={ history }
+      />
     </div>
   );
 }

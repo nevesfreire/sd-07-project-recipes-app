@@ -52,6 +52,15 @@ function Provider({ children }) {
     }
   }, []);
 
+  useEffect(() => {
+    const progressRecipes = localStorage.getItem('inProgressRecipes');
+
+    if (!progressRecipes) {
+      localStorage
+        .setItem('inProgressRecipes', JSON.stringify({ meals: [], cocktails: [] }));
+    }
+  });
+
   const contextValue = {
     login,
     disabled,
