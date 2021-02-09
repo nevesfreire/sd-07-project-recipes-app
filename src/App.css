@@ -84,8 +84,7 @@
   height: 4rem;
   margin-top: 2%;
   max-width: 95%;
-  position: fixed;
-  position: relative;
+  position: fixed relative;
 }
 
 .carousel {
@@ -187,9 +186,9 @@ header {
   column-count: 2;
 }
 
-.card-deck{
+.card-deck {
   display: grid;
-  grid-gap: .2rem; 
+  grid-gap: 0.2rem; 
   justify-content: center;
   margin-left: 2%;
   margin-top: 2%;
@@ -249,7 +248,7 @@ header {
 
 .details-ingredients {
   background-color: #f0f0f1;
-  border-radius: .3rem;
+  border-radius: 0.3rem;
   margin: 1% 2%;
   max-width: 95%;
   padding-bottom: 2%;
@@ -258,7 +257,7 @@ header {
 
 .progress-ingredients {
   background-color: #f0f0f1;
-  border-radius: .3rem;
+  border-radius: 0.3rem;
   margin: 1% 2%;
   max-width: 95%;
   padding-bottom: 2%;
@@ -275,7 +274,7 @@ header {
 
 .details-instructions {
   background-color: #f0f0f1;
-  border-radius: .3rem;
+  border-radius: 0.3rem;
   margin: 1% 2%;
   max-width: 95%;
   padding: 2%;
