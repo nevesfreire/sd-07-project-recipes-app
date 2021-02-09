@@ -129,6 +129,7 @@ class MealRecipeDetails extends Component {
     const maxLength = 6;
     const { cocktails } = this.props;
     const firstCocktails = cocktails.slice(zero, maxLength);
+
     return (
       <div className="recipe-details">
         <img
