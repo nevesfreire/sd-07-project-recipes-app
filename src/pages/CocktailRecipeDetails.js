@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import { getCocktailsDetailsById } from '../services/cocktailsAPI';
-import { fetchRandomMeals } from '../actions/meals';
-import MealCard from '../components/MealCard';
 import shareIcon from '../images/shareIcon.svg';
 import favIconEnabled from '../images/blackHeartIcon.svg';
 import favIconDisabled from '../images/whiteHeartIcon.svg';
+import CarouselMeals from '../components/CarouselMeals';
+import row from '../images/spacer.png';
 import '../styles/recipes.css';
 
 class CocktailRecipeDetails extends Component {
@@ -29,8 +28,6 @@ class CocktailRecipeDetails extends Component {
   }
 
   componentDidMount() {
-    const { searchRandomMeals } = this.props;
-    searchRandomMeals();
     this.fetchAPI();
     this.verifyFavorite();
   }
@@ -134,20 +131,15 @@ class CocktailRecipeDetails extends Component {
       strInstructions,
     } = cocktails.drinks[0];
 
-    const zero = 0;
-    const maxLength = 6;
-    const { meals } = this.props;
-    const firstMeals = meals.slice(zero, maxLength);
-
     return (
       <div className="recipe-details">
         <img
           src={ strDrinkThumb }
-          alt=""
+          alt="Cocktails Thumbnail"
           data-testid="recipe-photo"
           className="recipe-photo"
         />
-        <div className="recipe-header">
+        <div className="recipe-header box-content">
           <h1
             data-testid="recipe-title"
             className="recipe-title"
@@ -160,10 +152,7 @@ class CocktailRecipeDetails extends Component {
               data-testid="share-btn"
               className="action-button"
             >
-              <img
-                src={ shareIcon }
-                alt="share"
-              />
+              <img src={ shareIcon } alt="share" />
             </button>
             <button
               type="button"
@@ -182,7 +171,8 @@ class CocktailRecipeDetails extends Component {
         <span data-testid="recipe-category" className="recipe-category">
           { strAlcoholic }
         </span>
-        <div>
+        <img src={ row } alt="row" className="spacer" />
+        <div className="box-content">
           <h2>Ingredients</h2>
           <ul>
             {ingredients
@@ -197,19 +187,14 @@ class CocktailRecipeDetails extends Component {
               ))}
           </ul>
         </div>
+        <img src={ row } alt="row" className="spacer" />
         <div>
           <h2>Instructions</h2>
           <p data-testid="instructions">{strInstructions}</p>
         </div>
+        <img src={ row } alt="row" className="spacer" />
         <div>
-          { firstMeals.map((meal, index) => (
-            <MealCard
-              key={ index }
-              meals={ meal }
-              index={ index }
-              testid="recomendation-card"
-            />
-          ))}
+          <CarouselMeals />
         </div>
         <div className="start-btn">
           <Link
@@ -225,22 +210,12 @@ class CocktailRecipeDetails extends Component {
   }
 }
 
-const mapStateToProps = ({ meals }) => ({
-  meals: meals.meals,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  searchRandomMeals: () => dispatch(fetchRandomMeals()),
-});
-
 CocktailRecipeDetails.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
-  searchRandomMeals: PropTypes.func.isRequired,
-  meals: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CocktailRecipeDetails);
+export default CocktailRecipeDetails;

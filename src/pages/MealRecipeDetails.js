@@ -5,8 +5,9 @@ import { getMealsDetailsById } from '../services/mealsAPI';
 import shareIcon from '../images/shareIcon.svg';
 import favIconEnabled from '../images/blackHeartIcon.svg';
 import favIconDisabled from '../images/whiteHeartIcon.svg';
+import CarouselCocktails from '../components/CarouselCoktails';
+import row from '../images/spacer.png';
 import '../styles/recipes.css';
-import MealsCarousel from '../components/MealsCarousel';
 
 class MealRecipeDetails extends Component {
   constructor() {
@@ -127,16 +128,23 @@ class MealRecipeDetails extends Component {
       <div className="recipe-details">
         <img
           src={ strMealThumb }
-          alt=""
+          alt="Meal Thumbnail"
           data-testid="recipe-photo"
           className="recipe-photo"
         />
-        <div className="recipe-header">
-          <h1 data-testid="recipe-title" className="recipe-title">
+        <div className="recipe-header box-content">
+          <h1
+            data-testid="recipe-title"
+            className="recipe-title"
+          >
             {strMeal}
           </h1>
           <div className="actions">
-            <button type="button" data-testid="share-btn" className="action-button">
+            <button
+              type="button"
+              data-testid="share-btn"
+              className="action-button"
+            >
               <img src={ shareIcon } alt="share" />
             </button>
             <button
@@ -156,7 +164,8 @@ class MealRecipeDetails extends Component {
         <span data-testid="recipe-category" className="recipe-category">
           { strCategory }
         </span>
-        <div>
+        <img src={ row } alt="row" className="spacer" />
+        <div className="box-content">
           <h2>Ingredients</h2>
           <ul>
             {ingredients
@@ -171,12 +180,14 @@ class MealRecipeDetails extends Component {
               ))}
           </ul>
         </div>
-        <div>
+        <img src={ row } alt="row" className="spacer" />
+        <div className="box-content">
           <h2>Instructions</h2>
           <p data-testid="instructions">{strInstructions}</p>
         </div>
-        <div>
-          <h2>Video</h2>
+        <img src={ row } alt="row" className="spacer" />
+        <div className="video-content">
+          <h2 className="box-content">Video</h2>
           <iframe
             data-testid="video"
             title={ strMeal }
@@ -193,8 +204,9 @@ class MealRecipeDetails extends Component {
             allowFullScreen
           />
         </div>
+        <img src={ row } alt="row" className="spacer" />
         <div>
-          <MealsCarousel />
+          <CarouselCocktails />
         </div>
         <div className="start-btn">
           <Link
