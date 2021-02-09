@@ -1,12 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { FavoriteButton, ShareButton } from '../../components';
-import WhiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import RecipesContext from '../../context/RecipesContext';
+import {
+  addIngredient,
+  getIngredients,
+  setRecipeDone,
+} from '../../services/localStorage';
 
 export default function RecipeInProgress({ history, match: { params: { id } } }) {
-  const [recipesInProgress, setRecipesInProgress] = useState([]);
   const { location: { pathname } } = history;
   const path = pathname.split('/')[1];
+  const [ingredientsChecked, setIngredientChecked] = useState(getIngredients(id, path));
+  const [recipesInProgress, setRecipesInProgress] = useState([]);
+  const { setDoneRecipes } = useContext(RecipesContext);
+
   const fetchFoodDetails = async () => {
     try {
       let endpoint = '';
@@ -18,7 +26,6 @@ export default function RecipeInProgress({ history, match: { params: { id } } })
       const results = await fetch(endpoint)
         .then((response) => response.json())
         .then((details) => (details.meals ? details.meals : details.drinks));
-      // const resultsFiltered = await results.filter((key) => key.value !== null);
       setRecipesInProgress(results[0]);
     } catch (error) {
       console.log(error);
@@ -39,10 +46,7 @@ export default function RecipeInProgress({ history, match: { params: { id } } })
   } = recipesInProgress;
 
   const teste = Object.keys(recipesInProgress);
-  console.log(recipesInProgress);
-  console.log(teste);
   const ingredients = teste.filter((item) => item.includes('strIngredient'));
-  console.log(ingredients);
   const measures = teste.filter((item) => item.includes('strMeasure'));
 
   const arrayVazio = [];
@@ -56,10 +60,26 @@ export default function RecipeInProgress({ history, match: { params: { id } } })
     }
   });
 
+  const isChecked = (name) => {
+    const ingredient = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+    if (path === 'comidas') {
+      return ingredient.meals[id].includes(name[0]);
+    }
+    if (path === 'bebidas') {
+      return ingredient.cocktails[id].includes(name[0]);
+    }
+  };
+
+  const handleDone = () => {
+    setDoneRecipes((prevState) => [...prevState, recipesInProgress]);
+    setRecipeDone(id, path, recipesInProgress);
+    history.push('/receitas-feitas');
+  };
+
   useEffect(() => {
     fetchFoodDetails();
   }, []);
-
   return (
     <div className="recipe-detail">
       <div className="container-title-image">
@@ -90,10 +110,15 @@ export default function RecipeInProgress({ history, match: { params: { id } } })
               data-testid={ `${index}-ingredient-step` }
             >
               <input
+                onClick={ () => {
+                  addIngredient(id, path, name[0]);
+                  setIngredientChecked((prevState) => [...prevState, name[0]]);
+                } }
                 type="checkbox"
                 key={ index }
                 data-testid={ `${index}-ingredient` }
                 value={ index }
+                defaultChecked={ isChecked(name) }
               />
               <span>
                 { name[1] !== null ? `${name[0]} - ${name[1]}` : `${name[0]}` }
@@ -107,7 +132,12 @@ export default function RecipeInProgress({ history, match: { params: { id } } })
       <div data-testid={ `${idMeal || idDrink}-recomendation-card` }>
         { strDrinkAlternate }
       </div>
-      <button type="button" data-testid="finish-recipe-btn">
+      <button
+        type="button"
+        data-testid="finish-recipe-btn"
+        onClick={ handleDone }
+        disabled={ arrayVazio.length !== ingredientsChecked.length }
+      >
         Finalizar Receita
       </button>
     </div>
@@ -124,5 +154,6 @@ RecipeInProgress.propTypes = {
     location: PropTypes.shape({
       pathname: PropTypes.string.isRequired,
     }),
+    push: PropTypes.func.isRequired,
   }).isRequired,
 };
