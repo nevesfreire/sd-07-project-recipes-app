@@ -42,6 +42,7 @@ function Drink() {
     setArrayCategory(await filterDrinkCategory(category));
     setCategoryName(category);
   };
+
   useEffect(() => {
     const getDrinkByIngredients = async () => {
       const getdrinkByIngredient = await getDrinkIngredients(data.ingredient);

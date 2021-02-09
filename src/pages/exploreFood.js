@@ -1,9 +1,21 @@
-import React, { } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import profileIcon from '../images/profileIcon.svg';
+import { getRandomFood } from '../services/Api';
 
 function ExploreFood() {
+  const { push } = useHistory();
+  const [fetchFood, setFetchFood] = useState();
+
+  useEffect(() => {
+    async function randomFood() {
+      const fetch = await getRandomFood();
+      setFetchFood(fetch[0]);
+    }
+    randomFood();
+  }, []);
+
   return (
     <div>
       <header>
@@ -33,14 +45,13 @@ function ExploreFood() {
             Por Local de Origem
           </button>
         </Link>
-        <Link to="/AQUI VAI A API">
-          <button
-            data-testid="explore-surprise"
-            type="button"
-          >
-            Me Surpreenda!
-          </button>
-        </Link>
+        <button
+          data-testid="explore-surprise"
+          type="button"
+          onClick={ () => push(`/comidas/${fetchFood.idMeal}`) }
+        >
+          Me Surpreenda!
+        </button>
       </div>
       <Footer />
     </div>
