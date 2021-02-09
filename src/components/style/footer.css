@@ -1,0 +1,10 @@
+.footer-container {
+  align-items: center;
+  background-color: rgba(15, 163, 107, 0.7);
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  height: 10vh;
+  width: 100%;
+}

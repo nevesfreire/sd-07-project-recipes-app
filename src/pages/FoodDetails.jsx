@@ -131,51 +131,61 @@ export default function FoodDetails(props) {
       />
       <p data-testid="recipe-title" className="recipe-details-name">
         { getRecipeTitle }
+        <div data-testid="recipe-category">{getRecipeCategory}</div>
       </p>
       <div className="favorite-and-share-btn-container">
+
         <button type="button" onClick={ handleImage } className="favorite-btn">
           <img src={ btnImg } alt="like" data-testid="favorite-btn" />
         </button>
         <ShareButton path={ pathname } />
       </div>
-      <p className="recipe-details-category">
-        Category-
-        <span data-testid="recipe-category">{getRecipeCategory}</span>
-      </p>
-      <ul className="ingredients-list">
-        {getRecipeIngredients.map((item, index) => (
-          <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-            {item}
-          </li>
-        ))}
-      </ul>
-      <h3 data-testid="instructions" className="recipe-details-instructions">
-        {getRecipeInstructions}
-      </h3>
+
+      <div className="ingredients-list">
+        <h2>Ingredientes</h2>
+        <ul>
+          {getRecipeIngredients.map((item, index) => (
+            <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div data-testid="instructions" className="recipe-details-instructions">
+        <h2>Instruções</h2>
+        <div>{getRecipeInstructions}</div>
+      </div>
+
       <iframe
         src={ getRecipeVideo }
         title={ getRecipeTitle }
         data-testid="video"
         className="recipe-details-video"
       />
-      <h3>Recommendations:</h3>
-      <ShowRecommended
-        recommendation1={ recommendations1 }
-        recommendation2={ recommendations2 }
-        carouselActiveIndex={ carouselActiveIndex }
-        carouselActiveIndex1={ carouselActiveIndex1 }
-        carouselPartition={ carouselPartition }
-      />
-      {buttonMount(id) && (
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-          className="start-recipe-btn"
-          onClick={ handleClick }
-        >
-          { btnTitle }
-        </button>
-      )}
+      <div className="recommendations-container">
+        <h2>Recomendações:</h2>
+        <ShowRecommended
+          recommendation1={ recommendations1 }
+          recommendation2={ recommendations2 }
+          carouselActiveIndex={ carouselActiveIndex }
+          carouselActiveIndex1={ carouselActiveIndex1 }
+          carouselPartition={ carouselPartition }
+        />
+      </div>
+
+      <div>
+        {buttonMount(id) && (
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            className="start-recipe-btn"
+            onClick={ handleClick }
+          >
+            { btnTitle }
+          </button>
+        )}
+      </div>
     </div>
   );
 }

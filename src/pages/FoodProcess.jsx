@@ -161,35 +161,41 @@ function FoodProcess({
         </button>
         <ShareButton path={ pathname } />
       </div>
-      <h3 className="recipe-in-progress-category">
-        Category-
+
+      <div className="recipe-in-progress-category">
         <span data-testid="recipe-category">{ getRecipeCategory }</span>
-      </h3>
-      <ul className="ingredients-checklist">
-        { !isLoading && getRecipeIngredients.map((item, index) => (
-          <li
-            key={ item }
-            data-testid={ `${index}-ingredient-step` }
-          >
-            <label
-              htmlFor={ item }
-              className={ handleClass(item) }
+      </div>
+
+      <div className="ingredients-checklist">
+        <h2>Ingredientes</h2>
+        <ul>
+          { !isLoading && getRecipeIngredients.map((item, index) => (
+            <li
+              key={ item }
+              data-testid={ `${index}-ingredient-step` }
             >
-              <input
-                type="checkbox"
-                checked={ handleCheckedFromLocalStorage(item, id) }
-                name={ item }
-                id={ item }
-                onChange={ handleChecked }
-              />
-              { item }
-            </label>
-          </li>
-        ))}
-      </ul>
-      <p data-testid="instructions" className="recipe-in-progress-instructions">
-        {getRecipeInstructions}
-      </p>
+              <label
+                htmlFor={ item }
+                className={ handleClass(item) }
+              >
+                <input
+                  type="checkbox"
+                  checked={ handleCheckedFromLocalStorage(item, id) }
+                  name={ item }
+                  id={ item }
+                  onChange={ handleChecked }
+                />
+                { item }
+              </label>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div data-testid="instructions" className="recipe-in-progress-instructions">
+        <h2>Instruções</h2>
+        <div>{getRecipeInstructions}</div>
+      </div>
       <Link to="/receitas-feitas">
         <button
           type="button"

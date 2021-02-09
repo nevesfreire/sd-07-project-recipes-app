@@ -67,6 +67,7 @@ export default function Login(props) {
       <form className="login-form">
         <input
           required
+          className="login-form-email"
           id="email"
           type="email"
           name="email"
@@ -75,28 +76,31 @@ export default function Login(props) {
           data-testid="email-input"
           onChange={ (event) => setEmail(event.target.value) }
         />
-        <input
-          required
-          id="password"
-          type="password"
-          placeholder="Digite sua senha"
-          value={ password }
-          data-testid="password-input"
-          onChange={ (event) => setPassword(event.target.value) }
-        />
-        <button
-          className="login-form-btn"
-          id="submit-btn"
-          type="submit"
-          data-testid="login-submit-btn"
-          disabled={ infoVerifier() }
-          onClick={ (event) => {
-            handleChange(event);
-            history.push('/comidas');
-          } }
-        >
-          Entrar
-        </button>
+        <div>
+          <input
+            required
+            className="login-form-pass"
+            id="password"
+            type="password"
+            placeholder="Digite sua senha"
+            value={ password }
+            data-testid="password-input"
+            onChange={ (event) => setPassword(event.target.value) }
+          />
+          <button
+            className="login-form-btn"
+            id="submit-btn"
+            type="submit"
+            data-testid="login-submit-btn"
+            disabled={ infoVerifier() }
+            onClick={ (event) => {
+              handleChange(event);
+              history.push('/comidas');
+            } }
+          >
+            Entrar
+          </button>
+        </div>
       </form>
     </div>
   );

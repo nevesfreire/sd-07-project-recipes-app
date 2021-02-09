@@ -1,0 +1,17 @@
+.header-info-display {
+  align-items: center;
+  background-color: rgb(15, 163, 107);
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  width: 100vw;
+}
+
+.header-btn {
+  background: none;
+  border: none;
+}
+
+.header-btn:focus {
+  outline: none;
+}

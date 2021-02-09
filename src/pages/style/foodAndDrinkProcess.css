@@ -3,18 +3,23 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  margin-bottom: 5vh;
 }
 
 .recipe-in-progress-image {
-  border-radius: 10px;
-  width: 80%;
+  width: 100vw;
 }
 
 .recipe-in-progress-name {
-  color: white;
-  font-size: 40px;
+  align-items: center;
+  background-color: rgb(243, 243, 243);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.322);
+  display: flex;
+  font-size: 2em;
   text-align: center;
-  text-shadow: black 1px -1px , black -1px 1px , black 1px 1px , black -1px -1px;
+  justify-content: center;
+  height: 6vh;
+  width: 100vw;
 }
 
 .favorite-and-share-btn-container {
@@ -32,48 +37,68 @@
 }
 
 .recipe-in-progress-category {
+  align-items: center;
+  background-color: rgb(15, 163, 107);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.322);
+  border-radius: 3rem;
   display: flex;
-  font-size: 24px;
-  font-weight: 900;
-  justify-content: space-around;
-  margin-top: 25px;
-  text-align: center;
+  color: white;
+  font-size: 1em;
+  position: absolute;
+  top: 50%;
+  height: 4vh;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+ul {
+  overflow-y: auto;
+  height: auto;
+  max-height: 70vh;
 }
 
 /* https://www.w3schools.com/howto/howto_js_todolist.asp */
 ul li {
-  background: #eee;
+  align-items: center;
+  font-family: cursive;
+  background: rgb(216, 216, 216);
   cursor: pointer;
-  font-size: 18px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.322);
+  display: flex;
+  font-size: 1.2em;
+  justify-content: center;
   list-style-type: none;
-  margin-left: 20px;
-  margin-top: 20px;
-  padding: 12px 8px 12px 40px;
+  margin-top: 0.5rem;
+  padding: 1rem;
   position: relative;
   transition: 0.2s;
   user-select: none;
+  width: 90vw;
+}
+
+ul li input {
+  margin-right: 0.5rem;
 }
 
 /* Set all odd list items to a different color (zebra-stripes) */
 ul li:nth-child( odd ) {
-  background: #f9f9f9;
+  background: #e6e6e6;
 }
 
 /* Darker background-color on hover */
 ul li:hover {
-  background: #ddd;
+  background: rgba(150, 150, 150, 0.705);
 }
 
 /* When clicked on, add a background color and strike out text */
 ul li .is-checked {
-  background: grey;
-  color: white;
+  /* background: grey; */
   text-decoration: line-through;
 }
 
 /* Add a "checked" mark when clicked on */
-ul li .is-checked:before {
-  border-color: white;
+/* ul li .is-checked:before {
+  border-color: green;
   border-style: solid;
   border-width: 0 2px 2px 0;
   content: '';
@@ -83,10 +108,40 @@ ul li .is-checked:before {
   top: 10px;
   transform: rotate(45deg);
   width: 7px;
-}
+} */
 
 .recipe-in-progress-instructions {
-  border: 1px solid silver;
-  margin: 20px;
+  align-items: center;
+  flex-direction: column;
+  display: flex;
+  font-size: 1.2em;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  font-family: cursive;
   text-align: justify;
+  padding: 10px;
+}
+
+.recipe-in-progress-instructions div {
+  overflow-y: auto;
+  height: auto;
+  max-height: 70vh;
+}
+
+.finish-recipe-btn {
+  background-color: rgba(15, 163, 107, 0.7);
+  border: none;
+  border-radius: 3rem;
+  font-size: 1em;
+  height: 55px;
+  width: 40vw;
+}
+
+.ingredients-checklist {
+  text-align: center;
+  font-family: cursive;
+}
+
+.ingredients-checklist ul {
+  padding-inline-start: 0;
 }

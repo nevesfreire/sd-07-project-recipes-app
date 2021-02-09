@@ -1,0 +1,35 @@
+:root {
+
+  --red: rgba(173, 35, 35, 0.219);
+
+  --green: rgba(81, 201, 105, 0.164);
+
+  --bg-linear-gradient: linear-gradient(-135deg, var(--green) 50%, var(--red));
+}
+
+.profile-container {
+  background-image: var(--bg-linear-gradient) , url('/images/profile.jpg');
+  background-size: cover;
+  height: 100vh;
+}
+
+.email-container {
+  align-items: center;
+  color: white;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  height: 70vh;
+}
+
+.btn-bar {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+}
+
+.profile-container button {
+  border: none;
+  border-radius: 3rem;
+  height: 5vh;
+}

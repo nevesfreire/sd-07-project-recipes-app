@@ -1,22 +1,23 @@
-.card-container {
-  align-items: center;
-  background-color: white;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 3px rgba(178, 179, 182, 1);
-  display: flex;
-  margin: 0.2rem;
-  padding: 1rem;
-  width: 80vw;
-}
-
 .card-name {
+  align-items: center;
+  color: white;
   display: flex;
-  font-size: 2em;
   justify-content: center;
+  position: absolute;
+  font-size: 2em;
+  text-shadow: 0 0 5px black;
+  text-align: center;
+  font-family: 'Lobster', cursive;
   width: 100%;
 }
 
 .card-img {
-  border-radius: 1rem;
-  width: 40%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.card-img:last-child {
+  height: 25vh;
+  margin-bottom: 1vh;
+  width: 100%;
 }

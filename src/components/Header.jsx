@@ -4,6 +4,7 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchHeader from './SearchHeader';
 import GlobalContext from '../context/GlobalContext';
+import './style/header.css';
 
 function Header() {
   const {
@@ -22,25 +23,25 @@ function Header() {
   };
 
   const handlerSearchBtn = () => (
-    <button type="button" onClick={ () => handleClick() }>
+    <button className="header-btn" type="button" onClick={ () => handleClick() }>
       <img src={ searchIcon } data-testid="search-top-btn" alt="Search Icon" />
     </button>
   );
 
   return (
-    <header className="header">
-      <Link to="/perfil">
-        <img
-          src={ profileIcon }
-          data-testid="profile-top-btn"
-          alt="Profile Icon"
-        />
-      </Link>
-
-      <h1 data-testid="page-title">{title}</h1>
-      {searchButton && handlerSearchBtn()}
-
-      {searchBar && <SearchHeader />}
+    <header>
+      <div className="header-info-display">
+        <Link to="/perfil">
+          <img
+            src={ profileIcon }
+            data-testid="profile-top-btn"
+            alt="Profile Icon"
+          />
+        </Link>
+        <h1 data-testid="page-title">{title}</h1>
+        {searchButton && handlerSearchBtn()}
+        {searchBar && <SearchHeader />}
+      </div>
     </header>
   );
 }

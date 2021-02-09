@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import GlobalContext from '../context/GlobalContext';
+import './style/searchHeader.css';
 
 function SearchHeader() {
   const { pathname } = useLocation();
@@ -27,9 +28,10 @@ function SearchHeader() {
   const handleChange = (e) => setType(e.target.value);
 
   return (
-    <form>
+    <form className="search-header-container">
       <div>
         <input
+          className="search-header-search-bar"
           name="input"
           placeholder="Buscar receita"
           type="text"
@@ -37,8 +39,17 @@ function SearchHeader() {
           value={ upSearchBar }
           onChange={ ({ target }) => setUpSearchBar(target.value) }
         />
+
+        <button
+          className="search-header-search-btn"
+          type="button"
+          data-testid="exec-search-btn"
+          onClick={ handleClick }
+        >
+          Buscar
+        </button>
       </div>
-      <div>
+      <div className="search-header-radio-btn-container">
         <label htmlFor="ingredients">
           <input
             name="input"
@@ -75,15 +86,6 @@ function SearchHeader() {
           />
           Primeira letra
         </label>
-      </div>
-      <div>
-        <button
-          type="button"
-          data-testid="exec-search-btn"
-          onClick={ handleClick }
-        >
-          Buscar
-        </button>
       </div>
     </form>
   );

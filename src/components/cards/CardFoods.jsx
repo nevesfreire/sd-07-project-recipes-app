@@ -15,17 +15,17 @@ export default function Cards() {
             className="card-container"
             data-testid={ `${index}-recipe-card` }
           >
+            <div className="card-name">
+              <span data-testid={ `${index}-card-name` }>
+                {strMeal}
+              </span>
+            </div>
             <img
               className="card-img"
               data-testid={ `${index}-card-img` }
               src={ strMealThumb }
               alt={ `Imagem da receita ${strMeal}` }
             />
-            <div className="card-name">
-              <span data-testid={ `${index}-card-name` }>
-                {strMeal}
-              </span>
-            </div>
           </div>
         </Link>,
       );

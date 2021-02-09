@@ -40,7 +40,7 @@ export default function FoodCategories() {
   }, [fnFetchCategories]);
 
   return (
-    <div className="btn-bar">
+    <div className="foods-categories">
       {categories.map((cat, index) => (
         <button
           className="btn-bar-category"

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
+import './style/share-button.css';
 
 function ShareButton({ path }) {
   const [pathImage, setPathImage] = useState();

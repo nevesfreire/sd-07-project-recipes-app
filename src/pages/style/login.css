@@ -22,24 +22,31 @@
 }
 
 .login-form {
-  align-items: center;
   display: flex;
   flex-direction: column;
 }
 
 .login-form input {
   border: none;
-  border-radius: 2em;
   box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.212);
   height: 7vh;
   margin-bottom: 1em;
   text-align: center;
-  width: 70vw;
 }
 
 .login-form input:focus {
   box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.466);
   outline: none;
+}
+
+.login-form-email {
+  border-radius: 2em;
+  width: 70vw;
+}
+
+.login-form-pass {
+  border-radius: 2em 0 0 2em;
+  width: 50vw;
 }
 
 .login-form div {
@@ -49,8 +56,8 @@
 .login-form-btn {
   background: white;
   border: none;
-  border-radius: 2em;
+  border-radius: 0 2em 2em 0;
   box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.212);
   height: 7vh;
-  width: 30vw;
+  width: 20vw;
 }

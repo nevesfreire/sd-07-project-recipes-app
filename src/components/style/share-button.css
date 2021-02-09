@@ -1,0 +1,29 @@
+.share-btn-container {
+  position: absolute;
+  left: 70vw;
+  top: 20vh;
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.2em;
+}
+
+.share-btn {
+  background: none;
+  border: none;
+}
+
+.share-btn:focus {
+  outline: none;
+}
+
+.share-btn img {
+  height: 15vw;
+}
+
+.share-text {
+  color: white;
+  text-shadow: 1px 2px 2px black;
+  position: absolute;
+  top: 8vh;
+}

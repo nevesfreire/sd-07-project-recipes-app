@@ -165,6 +165,7 @@ export default function DrinkDetails(props) {
       <div>
         <p data-testid="recipe-title" className="recipe-details-name">
           { getRecipeTitle }
+          <div data-testid="recipe-category">{getRecipeAlc}</div>
         </p>
         <div className="favorite-and-share-btn-container">
           <button type="button" onClick={ handleImage } className="favorite-btn">
@@ -173,20 +174,23 @@ export default function DrinkDetails(props) {
           <ShareButton path={ pathname } />
         </div>
       </div>
-      <p className="recipe-details-category">
-        Category-
-        <span data-testid="recipe-category">{getRecipeAlc}</span>
-      </p>
-      <ul className="ingredients-list">
-        {getRecipeIngredients.map((item, index) => (
-          <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-            {item}
-          </li>
-        ))}
-      </ul>
-      <h3 data-testid="instructions" className="recipe-details-instructions">
-        {getRecipeInstructions}
-      </h3>
+
+      <div className="ingredients-list">
+        <h2>Ingredientes</h2>
+        <ul>
+          {getRecipeIngredients.map((item, index) => (
+            <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div data-testid="instructions" className="recipe-details-instructions">
+        <h2>Instruções</h2>
+        <div>{getRecipeInstructions}</div>
+      </div>
+
       <h3>Recommendations:</h3>
       <ShowRecommended
         recommendation1={ recommendations1 }
