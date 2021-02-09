@@ -6,6 +6,9 @@ import Category from './Category';
 import IngredientCard from './IngredientCard';
 import FavoriteCard from './FavoriteCard';
 import DoneCard from './DoneCard';
+import FavoriteButton from './FavoriteButton';
+import ShareButton from './ShareButton';
+import StartButton from './StartButton';
 
 export {
   Header,
@@ -16,4 +19,7 @@ export {
   IngredientCard,
   FavoriteCard,
   DoneCard,
+  FavoriteButton,
+  ShareButton,
+  StartButton,
 };

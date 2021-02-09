@@ -1,34 +1,16 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { RecipesContext } from '../../context';
-import ShareIcon from '../../images/shareIcon.svg';
-import WhiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import { FavoriteButton, ShareButton, StartButton } from '../../components';
+import Ingredients from './Ingredients';
 import Recomendations from './Recomendations';
-import BlackHeartIcon from '../../images/blackHeartIcon.svg';
 
 export default function RecipeDetails({ history, match: { params: { id } } }) {
   const [recipeDetails, setRecipeDetails] = useState([]);
-  const { favorites, disfavor, addToFavorites } = useContext(RecipesContext);
-  const fetchMealDetails = async () => {
-    try {
-      let endpoint = '';
-      const { location: { pathname } } = history;
-      const path = pathname.split('/')[1];
-      if (path === 'comidas') {
-        endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
-      } else {
-        endpoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
-      }
-      const results = await fetch(endpoint)
-        .then((response) => response.json())
-        .then((details) => (details.meals ? details.meals : details.drinks));
-      setRecipeDetails(results[0]);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+  const { location: { pathname } } = history;
+  const path = pathname.split('/')[1];
   const {
+    idMeal,
+    idDrink,
     strMealThumb,
     strMeal,
     strCategory,
@@ -51,37 +33,20 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
       />
     );
   };
-
-  const teste = Object.keys(recipeDetails);
-  const ingredients = teste.filter((item) => item.includes('strIngredient'));
-  const measures = teste.filter((item) => item.includes('strMeasure'));
-
-  const arrayVazio = [];
-  ingredients.forEach((ingredient, index) => {
-    if (
-      (recipeDetails[ingredient]
-      && recipeDetails[ingredient] !== ' '
-      && recipeDetails[ingredient] !== null)) {
-      arrayVazio.push([recipeDetails[ingredient], recipeDetails[measures[index]]]);
-    }
-  });
-
-  const isFavorited = () => {
-    // const zero = 0;
-    // console.log(recipeDetails);
-    if (recipeDetails.idMeal) {
-      // console.log(recipeDetails);
-      return favorites.some((recipe) => recipe.id === id);
-    }
-  };
-
-  const addOrRemoveFavorites = () => {
-    // console.log(isFavorited());
-    if (isFavorited()) {
-      disfavor(id);
-    } else {
-      // console.log(recipeDetails);
-      addToFavorites(recipeDetails);
+  const fetchMealDetails = async () => {
+    try {
+      let endpoint = '';
+      if (path === 'comidas') {
+        endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+      } else {
+        endpoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+      }
+      const results = await fetch(endpoint)
+        .then((response) => response.json())
+        .then((details) => (details.meals ? details.meals : details.drinks));
+      setRecipeDetails(results[0]);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -91,6 +56,7 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
 
   return (
     <div className="recipe-detail">
+      {console.log('opa')}
       <div className="container-title-image">
         <img
           className="recipe-photo"
@@ -101,20 +67,8 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
         <h1 data-testid="recipe-title">
           { strMeal || strDrink }
         </h1>
-        <button type="button" data-testid="share-btn">
-          <img src={ ShareIcon } alt="share" />
-        </button>
-        <button
-          type="button"
-          data-testid="favorite-btn"
-          onClick={ addOrRemoveFavorites }
-        >
-          <img
-            src={ isFavorited() ? BlackHeartIcon : WhiteHeartIcon }
-            alt="favorite recipe"
-          />
-          {/* acrescentar lógica para mudar icone se favoritada */}
-        </button>
+        <ShareButton path={ path } id={ id } />
+        <FavoriteButton id={ id } recipeDetails={ recipeDetails } />
         <h4
           className="recipe-category"
           data-testid="recipe-category"
@@ -122,25 +76,18 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
           { strAlcoholic || strCategory }
         </h4>
       </div>
-      <ul className="container-ingredients">
-        { arrayVazio.map((name, index) => (
-          <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-            { name[1] !== null ? `${name[0]} - ${name[1]}` : `${name[0]}` }
-          </li>
-        ))}
-      </ul>
+      <Ingredients recipeDetails={ recipeDetails } />
       <p data-testid="instructions">
         { strInstructions }
       </p>
       { strYoutube && url() }
       <Recomendations />
-      <button
-        type="button"
-        className="start-recipe-btn"
-        data-testid="start-recipe-btn"
-      >
-        Iniciar Receita
-      </button>
+      <StartButton
+        recipeDetails={ recipeDetails }
+        idMeal={ idMeal }
+        idDrink={ idDrink }
+        history={ history }
+      />
     </div>
   );
 }
@@ -155,5 +102,6 @@ RecipeDetails.propTypes = {
     location: PropTypes.shape({
       pathname: PropTypes.string.isRequired,
     }),
+    push: PropTypes.func.isRequired,
   }).isRequired,
 };

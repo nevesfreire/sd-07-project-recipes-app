@@ -6,7 +6,6 @@ import './DoneRecipes.css';
 export default function DoneRecipes() {
   const { doneRecipes, setDoneRecipes } = useContext(RecipesContext);
   const defaultRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-  console.log(doneRecipes);
 
   return (
     <div className="done-recipes-container">

@@ -10,7 +10,7 @@ function Provider({ children }) {
   const [inputValues, setInputValues] = useState({ radio: 'Nome', input: '' });
   const [meals, setMeals] = useState([]);
   const [drinks, setDrinks] = useState([]);
-
+  const [showCopied, setShowCopied] = useState(false);
   const [favorites, setFavorites] = useState([]);
   const [doneRecipes, setDoneRecipes] = useState([]);
 
@@ -23,12 +23,13 @@ function Provider({ children }) {
     const newObject = {
       id: obj.idMeal || obj.idDrink,
       type: obj.idMeal ? 'comida' : 'bebida',
-      area: obj.strArea,
+      area: obj.idMeal ? obj.strArea : '',
       category: obj.strCategory,
-      alcoholicOrNot: obj.strAlcoholic,
+      alcoholicOrNot: obj.idDrink ? obj.strAlcoholic : '',
       name: obj.strMeal || obj.strDrink,
       image: obj.strMealThumb || obj.strDrinkThumb,
     };
+
     addToFavLocalStorage(newObject);
     setFavorites((prevState) => [...prevState, newObject]);
   };
@@ -51,6 +52,15 @@ function Provider({ children }) {
     }
   }, []);
 
+  useEffect(() => {
+    const progressRecipes = localStorage.getItem('inProgressRecipes');
+
+    if (!progressRecipes) {
+      localStorage
+        .setItem('inProgressRecipes', JSON.stringify({ meals: [], cocktails: [] }));
+    }
+  });
+
   const contextValue = {
     login,
     disabled,
@@ -60,6 +70,7 @@ function Provider({ children }) {
     inputValues,
     favorites,
     doneRecipes,
+    showCopied,
     setLogin,
     setDisabled,
     setMeals,
@@ -70,6 +81,7 @@ function Provider({ children }) {
     setDoneRecipes,
     disfavor,
     addToFavorites,
+    setShowCopied,
   };
 
   return (

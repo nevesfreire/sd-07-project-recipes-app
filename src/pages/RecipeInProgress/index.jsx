@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import ShareIcon from '../../images/shareIcon.svg';
+import { FavoriteButton, ShareButton } from '../../components';
 import WhiteHeartIcon from '../../images/whiteHeartIcon.svg';
 
 export default function RecipeInProgress({ history, match: { params: { id } } }) {
   const [recipesInProgress, setRecipesInProgress] = useState([]);
+  const { location: { pathname } } = history;
+  const path = pathname.split('/')[1];
   const fetchFoodDetails = async () => {
     try {
       let endpoint = '';
-      const { location: { pathname } } = history;
-      const path = pathname.split('/')[1];
-      console.log(path);
       if (path === 'comidas') {
         endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
       } else {
@@ -19,7 +18,6 @@ export default function RecipeInProgress({ history, match: { params: { id } } })
       const results = await fetch(endpoint)
         .then((response) => response.json())
         .then((details) => (details.meals ? details.meals : details.drinks));
-      console.log(results);
       // const resultsFiltered = await results.filter((key) => key.value !== null);
       setRecipesInProgress(results[0]);
     } catch (error) {
@@ -40,10 +38,6 @@ export default function RecipeInProgress({ history, match: { params: { id } } })
     strDrinkThumb,
   } = recipesInProgress;
 
-  useEffect(() => {
-    fetchFoodDetails();
-  }, []);
-
   const teste = Object.keys(recipesInProgress);
   console.log(recipesInProgress);
   console.log(teste);
@@ -51,9 +45,20 @@ export default function RecipeInProgress({ history, match: { params: { id } } })
   console.log(ingredients);
   const measures = teste.filter((item) => item.includes('strMeasure'));
 
-  const ops = ingredients
-    .map((item, index) => [item, measures[index]]);
-  console.log(measures);
+  const arrayVazio = [];
+  ingredients.forEach((ingredient, index) => {
+    if (
+      (recipesInProgress[ingredient]
+      && recipesInProgress[ingredient] !== ' '
+      && recipesInProgress[ingredient] !== null)) {
+      arrayVazio.push([recipesInProgress[ingredient],
+        recipesInProgress[measures[index]]]);
+    }
+  });
+
+  useEffect(() => {
+    fetchFoodDetails();
+  }, []);
 
   return (
     <div className="recipe-detail">
@@ -67,9 +72,8 @@ export default function RecipeInProgress({ history, match: { params: { id } } })
         <h1 data-testid="recipe-title">
           { strMeal || strDrink }
         </h1>
-        <button type="button" data-testid="share-btn">
-          <img src={ ShareIcon } alt="share" />
-        </button>
+        <ShareButton path={ path } id={ id } />
+        <FavoriteButton id={ id } recipeDetails={ recipesInProgress } />
         <button type="button" data-testid="favorite-btn">
           <img src={ WhiteHeartIcon } alt="favorite recipe" />
           {/* acrescentar lógica para mudar icone se favoritada */}
@@ -82,7 +86,7 @@ export default function RecipeInProgress({ history, match: { params: { id } } })
         </h4>
       </div>
       <div className="container-ingredients">
-        { ops
+        { arrayVazio
           .map((name, index) => (
             <label
               key={ index }
@@ -96,7 +100,7 @@ export default function RecipeInProgress({ history, match: { params: { id } } })
                 value={ index }
               />
               <span>
-                { `${recipesInProgress[name[0]]} - ${recipesInProgress[name[1]]}`}
+                { name[1] !== null ? `${name[0]} - ${name[1]}` : `${name[0]}` }
               </span>
             </label>
           ))}
@@ -107,7 +111,7 @@ export default function RecipeInProgress({ history, match: { params: { id } } })
       <div data-testid={ `${idMeal || idDrink}-recomendation-card` }>
         { strDrinkAlternate }
       </div>
-      <button type="button" data-testid="start-recipe-btn">
+      <button type="button" data-testid="finish-recipe-btn">
         Finalizar Receita
       </button>
     </div>
