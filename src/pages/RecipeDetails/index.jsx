@@ -1,17 +1,11 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { RecipesContext } from '../../context';
-import copyLink from '../../services/clipBoard';
+import { FavoriteButton, ShareButton } from '../../components';
 import Ingredients from './Ingredients';
-import ShareIcon from '../../images/shareIcon.svg';
-import WhiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import Recomendations from './Recomendations';
-import BlackHeartIcon from '../../images/blackHeartIcon.svg';
 
 export default function RecipeDetails({ history, match: { params: { id } } }) {
   const [recipeDetails, setRecipeDetails] = useState([]);
-  const [showCopied, setShowCopied] = useState(false);
-  const { favorites, disfavor, addToFavorites } = useContext(RecipesContext);
   const { location: { pathname } } = history;
   const path = pathname.split('/')[1];
   const {
@@ -54,29 +48,6 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
     }
   };
 
-  const isFavorited = () => {
-    if (recipeDetails.idMeal || recipeDetails.idDrink) {
-      return favorites.some((recipe) => recipe.id === id);
-    }
-  };
-
-  const addOrRemoveFavorites = () => {
-    if (isFavorited()) {
-      disfavor(id);
-    } else {
-      addToFavorites(recipeDetails);
-    }
-  };
-
-  const shareLink = () => {
-    const { length } = path;
-    const zero = 0;
-    const one = 1;
-    const type = path.substring(zero, length - one);
-    copyLink(id, type);
-    setShowCopied(true);
-  };
-
   useEffect(() => {
     fetchMealDetails();
   }, []);
@@ -93,27 +64,8 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
         <h1 data-testid="recipe-title">
           { strMeal || strDrink }
         </h1>
-        <button type="button">
-          <img
-            onClick={ shareLink }
-            role="presentation"
-            data-testid="share-btn"
-            src={ ShareIcon }
-            alt="share"
-          />
-        </button>
-        <button
-          type="button"
-          onClick={ addOrRemoveFavorites }
-        >
-          <img
-            data-testid="favorite-btn"
-            src={ isFavorited() ? BlackHeartIcon : WhiteHeartIcon }
-            alt="favorite recipe"
-          />
-          {/* acrescentar lógica para mudar icone se favoritada */}
-        </button>
-        { !showCopied || <p>Link copiado!</p>}
+        <ShareButton path={ path } id={ id } />
+        <FavoriteButton id={ id } recipeDetails={ recipeDetails } />
         <h4
           className="recipe-category"
           data-testid="recipe-category"
