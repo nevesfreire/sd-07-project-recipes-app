@@ -4,7 +4,7 @@ import { whiteHeartIcon, blackHeartIcon } from '../images';
 import { Button } from './Contructors';
 import { useLocalStorage } from '../hooks';
 
-export default function FavoriteFoodButton({ foodArr }) {
+export default function FavoriteFoodButton({ foodArr = [] }) {
   const { idMeal, strArea, strMeal, strMealThumb, strCategory } = foodArr;
 
   const [favoriteRecipes, setStorage] = useLocalStorage('favoriteRecipes');
