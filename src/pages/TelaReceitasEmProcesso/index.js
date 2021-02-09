@@ -94,8 +94,8 @@ class TelaDeReceitaEmProcesso extends Component {
   }
 
   renderDetailsDrink(drink) {
-    const ingredientsArray = this.handleIngredients(drink);
-    const measuresArray = this.handleMeasure(drink);
+    // const ingredientsArray = this.handleIngredients(drink);
+    // const measuresArray = this.handleMeasure(drink);
 
     return (
       <>
@@ -109,14 +109,14 @@ class TelaDeReceitaEmProcesso extends Component {
         <Container>
           <Form>
             <h4>Ingredients</h4>
-            {ingredientsArray.map((item, index) => (
+            {/* {ingredientsArray.map((item, index) => (
               <Form.Check
                 type="checkbox"
                 label={ `${item[1]} - ${measuresArray[index][1]}` }
                 data-testid="ingredient-step"
                 key={ item }
               />
-            ))}
+            ))} */}
             <h4>Instructions</h4>
             <p data-testid="instructions">{drink[0].strInstructions}</p>
 
