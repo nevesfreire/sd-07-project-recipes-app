@@ -32,7 +32,7 @@ class DoneRecipes extends Component {
     const MAX_LENGTH = filterDone.length > LENGTH ? LENGTH : filterDone.length;
     if (!filterDone.length) return <p> Receita falsificada </p>;
     return (
-      <div>
+      <div className="cards-main-page-content">
         {(filterDone.filter((item) => item.type.includes(Done)))
           .slice(INITIAL_LENGTH, MAX_LENGTH)
           .map((recipe, index) => (
@@ -53,30 +53,35 @@ class DoneRecipes extends Component {
     return (
       <div>
         <CustomHeader title="Receitas Feitas" />
-        <button
-          type="button"
-          data-testid="filter-by-all-btn"
-          onClick={ this.filterDoneRecipes }
-          value=""
-        >
-          All
-        </button>
-        <button
-          type="button"
-          data-testid="filter-by-food-btn"
-          onClick={ this.filterDoneRecipes }
-          value="comida"
-        >
-          Food
-        </button>
-        <button
-          type="button"
-          data-testid="filter-by-drink-btn"
-          onClick={ this.filterDoneRecipes }
-          value="bebida"
-        >
-          Drinks
-        </button>
+        <div className="recipes-main-content">
+          <button
+            type="button"
+            className="btn btn-outline-danger btn-category-main-page"
+            data-testid="filter-by-all-btn"
+            onClick={ this.filterDoneRecipes }
+            value=""
+          >
+            All
+          </button>
+          <button
+            type="button"
+            className="btn btn-outline-danger btn-category-main-page"
+            data-testid="filter-by-food-btn"
+            onClick={ this.filterDoneRecipes }
+            value="comida"
+          >
+            Food
+          </button>
+          <button
+            type="button"
+            className="btn btn-outline-danger btn-category-main-page"
+            data-testid="filter-by-drink-btn"
+            onClick={ this.filterDoneRecipes }
+            value="bebida"
+          >
+            Drinks
+          </button>
+        </div>
         {this.renderRecipes()}
       </div>
     );

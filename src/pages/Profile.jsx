@@ -31,33 +31,38 @@ class Profile extends Component {
     return (
       <div>
         <CustomHeader title="Perfil" showSearchTopBtn={ false } />
-        <p data-testid="profile-email">{ this.getEmailStorage() }</p>
-        <button
-          type="button"
-          data-testid="profile-done-btn"
-          onClick={ (e) => this.go(e) }
-          name="profile"
-        >
-          Receitas Feitas
-        </button>
+        <div className="profile-main-content">
+          <p data-testid="profile-email">{ this.getEmailStorage() }</p>
+          <button
+            type="button"
+            data-testid="profile-done-btn"
+            onClick={ (e) => this.go(e) }
+            name="profile"
+            className="btn btn-danger"
+          >
+            Receitas Feitas
+          </button>
 
-        <button
-          type="button"
-          data-testid="profile-favorite-btn"
-          onClick={ (e) => this.go(e) }
-          name="receitas-favoritas"
-        >
-          Receitas Favoritas
-        </button>
+          <button
+            type="button"
+            data-testid="profile-favorite-btn"
+            onClick={ (e) => this.go(e) }
+            name="receitas-favoritas"
+            className="btn btn-danger"
+          >
+            Receitas Favoritas
+          </button>
 
-        <button
-          type="button"
-          data-testid="profile-logout-btn"
-          onClick={ (e) => this.go(e) }
-          name="sair"
-        >
-          Sair
-        </button>
+          <button
+            type="button"
+            data-testid="profile-logout-btn"
+            onClick={ (e) => this.go(e) }
+            name="sair"
+            className="btn btn-dark"
+          >
+            Sair
+          </button>
+        </div>
         <CustomFooter />
       </div>
     );

@@ -47,58 +47,71 @@ class CustomSearchBar extends Component {
 
   render() {
     return (
-      <div>
-        <label htmlFor="search-input">
-          Buscar Receitas:
+      <form className="search-login-content">
+        <div className="mb-3">
           <input
             data-testid="search-input"
             id="search-input"
             name="searchInput"
             type="text"
+            className="form-control"
+            placeholder="Buscar Receitas"
             onChange={ this.handleInputChange }
           />
-        </label>
-        <label htmlFor="ingredient-search-radio">
-          Ingrediente:
-          <input
-            type="radio"
-            id="ingredient-search-radio"
-            name="searchRadio"
-            value="i"
-            data-testid="ingredient-search-radio"
-            onChange={ this.handleInputChange }
-          />
-        </label>
-        <label htmlFor="name-search-radio">
-          Nome:
-          <input
-            type="radio"
-            id="name-search-radio"
-            name="searchRadio"
-            value="s"
-            data-testid="name-search-radio"
-            onChange={ this.handleInputChange }
-          />
-        </label>
-        <label htmlFor="first-letter-search-radio">
-          Primeira letra:
-          <input
-            type="radio"
-            id="first-letter-search-radio"
-            name="searchRadio"
-            value="f"
-            data-testid="first-letter-search-radio"
-            onChange={ this.handleInputChange }
-          />
-        </label>
+        </div>
+        <div>
+          <div className="form-check form-check-inline">
+            <label htmlFor="inlineRadio1" className="form-check-label">
+              <input
+                className="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                name="searchRadio"
+                value="i"
+                data-testid="ingredient-search-radio"
+                onChange={ this.handleInputChange }
+              />
+              Ingrediente
+            </label>
+          </div>
+          <div className="form-check form-check-inline">
+            <label htmlFor="inlineRadio2" className="form-check-label">
+              <input
+                className="form-check-input"
+                type="radio"
+                id="inlineRadio2"
+                name="searchRadio"
+                value="s"
+                data-testid="name-search-radio"
+                onChange={ this.handleInputChange }
+              />
+              Nome
+            </label>
+          </div>
+          <div className="form-check form-check-inline">
+            <label htmlFor="inlineRadio3" className="form-check-label">
+              <input
+                className="form-check-input"
+                type="radio"
+                id="inlineRadio3"
+                name="searchRadio"
+                value="f"
+                data-testid="first-letter-search-radio"
+                onChange={ this.handleInputChange }
+              />
+              Primeira letra
+            </label>
+          </div>
+        </div>
         <button
           type="button"
           data-testid="exec-search-btn"
           onClick={ this.handleButtonClick }
+          className="btn btn-danger"
         >
           Buscar
         </button>
-      </div>
+      </form>
     );
   }
 }

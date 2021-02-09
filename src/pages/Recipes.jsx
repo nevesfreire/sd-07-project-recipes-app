@@ -163,13 +163,28 @@ class Recipes extends Component {
     }
   }
 
+  renderLoading() {
+    return (
+      <div className="loading">
+        <div className="spinner-border text-danger" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      </div>
+    );
+  }
+
   render() {
     const { recipeType } = this.state;
+    const { isFetching } = this.props;
     return (
       <div className="recipes-main-content">
         <CustomHeader title={ (recipeType === 'comidas') ? 'Comidas' : 'Bebidas' } />
-        { this.renderCategories()}
-        { this.handleRecipes()}
+        { isFetching ? this.renderLoading()
+          : (
+            <div>
+              { this.renderCategories() }
+              { this.handleRecipes() }
+            </div>)}
         <CustomFooter />
       </div>
     );
@@ -196,9 +211,8 @@ Recipes.propTypes = {
   dispatchUpdateFoodIsFetching: PropTypes.func.isRequired,
   isSearchBar: PropTypes.bool.isRequired,
   isFetching: PropTypes.bool.isRequired,
-  recipes: PropTypes.shape({
-    length: PropTypes.number.isRequired,
-    slice: PropTypes.func.isRequired,
-  }).isRequired,
+  recipes: PropTypes.arrayOf(PropTypes.object).isRequired,
+/*   length: PropTypes.number.isRequired,
+  slice: PropTypes.func.isRequired, */
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Recipes);

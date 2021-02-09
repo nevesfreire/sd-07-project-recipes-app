@@ -20,44 +20,48 @@ export default function CustomHeader({
   };
   return (
     <header className="header-content">
-      <button
-        type="button"
-        onClick={ routeChange }
-        data-testid="profile-top-btn"
-        src={ profile }
-        className="btn btn-light"
-      >
-        <img src={ profile } alt="profile" />
-      </button>
-      <h1
-        data-testid="page-title"
-        className="main-page-name"
-      >
-        {title}
-      </h1>
-      {showSearchTopBtn
-      && title !== 'Explorar'
-      && title !== 'Receitas Favoritas'
-      && title !== 'Receitas Feitas'
-        ? (
-          <div>
+      <div className="header-content-title">
+        <h1
+          data-testid="page-title"
+          className="main-page-name"
+        >
+          {title}
+        </h1>
+      </div>
+      <div className="header-content-top">
+        <button
+          type="button"
+          onClick={ routeChange }
+          data-testid="profile-top-btn"
+          src={ profile }
+          className="btn btn-light"
+        >
+          <img src={ profile } alt="profile" />
+        </button>
+        {showSearchTopBtn
+        && title !== 'Explorar'
+        && title !== 'Receitas Favoritas'
+        && title !== 'Receitas Feitas'
+          ? (
             <div>
-              <button
-                type="button"
-                data-testid="search-top-btn"
-                onClick={ () => showSearchBar() }
-                src={ search }
-                className="btn btn-light"
-              >
-                <img src={ search } alt="buscar" />
-              </button>
+              <div>
+                <button
+                  type="button"
+                  data-testid="search-top-btn"
+                  onClick={ () => showSearchBar() }
+                  src={ search }
+                  className="btn btn-light"
+                >
+                  <img src={ search } alt="buscar" />
+                </button>
+              </div>
             </div>
-            <div>
-              {show && <CustomSearchBar title={ title } />}
-            </div>
-          </div>
-        )
-        : null}
+          )
+          : null}
+      </div>
+      <div>
+        {show && <CustomSearchBar title={ title } />}
+      </div>
     </header>
   );
 }

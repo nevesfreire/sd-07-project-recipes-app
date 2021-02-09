@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
+import { Modal } from 'react-bootstrap';
 import shareIcon from '../images/shareIcon.svg';
 
 export default class CustomButtonShare extends Component {
   constructor(props) {
     super(props);
     this.handleButtonClick = this.handleButtonClick.bind(this);
+    this.handleButtonModal = this.handleButtonModal.bind(this);
     this.state = {
       isShared: false,
     };
@@ -15,7 +17,37 @@ export default class CustomButtonShare extends Component {
   handleButtonClick() {
     const { url } = this.props;
     copy(`http://localhost:3000${url}`);
-    this.setState({ isShared: true });
+    this.setState({
+      isShared: true,
+    });
+  }
+
+  handleButtonModal() {
+    this.setState({
+      isShared: false,
+    });
+  }
+
+  renderSharedText() {
+    return (
+      <div className="modal-text">
+        <Modal.Dialog>
+          <Modal.Body onClick={ () => this.handleButtonModal() }>
+            <h3>Link copiado!</h3>
+          </Modal.Body>
+          <Modal.Footer>
+            <button
+              className="btn btn-dark"
+              type="button"
+              variant="secondary"
+              onClick={ () => this.handleButtonModal() }
+            >
+              Fechar
+            </button>
+          </Modal.Footer>
+        </Modal.Dialog>
+      </div>
+    );
   }
 
   render() {
@@ -24,8 +56,9 @@ export default class CustomButtonShare extends Component {
     console.log(testDone);
     return (
       <div>
-        {isShared && <p>Link copiado!</p>}
+        {isShared && this.renderSharedText()}
         <button
+          className="btn btn-light"
           type="button"
           data-testid={ !testDone ? 'share-btn' : `${index}-horizontal-share-btn` }
           onClick={ this.handleButtonClick }
@@ -33,7 +66,6 @@ export default class CustomButtonShare extends Component {
         >
           <img src={ shareIcon } alt="" />
         </button>
-        { (isShared) && <p>Link copiado!</p> }
       </div>
     );
   }

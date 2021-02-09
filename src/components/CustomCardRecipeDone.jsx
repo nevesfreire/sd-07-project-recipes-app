@@ -8,39 +8,57 @@ class CustomCardRecipeDone extends Component {
     const { index, recipe } = this.props;
     return (
       <div>
-        <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
-        <p data-testid={ `${index}-horizontal-top-text` }>
-          {recipe.type === 'comida'
-            ? `${recipe.area} - ${recipe.category}`
-            : recipe.alcoholicOrNot}
-        </p>
-        <Link to={ `/${recipe.type}s/${recipe.id}` }>
-          <img
-            style={ { width: '30%' } }
-            data-testid={ `${index}-horizontal-image` }
-            src={ recipe.image }
-            alt=""
-          />
-          <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
-        </Link>
-        {recipe.tags.length > 1 ? (
-          recipe.tags.map((item) => (
-            <p key={ index } data-testid={ `${index}-${item}-horizontal-tag` }>
-              Tag:
-              {item}
+        <div className="card single-card-main-page-content">
+          <Link to={ `/${recipe.type}s/${recipe.id}` }>
+            <img
+              data-testid={ `${index}-horizontal-image` }
+              src={ recipe.image }
+              alt=""
+              className="card-img-top img-card-main-page"
+            />
+            <p
+              data-testid={ `${index}-horizontal-name` }
+              className="card-title card-title-done-page card-done-recipes"
+            >
+              {recipe.name}
             </p>
-          ))
-        ) : (
-          <p data-testid={ `${index}-${recipe.tags}-horizontal-tag` }>
-            Tag:
-            {' '}
-            {recipe.tags}
-          </p>
-        )}
+            <div className="card-text card-text-done-page card-done-recipes">
+              <p
+                data-testid={ `${index}-horizontal-done-date` }
+              >
+                {recipe.doneDate}
+              </p>
+              <p
+                data-testid={ `${index}-horizontal-top-text` }
+              >
+                {recipe.type === 'comida'
+                  ? `${recipe.area} - ${recipe.category}`
+                  : recipe.alcoholicOrNot}
+              </p>
+              {recipe.tags.length > 1 ? (
+                <div>
+                  Tags:
+                  { recipe.tags.map((item) => (
+                    <span
+                      key={ index }
+                      data-testid={ `${index}-${item}-horizontal-tag` }
+                      className="card-tags"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              ) : (
+                <p data-testid={ `${index}-${recipe.tags}-horizontal-tag` } />
+              )}
+            </div>
+          </Link>
+        </div>
         <CustomButtonShare
           url={ `/${recipe.type}s/${recipe.id}` }
           testDone
           index={ index }
+          className="share-like-btn-favorite"
         />
       </div>
     );

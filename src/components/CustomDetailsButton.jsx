@@ -66,7 +66,7 @@ export default class CustomDetailsButton extends Component {
     if (isRedirect) return <Redirect to={ `/${recipeType}/${recipeId}/in-progress` } />;
     return (
       <button
-        className="footer"
+        className="button-footer-fixed btn btn-dark"
         type="button"
         data-testid="start-recipe-btn"
         onClick={ () => this.handleStartButtonClick() }

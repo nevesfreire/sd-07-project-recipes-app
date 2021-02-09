@@ -39,6 +39,11 @@ export default class RecipeDetails extends Component {
     this.fetchRecipe(id, path);
   }
 
+  componentDidUpdate(prevProps) {
+    const { match: { params: { id }, path } } = this.props;
+    if (prevProps.match.path !== path) this.fetchRecipe(id, path);
+  }
+
   getSuggestedRecipes() {
     const { suggestedRecipes, recipeType } = this.state;
     if (!suggestedRecipes) return <div> Sem Sugestões </div>;
@@ -46,13 +51,15 @@ export default class RecipeDetails extends Component {
     const INITIAL_INDEX = 0;
     const MAX_INDEX = 6;
     return (
-      <Carousel>
+      <Carousel className="suggested-img">
         {
           suggestedRecipes.slice(INITIAL_INDEX, MAX_INDEX)
             .map((recipe, index) => (
               <Carousel.Item key={ index }>
                 <CustomCardSuggested
+                  type={ recipeType }
                   index={ index }
+                  id={ recipe[`id${sufixeRecipe}`] }
                   thumb={ recipe[`str${sufixeRecipe}Thumb`] }
                   title={ recipe[`str${sufixeRecipe}`] }
                 />
@@ -113,6 +120,16 @@ export default class RecipeDetails extends Component {
     this.verifyRecipeIsDone(id);
   }
 
+  renderLoading() {
+    return (
+      <div className="loading">
+        <div className="spinner-border text-danger" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      </div>
+    );
+  }
+
   render() {
     const {
       isLoading,
@@ -126,7 +143,7 @@ export default class RecipeDetails extends Component {
 
     const { match: { url } } = this.props;
 
-    if (isLoading) return <div> Loading... </div>;
+    if (isLoading) return this.renderLoading();
     return (
       <div
         className="card recipe-details-content"
@@ -169,6 +186,7 @@ export default class RecipeDetails extends Component {
              <CustomDetailsIngredients recipeType={ recipeType } recipe={ recipe } />) }
           </ul>
           { (recipeType === 'comidas') && <iframe
+            className="suggested-img"
             data-testid="video"
             src={ this.getYoutubeEmbedUrl() }
             frame-border="0"
@@ -177,7 +195,8 @@ export default class RecipeDetails extends Component {
             title="video"
           /> }
           { (!isLoading) && this.getSuggestedRecipes() }
-          { (!isDone)
+        </div>
+        { (!isDone)
           && (
             <CustomDetailsButton
               recipeId={ recipeId }
@@ -185,7 +204,6 @@ export default class RecipeDetails extends Component {
               recipe={ recipe }
             />
           )}
-        </div>
       </div>
     );
   }

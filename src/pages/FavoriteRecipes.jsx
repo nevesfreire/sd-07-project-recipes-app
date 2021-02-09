@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import copy from 'clipboard-copy';
-import { CustomCardFavoriteRecipe } from '../components';
-import shareIcon from '../images/shareIcon.svg';
+import { CustomCardFavoriteRecipe, CustomButtonShare } from '../components';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { setStorage } from '../services';
 import CustomHeader from '../components/CustomHeader';
@@ -69,7 +68,7 @@ class FavoriteRecipes extends Component {
     const { favoriteFilter, isShared } = this.state;
 
     return (
-      <div>
+      <div className="cards-main-page-content">
         {favoriteFilter
           .map((favorite, index) => (
             <div key={ favorite.id }>
@@ -79,51 +78,26 @@ class FavoriteRecipes extends Component {
                 index={ index }
                 isShared={ isShared }
               />
-              <button
-                data-testid={ `${index}-horizontal-share-btn` }
-                type="button"
-                src={ shareIcon }
-                onClick={ () => this.handleButtonClick(favorite) }
-              >
-                <img src={ shareIcon } alt="link para compartilhar" />
-              </button>
-              <button
-                type="button"
-                data-testid={ `${index}-horizontal-favorite-btn` }
-                src={ blackHeartIcon }
-                onClick={ () => this.removeFavoriteFromLocalStoage(favorite.id) }
-              >
-                <img
-                  src={ blackHeartIcon }
-                  alt="icone de favoritado"
+              <div className="share-like-btn-favorite">
+                <CustomButtonShare
+                  url={ `/${favorite.type}s/${favorite.id}` }
+                  index={ index }
+                  testDone
                 />
-              </button>
+                <button
+                  type="button"
+                  data-testid={ `${index}-horizontal-favorite-btn` }
+                  src={ blackHeartIcon }
+                  onClick={ () => this.removeFavoriteFromLocalStoage(favorite.id) }
+                >
+                  <img
+                    src={ blackHeartIcon }
+                    alt="icone de favoritado"
+                  />
+                </button>
+              </div>
             </div>
           ))}
-        <button
-          type="button"
-          data-testid="filter-by-food-btn"
-          value="food"
-          onClick={ (e) => this.filterFavorites(e) }
-        >
-          Food
-        </button>
-        <button
-          type="button"
-          data-testid="filter-by-drink-btn"
-          value="drinks"
-          onClick={ (e) => this.filterFavorites(e) }
-        >
-          Drinks
-        </button>
-        <button
-          type="button"
-          data-testid="filter-by-all-btn"
-          value="all"
-          onClick={ (e) => this.filterFavorites(e) }
-        >
-          All
-        </button>
       </div>
     );
   }
@@ -132,8 +106,35 @@ class FavoriteRecipes extends Component {
     const { favorites } = this.state;
     const numerToComper = 0;
     return (
-      <div>
+      <div className="recipes-main-content">
         <CustomHeader title="Receitas Favoritas" />
+        <button
+          className="btn btn-outline-danger btn-category-main-page"
+          type="button"
+          data-testid="filter-by-food-btn"
+          value="food"
+          onClick={ (e) => this.filterFavorites(e) }
+        >
+          Food
+        </button>
+        <button
+          className="btn btn-outline-danger btn-category-main-page"
+          type="button"
+          data-testid="filter-by-drink-btn"
+          value="drinks"
+          onClick={ (e) => this.filterFavorites(e) }
+        >
+          Drinks
+        </button>
+        <button
+          className="btn btn-outline-danger btn-category-main-page"
+          type="button"
+          data-testid="filter-by-all-btn"
+          value="all"
+          onClick={ (e) => this.filterFavorites(e) }
+        >
+          All
+        </button>
         {
           favorites.length === numerToComper
             ? <p>não há receitas favoritas ainda</p>

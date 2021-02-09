@@ -98,7 +98,6 @@ export default class CustomInProgressIngredients extends Component {
     const { recipeIsDone } = this.props;
     const { ingredientsList } = this.state;
     const isDone = ingredientsList.some((ingredient) => ingredient.isChecked !== true);
-    console.log(isDone);
     recipeIsDone(!isDone);
   }
 
@@ -132,7 +131,7 @@ export default class CustomInProgressIngredients extends Component {
           <li
             key={ index }
             data-testid={ `${index}-ingredient-step` }
-            className={ (isChecked) && 'ingredient' }
+            className={ `list-group-item ${(isChecked) && 'ingredient'}` }
           >
             <input
               type="checkbox"
