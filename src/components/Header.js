@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import '../styles/Header.css';
 
 import { setToggle } from '../actions/actionSearchToggle';
 
@@ -13,30 +14,38 @@ import CategoriesBar from './CategoriesBar';
 function Header({ title, toggle, toggleAction }) {
   return (
     <header>
-      <div>
-        <Link to="/perfil">
-          <img data-testid="profile-top-btn" src={ ProfileIcon } alt="perfil" />
-        </Link>
-      </div>
-      <div>
-        <h1 data-testid="page-title">
-          { title }
-        </h1>
-      </div>
-      {(
-        title === 'Comidas'
-        || title === 'Bebidas'
-        || title.includes('Origem')
-      ) && (
+      <div className="headerContainer">
         <div>
-          <button
-            type="button"
-            onClick={ () => toggleAction(!toggle) }
-          >
-            <img data-testid="search-top-btn" src={ SearchIcon } alt="search" />
-          </button>
+          <Link to="/perfil">
+            <img
+              className="headerButton"
+              data-testid="profile-top-btn"
+              src={ ProfileIcon }
+              alt="perfil"
+            />
+          </Link>
         </div>
-      )}
+        <div>
+          <h1 data-testid="page-title">
+            { title }
+          </h1>
+        </div>
+        {(
+          title === 'Comidas'
+          || title === 'Bebidas'
+          || title.includes('Origem')
+        ) && (
+          <div>
+            <button
+              className="headerButton"
+              type="button"
+              onClick={ () => toggleAction(!toggle) }
+            >
+              <img data-testid="search-top-btn" src={ SearchIcon } alt="search" />
+            </button>
+          </div>
+        )}
+      </div>
       <SearchBar title={ title } />
       <CategoriesBar title={ title } />
     </header>
