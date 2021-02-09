@@ -3,7 +3,8 @@
 }
 
 .login-page {
-  background: url('../../assets/ooeooe.gif');
+  background: url('../../assets/toUse.gif');
+  background-attachment: initial;
   background-size: cover;
   padding: 164px 0;
   text-align: center;
