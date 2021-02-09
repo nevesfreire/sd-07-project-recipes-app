@@ -10,3 +10,4 @@ export { default as whiteHeartIcon } from './whiteHeartIcon.svg';
 export { default as hamajiProfile } from './hamaji.png';
 export { default as thayProfile } from './thay.png';
 export { default as wolfProfile } from './wolf.png';
+export { default as imagemLogo } from './imagemLogo.png';

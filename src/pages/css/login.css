@@ -4,15 +4,14 @@ body {
 }
 
 .container {
-  background-image: url('https://images.wallpaperscraft.com/image/soup_tray_food_dishes_87369_1600x900.jpg');
-  background-repeat: no-repeat;
-  background-attachment: fixed;
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 
 .loginBox {
+  background-image: url(../../images/imagemLogo.png);
+  object-fit: contain;
   display: flex;
   background-color: rgb(53, 41, 41);
   margin: 1vw;

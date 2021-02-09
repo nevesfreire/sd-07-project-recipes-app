@@ -20,10 +20,10 @@ const data = {
   hamaji: {
     video: {
       titleVideo: 'Musica para curtir em quanto come',
-      linkVideo: 'https://www.youtube.com/watch?v=QcS9ZndErHc',
+      linkVideo: 'https://www.youtube.com/watch?v=urv7eHp1Ivo',
     },
     drink: {
-      drinkTitle: '',
+      drinkTitle: 'Para beber',
       drinkImg: 'Coca-cola',
     },
     food: {

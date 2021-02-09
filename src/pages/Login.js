@@ -5,6 +5,7 @@ import { useValideEmailAndPassword, useLocalStorage, useVip } from '../hooks';
 import { SUBMIT_EMAIL } from '../reducers';
 import { CupNodesContext } from '../contexts';
 import './css/login.css';
+import { imagemLogo } from '../images';
 
 const initialState = { email: '', password: '' };
 
