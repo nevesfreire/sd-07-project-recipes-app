@@ -96,33 +96,37 @@ function DrinksDetails(props) {
         alt="Imagem da comida"
         src={ drinkDetail.strDrinkThumb }
       />
-      <h2
-        data-testid="recipe-title"
-      >
-        {drinkDetail.strDrink}
-      </h2>
-      <input
-        type="image"
-        data-testid="share-btn"
-        src={ shareIcon }
-        alt="compartilhar"
-        onClick={ copyClipboard }
-      />
-      { clipboard.mensagem }
-      <input
-        type="image"
-        onClick={ handlerFavorite }
-        data-testid="favorite-btn"
-        src={ isFavorite ? blackHearthIcon : whiteHearthIcon }
-        alt="Icone Favoritar"
-      />
-      <p
-        data-testid="recipe-category"
-      >
-        {drinkDetail.strAlcoholic}
-      </p>
-      <div>
-        Ingredientes
+      <div className="initial-informations">
+        <h2
+          data-testid="recipe-title"
+        >
+          {drinkDetail.strDrink}
+        </h2>
+        <p
+          data-testid="recipe-category"
+        >
+          {drinkDetail.strAlcoholic}
+        </p>
+        <div className="interation-buttons">
+          <input
+            type="image"
+            data-testid="share-btn"
+            src={ shareIcon }
+            alt="compartilhar"
+            onClick={ copyClipboard }
+          />
+          { clipboard.mensagem }
+          <input
+            type="image"
+            onClick={ handlerFavorite }
+            data-testid="favorite-btn"
+            src={ isFavorite ? blackHearthIcon : whiteHearthIcon }
+            alt="Icone Favoritar"
+          />
+        </div>
+      </div>
+      <div className="ingredients">
+        <h3>Ingredientes</h3>
         {
           ingredients.map(
             (item, index) => (
@@ -132,18 +136,24 @@ function DrinksDetails(props) {
                 <p
                   data-testid={ `${index}-ingredient-name-and-measure` }
                 >
-                  { `${item.nomeIngrediente} ${item.medida}` }
+                  { `${item.nomeIngrediente}` }
+                </p>
+                <p className="measure">
+                  {`(${item.medida})`}
                 </p>
               </span>
             ),
           )
         }
       </div>
-      <p
-        data-testid="instructions"
-      >
-        {drinkDetail.strInstructions}
-      </p>
+      <div className="prepare">
+        <h3>Modo de preparo</h3>
+        <p
+          data-testid="instructions"
+        >
+          {drinkDetail.strInstructions}
+        </p>
+      </div>
       Receitas recomendadas
       <div className="slider">
         <Slider { ...settings }>

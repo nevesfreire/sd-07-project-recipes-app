@@ -41,7 +41,7 @@ function HeaderSearchBar() {
   };
 
   return (
-    <div>
+    <div id="headerSearchBar">
       <input
         type="text"
         id="searchInput"

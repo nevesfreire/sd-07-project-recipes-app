@@ -5,7 +5,7 @@ import profileIcon from '../images/profileIcon.svg';
 
 function HeaderNoSearch({ title }) {
   return (
-    <header>
+    <header id="headerProfile">
       <Link to="/perfil">
         <img
           className="title"
@@ -14,14 +14,14 @@ function HeaderNoSearch({ title }) {
           data-testid="profile-top-btn"
         />
       </Link>
-      <title
+      <div
         className="title"
         data-testid="page-title"
       >
         <h2>
           { title }
         </h2>
-      </title>
+      </div>
     </header>
   );
 }

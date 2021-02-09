@@ -106,17 +106,17 @@ function MainDrinks(props) {
   };
 
   return (
-    <div>
+    <div id="drinkElements">
       <Header title="Bebidas" />
       {filtersToRender === undefined ? (
         <p>Loading</p>
       ) : (
-        renderFilveFilters(filtersToRender)
+        <div className="filterButtons">{renderFilveFilters(filtersToRender)}</div>
       )}
       {drinksToRender === undefined ? (
         <p>Loading</p>
       ) : (
-        renderTwelveElements(drinksToRender)
+        <div id="drinks">{renderTwelveElements(drinksToRender)}</div>
       )}
       <Footer />
     </div>

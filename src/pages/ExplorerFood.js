@@ -12,23 +12,27 @@ function ExplorerFood() {
       .then((response) => setRandomFoodId(response.meals[0].idMeal));
   }, []);
   return (
-    <div>
+    <div className="profiles">
       <HeaderNoSearch title="Explorar Comidas" />
-      <Link to="/explorar/comidas/ingredientes">
-        <button type="button" data-testid="explore-by-ingredient">
-          Por Ingredientes
-        </button>
-      </Link>
-      <Link to="/explorar/comidas/area">
-        <button type="button" data-testid="explore-by-area">
-          Por Local de Origem
-        </button>
-      </Link>
-      <Link to={ `/comidas/${randomFoodId}` }>
-        <button type="button" data-testid="explore-surprise">
-          Me Surpreenda!
-        </button>
-      </Link>
+      <div>
+        <div className="profile-buttons">
+          <Link to="/explorar/comidas/ingredientes">
+            <button type="button" data-testid="explore-by-ingredient">
+              Por Ingredientes
+            </button>
+          </Link>
+          <Link to="/explorar/comidas/area">
+            <button type="button" data-testid="explore-by-area">
+              Por Local de Origem
+            </button>
+          </Link>
+          <Link to={ `/comidas/${randomFoodId}` }>
+            <button type="button" data-testid="explore-surprise">
+              Me Surpreenda!
+            </button>
+          </Link>
+        </div>
+      </div>
       <Footer />
     </div>
   );

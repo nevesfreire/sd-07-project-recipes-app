@@ -7,6 +7,7 @@ function MainCards({ thumb, title, index, id }) {
     <Link to={ `/comidas/${id}` }>
       <div data-testid={ `${index}-recipe-card` }>
         <img
+          id="foodImg"
           src={ thumb }
           alt="Imagem do profile"
           data-testid={ `${index}-card-img` }

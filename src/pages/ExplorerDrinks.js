@@ -12,18 +12,22 @@ function ExplorerDrinks() {
       .then((response) => setRandomDrinkId(response.drinks[0].idDrink));
   }, []);
   return (
-    <div>
+    <div className="profiles">
       <HeaderNoSearch title="Explorar Bebidas" />
-      <Link to="/explorar/bebidas/ingredientes">
-        <button type="button" data-testid="explore-by-ingredient">
-          Por Ingredientes
-        </button>
-      </Link>
-      <Link to={ `/bebidas/${randomDrinkId}` }>
-        <button type="button" data-testid="explore-surprise">
-          Me Surpreenda!
-        </button>
-      </Link>
+      <div>
+        <div className="profile-buttons">
+          <Link to="/explorar/bebidas/ingredientes">
+            <button type="button" data-testid="explore-by-ingredient">
+              Por Ingredientes
+            </button>
+          </Link>
+          <Link to={ `/bebidas/${randomDrinkId}` }>
+            <button type="button" data-testid="explore-surprise">
+              Me Surpreenda!
+            </button>
+          </Link>
+        </div>
+      </div>
       <Footer />
     </div>
   );

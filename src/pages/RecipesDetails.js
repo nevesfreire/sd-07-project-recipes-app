@@ -18,18 +18,10 @@ function RecipesDetails(props) {
   const [recomended, setRecomendedDrinks] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
   const [clipboard, setClipboard] = useState('');
-
-  const {
-    foodDetail,
-    setFoodDetail,
-    setId,
-    id,
-  } = useContext(RecipesContext);
-
+  const { foodDetail, setFoodDetail, setId, id } = useContext(RecipesContext);
   const zero = 0;
   const six = 6;
   const fifty = 50;
-
   const settings = {
     dots: true,
     infinite: false,
@@ -59,31 +51,28 @@ function RecipesDetails(props) {
     await clipboardCopy(url);
     setClipboard({ mensagem: 'Link copiado!' });
   };
-
   const recomendedDrink = async () => {
     const allDrinks = await fetchAllDrinkRecipes();
     const sixDrinks = allDrinks.drinks.slice(zero, six);
     console.log(sixDrinks);
     setRecomendedDrinks(sixDrinks);
   };
-
   useEffect(() => {
     recomendedDrink();
     const { match } = props;
     const idRandom = match.params.id;
     setId(idRandom);
-    fetchFoodDetailById(idRandom)
-      .then((response) => setFoodDetail(response.meals[0]));
+    fetchFoodDetailById(idRandom).then((response) => setFoodDetail(response.meals[0]));
   }, [props, setFoodDetail, setId]);
 
   useEffect(() => {
     const allIngredients = [];
     for (let i = zero; i <= fifty; i += 1) {
       if (foodDetail[`strIngredient${i}`]) {
-        allIngredients.push(
-          { nomeIngrediente: foodDetail[`strIngredient${i}`],
-            medida: foodDetail[`strMeasure${i}`] },
-        );
+        allIngredients.push({
+          nomeIngrediente: foodDetail[`strIngredient${i}`],
+          medida: foodDetail[`strMeasure${i}`],
+        });
       }
     }
     setIngredients(allIngredients);
@@ -96,83 +85,59 @@ function RecipesDetails(props) {
         alt="Imagem da comida"
         src={ foodDetail.strMealThumb }
       />
-      <h2
-        data-testid="recipe-title"
-      >
-        {foodDetail.strMeal}
-      </h2>
-      <input
-        type="image"
-        data-testid="share-btn"
-        src={ shareIcon }
-        alt="compartilhar"
-        onClick={ copyClipboard }
-      />
-      {clipboard.mensagem}
-      <button
-        type="button"
-        onClick={ handlerFavorite }
-      >
-        <img
-          data-testid="favorite-btn"
-          src={ isFavorite ? blackHearthIcon : whiteHearthIcon }
-          alt="Icone Favoritar"
-        />
-      </button>
-      <p
-        data-testid="recipe-category"
-      >
-        {foodDetail.strCategory}
-      </p>
-      <div>
-        Ingredientes
-        {
-          ingredients.map(
-            (item, index) => (
-              <span
-                key={ index }
-              >
-                <p
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  { `${item.nomeIngrediente} ${item.medida}` }
-                </p>
-              </span>
-            ),
-          )
-        }
+      <div className="initial-informations">
+        <h2 data-testid="recipe-title">{foodDetail.strMeal}</h2>
+        <p data-testid="recipe-category">{foodDetail.strCategory}</p>
+        <div className="interation-buttons">
+          <input
+            type="image"
+            data-testid="share-btn"
+            src={ shareIcon }
+            alt="compartilhar"
+            onClick={ copyClipboard }
+          />
+          {clipboard.mensagem}
+          <button type="button" onClick={ handlerFavorite }>
+            <img
+              data-testid="favorite-btn"
+              src={ isFavorite ? blackHearthIcon : whiteHearthIcon }
+              alt="Icone Favoritar"
+            />
+          </button>
+        </div>
       </div>
-      <p
-        data-testid="instructions"
-      >
-        {foodDetail.strInstructions}
-      </p>
-      <div
-        data-testid="video"
-        src={ foodDetail.strYoutube }
-      />
+      <div>
+        <div className="ingredients">
+          <h3>Ingredientes</h3>
+          {ingredients.map((item, index) => (
+            <span
+              key={ index }
+              data-testid={ `${index}-ingredient-name-and-measure` }
+            >
+              <p>{`${item.nomeIngrediente}`}</p>
+              <p className="measure">{`(${item.medida})`}</p>
+            </span>
+          ))}
+        </div>
+        <div className="prepare">
+          <h3>Modo de preparo</h3>
+          <p data-testid="instructions">{foodDetail.strInstructions}</p>
+        </div>
+      </div>
+      <div data-testid="video" src={ foodDetail.strYoutube } />
       <div className="slider">
         <Slider { ...settings }>
-          {
-            recomended.map(
-              (item, index) => {
-                if (index > six) return null;
-                return (
-                  <div
-                    key={ index }
-                    data-testid={ `${index}-recomendation-card` }
-                  >
-                    <img alt="imagem" src={ item.strDrinkThumb } />
-                    <p
-                      data-testid={ `${index}-recomendation-title` }
-                    >
-                      {item.strDrink}
-                    </p>
-                  </div>
-                );
-              },
-            )
-          }
+          {recomended.map((item, index) => {
+            if (index > six) return null;
+            return (
+              <div key={ index } data-testid={ `${index}-recomendation-card` }>
+                <img alt="imagem" src={ item.strDrinkThumb } />
+                <p data-testid={ `${index}-recomendation-title` }>
+                  {item.strDrink}
+                </p>
+              </div>
+            );
+          })}
         </Slider>
       </div>
       <Link to={ `/comidas/${id}/in-progress` }>
@@ -187,11 +152,9 @@ function RecipesDetails(props) {
     </div>
   );
 }
-
 RecipesDetails.propTypes = {
   match: PropTypes.string.isRequired,
   params: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
 };
-
 export default RecipesDetails;

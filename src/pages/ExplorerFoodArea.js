@@ -83,7 +83,7 @@ function ExplorerFoodArea() {
     return finalArray;
   };
   return (
-    <div>
+    <div id="explorer-area">
       <Header title="Explorar Origem" />
       {allFiltersToRender === undefined ? (
         <p>Loading</p>
@@ -99,7 +99,9 @@ function ExplorerFoodArea() {
       {allRegionFoodsToRender === undefined || loading === true ? (
         <p>Loading</p>
       ) : (
-        renderTwelveElements(allRegionFoodsToRender)
+        <div id="foods-found">
+          {renderTwelveElements(allRegionFoodsToRender)}
+        </div>
       )}
       <Footer />
     </div>

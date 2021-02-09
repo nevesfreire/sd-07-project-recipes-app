@@ -59,29 +59,33 @@ function FavoriteRecipes() {
     return finalArray;
   };
   return (
-    <div>
+    <div className="profiles">
       <HeaderNoSearch title="Receitas Favoritas" />
-      <button
-        type="button"
-        data-testid="filter-by-all-btn"
-        onClick={ resetArrayToRender }
-      >
-        All
-      </button>
-      <button
-        type="button"
-        data-testid="filter-by-food-btn"
-        onClick={ filterByFoods }
-      >
-        Food
-      </button>
-      <button
-        type="button"
-        data-testid="filter-by-drink-btn"
-        onClick={ filterByDrinks }
-      >
-        Drinks
-      </button>
+      <div>
+        <div className="profile-buttons">
+          <button
+            type="button"
+            data-testid="filter-by-all-btn"
+            onClick={ resetArrayToRender }
+          >
+            All
+          </button>
+          <button
+            type="button"
+            data-testid="filter-by-food-btn"
+            onClick={ filterByFoods }
+          >
+            Food
+          </button>
+          <button
+            type="button"
+            data-testid="filter-by-drink-btn"
+            onClick={ filterByDrinks }
+          >
+            Drinks
+          </button>
+        </div>
+      </div>
       {atualFavoriteRecipes === undefined ? (
         <p>Loading</p>
       ) : (

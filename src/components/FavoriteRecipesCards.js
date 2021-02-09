@@ -44,44 +44,45 @@ function FavoriteRecipesCards({
   };
 
   return (
-    <div>
-      <input
-        type="image"
-        data-testid={ `${index}-horizontal-share-btn` }
-        src={ shareIcon }
-        alt="compartilhar"
-        onClick={ copyClipboard }
-      />
-      {copyMessage}
-      <button
-        type="button"
-        onClick={ () => removeFavorite(id) }
-      >
+    <div className="favoriteCard">
+      <div className="img_recipes">
         <img
-          data-testid={ `${index}-horizontal-favorite-btn` }
-          src={ isFavorite ? blackHearthIcon : whiteHearthIcon }
-          alt="Icone Favoritar"
+          src={ thumb }
+          alt="Imagem do profile"
+          data-testid={ `${index}-horizontal-image` }
         />
-      </button>
-      <Link to={ `/${url(type)}/${id}` }>
-        <div className="img_recipes">
-          <img
-            src={ thumb }
-            alt="Imagem do profile"
-            data-testid={ `${index}-horizontal-image` }
-          />
-          <div>
-            Category:
-            {' '}
-            <p data-testid={ `${index}-horizontal-top-text` }>
-              {`${area}${alcoholicOrNot} - ${category}`}
-            </p>
-          </div>
+      </div>
+      <div id="infos-recipe">
+        <div>
+          Category:
+          {' '}
+          <p data-testid={ `${index}-horizontal-top-text` }>
+            {`${area}${alcoholicOrNot} - ${category}`}
+          </p>
+        </div>
+        <Link to={ `/${url(type)}/${id}` }>
           <div className="div" data-testid="page-div">
             <p data-testid={ `${index}-horizontal-name` }>{title}</p>
           </div>
+        </Link>
+        <div className="interation-buttons">
+          <input
+            type="image"
+            data-testid={ `${index}-horizontal-share-btn` }
+            src={ shareIcon }
+            alt="compartilhar"
+            onClick={ copyClipboard }
+          />
+          {copyMessage}
+          <input
+            type="image"
+            onClick={ () => removeFavorite(id) }
+            data-testid={ `${index}-horizontal-favorite-btn` }
+            src={ isFavorite ? blackHearthIcon : whiteHearthIcon }
+            alt="Icone Favoritar"
+          />
         </div>
-      </Link>
+      </div>
     </div>
   );
 }

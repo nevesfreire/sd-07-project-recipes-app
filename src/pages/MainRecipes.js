@@ -10,10 +10,10 @@ import RecipesContext from '../context/RecipesContext';
 function MainRecipes(props) {
   const { location } = props;
   const { pathname } = location;
-  const { setPathName, setRedirectByIngredients, usedSearchBar } = useContext(
+  const { setPathName, setRedirectByIngredients } = useContext(RecipesContext);
+  const { foodsToRender, setFoodsToRender, foodData } = useContext(
     RecipesContext,
   );
-  const { foodsToRender, setFoodsToRender, foodData } = useContext(RecipesContext);
   const [allFiltersToRender, setAllFiltersToRender] = useState([]);
   const [filtersToRender, setFiltersToRender] = useState([]);
   const [filtered, setFiltered] = useState(false);
@@ -35,15 +35,18 @@ function MainRecipes(props) {
   useEffect(() => {
     setFiltersToRender(allFiltersToRender.meals);
   }, [allFiltersToRender]);
-
   const renderTwelveElements = (array) => {
     if (array === null) {
-      return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      return alert(
+        "Sinto muito, não encontramos nenhuma receita para esses filtros."
+      );
     }
-    if ((array.length === 1) && usedSearchBar) {
+
+    if (array.length === 1) {
       return <Redirect to={ `/comidas/${array[0].idMeal}` } />;
     }
     const eleven = 11;
+
     const finalArray = array
       .filter((_someFood, index) => index <= eleven)
       .map((food, index) => (
@@ -91,12 +94,13 @@ function MainRecipes(props) {
           {filter.strCategory}
         </button>
       ));
+
     const buttonAll = (
       <button
         type="button"
         key="all"
         data-testid="All-category-filter"
-        onClick={ () => resetFoodsToRender() }
+        onClick={() => resetFoodsToRender()}
       >
         All
       </button>
@@ -106,17 +110,17 @@ function MainRecipes(props) {
   };
 
   return (
-    <div>
+    <div id="foodElements">
       <Header title="Comidas" />
       {filtersToRender === undefined ? (
         <p>Loading</p>
       ) : (
-        renderFilveFilters(filtersToRender)
+        <div className="filterButtons">{renderFilveFilters(filtersToRender)}</div>
       )}
       {foodsToRender === undefined ? (
         <p>Loading</p>
       ) : (
-        renderTwelveElements(foodsToRender)
+        <div id="foods">{renderTwelveElements(foodsToRender)}</div>
       )}
       <Footer />
     </div>

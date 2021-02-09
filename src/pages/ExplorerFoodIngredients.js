@@ -31,12 +31,14 @@ function ExplorerFoodIngredients(props) {
     return finalArray;
   };
   return (
-    <div>
+    <div id="explorer-ingredients">
       <HeaderNoSearch title="Explorar Ingredientes" />
       {allIngredientsToRender === undefined ? (
         <p>Loading</p>
       ) : (
-        renderTwelveElements(allIngredientsToRender, pathname)
+        <div id="ingredient-cards">
+          {renderTwelveElements(allIngredientsToRender, pathname)}
+        </div>
       )}
       <Footer />
     </div>
