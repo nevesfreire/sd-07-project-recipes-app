@@ -33,7 +33,7 @@ export default function ExplorarArea() {
     setCardFoodList(list);
   };
 
-  if (cardFoodList.meals) {
+  if (cardFoodList && cardFoodList.meals) {
     return (
       <>
         <Header />
