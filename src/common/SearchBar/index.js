@@ -15,7 +15,6 @@ const SearchBar = () => {
 
   const searchClick = async () => {
     const path = window.location.pathname;
-    console.log('clicou na busca');
     setIsUsingSearchBar(true);
     const data = await searchGeneral(searchBarData);
     if (path === '/comidas')setFilteredMeals(data);

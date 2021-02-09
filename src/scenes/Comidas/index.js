@@ -11,7 +11,6 @@ import './style.css';
 const Comidas = () => {
   const history = useHistory();
   const { filteredMeals, isUsingSearchBar, mealsCategories } = useContext(AppContext);
-  console.log(filteredMeals);
   const goToDetails = (idMeal) => {
     history.push(`/comidas/${idMeal}`);
   };
