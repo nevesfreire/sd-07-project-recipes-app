@@ -4,6 +4,9 @@ import { thayProfile,
   estrogonof,
   pizza,
   hamburguer,
+  hidromel,
+  fancyDrink,
+  sakerinha,
 } from '../images';
 
 const data = {
@@ -13,8 +16,8 @@ const data = {
       linkVideo: 'https://www.youtube.com/watch?v=QcS9ZndErHc',
     },
     drink: {
-      drinkTitle: '',
-      drinkImg: 'Coca-cola',
+      drinkTitle: 'Fancy Drink',
+      drinkImg: fancyDrink,
     },
     food: {
       foodTitle: 'Hamburguer',
@@ -25,12 +28,12 @@ const data = {
   },
   hamaji: {
     video: {
-      titleVideo: 'Goku + Forró = Hamaji',
-      linkVideo: 'https://www.youtube.com/watch?v=urv7eHp1Ivo',
+      titleVideo: 'Samurai + Forró = Hamaji',
+      linkVideo: 'https://www.youtube.com/watch?v=1u88nWht-cg',
     },
     drink: {
-      drinkTitle: 'Para beber',
-      drinkImg: 'Coca-cola',
+      drinkTitle: 'Caipirinha de Saquê',
+      drinkImg: sakerinha,
     },
     food: {
       foodTitle: 'Pizza',
@@ -42,11 +45,11 @@ const data = {
   wolf: {
     video: {
       titleVideo: 'Musica para curtir em quanto come',
-      linkVideo: 'https://www.youtube.com/watch?v=QcS9ZndErHc',
+      linkVideo: 'https://www.youtube.com/watch?v=v2AC41dglnM',
     },
     drink: {
-      drinkTitle: '',
-      drinkImg: 'Coca-cola',
+      drinkTitle: 'Hidromel',
+      drinkImg: hidromel,
     },
     food: {
       foodTitle: 'Strogonoff de Frango com batata palha',

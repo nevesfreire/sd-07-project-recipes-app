@@ -14,3 +14,6 @@ export { default as imagemLogo } from './imagemLogo.png';
 export { default as pizza } from './pizza.jpeg';
 export { default as estrogonof } from './estrogonof.jpg';
 export { default as hamburguer } from './hamburger.jpeg';
+export { default as hidromel } from './hidromel.jpg';
+export { default as sakerinha } from './sakerinha.png';
+export { default as fancyDrink } from './fancyDrink.jpg';

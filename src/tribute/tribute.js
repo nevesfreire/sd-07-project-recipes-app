@@ -48,13 +48,12 @@ export default function DetailsFood({ match }) {
           img={ foodImg }
         />
       </div>
-      <div className="videoDetails">
+      <div className="containerVideo">
         <iframe
           data-testid="video"
           title={ titleVideo }
           src={ linkVideo.replace('watch?v=', 'embed/') }
-          width="100%"
-          height="100%"
+          
         />
       </div>
     </div>
