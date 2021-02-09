@@ -3,8 +3,11 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Slider from 'react-slick';
 import clipboard from 'clipboard-copy';
+import getStorage from '../../services/localStorageAPI/getStorage';
+import setStorage from '../../services/localStorageAPI/setStorage';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import { RecomendationCardDrink } from '../../components';
 import {
   getSpecificDrinkById,
@@ -16,19 +19,33 @@ class TelaDetalheBebida extends Component {
     super(props);
     this.state = {
       isClicked: false,
+      isFavorite: false,
     };
     this.handleShareClick = this.handleShareClick.bind(this);
+    this.handleFavoriteClick = this.handleFavoriteClick.bind(this);
   }
 
   async componentDidMount() {
-    const {
-      match: {
-        params: { id },
-      },
+    const { match: { params: { id } },
     } = this.props;
     const { getDetailedDrinkDispatch, getRecommendationMeals } = this.props;
     await getRecommendationMeals();
     await getDetailedDrinkDispatch(id);
+  }
+
+  componentDidUpdate() {
+    const favoritesFromStorage = getStorage('favoriteRecipes');
+    const { isFavorite } = this.state;
+    const { drinkDetailStore } = this.props;
+    if (drinkDetailStore) {
+      if (!favoritesFromStorage) {
+        setStorage('favoriteRecipes', []);
+      } else if (!isFavorite) { this.handleFavoriteStart(drinkDetailStore); }
+    }
+  }
+
+  componentWillUnmount() {
+    this.setState({ isFavorite: false });
   }
 
   handleShareClick() {
@@ -52,10 +69,66 @@ class TelaDetalheBebida extends Component {
     return measuresArray;
   }
 
+  handleFavoriteStart(drinkDetailStore) {
+    const favoritesFromStorage = getStorage('favoriteRecipes');
+    const zero = 0;
+    if (favoritesFromStorage.length !== zero) {
+      favoritesFromStorage.forEach((item) => {
+        if (item.id === drinkDetailStore[0].idDrink) {
+          this.setState({ isFavorite: true });
+        }
+      });
+    }
+  }
+
+  handleFavoriteClick(drinkDetailStore) {
+    const favoritesFromStorage = getStorage('favoriteRecipes');
+    const { isFavorite } = this.state;
+    if (isFavorite) {
+      const newLocalStorage = favoritesFromStorage
+        .filter((curr) => curr.id !== drinkDetailStore.idDrink);
+      setStorage('favoriteRecipes', newLocalStorage);
+      this.setState({ isFavorite: false });
+    } else {
+      const newLocalStorageObj = {
+        id: drinkDetailStore.idDrink,
+        type: 'bebida',
+        area: drinkDetailStore.strArea,
+        category: drinkDetailStore.strCategory,
+        alcoholicOrNot: '',
+        name: drinkDetailStore.strDrink,
+        image: drinkDetailStore.strDrinkThumb,
+      };
+      favoritesFromStorage.push(newLocalStorageObj);
+      setStorage('favoriteRecipes', favoritesFromStorage);
+      this.setState({ isFavorite: true });
+    }
+  }
+
+  renderWhiteHeart() {
+    return (
+      <img
+        data-testid="favorite-btn"
+        alt="favorite-btn"
+        src={ whiteHeartIcon }
+      />
+    );
+  }
+
+  renderBlackHeart() {
+    return (
+      <img
+        data-testid="favorite-btn"
+        alt="favorite-btn"
+        src={ blackHeartIcon }
+      />
+    );
+  }
+
   renderDetails(drink) {
     const ingredientsArray = this.handleIngredients(drink);
     const measuresArray = this.handleMeasure(drink);
-    const { mealsRecommendStore } = this.props;
+    const { mealsRecommendStore, drinkDetailStore } = this.props;
     const six = 6;
     const settings = {
       dots: true,
@@ -64,8 +137,7 @@ class TelaDetalheBebida extends Component {
       slidesToShow: 2,
       slidesToScroll: 2,
     };
-    const { isClicked } = this.state;
-
+    const { isClicked, isFavorite } = this.state;
     return (
       <div>
         <img
@@ -87,24 +159,22 @@ class TelaDetalheBebida extends Component {
           />
         </div>
         <tag>
-          {
-            (isClicked) ? ('Link copiado!') : (null)
-          }
+          { (isClicked) ? ('Link copiado!') : (null) }
         </tag>
-        <img
-          data-testid="favorite-btn"
-          alt="favorite-btn"
-          src={ whiteHeartIcon }
-        />
+        <div
+          onClick={ () => this.handleFavoriteClick(drinkDetailStore[0]) }
+          onKeyDown={ () => this.handleFavoriteClick(drinkDetailStore[0]) }
+          role="button"
+          tabIndex={ 0 }
+        >
+          { (!isFavorite) ? (this.renderWhiteHeart()) : (this.renderBlackHeart()) }
+        </div>
         <h4 data-testid="recipe-category">{drink[0].strAlcoholic}</h4>
         <div>
           <h4>Ingredients</h4>
           <ul>
             {ingredientsArray.map((item, index) => (
-              <li
-                data-testid={ `${index}-ingredient-name-and-measure` }
-                key={ item }
-              >
+              <li data-testid={ `${index}-ingredient-name-and-measure` } key={ item }>
                 {`${item[1]} - ${measuresArray[index][1]}`}
               </li>
             ))}
@@ -117,7 +187,6 @@ class TelaDetalheBebida extends Component {
         <Slider { ...settings }>
           {mealsRecommendStore.map((element, index) => {
             if (index < six) {
-              console.log(index);
               return (<RecomendationCardDrink
                 key={ element }
                 mealRecommended={ element }

@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 class RecomendationCardDrink extends React.Component {
   render() {
     const { drinkRecommended, drinkIndex } = this.props;
-    console.log(drinkIndex);
     return (
       <div
         data-testid={ `${drinkIndex}-recomendation-card` }
