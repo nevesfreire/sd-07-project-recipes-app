@@ -25,9 +25,9 @@ body {
 }
 
 .divButton {
-  width: 80%;
+  width: 100%;
   display: flex ;
-  justify-content: space-around;
+  justify-content: space-between;
   margin: 5px;
 }
 
@@ -42,8 +42,10 @@ body {
 
 .itemCard {
 	text-align: center;
-  font-size: 1.5em;
+  font-size: 1.2em;
   border-radius: 3rem;
+  word-wrap: break-word;
+  max-width: 165px;
 }
 
 .text-img {
@@ -52,7 +54,6 @@ color:rgb(80, 80, 80);
 
 .itemImage {
   max-width: 165px;
-  
 }
 
 
@@ -102,7 +103,8 @@ color:rgb(80, 80, 80);
 .buttonCategories {
   flex-grow: 4;
   margin: 2px;
-  box-shadow: 2px 2px 2px 2px rgb(153, 153, 153)
+  box-shadow: 2px 2px 2px 2px rgb(153, 153, 153);
+  width: 170px;
 }
 
 .datailsImage {

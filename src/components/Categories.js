@@ -70,7 +70,9 @@ function Categories({ list, type }) {
         </Button>
         {list.map((category) => (
           <Button
+           
             variant="dark"
+            
             className="buttonCategories"
             onClick={ (event) => handleClick(category, type, event) }
             value={ category.strCategory }
