@@ -106,7 +106,7 @@ export default function Comidas() {
   }
 
   return (
-    <div>
+    <div className="main-content">
       <Header />
       <div className="categories-btns">
         <Button

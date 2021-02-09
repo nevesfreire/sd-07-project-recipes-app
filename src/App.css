@@ -67,6 +67,7 @@
   }
 }
 
+
 .start-recipe-btn-visible {
   align-self: center;
   bottom: 0;
@@ -173,7 +174,7 @@ header {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
-  margin: 2%
+  margin: 2%;
 }
 
 .categories-btns > .btn {
@@ -182,16 +183,29 @@ header {
   width: 25%;
 }
 
+.main-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .card-columns {
+  display: flex;
+  justify-content: center;
   column-count: 2;
 }
 
 .card-deck {
-  display: grid;
-  grid-gap: 0.2rem; 
+  display: flex;
+  flex-direction: row;
   justify-content: center;
-  margin-left: 2%;
-  margin-top: 2%;
+  width: 100%;
+}
+
+.card-deck > a {
+  display: flex;
+  justify-content: center;
+  width: 50%;
 }
 
 .card {

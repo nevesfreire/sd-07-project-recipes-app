@@ -149,7 +149,7 @@ export default function InProgressFood() {
             >
               <Form.Check
                 type="checkbox"
-                id={ key }
+                id="default-checkbox"
                 label={ ingredient }
                 name={ ingredient }
                 onChange={ handleCheckbox }

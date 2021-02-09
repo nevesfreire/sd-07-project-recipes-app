@@ -140,7 +140,7 @@ export default function InProgressDrink() {
             >
               <Form.Check
                 type="checkbox"
-                id={ key }
+                id="default-checkbox"
                 label={ ingredient }
                 name={ ingredient }
                 onChange={ handleCheckbox }
