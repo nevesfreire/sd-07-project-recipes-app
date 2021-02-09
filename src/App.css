@@ -109,6 +109,7 @@
   display: flex;
   height: 4rem;
   justify-content: space-between;
+  padding: 2%;
   position: fixed;
   width: 100%;
 }
@@ -119,6 +120,7 @@ header {
   display: flex;
   height: 4rem;
   justify-content: space-between;
+  padding: 2%;
 }
 
 .search-bar-form {
@@ -169,18 +171,6 @@ header {
   width: 25%;
 }
 
-.main-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.card-columns {
-  column-count: 2;
-  display: flex;
-  justify-content: center;
-}
-
 .card-deck > a {
   display: flex;
   justify-content: center;
@@ -188,9 +178,9 @@ header {
 }
 
 .card {
-  margin: 2%;
+  margin: 3%;
   max-width: 80%;
-}  */
+}
 
 .icon {
   margin: 1rem;

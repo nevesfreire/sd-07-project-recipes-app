@@ -72,7 +72,7 @@ export default function Bebidas() {
     return (
       <div>
         <Header />
-        <div className="card-columns">
+        <div>
           <CardDeck>
             {filteredIngrCards.map((drink, index) => (
               <Link
@@ -80,7 +80,6 @@ export default function Bebidas() {
                 to={ `/bebidas/${drink.idDrink}` }
               >
                 <Card
-                  style={ { width: '18rem' } }
                   data-testid={ `${index}-recipe-card` }
                 >
                   <Card.Img
@@ -131,12 +130,11 @@ export default function Bebidas() {
           </Button>
         ))}
       </div>
-      <div className="card-columns">
+      <div>
         <CardDeck>
           {cards.map((card, index) => (
             <Link key={ index } to={ `/bebidas/${card.idDrink}` }>
               <Card
-                style={ { width: '18rem' } }
                 data-testid={ `${index}-recipe-card` }
               >
                 <Card.Img

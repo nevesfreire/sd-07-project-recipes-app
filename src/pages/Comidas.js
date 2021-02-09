@@ -78,8 +78,6 @@ export default function Comidas() {
               to={ `/comidas/${meal.idMeal}` }
             >
               <Card
-                className="card"
-                // style={ { width: '18rem' } }
                 data-testid={ `${index}-recipe-card` }
               >
                 <Card.Img
@@ -105,7 +103,7 @@ export default function Comidas() {
   }
 
   return (
-    <div className="main-content">
+    <div>
       <Header />
       <div className="categories-btns">
         <Button
@@ -130,7 +128,7 @@ export default function Comidas() {
           </Button>
         ))}
       </div>
-      <div className="card-columns">
+      <div>
         <CardDeck>
           {cards.map((card, index) => (
             <Link
@@ -138,7 +136,6 @@ export default function Comidas() {
               to={ `/comidas/${card.idMeal}` }
             >
               <Card
-                // style={ { width: '18rem' } }
                 data-testid={ `${index}-recipe-card` }
               >
                 <Card.Img
