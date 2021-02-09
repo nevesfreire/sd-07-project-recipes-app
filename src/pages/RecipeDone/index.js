@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CardGroup } from 'react-bootstrap';
 import { updateFromLS } from '../../store/ducks/recipes';
 
-import { Header, RecipeFilter, RecipeDoneFavCard, Footer } from '../../components';
+import { Header, RecipeFilter, RecipeDoneFavCard } from '../../components';
 import { LS_KEYS, loadKeyFromLS } from '../../services/localStorage';
 
 const RecipeDone = () => {
@@ -55,7 +55,6 @@ const RecipeDone = () => {
           />
         ))}
       </CardGroup>
-      <Footer />
     </>
   );
 };
