@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import ShareIcon from '../../images/shareIcon.svg';
+import { FavoriteButton, ShareButton } from '../../components';
 import WhiteHeartIcon from '../../images/whiteHeartIcon.svg';
 
 export default function RecipeInProgress({ history, match: { params: { id } } }) {
   const [recipesInProgress, setRecipesInProgress] = useState([]);
+  const { location: { pathname } } = history;
+  const path = pathname.split('/')[1];
   const fetchFoodDetails = async () => {
     try {
       let endpoint = '';
-      const { location: { pathname } } = history;
-      const path = pathname.split('/')[1];
-      console.log(path);
       if (path === 'comidas') {
         endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
       } else {
@@ -19,7 +18,6 @@ export default function RecipeInProgress({ history, match: { params: { id } } })
       const results = await fetch(endpoint)
         .then((response) => response.json())
         .then((details) => (details.meals ? details.meals : details.drinks));
-      console.log(results);
       // const resultsFiltered = await results.filter((key) => key.value !== null);
       setRecipesInProgress(results[0]);
     } catch (error) {
@@ -74,9 +72,8 @@ export default function RecipeInProgress({ history, match: { params: { id } } })
         <h1 data-testid="recipe-title">
           { strMeal || strDrink }
         </h1>
-        <button type="button" data-testid="share-btn">
-          <img src={ ShareIcon } alt="share" />
-        </button>
+        <ShareButton path={ path } id={ id } />
+        <FavoriteButton id={ id } recipeDetails={ recipesInProgress } />
         <button type="button" data-testid="favorite-btn">
           <img src={ WhiteHeartIcon } alt="favorite recipe" />
           {/* acrescentar lógica para mudar icone se favoritada */}
