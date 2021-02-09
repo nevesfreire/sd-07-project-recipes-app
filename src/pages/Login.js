@@ -2,6 +2,8 @@ import { Button, Form } from 'react-bootstrap';
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
+import foodIcon from '../images/spicy-food-svgrepo-com.svg';
+import '../styles/Login.css';
 
 function Login() {
   const {
@@ -32,8 +34,9 @@ function Login() {
 
   return (
     <div>
-      <h2>Login</h2>
-      <Form>
+      <h2 className="title">Recipes App</h2>
+      <Form className="form">
+      <img src={foodIcon} className="icon"/>
         <Form.Group controlId="formBasicEmail">
 
           <Form.Control
@@ -61,6 +64,7 @@ function Login() {
           disabled={ isDisabled() }
           onClick={ handleEnter }
           variant="success"
+          className="button"
         >
           Entrar
         </Button>
