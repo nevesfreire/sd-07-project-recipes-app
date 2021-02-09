@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FavoriteButton, ShareButton } from '../../components';
 import WhiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import './RecipeInProgress.css';
 
 export default function RecipeInProgress({ history, match: { params: { id } } }) {
   const [recipesInProgress, setRecipesInProgress] = useState([]);
@@ -75,10 +76,6 @@ export default function RecipeInProgress({ history, match: { params: { id } } })
         <div className="recipe-buttons">
           <ShareButton path={ path } id={ id } />
           <FavoriteButton id={ id } recipeDetails={ recipesInProgress } />
-          <button type="button" data-testid="favorite-btn">
-            <img src={ WhiteHeartIcon } alt="favorite recipe" />
-            {/* acrescentar lógica para mudar icone se favoritada */}
-          </button>
         </div>
         <h4
           className="recipe-category"
@@ -113,7 +110,11 @@ export default function RecipeInProgress({ history, match: { params: { id } } })
       <div data-testid={ `${idMeal || idDrink}-recomendation-card` }>
         { strDrinkAlternate }
       </div>
-      <button type="button" data-testid="finish-recipe-btn">
+      <button
+        className="finish-recipe-btn"
+        type="button"
+        data-testid="finish-recipe-btn"
+      >
         Finalizar Receita
       </button>
     </div>
