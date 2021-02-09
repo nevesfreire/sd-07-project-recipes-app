@@ -31,38 +31,39 @@ export default function IngredientsDrinks() {
 
   useEffect(() => {
     setTitle('Tela de explorar bebidas por ingredientes');
-    fetchIngredients()
+    fetchIngredients();
   }, []);
 
   return (
     <div className="ingredient-container">
       {ingredients.map((item, index) => (
-          <button
-            type="button"
-            onClick={ (event) => {
-              setSearchByingredient(event.target.id);
-              redirect('/bebidas'); }
-            }
-            className="ingredient-btn"
+        <button
+          key={ index }
+          type="button"
+          onClick={ (event) => {
+            setSearchByingredient(event.target.id);
+            redirect('/bebidas');
+          } }
+          className="ingredient-btn"
+        >
+          <div
+            className="ingredient-card"
+            data-testid={ `${index}-ingredient-card` }
           >
-            <div
-              className="ingredient-card"
-              data-testid={ `${index}-ingredient-card` }
+            <img
+              src={ ingredientsImg[index] }
+              alt={ item }
+              data-testid={ `${index}-card-img` }
+              id={ item }
+            />
+            <p
+              data-testid={ `${index}-card-name` }
+              className="ingredient-name"
             >
-              <img
-                src={ ingredientsImg[index] }
-                alt={ item }
-                data-testid={ `${index}-card-img` }
-                id={ item }
-              />
-              <p
-                data-testid={ `${index}-card-name` }
-                className="ingredient-name"
-              >
-                { item }
-              </p>
-            </div>
-          </button>
+              { item }
+            </p>
+          </div>
+        </button>
       ))}
     </div>
   );
