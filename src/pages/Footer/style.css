@@ -1,15 +1,16 @@
 .footer-container {
   background-color: #f8f9fa;
-  border-top: 1px dashed #1D3B76;
+  border-top: 3px dashed #1D3B76;
   bottom: 0;
   position: fixed;
-  margin: 5px 0 5px 5px;
+  margin-top: 10px;
   width: 100%;
 }
 
 .footer-context {
   display: flex;
   justify-content: space-around;
+  margin-top: 5px;
 }
 
 .footer-img {

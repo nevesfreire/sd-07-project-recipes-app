@@ -39,7 +39,7 @@ export default function Header({ title }) {
         { renderProfileButton
           && (
             <div className="header">
-              <Navbar bg="light" fixed="top" className="justify-content-between">
+              <Navbar bg="light" expand="lg" fixed="top" className="justify-content-between">
                 <Navbar.Brand>
                   <button
                     className="profile-top-btn"
@@ -56,6 +56,7 @@ export default function Header({ title }) {
                 <Navbar.Brand className="title-container" data-testid="page-title">
                   <h2 className="title">{title}</h2>
                 </Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse>
                   <Form inline>
                     { renderSearchButton && <SearchBar /> }

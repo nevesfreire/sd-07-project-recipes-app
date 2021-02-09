@@ -44,14 +44,14 @@ export default function CategoryButtons({ handleClick }) {
       >
         Dessert
       </button>
-      <button
+      {/* <button
         data-testid="Goat-category-filter"
         onClick={ ({ target }) => handleClick(target.value) }
         type="button"
         value="Goat"
       >
         Goat
-      </button>
+      </button> */}
     </div>
   );
 }

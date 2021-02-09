@@ -89,7 +89,7 @@ export default function Foods() {
       >
         Dessert
       </Button>
-      <Button
+      {/* <Button
         active={ filter === 'Goat' }
         data-testid="Goat-category-filter"
         onClick={ ({ target }) => applyFilter(target.value, setRecipes, fetchMeals) }
@@ -97,7 +97,7 @@ export default function Foods() {
         variant="secondary"
       >
         Goat
-      </Button>
+      </Button> */}
     </ButtonGroup>
   );
 
