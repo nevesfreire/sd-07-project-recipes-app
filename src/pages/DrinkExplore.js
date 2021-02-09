@@ -34,8 +34,9 @@ class DrinkExplore extends Component {
       return (
         <div>
           <Header title="Explorar Bebidas" history={ history } />
-          <div>
+          <div className="button-container">
             <button
+              className="btn btn-secondary btn-lg"
               type="button"
               data-testid="explore-by-ingredient"
               onClick={ () => history.push('/explorar/bebidas/ingredientes') }
@@ -43,6 +44,7 @@ class DrinkExplore extends Component {
               Por Ingredientes
             </button>
             <button
+              className="btn btn-secondary btn-lg"
               type="button"
               data-testid="explore-surprise"
               onClick={ () => history.push(`/bebidas/${drinks[0].idDrink}`) }

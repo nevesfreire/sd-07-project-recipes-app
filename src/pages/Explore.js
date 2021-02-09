@@ -10,8 +10,9 @@ class Explore extends Component {
     return (
       <div>
         <Header title="Explorar" history={ history } />
-        <div>
+        <div className="button-container">
           <button
+            className="btn btn-secondary btn-lg"
             type="button"
             data-testid="explore-food"
             onClick={ () => history.push('/explorar/comidas') }
@@ -19,6 +20,7 @@ class Explore extends Component {
             Explorar Comidas
           </button>
           <button
+            className="btn btn-secondary btn-lg"
             type="button"
             data-testid="explore-drinks"
             onClick={ () => history.push('/explorar/bebidas') }
