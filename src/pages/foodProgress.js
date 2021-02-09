@@ -8,10 +8,6 @@ function FoodProgress() {
   const arrayFood = Object.keys(food).filter((item) => item.includes('Ingredient'));
   console.log(arrayFood);
 
-  for (const i of arrayFood) {
-    console.log(i);
-  }
-
   return (
     <div>
       <img
