@@ -1,47 +1,37 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useLocation, Redirect } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { fetchRecipesByFilter } from '../../store/ducks/recipes';
 import { RecipeCardList, RecipeCategoryFilter, Header, Footer } from '../../components';
-import { FILTER_TYPES } from '../../services/recipeAPI';
 
 const Home = () => {
   const recipes = useSelector((state) => state.recipes.data);
   const isLoading = useSelector((state) => state.recipes.isFetching);
-  const filter = useSelector((state) => state.recipes.filter);
+  const filterOrigin = useSelector((state) => state.recipes.filterOrigin);
+  const history = useHistory();
   const { pathname } = useLocation();
   const dispatch = useDispatch();
   const START_INDEX = 0;
   const END_INDEX = 12; // 12 cards - 12 not included
 
-  const resultValidation = () => {
-    if (
-      filter
-      && filter.type
-      && (filter.type === FILTER_TYPES.INGREDIENT
-        || filter.type === FILTER_TYPES.FIRST_LETTER
-        || filter.type === FILTER_TYPES.NAME)
-      && !recipes.length
-      && !isLoading
-    ) {
-      return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  useEffect(() => {
+    if (!filterOrigin) {
+      dispatch(fetchRecipesByFilter(pathname));
     }
-    if (
-      filter
-      && filter.type
-      && (filter.type === FILTER_TYPES.INGREDIENT
-        || filter.type === FILTER_TYPES.FIRST_LETTER
-        || filter.type === FILTER_TYPES.NAME)
-      && recipes.length === 1
-      && !isLoading
-    ) {
-      return <Redirect to={ `${pathname}/${recipes[0].id}` } />;
-    }
-  };
+  }, [dispatch, pathname, filterOrigin]);
 
   useEffect(() => {
-    dispatch(fetchRecipesByFilter(pathname, filter.type, filter.term));
-  }, [dispatch, pathname, filter]);
+    const resultValidation = () => {
+      if (filterOrigin === 'searchbar') {
+        if (!recipes.length) {
+          alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+        } else if (recipes.length === 1) {
+          history.push(`${pathname}/${recipes[0].id}`);
+        }
+      }
+    };
+    resultValidation();
+  }, [history, recipes, pathname, filterOrigin]);
 
   return (
     <div>
@@ -49,7 +39,6 @@ const Home = () => {
         title={ pathname.includes('comidas') ? 'Comidas' : 'Bebidas' }
         showSearchIcon
       />
-      { resultValidation() }
       {isLoading ? 'Loading...' : ''}
       <RecipeCategoryFilter />
       { recipes

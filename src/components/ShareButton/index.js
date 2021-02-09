@@ -11,6 +11,7 @@ export default function ShareButton(props) {
 
   const handleClick = () => {
     copy(`${window.location.origin}/${type}/${recipeId}`);
+
     setShow(true);
   };
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { RecipeCardList } from '../../components';
+import { RecipeCardList, Header, Footer } from '../../components';
 import { getAreas, getRecipes, getRecipesByArea } from '../../services/recipeAPI';
 
 const RecipeExploreArea = () => {
@@ -30,6 +30,10 @@ const RecipeExploreArea = () => {
 
   return (
     <div>
+      <Header
+        title="Explorar Origem"
+        showSearchIcon
+      />
       <label htmlFor="area-dropdown">
         Locais:
         <select
@@ -54,6 +58,7 @@ const RecipeExploreArea = () => {
         { recipes
         && <RecipeCardList recipeList={ recipes.slice(START_INDEX, END_INDEX) } /> }
       </main>
+      <Footer />
     </div>
   );
 };

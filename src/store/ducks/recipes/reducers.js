@@ -54,7 +54,8 @@ const recipes = (state = INITIAL_STATE, action) => {
   case recipesTypes.SET_FILTER:
     return {
       ...state,
-      filter: { ...action.payload },
+      filterOrigin: action.payload.origin,
+      filter: { type: action.payload.type, term: action.payload.term },
     };
   case recipesTypes.FAVORITE_RECIPE:
     return {

@@ -16,7 +16,10 @@ const Profile = () => {
       className="profile-main"
       style={ style }
     >
-      <Header />
+      <Header
+        title="Perfil"
+        showSearchIcon={ false }
+      />
       <div className="d-flex flex-column flex-xontainer  d-flex align-items-center">
         <div className="user-info">
           <h3 data-testid="profile-email">

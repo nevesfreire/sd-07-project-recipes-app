@@ -23,6 +23,7 @@ const INITIAL_STATE = {
     categories: [],
     areas: [],
     ingredients: [],
+    filterOrigin: '', // home, searchbar, explore, doneAndFav
     filter: {
       type: '', // name, category, ingredient, firstLetter, area, random, type
       term: '', // term of search or filter

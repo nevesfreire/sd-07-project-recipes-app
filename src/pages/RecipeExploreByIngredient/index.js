@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
+import { Header, Footer } from '../../components';
+
 import { getIngredientList, FILTER_TYPES } from '../../services/recipeAPI';
-import { setFilter } from '../../store/ducks/recipes';
+import { setFilter, fetchRecipesByFilter } from '../../store/ducks/recipes';
 
 const RecipeExploreByIngredient = () => {
   const location = useLocation();
@@ -19,6 +21,10 @@ const RecipeExploreByIngredient = () => {
   if (currentPath.includes('comidas')) {
     return (
       <div>
+        <Header
+          title="Explorar Ingredientes"
+          showSearchIcon={ false }
+        />
         {ingredientList
             && ingredientList.slice(zero, twelve).map((ing, index) => (
               <Link
@@ -26,7 +32,16 @@ const RecipeExploreByIngredient = () => {
                 data-testid={ `${index}-ingredient-card` }
                 key={ ing.strIngredient }
                 onClick={ () => {
-                  dispatch(setFilter(FILTER_TYPES.INGREDIENT, ing.strIngredient));
+                  dispatch(setFilter(
+                    'explore',
+                    FILTER_TYPES.INGREDIENT,
+                    ing.strIngredient,
+                  ));
+                  dispatch(fetchRecipesByFilter(
+                    '/comidas',
+                    FILTER_TYPES.INGREDIENT,
+                    ing.strIngredient,
+                  ));
                 } }
               >
                 <div>
@@ -43,10 +58,15 @@ const RecipeExploreByIngredient = () => {
                 </div>
               </Link>
             ))}
+        <Footer />
       </div>);
   } if (currentPath.includes('bebidas')) {
     return (
       <div>
+        <Header
+          title="Explorar Ingredientes"
+          showSearchIcon={ false }
+        />
         {ingredientList
             && ingredientList.slice(zero, twelve).map((ing, index) => (
               <Link
@@ -54,7 +74,15 @@ const RecipeExploreByIngredient = () => {
                 data-testid={ `${index}-ingredient-card` }
                 key={ ing.strIngredient1 }
                 onClick={ () => {
-                  dispatch(setFilter(FILTER_TYPES.INGREDIENT, ing.strIngredient1));
+                  dispatch(setFilter(
+                    'explore',
+                    FILTER_TYPES.INGREDIENT, ing.strIngredient1,
+                  ));
+                  dispatch(fetchRecipesByFilter(
+                    '/bebidas',
+                    FILTER_TYPES.INGREDIENT,
+                    ing.strIngredient1,
+                  ));
                 } }
               >
                 <div>
@@ -71,6 +99,7 @@ const RecipeExploreByIngredient = () => {
                 </div>
               </Link>
             ))}
+        <Footer />
       </div>);
   }
 };

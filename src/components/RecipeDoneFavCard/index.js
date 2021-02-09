@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import StyledCard from './styles';
 import ShareButton from '../ShareButton';
@@ -6,6 +7,12 @@ import FavoriteButton from '../FavoriteButton';
 
 const RecipeDoneFavCard = (props) => {
   const [propsState, setpropsState] = useState(props);
+  const history = useHistory();
+
+  const handleClick = (type, id) => history.push(
+    type === 'comida' ? `/comidas/${id}`
+      : `/bebidas/${id}`,
+  );
 
   useEffect(() => {
     setpropsState(props);
@@ -31,6 +38,7 @@ const RecipeDoneFavCard = (props) => {
         variant="top"
         src={ image }
         data-testid={ `${index}-horizontal-image` }
+        onClick={ () => handleClick(type, id) }
       />
       <StyledCard.Body>
         <StyledCard.Text data-testid={ `${index}-horizontal-top-text` }>
@@ -44,6 +52,7 @@ const RecipeDoneFavCard = (props) => {
           type={ type === 'comida' ? 'comidas' : 'bebidas' }
         />)}
         <StyledCard.Title
+          onClick={ () => handleClick(type, id) }
           data-testid={ `${index}-horizontal-name` }
         >
           {name}

@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
 import RecipeCard from '../RecipeCard';
 
 import StyledCardDeck from './styles';
 
 const RecipeCardList = (props) => {
   const [recipeListState, setRecipeListState] = useState(props);
-  const { pathname } = useLocation();
 
   useEffect(() => {
     setRecipeListState(props);
@@ -16,13 +14,7 @@ const RecipeCardList = (props) => {
   return (
     <StyledCardDeck>
       { recipeList.map(({ id, name, image }, index) => (
-        <Link
-          to={ pathname.includes('comidas') ? `/comidas/${id}`
-            : `/bebidas/${id}` }
-          key={ id }
-        >
-          <RecipeCard key={ id } cardInfo={ { name, image, index } } />
-        </Link>
+        <RecipeCard key={ id } cardInfo={ { id, name, image, index } } />
       ))}
     </StyledCardDeck>
   );
