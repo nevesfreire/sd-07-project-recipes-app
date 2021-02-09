@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from '../../context/RecipesContext';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
 function FavButton() {
+  const [id, setId] = useState('');
   const {
     favorite,
     setFavorite,
@@ -13,26 +14,31 @@ function FavButton() {
 
   const history = useHistory();
   const path = history.location.pathname;
+  const data = JSON.parse(localStorage.getItem('favoriteRecipes'));
+
+  useEffect(() => {
+    if (path.includes('comidas')) {
+      setId(recipe.idMeal);
+    } else {
+      setId(recipe.idDrink);
+    }
+  }, [path, recipe.idDrink, recipe.idMeal]);
+
+  useEffect(() => {
+    const isFavorite = data && data.some((item) => item.id === id);
+    return isFavorite ? setFavorite(true) : setFavorite(false);
+  }, [data, id, setFavorite]);
 
   const handleFavBtn = () => {
     setFavorite(false);
-    if (path.includes('/comidas')) {
-      const dataMeal = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      const newDataMeal = dataMeal.filter((item) => recipe.idMeal !== item.id);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(newDataMeal));
-    } else {
-      const dataDrink = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      const newDataDrink = dataDrink.filter((item) => recipe.idDrink !== item.id);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(newDataDrink));
-    }
+    const newData = data.filter((item) => id !== item.id);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(newData));
   };
 
   const handleNotFavBtn = () => {
     setFavorite(true);
-
     if (path.includes('/comidas')) {
-      const dataMeal = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      localStorage.setItem('favoriteRecipes', JSON.stringify([...dataMeal, {
+      localStorage.setItem('favoriteRecipes', JSON.stringify(data && [...data, {
         id: recipe.idMeal,
         type: 'comida',
         area: recipe.strArea,
@@ -42,8 +48,7 @@ function FavButton() {
         image: recipe.strMealThumb,
       }]));
     } else {
-      const dataDrink = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      localStorage.setItem('favoriteRecipes', JSON.stringify([...dataDrink, {
+      localStorage.setItem('favoriteRecipes', JSON.stringify(data && [...data, {
         id: recipe.idDrink,
         type: 'bebida',
         area: '',
@@ -55,32 +60,19 @@ function FavButton() {
     }
   };
 
-  if (favorite) {
-    return (
-      <button
-        type="button"
-        data-testid="favorite-btn"
-        onClick={ handleFavBtn }
-      >
-        <img
-          src={ blackHeartIcon }
-          alt="Favorited Icon"
-        />
-      </button>
-    );
-  }
-  console.log(favorite);
   return (
-    <button
-      type="button"
-      data-testid="favorite-btn"
-      onClick={ handleNotFavBtn }
+    <div
+      role="button"
+      tabIndex={ 0 }
+      onKeyPress={ () => {} }
+      onClick={ favorite ? handleFavBtn : handleNotFavBtn }
     >
       <img
-        src={ whiteHeartIcon }
-        alt="Not Favorited Icon"
+        src={ favorite ? blackHeartIcon : whiteHeartIcon }
+        alt="Favorited Icon"
+        data-testid="favorite-btn"
       />
-    </button>
+    </div>
   );
 }
 

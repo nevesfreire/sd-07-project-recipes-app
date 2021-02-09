@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 
-import { Button, Carousel } from 'react-bootstrap';
-import { useHistory } from 'react-router-dom';
+import { Card, Carousel } from 'react-bootstrap';
+import { Link, useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
-// import FavButton from '../components/DetailsComponents/FavButton';
 import ShareButton from '../components/DetailsComponents/ShareButton';
+import FavButton from '../components/DetailsComponents/FavButton';
+import StartButton from '../components/DetailsComponents/StartButton';
 
 export default function FoodDetails() {
   const [recomendations, setRecomendations] = useState([]);
@@ -14,8 +13,6 @@ export default function FoodDetails() {
   const {
     recipe,
     setRecipe,
-    favorited,
-    setFavorited,
   } = useContext(RecipesContext);
 
   const history = useHistory();
@@ -33,7 +30,7 @@ export default function FoodDetails() {
       setRecipe(meals[0]);
     };
     getRecipe();
-  }, [path]);
+  }, [path, setRecipe]);
 
   const getRecomendations = async () => {
     const endpoint = ('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
@@ -45,7 +42,7 @@ export default function FoodDetails() {
   const ingredientsList = () => {
     const vinte = 20;
     for (let i = 1; i <= vinte; i += 1) {
-      if (recipe[`strIngredient${i}`] !== '') {
+      if (recipe[`strIngredient${i}`] !== null && recipe[`strIngredient${i}`] !== '') {
         listIngredients
           .push(`${recipe[`strIngredient${i}`]} - ${recipe[`strMeasure${i}`]}`);
       }
@@ -53,42 +50,24 @@ export default function FoodDetails() {
     return true;
   };
 
-  const isFavorite = () => {
-    if (!favorited.includes(recipe.idMeal)) {
-      setFavorited([recipe.idMeal, ...favorited]);
-      const dataMeal = JSON.parse(localStorage.getItem('favoriteRecipes'))
-        ? JSON.parse(localStorage.getItem('favoriteRecipes'))
-        : [];
-      localStorage.setItem('favoriteRecipes', JSON.stringify([...dataMeal, {
-        id: recipe.idMeal,
-        type: 'comida',
-        area: recipe.strArea,
-        category: recipe.strCategory,
-        alcoholicOrNot: '',
-        name: recipe.strMeal,
-        image: recipe.strMealThumb,
-      }]));
-    } else {
-      setFavorited(favorited.filter((item) => recipe.idMeal !== item));
-      const dataMeal = JSON.parse(localStorage.getItem('favoriteRecipes'))
-        ? JSON.parse(localStorage.getItem('favoriteRecipes'))
-        : [];
-      const newDataMeal = dataMeal.filter((item) => recipe.idMeal !== item.id);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(newDataMeal));
-    }
-  };
-
   useEffect(() => {
     getRecomendations();
   }, []);
 
-  const handleStartRecipeBtn = () => {
-    history.push(`/comidas/${recipe.idMeal}/in-progress`);
-  };
+  useEffect(() => {
+    const dataFav = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (!dataFav) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    }
 
-  console.log(favorited);
+    const dataDone = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (!dataDone) {
+      localStorage.setItem('doneRecipes', JSON.stringify([]));
+    }
+  }, []);
+
   return (
-    <div>
+    <div className="details-content">
 
       <img
         data-testid="recipe-photo"
@@ -96,43 +75,38 @@ export default function FoodDetails() {
         src={ recipe.strMealThumb }
       />
 
-      <h2 data-testid="recipe-title">{recipe.strMeal}</h2>
-      <h4 data-testid="recipe-category">{recipe.strCategory}</h4>
+      <div className="details-header-content">
+        <div className="details-title">
+          <h2 data-testid="recipe-title">{recipe.strMeal}</h2>
+          <h4 data-testid="recipe-category">{recipe.strCategory}</h4>
+        </div>
+        <div className="fav-share-btns">
+          <ShareButton />
+          <FavButton />
+        </div>
+      </div>
 
       <h3>Ingredientes</h3>
-      { ingredientsList() }
-      <ul>
-        {listIngredients.map((ingredients, key) => (
-          <li
-            key={ key }
-            data-testid={ `${key}-ingredient-name-and-measure` }
-          >
-            {ingredients}
-          </li>))}
-      </ul>
+      <div className="details-ingredients">
+        { ingredientsList() }
+        <ul>
+          {listIngredients.map((ingredients, key) => (
+            <li
+              key={ key }
+              data-testid={ `${key}-ingredient-name-and-measure` }
+            >
+              {ingredients}
+            </li>))}
+        </ul>
+      </div>
 
       <h3>Instruções</h3>
-      <span data-testid="instructions">{recipe.strInstructions}</span>
-
-      <ShareButton />
-      <button
-        type="button"
-        data-testid="favorite-btn"
-        onClick={ isFavorite }
+      <span
+        data-testid="instructions"
+        className="details-instructions"
       >
-        <img
-          src={
-            favorited.includes(recipe.idMeal)
-              ? blackHeartIcon
-              : whiteHeartIcon
-          }
-          alt={
-            favorited.includes(recipe.idMeal)
-              ? 'Favorited Icon'
-              : 'Not Favorited Icon'
-          }
-        />
-      </button>
+        {recipe.strInstructions}
+      </span>
 
       <h3>Video</h3>
       <iframe
@@ -149,38 +123,31 @@ export default function FoodDetails() {
       <h3>Recomendadas</h3>
 
       <Carousel>
-
-        {recomendations.map((item, index) => (
-
-          <Carousel.Item
-            key={ item.idDrink }
-            data-testid={ `${index}-recomendation-card` }
-          >
-            <img
-              className="d-block w-100"
-              src={ item.strDrinkThumb }
-              alt={ item.strDrink }
-            />
-            <Carousel.Caption>
-              <h3
-                data-testid={ `${index}-recomendation-title` }
-              >
-                {item.strDrink}
-              </h3>
-              <h4>{item.strAlcoholic}</h4>
-            </Carousel.Caption>
+        {recomendations.map((item, key) => (
+          <Carousel.Item key={ key }>
+            <Link to={ `/comidas/${item.idDrink}` }>
+              <Card className="carousel-card">
+                <Card.Img
+                  variant="top"
+                  data-testid={ `${key}-recomendation-card` }
+                  src={ item.strDrinkThumb }
+                  alt={ item.strDrink }
+                />
+                <Card.Body>
+                  <Card.Text>
+                    {item.strAlcoholic}
+                  </Card.Text>
+                  <Card.Title data-testid={ `${key}-recomendation-title` }>
+                    {item.strDrink}
+                  </Card.Title>
+                </Card.Body>
+              </Card>
+            </Link>
           </Carousel.Item>
         ))}
       </Carousel>
 
-      <Button
-        variant="success"
-        data-testid="start-recipe-btn"
-        className="startRecipeBtn"
-        onClick={ handleStartRecipeBtn }
-      >
-        Iniciar Receita
-      </Button>
+      <StartButton />
 
     </div>
   );

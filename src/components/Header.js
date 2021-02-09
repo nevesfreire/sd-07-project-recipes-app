@@ -2,12 +2,14 @@ import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import profileIcon from '../images/profileIcon.svg';
+import SearchBar from './SearchComponents/SearchBar';
 import SearchIconButton from './SearchComponents/SearchIconButton';
 
 function Header() {
   const {
     setTitle,
     title,
+    searching,
   } = useContext(RecipesContext);
 
   const history = useHistory();
@@ -53,27 +55,36 @@ function Header() {
     || title === 'Bebidas'
     || title === 'Explorar Origem') {
     return (
-      <header>
-        <button
-          type="button"
-          onClick={ handleProfile }
-        >
-          <img
-            data-testid="profile-top-btn"
-            src={ profileIcon }
-            alt="profile-icon"
-          />
-        </button>
-        <h2 data-testid="page-title">{ title }</h2>
-        <SearchIconButton />
-      </header>
+      <div>
+        <header>
+          <div
+            className="icon"
+            role="button"
+            tabIndex={ 0 }
+            onKeyPress={ () => {} }
+            onClick={ handleProfile }
+          >
+            <img
+              data-testid="profile-top-btn"
+              src={ profileIcon }
+              alt="profile-icon"
+            />
+          </div>
+          <h2 data-testid="page-title">{ title }</h2>
+          <SearchIconButton />
+        </header>
+        { searching && <SearchBar /> }
+      </div>
     );
   }
 
   return (
     <header>
-      <button
-        type="button"
+      <div
+        className="icon"
+        role="button"
+        tabIndex={ 0 }
+        onKeyPress={ () => {} }
         onClick={ handleProfile }
       >
         <img
@@ -81,7 +92,7 @@ function Header() {
           src={ profileIcon }
           alt="profile-icon"
         />
-      </button>
+      </div>
       <h2 data-testid="page-title">{ title }</h2>
     </header>
   );

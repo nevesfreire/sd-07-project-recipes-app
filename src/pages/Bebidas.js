@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useCallback } from 'react';
-import { Card } from 'react-bootstrap';
+import { Button, Card, CardDeck } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -72,31 +72,33 @@ export default function Bebidas() {
     return (
       <div>
         <Header />
-        {filteredIngrCards.map((drink, index) => (
-          <Link
-            key={ drink.idDrink }
-            to={ `/bebidas/${drink.idDrink}` }
-          >
-            <Card
-              key={ index }
-              style={ { width: '18rem' } }
-              data-testid={ `${index}-recipe-card` }
-            >
-              <Card.Img
-                variant="top"
-                src={ drink.strDrinkThumb }
-                data-testid={ `${index}-card-img` }
-              />
-              <Card.Body>
-                <Card.Title
-                  data-testid={ `${index}-card-name` }
+        <div>
+          <CardDeck>
+            {filteredIngrCards.map((drink, index) => (
+              <Link
+                key={ drink.idDrink }
+                to={ `/bebidas/${drink.idDrink}` }
+              >
+                <Card
+                  data-testid={ `${index}-recipe-card` }
                 >
-                  { drink.strDrink }
-                </Card.Title>
-              </Card.Body>
-            </Card>
-          </Link>
-        ))}
+                  <Card.Img
+                    variant="top"
+                    src={ drink.strDrinkThumb }
+                    data-testid={ `${index}-card-img` }
+                  />
+                  <Card.Body>
+                    <Card.Title
+                      data-testid={ `${index}-card-name` }
+                    >
+                      { drink.strDrink }
+                    </Card.Title>
+                  </Card.Body>
+                </Card>
+              </Link>
+            ))}
+          </CardDeck>
+        </div>
         <Footer />
       </div>
     );
@@ -105,37 +107,53 @@ export default function Bebidas() {
   return (
     <div>
       <Header />
-      <button
-        type="button"
-        data-testid="All-category-filter"
-        onClick={ () => getCards() }
-      >
-        All
-      </button>
-      {categories.map((category) => (
-        <button
-          key={ category.id }
+      <div className="categories-btns">
+        <Button
           type="button"
-          data-testid={ `${category.strCategory}-category-filter` }
-          id="unclicked"
-          value={ category.strCategory }
-          onClick={ (event) => filterByCategory(event) }
+          data-testid="All-category-filter"
+          onClick={ () => getCards() }
+          variant="secondary"
         >
-          {category.strCategory}
-        </button>
-      ))}
-      {cards.map((card, index) => (
-        <Link key={ card.id } to={ `/bebidas/${card.idDrink}` }>
-          <div data-testid={ `${index}-recipe-card` }>
-            <img
-              data-testid={ `${index}-card-img` }
-              src={ card.strDrinkThumb }
-              alt="Thumb Bebida"
-            />
-            <h1 data-testid={ `${index}-card-name` }>{card.strDrink}</h1>
-          </div>
-        </Link>
-      ))}
+          All
+        </Button>
+        {categories.map(({ strCategory: category }) => (
+          <Button
+            type="button"
+            key={ category }
+            id="unclicked"
+            data-testid={ `${category}-category-filter` }
+            value={ category }
+            onClick={ (event) => filterByCategory(event) }
+            variant="secondary"
+          >
+            {category}
+          </Button>
+        ))}
+      </div>
+      <div>
+        <CardDeck>
+          {cards.map((card, index) => (
+            <Link key={ index } to={ `/bebidas/${card.idDrink}` }>
+              <Card
+                data-testid={ `${index}-recipe-card` }
+              >
+                <Card.Img
+                  variant="top"
+                  src={ card.strDrinkThumb }
+                  data-testid={ `${index}-card-img` }
+                />
+                <Card.Body>
+                  <Card.Title
+                    data-testid={ `${index}-card-name` }
+                  >
+                    { card.strDrink }
+                  </Card.Title>
+                </Card.Body>
+              </Card>
+            </Link>
+          ))}
+        </CardDeck>
+      </div>
       <Footer />
     </div>
   );

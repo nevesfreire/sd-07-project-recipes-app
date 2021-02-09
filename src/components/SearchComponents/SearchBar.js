@@ -12,7 +12,7 @@ function SearchBar() {
 
   return (
     <div>
-      <Form>
+      <Form className="search-bar-form">
         <Form.Group controlId="inputSearch">
           <Form.Control
             type="text"

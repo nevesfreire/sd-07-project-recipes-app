@@ -31,8 +31,8 @@ function Login() {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
+    <div className="login-content">
+      <h2 className="login-title">Login</h2>
       <Form>
         <Form.Group controlId="formBasicEmail">
 
@@ -61,6 +61,8 @@ function Login() {
           disabled={ isDisabled() }
           onClick={ handleEnter }
           variant="success"
+          size="lg"
+          block
         >
           Entrar
         </Button>

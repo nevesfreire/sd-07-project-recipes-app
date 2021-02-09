@@ -21,9 +21,11 @@ function Footer() {
 
   return (
     <footer className="footer" data-testid="footer">
-
-      <button
-        type="button"
+      <div
+        className="icon"
+        role="button"
+        tabIndex={ 0 }
+        onKeyPress={ () => {} }
         onClick={ handleDrink }
       >
         <img
@@ -31,10 +33,13 @@ function Footer() {
           alt="drink-icon"
           data-testid="drinks-bottom-btn"
         />
-      </button>
+      </div>
 
-      <button
-        type="button"
+      <div
+        className="icon"
+        role="button"
+        tabIndex={ 0 }
+        onKeyPress={ () => {} }
         onClick={ handleExplore }
       >
         <img
@@ -42,10 +47,13 @@ function Footer() {
           alt="explore-icon"
           data-testid="explore-bottom-btn"
         />
-      </button>
+      </div>
 
-      <button
-        type="button"
+      <div
+        className="icon"
+        role="button"
+        tabIndex={ 0 }
+        onKeyPress={ () => {} }
         onClick={ handleMeal }
       >
         <img
@@ -53,7 +61,7 @@ function Footer() {
           alt="meal-icon"
           data-testid="food-bottom-btn"
         />
-      </button>
+      </div>
     </footer>
   );
 }

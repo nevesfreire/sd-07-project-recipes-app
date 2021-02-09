@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Carousel } from 'react-bootstrap';
-import { useHistory } from 'react-router-dom';
+import { Card, Carousel } from 'react-bootstrap';
+import { Link, useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import FavButton from '../components/DetailsComponents/FavButton';
 import ShareButton from '../components/DetailsComponents/ShareButton';
+import StartButton from '../components/DetailsComponents/StartButton';
 
 export default function DrinkDetails() {
   const [recomendations, setRecomendations] = useState([]);
@@ -29,7 +30,7 @@ export default function DrinkDetails() {
       setRecipe(drinks[0]);
     };
     getRecipe();
-  }, [path]);
+  }, [path, setRecipe]);
 
   const getRecomendations = async () => {
     const endpoint = ('https://www.themealdb.com/api/json/v1/1/search.php?s=');
@@ -40,7 +41,7 @@ export default function DrinkDetails() {
 
   const ingredientsList = () => {
     for (let i = 1; i <= quinze; i += 1) {
-      if (recipe[`strIngredient${i}`] !== '') {
+      if (recipe[`strIngredient${i}`] !== null && recipe[`strIngredient${i}`] !== '') {
         listIngredients
           .push(`${recipe[`strIngredient${i}`]} - ${recipe[`strMeasure${i}`]}`);
       }
@@ -54,23 +55,18 @@ export default function DrinkDetails() {
 
   useEffect(() => {
     const dataFav = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (dataFav) {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([...dataFav]));
-    } else { localStorage.setItem('favoriteRecipes', JSON.stringify([])); }
+    if (!dataFav) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    }
 
     const dataDone = JSON.parse(localStorage.getItem('doneRecipes'));
-    if (dataDone) {
-      localStorage.setItem('doneRecipes', JSON.stringify([...dataDone]));
-    } else { localStorage.setItem('doneRecipes', JSON.stringify([])); }
-    localStorage.setItem('doneRecipes', JSON.stringify([]));
+    if (!dataDone) {
+      localStorage.setItem('doneRecipes', JSON.stringify([]));
+    }
   }, []);
 
-  const handleStartRecipeBtn = () => {
-    history.push(`/bebidas/${recipe.idDrink}/in-progress`);
-  };
-
   return (
-    <div>
+    <div className="details-content">
 
       <img
         data-testid="recipe-photo"
@@ -78,63 +74,67 @@ export default function DrinkDetails() {
         src={ recipe.strDrinkThumb }
       />
 
-      <h2 data-testid="recipe-title">{recipe.strDrink}</h2>
-      <h4 data-testid="recipe-category">{recipe.strAlcoholic}</h4>
+      <div className="details-header-content">
+        <div className="details-title">
+          <h2 data-testid="recipe-title">{recipe.strDrink}</h2>
+          <h4 data-testid="recipe-category">{recipe.strAlcoholic}</h4>
+        </div>
+        <div className="fav-share-btns">
+          <ShareButton />
+          <FavButton />
+        </div>
+      </div>
 
       <h3>Ingredientes</h3>
-      { ingredientsList() }
-      <ul>
-        {listIngredients.map((ingredients, key) => (
-          <li
-            key={ key }
-            data-testid={ `${key}-ingredient-name-and-measure` }
-          >
-            {ingredients}
-          </li>))}
-      </ul>
+      <div className="details-ingredients">
+        { ingredientsList() }
+        <ul>
+          {listIngredients.map((ingredients, key) => (
+            <li
+              key={ key }
+              data-testid={ `${key}-ingredient-name-and-measure` }
+            >
+              {ingredients}
+            </li>))}
+        </ul>
+      </div>
 
-      <h3>Instruções</h3>
-      <span data-testid="instructions">{recipe.strInstructions}</span>
-
-      <ShareButton />
-
-      <FavButton />
+      <span
+        data-testid="instructions"
+        className="details-instructions"
+      >
+        {recipe.strInstructions}
+      </span>
 
       <h3>Recomendadas</h3>
 
       <Carousel>
 
-        {recomendations.map((item, index) => (
-
-          <Carousel.Item
-            key={ item.idMeal }
-            data-testid={ `${index}-recomendation-card` }
-          >
-            <img
-              className="d-block w-100"
-              src={ item.strMealThumb }
-              alt={ item.strMeal }
-            />
-            <Carousel.Caption>
-              <h3
-                data-testid={ `${index}-recomendation-title` }
-              >
-                { item.strMeal }
-              </h3>
-              <h4>{ item.strCategory }</h4>
-            </Carousel.Caption>
+        {recomendations.map((item, key) => (
+          <Carousel.Item key={ key }>
+            <Link to={ `/bebidas/${item.idMeal}` }>
+              <Card className="carousel-card">
+                <Card.Img
+                  variant="top"
+                  data-testid={ `${key}-recomendation-card` }
+                  src={ item.strMealThumb }
+                  alt={ item.strMeal }
+                />
+                <Card.Body>
+                  <Card.Text>
+                    {item.strCategory}
+                  </Card.Text>
+                  <Card.Title data-testid={ `${key}-recomendation-title` }>
+                    {item.strMeal}
+                  </Card.Title>
+                </Card.Body>
+              </Card>
+            </Link>
           </Carousel.Item>
         ))}
       </Carousel>
 
-      <Button
-        variant="success"
-        data-testid="start-recipe-btn"
-        className="startRecipeBtn"
-        onClick={ handleStartRecipeBtn }
-      >
-        Iniciar Receita
-      </Button>
+      <StartButton />
 
     </div>
 
