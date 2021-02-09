@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import '../styles/recipes.css';
 
@@ -9,7 +10,7 @@ class CocktailCard extends Component {
       strDrink,
       idDrink }, index, testid } = this.props;
     return (
-      <div>
+      <Link to={ `/bebidas/${idDrink}` }>
         <div data-testid={ `${index}-${testid}` }>{ idDrink }</div>
         <img
           src={ strDrinkThumb }
@@ -18,7 +19,7 @@ class CocktailCard extends Component {
           className="recipe-photo"
         />
         <p data-testid={ `${index}-card-name` }>{ strDrink }</p>
-      </div>
+      </Link>
     );
   }
 }

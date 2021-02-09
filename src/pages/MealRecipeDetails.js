@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import copy from 'clipboard-copy';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getMealsDetailsById } from '../services/mealsAPI';
@@ -107,12 +108,14 @@ class MealRecipeDetails extends Component {
     });
   }
 
+  copyLink(id) {
+    copy(`http://localhost:3000/comidas/${id}`);
+    document.getElementById('link').style = 'inline';
+  }
+
   render() {
     const { meals, isLoading, favorite, ingredients, measures } = this.state;
-    if (isLoading) {
-      return <p>Loading...</p>;
-    }
-
+    if (isLoading) return <p>Loading...</p>;
     const {
       idMeal,
       strMealThumb,
@@ -121,8 +124,11 @@ class MealRecipeDetails extends Component {
       strCategory,
       strYoutube,
     } = meals.meals[0];
-
     const youtubeId = strYoutube.substring(strYoutube.indexOf('=') + 1);
+    const zero = 0;
+    const maxLength = 6;
+    const { cocktails } = this.props;
+    const firstCocktails = cocktails.slice(zero, maxLength);
 
     return (
       <div className="recipe-details">
@@ -139,14 +145,18 @@ class MealRecipeDetails extends Component {
           >
             {strMeal}
           </h1>
+        <div className="recipe-header">
+          <h1 data-testid="recipe-title" className="recipe-title">{strMeal}</h1>
           <div className="actions">
             <button
               type="button"
               data-testid="share-btn"
               className="action-button"
+              onClick={ () => this.copyLink(idMeal) }
             >
               <img src={ shareIcon } alt="share" />
             </button>
+            <p id="link" style={ { display: 'none' } }>Link copiado!</p>
             <button
               type="button"
               onClick={ this.handleFavoriteButton }
@@ -169,8 +179,7 @@ class MealRecipeDetails extends Component {
           <h2>Ingredients</h2>
           <ul>
             {ingredients
-              .filter((item) => item !== '' && item !== null)
-              .map((item, index) => (
+              .filter((item) => item !== '' && item !== null).map((item, index) => (
                 <li
                   key={ index }
                   data-testid={ `${index}-ingredient-name-and-measure` }
@@ -195,12 +204,8 @@ class MealRecipeDetails extends Component {
             height="202.5"
             src={ `https://www.youtube.com/embed/${youtubeId}` }
             frameBorder="0"
-            allow="accelerometer;
-            autoplay;
-            clipboard-write;
-            encrypted-media;
-            gyroscope;
-            picture-in-picture"
+            allow="accelerometer;autoplay;clipboard-write;encrypted-media;
+            gyroscope;picture-in-picture"
             allowFullScreen
           />
         </div>
