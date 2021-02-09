@@ -9,7 +9,7 @@ import { thayProfile,
 const data = {
   thay: {
     video: {
-      titleVideo: 'A Pabllo que se',
+      titleVideo: 'Quem é a Pabllo perto do fenômeno Thay?!',
       linkVideo: 'https://www.youtube.com/watch?v=QcS9ZndErHc',
     },
     drink: {
@@ -25,7 +25,7 @@ const data = {
   },
   hamaji: {
     video: {
-      titleVideo: 'Goku + Forró',
+      titleVideo: 'Goku + Forró = Hamaji',
       linkVideo: 'https://www.youtube.com/watch?v=urv7eHp1Ivo',
     },
     drink: {
