@@ -84,6 +84,7 @@ class TelaDetalheBebida extends Component {
   handleFavoriteClick(drinkDetailStore) {
     const favoritesFromStorage = getStorage('favoriteRecipes');
     const { isFavorite } = this.state;
+    console.log(drinkDetailStore);
     if (isFavorite) {
       const newLocalStorage = favoritesFromStorage
         .filter((curr) => curr.id !== drinkDetailStore.idDrink);
@@ -93,9 +94,9 @@ class TelaDetalheBebida extends Component {
       const newLocalStorageObj = {
         id: drinkDetailStore.idDrink,
         type: 'bebida',
-        area: drinkDetailStore.strArea,
+        area: '',
         category: drinkDetailStore.strCategory,
-        alcoholicOrNot: '',
+        alcoholicOrNot: drinkDetailStore.strAlcoholic,
         name: drinkDetailStore.strDrink,
         image: drinkDetailStore.strDrinkThumb,
       };
