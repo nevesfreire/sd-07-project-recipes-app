@@ -8,8 +8,8 @@ const Login = () => (
     <LoginForm />
     <div className="dev-by">
       <div>
-        <h6>Developed By:</h6>
-        <h2>Team Reduggets</h2>
+        <h6 className="textInLogin">Developed By:</h6>
+        <h2 className="textInLogin">Team Reduggets</h2>
       </div>
       <div>
         <img className="imgLogoReduggets" width="60px" src={ logo } alt="logo Rediggets" />
