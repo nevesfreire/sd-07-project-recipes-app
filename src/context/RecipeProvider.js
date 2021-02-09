@@ -7,6 +7,7 @@ const RecipeProviderDetails = ({ children }) => {
   const [recipesDone, setRecipesDone] = useState([]);
   const [recipesInProgress, setRecipesInProgress] = useState([]);
   const [state, setState] = useState(geral);
+  // const [searchByIngredient, setSearchByingredient] = useState('');
 
   const updateState = (key, value) => {
     setState((prevState) => ({
@@ -105,6 +106,8 @@ const RecipeProviderDetails = ({ children }) => {
         setRecipeVideo,
         setRecipeRecommendations,
         setRecipeTags,
+        // searchByIngredient,
+        // setSearchByingredient,
       } }
     >
       {children}

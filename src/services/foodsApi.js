@@ -7,6 +7,7 @@ export async function foodByName(name) {
   return meals;
 }
 export async function foodByIngredient(ingredients) {
+  console.log(ingredients);
   const endpoint = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredients}`);
   const response = await endpoint.json();
   const { meals } = response;
@@ -38,6 +39,16 @@ export async function getInitialFood() {
 
 export async function getFoodCategories(category) {
   const response = await foodByCategory(category);
+  const list = [];
+  Object.entries(response).forEach((meal, index) => {
+    const { strMeal, strMealThumb, strCategory } = meal[1];
+    if (index < twelve) list.push({ strMeal, strMealThumb, strCategory });
+  });
+  return list;
+}
+
+export async function getFoodByIngredients(ingredients) {
+  const response = await foodByIngredient(ingredients);
   const list = [];
   Object.entries(response).forEach((meal, index) => {
     const { strMeal, strMealThumb, strCategory } = meal[1];
