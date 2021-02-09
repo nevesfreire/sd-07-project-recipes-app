@@ -11,3 +11,6 @@ export { default as hamajiProfile } from './hamaji.png';
 export { default as thayProfile } from './thay.png';
 export { default as wolfProfile } from './wolf.png';
 export { default as imagemLogo } from './imagemLogo.png';
+export { default as pizza } from './pizza.jpeg';
+export { default as estrogonof } from './estrogonof.jpg';
+export { default as hamburguer } from './hamburger.jpeg';
