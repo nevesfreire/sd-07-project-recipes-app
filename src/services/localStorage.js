@@ -52,7 +52,7 @@ export const getRecipesFavorites = () => {
       id: '178319',
       type: 'bebida',
       area: '',
-      category: 'XXXXXX',
+      category: '',
       alcoholicOrNot: 'Alcoholic',
       name: 'Aquamarine',
       image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
