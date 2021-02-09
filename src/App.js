@@ -4,7 +4,7 @@ import Login from './pages/login';
 import Recipes from './pages/recipes';
 import Profile from './pages/profile';
 import Explore from './pages/explore';
-import RecipeDetail from './components/RecipeDetail';
+// import RecipeDetail from './components/RecipeDetail';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -25,7 +25,7 @@ function App() {
       <Route path="/explorar/comidas" />
       <Route path="/explorar/bebidas" />
       <Route path="/receitas-feitas" />
-      <Route path="/comidas/:id" component={ RecipeDetail } />
+      {/* <Route path="/comidas/:id" component={ RecipeDetail } /> */}
       <Route path="/bebidas/:id" />
     </Switch>
   );
