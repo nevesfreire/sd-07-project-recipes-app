@@ -4,6 +4,7 @@ import Header from '../../../common/Header';
 import { getMealIngredients } from '../../../services/API';
 import { AppContext } from '../../../context/AppContext';
 import BottonBar from '../../../common/BottomBar';
+import '../style.css';
 
 function ExploreMealIngredients() {
   const fullLength = 12;
@@ -36,12 +37,14 @@ function ExploreMealIngredients() {
       {isLoading ? <h1>is Loading...</h1>
         : ingredients.map((item, index) => (
           <button
+            className="btnIngred"
             key={ index }
             onClick={ () => handleFilter(item.strIngredient) }
             type="button"
           >
             <div data-testid={ `${index}-ingredient-card` }>
               <img
+                className="btnIngredImg"
                 data-testid={ `${index}-card-img` }
                 alt="ingredients"
                 src={ source(item.strIngredient) }

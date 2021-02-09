@@ -18,10 +18,22 @@ export default function ExplorarBebidas() {
   return (
     <div>
       <Link to="/explorar/bebidas/ingredientes">
-        <Button data-testid="explore-by-ingredient">Por Ingredientes</Button>
+        <button
+          className="buttonBig"
+          type="button"
+          data-testid="explore-by-ingredient"
+        >
+          Por Ingredientes
+        </button>
       </Link>
       <Link to={ `/bebidas/${randomId}` }>
-        <Button data-testid="explore-surprise">Me Surpreenda!</Button>
+        <button
+          className="buttonBig"
+          type="button"
+          data-testid="explore-surprise"
+        >
+          Me Surpreenda!
+        </button>
       </Link>
     </div>
   );

@@ -93,3 +93,13 @@ body {
 .shareBox img {
   width: 60px;
 }
+
+.buttonBig {
+  background: white;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  height: 42px;
+  margin: 5px 40px;
+  width: 280px;
+}

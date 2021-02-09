@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
 import { fetchMeal } from '../../../services/API';
 
 export default function ExplorarComidas() {
@@ -18,13 +17,31 @@ export default function ExplorarComidas() {
   return (
     <div>
       <Link to="/explorar/comidas/ingredientes">
-        <Button data-testid="explore-by-ingredient">Por Ingredientes</Button>
+        <button
+          className="buttonBig"
+          type="button"
+          data-testid="explore-by-ingredient"
+        >
+          Por Ingredientes
+        </button>
       </Link>
       <Link to="/explorar/comidas/area">
-        <Button data-testid="explore-by-area">Por Local de Origem</Button>
+        <button
+          className="buttonBig"
+          type="button"
+          data-testid="explore-by-area"
+        >
+          Por Local de Origem
+        </button>
       </Link>
       <Link to={ `/comidas/${randomId}` }>
-        <Button data-testid="explore-surprise">Me Surpreenda!</Button>
+        <button
+          className="buttonBig"
+          type="button"
+          data-testid="explore-surprise"
+        >
+          Me Surpreenda!
+        </button>
       </Link>
     </div>
   );

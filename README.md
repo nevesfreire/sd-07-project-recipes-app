@@ -695,7 +695,9 @@ Para os grupos que quiserem implementar estilizações no app, recomendamos o us
 import Button from 'react-bootstrap/Button';
 
 const MeuComponente = () => (
-  <Button variant="success">
+  <button
+          className="buttonBig"
+          type="button" variant="success">
     Botão Verde
   </Button>
 );

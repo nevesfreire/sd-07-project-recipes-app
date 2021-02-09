@@ -6,13 +6,15 @@ export default function ExploreFoodButton() {
   return (
     <div>
       <Link to="/explorar/bebidas">
-        <Button
+        <button
+          className="buttonBig"
+          type="button"
           data-testid="explore-drinks"
           placeholder="Bebidas"
         >
           Explorar Bebidas
 
-        </Button>
+        </button>
       </Link>
     </div>
   );
