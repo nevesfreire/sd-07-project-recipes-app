@@ -58,6 +58,7 @@ function Header() {
       <div>
         <header>
           <div
+            className="icon"
             role="button"
             tabIndex={ 0 }
             onKeyPress={ () => {} }

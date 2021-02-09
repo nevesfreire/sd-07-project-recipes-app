@@ -190,9 +190,9 @@ header {
 }
 
 .card-columns {
+  column-count: 2;
   display: flex;
   justify-content: center;
-  column-count: 2;
 }
 
 .card-deck {
