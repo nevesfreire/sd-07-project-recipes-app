@@ -65,7 +65,7 @@ export default function ExplorarArea() {
   return (
     <>
       <Header />
-      <h1>Carregando...</h1>
+      <h1 style={ { color: 'white', textAlign: 'center' } }>Carregando...</h1>
       <BottomBar />
     </>
   );
