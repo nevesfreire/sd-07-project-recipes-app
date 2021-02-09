@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FavoriteButton, ShareButton } from '../../components';
-import WhiteHeartIcon from '../../images/whiteHeartIcon.svg';
+// import WhiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import './RecipeInProgress.css';
 
 export default function RecipeInProgress({ history, match: { params: { id } } }) {
