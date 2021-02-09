@@ -195,13 +195,6 @@ header {
   justify-content: center;
 }
 
-.card-deck {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 100%;
-}
-
 .card-deck > a {
   display: flex;
   justify-content: center;
@@ -211,7 +204,7 @@ header {
 .card {
   margin: 2%;
   max-width: 80%;
-}
+}  */
 
 .icon {
   margin: 1rem;
