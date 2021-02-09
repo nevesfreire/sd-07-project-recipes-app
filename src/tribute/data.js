@@ -1,3 +1,5 @@
+import { thayProfile, wolfProfile, hamajiProfile } from '../images';
+
 const data = {
   thay: {
     video: {
@@ -12,7 +14,7 @@ const data = {
       foodTitle: 'Prato favorito',
       foodImg: 'http',
     },
-    img: { picture: 'foto' },
+    img: { picture: thayProfile },
     text: { title: 'Obrigado', text: 'obrigado' },
   },
   hamaji: {
@@ -28,7 +30,7 @@ const data = {
       foodTitle: 'Prato favorito',
       foodImg: 'http',
     },
-    img: { picture: 'foto' },
+    img: { picture: hamajiProfile },
     text: { title: 'Obrigado', text: 'obrigado' },
   },
   wolf: {
@@ -44,7 +46,7 @@ const data = {
       foodTitle: 'Prato favorito',
       foodImg: 'http',
     },
-    img: { picture: 'foto' },
+    img: { picture: wolfProfile },
     text: { title: 'Obrigado', text: 'obrigado' },
   },
 };
