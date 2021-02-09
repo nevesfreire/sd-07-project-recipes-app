@@ -23,12 +23,13 @@ function Provider({ children }) {
     const newObject = {
       id: obj.idMeal || obj.idDrink,
       type: obj.idMeal ? 'comida' : 'bebida',
-      area: obj.strArea,
+      area: obj.idMeal ? obj.strArea : '',
       category: obj.strCategory,
-      alcoholicOrNot: obj.strAlcoholic,
+      alcoholicOrNot: obj.idDrink ? obj.strAlcoholic : '',
       name: obj.strMeal || obj.strDrink,
       image: obj.strMealThumb || obj.strDrinkThumb,
     };
+
     addToFavLocalStorage(newObject);
     setFavorites((prevState) => [...prevState, newObject]);
   };

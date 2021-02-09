@@ -241,7 +241,7 @@ describe('38 - Desenvolva um botão de nome "Iniciar Receita" que deve ficar fix
   });
 });
 
-describe.skip('39 - Implemente a solução de forma que caso a receita já tenha sido feita, o botão "Iniciar Receita" deve sumir', () => {
+describe('39 - Implemente a solução de forma que caso a receita já tenha sido feita, o botão "Iniciar Receita" deve sumir', () => {
   it('Verifica se botão de iniciar receita não é visível na tela de detalhes de uma comida', () => {
     cy.visit('http://localhost:3000/comidas/52771', {
       onBeforeLoad(win) {
@@ -287,7 +287,7 @@ describe.skip('39 - Implemente a solução de forma que caso a receita já tenha
   });
 });
 
-describe.skip('40 - Implemente a solução de modo que caso a receita tenha sido iniciada mas não finalizada, o texto do botão deve ser "Continuar Receita"', () => {
+describe('40 - Implemente a solução de modo que caso a receita tenha sido iniciada mas não finalizada, o texto do botão deve ser "Continuar Receita"', () => {
   it('Verifica botão de "Continuar Receita" na tela de detalhes de uma comida', () => {
     cy.visit('http://localhost:3000/comidas/52771', {
       onBeforeLoad(win) {
@@ -321,7 +321,7 @@ describe.skip('40 - Implemente a solução de modo que caso a receita tenha sido
   });
 });
 
-describe.skip('41 - Redirecione a pessoa usuário caso o botão "Iniciar Receita" seja clicado, a rota deve mudar para a tela de receita em processo', () => {
+describe('41 - Redirecione a pessoa usuário caso o botão "Iniciar Receita" seja clicado, a rota deve mudar para a tela de receita em processo', () => {
   it('Redireciona para tela de receita da comida em processo', () => {
     cy.visit('http://localhost:3000/comidas/52771', {
       onBeforeLoad(win) {
@@ -345,7 +345,7 @@ describe.skip('41 - Redirecione a pessoa usuário caso o botão "Iniciar Receita
   });
 });
 
-describe.skip('42 - Implemente um botão de compartilhar e um de favoritar a receita', () => {
+describe('42 - Implemente um botão de compartilhar e um de favoritar a receita', () => {
   it('Verifica se os botões estão disponíveis na tela de detalhes de uma comida', () => {
     cy.visit('http://localhost:3000/comidas/52771', {
       onBeforeLoad(win) {
@@ -471,7 +471,7 @@ describe('44 - Implemente o ícone do coração (favorito) de maneira que, deve 
   });
 });
 
-describe.skip('45 - Implemente a lógica no botão de favoritar, caso seja clicado, o ícone do coração deve mudar seu estado atual, caso esteja preenchido deve mudar para "despreenchido" e vice-versa', () => {
+describe('45 - Implemente a lógica no botão de favoritar, caso seja clicado, o ícone do coração deve mudar seu estado atual, caso esteja preenchido deve mudar para "despreenchido" e vice-versa', () => {
   it('Favorita a comida', () => {
     cy.visit('http://localhost:3000/comidas/52771', {
       onBeforeLoad(win) {
@@ -563,7 +563,7 @@ describe.skip('45 - Implemente a lógica no botão de favoritar, caso seja clica
   });
 });
 
-describe.skip('46 - Salve as receitas favoritas no `localStorage` na chave `favoriteRecipes`', () => {
+describe('46 - Salve as receitas favoritas no `localStorage` na chave `favoriteRecipes`', () => {
   it('Verifica se após favoritar receita de uma comida, ela é salva corretamente no localStorage', () => {
     cy.visit('http://localhost:3000/comidas/52771', {
       onBeforeLoad(win) {

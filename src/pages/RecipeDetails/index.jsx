@@ -9,6 +9,8 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
   const { location: { pathname } } = history;
   const path = pathname.split('/')[1];
   const {
+    idMeal,
+    idDrink,
     strMealThumb,
     strMeal,
     strCategory,
@@ -48,6 +50,12 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
     }
   };
 
+  const startRecipe = () => (
+    idMeal
+      ? history.push(`/comidas/${idMeal}/in-progress`)
+      : history.push(`/bebidas/${idDrink}/in-progress`)
+  );
+
   useEffect(() => {
     fetchMealDetails();
   }, []);
@@ -83,6 +91,7 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
         type="button"
         className="start-recipe-btn"
         data-testid="start-recipe-btn"
+        onClick={ startRecipe }
       >
         Iniciar Receita
       </button>
@@ -100,5 +109,6 @@ RecipeDetails.propTypes = {
     location: PropTypes.shape({
       pathname: PropTypes.string.isRequired,
     }),
+    push: PropTypes.func.isRequired,
   }).isRequired,
 };
