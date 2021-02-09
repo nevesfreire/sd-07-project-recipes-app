@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+
 import { FILTER_TYPES } from '../../services/recipeAPI';
-import { setFilter } from '../../store/ducks/recipes';
+import { setFilter, fetchRecipesByFilter } from '../../store/ducks/recipes';
 
 const SearchBar = () => {
+  const ORIGIN_SEARCH_BAR = 'searchbar';
   const [query, setQuery] = useState(FILTER_TYPES.INGREDIENT);
   const [inputQuery, setInputQuery] = useState('');
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
 
   const handleQuery = () => {
     if (query === FILTER_TYPES.FIRST_LETTER && inputQuery.length !== 1) {
       return alert('Sua busca deve conter somente 1 (um) caracter');
     }
-    dispatch(setFilter(query, inputQuery));
+    dispatch(setFilter(ORIGIN_SEARCH_BAR, query, inputQuery));
+    dispatch(fetchRecipesByFilter(pathname, query, inputQuery));
   };
 
   return (
@@ -37,6 +42,7 @@ const SearchBar = () => {
               value="ingredient"
               name="search-radio"
               data-testid="ingredient-search-radio"
+              checked={ query === FILTER_TYPES.INGREDIENT }
               onChange={ () => setQuery(FILTER_TYPES.INGREDIENT) }
             />
             Ingredient
@@ -48,6 +54,7 @@ const SearchBar = () => {
               value="name"
               name="search-radio"
               data-testid="name-search-radio"
+              checked={ query === FILTER_TYPES.NAME }
               onChange={ () => setQuery(FILTER_TYPES.NAME) }
             />
             Name
@@ -59,6 +66,7 @@ const SearchBar = () => {
               value="first-letter"
               name="search-radio"
               data-testid="first-letter-search-radio"
+              checked={ query === FILTER_TYPES.FIRST_LETTER }
               onChange={ () => setQuery(FILTER_TYPES.FIRST_LETTER) }
             />
             First Letter

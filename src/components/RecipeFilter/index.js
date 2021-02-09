@@ -14,7 +14,7 @@ const RecipeFilter = () => {
   };
 
   useEffect(() => {
-    dispatch(setFilter('foodOrDrink', checkedValue));
+    dispatch(setFilter('doneAndFav', 'foodOrDrink', checkedValue));
     /* return () => {
       dispatch(setFilter('')); // cleanup filter
     }; */
@@ -22,7 +22,7 @@ const RecipeFilter = () => {
   [dispatch, checkedValue]);
 
   useEffect(() => () => {
-    dispatch(setFilter('')); // cleanup filter
+    dispatch(setFilter('doneAndFav', '')); // cleanup filter
   },
   [dispatch]);
 

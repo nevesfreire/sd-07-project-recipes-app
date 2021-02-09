@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { fetchCategories, setFilter } from '../../store/ducks/recipes';
+import {
+  fetchCategories,
+  setFilter,
+  fetchRecipesByFilter } from '../../store/ducks/recipes';
 import { FILTER_TYPES } from '../../services/recipeAPI';
 import { StyledButtonGroup, StyledToggleButton } from './styles';
 
@@ -15,10 +18,12 @@ const RecipeCategoryFilter = () => {
     if ((newValue && newValue === checkedValue)
       || (!newValue && newValue !== checkedValue)) {
       setCheckedValue('');
-      dispatch(setFilter(FILTER_TYPES.NAME));
+      dispatch(setFilter('home', FILTER_TYPES.NAME));
+      dispatch(fetchRecipesByFilter(pathname, FILTER_TYPES.NAME, ''));
     } else if (newValue !== checkedValue) {
       setCheckedValue(newValue);
-      dispatch(setFilter(FILTER_TYPES.CATEGORY, newValue));
+      dispatch(setFilter('home', FILTER_TYPES.CATEGORY, newValue));
+      dispatch(fetchRecipesByFilter(pathname, FILTER_TYPES.CATEGORY, newValue));
     }
   };
 
