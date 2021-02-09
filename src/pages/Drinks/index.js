@@ -1,8 +1,10 @@
 import React, { useEffect, useContext } from 'react';
+import { Button, ButtonGroup } from 'react-bootstrap';
 import Card from '../../components/Cards';
 import Header from '../../components/Header';
 import Footer from '../Footer';
 import RecipesContext from '../../Context/RecipesContext';
+import Loading from '../../components/Loading';
 
 let filter = '';
 
@@ -27,7 +29,7 @@ export default function Drinks() {
   } = useContext(RecipesContext);
 
   const zero = 0;
-  const twelve = 12;
+  const twelve = 1000;
 
   const pageLoading = (
     <div>
@@ -40,56 +42,62 @@ export default function Drinks() {
   );
 
   const categoryButtons = (
-    <div>
-      <button
+    <ButtonGroup>
+      <Button
+        active={ filter === '' }
         data-testid="All-category-filter"
         onClick={ ({ target }) => applyFilter(target.value, setRecipes, fetchDrinks) }
-        type="button"
+        variant="secondary"
         value=""
       >
         All
-      </button>
-      <button
+      </Button>
+      <Button
+        active={ filter === 'Ordinary Drink' }
         data-testid="Ordinary Drink-category-filter"
         onClick={ ({ target }) => applyFilter(target.value, setRecipes, fetchDrinks) }
-        type="button"
+        variant="secondary"
         value="Ordinary Drink"
       >
         Ordinary Drink
-      </button>
-      <button
+      </Button>
+      <Button
+        active={ filter === 'Cocktail' }
         data-testid="Cocktail-category-filter"
         onClick={ ({ target }) => applyFilter(target.value, setRecipes, fetchDrinks) }
-        type="button"
+        variant="secondary"
         value="Cocktail"
       >
         Cocktail
-      </button>
-      <button
+      </Button>
+      <Button
+        active={ filter === 'Milk / Float / Shake' }
         data-testid="Milk / Float / Shake-category-filter"
         onClick={ ({ target }) => applyFilter(target.value, setRecipes, fetchDrinks) }
-        type="button"
+        variant="secondary"
         value="Milk / Float / Shake"
       >
         Milk / Float / Shake
-      </button>
-      <button
+      </Button>
+      <Button
+        active={ filter === 'Other/Unknown' }
         data-testid="Other/Unknown-category-filter"
         onClick={ ({ target }) => applyFilter(target.value, setRecipes, fetchDrinks) }
-        type="button"
+        variant="secondary"
         value="Other/Unknown"
       >
         Other / Unknown
-      </button>
-      <button
+      </Button>
+      <Button
+        active={ filter === 'Cocoa' }
         data-testid="Cocoa-category-filter"
         onClick={ ({ target }) => applyFilter(target.value, setRecipes, fetchDrinks) }
-        type="button"
+        variant="secondary"
         value="Cocoa"
       >
         Cocoa
-      </button>
-    </div>
+      </Button>
+    </ButtonGroup>
   );
 
   const filteredMap = () => {
@@ -112,30 +120,25 @@ export default function Drinks() {
 
   if (!recipes.drinks
     || recipes.drinks.length === zero) {
-    return pageLoading;
+    return <Loading headerTitle="Bebidas" />;
   }
 
   return (
-    <div>
-      <Header title="Bebidas" />
-      { categoryButtons }
-      { recipes.drinks.map((recipe, index) => {
-        if (control || index >= twelve) {
-          return null;
-        }
-        return <Card recipe={ recipe } index={ index } key={ index } />;
-      })}
-      {/* { recipes.drinks.map((recipe, index) => {
-        if (control) {
-          return null;
-        }
-        if (index < twelve) {
-          return <Card recipe={ recipe } index={ index } key={ index } />;
-        }
-        return null;
-      })} */}
-      { filteredMap() }
+    <>
+      <div className="recipes-page-container">
+        <Header title="Bebidas" />
+        { categoryButtons }
+        <div className="recipes-section">
+          { recipes.drinks.map((recipe, index) => {
+            if (control || index >= twelve) {
+              return null;
+            }
+            return <Card recipe={ recipe } index={ index } key={ index } />;
+          })}
+          { filteredMap() }
+        </div>
+      </div>
       <Footer />
-    </div>
+    </>
   );
 }

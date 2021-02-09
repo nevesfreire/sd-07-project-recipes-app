@@ -1,10 +1,13 @@
 import React, { useState, useContext } from 'react';
+import { Button, ButtonGroup, Dropdown, DropdownButton, FormControl, InputGroup } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
 import RecipesContext from '../../Context/RecipesContext';
+import { searchIcon } from '../../images';
 
 export default function SearchBar() {
   const [filterType, setFilterType] = useState('');
   const [searchInput, setSearchInput] = useState('');
+  const [dropdownTitle, setDropTitle] = useState('Filtro');
   const { fetchMeals, fetchDrinks } = useContext(RecipesContext);
 
   const searchMeals = async () => {
@@ -43,49 +46,57 @@ export default function SearchBar() {
 
   return (
     <div>
-      <input
-        type="text"
-        data-testid="search-input"
-        value={ searchInput }
-        onChange={ ({ target }) => setSearchInput(target.value) }
-      />
-      <label htmlFor="ingredient">
-        <input
-          data-testid="ingredient-search-radio"
-          name="search-bar"
-          onChange={ ({ target }) => setFilterType(target.value) }
-          type="radio"
-          value="ingredient"
-        />
-        Ingrediente
-      </label>
-      <label htmlFor="name">
-        <input
-          data-testid="name-search-radio"
-          name="search-bar"
-          onChange={ ({ target }) => setFilterType(target.value) }
-          value="name"
-          type="radio"
-        />
-        Nome
-      </label>
-      <label htmlFor="firstLetter">
-        <input
-          data-testid="first-letter-search-radio"
-          name="search-bar"
-          onChange={ ({ target }) => setFilterType(target.value) }
-          value="firstLetter"
-          type="radio"
-        />
-        Primeira Letra
-      </label>
-      <button
-        data-testid="exec-search-btn"
-        onClick={ () => doSearch() }
-        type="button"
-      >
-        Pesquisar
-      </button>
+      <InputGroup id="search-group">
+        <InputGroup.Append>
+          <FormControl
+            value={ searchInput }
+            onChange={ ({ target }) => setSearchInput(target.value) }
+          />
+          <DropdownButton
+            as={ InputGroup.Append }
+            id="btn-dropdown"
+            variant="secondary"
+            title={ dropdownTitle }
+          >
+            <Dropdown.Header>Filtrar por:</Dropdown.Header>
+            <Dropdown.Item
+              eventKey="1"
+              onClick={ () => {
+                setFilterType('ingredient');
+                setDropTitle('Ingrediente');
+              } }
+            >
+              Ingrediente
+            </Dropdown.Item>
+            <Dropdown.Item
+              eventKey="2"
+              onClick={ () => {
+                setFilterType('name');
+                setDropTitle('Nome');
+              } }
+            >
+              Nome
+            </Dropdown.Item>
+            <Dropdown.Item
+              eventKey="3"
+              onClick={ () => {
+                setFilterType('firstLetter');
+                setDropTitle('Primeira Letra');
+              } }
+            >
+              Primeira Letra
+            </Dropdown.Item>
+          </DropdownButton>
+        </InputGroup.Append>
+        <Button
+          data-testid="exec-search-btn"
+          id="btn-search"
+          onClick={ () => doSearch() }
+          variant="secondary"
+        >
+          <img alt="Search Button" src={ searchIcon } width="21" />
+        </Button>
+      </InputGroup>
     </div>
   );
 }

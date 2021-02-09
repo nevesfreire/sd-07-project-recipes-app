@@ -1,0 +1,25 @@
+.recipes-page-container {
+  align-items: center;
+  background-color: rgb(230,230,230);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  margin: auto;
+  width: 90vw;
+}
+
+.category-buttons {
+  margin-bottom: 18px;
+}
+
+.recipes-section {
+  align-items: center;
+  display: grid;
+  flex-direction: unset;
+  grid-template-columns: repeat(auto-fit, minmax(270px, auto));
+  justify-content: center;
+  margin: auto;
+  padding-bottom: 69px;
+  width: 100%;
+}

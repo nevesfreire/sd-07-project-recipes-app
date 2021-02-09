@@ -1,11 +1,24 @@
 .footer-container {
+  background-color: #f8f9fa;
+  border-top: 1px dashed #1D3B76;
   bottom: 0;
   position: fixed;
+  margin: 5px 0 5px 5px;
   width: 100%;
 }
 
 .footer-context {
-  background-color: lightgray;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+}
+
+.footer-img {
+  height: 42px;
+  width: 42px;
+}
+
+button {
+  background-color: #f8f9fa;
+  box-shadow: 0 0 0 0 rgba(0,0,0,0),0 0 0 0 rgba(0,0,0,0) !important;
+  border:none!important;
 }

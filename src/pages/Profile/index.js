@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import Header from '../../components/Header';
 import Footer from '../Footer';
 import { getStorage } from '../../services/localStorage';
+import './style.css';
 
 export default function Profile() {
   const email = getStorage('user') && getStorage('user').email;
@@ -18,34 +19,40 @@ export default function Profile() {
   return (
     <div>
       <Header title="Perfil" />
-      <section>
+      <section className="container-profile">
+        <div className="hr"></div>
         <p data-testid="profile-email">
           { email }
         </p>
-
-        <button
+        <Button
+          sixe="lg"
+          block
           type="button"
           data-testid="profile-done-btn"
           onClick={ () => history.push('/receitas-feitas') }
         >
           Receitas Feitas
-        </button>
+        </Button>
 
-        <button
+        <Button
+          sixe="lg"
+          block
           type="button"
           data-testid="profile-favorite-btn"
           onClick={ () => history.push('/receitas-favoritas') }
         >
           Receitas Favoritas
-        </button>
+        </Button>
 
-        <button
+        <Button
+          sixe="lg"
+          block
           type="button"
           data-testid="profile-logout-btn"
           onClick={ setLogout }
         >
           Sair
-        </button>
+        </Button>
 
       </section>
       <Footer />

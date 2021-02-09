@@ -14,6 +14,7 @@ export default function Footer() {
           onClick={ () => history.push('/bebidas') }
         >
           <img
+            className="footer-img"
             data-testid="drinks-bottom-btn"
             alt="Icone de bebidas"
             src={ drinkIcon }

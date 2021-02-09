@@ -1,8 +1,11 @@
 import React, { useEffect, useContext } from 'react';
+import { Button, ButtonGroup } from 'react-bootstrap';
 import Card from '../../components/Cards';
 import Header from '../../components/Header';
 import Footer from '../Footer';
 import RecipesContext from '../../Context/RecipesContext';
+import Loading from '../../components/Loading';
+import './style.css';
 
 let filter = '';
 
@@ -27,7 +30,7 @@ export default function Foods() {
   } = useContext(RecipesContext);
 
   const zero = 0;
-  const twelve = 12;
+  const twelve = 1000;
 
   const pageLoading = (
     <div>
@@ -40,56 +43,62 @@ export default function Foods() {
   );
 
   const categoryButtons = (
-    <div>
-      <button
+    <ButtonGroup className=" category-buttons">
+      <Button
+        active={ filter === '' }
         data-testid="All-category-filter"
         onClick={ ({ target }) => applyFilter(target.value, setRecipes, fetchMeals) }
-        type="button"
         value=""
+        variant="secondary"
       >
         All
-      </button>
-      <button
+      </Button>
+      <Button
+        active={ filter === 'Beef' }
         data-testid="Beef-category-filter"
         onClick={ ({ target }) => applyFilter(target.value, setRecipes, fetchMeals) }
-        type="button"
         value="Beef"
+        variant="secondary"
       >
         Beef
-      </button>
-      <button
+      </Button>
+      <Button
+        active={ filter === 'Breakfast' }
         data-testid="Breakfast-category-filter"
         onClick={ ({ target }) => applyFilter(target.value, setRecipes, fetchMeals) }
-        type="button"
         value="Breakfast"
+        variant="secondary"
       >
         Breakfast
-      </button>
-      <button
+      </Button>
+      <Button
+        active={ filter === 'Chicken' }
         data-testid="Chicken-category-filter"
         onClick={ ({ target }) => applyFilter(target.value, setRecipes, fetchMeals) }
-        type="button"
         value="Chicken"
+        variant="secondary"
       >
         Chicken
-      </button>
-      <button
+      </Button>
+      <Button
+        active={ filter === 'Dessert' }
         data-testid="Dessert-category-filter"
         onClick={ ({ target }) => applyFilter(target.value, setRecipes, fetchMeals) }
-        type="button"
         value="Dessert"
+        variant="secondary"
       >
         Dessert
-      </button>
-      <button
+      </Button>
+      <Button
+        active={ filter === 'Goat' }
         data-testid="Goat-category-filter"
         onClick={ ({ target }) => applyFilter(target.value, setRecipes, fetchMeals) }
-        type="button"
         value="Goat"
+        variant="secondary"
       >
         Goat
-      </button>
-    </div>
+      </Button>
+    </ButtonGroup>
   );
 
   const filteredMap = () => {
@@ -112,21 +121,25 @@ export default function Foods() {
 
   if (!recipes.meals
     || recipes.meals.length === zero) {
-    return pageLoading;
+    return <Loading headerTitle="Comidas" />;
   }
 
   return (
-    <div>
-      <Header title="Comidas" />
-      { categoryButtons }
-      { recipes.meals.map((recipe, index) => {
-        if (control || index >= twelve) {
-          return null;
-        }
-        return <Card recipe={ recipe } index={ index } key={ index } />;
-      })}
-      { filteredMap() }
+    <>
+      <div className="recipes-page-container">
+        <Header title="Comidas" />
+        { categoryButtons }
+        <div className="recipes-section" id="recipes-section">
+          { recipes.meals.map((recipe, index) => {
+            if (control || index >= twelve) {
+              return null;
+            }
+            return <Card recipe={ recipe } index={ index } key={ index } />;
+          })}
+          { filteredMap() }
+        </div>
+      </div>
       <Footer />
-    </div>
+    </>
   );
 }
