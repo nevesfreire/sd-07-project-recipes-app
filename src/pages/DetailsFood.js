@@ -74,6 +74,8 @@ export default function DetailsFood({
               data-testid="video"
               title={ meals[0].strMeal }
               src={ meals[0].strYoutube.replace('watch?v=', 'embed/') }
+              width="100%"
+              height="100%"
             />
           </div>
           <h5>Recomendadas</h5>

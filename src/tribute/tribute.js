@@ -1,9 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import {
+  Card, NotFound,
+  ShareButton, FavoriteFoodButton,
+} from '../components';
 import data from './data';
-import './tribute.css';
-import { UperCaseFirstLetter } from '../Services';
+import '../pages/css/details.css';
 
-export default function tribute({ match: { params: { name } } }) {
+export default function DetailsFood({ match }) {
+  const { params: { name } } = match;
+  if (!name) return (<NotFound />);
   const {
     video: { titleVideo, linkVideo },
     drink: { drinkTitle, drinkImg },
@@ -11,35 +17,41 @@ export default function tribute({ match: { params: { name } } }) {
     img: { picture },
     text: { title, text },
   } = data[name];
+
   return (
-    <div className="containerTribute">
-
-      <header className="headerTribute">
-        <h1>{UperCaseFirstLetter(name)}</h1>
-        <img src={ picture } alt="foto de perfil" />
-      </header>
-
-      <div className="texto">
-        <h1>{title}</h1>
-        <p>{text}</p>
+    <div className="details">
+      <div className="detailsThumb">
+        <img
+          data-testid="recipe-photo"
+          src={ picture }
+          alt="foto"
+        />
       </div>
-
-      <div className="recomendation">
-        <div className="cardFood">
-          <h2>{foodTitle}</h2>
-          <img src={ foodImg } alt="imagem" />
-        </div>
-
-        <div className="cardDrink">
-          <h2>{drinkTitle}</h2>
-          <img src={ drinkImg } alt="imagem" />
-        </div>
+      <div className="favoriteShare">
+        <ShareButton />
+        <FavoriteFoodButton />
       </div>
-
-      <div className="containerVideo">
-        <h2>{titleVideo}</h2>
+      <div className="instuctionsDetails">
+        <h1 data-testid="recipe-title">{title}</h1>
+        <p data-testid="instructions">
+          {text}
+        </p>
+      </div>
+      <h5>Pratos Favoritos</h5>
+      <div className="redomentationsCards">
+        <Card
+          title={ drinkTitle }
+          img={ drinkImg }
+        />
+        <Card
+          title={ foodTitle }
+          img={ foodImg }
+        />
+      </div>
+      <div className="videoDetails">
         <iframe
-          title="Uma boa musica"
+          data-testid="video"
+          title={ titleVideo }
           src={ linkVideo.replace('watch?v=', 'embed/') }
           width="100%"
           height="100%"
@@ -48,3 +60,9 @@ export default function tribute({ match: { params: { name } } }) {
     </div>
   );
 }
+
+DetailsFood.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({ name: PropTypes.string.isRequired }).isRequired,
+  }).isRequired,
+};
