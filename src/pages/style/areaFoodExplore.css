@@ -1,33 +1,33 @@
 .origin-container {
-    align-items: center;
-    background-color: rgb(240, 187, 88);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    width: 100%;
+  align-items: center;
+  background-color: rgb(240, 187, 88);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 100%;
 }
 
 label {
-    margin: 10px;
-    padding: 5px;
+  margin: 10px;
+  padding: 5px;
 }
 
 .cards-container {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .origin-food-image {
-    border-radius: 10px;
-    margin-top: 10px;
-    width: 450px;
+  border-radius: 10px;
+  margin-top: 10px;
+  width: 450px;
 }
 
 .origin-food-name {
-    background-color: rgb(191, 191, 231);
-    border-radius: 5px;
-    font-size: 20px;
-    text-align: center;
+  background-color: rgb(191, 191, 231);
+  border-radius: 5px;
+  font-size: 20px;
+  text-align: center;
 }
