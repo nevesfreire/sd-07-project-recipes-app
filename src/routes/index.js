@@ -15,6 +15,7 @@ import {
   Perfil,
   ReceitasFeitas,
   ReceitasFavoritas,
+  ExplorarBebidasArea
 } from '../pages';
 import Login from '../pages/TelaDeLogin';
 
@@ -36,6 +37,7 @@ const Routes = () => (
     <Route path="/comidas/:id/in-progress" component={ TelaReceitasEmProcesso } />
     <Route path="/bebidas/:id" component={ TelaDetalheBebida } />
     <Route path="/comidas/:id" component={ TelaDetalheComida } />
+    <Route path="/explorar/bebidas/area" component={ ExplorarBebidasArea } />
   </Switch>
 );
 

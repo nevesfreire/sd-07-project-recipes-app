@@ -12,3 +12,4 @@ export { default as ReceitasFavoritas } from './ReceitasFavoritas';
 export { default as TelaDetalheBebida } from './TelaDetalheBebida';
 export { default as TelaDetalheComida } from './TelaDetalheComida';
 export { default as TelaReceitasEmProcesso } from './TelaReceitasEmProcesso';
+export { default as ExplorarBebidasArea } from './ExplorarBebidasArea';
