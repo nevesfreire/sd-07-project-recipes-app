@@ -8,7 +8,6 @@ function FavoriteButton() {
 
   const filterRecipe = (parseSearchFavoriteBttn) => {
     const getRecipe = parseSearchFavoriteBttn.find((rec) => rec.id === id);
-    console.log(getRecipe);
     if (getRecipe) setIconButtonColor(blackHeartIcon);
   };
 
@@ -33,7 +32,6 @@ function FavoriteButton() {
   };
 
   const setFavoriteRecipe = () => {
-    console.log('receita para adicionar', recipe);
     const searchFavoriteBttn = localStorage.getItem('favoriteRecipes');
     const parseSearchFavoriteBttn = JSON.parse(searchFavoriteBttn);
     if (parseSearchFavoriteBttn) {

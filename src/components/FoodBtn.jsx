@@ -15,6 +15,7 @@ const FoodBtn = () => {
       data: null,
       toggleSearch: false,
     }));
+    console.log('Estou em ', PATH);
     setPath(PATH);
   };
 

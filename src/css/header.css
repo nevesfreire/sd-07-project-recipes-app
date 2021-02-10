@@ -7,10 +7,6 @@
   width: 150px;
 }
 
-.radio-controll {
-  width: 330px;
-}
-
 .field-set {
   display: flex;
   flex-direction: row;
@@ -31,13 +27,13 @@
 .header-buttons {
   display: flex;
   flex-direction: row;
-  width: 64px;
   height: 54px;
+  width: 64px;
 }
 
 .noShowBtn {
-  width: 64px;
   height: 54px;
+  width: 64px;
 }
 
 .input-searchbar {

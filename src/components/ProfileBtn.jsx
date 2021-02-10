@@ -50,7 +50,6 @@ const profileLogout = (history) => (
 );
 
 function ProfileBtns() {
-
   const { email } = getItem('user');
   const history = useHistory();
   return (
