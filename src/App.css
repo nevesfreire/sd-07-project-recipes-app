@@ -2,6 +2,7 @@ body {
   background-image: url("./images/edgar-castrejon-s6BrlKXy7e0-unsplash.jpg");
   background-repeat: no-repeat;
   background-size: 120%;
+  padding-bottom: 100px;
 }
 
 .background-white {
