@@ -15,7 +15,7 @@ import {
   Perfil,
   ReceitasFeitas,
   ReceitasFavoritas,
-  ExplorarBebidasArea
+  ExplorarBebidasArea,
 } from '../pages';
 import Login from '../pages/TelaDeLogin';
 
