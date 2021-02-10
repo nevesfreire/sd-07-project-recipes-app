@@ -57,7 +57,9 @@ function ReceitasFeitas() {
   function renderDoneReceipes() {
     const doneReceipes = JSON.parse(localStorage.getItem('doneRecipes'));
     if (!doneReceipes) return <h3>Não há receitas feitas</h3>;
-    const renderDoneReceipe = doneReceipes.filter((doneReceipe) => doneReceipe.type.includes(filters));
+    const renderDoneReceipe = doneReceipes.filter((doneReceipe) => (
+      doneReceipe.type.includes(filters)
+    ));
     return renderDoneReceipe.map((doneReceipe, index) => (
       <div key={ index }>
         {doneReceipe.type === 'comida' ? (
@@ -95,7 +97,11 @@ function ReceitasFeitas() {
             >
               { doneReceipe.name }
             </Link>
-            <div data-testid={ `${index}-horizontal-done-date` }>{doneReceipe.doneDate}</div>
+            <div
+              data-testid={ `${index}-horizontal-done-date` }
+            >
+              {doneReceipe.doneDate}
+            </div>
             <div className="tags">
               { doneReceipe.tags.map((tag, current) => (
                 <div
@@ -143,7 +149,11 @@ function ReceitasFeitas() {
             >
               { doneReceipe.name }
             </Link>
-            <div data-testid={ `${index}-horizontal-done-date` }>{doneReceipe.doneDate}</div>
+            <div
+              data-testid={ `${index}-horizontal-done-date` }
+            >
+              {doneReceipe.doneDate}
+            </div>
             { doneReceipe.tags.map((tag, current) => (
               <div
                 data-testid={ `${index}-${tag}-horizontal-tag` }

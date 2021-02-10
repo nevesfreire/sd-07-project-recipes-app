@@ -4,6 +4,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import FoodThumb from '../../components/FoodThumb';
 import TodoList from './TodoList';
+import { addRecipeToLocalStorage } from '../../services/localstorage';
 
 import {
   fetchFoodById,
@@ -52,43 +53,9 @@ function EmProgesso({
     return false;
   });
 
-  function addRecipeToLocalStorage() {
-    const getItemSaved = JSON.parse(localStorage.getItem('doneRecipes'));
-    const values = getItemSaved === null ? [] : getItemSaved;
-    const day = new Date().getDate();
-    const month = new Date().getMonth() + 1; 
-    const year = new Date().getFullYear(); 
-    if (route === 'comidas') {
-      console.log(meals);
-      const recipe = {
-        id: meals[0].idMeal,
-        type: 'comida',
-        area: meals[0].strArea,
-        category: meals[0].strCategory,
-        alcoholicOrNot: '',
-        name: meals[0].strMeal,
-        image: meals[0].strMealThumb,
-        doneDate: `${day}/${month}/${year}`,
-        tags: [meals[0].strTags],
-      }
-      values.push(recipe);
-    } else {
-      console.log(drinks);
-      const recipe = {
-        id: drinks[0].idDrink,
-        type: 'bebida',
-        area: '',
-        category: drinks[0].strCategory,
-        alcoholicOrNot: drinks[0].strAlcoholic,
-        name: drinks[0].strDrink,
-        image: drinks[0].strDrinkThumb,
-        doneDate: `${day}/${month}/${year}`,
-        tags: [drinks[0].strTags],
-      }
-      values.push(recipe);
-    }
-    localStorage.setItem('doneRecipes', JSON.stringify(values))
-    history.push('/receitas-feitas')
+  function addToLocalStorageAndChangeRoute(item) {
+    addRecipeToLocalStorage(item, route);
+    history.push('/receitas-feitas');
   }
 
   return (
@@ -115,7 +82,9 @@ function EmProgesso({
         disabled={ !isEnded }
         data-testid="finish-recipe-btn"
         type="button"
-        onClick={ addRecipeToLocalStorage }
+        onClick={ () => addToLocalStorageAndChangeRoute(
+          route === 'comidas' ? meals : drinks,
+        ) }
       >
         Finalizar Receita
       </button>
