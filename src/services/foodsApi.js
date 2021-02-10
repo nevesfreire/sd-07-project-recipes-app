@@ -27,6 +27,13 @@ export async function foodByCategory(category) {
   return meals;
 }
 
+export async function foodByArea(valueArea) {
+  const endpoint = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${valueArea}`);
+  const response = await endpoint.json();
+  const { meals } = response;
+  return meals;
+}
+
 export async function getInitialFood() {
   const response = await foodByName('');
   const list = [];
