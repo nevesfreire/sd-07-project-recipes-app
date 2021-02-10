@@ -9,6 +9,7 @@ import {
   foodByLetter,
   getInitialFood,
   getFoodCategories,
+  foodByArea,
 } from '../services/foodsApi';
 
 import {
@@ -35,6 +36,7 @@ export default function GlobalProvider({ children }) {
     initialState: { email, password },
   } = state;
   const [searchByIngredient, setSearchByingredient] = useState('');
+  const [searchByArea, setSearchByArea] = useState([]);
   const checkData = useCallback((newData) => {
     if (!newData) {
       return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
@@ -50,6 +52,8 @@ export default function GlobalProvider({ children }) {
       return checkData(await foodByIngredient(upSearchBar));
     case 'ingredientsExplorer':
       return setData(await foodByIngredient(searchByIngredient));
+    case 'foodByArea':
+      return setData(await foodByArea(searchByArea));
     case 'name':
       return checkData(await foodByName(upSearchBar));
     case 'firstLetter':
@@ -59,7 +63,7 @@ export default function GlobalProvider({ children }) {
     default:
       return data;
     }
-  }, [upSearchBar, searchByIngredient]);
+  }, [upSearchBar, searchByIngredient, searchByArea]);
 
   const selectedTypeDrink = useCallback(async (chooseType, func) => {
     switch (chooseType) {
@@ -162,6 +166,8 @@ export default function GlobalProvider({ children }) {
         idRandom,
         searchByIngredient,
         setSearchByingredient,
+        searchByArea,
+        setSearchByArea,
       } }
     >
       {children}
