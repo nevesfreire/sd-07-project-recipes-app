@@ -9,24 +9,22 @@ import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import { RecomendationCardMeal } from '../../components';
-import {
-  getSpecificMealById,
-} from '../../store/ducks/getDetailedMeal/actions';
+import { getSpecificMealById } from '../../store/ducks/getDetailedMeal/actions';
 import { getRecommendatedDrinks } from '../../store/ducks/getDetailedDrink/actions';
 
 class TelaDetalheComida extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isClicked: false,
-      isFavorite: false,
-    };
+    this.state = { isClicked: false, isFavorite: false };
     this.handleShareClick = this.handleShareClick.bind(this);
     this.handleFavoriteClick = this.handleFavoriteClick.bind(this);
   }
 
   async componentDidMount() {
-    const { match: { params: { id } },
+    const {
+      match: {
+        params: { id },
+      },
     } = this.props;
     const { getDetailedMealDispatch, getRecommendationDrinks } = this.props;
     await getRecommendationDrinks();
@@ -40,7 +38,9 @@ class TelaDetalheComida extends Component {
     if (meal) {
       if (!favoritesFromStorage) {
         setStorage('favoriteRecipes', []);
-      } else if (!isFavorite) { this.handleFavoriteStart(meal); }
+      } else if (!isFavorite) {
+        this.handleFavoriteStart(meal);
+      }
     }
   }
 
@@ -85,8 +85,9 @@ class TelaDetalheComida extends Component {
     const favoritesFromStorage = getStorage('favoriteRecipes');
     const { isFavorite } = this.state;
     if (isFavorite) {
-      const newLocalStorage = favoritesFromStorage
-        .filter((curr) => curr.id !== meal.idMeal);
+      const newLocalStorage = favoritesFromStorage.filter(
+        (curr) => curr.id !== meal.idMeal,
+      );
       setStorage('favoriteRecipes', newLocalStorage);
       this.setState({ isFavorite: false });
     } else {
@@ -105,23 +106,21 @@ class TelaDetalheComida extends Component {
     }
   }
 
+  startsRecipe() {
+    const { history } = this.props;
+    const { match: { params: { id } } } = this.props;
+    history.push(`/comidas/${id}/in-progress`);
+  }
+
   renderWhiteHeart() {
     return (
-      <img
-        data-testid="favorite-btn"
-        alt="favorite-btn"
-        src={ whiteHeartIcon }
-      />
+      <img data-testid="favorite-btn" alt="favorite-btn" src={ whiteHeartIcon } />
     );
   }
 
   renderBlackHeart() {
     return (
-      <img
-        data-testid="favorite-btn"
-        alt="favorite-btn"
-        src={ blackHeartIcon }
-      />
+      <img data-testid="favorite-btn" alt="favorite-btn" src={ blackHeartIcon } />
     );
   }
 
@@ -152,29 +151,26 @@ class TelaDetalheComida extends Component {
           role="button"
           tabIndex={ 0 }
         >
-          <img
-            data-testid="share-btn"
-            alt="share-btn"
-            src={ shareIcon }
-          />
+          <img data-testid="share-btn" alt="share-btn" src={ shareIcon } />
         </div>
-        <tag>
-          { (isClicked) ? ('Link copiado!') : (null) }
-        </tag>
+        <tag>{isClicked ? 'Link copiado!' : null}</tag>
         <div
           onClick={ () => this.handleFavoriteClick(meal[0]) }
           onKeyDown={ () => this.handleFavoriteClick(meal[0]) }
           role="button"
           tabIndex={ 0 }
         >
-          { (!isFavorite) ? (this.renderWhiteHeart()) : (this.renderBlackHeart()) }
+          {!isFavorite ? this.renderWhiteHeart() : this.renderBlackHeart()}
         </div>
         <h4 data-testid="recipe-category">{meal[0].strCategory}</h4>
         <div>
           <h4>Ingredients</h4>
           <ul>
             {ingredientsArray.map((item, index) => (
-              <li data-testid={ `${index}-ingredient-name-and-measure` } key={ item }>
+              <li
+                data-testid={ `${index}-ingredient-name-and-measure` }
+                key={ item }
+              >
                 {`${item[1]} - ${measuresArray[index][1]}`}
               </li>
             ))}
@@ -204,13 +200,15 @@ class TelaDetalheComida extends Component {
                   drinkIndex={ index }
                 />
               );
-            } return null;
+            }
+            return null;
           })}
         </Slider>
         <button
           data-testid="start-recipe-btn"
           type="button"
           style={ { position: 'fixed', bottom: '0px' } }
+          onClick={ () => this.startsRecipe() }
         >
           Iniciar Receita
         </button>
@@ -220,7 +218,9 @@ class TelaDetalheComida extends Component {
 
   render() {
     const { meal } = this.props;
-    if (meal) { return this.renderDetails(meal); }
+    if (meal) {
+      return this.renderDetails(meal);
+    }
     return <div>teste</div>;
   }
 }

@@ -18,6 +18,7 @@ import {
   ExplorarBebidasArea,
 } from '../pages';
 import Login from '../pages/TelaDeLogin';
+import TelaReceitasEmProcessoDrinks from '../pages/TelaReceitasEmProcessoDrinks';
 
 const Routes = () => (
   <Switch>
@@ -33,7 +34,7 @@ const Routes = () => (
     <Route exact path="/perfil" component={ Perfil } />
     <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
     <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
-    <Route path="/bebidas/:id/in-progress" component={ TelaReceitasEmProcesso } />
+    <Route path="/bebidas/:id/in-progress" component={ TelaReceitasEmProcessoDrinks } />
     <Route path="/comidas/:id/in-progress" component={ TelaReceitasEmProcesso } />
     <Route path="/bebidas/:id" component={ TelaDetalheBebida } />
     <Route path="/comidas/:id" component={ TelaDetalheComida } />

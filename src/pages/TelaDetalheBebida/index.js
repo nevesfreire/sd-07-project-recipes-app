@@ -84,7 +84,6 @@ class TelaDetalheBebida extends Component {
   handleFavoriteClick(drinkDetailStore) {
     const favoritesFromStorage = getStorage('favoriteRecipes');
     const { isFavorite } = this.state;
-    console.log(drinkDetailStore);
     if (isFavorite) {
       const newLocalStorage = favoritesFromStorage
         .filter((curr) => curr.id !== drinkDetailStore.idDrink);
@@ -104,6 +103,12 @@ class TelaDetalheBebida extends Component {
       setStorage('favoriteRecipes', favoritesFromStorage);
       this.setState({ isFavorite: true });
     }
+  }
+
+  startsRecipe() {
+    const { history } = this.props;
+    const { match: { params: { id } } } = this.props;
+    history.push(`/bebidas/${id}/in-progress`);
   }
 
   renderWhiteHeart() {
@@ -176,7 +181,7 @@ class TelaDetalheBebida extends Component {
           <ul>
             {ingredientsArray.map((item, index) => (
               <li data-testid={ `${index}-ingredient-name-and-measure` } key={ item }>
-                {`${item[1]} - ${measuresArray[index][1]}`}
+                {`${item} - ${measuresArray[index]}`}
               </li>
             ))}
           </ul>
@@ -200,6 +205,7 @@ class TelaDetalheBebida extends Component {
           data-testid="start-recipe-btn"
           type="button"
           style={ { position: 'fixed', bottom: '0px' } }
+          onClick={ () => this.startsRecipe() }
         >
           Iniciar Receita
         </button>

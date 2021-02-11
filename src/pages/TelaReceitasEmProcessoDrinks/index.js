@@ -8,7 +8,7 @@ import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import { getSpecificMealById } from '../../store/ducks/getDetailedMeal/actions';
 import { getSpecificDrinkById } from '../../store/ducks/getDetailedDrink/actions';
 
-class TelaDeReceitaEmProcesso extends Component {
+class TelaDeReceitaEmProcessoDrinks extends Component {
   constructor(props) {
     super(props);
 
@@ -22,8 +22,6 @@ class TelaDeReceitaEmProcesso extends Component {
       },
     } = this.props;
 
-    const { match } = this.props;
-    console.log(match);
     const { getDetailedMealDispatch, getDetailedDrinkDispatch } = this.props;
     await getDetailedMealDispatch(id);
     await getDetailedDrinkDispatch(id);
@@ -54,18 +52,26 @@ class TelaDeReceitaEmProcesso extends Component {
     return measuresArray;
   }
 
-  renderDetailsMeal(meal) {
-    const ingredientsArray = this.handleIngredients(meal);
-    const measuresArray = this.handleMeasure(meal);
-
+  renderDetailsDrink(drink) {
+    const ingredientsArray = this.handleIngredients(drink);
+    const measuresArray = this.handleMeasure(drink);
+    console.log(measuresArray[0][1]);
     return (
       <>
         <Container>
-          <img data-testid="recipe-photo" alt="comida" src={ meal[0].strMealThumb } />
-          <h3 data-testid="recipe-title">{meal[0].strMeal}</h3>
+          <img
+            data-testid="recipe-photo"
+            alt="comida"
+            src={ drink[0].strDrinkThumb }
+          />
+          <h3 data-testid="recipe-title">{drink[0].strDrink}</h3>
           <img data-testid="share-btn" alt="share-btn" src={ shareIcon } />
-          <img data-testid="favorite-btn" alt="favorite-btn" src={ whiteHeartIcon } />
-          <h4 data-testid="recipe-category">{meal[0].strCategory}</h4>
+          <img
+            data-testid="favorite-btn"
+            alt="favorite-btn"
+            src={ whiteHeartIcon }
+          />
+          <h4 data-testid="recipe-category">{drink[0].strAlcoholic}</h4>
         </Container>
         <Container>
           <Form>
@@ -73,53 +79,13 @@ class TelaDeReceitaEmProcesso extends Component {
             {ingredientsArray.map((item, index) => (
               <Form.Check
                 type="checkbox"
-                label={ `${item[1]} - ${measuresArray[index][1]}` }
+                label={ `${item[1]} - ${
+                  measuresArray[index] ? measuresArray[index][1] : 'Like taste'
+                }` }
                 data-testid="ingredient-step"
                 key={ item }
               />
             ))}
-            <h4>Instructions</h4>
-            <p data-testid="instructions">{meal[0].strInstructions}</p>
-
-            <Button
-              variant="secondary"
-              block
-              size="lg"
-              data-testid="finish-recipe-btn"
-              onClick={ this.handleRecipeDone }
-            >
-              Finalizar Receita
-            </Button>
-          </Form>
-        </Container>
-      </>
-    );
-  }
-
-  renderDetailsDrink(drink) {
-    // const ingredientsArray = this.handleIngredients(drink);
-    // const measuresArray = this.handleMeasure(drink);
-
-    return (
-      <>
-        <Container>
-          <img data-testid="recipe-photo" alt="comida" src={ drink[0].strDrinkThumb } />
-          <h3 data-testid="recipe-title">{drink[0].strDrink}</h3>
-          <img data-testid="share-btn" alt="share-btn" src={ shareIcon } />
-          <img data-testid="favorite-btn" alt="favorite-btn" src={ whiteHeartIcon } />
-          <h4 data-testid="recipe-category">{drink[0].strAlcoholic}</h4>
-        </Container>
-        <Container>
-          <Form>
-            <h4>Ingredients</h4>
-            {/* {ingredientsArray.map((item, index) => (
-              <Form.Check
-                type="checkbox"
-                label={ `${item[1]} - ${measuresArray[index][1]}` }
-                data-testid="ingredient-step"
-                key={ item }
-              />
-            ))} */}
             <h4>Instructions</h4>
             <p data-testid="instructions">{drink[0].strInstructions}</p>
 
@@ -140,17 +106,14 @@ class TelaDeReceitaEmProcesso extends Component {
 
   render() {
     const { meal, drinkDetailStore } = this.props;
-    if (meal) {
-      return this.renderDetailsMeal(meal);
-    }
     if (drinkDetailStore) {
       return this.renderDetailsDrink(drinkDetailStore);
     }
-    return <div>nundeu</div>;
+    return <div>Loading...</div>;
   }
 }
 
-TelaDeReceitaEmProcesso.propTypes = {
+TelaDeReceitaEmProcessoDrinks.propTypes = {
   drinkDetailStore: PropTypes.arrayOf(PropTypes.Object).isRequired,
   meal: PropTypes.arrayOf(PropTypes.Object).isRequired,
   match: PropTypes.shape({
@@ -175,4 +138,7 @@ const mapDispatchToProps = (dispatch) => ({
   getDetailedDrinkDispatch: (id) => dispatch(getSpecificDrinkById(id)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TelaDeReceitaEmProcesso);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(TelaDeReceitaEmProcessoDrinks);
