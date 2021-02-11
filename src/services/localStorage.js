@@ -109,6 +109,28 @@ const setRecipeDone = (id, type, obj) => {
   localStorage.setItem('doneRecipes', JSON.stringify([...doneRecipes, newObject]));
 };
 
+const isInProgress = (idMeal, idDrink) => {
+  const progressRecipes = localStorage.getItem('inProgressRecipes');
+
+  if (idMeal) {
+    return JSON.parse(progressRecipes).meals[idMeal];
+  }
+  if (idDrink) {
+    return JSON.parse(progressRecipes).cocktails[idDrink];
+  }
+};
+
+const isDone = (idMeal, idDrink) => {
+  const doneRecipes = localStorage.getItem('doneRecipes');
+
+  if (idMeal) {
+    return JSON.parse(doneRecipes).some((recipe) => recipe.id === idMeal);
+  }
+  if (idDrink) {
+    return JSON.parse(doneRecipes).some((recipe) => recipe.id === idDrink);
+  }
+};
+
 export {
   removeFromFavorites,
   addToFavLocalStorage,
@@ -116,4 +138,6 @@ export {
   addIngredient,
   getIngredients,
   setRecipeDone,
+  isDone,
+  isInProgress,
 };

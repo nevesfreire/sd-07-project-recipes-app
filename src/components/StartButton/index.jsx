@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { addToRecipesInProgress } from '../../services/localStorage';
+import { addToRecipesInProgress, isInProgress, isDone } from '../../services/localStorage';
 
 export default function StartButton({ idMeal, idDrink, history }) {
   const startRecipe = () => {
@@ -21,43 +21,21 @@ export default function StartButton({ idMeal, idDrink, history }) {
     }
   };
 
-  const isInProgress = () => {
-    const progressRecipes = localStorage.getItem('inProgressRecipes');
-
-    if (idMeal) {
-      return JSON.parse(progressRecipes).meals[idMeal];
-    }
-    if (idDrink) {
-      return JSON.parse(progressRecipes).cocktails[idDrink];
-    }
-  };
-
-  const isDone = () => {
-    const doneRecipes = localStorage.getItem('doneRecipes');
-
-    if (idMeal) {
-      return JSON.parse(doneRecipes).some((recipe) => recipe.id === idMeal);
-    }
-    if (idDrink) {
-      return JSON.parse(doneRecipes).some((recipe) => recipe.id === idDrink);
-    }
-  };
-
   return (
     <button
-      style={ { visibility: isDone() ? 'hidden' : 'visible' } }
+      style={ { visibility: isDone(idMeal, idDrink) ? 'hidden' : 'visible' } }
       type="button"
       className="start-recipe-btn"
       data-testid="start-recipe-btn"
       onClick={ () => {
-        if (isInProgress()) {
+        if (isInProgress(idMeal, idDrink)) {
           continueRecipe();
         } else {
           startRecipe();
         }
       } }
     >
-      { isInProgress() ? 'Continuar Receita' : 'Iniciar Receita' }
+      { isInProgress(idMeal, idDrink) ? 'Continuar Receita' : 'Iniciar Receita' }
     </button>
   );
 }
