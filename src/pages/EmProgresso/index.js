@@ -4,6 +4,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import FoodThumb from '../../components/FoodThumb';
 import TodoList from './TodoList';
+import { addRecipeToLocalStorage } from '../../services/localstorage';
 
 import {
   fetchFoodById,
@@ -41,7 +42,6 @@ function EmProgesso({
   }, []);
 
   const [isEnded, setisEnded] = useState(false);
-  console.log('obj', meals);
   if (!meals[0] || !drinks[0]) return <p>Carregando...</p>;
 
   const ingredients = Object.entries(
@@ -52,6 +52,11 @@ function EmProgesso({
     }
     return false;
   });
+
+  function addToLocalStorageAndChangeRoute(item) {
+    addRecipeToLocalStorage(item, route);
+    history.push('/receitas-feitas');
+  }
 
   return (
     <div>
@@ -77,7 +82,9 @@ function EmProgesso({
         disabled={ !isEnded }
         data-testid="finish-recipe-btn"
         type="button"
-        onClick={ () => history.push('/receitas-feitas') }
+        onClick={ () => addToLocalStorageAndChangeRoute(
+          route === 'comidas' ? meals : drinks,
+        ) }
       >
         Finalizar Receita
       </button>

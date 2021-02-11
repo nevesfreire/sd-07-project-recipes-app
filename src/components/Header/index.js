@@ -12,7 +12,7 @@ export default function Header({
 }) {
   const [state, setstate] = useState(false);
   return (
-    <div data-testid="header" className="header">
+    <header data-testid="header" className="header">
       <Link src={ profileIcon } to="/perfil" data-testid="profile-top-btn">
         <img alt="" src={ profileIcon } />
       </Link>
@@ -31,7 +31,7 @@ export default function Header({
           <img alt="" src={ searchIcon } data-testid="search-top-btn" />
         </button>
       )}
-    </div>
+    </header>
   );
 }
 

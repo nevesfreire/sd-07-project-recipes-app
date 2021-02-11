@@ -55,26 +55,28 @@ function ReceitasFeitas() {
   }
 
   function renderDoneReceipes() {
-    const favorites = JSON.parse(localStorage.getItem('doneRecipes'));
-    if (!favorites) return <h3>Não há receitas feitas</h3>;
-    const renderFav = favorites.filter((favorite) => favorite.type.includes(filters));
-    return renderFav.map((favorite, index) => (
+    const doneReceipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (!doneReceipes) return <h3>Não há receitas feitas</h3>;
+    const renderDoneReceipe = doneReceipes.filter((doneReceipe) => (
+      doneReceipe.type.includes(filters)
+    ));
+    return renderDoneReceipe.map((doneReceipe, index) => (
       <div key={ index }>
-        {favorite.type === 'comida' ? (
+        {doneReceipe.type === 'comida' ? (
           <div>
             <Link
               key={ index }
               className="list-drinks"
-              to={ `/comidas/${favorite.id}` }
+              to={ `/comidas/${doneReceipe.id}` }
             >
               <img
                 data-testid={ `${index}-horizontal-image` }
-                src={ favorite.image }
-                alt={ favorite.name }
+                src={ doneReceipe.image }
+                alt={ doneReceipe.name }
               />
             </Link>
             <div data-testid={ `${index}-horizontal-top-text` }>
-              { `${favorite.area} - ${favorite.category}` }
+              { `${doneReceipe.area} - ${doneReceipe.category}` }
             </div>
             <div className="thumb-icons">
               <input
@@ -83,7 +85,7 @@ function ReceitasFeitas() {
                 alt=""
                 data-testid={ `${index}-horizontal-share-btn` }
                 onClick={ () => {
-                  copyTo('comidas', favorite.id);
+                  copyTo('comidas', doneReceipe.id);
                 } }
                 className="f-icon"
               />
@@ -91,13 +93,17 @@ function ReceitasFeitas() {
             <Link
               data-testid={ `${index}-horizontal-name` }
               className="df-name"
-              to={ `/comidas/${favorite.id}` }
+              to={ `/comidas/${doneReceipe.id}` }
             >
-              { favorite.name }
+              { doneReceipe.name }
             </Link>
-            <div data-testid={ `${index}-horizontal-done-date` }>{favorite.doneDate}</div>
+            <div
+              data-testid={ `${index}-horizontal-done-date` }
+            >
+              {doneReceipe.doneDate}
+            </div>
             <div className="tags">
-              { favorite.tags.map((tag, current) => (
+              { doneReceipe.tags.map((tag, current) => (
                 <div
                   data-testid={ `${index}-${tag}-horizontal-tag` }
                   key={ current }
@@ -112,17 +118,17 @@ function ReceitasFeitas() {
             <Link
               key={ index }
               className="list-drinks"
-              to={ `/bebidas/${favorite.id}` }
+              to={ `/bebidas/${doneReceipe.id}` }
               data-testid={ `${index}-recipe-card` }
             >
               <img
                 data-testid={ `${index}-horizontal-image` }
-                src={ favorite.image }
-                alt={ favorite.name }
+                src={ doneReceipe.image }
+                alt={ doneReceipe.name }
               />
             </Link>
             <div data-testid={ `${index}-horizontal-top-text` }>
-              { favorite.alcoholicOrNot }
+              { doneReceipe.alcoholicOrNot }
             </div>
             <div className="thumb-icons">
               <input
@@ -131,7 +137,7 @@ function ReceitasFeitas() {
                 alt=""
                 data-testid={ `${index}-horizontal-share-btn` }
                 onClick={ () => {
-                  copyTo('bebidas', favorite.id);
+                  copyTo('bebidas', doneReceipe.id);
                 } }
                 className="f-icon"
               />
@@ -139,12 +145,16 @@ function ReceitasFeitas() {
             <Link
               data-testid={ `${index}-horizontal-name` }
               className="df-name"
-              to={ `/bebidas/${favorite.id}` }
+              to={ `/bebidas/${doneReceipe.id}` }
             >
-              { favorite.name }
+              { doneReceipe.name }
             </Link>
-            <div data-testid={ `${index}-horizontal-done-date` }>{favorite.doneDate}</div>
-            { favorite.tags.map((tag, current) => (
+            <div
+              data-testid={ `${index}-horizontal-done-date` }
+            >
+              {doneReceipe.doneDate}
+            </div>
+            { doneReceipe.tags.map((tag, current) => (
               <div
                 data-testid={ `${index}-${tag}-horizontal-tag` }
                 key={ current }

@@ -14,13 +14,6 @@ export default function TodoList({ id, route, ingredients, setisEnded }) {
   );
   const [update, setUpdate] = useState(false);
 
-  // if (progressStatus && progressStatus[key][id]) {
-  //   newChecks = progressStatus[key][id];
-  //   setChecks(newChecks);
-  // }
-
-  // console.log('ingr:', ingredients);
-
   const updateStorage = () => {
     const initialObj = {
       meals: {},
@@ -29,12 +22,10 @@ export default function TodoList({ id, route, ingredients, setisEnded }) {
     let progressObj = initialObj;
     if (progressStatus) progressObj = progressStatus;
     progressObj[key][id] = checks;
-    console.log(progressObj);
     localStorage.setItem('inProgressRecipes', JSON.stringify(progressObj));
   };
 
   const isDone = (e) => {
-    console.log(checks);
     const checkStatus = checks;
     checkStatus[e.target.id] = !checkStatus[e.target.id];
     setUpdate(!update);
