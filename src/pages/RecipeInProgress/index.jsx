@@ -1,19 +1,31 @@
 import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { FavoriteButton, ShareButton } from '../../components';
-import RecipesContext from '../../context/RecipesContext';
 import {
   addIngredient,
-  getIngredients,
+  // getIngredients,
   setRecipeDone,
+  addToRecipesInProgress,
 } from '../../services/localStorage';
 
 export default function RecipeInProgress({ history, match: { params: { id } } }) {
   const { location: { pathname } } = history;
   const path = pathname.split('/')[1];
-  const [ingredientsChecked, setIngredientChecked] = useState(getIngredients(id, path));
   const [recipesInProgress, setRecipesInProgress] = useState([]);
-  const { setDoneRecipes } = useContext(RecipesContext);
+  const [disabled, setDisabled] = useState(true);
+  const [ingredientsList, setIngredientsList] = useState([]);
+  const {
+    idMeal,
+    strMealThumb,
+    strMeal,
+    strCategory,
+    strInstructions,
+    strDrinkAlternate,
+    idDrink,
+    strDrink,
+    strAlcoholic,
+    strDrinkThumb,
+  } = recipesInProgress;
 
   const fetchFoodDetails = async () => {
     try {
@@ -32,34 +44,6 @@ export default function RecipeInProgress({ history, match: { params: { id } } })
     }
   };
 
-  const {
-    idMeal,
-    strMealThumb,
-    strMeal,
-    strCategory,
-    strInstructions,
-    strDrinkAlternate,
-    idDrink,
-    strDrink,
-    strAlcoholic,
-    strDrinkThumb,
-  } = recipesInProgress;
-
-  const teste = Object.keys(recipesInProgress);
-  const ingredients = teste.filter((item) => item.includes('strIngredient'));
-  const measures = teste.filter((item) => item.includes('strMeasure'));
-
-  const arrayVazio = [];
-  ingredients.forEach((ingredient, index) => {
-    if (
-      (recipesInProgress[ingredient]
-      && recipesInProgress[ingredient] !== ' '
-      && recipesInProgress[ingredient] !== null)) {
-      arrayVazio.push([recipesInProgress[ingredient],
-        recipesInProgress[measures[index]]]);
-    }
-  });
-
   const isChecked = (name) => {
     const ingredient = JSON.parse(localStorage.getItem('inProgressRecipes'));
 
@@ -72,14 +56,60 @@ export default function RecipeInProgress({ history, match: { params: { id } } })
   };
 
   const handleDone = () => {
-    setDoneRecipes((prevState) => [...prevState, recipesInProgress]);
     setRecipeDone(id, path, recipesInProgress);
     history.push('/receitas-feitas');
+  };
+
+  const isDone = () => {
+    const ingredient = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (path === 'comidas'
+    && ingredientsList.length === ingredient.meals[id].length) {
+      return setDisabled(false);
+    }
+    if (path === 'bebidas'
+      && ingredientsList.length === ingredient.cocktails[id].length) {
+      return setDisabled(false);
+    }
+    setDisabled(true);
   };
 
   useEffect(() => {
     fetchFoodDetails();
   }, []);
+
+  useEffect(() => {
+    const teste = Object.keys(recipesInProgress);
+    const ingredients = teste.filter((item) => item.includes('strIngredient'));
+    const measures = teste.filter((item) => item.includes('strMeasure'));
+
+    ingredients.forEach((ingredient, index) => {
+      if (
+        (recipesInProgress[ingredient]
+        && recipesInProgress[ingredient] !== ' '
+        && recipesInProgress[ingredient] !== null)) {
+        setIngredientsList((prevState) => [
+          ...prevState,
+          [recipesInProgress[ingredient],
+            recipesInProgress[measures[index]]],
+        ]);
+      }
+    });
+  }, [recipesInProgress]);
+
+  useEffect(() => {
+    const ingredient = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+    if (path === 'comidas' && !ingredient.meals[id]) {
+      addToRecipesInProgress(id, 'meals');
+    } else if (path === 'bebidas' && !ingredient.cocktails[id]) {
+      addToRecipesInProgress(id, 'cocktails');
+    }
+  }, []);
+
+  useEffect(() => {
+    isDone();
+  }, [ingredientsList]);
+
   return (
     <div className="recipe-detail">
       <div className="container-title-image">
@@ -102,7 +132,7 @@ export default function RecipeInProgress({ history, match: { params: { id } } })
         </h4>
       </div>
       <div className="container-ingredients">
-        { arrayVazio
+        { ingredientsList
           .map((name, index) => (
             <label
               key={ index }
@@ -112,7 +142,7 @@ export default function RecipeInProgress({ history, match: { params: { id } } })
               <input
                 onClick={ () => {
                   addIngredient(id, path, name[0]);
-                  setIngredientChecked((prevState) => [...prevState, name[0]]);
+                  isDone();
                 } }
                 type="checkbox"
                 key={ index }
@@ -136,7 +166,7 @@ export default function RecipeInProgress({ history, match: { params: { id } } })
         type="button"
         data-testid="finish-recipe-btn"
         onClick={ handleDone }
-        disabled={ arrayVazio.length !== ingredientsChecked.length }
+        disabled={ disabled }
       >
         Finalizar Receita
       </button>

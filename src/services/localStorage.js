@@ -30,7 +30,7 @@ const addToRecipesInProgress = (id, type) => {
 
 const addIngredient = (id, type, ingredient) => {
   const progressRecipes = localStorage.getItem('inProgressRecipes');
-
+  console.log(progressRecipes);
   if (type === 'comidas') {
     const { meals, cocktails } = JSON.parse(progressRecipes);
     const newObject = {
@@ -58,7 +58,7 @@ const addIngredient = (id, type, ingredient) => {
 
 const getIngredients = (id, type) => {
   const ingredient = JSON.parse(localStorage.getItem('inProgressRecipes'));
-
+  if (!ingredient.meals.length && !ingredient.cocktails.length) return [];
   if (type === 'comidas') {
     return ingredient.meals[id];
   }
