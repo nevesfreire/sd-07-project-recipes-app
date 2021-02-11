@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
+import getStorage from '../../services/localStorageAPI/getStorage';
+import setStorage from '../../services/localStorageAPI/setStorage';
 import { HeaderS, CardC, Footer } from '../../components';
 import {
   loadMeals,
@@ -115,6 +117,10 @@ class TelaPrincipalReceitasComidas extends Component {
   }
 
   render() {
+    const emailFromStorage = getStorage('user');
+    if (!emailFromStorage) {
+      setStorage('user', { email: 'admin@gmail.com' });
+    }
     const title = 'Comidas';
     const { mealsStore, categoriesStore } = this.props;
     return (
