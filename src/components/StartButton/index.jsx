@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { addToRecipesInProgress, isInProgress, isDone } from '../../services/localStorage';
+import {
+  addToRecipesInProgress,
+  isInProgress,
+  isDone,
+} from '../../services/localStorage';
 
 export default function StartButton({ idMeal, idDrink, history }) {
   const startRecipe = () => {
