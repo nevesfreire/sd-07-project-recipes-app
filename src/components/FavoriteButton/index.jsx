@@ -1,25 +1,36 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { RecipesContext } from '../../context';
 import WhiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import BlackHeartIcon from '../../images/blackHeartIcon.svg';
 
 export default function FavoriteButton({ recipeDetails, id }) {
-  const { disfavor, addToFavorites, favorites } = useContext(RecipesContext);
+  const { disfavor, addToFavorites } = useContext(RecipesContext);
+  const [favorited, setFavorited] = useState(false);
 
   const isFavorited = () => {
-    if (recipeDetails.idMeal || recipeDetails.idDrink) {
-      return favorites.some((recipe) => recipe.id === id);
-    }
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    return favorites.some((recipe) => recipe.id === id);
   };
 
   const addOrRemoveFavorites = () => {
     if (isFavorited()) {
       disfavor(id);
+      setFavorited(false);
     } else {
       addToFavorites(recipeDetails);
+      setFavorited(true);
     }
   };
+
+  useEffect(() => {
+    const condition = isFavorited();
+    if (condition) {
+      setFavorited(true);
+    } else {
+      setFavorited(false);
+    }
+  }, []);
 
   return (
     <button
@@ -28,7 +39,7 @@ export default function FavoriteButton({ recipeDetails, id }) {
     >
       <img
         data-testid="favorite-btn"
-        src={ isFavorited() ? BlackHeartIcon : WhiteHeartIcon }
+        src={ favorited ? BlackHeartIcon : WhiteHeartIcon }
         alt="favorite recipe"
       />
     </button>

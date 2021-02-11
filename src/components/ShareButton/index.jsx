@@ -17,10 +17,11 @@ export default function ShareButton({ path, id }) {
 
   return (
     <div>
-      <button type="button">
+      <button
+        type="button"
+        onClick={ shareLink }
+      >
         <img
-          onClick={ shareLink }
-          role="presentation"
           data-testid="share-btn"
           src={ ShareIcon }
           alt="share"

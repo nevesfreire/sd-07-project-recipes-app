@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { removeFromFavorites, addToFavLocalStorage } from '../../services/localStorage';
 import RecipesContext from '../RecipesContext';
@@ -10,13 +10,9 @@ function Provider({ children }) {
   const [inputValues, setInputValues] = useState({ radio: 'Nome', input: '' });
   const [meals, setMeals] = useState([]);
   const [drinks, setDrinks] = useState([]);
-  const [showCopied, setShowCopied] = useState(false);
-  const [favorites, setFavorites] = useState([]);
-  const [doneRecipes, setDoneRecipes] = useState([]);
 
   const disfavor = (id) => {
     removeFromFavorites(id);
-    setFavorites((prevState) => prevState.filter((element) => element.id !== id));
   };
 
   const addToFavorites = (obj) => {
@@ -31,35 +27,23 @@ function Provider({ children }) {
     };
 
     addToFavLocalStorage(newObject);
-    setFavorites((prevState) => [...prevState, newObject]);
   };
 
-  useEffect(() => {
-    const favoriteList = localStorage.getItem('favoriteRecipes');
-    if (!favoriteList) {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
-    } else {
-      setFavorites(JSON.parse(favoriteList));
-    }
-  }, []);
+  const favoriteList = localStorage.getItem('favoriteRecipes');
+  if (!favoriteList) {
+    localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+  }
 
-  useEffect(() => {
-    const recipes = localStorage.getItem('doneRecipes');
-    if (!recipes) {
-      localStorage.setItem('doneRecipes', JSON.stringify([]));
-    } else {
-      setDoneRecipes(JSON.parse(recipes));
-    }
-  }, []);
+  const recipes = localStorage.getItem('doneRecipes');
+  if (!recipes) {
+    localStorage.setItem('doneRecipes', JSON.stringify([]));
+  }
 
-  useEffect(() => {
-    const progressRecipes = localStorage.getItem('inProgressRecipes');
-
-    if (!progressRecipes) {
-      localStorage
-        .setItem('inProgressRecipes', JSON.stringify({ meals: [], cocktails: [] }));
-    }
-  });
+  const progressRecipes = localStorage.getItem('inProgressRecipes');
+  if (!progressRecipes) {
+    localStorage
+      .setItem('inProgressRecipes', JSON.stringify({ meals: {}, cocktails: {} }));
+  }
 
   const contextValue = {
     login,
@@ -68,20 +52,14 @@ function Provider({ children }) {
     drinks,
     searchBarVisible,
     inputValues,
-    favorites,
-    doneRecipes,
-    showCopied,
     setLogin,
     setDisabled,
     setMeals,
     setDrinks,
     setSearchBarVisible,
     setInputValues,
-    setFavorites,
-    setDoneRecipes,
     disfavor,
     addToFavorites,
-    setShowCopied,
   };
 
   return (
