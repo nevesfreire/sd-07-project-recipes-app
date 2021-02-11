@@ -19,10 +19,6 @@ class Perfil extends Component {
   }
 
   render() {
-    const emailFromStorage = getStorage('user');
-    if (!emailFromStorage) {
-      setStorage('user', { email: 'admin@gmail.com' });
-    }
     const title = 'Perfil';
     const emailEdited = (JSON.parse(localStorage.getItem('user'))).email;
 
