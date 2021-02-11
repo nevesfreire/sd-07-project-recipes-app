@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import copy from 'clipboard-copy';
 import { getDrinkId } from '../services/Api';
+import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function DrinkProgress() {
   const ZERO = 0;
   const arrayIngredients = [];
   const [arrayDrink, setArrayDrink] = useState();
+  const [copied, setCopied] = useState(false);
+  const [favorited, setFavorited] = useState(false);
   const idPathName = useHistory().location.pathname.split('/');
   const idDrink = idPathName[2];
+  const { push } = useHistory();
 
   useEffect(() => {
     const getArrayDrink = async () => {
@@ -26,6 +33,14 @@ function DrinkProgress() {
       }
     }
   }
+  const getFavorited = () => {
+    const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (recipes) {
+      return recipes[0].id === idPathName[2]
+        ? setFavorited(!favorited)
+        : setFavorited(false);
+    } setFavorited(false);
+  };
 
   const saveLocalStorage = (name) => {
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -47,6 +62,25 @@ function DrinkProgress() {
     }
   };
 
+  const favoriteRecipe = () => {
+    const recipeFavorited = [{
+      id: arrayDrink[0].idDrink,
+      type: 'bebida',
+      area: '',
+      category: arrayDrink[0].strCategory,
+      alcoholicOrNot: arrayDrink[0].strAlcoholic,
+      name: arrayDrink[0].strDrink,
+      image: arrayDrink[0].strDrinkThumb,
+    }];
+    localStorage.setItem('favoriteRecipes', JSON.stringify(recipeFavorited));
+    return getFavorited();
+  };
+
+  const shareClicker = () => {
+    setCopied(true);
+    return copy(`http://localhost:3000/bebidas/${idPathName[2]}`);
+  };
+
   const handleChangeInput = ({ name }) => {
     saveLocalStorage(name);
   };
@@ -59,8 +93,30 @@ function DrinkProgress() {
         data-testid="recipe-photo"
       />
       <h3 data-testid="recipe-title">{arrayDrink[0].strDrink}</h3>
-      <button data-testid="share-btn" type="button">Compartilhar</button>
-      <button data-testid="favorite-btn" type="button">Favorito</button>
+      <label htmlFor="shareBtn">
+        <input
+          type="image"
+          src={ shareIcon }
+          alt="share icon"
+          data-testid="share-btn"
+          id="shareBtn"
+          onClick={ () => shareClicker() }
+        />
+      </label>
+
+      {copied && <h3>Link copiado!</h3>}
+
+      <label htmlFor="favoriteBtn">
+        <input
+          type="image"
+          src={ favorited ? blackHeartIcon : whiteHeartIcon }
+          alt="favorite icon"
+          data-testid="favorite-btn"
+          id="favoriteBtn"
+          onClick={ () => favoriteRecipe() }
+        />
+      </label>
+
       <p data-testid="recipe-category">{arrayDrink[0].strCategory}</p>
       {
         arrayIngredients.map((ingredient, index) => (
@@ -81,6 +137,7 @@ function DrinkProgress() {
       <button
         data-testid="finish-recipe-btn"
         type="button"
+        onClick={ () => push('/receitas-feitas') }
       >
         Finalizar Receita
       </button>

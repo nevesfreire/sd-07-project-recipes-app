@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import copy from 'clipboard-copy';
 import { getFoodId } from '../services/Api';
+import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function FoodProgress() {
   const ZERO = 0;
   const arrayIngredients = [];
   const [arrayFood, setArrayFood] = useState();
+  const [copied, setCopied] = useState(false);
+  const [favorited, setFavorited] = useState(false);
   const idPathName = useHistory().location.pathname.split('/');
   const idFood = idPathName[2];
+  const { push } = useHistory();
 
   useEffect(() => {
     const getArrayFood = async () => {
@@ -26,6 +33,14 @@ function FoodProgress() {
       }
     }
   }
+  const getFavorited = () => {
+    const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (recipes) {
+      return recipes[0].id === idPathName[2]
+        ? setFavorited(!favorited)
+        : setFavorited(false);
+    } setFavorited(false);
+  };
 
   const saveLocalStorage = (name) => {
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -47,6 +62,24 @@ function FoodProgress() {
     }
   };
 
+  const favoriteRecipe = () => {
+    const recipeFavorited = [{
+      id: arrayFood[0].idMeal,
+      type: 'comida',
+      area: '',
+      category: arrayFood[0].strCategory,
+      name: arrayFood[0].strMeal,
+      image: arrayFood[0].strMealThumb,
+    }];
+    localStorage.setItem('favoriteRecipes', JSON.stringify(recipeFavorited));
+    return getFavorited();
+  };
+
+  const shareClicker = () => {
+    setCopied(true);
+    return copy(`http://localhost:3000/comidas/${idPathName[2]}`);
+  };
+
   const handleChangeInput = ({ name }) => {
     saveLocalStorage(name);
   };
@@ -59,8 +92,30 @@ function FoodProgress() {
         data-testid="recipe-photo"
       />
       <h3 data-testid="recipe-title">{arrayFood[0].strMeal}</h3>
-      <button data-testid="share-btn" type="button">Compartilhar</button>
-      <button data-testid="favorite-btn" type="button">Favorito</button>
+      <label htmlFor="shareBtn">
+        <input
+          type="image"
+          src={ shareIcon }
+          alt="share icon"
+          data-testid="share-btn"
+          id="shareBtn"
+          onClick={ () => shareClicker() }
+        />
+      </label>
+
+      {copied && <h3>Link copiado!</h3>}
+
+      <label htmlFor="favoriteBtn">
+        <input
+          type="image"
+          src={ favorited ? blackHeartIcon : whiteHeartIcon }
+          alt="favorite icon"
+          data-testid="favorite-btn"
+          id="favoriteBtn"
+          onClick={ () => favoriteRecipe() }
+        />
+      </label>
+
       <p data-testid="recipe-category">{arrayFood[0].strCategory}</p>
       {
         arrayIngredients.map((ingredient, index) => (
@@ -81,7 +136,7 @@ function FoodProgress() {
       <button
         data-testid="finish-recipe-btn"
         type="button"
-        onClick={ () => saveLocalStorage(arrayFood[0].idMeal) }
+        onClick={ () => push('/receitas-feitas') }
       >
         Finalizar Receita
       </button>
