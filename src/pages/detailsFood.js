@@ -69,7 +69,7 @@ function DetailsFood() {
       data-testid="start-recipe-btn"
       onClick={ () => push({
         pathname: `/comidas/${idPathName[2]}/in-progress`,
-        state: dataFood,
+        state: dataFood[0],
       }) }
     >
       {start ? 'Continuar Receita' : 'Iniciar Receita'}
@@ -161,6 +161,8 @@ function DetailsFood() {
         <h2>Recomendadas</h2>
         {DrinkRecom()}
       </div>
+      <br />
+      <br />
       { !done && startRecipe() }
     </div>
   );

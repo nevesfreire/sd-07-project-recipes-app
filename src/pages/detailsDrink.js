@@ -20,9 +20,6 @@ function DetailsDrink() {
   const idPathName = path.split('/');
   const ZERO = 0;
 
-  console.log('dtaDrink:', dataDrink);
-  console.log(idPathName[2]);
-
   useEffect(() => {
     async function calledIdDrink() {
       setDataDrink(await getDrinkId(idPathName[2]));
@@ -70,7 +67,10 @@ function DetailsDrink() {
       className="startRecipeBtn"
       type="button"
       data-testid="start-recipe-btn"
-      onClick={ () => push(`/bebidas/${idPathName[2]}/in-progress`) }
+      onClick={ () => push({
+        pathname: `/bebidas/${idPathName[2]}/in-progress`,
+        state: dataDrink[0],
+      }) }
     >
       {start ? 'Continuar Receita' : 'Iniciar Receita'}
     </button>
@@ -137,6 +137,8 @@ function DetailsDrink() {
         <h2>Recomendadas</h2>
         {FoodRecom()}
       </div>
+      <br />
+      <br />
       { !done && startRecipe() }
     </div>
   );
