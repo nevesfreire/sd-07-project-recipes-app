@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Header, DoneCard } from '../../components';
-import { RecipesContext } from '../../context';
 import './DoneRecipes.css';
 
 export default function DoneRecipes() {
