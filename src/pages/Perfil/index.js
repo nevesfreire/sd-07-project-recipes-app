@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import getStorage from '../../services/localStorageAPI/getStorage';
-import setStorage from '../../services/localStorageAPI/setStorage';
 
 import { Header, Footer } from '../../components';
 
