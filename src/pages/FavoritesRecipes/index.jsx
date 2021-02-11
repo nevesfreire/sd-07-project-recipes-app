@@ -41,7 +41,12 @@ export default function FavoritesRecipes() {
         </button>
         {
           favorites ? favorites.map((recipe, index) => (
-            <FavoriteCard setFavorites={ setFavorites } index={ index } key={ index } recipe={ recipe } />
+            <FavoriteCard
+              setFavorites={ setFavorites }
+              index={ index }
+              key={ index }
+              recipe={ recipe }
+            />
           ))
             : <p>Nao há receitas favoritas</p>
         }

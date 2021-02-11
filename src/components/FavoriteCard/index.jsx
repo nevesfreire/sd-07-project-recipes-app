@@ -93,4 +93,5 @@ FavoriteCard.propTypes = {
     area: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
   }).isRequired,
+  setFavorites: PropTypes.func.isRequired,
 };
