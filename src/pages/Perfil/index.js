@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Container, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import getStorage from '../../services/localStorageAPI/getStorage';
+import setStorage from '../../services/localStorageAPI/setStorage';
 
 import { Header, Footer } from '../../components';
 
@@ -17,6 +19,10 @@ class Perfil extends Component {
   }
 
   render() {
+    const emailFromStorage = getStorage('user');
+    if (!emailFromStorage) {
+      setStorage('user', { email: 'admin@gmail.com' });
+    }
     const title = 'Perfil';
     const emailEdited = (JSON.parse(localStorage.getItem('user'))).email;
 
