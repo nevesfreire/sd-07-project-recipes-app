@@ -1,14 +1,6 @@
-export const fetchApi = async (endpoint) => {
-  let data = null;
-  try {
-    const response = await fetch(endpoint);
-    data = await response.json();
-  } catch (err) {
-    console.error(err);
-    console.warn(err);
-  }
-  return data;
-};
+export const fetchApi = (endpoint) => fetch(endpoint)
+  .then((data) => data.json())
+  .catch((err) => console.log(err));
 
 export const allFood = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 

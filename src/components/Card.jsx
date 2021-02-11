@@ -53,7 +53,7 @@ Card.propTypes = {
   pathname: PropTypes.string.isRequired,
   Name: PropTypes.string.isRequired,
   Thumb: PropTypes.string.isRequired,
-  Index: PropTypes.element.isRequired,
+  Index: PropTypes.number.isRequired,
   Test: PropTypes.string.isRequired,
 };
 

@@ -85,7 +85,8 @@ export default function Header() {
   const { pathname } = location;
 
   useEffect(() => {
-    setState((s) => ({ ...s, header: siteMap[pathname].header }));
+    const newHeader = siteMap[pathname].header;
+    setState((s) => ({ ...s, header: newHeader }));
   }, [pathname, setState]);
 
   const { header, toggleSearch } = state;
@@ -98,7 +99,7 @@ export default function Header() {
     }));
   };
 
-  const render = () => (
+  return (
     <div className="header-container">
       <div className="header">
         {profileTopBtn(profileButton)}
@@ -108,6 +109,4 @@ export default function Header() {
       {searchRecipeComponent(pathname, toggleSearch, title)}
     </div>
   );
-
-  return render();
 }
