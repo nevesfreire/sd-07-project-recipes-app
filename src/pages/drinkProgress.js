@@ -7,6 +7,7 @@ function DrinkProgress() {
   const arrayIngredients = [];
   const [arrayDrink, setArrayDrink] = useState();
   const idPathName = useHistory().location.pathname.split('/');
+  const idDrink = idPathName[2];
 
   useEffect(() => {
     const getArrayDrink = async () => {
@@ -25,6 +26,30 @@ function DrinkProgress() {
       }
     }
   }
+
+  const saveLocalStorage = (name) => {
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+    if (inProgressRecipes) {
+      const objDrinkIngredients = {
+        ...inProgressRecipes,
+        cocktails: { ...inProgressRecipes.cocktails,
+          [idDrink]: [...inProgressRecipes.cocktails[idDrink], name] },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(objDrinkIngredients));
+    } else {
+      const objDrinkIngredients = {
+        cocktails: { [idDrink]: [name] },
+        meals: { },
+      };
+
+      localStorage.setItem('inProgressRecipes', JSON.stringify(objDrinkIngredients));
+    }
+  };
+
+  const handleChangeInput = ({ name }) => {
+    saveLocalStorage(name);
+  };
   const getRender = () => (
     <div>
       <img
@@ -40,16 +65,25 @@ function DrinkProgress() {
       {
         arrayIngredients.map((ingredient, index) => (
           <div key="ingredient" data-testid={ `${index}-ingredient-step` }>
-            <input type="checkbox" id={ ingredient } />
+            <input
+              checked
+              type="checkbox"
+              name={ ingredient }
+              onChange={ (event) => (handleChangeInput(event.target)) }
+            />
             <label htmlFor={ ingredient }>{ingredient}</label>
-            {ingredient}
           </div>))
       }
       <textarea data-testid="instructions">
         {arrayDrink[0].strInstructions}
       </textarea>
 
-      <button data-testid="finish-recipe-btn" type="button">Finalizar Receita</button>
+      <button
+        data-testid="finish-recipe-btn"
+        type="button"
+      >
+        Finalizar Receita
+      </button>
     </div>
   );
 

@@ -7,6 +7,7 @@ function FoodProgress() {
   const arrayIngredients = [];
   const [arrayFood, setArrayFood] = useState();
   const idPathName = useHistory().location.pathname.split('/');
+  const idFood = idPathName[2];
 
   useEffect(() => {
     const getArrayFood = async () => {
@@ -25,6 +26,30 @@ function FoodProgress() {
       }
     }
   }
+
+  const saveLocalStorage = (name) => {
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+    if (inProgressRecipes) {
+      const objFoodIngredients = {
+        ...inProgressRecipes,
+        meals: { ...inProgressRecipes.meals,
+          [idFood]: [...inProgressRecipes.meals[idFood], name] },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(objFoodIngredients));
+    } else {
+      const objFoodIngredients = {
+        cocktails: { },
+        meals: { [idFood]: [name] },
+      };
+
+      localStorage.setItem('inProgressRecipes', JSON.stringify(objFoodIngredients));
+    }
+  };
+
+  const handleChangeInput = ({ name }) => {
+    saveLocalStorage(name);
+  };
   const getRender = () => (
     <div>
       <img
@@ -40,16 +65,26 @@ function FoodProgress() {
       {
         arrayIngredients.map((ingredient, index) => (
           <div key="ingredient" data-testid={ `${index}-ingredient-step` }>
-            <input type="checkbox" id={ ingredient } />
+            <input
+              checked
+              type="checkbox"
+              name={ ingredient }
+              onChange={ (event) => (handleChangeInput(event.target)) }
+            />
             <label htmlFor={ ingredient }>{ingredient}</label>
-            {ingredient}
           </div>))
       }
       <textarea data-testid="instructions">
         {arrayFood[0].strInstructions}
       </textarea>
 
-      <button data-testid="finish-recipe-btn" type="button">Finalizar Receita</button>
+      <button
+        data-testid="finish-recipe-btn"
+        type="button"
+        onClick={ () => saveLocalStorage(arrayFood[0].idMeal) }
+      >
+        Finalizar Receita
+      </button>
     </div>
   );
 
