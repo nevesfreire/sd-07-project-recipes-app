@@ -33,53 +33,32 @@ export default function StartButton({ idMeal, idDrink, history }) {
   };
 
   const isDone = () => {
-    const progressRecipes = localStorage.getItem('doneRecipes');
+    const doneRecipes = localStorage.getItem('doneRecipes');
 
     if (idMeal) {
-      console.log('alou');
-      return JSON.parse(progressRecipes).some((recipe) => recipe.idMeal);
+      return JSON.parse(doneRecipes).some((recipe) => recipe.id === idMeal);
     }
     if (idDrink) {
-      return JSON.parse(progressRecipes).some((recipe) => recipe.idMeal);
-    }
-  };
-
-  const renderContinue = () => {
-    if (isInProgress()) {
-      return (
-        <button
-          type="button"
-          className="start-recipe-btn"
-          data-testid="start-recipe-btn"
-          onClick={ continueRecipe }
-        >
-          Continuar Receita
-        </button>
-      );
-    }
-  };
-
-  const renderStart = () => {
-    if (!isInProgress()) {
-      return (
-        <button
-          style={ { visibility: isDone() ? 'hidden' : 'visible' } }
-          type="button"
-          className="start-recipe-btn"
-          data-testid="start-recipe-btn"
-          onClick={ startRecipe }
-        >
-          Iniciar Receita
-        </button>
-      );
+      return JSON.parse(doneRecipes).some((recipe) => recipe.id === idDrink);
     }
   };
 
   return (
-    <div>
-      {renderContinue()}
-      {renderStart()}
-    </div>
+    <button
+      style={ { visibility: isDone() ? 'hidden' : 'visible' } }
+      type="button"
+      className="start-recipe-btn"
+      data-testid="start-recipe-btn"
+      onClick={ () => {
+        if (isInProgress()) {
+          continueRecipe();
+        } else {
+          startRecipe();
+        }
+      } }
+    >
+      { isInProgress() ? 'Continuar Receita' : 'Iniciar Receita' }
+    </button>
   );
 }
 
