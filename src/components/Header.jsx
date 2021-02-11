@@ -38,7 +38,7 @@ const pageTitle = (title) => {
   return (
     <h1
       data-testid="page-title"
-      className=""
+      className="top-title"
     >
       {title}
     </h1>

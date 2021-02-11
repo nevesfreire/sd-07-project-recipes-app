@@ -6,7 +6,7 @@ import CategoryPanel from '../components/CategoryPanel';
 
 function Recipes() {
   return (
-    <section className="header-container">
+    <section className="header-container background">
       <div className="header-page">
         <Header />
       </div>
