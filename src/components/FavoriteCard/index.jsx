@@ -5,7 +5,7 @@ import copyLink from '../../services/clipBoard';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import shareIcon from '../../images/shareIcon.svg';
 
-export default function FavoriteCard({ recipe, index }) {
+export default function FavoriteCard({ recipe, index, setFavorites }) {
   const { name, image, type, alcoholicOrNot, category, area, id } = recipe;
   const [showCopied, setShowCopied] = useState(false);
   const { disfavor } = useContext(RecipesContext);
@@ -63,7 +63,13 @@ export default function FavoriteCard({ recipe, index }) {
             data-testid={ `${index}-horizontal-share-btn` }
           />
         </button>
-        <button type="button" onClick={ () => disfavor(id) }>
+        <button
+          type="button"
+          onClick={ () => {
+            setFavorites((prevState) => prevState.filter((item) => item.id !== id));
+            disfavor(id);
+          } }
+        >
           <img
             src={ blackHeartIcon }
             alt="heart"

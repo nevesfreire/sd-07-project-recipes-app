@@ -1,12 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useState } from 'react';
 import { Header, DoneCard } from '../../components';
 import { RecipesContext } from '../../context';
 import './DoneRecipes.css';
 
 export default function DoneRecipes() {
-  const { doneRecipes, setDoneRecipes } = useContext(RecipesContext);
   const defaultRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-  console.log(doneRecipes);
+  const [doneRecipes, setDoneRecipes] = useState(defaultRecipes);
+
   return (
     <div className="done-recipes-container">
       <Header title="Receitas Feitas" />
