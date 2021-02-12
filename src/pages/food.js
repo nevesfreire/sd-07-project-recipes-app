@@ -48,16 +48,14 @@ function Food() {
     };
     if (data.ingredient) {
       getFoodByIngredients();
-    } else {
-      setArrayListFood(data.food);
-    }
+    } else if (!data.food) {
+      setArrayListFood(data.food = []);
+    } else setArrayListFood(data.food);
   }, [data.food]);
 
-  const getAlert = () => {
-    window.alert(
-      'Sinto muito, não encontramos nenhuma receita para esses filtros.',
-    );
-  };
+  const getAlert = () => window.alert(
+    'Sinto muito, não encontramos nenhuma receita para esses filtros.',
+  );
   const getLoading = () => {
     if (loading) {
       const arrayFoods = [...arrayListFood];
@@ -95,15 +93,11 @@ function Food() {
   );
 
   const optionsRender = () => {
-    if (renderCategory) {
-      return ListCardsFoodCategory(data.food);
-    }
+    if (renderCategory) return ListCardsFoodCategory(data.food);
 
     if (arrayCategory.length > ZERO) return ListCardsFoodCategory(arrayCategory);
 
-    if (data.food === 'error' || data.food === null) {
-      return getAlert();
-    }
+    if (data.food === 'error' || data.food === null) return getAlert();
 
     return getLoading();
   };
