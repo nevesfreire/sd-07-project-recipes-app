@@ -3,7 +3,9 @@ import React, { useEffect, /* , useState */
 import { useParams, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import ReactPlayer from 'react-player';
-import { LS_KEYS, loadKeyFromLS } from '../../services/localStorage';
+import { LS_KEYS } from '../../services/localStorage';
+import useLocalStorage from './useLocalStorage';
+
 import {
   FavoriteButton,
   ShareButton,
@@ -12,11 +14,12 @@ import {
   RecipeIngredients,
 } from '../../components';
 import { mapIngredientsAndMeasuresToList } from '../../services/helper';
-import { fetchRecipeById, updateFromLS } from '../../store/ducks/recipes';
+import { fetchRecipeById/* , updateFromLS */ } from '../../store/ducks/recipes';
 
 import StyledCard from './styles';
 
 const PATH_IS_IN_PROGRESS = 'in-progress';
+
 const isInProgress = (pathname, inProgressRecipes, id) => inProgressRecipes && Object
   .prototype.hasOwnProperty.call(inProgressRecipes[
     pathname.includes('comida') ? 'meals' : 'cocktails'
@@ -31,14 +34,6 @@ const getButtonName = (pathname, inProgressRecipes, id) => {
   return 'Finalizar Receita';
 };
 
-/* const isAllIngredientsDone = (
-  recipe,
-  inProgressRecipes,
-) => recipe && inProgressRecipes && mapIngredientsAndMeasuresToList(recipe)
-  .every((ingredient) => inProgressRecipes[recipe
-    .type === 'comida' ? 'meals' : 'cocktails'][recipe.id]
-    .includes(ingredient)); */
-
 const RecipeDetails = () => {
   const { recipeId } = useParams();
   const { pathname } = useLocation();
@@ -46,8 +41,8 @@ const RecipeDetails = () => {
   const [isPageInProgress, setIsPageInProgress] = useState(false);
   const [isAllDone, setIsAllDone] = useState(false);
   const detailsRecipe = useSelector((state) => state.recipes.detailsRecipe);
-  const doneRecipes = loadKeyFromLS(LS_KEYS.DONE_RECIPES_KEY, []);
-  const inProgressRecipes = loadKeyFromLS(LS_KEYS.IN_PROGRESS_RECIPES_KEY, {
+  const [doneRecipes] = useLocalStorage(LS_KEYS.DONE_RECIPES_KEY, []);
+  const [inProgressRecipes] = useLocalStorage(LS_KEYS.IN_PROGRESS_RECIPES_KEY, {
     cocktails: {}, meals: {},
   });
 
@@ -59,17 +54,17 @@ const RecipeDetails = () => {
     setIsPageInProgress(pathname.includes(PATH_IS_IN_PROGRESS));
   }, [dispatch, pathname, recipeId]);
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (doneRecipes) {
       dispatch(updateFromLS({ [LS_KEYS.DONE_RECIPES_KEY]: doneRecipes }));
     }
-  }, [dispatch, doneRecipes]);
+  }, [dispatch, doneRecipes]); */
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (inProgressRecipes) {
       dispatch(updateFromLS({ [LS_KEYS.IN_PROGRESS_RECIPES_KEY]: inProgressRecipes }));
     }
-  }, [dispatch, inProgressRecipes]);
+  }, [dispatch, inProgressRecipes]); */
 
   const handleAllIsDone = (allIsDone) => setIsAllDone(allIsDone);
 
