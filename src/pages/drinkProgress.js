@@ -5,10 +5,9 @@ import { getDrinkId } from '../services/Api';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import getArrayIngredients from '../helpers/getArrayIngredients';
 
 function DrinkProgress() {
-  const ZERO = 0;
-  const arrayIngredients = [];
   const [arrayDrink, setArrayDrink] = useState();
   const [copied, setCopied] = useState(false);
   const [favorited, setFavorited] = useState(false);
@@ -23,16 +22,6 @@ function DrinkProgress() {
     getArrayDrink();
   }, []);
 
-  if (arrayDrink) {
-    const drinkKeys = Object
-      .keys(arrayDrink[0]).filter((item) => item.includes('Ingredient'));
-
-    for (let index = ZERO; index < drinkKeys.length; index += 1) {
-      if (arrayDrink[0][drinkKeys[index]] && arrayDrink[0][drinkKeys[index]] !== '') {
-        arrayIngredients.push(arrayDrink[0][drinkKeys[index]]);
-      }
-    }
-  }
   const getFavorited = () => {
     const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (recipes) {
@@ -84,65 +73,68 @@ function DrinkProgress() {
   const handleChangeInput = ({ name }) => {
     saveLocalStorage(name);
   };
-  const getRender = () => (
-    <div>
-      <img
-        style={ { width: '30%' } }
-        src={ arrayDrink[0].strDrinkThumb }
-        alt={ arrayDrink[0].strDrink }
-        data-testid="recipe-photo"
-      />
-      <h3 data-testid="recipe-title">{arrayDrink[0].strDrink}</h3>
-      <label htmlFor="shareBtn">
-        <input
-          type="image"
-          src={ shareIcon }
-          alt="share icon"
-          data-testid="share-btn"
-          id="shareBtn"
-          onClick={ () => shareClicker() }
+  const getRender = () => {
+    const arrayIngredients = getArrayIngredients(arrayDrink);
+    return (
+      <div>
+        <img
+          style={ { width: '30%' } }
+          src={ arrayDrink[0].strDrinkThumb }
+          alt={ arrayDrink[0].strDrink }
+          data-testid="recipe-photo"
         />
-      </label>
+        <h3 data-testid="recipe-title">{arrayDrink[0].strDrink}</h3>
+        <label htmlFor="shareBtn">
+          <input
+            type="image"
+            src={ shareIcon }
+            alt="share icon"
+            data-testid="share-btn"
+            id="shareBtn"
+            onClick={ () => shareClicker() }
+          />
+        </label>
 
-      {copied && <h3>Link copiado!</h3>}
+        {copied && <h3>Link copiado!</h3>}
 
-      <label htmlFor="favoriteBtn">
-        <input
-          type="image"
-          src={ favorited ? blackHeartIcon : whiteHeartIcon }
-          alt="favorite icon"
-          data-testid="favorite-btn"
-          id="favoriteBtn"
-          onClick={ () => favoriteRecipe() }
-        />
-      </label>
+        <label htmlFor="favoriteBtn">
+          <input
+            type="image"
+            src={ favorited ? blackHeartIcon : whiteHeartIcon }
+            alt="favorite icon"
+            data-testid="favorite-btn"
+            id="favoriteBtn"
+            onClick={ () => favoriteRecipe() }
+          />
+        </label>
 
-      <p data-testid="recipe-category">{arrayDrink[0].strCategory}</p>
-      {
-        arrayIngredients.map((ingredient, index) => (
-          <div key="ingredient" data-testid={ `${index}-ingredient-step` }>
-            <input
-              checked
-              type="checkbox"
-              name={ ingredient }
-              onChange={ (event) => (handleChangeInput(event.target)) }
-            />
-            <label htmlFor={ ingredient }>{ingredient}</label>
-          </div>))
-      }
-      <textarea data-testid="instructions">
-        {arrayDrink[0].strInstructions}
-      </textarea>
+        <p data-testid="recipe-category">{arrayDrink[0].strCategory}</p>
+        {
+          arrayIngredients.map((ingredient, index) => (
+            <div key="ingredient" data-testid={ `${index}-ingredient-step` }>
+              <input
+                checked
+                type="checkbox"
+                name={ ingredient }
+                onChange={ (event) => (handleChangeInput(event.target)) }
+              />
+              <label htmlFor={ ingredient }>{ingredient}</label>
+            </div>))
+        }
+        <textarea data-testid="instructions">
+          {arrayDrink[0].strInstructions}
+        </textarea>
 
-      <button
-        data-testid="finish-recipe-btn"
-        type="button"
-        onClick={ () => push('/receitas-feitas') }
-      >
-        Finalizar Receita
-      </button>
-    </div>
-  );
+        <button
+          data-testid="finish-recipe-btn"
+          type="button"
+          onClick={ () => push('/receitas-feitas') }
+        >
+          Finalizar Receita
+        </button>
+      </div>
+    );
+  };
 
   return (
     <div>

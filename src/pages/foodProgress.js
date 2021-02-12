@@ -5,10 +5,9 @@ import { getFoodId } from '../services/Api';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import getArrayIngredients from '../helpers/getArrayIngredients';
 
 function FoodProgress() {
-  const ZERO = 0;
-  const arrayIngredients = [];
   const [arrayFood, setArrayFood] = useState();
   const [copied, setCopied] = useState(false);
   const [favorited, setFavorited] = useState(false);
@@ -23,16 +22,6 @@ function FoodProgress() {
     getArrayFood();
   }, []);
 
-  if (arrayFood) {
-    const foodKeys = Object
-      .keys(arrayFood[0]).filter((item) => item.includes('Ingredient'));
-
-    for (let index = ZERO; index < foodKeys.length; index += 1) {
-      if (arrayFood[0][foodKeys[index]] && arrayFood[0][foodKeys[index]] !== '') {
-        arrayIngredients.push(arrayFood[0][foodKeys[index]]);
-      }
-    }
-  }
   const getFavorited = () => {
     const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (recipes) {
@@ -83,65 +72,68 @@ function FoodProgress() {
   const handleChangeInput = ({ name }) => {
     saveLocalStorage(name);
   };
-  const getRender = () => (
-    <div>
-      <img
-        style={ { width: '30%' } }
-        src={ arrayFood[0].strMealThumb }
-        alt={ arrayFood[0].strMeal }
-        data-testid="recipe-photo"
-      />
-      <h3 data-testid="recipe-title">{arrayFood[0].strMeal}</h3>
-      <label htmlFor="shareBtn">
-        <input
-          type="image"
-          src={ shareIcon }
-          alt="share icon"
-          data-testid="share-btn"
-          id="shareBtn"
-          onClick={ () => shareClicker() }
+  const getRender = () => {
+    const arrayIngredients = getArrayIngredients(arrayFood);
+    return (
+      <div>
+        <img
+          style={ { width: '30%' } }
+          src={ arrayFood[0].strMealThumb }
+          alt={ arrayFood[0].strMeal }
+          data-testid="recipe-photo"
         />
-      </label>
+        <h3 data-testid="recipe-title">{arrayFood[0].strMeal}</h3>
+        <label htmlFor="shareBtn">
+          <input
+            type="image"
+            src={ shareIcon }
+            alt="share icon"
+            data-testid="share-btn"
+            id="shareBtn"
+            onClick={ () => shareClicker() }
+          />
+        </label>
 
-      {copied && <h3>Link copiado!</h3>}
+        {copied && <h3>Link copiado!</h3>}
 
-      <label htmlFor="favoriteBtn">
-        <input
-          type="image"
-          src={ favorited ? blackHeartIcon : whiteHeartIcon }
-          alt="favorite icon"
-          data-testid="favorite-btn"
-          id="favoriteBtn"
-          onClick={ () => favoriteRecipe() }
-        />
-      </label>
+        <label htmlFor="favoriteBtn">
+          <input
+            type="image"
+            src={ favorited ? blackHeartIcon : whiteHeartIcon }
+            alt="favorite icon"
+            data-testid="favorite-btn"
+            id="favoriteBtn"
+            onClick={ () => favoriteRecipe() }
+          />
+        </label>
 
-      <p data-testid="recipe-category">{arrayFood[0].strCategory}</p>
-      {
-        arrayIngredients.map((ingredient, index) => (
-          <div key="ingredient" data-testid={ `${index}-ingredient-step` }>
-            <input
-              checked
-              type="checkbox"
-              name={ ingredient }
-              onChange={ (event) => (handleChangeInput(event.target)) }
-            />
-            <label htmlFor={ ingredient }>{ingredient}</label>
-          </div>))
-      }
-      <textarea data-testid="instructions">
-        {arrayFood[0].strInstructions}
-      </textarea>
+        <p data-testid="recipe-category">{arrayFood[0].strCategory}</p>
+        {
+          arrayIngredients.map((ingredient, index) => (
+            <div key="ingredient" data-testid={ `${index}-ingredient-step` }>
+              <input
+                checked
+                type="checkbox"
+                name={ ingredient }
+                onChange={ (event) => (handleChangeInput(event.target)) }
+              />
+              <label htmlFor={ ingredient }>{ingredient}</label>
+            </div>))
+        }
+        <textarea data-testid="instructions">
+          {arrayFood[0].strInstructions}
+        </textarea>
 
-      <button
-        data-testid="finish-recipe-btn"
-        type="button"
-        onClick={ () => push('/receitas-feitas') }
-      >
-        Finalizar Receita
-      </button>
-    </div>
-  );
+        <button
+          data-testid="finish-recipe-btn"
+          type="button"
+          onClick={ () => push('/receitas-feitas') }
+        >
+          Finalizar Receita
+        </button>
+      </div>
+    );
+  };
 
   return (
     <div>

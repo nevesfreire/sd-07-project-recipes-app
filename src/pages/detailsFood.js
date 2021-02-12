@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { getFoodId } from '../services/Api';
 import DrinkRecom from '../components/DrinkRecom';
+import shareClicker from '../helpers/shareClicer';
 import './details.css';
 
 function DetailsFood() {
@@ -26,11 +26,6 @@ function DetailsFood() {
     }
     calledIdFood();
   }, []);
-
-  const shareClicker = () => {
-    setCopied(true);
-    return copy(`http://localhost:3000/comidas/${idPathName[2]}`);
-  };
 
   const getFavorited = () => {
     const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -92,7 +87,7 @@ function DetailsFood() {
           alt="share icon"
           data-testid="share-btn"
           id="shareBtn"
-          onClick={ () => shareClicker() }
+          onClick={ () => shareClicker('comidas', setCopied, idPathName[2]) }
         />
       </label>
       <label htmlFor="favoriteBtn">
