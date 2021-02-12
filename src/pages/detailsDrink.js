@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { getDrinkId } from '../services/Api';
 import FoodRecom from '../components/FoodRecom';
-import shareClicker from '../helpers/shareClicer';
 import getArrayIngredientsAndMeasures from '../helpers/getArrayIngredientsAndMeasures';
 import './details.css';
 
@@ -28,6 +28,11 @@ function DetailsDrink() {
     calledIdDrink();
   }, []);
 
+  const shareClicker = () => {
+    setCopied(true);
+    return copy(`http://localhost:3000/bebidas/${idPathName[2]}`);
+  };
+
   const getFavorited = () => {
     const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (recipes) {
@@ -48,7 +53,7 @@ function DetailsDrink() {
     const recipeFavorited = [{
       id: dataDrink[0].idDrink,
       type: 'bebida',
-      area: dataDrink[0].strArea,
+      area: '',
       category: dataDrink[0].strCategory,
       alcoholicOrNot: dataDrink[0].strAlcoholic,
       name: dataDrink[0].strDrink,
@@ -71,7 +76,6 @@ function DetailsDrink() {
       {start ? 'Continuar Receita' : 'Iniciar Receita'}
     </button>
   );
-  console.log(dataDrink);
 
   const cardDrink = () => (
     <div>
@@ -89,7 +93,7 @@ function DetailsDrink() {
           alt="share icon"
           data-testid="share-btn"
           id="shareBtn"
-          onClick={ () => shareClicker('bebidas', setCopied, idPathName[2]) }
+          onClick={ () => shareClicker() }
         />
       </label>
       <label htmlFor="favoriteBtn">
@@ -102,9 +106,11 @@ function DetailsDrink() {
           onClick={ () => favoriteRecipe() }
         />
       </label>
-      {copied && <h3>Link copiado!</h3>}
 
       <h3 data-testid="recipe-category">{ dataDrink[0].strCategory }</h3>
+      <h3 data-testid="recipe-category">{ dataDrink[0].strAlcoholic }</h3>
+
+      {copied && <h3>Link copiado!</h3>}
 
       <h3>
         Ingredientes
@@ -118,17 +124,11 @@ function DetailsDrink() {
           >
             {JSON.stringify(obj)}
           </p>
-
         ))
       }
 
       <h2>Instruções</h2>
       <p data-testid="instructions">{ dataDrink[0].strInstructions }</p>
-      <embed
-        data-testid="video"
-        type="video/quicktime"
-        src={ dataDrink[0].strYoutube }
-      />
       <div>
         <h2>Recomendadas</h2>
         {FoodRecom()}
