@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Container, Button } from 'react-bootstrap';
+import clipboard from 'clipboard-copy';
 import Form from 'react-bootstrap/Form';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import getStorage from '../../services/localStorageAPI/getStorage';
+import setStorage from '../../services/localStorageAPI/setStorage';
 import { getSpecificMealById } from '../../store/ducks/getDetailedMeal/actions';
 import { getSpecificDrinkById } from '../../store/ducks/getDetailedDrink/actions';
 
@@ -35,8 +39,12 @@ class TelaDeReceitaEmProcesso extends Component {
         19: false,
         20: false,
       },
+      isClicked: false,
+      isFavorite: false,
     };
     this.handleRecipeDone = this.handleRecipeDone.bind(this);
+    this.handleShareClick = this.handleShareClick.bind(this);
+    this.handleFavoriteClick = this.handleFavoriteClick.bind(this);
   }
 
   async componentDidMount() {
@@ -94,6 +102,26 @@ class TelaDeReceitaEmProcesso extends Component {
     return measuresArray;
   }
 
+  handleFavoriteClick(meal) {
+    const favoritesFromStorage = getStorage('favoriteRecipes');
+    const { isFavorite } = this.state;
+    if (isFavorite) {
+      const newLocalStorage = favoritesFromStorage.filter(
+        (curr) => curr.id !== meal.idMeal,
+      );
+      setStorage('favoriteRecipes', newLocalStorage);
+      this.setState({ isFavorite: false });
+    }
+    this.setState({ isFavorite: true });
+  }
+
+  handleShareClick() {
+    const {match: { params: { id } },
+    } = this.props;
+    this.setState({ isClicked: true });
+    clipboard(`http://localhost:3000/comidas/${id}`);
+  }
+
   checkStorage() {
     const storageChecks = localStorage.getItem('checkboxesM');
     const checks = JSON.parse(storageChecks);
@@ -103,10 +131,22 @@ class TelaDeReceitaEmProcesso extends Component {
     }
   }
 
+  renderWhiteHeart() {
+    return (
+      <img data-testid="favorite-btn" alt="favorite-btn" src={ whiteHeartIcon } />
+    );
+  }
+
+  renderBlackHeart() {
+    return (
+      <img data-testid="favorite-btn" alt="favorite-btn" src={ blackHeartIcon } />
+    );
+  }
+
   renderDetailsMeal(meal) {
     const ingredientsArray = this.handleIngredients(meal);
     const measuresArray = this.handleMeasure(meal);
-    const { checkboxes } = this.state;
+    const { checkboxes, isClicked, isFavorite } = this.state;
     return (
       <>
         <Container>
@@ -116,12 +156,23 @@ class TelaDeReceitaEmProcesso extends Component {
             src={ meal[0].strMealThumb }
           />
           <h3 data-testid="recipe-title">{meal[0].strMeal}</h3>
-          <img data-testid="share-btn" alt="share-btn" src={ shareIcon } />
-          <img
-            data-testid="favorite-btn"
-            alt="favorite-btn"
-            src={ whiteHeartIcon }
-          />
+          <div
+            onClick={ this.handleShareClick }
+            onKeyDown={ this.handleShareClick }
+            role="button"
+            tabIndex={ 0 }
+          >
+            <img data-testid="share-btn" alt="share-btn" src={ shareIcon } />
+          </div>
+          <tag>{isClicked ? 'Link copiado!' : null}</tag>
+          <div
+            onClick={ () => this.handleFavoriteClick(meal[0]) }
+            onKeyDown={ () => this.handleFavoriteClick(meal[0]) }
+            role="button"
+            tabIndex={ 0 }
+          >
+            {!isFavorite ? this.renderWhiteHeart() : this.renderBlackHeart()}
+          </div>
           <h4 data-testid="recipe-category">{meal[0].strCategory}</h4>
         </Container>
         <Container>
