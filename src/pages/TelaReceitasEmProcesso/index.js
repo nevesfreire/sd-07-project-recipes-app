@@ -111,12 +111,11 @@ class TelaDeReceitaEmProcesso extends Component {
       );
       setStorage('favoriteRecipes', newLocalStorage);
       this.setState({ isFavorite: false });
-    }
-    this.setState({ isFavorite: true });
+    } else this.setState({ isFavorite: true });
   }
 
   handleShareClick() {
-    const {match: { params: { id } },
+    const { match: { params: { id } },
     } = this.props;
     this.setState({ isClicked: true });
     clipboard(`http://localhost:3000/comidas/${id}`);
