@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Container, Button } from 'react-bootstrap';
-import Form from 'react-bootstrap/Form';
+import { Container, Button, Form } from 'react-bootstrap';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import { getSpecificMealById } from '../../store/ducks/getDetailedMeal/actions';
@@ -11,7 +10,31 @@ import { getSpecificDrinkById } from '../../store/ducks/getDetailedDrink/actions
 class TelaDeReceitaEmProcessoDrinks extends Component {
   constructor(props) {
     super(props);
-
+    this.state = {
+      checkboxes: {
+        0: false,
+        1: false,
+        2: false,
+        3: false,
+        4: false,
+        5: false,
+        6: false,
+        7: false,
+        8: false,
+        9: false,
+        10: false,
+        11: false,
+        12: false,
+        13: false,
+        14: false,
+        15: false,
+        16: false,
+        17: false,
+        18: false,
+        19: false,
+        20: false,
+      },
+    };
     this.handleRecipeDone = this.handleRecipeDone.bind(this);
   }
 
@@ -25,6 +48,24 @@ class TelaDeReceitaEmProcessoDrinks extends Component {
     const { getDetailedMealDispatch, getDetailedDrinkDispatch } = this.props;
     await getDetailedMealDispatch(id);
     await getDetailedDrinkDispatch(id);
+    this.checkStorage();
+  }
+
+  handleCheck(event, index) {
+    const {
+      target: { checked },
+    } = event;
+    const { checkboxes } = this.state;
+    if (checked) {
+      checkboxes[index] = true;
+      const checks = JSON.stringify(checkboxes);
+      return this.setState({ checkboxes },
+        () => localStorage.setItem('checkboxesD', checks));
+    }
+    checkboxes[index] = false;
+    const checks = JSON.stringify(checkboxes);
+    return this.setState({ checkboxes },
+      () => localStorage.setItem('checkboxesD', checks));
   }
 
   handleIngredients(recipe) {
@@ -52,10 +93,19 @@ class TelaDeReceitaEmProcessoDrinks extends Component {
     return measuresArray;
   }
 
+  checkStorage() {
+    const storageChecks = localStorage.getItem('checkboxesD');
+    const checks = JSON.parse(storageChecks);
+    console.log(checks);
+    if (storageChecks) {
+      return this.setState({ checkboxes: checks });
+    }
+  }
+
   renderDetailsDrink(drink) {
     const ingredientsArray = this.handleIngredients(drink);
     const measuresArray = this.handleMeasure(drink);
-    console.log(measuresArray[0][1]);
+    const { checkboxes } = this.state;
     return (
       <>
         <Container>
@@ -77,14 +127,21 @@ class TelaDeReceitaEmProcessoDrinks extends Component {
           <Form>
             <h4>Ingredients</h4>
             {ingredientsArray.map((item, index) => (
-              <Form.Check
-                type="checkbox"
-                label={ `${item[1]} - ${
-                  measuresArray[index] ? measuresArray[index][1] : 'Like taste'
-                }` }
-                data-testid="ingredient-step"
-                key={ item }
-              />
+              <div key={ item } data-testid={ `${index}-ingredient-step` }>
+                <Form.Check
+                  type="checkbox"
+                  onClick={ (e) => this.handleCheck(e, index) }
+                  defaultChecked={ checkboxes[index] }
+                />
+                <Form.Check.Label>
+                  {`${item[1]} - ${
+                    measuresArray[index]
+                      ? measuresArray[index][1]
+                      : 'Like taste'
+                  }`}
+                </Form.Check.Label>
+              </div>
+
             ))}
             <h4>Instructions</h4>
             <p data-testid="instructions">{drink[0].strInstructions}</p>
@@ -105,7 +162,7 @@ class TelaDeReceitaEmProcessoDrinks extends Component {
   }
 
   render() {
-    const { meal, drinkDetailStore } = this.props;
+    const { drinkDetailStore } = this.props;
     if (drinkDetailStore) {
       return this.renderDetailsDrink(drinkDetailStore);
     }
@@ -115,7 +172,6 @@ class TelaDeReceitaEmProcessoDrinks extends Component {
 
 TelaDeReceitaEmProcessoDrinks.propTypes = {
   drinkDetailStore: PropTypes.arrayOf(PropTypes.Object).isRequired,
-  meal: PropTypes.arrayOf(PropTypes.Object).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,

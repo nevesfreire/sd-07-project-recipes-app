@@ -11,7 +11,31 @@ import { getSpecificDrinkById } from '../../store/ducks/getDetailedDrink/actions
 class TelaDeReceitaEmProcesso extends Component {
   constructor(props) {
     super(props);
-
+    this.state = {
+      checkboxes: {
+        0: false,
+        1: false,
+        2: false,
+        3: false,
+        4: false,
+        5: false,
+        6: false,
+        7: false,
+        8: false,
+        9: false,
+        10: false,
+        11: false,
+        12: false,
+        13: false,
+        14: false,
+        15: false,
+        16: false,
+        17: false,
+        18: false,
+        19: false,
+        20: false,
+      },
+    };
     this.handleRecipeDone = this.handleRecipeDone.bind(this);
   }
 
@@ -22,11 +46,27 @@ class TelaDeReceitaEmProcesso extends Component {
       },
     } = this.props;
 
-    const { match } = this.props;
-    console.log(match);
     const { getDetailedMealDispatch, getDetailedDrinkDispatch } = this.props;
     await getDetailedMealDispatch(id);
     await getDetailedDrinkDispatch(id);
+    this.checkStorage();
+  }
+
+  handleCheck(event, index) {
+    const {
+      target: { checked },
+    } = event;
+    const { checkboxes } = this.state;
+    if (checked) {
+      checkboxes[index] = true;
+      const checks = JSON.stringify(checkboxes);
+      return this.setState({ checkboxes },
+        () => localStorage.setItem('checkboxesM', checks));
+    }
+    checkboxes[index] = false;
+    const checks = JSON.stringify(checkboxes);
+    return this.setState({ checkboxes },
+      () => localStorage.setItem('checkboxesM', checks));
   }
 
   handleIngredients(recipe) {
@@ -54,29 +94,54 @@ class TelaDeReceitaEmProcesso extends Component {
     return measuresArray;
   }
 
+  checkStorage() {
+    const storageChecks = localStorage.getItem('checkboxesM');
+    const checks = JSON.parse(storageChecks);
+    console.log(checks);
+    if (storageChecks) {
+      return this.setState({ checkboxes: checks });
+    }
+  }
+
   renderDetailsMeal(meal) {
     const ingredientsArray = this.handleIngredients(meal);
     const measuresArray = this.handleMeasure(meal);
-
+    const { checkboxes } = this.state;
     return (
       <>
         <Container>
-          <img data-testid="recipe-photo" alt="comida" src={ meal[0].strMealThumb } />
+          <img
+            data-testid="recipe-photo"
+            alt="comida"
+            src={ meal[0].strMealThumb }
+          />
           <h3 data-testid="recipe-title">{meal[0].strMeal}</h3>
           <img data-testid="share-btn" alt="share-btn" src={ shareIcon } />
-          <img data-testid="favorite-btn" alt="favorite-btn" src={ whiteHeartIcon } />
+          <img
+            data-testid="favorite-btn"
+            alt="favorite-btn"
+            src={ whiteHeartIcon }
+          />
           <h4 data-testid="recipe-category">{meal[0].strCategory}</h4>
         </Container>
         <Container>
           <Form>
             <h4>Ingredients</h4>
             {ingredientsArray.map((item, index) => (
-              <Form.Check
-                type="checkbox"
-                label={ `${item[1]} - ${measuresArray[index][1]}` }
-                data-testid="ingredient-step"
-                key={ item }
-              />
+              <div key={ item } data-testid={ `${index}-ingredient-step` }>
+                <Form.Check
+                  type="checkbox"
+                  onClick={ (e) => this.handleCheck(e, index) }
+                  defaultChecked={ checkboxes[index] }
+                />
+                <Form.Check.Label>
+                  {`${item[1]} - ${
+                    measuresArray[index]
+                      ? measuresArray[index][1]
+                      : 'Like taste'
+                  }`}
+                </Form.Check.Label>
+              </div>
             ))}
             <h4>Instructions</h4>
             <p data-testid="instructions">{meal[0].strInstructions}</p>
@@ -96,62 +161,16 @@ class TelaDeReceitaEmProcesso extends Component {
     );
   }
 
-  renderDetailsDrink(drink) {
-    // const ingredientsArray = this.handleIngredients(drink);
-    // const measuresArray = this.handleMeasure(drink);
-
-    return (
-      <>
-        <Container>
-          <img data-testid="recipe-photo" alt="comida" src={ drink[0].strDrinkThumb } />
-          <h3 data-testid="recipe-title">{drink[0].strDrink}</h3>
-          <img data-testid="share-btn" alt="share-btn" src={ shareIcon } />
-          <img data-testid="favorite-btn" alt="favorite-btn" src={ whiteHeartIcon } />
-          <h4 data-testid="recipe-category">{drink[0].strAlcoholic}</h4>
-        </Container>
-        <Container>
-          <Form>
-            <h4>Ingredients</h4>
-            {/* {ingredientsArray.map((item, index) => (
-              <Form.Check
-                type="checkbox"
-                label={ `${item[1]} - ${measuresArray[index][1]}` }
-                data-testid="ingredient-step"
-                key={ item }
-              />
-            ))} */}
-            <h4>Instructions</h4>
-            <p data-testid="instructions">{drink[0].strInstructions}</p>
-
-            <Button
-              variant="secondary"
-              block
-              size="lg"
-              data-testid="finish-recipe-btn"
-              onClick={ this.handleRecipeDone }
-            >
-              Finalizar Receita
-            </Button>
-          </Form>
-        </Container>
-      </>
-    );
-  }
-
   render() {
-    const { meal, drinkDetailStore } = this.props;
+    const { meal } = this.props;
     if (meal) {
       return this.renderDetailsMeal(meal);
     }
-    if (drinkDetailStore) {
-      return this.renderDetailsDrink(drinkDetailStore);
-    }
-    return <div>nundeu</div>;
+    return <div>Loading...</div>;
   }
 }
 
 TelaDeReceitaEmProcesso.propTypes = {
-  drinkDetailStore: PropTypes.arrayOf(PropTypes.Object).isRequired,
   meal: PropTypes.arrayOf(PropTypes.Object).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
@@ -175,4 +194,7 @@ const mapDispatchToProps = (dispatch) => ({
   getDetailedDrinkDispatch: (id) => dispatch(getSpecificDrinkById(id)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TelaDeReceitaEmProcesso);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(TelaDeReceitaEmProcesso);
