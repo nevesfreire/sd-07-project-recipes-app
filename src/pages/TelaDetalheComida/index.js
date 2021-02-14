@@ -200,8 +200,7 @@ class TelaDetalheComida extends Component {
                   drinkIndex={ index }
                 />
               );
-            }
-            return null;
+            } return null;
           })}
         </Slider>
         <button
@@ -218,14 +217,15 @@ class TelaDetalheComida extends Component {
 
   render() {
     const { meal } = this.props;
-    if (meal) {
-      return this.renderDetails(meal);
-    }
-    return <div>teste</div>;
+    if (meal) this.renderDetails(meal);
+    return <div>loading...</div>;
   }
 }
 
 TelaDetalheComida.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
   meal: PropTypes.arrayOf(PropTypes.Object).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
