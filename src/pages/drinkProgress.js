@@ -100,7 +100,7 @@ function DrinkProgress() {
         <label htmlFor="favoriteBtn">
           <input
             type="image"
-            src={ favorited ? blackHeartIcon : whiteHeartIcon }
+            src={ favorited ? whiteHeartIcon : blackHeartIcon }
             alt="favorite icon"
             data-testid="favorite-btn"
             id="favoriteBtn"

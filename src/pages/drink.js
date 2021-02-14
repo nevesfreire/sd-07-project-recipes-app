@@ -30,7 +30,7 @@ function Drink() {
   useEffect(() => {
     const getListCategories = async () => {
       const listDrinkCategory = await getCategoryDrinks();
-      listDrinkCategories.length = FIVE;
+      listDrinkCategory.length = FIVE;
       setListDrinkCategories(listDrinkCategory);
     };
     getListCategories();
@@ -65,7 +65,7 @@ function Drink() {
   };
 
   const setsCategory = () => {
-    setRenderCategory(false);
+    setRenderCategory(true);
     setCategoryName(undefined);
   };
 
