@@ -13,7 +13,6 @@ export const handleIngredients = (recipe) => {
 export const handleRecipeDone = (item) => {
   const HoraInicial = new Date();
   const horaFinal = HoraInicial.toLocaleDateString();
-  console.log(this.props);
   localStorage.setItem('data', horaFinal);
   const { history } = this.props;
   history.push(`/endereçoMagico/${item.idDrink}`);

@@ -40,18 +40,14 @@ class TelaDeReceitaEmProcesso extends Component {
       },
       isClicked: false,
       isFavorite: false,
+      isEnabled: true,
     };
-    // this.handleRecipeDone = this.handleRecipeDone.bind(this);
     this.handleShareClick = this.handleShareClick.bind(this);
     this.handleFavoriteClick = this.handleFavoriteClick.bind(this);
   }
 
   async componentDidMount() {
-    const {
-      match: {
-        params: { id },
-      },
-    } = this.props;
+    const { match: { params: { id } } } = this.props;
     const { getDetailedMealDispatch, getDetailedDrinkDispatch } = this.props;
     await getDetailedMealDispatch(id);
     await getDetailedDrinkDispatch(id);
@@ -115,35 +111,41 @@ class TelaDeReceitaEmProcesso extends Component {
     }
   }
 
-  handleCheck(event, index) {
-    const {
-      target: { checked },
-    } = event;
+  handleCheck(event, index, meal) {
+    const { target: { checked } } = event;
     const { checkboxes } = this.state;
     if (checked) {
       checkboxes[index] = true;
       const checks = JSON.stringify(checkboxes);
       return this.setState({ checkboxes },
-        () => localStorage.setItem('checkboxesM', checks));
+        () => localStorage.setItem('checkboxesM', checks), this.enableButton(meal));
     }
     checkboxes[index] = false;
     const checks = JSON.stringify(checkboxes);
     return this.setState({ checkboxes },
-      () => localStorage.setItem('checkboxesM', checks));
+      () => localStorage.setItem('checkboxesM', checks), this.enableButton(meal));
+  }
+
+  enableButton(meal) {
+    const { checkboxes } = this.state;
+    const ingredientsArray = functions.handleIngredients(meal);
+    const arrayCheckboxes = Object.values(checkboxes);
+    const trueCheck = arrayCheckboxes.filter((element) => element);
+    if (trueCheck.length === ingredientsArray.length) {
+      return this.setState({ isEnabled: false });
+    } return this.setState({ isEnabled: true });
   }
 
   checkStorage() {
     const storageChecks = localStorage.getItem('checkboxesM');
     const checks = JSON.parse(storageChecks);
-    if (storageChecks) {
-      return this.setState({ checkboxes: checks });
-    }
+    if (storageChecks) return this.setState({ checkboxes: checks });
   }
 
   renderDetailsMeal(meal) {
     const ingredientsArray = functions.handleIngredients(meal);
     const measuresArray = functions.handleMeasure(meal);
-    const { checkboxes, isClicked, isFavorite } = this.state;
+    const { checkboxes, isClicked, isFavorite, isEnabled } = this.state;
     return (
       <>
         <Container>
@@ -179,7 +181,7 @@ class TelaDeReceitaEmProcesso extends Component {
               <div key={ item } data-testid={ `${index}-ingredient-step` }>
                 <Form.Check
                   type="checkbox"
-                  onClick={ (e) => this.handleCheck(e, index) }
+                  onClick={ (e) => this.handleCheck(e, index, meal) }
                   defaultChecked={ checkboxes[index] }
                 />
                 <Form.Check.Label>
@@ -195,10 +197,8 @@ class TelaDeReceitaEmProcesso extends Component {
             <p data-testid="instructions">{meal[0].strInstructions}</p>
 
             <Button
-              variant="secondary"
-              block
-              size="lg"
               data-testid="finish-recipe-btn"
+              disabled={ isEnabled }
               onClick={ this.handleRecipeDone }
             >
               Finalizar Receita
