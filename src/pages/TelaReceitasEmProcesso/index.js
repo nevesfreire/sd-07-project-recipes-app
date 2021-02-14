@@ -2,15 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Container, Button } from 'react-bootstrap';
-import clipboard from 'clipboard-copy';
 import Form from 'react-bootstrap/Form';
+import clipboard from 'clipboard-copy';
 import shareIcon from '../../images/shareIcon.svg';
-import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import getStorage from '../../services/localStorageAPI/getStorage';
 import setStorage from '../../services/localStorageAPI/setStorage';
 import { getSpecificMealById } from '../../store/ducks/getDetailedMeal/actions';
 import { getSpecificDrinkById } from '../../store/ducks/getDetailedDrink/actions';
+import * as functions from './functions';
 
 class TelaDeReceitaEmProcesso extends Component {
   constructor(props) {
@@ -42,7 +41,7 @@ class TelaDeReceitaEmProcesso extends Component {
       isClicked: false,
       isFavorite: false,
     };
-    this.handleRecipeDone = this.handleRecipeDone.bind(this);
+    // this.handleRecipeDone = this.handleRecipeDone.bind(this);
     this.handleShareClick = this.handleShareClick.bind(this);
     this.handleFavoriteClick = this.handleFavoriteClick.bind(this);
   }
@@ -53,11 +52,67 @@ class TelaDeReceitaEmProcesso extends Component {
         params: { id },
       },
     } = this.props;
-
     const { getDetailedMealDispatch, getDetailedDrinkDispatch } = this.props;
     await getDetailedMealDispatch(id);
     await getDetailedDrinkDispatch(id);
     this.checkStorage();
+  }
+
+  componentDidUpdate() {
+    const favoritesFromStorage = getStorage('favoriteRecipes');
+    const { isFavorite } = this.state;
+    const { meal } = this.props;
+    if (meal) {
+      if (!favoritesFromStorage) {
+        setStorage('favoriteRecipes', []);
+      } else if (!isFavorite) {
+        this.handleFavoriteStart(meal);
+      }
+    }
+  }
+
+  handleFavoriteClick(meal) {
+    const favoritesFromStorage = getStorage('favoriteRecipes');
+    const { isFavorite } = this.state;
+    if (isFavorite) {
+      const newLocalStorage = favoritesFromStorage.filter(
+        (curr) => curr.id !== meal.idMeal,
+      );
+      setStorage('favoriteRecipes', newLocalStorage);
+      this.setState({ isFavorite: false });
+    } else {
+      const newLocalStorageObj = {
+        id: meal.idMeal,
+        type: 'comida',
+        area: meal.strArea,
+        category: meal.strCategory,
+        alcoholicOrNot: '',
+        name: meal.strMeal,
+        image: meal.strMealThumb,
+      };
+      favoritesFromStorage.push(newLocalStorageObj);
+      setStorage('favoriteRecipes', favoritesFromStorage);
+      this.setState({ isFavorite: true });
+    }
+  }
+
+  handleShareClick() {
+    const { match: { params: { id } },
+    } = this.props;
+    this.setState({ isClicked: true });
+    clipboard(`http://localhost:3000/comidas/${id}`);
+  }
+
+  handleFavoriteStart(meal) {
+    const favoritesFromStorage = getStorage('favoriteRecipes');
+    const zero = 0;
+    if (favoritesFromStorage.length !== zero) {
+      favoritesFromStorage.forEach((item) => {
+        if (item.id === meal[0].idMeal) {
+          this.setState({ isFavorite: true });
+        }
+      });
+    }
   }
 
   handleCheck(event, index) {
@@ -77,74 +132,17 @@ class TelaDeReceitaEmProcesso extends Component {
       () => localStorage.setItem('checkboxesM', checks));
   }
 
-  handleIngredients(recipe) {
-    const recipeArray = Object.entries(recipe[0]);
-    const ingredientsArray = recipeArray.filter(
-      (element) => element[0].startsWith('strIngredient') && element[1],
-    );
-    return ingredientsArray;
-  }
-
-  handleRecipeDone(item) {
-    const HoraInicial = new Date();
-    const horaFinal = HoraInicial.toLocaleDateString();
-    console.log(this.props);
-    localStorage.setItem('data', horaFinal);
-    const { history } = this.props;
-    history.push(`/endereçoMagico/${item.idDrink}`);
-  }
-
-  handleMeasure(recipe) {
-    const recipeArray = Object.entries(recipe[0]);
-    const measuresArray = recipeArray.filter(
-      (element) => element[0].startsWith('strMeasure') && element[1],
-    );
-    return measuresArray;
-  }
-
-  handleFavoriteClick(meal) {
-    const favoritesFromStorage = getStorage('favoriteRecipes');
-    const { isFavorite } = this.state;
-    if (isFavorite) {
-      const newLocalStorage = favoritesFromStorage.filter(
-        (curr) => curr.id !== meal.idMeal,
-      );
-      setStorage('favoriteRecipes', newLocalStorage);
-      this.setState({ isFavorite: false });
-    } else this.setState({ isFavorite: true });
-  }
-
-  handleShareClick() {
-    const { match: { params: { id } },
-    } = this.props;
-    this.setState({ isClicked: true });
-    clipboard(`http://localhost:3000/comidas/${id}`);
-  }
-
   checkStorage() {
     const storageChecks = localStorage.getItem('checkboxesM');
     const checks = JSON.parse(storageChecks);
-    console.log(checks);
     if (storageChecks) {
       return this.setState({ checkboxes: checks });
     }
   }
 
-  renderWhiteHeart() {
-    return (
-      <img data-testid="favorite-btn" alt="favorite-btn" src={ whiteHeartIcon } />
-    );
-  }
-
-  renderBlackHeart() {
-    return (
-      <img data-testid="favorite-btn" alt="favorite-btn" src={ blackHeartIcon } />
-    );
-  }
-
   renderDetailsMeal(meal) {
-    const ingredientsArray = this.handleIngredients(meal);
-    const measuresArray = this.handleMeasure(meal);
+    const ingredientsArray = functions.handleIngredients(meal);
+    const measuresArray = functions.handleMeasure(meal);
     const { checkboxes, isClicked, isFavorite } = this.state;
     return (
       <>
@@ -170,7 +168,7 @@ class TelaDeReceitaEmProcesso extends Component {
             role="button"
             tabIndex={ 0 }
           >
-            {!isFavorite ? this.renderWhiteHeart() : this.renderBlackHeart()}
+            {!isFavorite ? functions.renderWhiteHeart() : functions.renderBlackHeart()}
           </div>
           <h4 data-testid="recipe-category">{meal[0].strCategory}</h4>
         </Container>
