@@ -28,9 +28,18 @@ function FavoriteRecipes() {
   const desfavorite = (id) => {
     const index = recipes.findIndex((recipe) => recipe.id === id);
     const newRecipes = [...recipes];
-
     removeObjectLocalStorage(filterArray(newRecipes, index));
     setRecipes(filterArray(newRecipes, index));
+  };
+
+  const filterFood = () => {
+    const foods = recipes.filter((recipe) => recipe.type === 'comida');
+    setRecipes(foods);
+  };
+
+  const filterDrink = () => {
+    const drinks = recipes.filter((recipe) => recipe.type === 'bebida');
+    setRecipes(drinks);
   };
 
   return (
@@ -49,29 +58,53 @@ function FavoriteRecipes() {
       </div>
 
       <div>
-        <button data-testid="filter-by-all-btn" type="button">All</button>
-        <button data-testid="filter-by-food-btn" type="button">Food</button>
-        <button data-testid="filter-by-drink-btn" type="button">Drink</button>
+        <button
+          data-testid="filter-by-all-btn"
+          type="button"
+          onClick={ () => setRecipes(
+            JSON.parse(localStorage.getItem('favoriteRecipes')),
+          ) }
+        >
+          All
+        </button>
+
+        <button
+          data-testid="filter-by-food-btn"
+          type="button"
+          onClick={ () => filterFood() }
+        >
+          Food
+        </button>
+
+        <button
+          data-testid="filter-by-drink-btn"
+          type="button"
+          onClick={ () => filterDrink() }
+        >
+          Drink
+        </button>
+
       </div>
 
       {
         recipes
         && recipes.map((recipe, index) => (
           <div key={ recipe.id }>
-            <img
-              style={ { width: '25%' } }
-              data-testid={ `${index}-horizontal-image` }
-              src={ recipe.image }
-              alt={ recipe.name }
-            />
+            <Link to={ `/${recipe.type}s/${recipe.id}` }>
+              <img
+                style={ { width: '25%' } }
+                data-testid={ `${index}-horizontal-image` }
+                src={ recipe.image }
+                alt={ recipe.name }
+              />
+              <h3 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h3>
+            </Link>
 
             <h3 data-testid={ `${index}-horizontal-top-text` }>
               {(recipe.type === 'comida')
                 ? `${recipe.area} - ${recipe.category}`
                 : recipe.alcoholicOrNot }
             </h3>
-
-            <h3 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h3>
 
             <label htmlFor="favoriteBtn">
               <input
