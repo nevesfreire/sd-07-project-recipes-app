@@ -139,7 +139,7 @@ class TelaDeReceitaEmProcessoDrinks extends Component {
     if (storageChecks) return this.setState({ checkboxes: checks });
   }
 
-  renderDetailsDrink(drink) {
+  renderDetailsDrink(drink, history) {
     const ingredientsArray = functions.handleIngredients(drink);
     const measuresArray = functions.handleMeasure(drink);
     const { checkboxes, isClicked, isFavorite, isEnabled } = this.state;
@@ -196,7 +196,7 @@ class TelaDeReceitaEmProcessoDrinks extends Component {
 
             <Button
               data-testid="finish-recipe-btn"
-              onClick={ this.handleRecipeDone }
+              onClick={ () => functions.handleRecipeDone(history) }
               disabled={ isEnabled }
             >
               Finalizar Receita
@@ -208,9 +208,9 @@ class TelaDeReceitaEmProcessoDrinks extends Component {
   }
 
   render() {
-    const { drinkDetailStore } = this.props;
+    const { drinkDetailStore, history } = this.props;
     if (drinkDetailStore) {
-      return this.renderDetailsDrink(drinkDetailStore);
+      return this.renderDetailsDrink(drinkDetailStore, history);
     }
     return <div>Loading...</div>;
   }

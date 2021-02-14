@@ -142,7 +142,7 @@ class TelaDeReceitaEmProcesso extends Component {
     if (storageChecks) return this.setState({ checkboxes: checks });
   }
 
-  renderDetailsMeal(meal) {
+  renderDetailsMeal(meal, history) {
     const ingredientsArray = functions.handleIngredients(meal);
     const measuresArray = functions.handleMeasure(meal);
     const { checkboxes, isClicked, isFavorite, isEnabled } = this.state;
@@ -199,7 +199,7 @@ class TelaDeReceitaEmProcesso extends Component {
             <Button
               data-testid="finish-recipe-btn"
               disabled={ isEnabled }
-              onClick={ this.handleRecipeDone }
+              onClick={ () => functions.handleRecipeDone(history) }
             >
               Finalizar Receita
             </Button>
@@ -210,10 +210,8 @@ class TelaDeReceitaEmProcesso extends Component {
   }
 
   render() {
-    const { meal } = this.props;
-    if (meal) {
-      return this.renderDetailsMeal(meal);
-    }
+    const { meal, history } = this.props;
+    if (meal) return this.renderDetailsMeal(meal, history);
     return <div>Loading...</div>;
   }
 }
