@@ -33,10 +33,10 @@ function DetailsDrink() {
     return copy(`http://localhost:3000/bebidas/${idPathName[2]}`);
   };
 
-  const getFavorited = () => {
+  const getFavorited = (id) => {
     const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (recipes) {
-      return recipes[0].id === idPathName[2]
+      return id === idPathName[2]
         ? setFavorited(!favorited)
         : setFavorited(false);
     } setFavorited(false);
@@ -50,16 +50,30 @@ function DetailsDrink() {
   }, []);
 
   const favoriteRecipe = () => {
-    const recipeFavorited = [{
-      id: dataDrink[0].idDrink,
-      type: 'bebida',
-      area: '',
-      category: dataDrink[0].strCategory,
-      alcoholicOrNot: dataDrink[0].strAlcoholic,
-      name: dataDrink[0].strDrink,
-      image: dataDrink[0].strDrinkThumb,
-    }];
-    localStorage.setItem('favoriteRecipes', JSON.stringify(recipeFavorited));
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favoriteRecipes) {
+      const recipeFavorited = [...favoriteRecipes, {
+        id: dataDrink[0].idDrink,
+        type: 'bebida',
+        area: '',
+        category: dataDrink[0].strCategory,
+        alcoholicOrNot: dataDrink[0].strAlcoholic,
+        name: dataDrink[0].strDrink,
+        image: dataDrink[0].strDrinkThumb,
+      }];
+      localStorage.setItem('favoriteRecipes', JSON.stringify(recipeFavorited));
+    } else {
+      const recipeFavorited = {
+        id: dataDrink[0].idDrink,
+        type: 'bebida',
+        area: '',
+        category: dataDrink[0].strCategory,
+        alcoholicOrNot: dataDrink[0].strAlcoholic,
+        name: dataDrink[0].strDrink,
+        image: dataDrink[0].strDrinkThumb,
+      };
+      localStorage.setItem('favoriteRecipes', JSON.stringify([recipeFavorited]));
+    }
     return getFavorited();
   };
 
