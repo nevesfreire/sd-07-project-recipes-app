@@ -217,7 +217,7 @@ class TelaDetalheComida extends Component {
 
   render() {
     const { meal } = this.props;
-    if (meal) this.renderDetails(meal);
+    if (meal) return this.renderDetails(meal);
     return <div>loading...</div>;
   }
 }

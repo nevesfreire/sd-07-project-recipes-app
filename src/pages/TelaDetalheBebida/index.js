@@ -215,7 +215,7 @@ class TelaDetalheBebida extends Component {
 
   render() {
     const { drinkDetailStore } = this.props;
-    if (drinkDetailStore) this.renderDetails(drinkDetailStore);
+    if (drinkDetailStore) return this.renderDetails(drinkDetailStore);
     return null;
   }
 }
