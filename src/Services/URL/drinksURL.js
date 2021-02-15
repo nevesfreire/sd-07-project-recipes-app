@@ -21,7 +21,9 @@ export default function drinksURL(key, parameters) {
   case 'category':
     return `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${endPoint}`;
   case 'id':
-    return `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${endPoint}`;
+    return Number.isNaN(Number(endPoint))
+      ? 'https://www.thecocktaildb.com/api/json/v1/1/random.php'
+      : `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${endPoint}`;
   default:
     return 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
   }

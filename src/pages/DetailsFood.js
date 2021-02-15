@@ -17,14 +17,15 @@ export default function DetailsFood() {
   const [loading, { meals }] = useFetchApi(URL);
   const [mealsObj] = meals || [''];
 
-  const ingredients = mealsObj && getKeys(mealsObj, 'strIngredient');
-  const measures = mealsObj && getKeys(mealsObj, 'strMeasure');
+  const ingredients = getKeys(mealsObj, 'strIngredient');
+  const measures = getKeys(mealsObj, 'strMeasure');
 
   const [itemsChecks] = useRecipeInProgress(idFood, drink);
-  const recipeInProgress = useMemo(() => itemsChecks.length !== ingredients.length,
-    [itemsChecks, ingredients]);
+  const recipeInProgress = useMemo(() => (
+    itemsChecks.length !== ingredients.length
+  ), [itemsChecks, ingredients]);
 
-  if (!loading && !meals) return (<NotFound />);
+  if (!loading && !mealsObj) return (<NotFound />);
 
   return (
     loading
@@ -58,8 +59,8 @@ export default function DetailsFood() {
             <h4>Ingredients</h4>
             <ul>
               {
-                ingredients.map((keys, i) => {
-                  const [, ingredient] = keys || ['', ''];
+                ingredients.map((key, i) => {
+                  const [, ingredient] = key || ['', ''];
                   const [, measure] = measures[i] || ['', ''];
                   return (
                     <li
