@@ -38,13 +38,13 @@ export default function CheckListIngredients({
             <div
               key={ index }
               onChange={ checkItem }
+              data-testid={ `${index}-ingredient-step` }
             >
               <input
                 defaultChecked={ checked }
                 type="checkbox"
                 id={ index }
                 autoComplete="off"
-                data-testid={ `${index}-ingredient-step` }
               />
 
               <label

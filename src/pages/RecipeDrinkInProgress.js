@@ -19,6 +19,8 @@ export default function RecipeDrinkInProgress() {
   const [drinkObj] = drinks || [''];
   if (!loading && !drinkObj) return (<NotFound />);
 
+  const location = window.location.href.replace('/in-progress', '');
+
   return (
     loading
       ? (<LoadingCard />)
@@ -31,7 +33,7 @@ export default function RecipeDrinkInProgress() {
 
             <div>
               <h3 data-testid="recipe-title">{drinkObj.strDrink}</h3>
-              <ShareButton />
+              <ShareButton URL={ location } />
               <FavoriteDrinkButton drinksArr={ drinkObj } />
             </div>
 

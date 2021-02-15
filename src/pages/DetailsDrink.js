@@ -24,6 +24,8 @@ export default function DetailsDrink() {
 
   if (!loading && !drinkObj) return (<NotFound />);
 
+  const location = window.location.href;
+
   return (
     loading
       ? (<LoadingCard />)
@@ -38,7 +40,7 @@ export default function DetailsDrink() {
           <div>
             <div>
               <h3 data-testid="recipe-title">{drinkObj.strDrink}</h3>
-              <ShareButton />
+              <ShareButton URL={ location } />
               <FavoriteDrinkButton drinksArr={ drinkObj } />
             </div>
             <h5 data-testid="recipe-category">{drinkObj.strAlcoholic}</h5>

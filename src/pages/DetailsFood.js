@@ -27,6 +27,8 @@ export default function DetailsFood() {
 
   if (!loading && !mealsObj) return (<NotFound />);
 
+  const location = window.location.href;
+
   return (
     loading
       ? (<LoadingCard />)
@@ -42,7 +44,7 @@ export default function DetailsFood() {
           </div>
 
           <div className="favoriteShare">
-            <ShareButton />
+            <ShareButton URL={ location } />
             <FavoriteFoodButton foodArr={ mealsObj } />
           </div>
 

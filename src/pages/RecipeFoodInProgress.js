@@ -21,6 +21,8 @@ export default function RecipeFoodInProgress() {
 
   if (!loading && !mealsObj) return (<NotFound />);
 
+  const location = window.location.href.replace('/in-progress', '');
+
   return (
     loading
       ? (<LoadingCard />)
@@ -33,7 +35,7 @@ export default function RecipeFoodInProgress() {
 
             <div>
               <h3 data-testid="recipe-title">{mealsObj.strMeal}</h3>
-              <ShareButton />
+              <ShareButton URL={ location } />
               <FavoriteFoodButton foodArr={ mealsObj } />
             </div>
 
