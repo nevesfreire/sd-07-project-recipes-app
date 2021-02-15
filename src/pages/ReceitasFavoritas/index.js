@@ -6,7 +6,6 @@ import getStorage from '../../services/localStorageAPI/getStorage';
 import setStorage from '../../services/localStorageAPI/setStorage';
 import { Header } from '../../components';
 import shareIcon from '../../images/shareIcon.svg';
-import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
 class ReceitasFavoritas extends Component {
