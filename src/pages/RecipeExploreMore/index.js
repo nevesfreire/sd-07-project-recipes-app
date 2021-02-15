@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { Header, Footer } from '../../components';
-import { fetchRandomRecipe } from '../../store/ducks/recipes';
+import { fetchRandomRecipe } from '../../store/ducks/recipe';
 
 const RecipeExploreMore = () => {
   const dispatch = useDispatch();

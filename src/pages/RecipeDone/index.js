@@ -1,15 +1,15 @@
 import React, { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { /* useDispatch,  */useSelector } from 'react-redux';
 import { CardGroup } from 'react-bootstrap';
-import { updateFromLS } from '../../store/ducks/recipes';
+// import { updateFromLS } from '../../store/ducks/recipes';
 
 import { Header, RecipeFilter, RecipeDoneFavCard } from '../../components';
 import { LS_KEYS, loadKeyFromLS } from '../../services/localStorage';
 
 const RecipeDone = () => {
   const { pathname } = useLocation();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const filter = useSelector((state) => state.recipes.filter);
   const doneRecipes = loadKeyFromLS(LS_KEYS.DONE_RECIPES_KEY, []);
   const favoriteRecipes = loadKeyFromLS(LS_KEYS.FAVORITE_RECIPES_KEY, []);
@@ -18,7 +18,7 @@ const RecipeDone = () => {
   const cards = pathname.includes('feitas')
     ? doneRecipes : favoriteRecipes;
 
-  useEffect(() => {
+  /*  useEffect(() => {
     if (doneRecipes) {
       dispatch(updateFromLS({ [LS_KEYS.DONE_RECIPES_KEY]: doneRecipes }));
     }
@@ -28,7 +28,7 @@ const RecipeDone = () => {
     if (favoriteRecipes) {
       dispatch(updateFromLS({ [LS_KEYS.FAVORITE_RECIPES_KEY]: favoriteRecipes }));
     }
-  }, [dispatch, favoriteRecipes]);
+  }, [dispatch, favoriteRecipes]); */
 
   useEffect(() => {
     if (filter.type === 'foodOrDrink' && filter.term !== 'all') {

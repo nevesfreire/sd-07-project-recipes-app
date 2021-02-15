@@ -4,25 +4,29 @@ const INITIAL_STATE = {
       email: '',
     },
   },
-  recipes: {
-    mealsToken: 1,
-    cocktailsToken: 1,
-    doneRecipes: [],
-    favoriteRecipes: [],
-    inProgressRecipes: {
-      cocktails: {},
-      meals: {},
-    },
-    detailsRecipe: {
-      id: 0,
-    },
+  recipe: {
+    data: {},
     isFetching: false,
+  },
+  areas: {
     data: [],
-    recomendations: [],
-    error: '',
-    categories: [],
-    areas: [],
-    ingredients: [],
+    isFetching: false,
+  },
+  categories: {
+    data: [],
+    isFetching: false,
+  },
+  ingredients: {
+    data: [],
+    isFetching: false,
+  },
+  recomendations: {
+    data: [],
+    isFetching: false,
+  },
+  recipes: {
+    data: [],
+    isFetching: false,
     filterOrigin: '', // home, searchbar, explore, doneAndFav
     filter: {
       type: '', // name, category, ingredient, firstLetter, area, random, type

@@ -3,18 +3,11 @@ import recipes from './reducers';
 export { default as recipesTypes } from './types';
 export {
   setFilter,
-  favoriteRecipe,
-  unFavoriteRecipe,
-  updateFromLS,
-  checkIngredient,
-  doneRecipe,
+  /* checkIngredient,
+  doneRecipe, */
 } from './actions';
 export {
-  fetchRecipesByFilter,
-  fetchCategories,
-  fetchRandomRecipe,
-  fetchRecomendations,
-  fetchRecipeById,
+  default as fetchRecipesByFilter,
 } from './operations';
 
 export default recipes;

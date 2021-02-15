@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import RecomendationCard from '../RecomendationCard';
-import { fetchRecomendations } from '../../store/ducks/recipes';
+import { fetchRecomendations } from '../../store/ducks/recomendations';
 import StyledCarousel from './styles';
 
 export default function Recomendation() {

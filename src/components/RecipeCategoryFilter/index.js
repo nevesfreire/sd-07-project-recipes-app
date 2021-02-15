@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import {
-  fetchCategories,
-  setFilter,
-  fetchRecipesByFilter } from '../../store/ducks/recipes';
+import { fetchCategories } from '../../store/ducks/categories';
+import { setFilter, fetchRecipesByFilter } from '../../store/ducks/recipes';
 import { FILTER_TYPES } from '../../services/recipeAPI';
 import { StyledButtonGroup, StyledToggleButton } from './styles';
 

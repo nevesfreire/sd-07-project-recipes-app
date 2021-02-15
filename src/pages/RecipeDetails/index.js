@@ -14,7 +14,7 @@ import {
   RecipeIngredients,
 } from '../../components';
 import { mapIngredientsAndMeasuresToList } from '../../services/helper';
-import { fetchRecipeById/* , updateFromLS */ } from '../../store/ducks/recipes';
+import { fetchRecipeById/* , updateFromLS */ } from '../../store/ducks/recipe';
 
 import StyledCard from './styles';
 

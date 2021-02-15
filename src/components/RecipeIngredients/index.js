@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { /*  useDispatch, */ useSelector } from 'react-redux';
 import { useParams, useLocation } from 'react-router-dom';
-import { checkIngredient } from '../../store/ducks/recipes';
+// import { checkIngredient } from '../../store/ducks/recipes';
 
 export default function RecipeIngredients(props) {
   const [stateProps, setStateProps] = useState(props);
   const { ingredients, isInProgress, handleIngredients } = stateProps;
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const [ingredientsDone, setIngredientsDone] = useState([]);
   const inProgressRecipes = useSelector((state) => state.recipes.inProgressRecipes);
   const { recipeId } = useParams();
@@ -30,13 +30,13 @@ export default function RecipeIngredients(props) {
     handleIngredients(ingredientsDone.length === ingredients.length);
   }, [handleIngredients, ingredientsDone, ingredients]);
 
-  const handleChange = ({ target: { value, checked } }) => {
-    dispatch(checkIngredient(
+  const handleChange = (/* { target: { value, checked } } */) => {
+    /*  dispatch(checkIngredient(
       checked,
       value,
       recipeId,
       pathname.includes('comidas') ? 'meals' : 'cocktails',
-    ));
+    )); */
   };
 
   const ingredientElement = (text, index) => {
