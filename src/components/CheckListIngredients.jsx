@@ -8,17 +8,17 @@ export default function CheckListIngredients({
   ingreObj, recipeId, setComplet, drink,
 }) {
   const measures = getKeys(ingreObj, 'strMeasure');
-  const Ingredients = getKeys(ingreObj, 'strIngredient');
+  const ingredients = getKeys(ingreObj, 'strIngredient');
 
   const [items, setItem] = useRecipeInProgress(recipeId, drink);
 
   const allCheck = useCallback(() => {
-    const ingredientsNumber = +Ingredients.length;
+    const ingredientsNumber = +ingredients.length;
     const itemsNumber = +items.length;
     const zero = 0;
     const result = ingredientsNumber === itemsNumber && ingredientsNumber !== zero;
     setComplet(result);
-  }, [setComplet, items, Ingredients]);
+  }, [setComplet, items, ingredients]);
 
   useEffect(allCheck, [allCheck]);
 
@@ -29,10 +29,10 @@ export default function CheckListIngredients({
   return (
     <div>
       {
-        Ingredients.map((key, index) => {
-          const ingredient = key && key[1];
+        ingredients.map((key, index) => {
+          const [, ingredient] = key || ['', ''];
+          const [, measure] = measures[index] || ['', ''];
           const checked = items && items.includes(index.toString());
-          const measure = measures[index] ? ` - ${measures[index][1]}` : '';
 
           return (
             <div

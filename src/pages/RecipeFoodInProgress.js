@@ -17,8 +17,9 @@ export default function RecipeFoodInProgress() {
   const drink = false;
   const URL = getURL({ id: idFood }, drink);
   const [loading, { meals }] = useFetchApi(URL);
+  const [mealsObj] = meals || [''];
 
-  if (!loading && !meals) return (<NotFound />);
+  if (!loading && !mealsObj) return (<NotFound />);
 
   return (
     loading
@@ -26,29 +27,29 @@ export default function RecipeFoodInProgress() {
       : (
         <div>
 
-          <img data-testid="recipe-photo" src={ meals[0].strMealThumb } alt="foto" />
+          <img data-testid="recipe-photo" src={ mealsObj.strMealThumb } alt="foto" />
 
           <div>
 
             <div>
-              <h3 data-testid="recipe-title">{meals[0].strMeal}</h3>
+              <h3 data-testid="recipe-title">{mealsObj.strMeal}</h3>
               <ShareButton />
-              <FavoriteFoodButton foodArr={ meals[0] } />
+              <FavoriteFoodButton foodArr={ mealsObj } />
             </div>
 
-            <h5 data-testid="recipe-category">{meals[0].strCategory}</h5>
+            <h5 data-testid="recipe-category">{mealsObj.strCategory}</h5>
 
             <CheckListIngredients
               recipeId={ idFood }
               drink={ false }
               setComplet={ setComplet }
-              ingreObj={ meals[0] }
+              ingreObj={ mealsObj }
             />
 
             <div>
               <h4>Instruções</h4>
               <p data-testid="instructions">
-                {meals[0].strInstructions}
+                {mealsObj.strInstructions}
               </p>
             </div>
 
