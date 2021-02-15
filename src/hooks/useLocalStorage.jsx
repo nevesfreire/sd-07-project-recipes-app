@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 
 function get(key) {
   const value = window.localStorage.getItem(key);
@@ -20,9 +20,9 @@ function set(key, newDate) {
 
 export default function useLocalStorage(key) {
   const [value, setValue] = useState(get(key));
-  const update = (newDate) => {
+  const update = useCallback((newDate) => {
     set(key, newDate);
     setValue(newDate);
-  };
+  }, [key]);
   return [value, update];
 }

@@ -18,7 +18,9 @@ export default function CategoryButtons({ number, drink }) {
   const resultArr = drink ? result.drinks : result.meals;
   if (loading && !!resultArr) return (<NotFound />);
   const submitCategory = ({ target: { id } }) => {
-    if (filterDates.category === id) return dispatchFilter({ type: CLEAR_ALL_FILTERS });
+    if (filterDates.category === id || id === 'allBtn') {
+      return dispatchFilter({ type: CLEAR_ALL_FILTERS });
+    }
     dispatchFilter({ type: SUBMIT_CATEGORY, payload: id });
   };
   return (

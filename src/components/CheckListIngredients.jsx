@@ -1,57 +1,74 @@
-import React from 'react';
+import React, { useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { getKeys } from '../Services';
+import { useRecipeInProgress } from '../hooks';
 import './components.css';
 
-export default function CheckListIngredients({ ingreObj, checkItem, itens }) {
-  const keysIngredients = getKeys(ingreObj, 'strIngredient');
+export default function CheckListIngredients({
+  ingreObj, recipeId, setComplet, drink,
+}) {
+  const measures = getKeys(ingreObj, 'strMeasure');
+  const Ingredients = getKeys(ingreObj, 'strIngredient');
+
+  const [items, setItem] = useRecipeInProgress(recipeId, drink);
+
+  const allCheck = useCallback(() => {
+    const ingredientsNumber = +Ingredients.length;
+    const itemsNumber = +items.length;
+    const zero = 0;
+    const result = ingredientsNumber === itemsNumber && ingredientsNumber !== zero;
+    setComplet(result);
+  }, [setComplet, items, Ingredients]);
+
+  useEffect(allCheck, [allCheck]);
+
+  const checkItem = ({ target: { id } }) => {
+    setItem(id);
+  };
+
   return (
     <div>
-      <h4>Ingredients</h4>
-      { keysIngredients.map((key, i) => {
-        const measures = getKeys(ingreObj, 'strMeasure');
-        const checked = itens && itens.includes(i.toString());
-        return (
-          <div
-            key={ i }
-            onChange={ ({ target }) => { checkItem(target.id); } }
-          >
-            {
-              checked
-                ? (
-                  <input
-                    defaultChecked
-                    type="checkbox"
-                    id={ i }
-                    autoComplete="off"
-                    data-testid={ `${i}-ingredient-step` }
-                  />
-                )
-                : (
-                  <input
-                    type="checkbox"
-                    className="btn-check"
-                    id={ i }
-                    autoComplete="off"
-                    data-testid={ `${i}-ingredient-step` }
-                  />
-                )
-            }
-            <label
-              className="checked"
-              htmlFor={ i }
+      {
+        Ingredients.map((key, index) => {
+          const ingredient = key && key[1];
+          const checked = items && items.includes(index.toString());
+          const measure = measures[index] ? ` - ${measures[index][1]}` : '';
+
+          return (
+            <div
+              key={ index }
+              onChange={ checkItem }
             >
-              { `${key && key[1]}${measures[i] ? ` - ${measures[i][1]}` : ''}` }
-            </label>
-          </div>
-        );
-      })}
+              <input
+                defaultChecked={ checked }
+                type="checkbox"
+                id={ index }
+                autoComplete="off"
+                data-testid={ `${index}-ingredient-step` }
+              />
+
+              <label
+                className="checked"
+                htmlFor={ index }
+              >
+                { `${ingredient} - ${measure}` }
+              </label>
+
+            </div>
+          );
+        })
+      }
     </div>
   );
 }
 
+CheckListIngredients.defaultProps = {
+  drink: true,
+};
+
 CheckListIngredients.propTypes = {
   ingreObj: PropTypes.shape().isRequired,
-  checkItem: PropTypes.func.isRequired,
-  itens: PropTypes.arrayOf(PropTypes.string).isRequired,
+  recipeId: PropTypes.string.isRequired,
+  drink: PropTypes.bool,
+  setComplet: PropTypes.func.isRequired,
 };

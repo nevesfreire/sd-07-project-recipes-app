@@ -4,7 +4,7 @@ import { Header, Footer, IngredientsCardsFactory } from '../components';
 export default function IngredientsExploreFood() {
   return (
     <div>
-      <Header title="Explorar" search={ false } />
+      <Header title="Explorar Ingredientes" search={ false } />
       <IngredientsCardsFactory number={ 12 } drink={ false } />
       <Footer />
     </div>

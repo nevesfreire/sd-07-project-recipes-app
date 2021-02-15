@@ -6,7 +6,6 @@ import { Header, Footer, Button } from '../components';
 export default function Profile() {
   const { push } = useHistory();
   const [{ email }, setStorage] = useLocalStorage('user');
-  console.log(email);
   return (
     <div>
       <Header title="Perfil" search={ false } />

@@ -3,20 +3,16 @@ import { CupNodesContext } from '../contexts';
 import {
   Header, Footer, AreaFilterDropdown, CardsFactory,
 } from '../components';
+import { getURL } from '../Services';
 
 export default function OriginFoodExplore() {
   const { filterDates: { area } } = useContext(CupNodesContext);
-  const URL = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`;
-  const allURL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  const URL = getURL({ area }, false);
   return (
     <div>
       <Header title="Explorar Origem" />
       <AreaFilterDropdown number={ undefined } />
-      {
-        area
-          ? <CardsFactory URL={ URL } drink={ false } />
-          : <CardsFactory URL={ allURL } drink={ false } />
-      }
+      <CardsFactory URL={ URL } drink={ false } />
       <Footer />
     </div>
 

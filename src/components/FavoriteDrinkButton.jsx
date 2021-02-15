@@ -6,7 +6,6 @@ import { useLocalStorage } from '../hooks';
 
 export default function FavoriteDrinkButton({ drinksArr }) {
   const { idDrink, strCategory, strAlcoholic, strDrink, strDrinkThumb } = drinksArr;
-
   const [favoriteRecipes, setStorage] = useLocalStorage('favoriteRecipes');
 
   const recipe = {

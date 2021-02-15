@@ -6,7 +6,7 @@ export default function DrinkExplore() {
   const { push } = useHistory();
   return (
     <div>
-      <Header title="Explorar" search={ false } />
+      <Header title="Explorar Bebidas" search={ false } />
       <Button
         testid="explore-by-ingredient"
         text="Por Ingredientes"
