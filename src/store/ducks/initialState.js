@@ -35,4 +35,7 @@ export default {
   foodExploreIngredients: {
     foodIngredients: '',
   },
+  doneRecipes: {
+    recipes: [],
+  },
 };
