@@ -2,9 +2,9 @@ import { useEffect, useState, useCallback } from 'react';
 import useLocalStorage from './useLocalStorage';
 
 const getItems = (id, recipesImProgress, key) => {
-  const storageDefault = { [key]: { [id]: undefined } };
-  const recipes = recipesImProgress[key] || storageDefault;
-  const items = recipes[id] || [];
+  const storageDefault = { [key]: { [id]: [] } };
+  const { [key]: recipes } = recipesImProgress || storageDefault;
+  const { [id]: items } = recipes || { [id]: [] };
   return items;
 };
 
