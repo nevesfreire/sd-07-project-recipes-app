@@ -1,36 +1,24 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
-import signIn from '../../store/ducks/auth/actions';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
+import validate from './LoginFormValidationRules';
+import { useForm, useLocalStorage } from '../../hooks';
 
 const Login = () => {
-  const dispatch = useDispatch();
-  const [user, setUser] = useState({
-    email: '',
-    password: '',
-  });
-
-  const isDisabled = () => {
-    const { email, password } = user;
-    const regexp = /\S+@\S+\.\S+/;
-    const six = 6;
-    if (regexp.test(email) && password.length > six) {
-      return false;
-    }
-
-    return true;
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUser({
-      ...user,
-      [name]: value,
-    });
-  };
+  const history = useHistory();
+  const [, setUser] = useLocalStorage('user', {});
+  const [, setMealsToken] = useLocalStorage('mealsToken', 1);
+  const [, setCocktailsToken] = useLocalStorage('cocktailsToken', 1);
+  const {
+    values,
+    isAllValid,
+    handleChange,
+  } = useForm({ email: '', password: '' }, validate);
 
   const handleSubmit = () => {
-    dispatch(signIn(user.email));
+    setUser({ email: values.email });
+    setMealsToken(1);
+    setCocktailsToken(1);
+    history.push('/comidas');
   };
 
   return (
@@ -40,23 +28,23 @@ const Login = () => {
           data-testid="email-input"
           name="email"
           onChange={ handleChange }
+          value={ values.email || '' }
         />
         <input
           type="password"
           data-testid="password-input"
           name="password"
           onChange={ handleChange }
+          value={ values.password || '' }
         />
-        <Link to="/comidas">
-          <button
-            type="submit"
-            data-testid="login-submit-btn"
-            disabled={ isDisabled() }
-            onClick={ handleSubmit }
-          >
-            Enter
-          </button>
-        </Link>
+        <button
+          type="button"
+          data-testid="login-submit-btn"
+          disabled={ !isAllValid }
+          onClick={ handleSubmit }
+        >
+          Enter
+        </button>
       </form>
     </div>
   );

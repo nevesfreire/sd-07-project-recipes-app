@@ -4,7 +4,7 @@ import { useParams, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import ReactPlayer from 'react-player';
 import { LS_KEYS } from '../../services/localStorage';
-import useLocalStorage from './useLocalStorage';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 import {
   FavoriteButton,
