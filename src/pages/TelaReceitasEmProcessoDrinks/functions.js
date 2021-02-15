@@ -10,11 +10,32 @@ export const handleIngredients = (recipe) => {
   return ingredientsArray;
 };
 
-export const handleRecipeDone = (history, drink) => {
-  const HoraInicial = new Date();
+export const handleRecipeDone = async (history, drink) => {
+  const HoraInicial = await new Date();
   const horaFinal = HoraInicial.toLocaleDateString();
-  localStorage.setItem('data', horaFinal);
+  const zero = 0;
   localStorage.setItem('checkboxesD', '');
+  const currentStorage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+  let tagsArray = drink.strTags;
+  if (tagsArray) {
+    tagsArray = tagsArray.split(',');
+  }
+  const currentRecipe = {
+    type: 'bebida',
+    image: drink.strDrinkThumb,
+    category: drink.strCategory,
+    name: drink.strDrink,
+    tags: tagsArray,
+    id: drink.idDrink,
+    alcoholicOrNot: drink.strAlcoholic,
+    doneDate: horaFinal,
+  };
+  currentStorage.push(currentRecipe);
+  if (currentStorage.length > zero) {
+    localStorage.setItem(
+      'doneRecipes', JSON.stringify(currentStorage),
+    );
+  } else localStorage.setItem('doneRecipes', JSON.stringify(currentStorage));
   history.push('/receitas-feitas');
 };
 

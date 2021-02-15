@@ -10,19 +10,22 @@ export const handleIngredients = (recipe) => {
   return ingredientsArray;
 };
 
-export const handleRecipeDone = (history, meal) => {
-  const HoraInicial = new Date();
+export const handleRecipeDone = async (history, meal) => {
+  const HoraInicial = await new Date();
   const horaFinal = HoraInicial.toLocaleDateString();
   const zero = 0;
-  localStorage.setItem('data', horaFinal);
   localStorage.setItem('checkboxesM', '');
   const currentStorage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
   const tagsArray = meal.strTags.split(',');
   const currentRecipe = {
+    type: 'comida',
     image: meal.strMealThumb,
     category: meal.strCategory,
     name: meal.strMeal,
     tags: tagsArray,
+    id: meal.idMeal,
+    area: meal.strArea,
+    doneDate: horaFinal,
   };
   currentStorage.push(currentRecipe);
   if (currentStorage.length > zero) {
