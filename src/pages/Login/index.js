@@ -2,6 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import validate from './LoginFormValidationRules';
 import { useForm, useLocalStorage } from '../../hooks';
+import { Container, StyledForm, StyledButton } from './styles';
 
 const Login = () => {
   const history = useHistory();
@@ -22,31 +23,42 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <form>
-        <input
-          data-testid="email-input"
-          name="email"
-          onChange={ handleChange }
-          value={ values.email || '' }
-        />
-        <input
-          type="password"
-          data-testid="password-input"
-          name="password"
-          onChange={ handleChange }
-          value={ values.password || '' }
-        />
-        <button
+    <Container>
+      <StyledForm>
+        <StyledForm.Group controlId="formBasicEmail">
+          {/* <StyledForm.Label>E-mail:</StyledForm.Label> */}
+          <StyledForm.Control
+            type="text"
+            placeholder="Informe um Email"
+            data-testid="email-input"
+            name="email"
+            onChange={ handleChange }
+            value={ values.email || '' }
+          />
+        </StyledForm.Group>
+
+        <StyledForm.Group controlId="formBasicPassword">
+          {/* <StyledForm.Label>Senha:</StyledForm.Label> */}
+          <StyledForm.Control
+            type="password"
+            placeholder="Informe uma Senha"
+            data-testid="password-input"
+            name="password"
+            onChange={ handleChange }
+            value={ values.password || '' }
+          />
+        </StyledForm.Group>
+        <StyledButton
+          variant="primary"
           type="button"
           data-testid="login-submit-btn"
           disabled={ !isAllValid }
           onClick={ handleSubmit }
         >
-          Enter
-        </button>
-      </form>
-    </div>
+          Entrar
+        </StyledButton>
+      </StyledForm>
+    </Container>
   );
 };
 
