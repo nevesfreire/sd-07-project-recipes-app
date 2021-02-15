@@ -189,14 +189,13 @@ class TelaDeReceitaEmProcessoDrinks extends Component {
                   }`}
                 </Form.Check.Label>
               </div>
-
             ))}
             <h4>Instructions</h4>
             <p data-testid="instructions">{drink[0].strInstructions}</p>
 
             <Button
               data-testid="finish-recipe-btn"
-              onClick={ () => functions.handleRecipeDone(history) }
+              onClick={ () => functions.handleRecipeDone(history, drink[0]) }
               disabled={ isEnabled }
             >
               Finalizar Receita

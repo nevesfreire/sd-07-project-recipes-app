@@ -181,7 +181,7 @@ class TelaDetalheBebida extends Component {
           <ul>
             {ingredientsArray.map((item, index) => (
               <li data-testid={ `${index}-ingredient-name-and-measure` } key={ item }>
-                {`${item} - ${measuresArray[index]}`}
+                {`${item[1]} - ${measuresArray[index][1]}`}
               </li>
             ))}
           </ul>

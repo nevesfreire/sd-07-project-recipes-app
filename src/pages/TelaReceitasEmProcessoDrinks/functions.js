@@ -10,10 +10,11 @@ export const handleIngredients = (recipe) => {
   return ingredientsArray;
 };
 
-export const handleRecipeDone = (history) => {
+export const handleRecipeDone = (history, drink) => {
   const HoraInicial = new Date();
   const horaFinal = HoraInicial.toLocaleDateString();
   localStorage.setItem('data', horaFinal);
+  localStorage.setItem('checkboxesD', '');
   history.push('/receitas-feitas');
 };
 

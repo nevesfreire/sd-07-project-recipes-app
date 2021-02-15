@@ -10,12 +10,26 @@ export const handleIngredients = (recipe) => {
   return ingredientsArray;
 };
 
-export const handleRecipeDone = (history, meal, dispatchDoneMeal) => {
+export const handleRecipeDone = (history, meal) => {
   const HoraInicial = new Date();
   const horaFinal = HoraInicial.toLocaleDateString();
+  const zero = 0;
   localStorage.setItem('data', horaFinal);
   localStorage.setItem('checkboxesM', '');
-  dispatchDoneMeal(meal);
+  const currentStorage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+  const tagsArray = meal.strTags.split(',');
+  const currentRecipe = {
+    image: meal.strMealThumb,
+    category: meal.strCategory,
+    name: meal.strMeal,
+    tags: tagsArray,
+  };
+  currentStorage.push(currentRecipe);
+  if (currentStorage.length > zero) {
+    localStorage.setItem(
+      'doneRecipes', JSON.stringify(currentStorage),
+    );
+  } else localStorage.setItem('doneRecipes', JSON.stringify(currentStorage));
   history.push('/receitas-feitas');
 };
 

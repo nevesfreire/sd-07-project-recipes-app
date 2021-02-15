@@ -8,7 +8,6 @@ import exploreDrinks from './exploreDrinks';
 import exploreFoods from './exploreFoods';
 import drinkExploreIngredients from './drinkExploreIngredients';
 import foodExploreIngredients from './foodExploreIngredients';
-import doneRecipesReducer from './doneRecipes';
 
 export default combineReducers({
   receitasDeBebidas,
@@ -20,5 +19,4 @@ export default combineReducers({
   exploreFoods,
   drinkExploreIngredients,
   foodExploreIngredients,
-  doneRecipesReducer,
 });

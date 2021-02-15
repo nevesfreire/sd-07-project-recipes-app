@@ -9,7 +9,6 @@ import getStorage from '../../services/localStorageAPI/getStorage';
 import setStorage from '../../services/localStorageAPI/setStorage';
 import { getSpecificMealById } from '../../store/ducks/getDetailedMeal/actions';
 import { getSpecificDrinkById } from '../../store/ducks/getDetailedDrink/actions';
-import setDoneMeal from '../../store/ducks/doneRecipes/action';
 import * as functions from './functions';
 
 class TelaDeReceitaEmProcesso extends Component {
@@ -105,9 +104,7 @@ class TelaDeReceitaEmProcesso extends Component {
     const zero = 0;
     if (favoritesFromStorage.length !== zero) {
       favoritesFromStorage.forEach((item) => {
-        if (item.id === meal[0].idMeal) {
-          this.setState({ isFavorite: true });
-        }
+        if (item.id === meal[0].idMeal) this.setState({ isFavorite: true });
       });
     }
   }
@@ -146,7 +143,6 @@ class TelaDeReceitaEmProcesso extends Component {
   renderDetailsMeal(meal, history) {
     const ingredientsArray = functions.handleIngredients(meal);
     const measuresArray = functions.handleMeasure(meal);
-    const { doneMealD } = this.props;
     const { checkboxes, isClicked, isFavorite, isEnabled } = this.state;
     return (
       <>
@@ -201,7 +197,7 @@ class TelaDeReceitaEmProcesso extends Component {
             <Button
               data-testid="finish-recipe-btn"
               disabled={ isEnabled }
-              onClick={ () => functions.handleRecipeDone(history, meal[0], doneMealD) }
+              onClick={ () => functions.handleRecipeDone(history, meal[0]) }
             >
               Finalizar Receita
             </Button>
@@ -240,7 +236,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getDetailedMealDispatch: (id) => dispatch(getSpecificMealById(id)),
   getDetailedDrinkDispatch: (id) => dispatch(getSpecificDrinkById(id)),
-  doneMealD: (mealDone) => dispatch(setDoneMeal(mealDone)),
 });
 
 export default connect(
