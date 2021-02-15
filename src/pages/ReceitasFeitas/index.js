@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { Header } from '../../components';
 import shareIcon from '../../images/shareIcon.svg';
 
@@ -156,5 +157,11 @@ class ReceitasFeitas extends Component {
     );
   }
 }
+
+ReceitasFeitas.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default ReceitasFeitas;
