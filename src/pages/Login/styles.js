@@ -13,6 +13,7 @@ export const Container = styled.div`
   width: 100%;
   background-image: url(${bgLogin});
   background-repeat: no-repeat;
+  background-size: cover;
 `;
 
 export const StyledForm = styled(Form)`
