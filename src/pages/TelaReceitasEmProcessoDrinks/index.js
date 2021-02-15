@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Container, Button } from 'react-bootstrap';
-import Form from 'react-bootstrap/Form';
+import { Container, Button, Form } from 'react-bootstrap';
 import clipboard from 'clipboard-copy';
 import shareIcon from '../../images/shareIcon.svg';
-import getStorage from '../../services/localStorageAPI/getStorage';
-import setStorage from '../../services/localStorageAPI/setStorage';
 import { getSpecificMealById } from '../../store/ducks/getDetailedMeal/actions';
 import { getSpecificDrinkById } from '../../store/ducks/getDetailedDrink/actions';
+import getStorage from '../../services/localStorageAPI/getStorage';
+import setStorage from '../../services/localStorageAPI/setStorage';
 import * as functions from './functions';
 
-class TelaDeReceitaEmProcesso extends Component {
+class TelaDeReceitaEmProcessoDrinks extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -57,34 +56,44 @@ class TelaDeReceitaEmProcesso extends Component {
   componentDidUpdate() {
     const favoritesFromStorage = getStorage('favoriteRecipes');
     const { isFavorite } = this.state;
-    const { meal } = this.props;
-    if (meal) {
+    const { drinkDetailStore } = this.props;
+    if (drinkDetailStore) {
       if (!favoritesFromStorage) {
         setStorage('favoriteRecipes', []);
-      } else if (!isFavorite) {
-        this.handleFavoriteStart(meal);
-      }
+      } else if (!isFavorite) { this.handleFavoriteStart(drinkDetailStore); }
     }
   }
 
-  handleFavoriteClick(meal) {
+  handleFavoriteStart(drinkDetailStore) {
+    const favoritesFromStorage = getStorage('favoriteRecipes');
+    const zero = 0;
+    if (favoritesFromStorage.length !== zero) {
+      favoritesFromStorage.forEach((item) => {
+        if (item.id === drinkDetailStore[0].idDrink) {
+          this.setState({ isFavorite: true });
+        }
+      });
+    }
+  }
+
+  handleFavoriteClick(drink) {
     const favoritesFromStorage = getStorage('favoriteRecipes');
     const { isFavorite } = this.state;
     if (isFavorite) {
       const newLocalStorage = favoritesFromStorage.filter(
-        (curr) => curr.id !== meal.idMeal,
+        (curr) => curr.id !== drink.idDrink,
       );
       setStorage('favoriteRecipes', newLocalStorage);
       this.setState({ isFavorite: false });
     } else {
       const newLocalStorageObj = {
-        id: meal.idMeal,
-        type: 'comida',
-        area: meal.strArea,
-        category: meal.strCategory,
-        alcoholicOrNot: '',
-        name: meal.strMeal,
-        image: meal.strMealThumb,
+        id: drink.idDrink,
+        type: 'bebida',
+        area: '',
+        category: drink.strCategory,
+        alcoholicOrNot: drink.strAlcoholic,
+        name: drink.strDrink,
+        image: drink.strDrinkThumb,
       };
       favoritesFromStorage.push(newLocalStorageObj);
       setStorage('favoriteRecipes', favoritesFromStorage);
@@ -93,40 +102,29 @@ class TelaDeReceitaEmProcesso extends Component {
   }
 
   handleShareClick() {
-    const { match: { params: { id } },
-    } = this.props;
+    const { match: { params: { id } } } = this.props;
     this.setState({ isClicked: true });
-    clipboard(`http://localhost:3000/comidas/${id}`);
+    clipboard(`http://localhost:3000/bebidas/${id}`);
   }
 
-  handleFavoriteStart(meal) {
-    const favoritesFromStorage = getStorage('favoriteRecipes');
-    const zero = 0;
-    if (favoritesFromStorage.length !== zero) {
-      favoritesFromStorage.forEach((item) => {
-        if (item.id === meal[0].idMeal) this.setState({ isFavorite: true });
-      });
-    }
-  }
-
-  handleCheck(event, index, meal) {
+  handleCheck(event, index, drink) {
     const { target: { checked } } = event;
     const { checkboxes } = this.state;
     if (checked) {
       checkboxes[index] = true;
       const checks = JSON.stringify(checkboxes);
       return this.setState({ checkboxes },
-        () => localStorage.setItem('checkboxesM', checks), this.enableButton(meal));
+        () => localStorage.setItem('checkboxesD', checks), this.enableButton(drink));
     }
     checkboxes[index] = false;
     const checks = JSON.stringify(checkboxes);
     return this.setState({ checkboxes },
-      () => localStorage.setItem('checkboxesM', checks), this.enableButton(meal));
+      () => localStorage.setItem('checkboxesD', checks), this.enableButton(drink));
   }
 
-  enableButton(meal) {
+  enableButton(drink) {
     const { checkboxes } = this.state;
-    const ingredientsArray = functions.handleIngredients(meal);
+    const ingredientsArray = functions.handleIngredients(drink);
     const arrayCheckboxes = Object.values(checkboxes);
     const trueCheck = arrayCheckboxes.filter((element) => element);
     if (trueCheck.length === ingredientsArray.length) {
@@ -135,14 +133,15 @@ class TelaDeReceitaEmProcesso extends Component {
   }
 
   checkStorage() {
-    const storageChecks = localStorage.getItem('checkboxesM');
+    const storageChecks = localStorage.getItem('checkboxesD');
     const checks = JSON.parse(storageChecks);
+    console.log(checks);
     if (storageChecks) return this.setState({ checkboxes: checks });
   }
 
-  renderDetailsMeal(meal, history) {
-    const ingredientsArray = functions.handleIngredients(meal);
-    const measuresArray = functions.handleMeasure(meal);
+  renderDetailsDrink(drink, history) {
+    const ingredientsArray = functions.handleIngredients(drink);
+    const measuresArray = functions.handleMeasure(drink);
     const { checkboxes, isClicked, isFavorite, isEnabled } = this.state;
     return (
       <>
@@ -150,9 +149,9 @@ class TelaDeReceitaEmProcesso extends Component {
           <img
             data-testid="recipe-photo"
             alt="comida"
-            src={ meal[0].strMealThumb }
+            src={ drink[0].strDrinkThumb }
           />
-          <h3 data-testid="recipe-title">{meal[0].strMeal}</h3>
+          <h3 data-testid="recipe-title">{drink[0].strDrink}</h3>
           <div
             onClick={ this.handleShareClick }
             onKeyDown={ this.handleShareClick }
@@ -163,14 +162,14 @@ class TelaDeReceitaEmProcesso extends Component {
           </div>
           <tag>{isClicked ? 'Link copiado!' : null}</tag>
           <div
-            onClick={ () => this.handleFavoriteClick(meal[0]) }
-            onKeyDown={ () => this.handleFavoriteClick(meal[0]) }
+            onClick={ () => this.handleFavoriteClick(drink[0]) }
+            onKeyDown={ () => this.handleFavoriteClick(drink[0]) }
             role="button"
             tabIndex={ 0 }
           >
             {!isFavorite ? functions.renderWhiteHeart() : functions.renderBlackHeart()}
           </div>
-          <h4 data-testid="recipe-category">{meal[0].strCategory}</h4>
+          <h4 data-testid="recipe-category">{drink[0].strAlcoholic}</h4>
         </Container>
         <Container>
           <Form>
@@ -179,7 +178,7 @@ class TelaDeReceitaEmProcesso extends Component {
               <div key={ item } data-testid={ `${index}-ingredient-step` }>
                 <Form.Check
                   type="checkbox"
-                  onClick={ (e) => this.handleCheck(e, index, meal) }
+                  onClick={ (e) => this.handleCheck(e, index, drink) }
                   defaultChecked={ checkboxes[index] }
                 />
                 <Form.Check.Label>
@@ -192,12 +191,12 @@ class TelaDeReceitaEmProcesso extends Component {
               </div>
             ))}
             <h4>Instructions</h4>
-            <p data-testid="instructions">{meal[0].strInstructions}</p>
+            <p data-testid="instructions">{drink[0].strInstructions}</p>
 
             <Button
               data-testid="finish-recipe-btn"
+              onClick={ () => functions.handleRecipeDone(history, drink[0]) }
               disabled={ isEnabled }
-              onClick={ () => functions.handleRecipeDone(history, meal[0]) }
             >
               Finalizar Receita
             </Button>
@@ -208,14 +207,16 @@ class TelaDeReceitaEmProcesso extends Component {
   }
 
   render() {
-    const { meal, history } = this.props;
-    if (meal) return this.renderDetailsMeal(meal, history);
+    const { drinkDetailStore, history } = this.props;
+    if (drinkDetailStore) {
+      return this.renderDetailsDrink(drinkDetailStore, history);
+    }
     return <div>Loading...</div>;
   }
 }
 
-TelaDeReceitaEmProcesso.propTypes = {
-  meal: PropTypes.arrayOf(PropTypes.Object).isRequired,
+TelaDeReceitaEmProcessoDrinks.propTypes = {
+  drinkDetailStore: PropTypes.arrayOf(PropTypes.Object).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -241,4 +242,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(TelaDeReceitaEmProcesso);
+)(TelaDeReceitaEmProcessoDrinks);
