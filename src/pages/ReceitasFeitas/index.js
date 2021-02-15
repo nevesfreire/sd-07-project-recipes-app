@@ -151,7 +151,7 @@ class ReceitasFeitas extends Component {
             Drinks
           </Button>
         </div>
-        {this.renderArrayMeals(renderRecipes)}
+        {renderRecipes === null ? this.renderArrayMeals : <h1>Sem receitas feitas</h1>}
         <Link to="/comidas">Teste</Link>
       </div>
     );
