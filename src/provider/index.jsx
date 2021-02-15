@@ -25,7 +25,7 @@ function Provider({ children }) {
 
   useEffect(() => {
     setState((s) => ({ ...s, isDisabled: true }));
-    localStorage.clear();
+    // localStorage.clear();
   }, []);
 
   useEffect(() => {

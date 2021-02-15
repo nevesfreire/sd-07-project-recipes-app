@@ -1,11 +1,16 @@
 import React from 'react';
 import RecipeDetail from '../components/RecipeDetail';
-import { getFoodRecipeId, getDrinkRecipeId } from '../services/fetchApi';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+// import { getFoodRecipeId, getDrinkRecipeId } from '../services/fetchApi';
 
 function ShowRecipeDetail() {
-  render(
-    <RecipeDetail />,
-
+  return (
+    <div>
+      <Header />
+      <RecipeDetail />
+      <Footer />
+    </div>
   );
 }
 

@@ -7,13 +7,14 @@ import Explore from './pages/explore';
 // import RecipeDetail from './components/RecipeDetail';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import RecipeDetail from './pages/recipeDetail';
 
 function App() {
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
-      <Route path="/comidas" component={ Recipes } />
-      <Route path="/bebidas" component={ Recipes } />
+      <Route exact path="/comidas" component={ Recipes } />
+      <Route exact path="/bebidas" component={ Recipes } />
       <Route path="/perfil" component={ Profile } />
       <Route path="/explorar" component={ Explore } />
       <Route path="/explorar/comidas/ingredientes" />
@@ -25,8 +26,8 @@ function App() {
       <Route path="/explorar/comidas" />
       <Route path="/explorar/bebidas" />
       <Route path="/receitas-feitas" />
-      {/* <Route path="/comidas/:id" component={ RecipeDetail } /> */}
-      <Route path="/bebidas/:id" />
+      <Route exact path="/comidas/:id" component={ RecipeDetail } />
+      <Route exact path="/bebidas/:id" component={ RecipeDetail } />
     </Switch>
   );
 }

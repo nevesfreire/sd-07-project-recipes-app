@@ -74,9 +74,9 @@ const searchBtn = (searchButton, toggleSearch, onClick) => {
   );
 };
 
-// const findMatch = (string, object) => (
-//   Object.keys(object).find((key) => key.match(string))
-// );
+const findMatch = (string, object) => (
+  Object.keys(object).find((key) => key.match(string))
+);
 
 export default function Header() {
   const { state, setState } = useContext(context);
@@ -85,7 +85,7 @@ export default function Header() {
   const { pathname } = location;
 
   useEffect(() => {
-    const newHeader = siteMap[pathname].header;
+    const newHeader = siteMap[findMatch(pathname.split('/')[1], siteMap)].header;
     setState((s) => ({ ...s, header: newHeader }));
   }, [pathname, setState]);
 

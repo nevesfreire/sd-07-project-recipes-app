@@ -14,17 +14,27 @@ const newFunc = async (pathname, setState, data) => {
   if (!data) {
     if (pathname === '/comidas') {
       const newRecipes = await fetchApi(allFood);
-      setState((s) => ({ ...s, data: newRecipes.meals, recipeStr: 'strMeal' }));
+      console.log('Recipes', newRecipes);
+      setState((s) => ({
+        ...s,
+        data: newRecipes.meals,
+        recipeStr: 'strMeal',
+      }));
     } else if (pathname === '/bebidas') {
       const newRecipes = await fetchApi(allDrink);
-      setState((s) => ({ ...s, data: newRecipes.drinks, recipeStr: 'strDrink' }));
+      setState((s) => ({
+        ...s,
+        data: newRecipes.drinks,
+        recipeStr: 'strDrink',
+      }));
     }
   }
-  if (pathname === '/comidas') {
-    setState((s) => ({ ...s, recipeStr: 'strMeal' }));
-  } else if (pathname === '/bebidas') {
-    setState((s) => ({ ...s, recipeStr: 'strDrink' }));
-  }
+  // if (pathname === '/comidas') {
+  //   console.log('Category', data);
+  //   setState((s) => ({ ...s, recipeStr: 'strMeal' }));
+  // } else if (pathname === '/bebidas') {
+  //   setState((s) => ({ ...s, recipeStr: 'strDrink' }));
+  // }
 };
 
 const ListCards = () => {
@@ -39,6 +49,7 @@ const ListCards = () => {
   }, [pathname, data, setState]);
 
   if (!data) return <div>Loading...</div>;
+  console.log(data);
   return (
     data.filter((_recipe, index) => index < maxRecipesNumber)
       .map((recipe, index) => (
