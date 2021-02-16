@@ -8,15 +8,20 @@ import StyledCarousel from './styles';
 export default function Recomendation() {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-  const recomendations = useSelector((state) => state.recipes.recomendations);
+  const { data: recomendations,
+    isFetching } = useSelector((state) => state.recomendations);
 
   useEffect(() => {
     dispatch(fetchRecomendations(pathname.includes('comidas') ? 'bebidas' : 'comidas'));
   }, [dispatch, pathname]);
 
   return (
-    <StyledCarousel>
-      { recomendations.map((recipe, index) => (
+    <div>
+      {isFetching ? <span> Loadin... </span>
+        : (
+          <StyledCarousel>
+            { recomendations
+      && recomendations.map((recipe, index) => (
         <StyledCarousel.Item
           key={ recipe.id }
           data-testid={ `${index}-recomendation-card` }
@@ -27,6 +32,8 @@ export default function Recomendation() {
           />
         </StyledCarousel.Item>
       ))}
-    </StyledCarousel>
+          </StyledCarousel>
+        )}
+    </div>
   );
 }

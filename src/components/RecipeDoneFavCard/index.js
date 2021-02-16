@@ -48,7 +48,7 @@ const RecipeDoneFavCard = (props) => {
         {doneOrFavorite === 'done'
         && (<ShareButton
           dataTestId={ `${index}-horizontal-share-btn` }
-          recipeId={ id }
+          recipe={ id }
           type={ type === 'comida' ? 'comidas' : 'bebidas' }
         />)}
         <StyledCard.Title
@@ -88,7 +88,7 @@ const RecipeDoneFavCard = (props) => {
               type={ type === 'comida' ? 'comidas' : 'bebidas' }
             />
             <FavoriteButton
-              recipeId={ id }
+              recipe={ cardInfo }
               dataTestId={ `${index}-horizontal-favorite-btn` }
             />
           </StyledCard.Body>
