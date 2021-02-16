@@ -5,6 +5,7 @@ import { Button, FoodRecomendation, LoadingCard,
 } from '../components';
 import { useFetchApi, useRecipeInProgress } from '../hooks';
 import { getKeys, getURL } from '../Services';
+import './css/details.css';
 
 export default function DetailsDrink() {
   const { push } = useHistory();

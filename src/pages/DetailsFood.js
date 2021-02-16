@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import {
-  Button, DrinkRecomendation, NotFound,
+import { Button, DrinkRecomendation, NotFound,
   LoadingCard, ShareButton, FavoriteFoodButton,
 } from '../components';
 import { useFetchApi, useRecipeInProgress } from '../hooks';
