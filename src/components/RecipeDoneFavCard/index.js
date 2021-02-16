@@ -18,7 +18,13 @@ const RecipeDoneFavCard = (props) => {
     setpropsState(props);
   }, [props]);
 
-  const { doneOrFavorite, cardInfo, index } = propsState;
+  const {
+    doneOrFavorite,
+    cardInfo,
+    index,
+    favoriteRecipes,
+    setFavoriteRecipes } = propsState;
+
   const {
     id,
     type,
@@ -30,8 +36,10 @@ const RecipeDoneFavCard = (props) => {
     tags,
     doneDate,
   } = cardInfo;
+
   const START_TAG = 0;
   const END_TAG = 2;
+
   return (
     <StyledCard data-testid={ `${index}-recipe-card` }>
       <StyledCard.Img
@@ -48,7 +56,7 @@ const RecipeDoneFavCard = (props) => {
         {doneOrFavorite === 'done'
         && (<ShareButton
           dataTestId={ `${index}-horizontal-share-btn` }
-          recipe={ id }
+          recipeId={ id }
           type={ type === 'comida' ? 'comidas' : 'bebidas' }
         />)}
         <StyledCard.Title
@@ -90,6 +98,8 @@ const RecipeDoneFavCard = (props) => {
             <FavoriteButton
               recipe={ cardInfo }
               dataTestId={ `${index}-horizontal-favorite-btn` }
+              favoriteRecipes={ favoriteRecipes }
+              setFavoriteRecipes={ setFavoriteRecipes }
             />
           </StyledCard.Body>
         )}

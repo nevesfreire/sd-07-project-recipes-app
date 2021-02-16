@@ -1,29 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import useLocalStorage from '../../hooks/useLocalStorage';
-import { LS_KEYS } from '../../services/localStorage';
 import { blackHeartIcon, whiteHeartIcon } from '../../images';
 import { resumeMealAndDrinkRecipe } from '../../services/helper';
 import StyledImage from './styles';
 
 export default function FavoriteButton(props) {
-  const [propsState] = useState(props);
-  const { recipe, dataTestId } = propsState;
-  const [favoriteRecipes,
-    setFavoriteRecipes] = useLocalStorage(LS_KEYS.FAVORITE_RECIPES_KEY, []);
+  const [propsState, setPropsState] = useState(props);
+  const { recipe, dataTestId, favoriteRecipes, setFavoriteRecipes } = propsState;
+
   const [isFavorite, setIsFavorite] = useState(favoriteRecipes
     .some(({ id }) => id === recipe.id));
 
   const handleClick = () => {
     setFavoriteRecipes(isFavorite
-      ? [...favoriteRecipes]
+      ? favoriteRecipes
         .filter(({ id }) => id !== recipe.id)
       : [...favoriteRecipes, resumeMealAndDrinkRecipe(recipe)]);
   };
 
+  useEffect(() => setPropsState(props), [props]);
+
   useEffect(() => {
     setIsFavorite(favoriteRecipes
       .some(({ id }) => id === recipe.id));
-  }, [favoriteRecipes, recipe]);
+  }, [favoriteRecipes, recipe.id]);
 
   return (
     <StyledImage

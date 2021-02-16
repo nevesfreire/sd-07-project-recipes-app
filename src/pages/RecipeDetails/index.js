@@ -40,6 +40,8 @@ const RecipeDetails = () => {
   const [isPageInProgress, setIsPageInProgress] = useState(false);
   const [isAllDone, setIsAllDone] = useState(false);
   const { data: recipe, isFetching } = useSelector((state) => state.recipe);
+  const [favoriteRecipes,
+    setFavoriteRecipes] = useLocalStorage(LS_KEYS.FAVORITE_RECIPES_KEY, []);
   const [doneRecipes] = useLocalStorage(LS_KEYS.DONE_RECIPES_KEY, []);
   const [inProgressRecipes] = useLocalStorage(LS_KEYS.IN_PROGRESS_RECIPES_KEY, {
     cocktails: {}, meals: {},
@@ -74,6 +76,8 @@ const RecipeDetails = () => {
                   <FavoriteButton
                     recipe={ recipe }
                     dataTestId="favorite-btn"
+                    favoriteRecipes={ favoriteRecipes }
+                    setFavoriteRecipes={ setFavoriteRecipes }
                   />
                   <ShareButton
                     dataTestId="share-btn"
