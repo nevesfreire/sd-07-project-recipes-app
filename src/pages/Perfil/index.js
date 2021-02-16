@@ -18,7 +18,7 @@ class Perfil extends Component {
 
   render() {
     const title = 'Perfil';
-    const emailEdited = (JSON.parse(localStorage.getItem('user')));
+    const emailEdited = localStorage.user ? JSON.parse(localStorage.user).email : '';
 
     return (
       <div>

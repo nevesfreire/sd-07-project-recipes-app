@@ -18,7 +18,9 @@ class Header extends React.Component {
             alt="Profile link"
           />
         </Navbar.Brand>
-        <h3 data-testid="page-title">{ title }</h3>
+        <Navbar.Brand>
+          <h3 data-testid="page-title">{ title }</h3>
+        </Navbar.Brand>
       </Navbar>
     );
   }
