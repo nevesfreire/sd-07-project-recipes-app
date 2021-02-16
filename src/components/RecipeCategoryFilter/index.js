@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { fetchCategories } from '../../store/ducks/categories';
-import { setFilter, fetchRecipesByFilter } from '../../store/ducks/recipes';
+import { setFilter } from '../../store/ducks/recipes';
 import { FILTER_TYPES } from '../../services/recipeAPI';
 import { StyledButtonGroup, StyledToggleButton } from './styles';
 
 const RecipeCategoryFilter = () => {
   const [checkedValue, setCheckedValue] = useState('');
-  const categories = useSelector((state) => state.recipes.categories);
+  const categories = useSelector((state) => state.categories.data);
   const { pathname } = useLocation();
   const dispatch = useDispatch();
 
@@ -17,11 +17,9 @@ const RecipeCategoryFilter = () => {
       || (!newValue && newValue !== checkedValue)) {
       setCheckedValue('');
       dispatch(setFilter('home', FILTER_TYPES.NAME));
-      dispatch(fetchRecipesByFilter(pathname, FILTER_TYPES.NAME, ''));
     } else if (newValue !== checkedValue) {
       setCheckedValue(newValue);
       dispatch(setFilter('home', FILTER_TYPES.CATEGORY, newValue));
-      dispatch(fetchRecipesByFilter(pathname, FILTER_TYPES.CATEGORY, newValue));
     }
   };
 
@@ -43,7 +41,7 @@ const RecipeCategoryFilter = () => {
       >
         All
       </StyledToggleButton>
-      {categories.map((category) => (
+      { categories && categories.map((category) => (
         <StyledToggleButton
           key={ category }
           data-testid={ `${category}-category-filter` }
