@@ -16,48 +16,49 @@ O que será verificado:
 - Verifica se a requisição para a API de bebidas foi realizada
  */
 
-// stackOverflow -> https://stackoverflow.com/questions/9907419/how-to-get-a-key-in-a-javascript-object-by-its-value
-// const findMatch = (string, object) => (
-//   Object.keys(object).find((key) => key.match(string))
-// );
+// stackOverflow -> https://stackovetextrflow.com/questions/9907419/how-to-get-a-key-in-a-javascript-object-by-its-value
+const findMatch = (string, object) => (
+  Object.keys(object).find((key) => key.match(string))
+);
 
-const fetchId = async (pathname, id, setState, data) => {
-  if (!data) {
-    if (pathname.includes('/comidas')) {
-      const newData = await fetchApi(getFoodRecipeId(id));
-      setState((s) => ({
-        ...s,
-        data: newData.meals,
-        recipeStr: 'strMeal',
-      }));
-    } else if (pathname.includes('/bebidas')) {
-      const newData = await fetchApi(getDrinkRecipeId(id));
-      setState((s) => ({
-        ...s,
-        data: newData.drinks,
-        recipeStr: 'strDrink',
-      }));
-    }
+const fetchId = async (pathname, id, setState) => {
+  console.log(pathname, id, 'achou um consolelog');
+  if (pathname === `/comidas/${id}`) {
+    const newData = await fetchApi(getFoodRecipeId(id));
+    console.log(newData, 'dentro');
+    setState((s) => ({
+      ...s,
+      data: newData.meals,
+      recipeStr: 'strMeal',
+    }));
+  } else if (pathname === `/bebidas/${id}`) {
+    const newData = await fetchApi(getDrinkRecipeId(id));
+    console.log(newData, 'dentro');
+    setState((s) => ({
+      ...s,
+      data: newData.drinks,
+      recipeStr: 'strDrink',
+    }));
   }
 };
 
-// const recipeImage = (url, title) => (
-//   <img
-//     src={ url }
-//     alt={ title }
-//     data-testid="recipe-photo"
-//     className="card-img-top"
-//   />
-// );
+const recipeImage = (url, title) => (
+  <img
+    src={ url }
+    alt={ title }
+    data-testid="recipe-photo"
+    className="card-img-top"
+  />
+);
 
-// const recipeTitle = (title) => (
-//   <h1
-//     data-testid="recipe-title"
-//     className="card-title"
-//   >
-//     {title}
-//   </h1>
-// );
+const recipeTitle = (title) => (
+  <h1
+    data-testid="recipe-title"
+    className="card-title"
+  >
+    {title}
+  </h1>
+);
 
 // const recipeShare = (functionShare, message) => (
 //   <div>
@@ -77,43 +78,43 @@ const fetchId = async (pathname, id, setState, data) => {
 //   </div>
 // );
 
-// const recipeCategory = (category) => (
-//   <h3 data-testid="recipe-category">
-//     {category}
-//   </h3>
-// );
+const recipeCategory = (category) => (
+  <h3 data-testid="recipe-category">
+    {category}
+  </h3>
+);
 
-// const recipeIngredients = (ingredients, measures) => (
-//   <ul className="">
-//     { ingredients.map((ingredient, index) => (
-//       <li
-//         key={ index }
-//         dta-testid={ `${index}-ingredient-name-and-measure` }
-//       >
-//         { `${ingredient} - ${measures[index]}` }
-//       </li>
-//     ))}
-//   </ul>
-// );
+const recipeIngredients = (ingredients, measures) => (
+  <ul className="">
+    { ingredients.map((ingredient, index) => (
+      <li
+        key={ index }
+        data-testid={ `${index}-ingredient-name-and-measure` }
+      >
+        { `${ingredient} - ${measures[index]}` }
+      </li>
+    ))}
+  </ul>
+);
 
-// const recipeInstructions = (instructions) => (
-//   <p
-//     data-testid="instructions"
-//     className="card-text"
-//   >
-//     {instructions}
-//   </p>
-// );
+const recipeInstructions = (instructions) => (
+  <p
+    data-testid="instructions"
+    className="card-text"
+  >
+    {instructions}
+  </p>
+);
 
-// const recipeVideo = (video) => (
-//   <video
-//     data-testid="video"
-//     controls
-//     src={ video }
-//   >
-//     <track src={ video } kind="captions" srcLang="en" />
-//   </video>
-// );
+const recipeVideo = (video) => (
+  <video
+    data-testid="video"
+    controls
+    src={ video }
+  >
+    <track src={ video } kind="captions" srcLang="en" />
+  </video>
+);
 
 // const recipeRecommendation = (recommendation) => (
 //   recommendation.map((recommend, index) => (
@@ -153,38 +154,46 @@ function RecipeDetail() {
   const { state, setState } = useContext(context);
   const location = useLocation();
   const { pathname } = location;
-  const { data } = state;
-  const {
-    strMeal,
-    strInstructions,
-    strMealThumb,
-    strYoutube,
-    strTags,
-  } = data;
+  const { data, recipeStr } = state;
 
   useEffect(() => {
     const Newid = pathname.split('/')[2];
-    fetchId(pathname, Newid, setState, data);
+    fetchId(pathname, Newid, setState);
     console.log(Newid);
-  }, [pathname, data, setState]);
+  }, [pathname, setState]);
 
   if (!data) return <div>Loading...</div>;
-  console.log(data);
+  const idData = data[0];
+  const url = idData[findMatch(/Thumb/, idData)];
+  const title = idData[findMatch(recipeStr, idData)];
+  const category = idData[findMatch(/category/i, idData)];
+  const instructions = idData[findMatch(/instructions/i, idData)];
+  const video = idData[findMatch(/youtube/i, idData)];
+  const ingredients = Object.entries(idData)
+    .filter((entrie) => {
+      if (entrie[0].match(/ingredient/i) && entrie[1] !== (null || '' || 'null')) {
+        return entrie[1];
+      }
+      return false;
+    }).map((entrie) => entrie[1]);
+  const measures = Object.entries(idData)
+    .filter((entrie) => {
+      if (entrie[0].match(/measure/i) && entrie[1] !== (null || '' || 'null')) {
+        return entrie[1];
+      }
+      return false;
+    }).map((entrie) => entrie[1]);
+
   return (
-    // <div>
-    //   <div className="card">
-    //     {recipeImage(strThumb)}
-    //     {recipeTitle(tilte)}
-    //     {recipeShare(share, message)}
-    //     {recipeCategory(category)}
-    //     {recipeIngredients(ingredients, measures)}
-    //     {recipeInstructions(instructions)}
-    //     {recipeVideo(video)}
-    //     {recipeStart(start)}
-    //   </div>
-    //   {recipeRecommendation(recommendation)}
-    // </div>
-    <div> TERMINOU ! </div>
+    <div className="card">
+      {recipeImage(url, title)}
+      {recipeTitle(title)}
+      {/* {recipeShare(share, message)} */}
+      {recipeCategory(category)}
+      {recipeIngredients(ingredients, measures)}
+      {recipeInstructions(instructions)}
+      {recipeVideo(video)}
+    </div>
   );
 }
 

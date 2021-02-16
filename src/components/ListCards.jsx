@@ -49,7 +49,7 @@ const ListCards = () => {
   }, [pathname, data, setState]);
 
   if (!data) return <div>Loading...</div>;
-  console.log(data);
+
   return (
     data.filter((_recipe, index) => index < maxRecipesNumber)
       .map((recipe, index) => (
