@@ -19,24 +19,24 @@ const INVALID_EMAILS = [
   '@.com',
 ];
 
-beforeEach(() => {
-  renderWithRouter(<App />);
-});
-
 describe('check if all elements are rendered in the screen', () => {
   it('should render email input', () => {
+    renderWithRouter(<App />);
+
     const emailInput = screen.getByTestId(EMAIL_INPUT);
 
     expect(emailInput).toBeInTheDocument();
   });
 
   it('should render password input', () => {
+    renderWithRouter(<App />);
     const passwordInput = screen.getByTestId(PASSWORD_INPUT);
 
     expect(passwordInput).toBeInTheDocument();
   });
 
   it('should render login button', () => {
+    renderWithRouter(<App />);
     const loginButton = screen.getByTestId(LOGIN_BUTTON);
 
     expect(loginButton).toBeInTheDocument();
@@ -45,6 +45,7 @@ describe('check if all elements are rendered in the screen', () => {
 
 describe('check if is possible to type in the inputs', () => {
   it('should be possible to type in email input', () => {
+    renderWithRouter(<App />);
     const emailInput = screen.getByTestId(EMAIL_INPUT);
 
     userEvent.type(emailInput, EMAIL);
@@ -53,6 +54,7 @@ describe('check if is possible to type in the inputs', () => {
   });
 
   it('should be possible to type in password input', () => {
+    renderWithRouter(<App />);
     const passwordInput = screen.getByTestId(PASSWORD_INPUT);
 
     userEvent.type(passwordInput, PASSWORD);
@@ -63,6 +65,8 @@ describe('check if is possible to type in the inputs', () => {
 
 describe('check if login button is only abled with correct inputs', () => {
   it('login button should be disabled if email is invalid', () => {
+    renderWithRouter(<App />);
+
     const emailInput = screen.getByTestId(EMAIL_INPUT);
     const passwordInput = screen.getByTestId(PASSWORD_INPUT);
     const loginButton = screen.getByTestId(LOGIN_BUTTON);
@@ -76,6 +80,8 @@ describe('check if login button is only abled with correct inputs', () => {
   });
 
   it('login button should be disabled if password has not 6 characters', () => {
+    renderWithRouter(<App />);
+
     const emailInput = screen.getByTestId(EMAIL_INPUT);
     const passwordInput = screen.getByTestId(PASSWORD_INPUT);
     const loginButton = screen.getByTestId(LOGIN_BUTTON);
@@ -87,6 +93,8 @@ describe('check if login button is only abled with correct inputs', () => {
   });
 
   it('login button should be abled if email and password are corrects', () => {
+    renderWithRouter(<App />);
+
     const emailInput = screen.getByTestId(EMAIL_INPUT);
     const passwordInput = screen.getByTestId(PASSWORD_INPUT);
     const loginButton = screen.getByTestId(LOGIN_BUTTON);
@@ -100,6 +108,8 @@ describe('check if login button is only abled with correct inputs', () => {
 
 describe('test if localStorage has the right tokens', () => {
   it('the keys "mealsToken" and "cocktailsToken" must have value equal to 1', () => {
+    const { history } = renderWithRouter(<App />);
+    console.log(history.location);
     const emailInput = screen.getByTestId(EMAIL_INPUT);
     const passwordInput = screen.getByTestId(PASSWORD_INPUT);
     const loginButton = screen.getByTestId(LOGIN_BUTTON);
@@ -107,6 +117,7 @@ describe('test if localStorage has the right tokens', () => {
     userEvent.type(emailInput, EMAIL);
     userEvent.type(passwordInput, PASSWORD);
     fireEvent.click(loginButton);
+    console.log(history.location.pathname);
 
     expect(JSON.parse(localStorage.getItem('mealsToken'))).toBe(1);
     expect(JSON.parse(localStorage.getItem('cocktailsToken'))).toBe(1);
@@ -120,6 +131,8 @@ describe('test if localStorage has the right tokens', () => {
 
 describe('redirect to the main food page', () => {
   it('check if the user is redirected to main food page', () => {
+    renderWithRouter(<App />);
+
     const foodTitle = screen.getByText('Comidas');
 
     expect(foodTitle).toBeInTheDocument();
