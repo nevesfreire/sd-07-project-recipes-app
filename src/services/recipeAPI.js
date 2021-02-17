@@ -1,6 +1,7 @@
 import {
   mapMealAndDrinkToRecipe,
   mapShortMealAndDrinkToRecipe,
+  mapIngredientList,
 } from './helper';
 
 const BASE_MEAL_URL = 'https://www.themealdb.com/api/json/v1/1';
@@ -112,7 +113,9 @@ export const getIngredientList = async (type) => {
     ? BASE_MEAL_URL : BASE_COCKTAIL_URL) + END_POINT_INGREDIENT_LIST;
   const response = await fetch(GET_INGREDIENTS_URL);
   const result = await response.json();
-  return type.includes('comidas') ? result.meals : result.drinks;
+  return type.includes('comidas')
+    ? mapIngredientList(result.meals)
+    : mapIngredientList(result.drinks);
 };
 
 export const getAreas = async () => {

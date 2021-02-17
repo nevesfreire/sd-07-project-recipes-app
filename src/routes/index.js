@@ -6,9 +6,7 @@ import {
   Profile,
   RecipeDetails,
   RecipeExplore,
-  RecipeExploreMore,
   RecipeExploreByIngredient,
-  RecipeExploreArea,
   NotFound,
   RecipeDone,
 } from '../pages';
@@ -26,8 +24,8 @@ export default function Routes() {
       <Route exact path="/comidas" component={ Home } />
       <Route exact path="/" component={ Login } />
       <Route exact path="/explorar" component={ RecipeExplore } />
-      <Route exact path="/explorar/comidas" component={ RecipeExploreMore } />
-      <Route exact path="/explorar/bebidas" component={ RecipeExploreMore } />
+      <Route exact path="/explorar/comidas" component={ RecipeExplore } />
+      <Route exact path="/explorar/bebidas" component={ RecipeExplore } />
       <Route
         exact
         path="/explorar/comidas/ingredientes"
@@ -40,18 +38,17 @@ export default function Routes() {
       />
       <Route
         exact
-        path="/explorar/bebidas/area"
-        component={ NotFound }
-      />
-      <Route
-        exact
         path="/explorar/comidas/area"
-        component={ RecipeExploreArea }
+        component={ Home }
       />
       <Route
         exact
         path="/perfil"
         component={ Profile }
+      />
+      <Route
+        path="*"
+        component={ NotFound }
       />
     </Switch>
   );

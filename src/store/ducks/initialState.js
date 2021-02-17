@@ -27,7 +27,7 @@ const INITIAL_STATE = {
   recipes: {
     data: [],
     isFetching: false,
-    filterOrigin: '', // home, searchbar, explore, doneAndFav
+    filterOrigin: 'home', // home, searchbar, explore, doneAndFav
     filter: {
       type: '', // name, category, ingredient, firstLetter, area, random, type
       term: '', // term of search or filter

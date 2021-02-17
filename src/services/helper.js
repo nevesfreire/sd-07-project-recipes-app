@@ -59,9 +59,22 @@ export const mapShortMealAndDrinkToRecipe = (recipesList) => (!recipesList
         }
     )));
 
+export const mapIngredientList = (ingredients) => (!ingredients
+  ? []
+  : ingredients
+    .map((ingredient) => (
+      Object.prototype.hasOwnProperty.call(ingredient, 'idIngredient')
+        ? {
+          name: ingredient.strIngredient,
+          image: `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}-Small.png`,
+        } : {
+          name: ingredient.strIngredient1,
+          image: `https://www.thecocktaildb.com/images/ingredients/${ingredient.strIngredient1}-Small.png`,
+        }
+    )));
+
 export const resumeMealAndDrinkRecipe = ({
-  id, type, area, category, alcoholicOrNot, name, image,
-}) => (
+  id, type, area, category, alcoholicOrNot, name, image }) => (
   {
     id,
     type,
@@ -83,8 +96,7 @@ export const nowDateFormated = () => {
 };
 
 export const getDoneMealAndDrinkRecipe = ({
-  id, type, area, category, alcoholicOrNot, name, image, tags,
-}) => (
+  id, type, area, category, alcoholicOrNot, name, image, tags }) => (
   {
     id,
     type,

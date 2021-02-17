@@ -26,7 +26,7 @@ export default function fetchRecipesByFilter(
         data = await recipeAPI.getRecipesByFirstLetter(pathType, filterTerm);
         break;
       case recipeAPI.FILTER_TYPES.AREA:
-        console.log('pendente filtrar por area');
+        data = await recipeAPI.getRecipesByArea(filterTerm);
         break;
       case recipeAPI.FILTER_TYPES.NAME:
         data = await recipeAPI.getRecipesByName(pathType, filterTerm);
