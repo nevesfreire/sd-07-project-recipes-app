@@ -51,8 +51,7 @@ const buttonLogin = (onClick, enable) => (
 export default function InputLogin() {
   const PATH = '/comidas';
   const [setPath] = useRedirect();
-  const { login, setLogin } = useContext(context);
-  const { state, setState } = useContext(context);
+  const { login, setLogin, state, setState } = useContext(context);
   const { isDisabled } = state;
 
   const loginChanges = ({ target: { name, value } }) => {
@@ -60,10 +59,14 @@ export default function InputLogin() {
   };
 
   const callRoute = async () => {
+    // const response = fetchApi(allFood);
+    // const { meals } = response;
     setState((s) => ({
       ...s,
       header: {
+        // data: meals,
         profileButton: true,
+        // recipeStr: 'strMeal',
         searchButton: true,
         title: 'Comidas',
       },

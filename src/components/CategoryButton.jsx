@@ -9,15 +9,13 @@ const filterCategory = async (pathname, category, setState) => {
     const newData = await fetchApi(getFoodCategory(category));
     setState((s) => ({
       ...s,
-      data: newData.meals,
-      recipeStr: 'strMeal',
+      data: { ...s.data, food: newData.meals },
     }));
   } else if (pathname === '/bebidas') {
     const newData = await fetchApi(getDrinksCategory(category));
     setState((s) => ({
       ...s,
-      data: newData.drinks,
-      recipeStr: 'strDrink',
+      data: { ...s.data, beverage: newData.drinks },
     }));
   }
 };

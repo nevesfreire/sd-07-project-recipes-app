@@ -12,7 +12,6 @@ const FoodBtn = () => {
   const onClick = () => {
     setState((s) => ({
       ...s,
-      data: null,
       toggleSearch: false,
     }));
     setPath(PATH);

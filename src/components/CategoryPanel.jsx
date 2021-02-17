@@ -1,22 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { fetchApi, getFoodList, getDrinksList } from '../services/fetchApi';
+import context from '../contextAPI/context';
+// import { fetchApi, getFoodList, getDrinksList } from '../services/fetchApi';
 import CategoryButton from './CategoryButton';
 
-const newFunc = async (pathname, setCategories) => {
+const listCategories = async (pathname, setCategories, state) => {
   if (pathname === '/comidas') {
-    const list = await fetchApi(getFoodList);
-    const { meals } = list;
-    setCategories(meals);
+    setCategories(state.categories.food);
   } else if (pathname === '/bebidas') {
-    const list = await fetchApi(getDrinksList);
-    const { drinks } = list;
-    setCategories(drinks);
+    setCategories(state.categories.beverage);
   }
 };
 
 const CategoryPanel = () => {
-  // const { state, setRecipesUrl } = useContext(context);
+  const { state } = useContext(context);
   const [categories, setCategories] = useState('');
   const history = useHistory();
   const { location: { pathname } } = history;
@@ -24,8 +21,9 @@ const CategoryPanel = () => {
   const maxCategories = 5;
 
   useEffect(() => {
-    newFunc(pathname, setCategories);
-  }, [pathname]);
+    listCategories(pathname, setCategories, state);
+  }, [pathname, state]);
+
   if (!categories) return <div>Loading...</div>;
   return (
     categories.filter((_categories, index) => index < maxCategories)

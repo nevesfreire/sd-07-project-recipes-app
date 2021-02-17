@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import context from '../contextAPI/context';
 import { fetchApi, getFoodRecipeId, getDrinkRecipeId } from '../services/fetchApi';
@@ -21,24 +21,19 @@ const findMatch = (string, object) => (
   Object.keys(object).find((key) => key.match(string))
 );
 
-const fetchId = async (pathname, id, setState) => {
+const fetchId = async (pathname, state, setDetail, setRecipeStr) => {
+  const id = pathname.split('/')[2];
   console.log(pathname, id, 'achou um consolelog');
   if (pathname === `/comidas/${id}`) {
     const newData = await fetchApi(getFoodRecipeId(id));
     console.log(newData, 'dentro');
-    setState((s) => ({
-      ...s,
-      data: newData.meals,
-      recipeStr: 'strMeal',
-    }));
+    setDetail(newData.meals);
+    setRecipeStr(state.str.food);
   } else if (pathname === `/bebidas/${id}`) {
     const newData = await fetchApi(getDrinkRecipeId(id));
     console.log(newData, 'dentro');
-    setState((s) => ({
-      ...s,
-      data: newData.drinks,
-      recipeStr: 'strDrink',
-    }));
+    setDetail(newData.drinks);
+    setRecipeStr(state.str.beverage);
   }
 };
 
@@ -150,39 +145,37 @@ const recipeVideo = (video) => (
 //   console.log('COMEÇA A RECEITA');
 // }
 
+const summerizer = (stringRegex, data) => {
+  const summerized = Object.entries(data)
+    .filter((entrie) => {
+      if (entrie[0].match(stringRegex) && entrie[1] !== (null || '' || 'null')) {
+        return entrie[1];
+      }
+      return false;
+    }).map((entrie) => entrie[1]);
+  return summerized;
+};
+
 function RecipeDetail() {
-  const { state, setState } = useContext(context);
+  const { state } = useContext(context);
+  const [detail, setDetail] = useState();
+  const [recipeStr, setRecipeStr] = useState('');
   const location = useLocation();
   const { pathname } = location;
-  const { data, recipeStr } = state;
 
   useEffect(() => {
-    const Newid = pathname.split('/')[2];
-    fetchId(pathname, Newid, setState);
-    console.log(Newid);
-  }, [pathname, setState]);
+    fetchId(pathname, state, setDetail, setRecipeStr);
+  }, [pathname, state]);
 
-  if (!data) return <div>Loading...</div>;
-  const idData = data[0];
+  if (!detail) return <div>Loading...</div>;
+  const idData = detail[0];
   const url = idData[findMatch(/Thumb/, idData)];
   const title = idData[findMatch(recipeStr, idData)];
   const category = idData[findMatch(/category/i, idData)];
   const instructions = idData[findMatch(/instructions/i, idData)];
   const video = idData[findMatch(/youtube/i, idData)];
-  const ingredients = Object.entries(idData)
-    .filter((entrie) => {
-      if (entrie[0].match(/ingredient/i) && entrie[1] !== (null || '' || 'null')) {
-        return entrie[1];
-      }
-      return false;
-    }).map((entrie) => entrie[1]);
-  const measures = Object.entries(idData)
-    .filter((entrie) => {
-      if (entrie[0].match(/measure/i) && entrie[1] !== (null || '' || 'null')) {
-        return entrie[1];
-      }
-      return false;
-    }).map((entrie) => entrie[1]);
+  const ingredients = summerizer(/ingredient/i, idData);
+  const measures = summerizer(/measure/i, idData);
 
   return (
     <div className="card">

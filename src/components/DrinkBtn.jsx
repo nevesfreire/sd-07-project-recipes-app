@@ -13,7 +13,6 @@ const DrinkBtn = () => {
   const onClick = () => {
     setState((s) => ({
       ...s,
-      data: null,
       toggleSearch: false,
     }));
     setPath(PATH);

@@ -1,6 +1,23 @@
-export const fetchApi = (endpoint) => fetch(endpoint)
-  .then((data) => data.json())
-  .catch((err) => console.log(err));
+// export const fetchApi = (endpoint) => fetch(endpoint)
+
+//   .then((data) => {
+//     console.log(data);
+//     data.json();
+//   })
+//   .catch((err) => console.log(err));
+
+export async function fetchApi(endpoint) {
+  const result = await fetch(endpoint);
+  const jsonData = await result.json();
+  console.log(jsonData);
+  return jsonData;
+}
+
+//   .then((data) => {
+//     console.log(data);
+//     data.json();
+//   })
+//   .catch((err) => console.log(err));
 
 export const allFood = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 

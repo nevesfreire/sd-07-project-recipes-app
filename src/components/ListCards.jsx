@@ -1,7 +1,7 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import context from '../contextAPI/context';
-import { fetchApi, allFood, allDrink } from '../services/fetchApi';
+// import { fetchApi, allFood, allDrink } from '../services/fetchApi';
 // import siteMap from '../helpers/siteMap';
 import Card from './Card';
 
@@ -10,54 +10,40 @@ const findMatch = (string, object) => (
   Object.keys(object).find((key) => key.match(string))
 );
 
-const newFunc = async (pathname, setState, data) => {
-  if (!data) {
-    if (pathname === '/comidas') {
-      const newRecipes = await fetchApi(allFood);
-      console.log('Recipes', newRecipes);
-      setState((s) => ({
-        ...s,
-        data: newRecipes.meals,
-        recipeStr: 'strMeal',
-      }));
-    } else if (pathname === '/bebidas') {
-      const newRecipes = await fetchApi(allDrink);
-      setState((s) => ({
-        ...s,
-        data: newRecipes.drinks,
-        recipeStr: 'strDrink',
-      }));
-    }
+const newCards = async (pathname, setCards, setRecipeStr, state) => {
+  if (pathname === '/comidas') {
+    setCards(state.data.food);
+    setRecipeStr(state.str.food);
+  } else if (pathname === '/bebidas') {
+    setCards(state.data.beverage);
+    setRecipeStr(state.str.beverage);
   }
-  // if (pathname === '/comidas') {
-  //   console.log('Category', data);
-  //   setState((s) => ({ ...s, recipeStr: 'strMeal' }));
-  // } else if (pathname === '/bebidas') {
-  //   setState((s) => ({ ...s, recipeStr: 'strDrink' }));
-  // }
 };
 
 const ListCards = () => {
-  const { state, setState } = useContext(context);
+  const { state } = useContext(context);
+  const [cards, setCards] = useState([]);
+  const [recipeStr, setRecipeStr] = useState('');
   const history = useHistory();
   const { location: { pathname } } = history;
   const { data } = state;
   const maxRecipesNumber = 12;
 
   useEffect(() => {
-    newFunc(pathname, setState, data);
-  }, [pathname, data, setState]);
+    newCards(pathname, setCards, setRecipeStr, state);
+  }, [pathname, state]);
 
-  if (!data) return <div>Loading...</div>;
+  console.log(data);
+  if (!cards) return <div>Loading...</div>;
 
   return (
-    data.filter((_recipe, index) => index < maxRecipesNumber)
+    cards.filter((_recipe, index) => index < maxRecipesNumber)
       .map((recipe, index) => (
         <Card
           key={ recipe[findMatch('id', recipe)] }
           pathname={ pathname }
           id={ recipe[findMatch('id', recipe)] }
-          Name={ recipe[findMatch(state.recipeStr, recipe)] }
+          Name={ recipe[findMatch(recipeStr, recipe)] }
           Thumb={ recipe[findMatch(/Thumb/, recipe)] }
           Index={ index }
           Test="recipe-card"

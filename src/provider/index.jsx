@@ -1,9 +1,33 @@
 import React, { useEffect, useState } from 'react';
-// import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Context from '../contextAPI/context';
-import { fetchApi } from '../services/fetchApi';
+import {
+  allDrink,
+  allFood,
+  fetchApi,
+  getDrinksList,
+  getFoodList,
+} from '../services/fetchApi';
+// import useRedirect from '../hooks/useRedirect';
 // import siteMap from '../helpers/siteMap';
+
+const newFunc = async (setState) => {
+  const dataFood = await fetchApi(allFood);
+  const dataBeverage = await fetchApi(allDrink);
+  const categoriesFood = await fetchApi(getFoodList);
+  const categoriesBeverage = await fetchApi(getDrinksList);
+  setState((s) => ({ ...s,
+    isDisabled: true,
+    data: {
+      food: dataFood.meals,
+      beverage: dataBeverage.drinks,
+    },
+    categories: {
+      food: categoriesFood.meals,
+      beverage: categoriesBeverage.drinks,
+    },
+  }));
+};
 
 // const findMatch = (string, object) => (
 //   Object.keys(object).find((key) => key.match(string))
@@ -11,7 +35,8 @@ import { fetchApi } from '../services/fetchApi';
 
 function Provider({ children }) {
   const [login, setLogin] = useState({});
-  const [RecipesUrl, setRecipesUrl] = useState({});
+  // const [setPath] = useRedirect();
+  // const [RecipesUrl, setRecipesUrl] = useState({});
   const [state, setState] = useState({
     header: {
       profileButton: false,
@@ -19,12 +44,13 @@ function Provider({ children }) {
       title: '',
     },
     toggleSearch: false,
+    data: { food: [], beverage: [] },
+    str: { food: 'strMeal', beverage: 'strDrink' },
+    categories: { food: [], beverage: [] },
   });
-  // const { history } = props;
-  // const { location: { pathname } } = history;
 
   useEffect(() => {
-    setState((s) => ({ ...s, isDisabled: true }));
+    newFunc(setState);
     // localStorage.clear();
   }, []);
 
@@ -35,31 +61,32 @@ function Provider({ children }) {
       const emailTest = (/^[^\s@]+@[^\s@]+\.[^\s@]+$/).test(user);
       const passLength = (passwd.length > NUM_PASSWORD);
       if (emailTest && passLength) {
-        setState((s) => ({ ...s, user, passwd, isDisabled: false }));
+        setState((s) => ({ ...s, user, isDisabled: false }));
       }
-      localStorage.setItem('mealsToken', JSON.stringify(1));
-      localStorage.setItem('cocktailsToken', JSON.stringify(1));
+      localStorage.setItem('mealsToken', 1);
+      localStorage.setItem('cocktailsToken', 1);
     }
   }, [login]);
 
-  useEffect(() => {
-    if (RecipesUrl !== '') {
-      fetchApi(RecipesUrl)
-        .then((r) => setState((s) => ({ ...s, data: r })));
-    }
-  }, [RecipesUrl]);
+  // useEffect(() => {
+  //   if (RecipesUrl !== '') {
+  //     fetchApi(RecipesUrl)
+  //       .then((r) => setState((s) => ({ ...s, data: r })));
+  //   }
+  // }, [RecipesUrl]);
 
   // useEffect(() => {
-  //   findMatch(pathname, siteMap)
-
-  // }, [pathname])
+  //   const newHeader = siteMap[findMatch(pathname.split('/')[1], siteMap)].header;
+  //   setState((s) => ({ ...s, header: newHeader }));
+  // }, [pathname, setState]);
 
   const context = {
     state,
     setState,
     login,
     setLogin,
-    setRecipesUrl,
+    // pathname,
+    // setPath,
   };
 
   return (
