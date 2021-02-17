@@ -15,29 +15,20 @@ const RecipeFilter = () => {
 
   useEffect(() => {
     dispatch(setFilter('doneAndFav', 'foodOrDrink', checkedValue));
-    /* return () => {
-      dispatch(setFilter('')); // cleanup filter
-    }; */
-  },
-  [dispatch, checkedValue]);
-
-  useEffect(() => () => {
-    dispatch(setFilter('doneAndFav', '')); // cleanup filter
-  },
-  [dispatch]);
+  }, [dispatch, checkedValue]);
 
   const FILTERS_OPTIONS = [
-    { name: 'All', attribute: 'all' },
-    { name: 'Food', attribute: 'comida' },
-    { name: 'Drinks', attribute: 'bebida' },
+    { name: 'All', attribute: 'all', dataTestId: 'all' },
+    { name: 'Food', attribute: 'bebida', dataTestId: 'food' },
+    { name: 'Drinks', attribute: 'comida', dataTestId: 'drink' },
   ];
 
   return (
     <StyledButtonGroup toggle>
-      {FILTERS_OPTIONS.map(({ name, attribute }) => (
+      {FILTERS_OPTIONS.map(({ name, attribute, dataTestId }) => (
         <StyledToggleButton
           key={ attribute }
-          data-testid={ `filter-by-${attribute}-btn` }
+          data-testid={ `filter-by-${dataTestId}-btn` }
           type="checkbox"
           variant="secondary"
           value={ attribute }

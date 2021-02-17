@@ -1,18 +1,60 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useLocation } from 'react-router-dom';
-import { checkIngredient } from '../../store/ducks/recipes';
+import useLocalStorage from '../../hooks/useLocalStorage';
+import { LS_KEYS } from '../../services/localStorage';
+import { Container, StyledUL, Item, DoneItem } from './styles';
+
+const checkIngredient = (
+  { inProgressRecipes, checked, ingredient, recipeId, recipeType },
+) => {
+  if (checked) {
+    if (Object.prototype.hasOwnProperty
+      .call(inProgressRecipes[recipeType],
+        recipeId)) {
+      return {
+        ...inProgressRecipes,
+        [recipeType]: {
+          ...inProgressRecipes[recipeType],
+          [recipeId]: [
+            ...inProgressRecipes[recipeType][recipeId],
+            ingredient,
+          ],
+        },
+      };
+    }
+    return {
+      ...inProgressRecipes,
+      [recipeType]: {
+        ...inProgressRecipes[recipeType],
+        [recipeId]: [
+          ingredient,
+        ],
+      },
+    };
+  }
+  return {
+    ...inProgressRecipes,
+    [recipeType]: {
+      ...inProgressRecipes[recipeType],
+      [recipeId]:
+        inProgressRecipes[recipeType][recipeId]
+          .filter((value) => value !== ingredient),
+    },
+
+  };
+};
 
 export default function RecipeIngredients(props) {
-  const [stateProps, setStateProps] = useState(props);
+  const [stateProps] = useState(props);
   const { ingredients, isInProgress, handleIngredients } = stateProps;
-  const dispatch = useDispatch();
   const [ingredientsDone, setIngredientsDone] = useState([]);
-  const inProgressRecipes = useSelector((state) => state.recipes.inProgressRecipes);
+  const [inProgressRecipes,
+    setInProgressRecipes] = useLocalStorage(LS_KEYS.IN_PROGRESS_RECIPES_KEY, {
+    cocktails: {}, meals: {},
+  });
   const { recipeId } = useParams();
   const { pathname } = useLocation();
 
-  useEffect(() => (setStateProps(props)), [props]);
   useEffect(() => {
     if (Object.prototype.hasOwnProperty.call(
       pathname.includes('comidas')
@@ -31,27 +73,45 @@ export default function RecipeIngredients(props) {
   }, [handleIngredients, ingredientsDone, ingredients]);
 
   const handleChange = ({ target: { value, checked } }) => {
-    dispatch(checkIngredient(
+    setInProgressRecipes(checkIngredient({
+      inProgressRecipes,
       checked,
-      value,
+      ingredient: value,
       recipeId,
-      pathname.includes('comidas') ? 'meals' : 'cocktails',
-    ));
+      recipeType: pathname.includes('comidas') ? 'meals' : 'cocktails' }));
   };
 
   const ingredientElement = (text, index) => {
     if (!isInProgress) {
       return (
-        <li
+        <Item
           key={ text }
           data-testid={ `${index}-ingredient-name-and-measure` }
         >
           {text}
-        </li>
+        </Item>
+      );
+    } if (ingredientsDone && ingredientsDone.includes(text)) {
+      return (
+        <DoneItem
+          key={ text }
+          data-testid={ `${index}-ingredient-step` }
+        >
+          <label htmlFor={ `${index}-ingredient` }>
+            <input
+              type="checkbox"
+              id={ `${index}-ingredient` }
+              value={ text }
+              checked
+              onChange={ handleChange }
+            />
+            {text}
+          </label>
+        </DoneItem>
       );
     }
     return (
-      <li
+      <Item
         key={ text }
         data-testid={ `${index}-ingredient-step` }
       >
@@ -60,25 +120,24 @@ export default function RecipeIngredients(props) {
             type="checkbox"
             id={ `${index}-ingredient` }
             value={ text }
-            checked={ ingredientsDone && ingredientsDone.includes(text) }
             onChange={ handleChange }
           />
           {text}
         </label>
-      </li>
+      </Item>
     );
   };
 
   return (
-    <>
+    <Container>
       <h4>Ingredients:</h4>
-      <ul>
+      <StyledUL>
         {
           ingredients.map(({ text }, index) => (
             ingredientElement(text, index)
           ))
         }
-      </ul>
-    </>
+      </StyledUL>
+    </Container>
   );
 }

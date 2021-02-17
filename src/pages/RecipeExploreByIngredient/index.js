@@ -1,107 +1,64 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useLocation } from 'react-router-dom';
 import { Header, Footer } from '../../components';
 
-import { getIngredientList, FILTER_TYPES } from '../../services/recipeAPI';
-import { setFilter, fetchRecipesByFilter } from '../../store/ducks/recipes';
+import { setFilter } from '../../store/ducks/recipes';
+import { FILTER_TYPES } from '../../services/recipeAPI';
+import { fetchIngredients } from '../../store/ducks/ingredients';
+import { StyledCard, StyledCardColumns } from './styles';
 
 const RecipeExploreByIngredient = () => {
-  const location = useLocation();
-  const currentPath = location.pathname;
-  const zero = 0;
-  const twelve = 12;
-  const [ingredientList, setIngredientList] = useState([]);
+  const { pathname } = useLocation();
+  const history = useHistory();
+  const START_INDEX = 0;
+  const END_INDEX = 12;
+  const { data: ingredients, isFetching } = useSelector((state) => state.ingredients);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getIngredientList(currentPath).then((r) => setIngredientList(r));
-  });
+    dispatch(fetchIngredients(pathname));
+  }, [dispatch, pathname]);
 
-  if (currentPath.includes('comidas')) {
-    return (
-      <div>
-        <Header
-          title="Explorar Ingredientes"
-          showSearchIcon={ false }
-        />
-        {ingredientList
-            && ingredientList.slice(zero, twelve).map((ing, index) => (
-              <Link
-                to="/comidas"
-                data-testid={ `${index}-ingredient-card` }
-                key={ ing.strIngredient }
-                onClick={ () => {
-                  dispatch(setFilter(
-                    'explore',
-                    FILTER_TYPES.INGREDIENT,
-                    ing.strIngredient,
-                  ));
-                  dispatch(fetchRecipesByFilter(
-                    '/comidas',
-                    FILTER_TYPES.INGREDIENT,
-                    ing.strIngredient,
-                  ));
-                } }
-              >
-                <div>
-                  <img
-                    data-testid={ `${index}-card-img` }
-                    src={ `https://www.themealdb.com/images/ingredients/${ing.strIngredient}-Small.png` }
-                    alt={ ing.strIngredient }
-                  />
-                  <div>
-                    <h5 data-testid={ `${index}-card-name` }>
-                      {ing.strIngredient}
-                    </h5>
-                  </div>
-                </div>
-              </Link>
-            ))}
-        <Footer />
-      </div>);
-  } if (currentPath.includes('bebidas')) {
-    return (
-      <div>
-        <Header
-          title="Explorar Ingredientes"
-          showSearchIcon={ false }
-        />
-        {ingredientList
-            && ingredientList.slice(zero, twelve).map((ing, index) => (
-              <Link
-                to="/bebidas"
-                data-testid={ `${index}-ingredient-card` }
-                key={ ing.strIngredient1 }
-                onClick={ () => {
-                  dispatch(setFilter(
-                    'explore',
-                    FILTER_TYPES.INGREDIENT, ing.strIngredient1,
-                  ));
-                  dispatch(fetchRecipesByFilter(
-                    '/bebidas',
-                    FILTER_TYPES.INGREDIENT,
-                    ing.strIngredient1,
-                  ));
-                } }
-              >
-                <div>
-                  <img
-                    data-testid={ `${index}-card-img` }
-                    src={ `https://www.thecocktaildb.com/images/ingredients/${ing.strIngredient1}-Small.png` }
-                    alt={ ing.strIngredient1 }
-                  />
-                  <div>
-                    <h5 data-testid={ `${index}-card-name` }>
-                      {ing.strIngredient1}
-                    </h5>
-                  </div>
-                </div>
-              </Link>
-            ))}
-        <Footer />
-      </div>);
-  }
+  const handleClick = (term) => {
+    dispatch(setFilter('explore', FILTER_TYPES.INGREDIENT, term));
+    history.push(pathname.includes('comidas') ? '/comidas' : '/bebidas');
+  };
+  console.log(ingredients);
+  return (
+    <div>
+      <Header
+        title="Explorar Ingredientes"
+        showSearchIcon={ false }
+      />
+      {isFetching ? 'Loading...' : ''}
+      <StyledCardColumns>
+        { ingredients && ingredients.slice(START_INDEX, END_INDEX)
+          .map(({ name, image }, index) => (
+            <StyledCard
+              className="bg-dark text-white"
+              key={ name }
+              data-testid={ `${index}-ingredient-card` }
+              onClick={ () => handleClick(name) }
+            >
+              <StyledCard.Img
+                data-testid={ `${index}-card-img` }
+                src={ image }
+                alt={ `Card ${name}` }
+              />
+              <StyledCard.ImgOverlay>
+                <StyledCard.Title
+                  data-testid={ `${index}-card-name` }
+                >
+                  { name}
+                </StyledCard.Title>
+              </StyledCard.ImgOverlay>
+            </StyledCard>
+          ))}
+      </StyledCardColumns>
+      <Footer />
+    </div>
+  );
 };
 
 export default RecipeExploreByIngredient;

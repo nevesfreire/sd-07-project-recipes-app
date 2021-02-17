@@ -1,23 +1,20 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
 
 import { FILTER_TYPES } from '../../services/recipeAPI';
-import { setFilter, fetchRecipesByFilter } from '../../store/ducks/recipes';
+import { setFilter } from '../../store/ducks/recipes';
 
 const SearchBar = () => {
   const ORIGIN_SEARCH_BAR = 'searchbar';
   const [query, setQuery] = useState(FILTER_TYPES.INGREDIENT);
   const [inputQuery, setInputQuery] = useState('');
   const dispatch = useDispatch();
-  const { pathname } = useLocation();
 
   const handleQuery = () => {
     if (query === FILTER_TYPES.FIRST_LETTER && inputQuery.length !== 1) {
       return alert('Sua busca deve conter somente 1 (um) caracter');
     }
     dispatch(setFilter(ORIGIN_SEARCH_BAR, query, inputQuery));
-    dispatch(fetchRecipesByFilter(pathname, query, inputQuery));
   };
 
   return (

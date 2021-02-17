@@ -2,16 +2,11 @@ import {
   getRecipes,
   request,
   failedRequest,
-  getCategories,
-  setRecipeDetails,
-  setAreas,
-  setIngredients,
-  getRecomendations,
 } from './actions';
 
 import * as recipeAPI from '../../../services/recipeAPI';
 
-export function fetchRecipesByFilter(
+export default function fetchRecipesByFilter(
   pathType,
   filterType = recipeAPI.FILTER_TYPES.NAME,
   filterTerm = '',
@@ -31,7 +26,7 @@ export function fetchRecipesByFilter(
         data = await recipeAPI.getRecipesByFirstLetter(pathType, filterTerm);
         break;
       case recipeAPI.FILTER_TYPES.AREA:
-        console.log('pendente filtrar por area');
+        data = await recipeAPI.getRecipesByArea(filterTerm);
         break;
       case recipeAPI.FILTER_TYPES.NAME:
         data = await recipeAPI.getRecipesByName(pathType, filterTerm);
@@ -42,97 +37,6 @@ export function fetchRecipesByFilter(
       dispatch(getRecipes(data));
     } catch (error) {
       console.log('fetchRecipesByFilter: ', pathType, filterType, filterTerm);
-      console.log(error);
-      dispatch(failedRequest(error.message));
-    }
-  };
-}
-
-export function fetchCategories(type) {
-  return async (dispatch) => {
-    try {
-      dispatch(request());
-      const data = await recipeAPI.getCategories(type);
-      dispatch(getCategories(data));
-    } catch (error) {
-      console.log(error);
-      dispatch(failedRequest(error.message));
-    }
-  };
-}
-
-export function fetchRecomendations(type) {
-  return async (dispatch) => {
-    try {
-      dispatch(request());
-      const data = await recipeAPI.getRecipes(type);
-      dispatch(getRecomendations(data));
-    } catch (error) {
-      console.log(error);
-      dispatch(failedRequest(error.message));
-    }
-  };
-}
-
-export function fetchRandomRecipe(type) {
-  return async (dispatch) => {
-    try {
-      dispatch(request());
-      const data = await recipeAPI.getRandom(type);
-      dispatch(setRecipeDetails(data[0]));
-    } catch (error) {
-      console.log(error);
-      dispatch(failedRequest(error.message));
-    }
-  };
-}
-
-export function fetchRecipeById(type, recipeId) {
-  return async (dispatch) => {
-    try {
-      dispatch(request());
-      const data = await recipeAPI.getRecipeById(type, recipeId);
-      dispatch(setRecipeDetails(data[0]));
-    } catch (error) {
-      console.log(error);
-      dispatch(failedRequest(error.message));
-    }
-  };
-}
-
-export function fetchAreas(type) {
-  return async (dispatch) => {
-    try {
-      dispatch(request());
-      const data = await recipeAPI.getAreas(type);
-      dispatch(setAreas(data));
-    } catch (error) {
-      console.log(error);
-      dispatch(failedRequest(error.message));
-    }
-  };
-}
-
-export function fetchIngredients(type) {
-  return async (dispatch) => {
-    try {
-      dispatch(request());
-      const data = await recipeAPI.getIngredientList(type);
-      dispatch(setIngredients(data));
-    } catch (error) {
-      console.log(error);
-      dispatch(failedRequest(error.message));
-    }
-  };
-}
-
-export function fetchRecipesByIngredient(type, ingredient) {
-  return async (dispatch) => {
-    try {
-      dispatch(request());
-      const data = await recipeAPI.getRecipesByIngredient(type, ingredient);
-      dispatch(getRecipes(data));
-    } catch (error) {
       console.log(error);
       dispatch(failedRequest(error.message));
     }

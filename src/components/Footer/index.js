@@ -14,7 +14,7 @@ function Footer() {
 
   const handleClick = (path) => {
     if (pathname !== path) {
-      dispatch(setFilter('', ''));
+      dispatch(setFilter('home', ''));
     }
     history.push(path);
   };

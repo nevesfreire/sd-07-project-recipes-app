@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { LS_KEYS } from '../../services/localStorage';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
-import { doneRecipe } from '../../store/ducks/recipes';
 import { getDoneMealAndDrinkRecipe } from '../../services/helper';
 
 import { StyledButton } from './styles';
@@ -12,14 +13,14 @@ function RecipeButton(props) {
   const { title, path, isDisabled } = propsState;
   const { pathname } = useLocation();
   const history = useHistory();
-  const detailsRecipe = useSelector((state) => state.recipes.detailsRecipe);
-  const dispatch = useDispatch();
+  const recipe = useSelector((state) => state.recipe.data);
+  const [doneRecipes, setDoneRecipes] = useLocalStorage(LS_KEYS.DONE_RECIPES_KEY, []);
 
   const handleClick = () => {
     if (!pathname.includes('in-progress')) {
       history.push(`${path}/in-progress`);
     } else {
-      dispatch(doneRecipe(getDoneMealAndDrinkRecipe(detailsRecipe)));
+      setDoneRecipes([...doneRecipes, getDoneMealAndDrinkRecipe(recipe)]);
       history.push('/receitas-feitas');
     }
   };

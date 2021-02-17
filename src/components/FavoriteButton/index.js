@@ -1,30 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { favoriteRecipe, unFavoriteRecipe } from '../../store/ducks/recipes';
 import { blackHeartIcon, whiteHeartIcon } from '../../images';
 import { resumeMealAndDrinkRecipe } from '../../services/helper';
 import StyledImage from './styles';
 
 export default function FavoriteButton(props) {
-  const [propsState] = useState(props);
-  const { recipeId, dataTestId } = propsState;
-  const favoriteRecipes = useSelector((state) => state.recipes.favoriteRecipes);
-  const [isFavorite, setIsFavorite] = useState(favoriteRecipes
-    .some(({ id }) => id === recipeId));
+  const [propsState, setPropsState] = useState(props);
+  const { recipe, dataTestId, favoriteRecipes, setFavoriteRecipes } = propsState;
 
-  const detailsRecipe = useSelector((state) => state.recipes.detailsRecipe);
-  const dispatch = useDispatch();
+  const [isFavorite, setIsFavorite] = useState(favoriteRecipes
+    .some(({ id }) => id === recipe.id));
 
   const handleClick = () => {
-    dispatch(isFavorite
-      ? unFavoriteRecipe(recipeId)
-      : favoriteRecipe(resumeMealAndDrinkRecipe(detailsRecipe)));
+    setFavoriteRecipes(isFavorite
+      ? favoriteRecipes
+        .filter(({ id }) => id !== recipe.id)
+      : [...favoriteRecipes, resumeMealAndDrinkRecipe(recipe)]);
   };
+
+  useEffect(() => setPropsState(props), [props]);
 
   useEffect(() => {
     setIsFavorite(favoriteRecipes
-      .some(({ id }) => id === recipeId));
-  }, [favoriteRecipes, recipeId]);
+      .some(({ id }) => id === recipe.id));
+  }, [favoriteRecipes, recipe.id]);
 
   return (
     <StyledImage
