@@ -33,6 +33,6 @@
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
   height: 80px;
+  justify-content: space-evenly;
 }
