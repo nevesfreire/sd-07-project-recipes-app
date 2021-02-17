@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import '../components/components.css';
-import {
-  Button, LoadingCard, ShareButton, FavoriteFoodButton, CheckListIngredients, NotFound,
+import { Button, LoadingCard, ShareButton, FavoriteFoodButton,
+  CheckListIngredients, NotFound,
 } from '../components';
 import { useFetchApi } from '../hooks';
 import { getURL } from '../Services';
@@ -12,10 +12,9 @@ export default function RecipeFoodInProgress() {
   const [completRecipe, setComplet] = useState(false);
 
   const { push } = useHistory();
-  const { idFood } = useParams();
+  const { id } = useParams();
 
-  const drink = false;
-  const URL = getURL({ id: idFood }, drink);
+  const URL = getURL({ id }, false);
   const [loading, { meals }] = useFetchApi(URL);
   const [mealsObj] = meals || [''];
 
@@ -42,7 +41,7 @@ export default function RecipeFoodInProgress() {
             <h5 data-testid="recipe-category">{mealsObj.strCategory}</h5>
 
             <CheckListIngredients
-              recipeId={ idFood }
+              recipeId={ id }
               drink={ false }
               setComplet={ setComplet }
               ingreObj={ mealsObj }

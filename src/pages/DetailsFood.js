@@ -9,17 +9,17 @@ import './css/details.css';
 
 export default function DetailsFood() {
   const { push } = useHistory();
-  const { idFood } = useParams();
+  const { id } = useParams();
 
   const drink = false;
-  const URL = getURL({ id: idFood || 'random' }, drink);
+  const URL = getURL({ id: id || 'random' }, drink);
   const [loading, { meals }] = useFetchApi(URL);
   const [mealsObj] = meals || [''];
 
   const ingredients = getKeys(mealsObj, 'strIngredient');
   const measures = getKeys(mealsObj, 'strMeasure');
 
-  const [itemsChecks] = useRecipeInProgress(idFood, drink);
+  const [itemsChecks] = useRecipeInProgress(id, drink);
   const recipeInProgress = useMemo(() => (
     itemsChecks.length !== ingredients.length
   ), [itemsChecks, ingredients]);
@@ -93,7 +93,7 @@ export default function DetailsFood() {
             testid="start-recipe-btn"
             text={ recipeInProgress ? 'Continuar Receita' : 'Iniciar Receita' }
             position="btn-fixed"
-            func={ () => { push(`/comidas/${idFood}/in-progress`); } }
+            func={ () => { push(`/comidas/${id}/in-progress`); } }
           />
         </div>
       )

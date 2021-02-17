@@ -3,7 +3,6 @@ import { useState } from 'react';
 function vip(str = '') {
   const names = ['thay', 'thayrone', 'hamaji', 'wolf', 'murillo'];
   const valid = names.includes(str);
-  console.log(valid);
   return valid;
 }
 

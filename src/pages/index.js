@@ -12,3 +12,4 @@ export { default as DetailsFood } from './DetailsFood';
 export { default as DetailsDrink } from './DetailsDrink';
 export { default as RecipeFoodInProgress } from './RecipeFoodInProgress';
 export { default as RecipeDrinkInProgress } from './RecipeDrinkInProgress';
+export { default as MadeRecipes } from './MadeRecipes';

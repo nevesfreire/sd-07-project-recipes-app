@@ -9,16 +9,16 @@ import './css/details.css';
 
 export default function DetailsDrink() {
   const { push } = useHistory();
-  const { idDrink } = useParams();
+  const { id } = useParams();
 
-  const URL = getURL({ id: idDrink || 'random' });
+  const URL = getURL({ id: id || 'random' });
   const [loading, { drinks }] = useFetchApi(URL);
   const [drinkObj] = drinks || [''];
 
   const ingredients = getKeys(drinkObj, 'strIngredient');
   const measures = getKeys(drinkObj, 'strMeasure');
 
-  const [itemsChecks] = useRecipeInProgress(idDrink);
+  const [itemsChecks] = useRecipeInProgress(id);
   const recipeInProgress = useMemo(() => (
     itemsChecks.length !== ingredients.length
   ), [itemsChecks, ingredients]);
@@ -78,7 +78,7 @@ export default function DetailsDrink() {
               testid="start-recipe-btn"
               text={ recipeInProgress ? 'Continuar Receita' : 'Iniciar Receita' }
               position="btn-fixed"
-              func={ () => { push(`/bebidas/${idDrink}/in-progress`); } }
+              func={ () => { push(`/bebidas/${id}/in-progress`); } }
             />
           </div>
         </div>

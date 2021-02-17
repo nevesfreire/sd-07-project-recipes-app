@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import copy from 'clipboard-copy';
+import PropTypes from 'prop-types';
 import { Button, CopiedMSG } from './Contructors';
 import { shareIcon } from '../images';
 
@@ -23,3 +24,7 @@ export default function ShareButton({ URL }) {
     </>
   );
 }
+
+ShareButton.propTypes = {
+  URL: PropTypes.string.isRequired,
+};

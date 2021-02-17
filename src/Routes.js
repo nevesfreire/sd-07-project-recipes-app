@@ -6,6 +6,7 @@ import {
   Profile,
   Drinks,
   Explore,
+  MadeRecipes,
   DetailsFood,
   DetailsDrink,
   FoodExplore,
@@ -26,9 +27,9 @@ export default function Routes() {
         <Route exact path="/" component={ Login } />
         <Route exact path="/vip/:name" component={ tribute } />
         <Route exact path="/comidas" component={ Foods } />
-        <Route exact path="/comidas/:idFood" component={ DetailsFood } />
+        <Route exact path="/comidas/:id" component={ DetailsFood } />
         <Route exact path="/bebidas" component={ Drinks } />
-        <Route exact path="/bebidas/:idDrink" component={ DetailsDrink } />
+        <Route exact path="/bebidas/:id" component={ DetailsDrink } />
         <Route exact path="/explorar" component={ Explore } />
         <Route exact path="/explorar/comidas" component={ FoodExplore } />
         <Route exact path="/explorar/bebidas" component={ DrinkExplore } />
@@ -47,14 +48,15 @@ export default function Routes() {
         <Route exact path="/explorar/bebidas/area" component={ NotFound } />
         <Route
           exact
-          path="/comidas/:idFood/in-progress"
+          path="/comidas/:id/in-progress"
           component={ RecipeFoodInProgress }
         />
         <Route
           exact
-          path="/bebidas/:idDrink/in-progress"
+          path="/bebidas/:id/in-progress"
           component={ RecipeDrinkInProgress }
         />
+        <Route exact path="/receitas-feitas" component={ MadeRecipes } />
       </Switch>
     </BrowserRouter>
   );
