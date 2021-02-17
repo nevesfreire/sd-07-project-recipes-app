@@ -2,8 +2,7 @@
   background-image: url('../images/joshua-newton-7qjqQjt7zXQ-unsplash.jpg');
   background-position: center;
   background-repeat: no-repeat;
-  /* width: 100%; */
-  background-size:  cover;
+  background-size: cover;
   min-height: 100vh;
 }
 
@@ -35,7 +34,7 @@
 
 .top-title {
   color: rgb(228, 228, 211);
-  font-family: Georgia , 'Times New Roman' , Times , serif;
+  font-family: Georgia , Times New Roman , Times , serif;
   font-style: inherit;
 }
 
