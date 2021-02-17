@@ -2,7 +2,7 @@ export default function configExplore(path) {
   switch (path) {
   case '/explorar':
     return {
-      title: 'Eplorar',
+      title: 'Explorar',
       options: [
         { link: '/explorar/comidas',
           dataTestId: 'explore-food',
