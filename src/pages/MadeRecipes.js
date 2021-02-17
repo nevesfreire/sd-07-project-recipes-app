@@ -1,25 +1,9 @@
-import React, { useMemo } from 'react';
-import { Header, Button, HorizontalCard, NotFound } from '../components';
-import { useLocalStorage } from '../hooks';
-
-const getLists = (recipesInProgress) => {
-  const defaultRecipes = { cocktails: [], meals: [] };
-  const recipes = recipesInProgress || defaultRecipes;
-
-  const cocktailList = recipes.cocktails || [];
-  const cocktails = Object.keys(cocktailList);
-
-  const mealsList = recipes.meals || [];
-  const meals = Object.keys(mealsList);
-
-  return [cocktails, meals];
-};
+import React from 'react';
+import { useMadeRecipes } from '../hooks';
+import { Header, Button, HorizontalCard } from '../components';
 
 export default function MadeRecipes() {
-  const [recipesInProgress] = useLocalStorage('inProgressRecipes');
-  const [drinks, foods] = useMemo(() => getLists(recipesInProgress), [recipesInProgress]);
-
-  if (!recipesInProgress) return (<NotFound />);
+  const [{ drinks, foods }, setFilters] = useMadeRecipes();
 
   return (
     <div>
@@ -28,17 +12,17 @@ export default function MadeRecipes() {
         <Button
           testid="filter-by-all-btn"
           text="All"
-          func={ () => {} }
+          func={ () => { setFilters({ drink: false, food: false }); } }
         />
         <Button
           testid="filter-by-food-btn"
           text="Food"
-          func={ () => {} }
+          func={ () => { setFilters({ drink: true, food: false }); } }
         />
         <Button
           testid="filter-by-drink-btn"
           text="Drinks"
-          func={ () => {} }
+          func={ () => { setFilters({ drink: false, food: true }); } }
         />
       </div>
       {
