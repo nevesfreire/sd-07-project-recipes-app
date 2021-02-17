@@ -16,7 +16,7 @@ export default function DoneCard({ recipe, index }) {
     tags,
   } = recipe;
   const [showCopied, setShowCopied] = useState(false);
-
+  console.log(recipe);
   const renderTopText = () => {
     if (type === 'comida') {
       return (
@@ -73,14 +73,14 @@ export default function DoneCard({ recipe, index }) {
         { showCopied && <p>Link copiado!</p> }
         <h4 data-testid={ `${index}-horizontal-done-date` }>{ doneDate }</h4>
         <p
-          data-testid={ `${index}-${tags[0]}-horizontal-tag` }
+          data-testid={ `${index}-${tags ? tags[0] : ''}-horizontal-tag` }
         >
-          { tags[0] }
+          { tags ? tags[0] : '' }
         </p>
         <p
-          data-testid={ `${index}-${tags[1]}-horizontal-tag` }
+          data-testid={ `${index}-${tags ? tags[1] : ''}-horizontal-tag` }
         >
-          { tags[1] }
+          { tags ? tags[1] : '' }
         </p>
       </div>
     </div>

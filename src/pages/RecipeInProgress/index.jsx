@@ -1,30 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FavoriteButton, ShareButton } from '../../components';
-import WhiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import {
+  addIngredient,
+  // getIngredients,
+  setRecipeDone,
+  addToRecipesInProgress,
+} from '../../services/localStorage';
 
 export default function RecipeInProgress({ history, match: { params: { id } } }) {
-  const [recipesInProgress, setRecipesInProgress] = useState([]);
   const { location: { pathname } } = history;
   const path = pathname.split('/')[1];
-  const fetchFoodDetails = async () => {
-    try {
-      let endpoint = '';
-      if (path === 'comidas') {
-        endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
-      } else {
-        endpoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
-      }
-      const results = await fetch(endpoint)
-        .then((response) => response.json())
-        .then((details) => (details.meals ? details.meals : details.drinks));
-      // const resultsFiltered = await results.filter((key) => key.value !== null);
-      setRecipesInProgress(results[0]);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+  const [recipesInProgress, setRecipesInProgress] = useState([]);
+  const [disabled, setDisabled] = useState(true);
+  const [ingredientsList, setIngredientsList] = useState([]);
   const {
     idMeal,
     strMealThumb,
@@ -38,27 +27,88 @@ export default function RecipeInProgress({ history, match: { params: { id } } })
     strDrinkThumb,
   } = recipesInProgress;
 
-  const teste = Object.keys(recipesInProgress);
-  console.log(recipesInProgress);
-  console.log(teste);
-  const ingredients = teste.filter((item) => item.includes('strIngredient'));
-  console.log(ingredients);
-  const measures = teste.filter((item) => item.includes('strMeasure'));
-
-  const arrayVazio = [];
-  ingredients.forEach((ingredient, index) => {
-    if (
-      (recipesInProgress[ingredient]
-      && recipesInProgress[ingredient] !== ' '
-      && recipesInProgress[ingredient] !== null)) {
-      arrayVazio.push([recipesInProgress[ingredient],
-        recipesInProgress[measures[index]]]);
+  const fetchFoodDetails = async () => {
+    try {
+      let endpoint = '';
+      if (path === 'comidas') {
+        endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+      } else {
+        endpoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+      }
+      const results = await fetch(endpoint)
+        .then((response) => response.json())
+        .then((details) => (details.meals ? details.meals : details.drinks));
+      setRecipesInProgress(results[0]);
+    } catch (error) {
+      console.log(error);
     }
-  });
+  };
+
+  const isChecked = (name) => {
+    const ingredient = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+    if (path === 'comidas') {
+      return ingredient.meals[id].includes(name[0]);
+    }
+    if (path === 'bebidas') {
+      return ingredient.cocktails[id].includes(name[0]);
+    }
+  };
+
+  const handleDone = () => {
+    setRecipeDone(id, path, recipesInProgress);
+    history.push('/receitas-feitas');
+  };
+
+  const isDone = () => {
+    const ingredient = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (path === 'comidas'
+    && ingredientsList.length === ingredient.meals[id].length) {
+      return setDisabled(false);
+    }
+    if (path === 'bebidas'
+      && ingredientsList.length === ingredient.cocktails[id].length) {
+      return setDisabled(false);
+    }
+    setDisabled(true);
+  };
 
   useEffect(() => {
     fetchFoodDetails();
   }, []);
+
+  useEffect(() => {
+    const teste = Object.keys(recipesInProgress);
+    const ingredients = teste.filter((item) => item.includes('strIngredient'));
+    const measures = teste.filter((item) => item.includes('strMeasure'));
+
+    ingredients.forEach((ingredient, index) => {
+      if (
+        (recipesInProgress[ingredient]
+        && recipesInProgress[ingredient] !== ' '
+        && recipesInProgress[ingredient] !== null)) {
+        setIngredientsList((prevState) => [
+          ...prevState,
+          [recipesInProgress[ingredient],
+            recipesInProgress[measures[index]]],
+        ]);
+      }
+    });
+  }, [recipesInProgress]);
+
+  useEffect(() => {
+    const ingredient = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+    if (path === 'comidas' && !ingredient.meals[id]) {
+      addToRecipesInProgress(id, 'meals');
+    } else if (path === 'bebidas' && !ingredient.cocktails[id]) {
+      addToRecipesInProgress(id, 'cocktails');
+    }
+  }, []);
+
+  useEffect(() => {
+    isDone();
+  }, [ingredientsList]);
 
   return (
     <div className="recipe-detail">
@@ -82,7 +132,7 @@ export default function RecipeInProgress({ history, match: { params: { id } } })
         </h4>
       </div>
       <div className="container-ingredients">
-        { arrayVazio
+        { ingredientsList
           .map((name, index) => (
             <label
               key={ index }
@@ -90,10 +140,15 @@ export default function RecipeInProgress({ history, match: { params: { id } } })
               data-testid={ `${index}-ingredient-step` }
             >
               <input
+                onClick={ () => {
+                  addIngredient(id, path, name[0]);
+                  isDone();
+                } }
                 type="checkbox"
                 key={ index }
                 data-testid={ `${index}-ingredient` }
                 value={ index }
+                defaultChecked={ isChecked(name) }
               />
               <span>
                 { name[1] !== null ? `${name[0]} - ${name[1]}` : `${name[0]}` }
@@ -107,7 +162,12 @@ export default function RecipeInProgress({ history, match: { params: { id } } })
       <div data-testid={ `${idMeal || idDrink}-recomendation-card` }>
         { strDrinkAlternate }
       </div>
-      <button type="button" data-testid="finish-recipe-btn">
+      <button
+        type="button"
+        data-testid="finish-recipe-btn"
+        onClick={ handleDone }
+        disabled={ disabled }
+      >
         Finalizar Receita
       </button>
     </div>
@@ -124,5 +184,6 @@ RecipeInProgress.propTypes = {
     location: PropTypes.shape({
       pathname: PropTypes.string.isRequired,
     }),
+    push: PropTypes.func.isRequired,
   }).isRequired,
 };

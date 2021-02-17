@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { addToRecipesInProgress } from '../../services/localStorage';
+import {
+  addToRecipesInProgress,
+  isInProgress,
+  isDone,
+} from '../../services/localStorage';
 
 export default function StartButton({ idMeal, idDrink, history }) {
   const startRecipe = () => {
@@ -21,65 +25,22 @@ export default function StartButton({ idMeal, idDrink, history }) {
     }
   };
 
-  const isInProgress = () => {
-    const progressRecipes = localStorage.getItem('inProgressRecipes');
-
-    if (idMeal) {
-      return JSON.parse(progressRecipes).meals[idMeal];
-    }
-    if (idDrink) {
-      return JSON.parse(progressRecipes).cocktails[idDrink];
-    }
-  };
-
-  const isDone = () => {
-    const progressRecipes = localStorage.getItem('doneRecipes');
-
-    if (idMeal) {
-      console.log('alou');
-      return JSON.parse(progressRecipes).some((recipe) => recipe.idMeal);
-    }
-    if (idDrink) {
-      return JSON.parse(progressRecipes).some((recipe) => recipe.idMeal);
-    }
-  };
-
-  const renderContinue = () => {
-    if (isInProgress()) {
-      return (
-        <button
-          type="button"
-          className="start-recipe-btn"
-          data-testid="start-recipe-btn"
-          onClick={ continueRecipe }
-        >
-          Continuar Receita
-        </button>
-      );
-    }
-  };
-
-  const renderStart = () => {
-    if (!isInProgress()) {
-      return (
-        <button
-          style={ { visibility: isDone() ? 'hidden' : 'visible' } }
-          type="button"
-          className="start-recipe-btn"
-          data-testid="start-recipe-btn"
-          onClick={ startRecipe }
-        >
-          Iniciar Receita
-        </button>
-      );
-    }
-  };
-
   return (
-    <div>
-      {renderContinue()}
-      {renderStart()}
-    </div>
+    <button
+      style={ { visibility: isDone(idMeal, idDrink) ? 'hidden' : 'visible' } }
+      type="button"
+      className="start-recipe-btn"
+      data-testid="start-recipe-btn"
+      onClick={ () => {
+        if (isInProgress(idMeal, idDrink)) {
+          continueRecipe();
+        } else {
+          startRecipe();
+        }
+      } }
+    >
+      { isInProgress(idMeal, idDrink) ? 'Continuar Receita' : 'Iniciar Receita' }
+    </button>
   );
 }
 
