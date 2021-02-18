@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { Button, DrinkRecomendation, NotFound,
-  LoadingCard, ShareButton, FavoriteFoodButton,
+  LoadingCard, ShareButton, FavoriteButton,
 } from '../components';
 import { useFetchApi, useRecipeInProgress } from '../hooks';
 import { getKeys, getURL } from '../Services';
@@ -44,7 +44,7 @@ export default function DetailsFood() {
 
           <div className="favoriteShare">
             <ShareButton URL={ location } />
-            <FavoriteFoodButton foodArr={ mealsObj } />
+            <FavoriteButton arr={ mealsObj } drink={ false } />
           </div>
 
           <div className="instuctionsDetails">

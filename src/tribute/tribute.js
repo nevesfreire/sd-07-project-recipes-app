@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Card, NotFound,
-  ShareButton, FavoriteFoodButton,
+  ShareButton,
 } from '../components';
 import data from './data';
 import '../pages/css/details.css';
@@ -29,7 +29,6 @@ export default function DetailsFood({ match }) {
       </div>
       <div className="favoriteShare">
         <ShareButton />
-        <FavoriteFoodButton />
       </div>
       <div className="instuctionsDetails">
         <h1 data-testid="recipe-title">{title}</h1>
@@ -55,7 +54,7 @@ export default function DetailsFood({ match }) {
           data-testid="video"
           title={ titleVideo }
           src={ linkVideo.replace('watch?v=', 'embed/') }
-          
+
         />
       </div>
     </div>

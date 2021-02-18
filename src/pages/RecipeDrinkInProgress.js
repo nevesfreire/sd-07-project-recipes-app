@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import '../components/components.css';
 import { Button, LoadingCard, ShareButton,
-  FavoriteDrinkButton, CheckListIngredients, NotFound,
+  FavoriteButton, CheckListIngredients, NotFound,
 } from '../components';
 import { useFetchApi, useDoneRecipes } from '../hooks';
 import { getURL } from '../Services';
@@ -37,7 +37,7 @@ export default function RecipeDrinkInProgress() {
             <div>
               <h3 data-testid="recipe-title">{drinkObj.strDrink}</h3>
               <ShareButton URL={ location } />
-              <FavoriteDrinkButton drinksArr={ drinkObj } />
+              <FavoriteButton arr={ drinkObj } drink />
             </div>
 
             <h5 data-testid="recipe-category">{drinkObj.strAlcoholic}</h5>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import '../components/components.css';
-import { Button, LoadingCard, ShareButton, FavoriteFoodButton,
+import { Button, LoadingCard, ShareButton, FavoriteButton,
   CheckListIngredients, NotFound,
 } from '../components';
 import { useFetchApi, useDoneRecipes } from '../hooks';
@@ -37,7 +37,7 @@ export default function RecipeFoodInProgress() {
             <div>
               <h3 data-testid="recipe-title">{mealsObj.strMeal}</h3>
               <ShareButton URL={ location } />
-              <FavoriteFoodButton foodArr={ mealsObj } />
+              <FavoriteButton arr={ mealsObj } drink={ false } />
             </div>
 
             <h5 data-testid="recipe-category">{mealsObj.strCategory}</h5>
