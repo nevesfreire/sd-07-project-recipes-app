@@ -5,7 +5,7 @@ import { Header, Footer, Button } from '../components';
 
 export default function Profile() {
   const { push } = useHistory();
-  const [{ email }, setStorage] = useLocalStorage('user');
+  const [{ email }] = useLocalStorage('user');
   return (
     <div>
       <Header title="Perfil" search={ false } />
@@ -24,7 +24,7 @@ export default function Profile() {
         testid="profile-logout-btn"
         text="Sair"
         func={ () => {
-          setStorage({ email: '' });
+          localStorage.clear();
           push('/');
         } }
       />

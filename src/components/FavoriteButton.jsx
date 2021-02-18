@@ -5,12 +5,12 @@ import { whiteHeartIcon, blackHeartIcon } from '../images';
 import { Button } from './Contructors';
 import { useFavoriteRecipes } from '../hooks';
 
-export default function FavoriteButton({ drink, id: idOptional }) {
+export default function FavoriteButton({ drink, id: idOptional, 'data-testid': testid }) {
   const id = useParams().id || idOptional;
   const { favorite, setFavorite } = useFavoriteRecipes(id, drink);
   return (
     <Button
-      testid="favorite-btn"
+      testid={ testid }
       icon={ favorite ? blackHeartIcon : whiteHeartIcon }
       func={ setFavorite }
     />
@@ -20,9 +20,11 @@ export default function FavoriteButton({ drink, id: idOptional }) {
 FavoriteButton.defaultProps = {
   drink: true,
   id: '',
+  'data-testid': '',
 };
 
 FavoriteButton.propTypes = {
   drink: PropTypes.bool,
   id: PropTypes.string,
+  'data-testid': PropTypes.string,
 };

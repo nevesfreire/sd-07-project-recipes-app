@@ -16,6 +16,9 @@ export default function FavoriteCards({ recipes }) {
   return (
     recipes.map((obj, index) => {
       const drink = obj.type === 'bebida';
+      const URL = drink
+        ? `http://localhost:3000/bebidas/${obj.id}`
+        : `http://localhost:3000/comidas/${obj.id}`;
       const route = drink ? `/bebidas/${obj.id}` : `/comidas/${obj.id}`;
       return (
         <div key={ index }>
@@ -31,11 +34,15 @@ export default function FavoriteCards({ recipes }) {
               {
                 drink
                   ? obj.alcoholicOrNot
-                  : `${obj.category} - ${obj.area}`
+                  : `${obj.area} - ${obj.category}`
               }
             </h5>
-            <FavoriteButton drink={ drink } id={ obj.id } />
-            <ShareButton data-testid={ `${index}-horizontal-share-btn` } URL={ route } />
+            <FavoriteButton
+              data-testid={ `${index}-horizontal-favorite-btn` }
+              drink={ drink }
+              id={ obj.id }
+            />
+            <ShareButton data-testid={ `${index}-horizontal-share-btn` } URL={ URL } />
           </div>
           <Link to={ route }>
             <h3 data-testid={ `${index}-horizontal-name` }>

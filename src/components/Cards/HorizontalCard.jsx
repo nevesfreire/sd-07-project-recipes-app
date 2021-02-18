@@ -7,10 +7,15 @@ const two = 2;
 
 export default function HorizontalCard({ filter }) {
   const { recipes } = useDoneRecipes(filter);
+
   return (
     recipes.map((obj, index) => {
       const drink = obj.type === 'bebida';
+      const URL = drink
+        ? `http://localhost:3000/bebidas/${obj.id}`
+        : `http://localhost:3000/comidas/${obj.id}`;
       const route = drink ? `/bebidas/${obj.id}` : `/comidas/${obj.id}`;
+
       return (
         <div key={ index }>
           <Link to={ route }>
@@ -25,10 +30,10 @@ export default function HorizontalCard({ filter }) {
               {
                 drink
                   ? obj.alcoholicOrNot
-                  : `${obj.category} - ${obj.area}`
+                  : `${obj.area} - ${obj.category}`
               }
             </h5>
-            <ShareButton data-testid={ `${index}-horizontal-share-btn` } URL={ route } />
+            <ShareButton data-testid={ `${index}-horizontal-share-btn` } URL={ URL } />
           </div>
           <Link to={ route }>
             <h3 data-testid={ `${index}-horizontal-name` }>

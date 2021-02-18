@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 import { Button, CopiedMSG } from './Contructors';
 import { shareIcon } from '../images';
 
-export default function ShareButton({ URL }) {
+export default function ShareButton({ URL, 'data-testid': testid }) {
   const [copied, setState] = useState(false);
   const treeSecond = 3000;
   return (
     <>
       { copied && (<CopiedMSG />)}
       <Button
-        testid="share-btn"
+        testid={ testid }
         icon={ shareIcon }
         func={ () => {
           copy(URL);
@@ -25,6 +25,11 @@ export default function ShareButton({ URL }) {
   );
 }
 
+ShareButton.defaultProps = {
+  'data-testid': '',
+};
+
 ShareButton.propTypes = {
   URL: PropTypes.string.isRequired,
+  'data-testid': PropTypes.string,
 };
