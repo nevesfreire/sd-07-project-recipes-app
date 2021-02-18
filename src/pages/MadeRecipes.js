@@ -1,10 +1,9 @@
 import React from 'react';
-import { useMadeRecipes } from '../hooks';
+import { useDoneRecipes } from '../hooks';
 import { Header, Button, HorizontalCard } from '../components';
 
 export default function MadeRecipes() {
-  const [{ drinks, foods }, setFilters] = useMadeRecipes();
-
+  const { setFilters } = useDoneRecipes();
   return (
     <div>
       <Header title="Receitas Feitas" search={ false } />
@@ -12,31 +11,20 @@ export default function MadeRecipes() {
         <Button
           testid="filter-by-all-btn"
           text="All"
-          func={ () => { setFilters({ drink: false, food: false }); } }
+          func={ () => { setFilters(); } }
         />
         <Button
           testid="filter-by-food-btn"
           text="Food"
-          func={ () => { setFilters({ drink: true, food: false }); } }
+          func={ () => { setFilters('comida'); } }
         />
         <Button
           testid="filter-by-drink-btn"
           text="Drinks"
-          func={ () => { setFilters({ drink: false, food: true }); } }
+          func={ () => { setFilters('bebida'); } }
         />
       </div>
-      {
-        drinks
-        && drinks.map((id, index) => (
-          <HorizontalCard id={ id } key={ index } index={ index } />
-        ))
-      }
-      {
-        foods
-        && foods.map((id, index) => (
-          <HorizontalCard id={ id } key={ index } index={ index } drink={ false } />
-        ))
-      }
+      <HorizontalCard />
     </div>
   );
 }

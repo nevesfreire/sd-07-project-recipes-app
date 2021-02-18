@@ -1,80 +1,55 @@
-import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { useFetchApi } from '../../hooks';
-import { ShareButton, LoadingCard } from '..';
-import { getURL } from '../../Services';
+import { ShareButton } from '..';
+import { useDoneRecipes } from '../../hooks';
 
-export default function HorizontalCard({ id, index, drink }) {
-  const URL = getURL({ id }, drink);
-  const [loading, result] = useFetchApi(URL);
+const two = 2;
 
-  const resultObj = useMemo(() => {
-    const type = drink ? 'drinks' : 'meals';
-    const [typeObj] = result[type] || [''];
-    return typeObj;
-  }, [result, drink]);
-
-  const [route, keyType, two] = useMemo(() => {
-    const newRoute = `/${drink ? 'bebidas' : 'comidas'}/${id}`;
-    const type = drink ? 'Drink' : 'Meal';
-    const magicTwo = 2;
-    return [newRoute, type, magicTwo];
-  }, [drink, id]);
-
+export default function HorizontalCard() {
+  const { recipes } = useDoneRecipes();
   return (
-    loading
-      ? (<LoadingCard />)
-      : (
-        <div>
+    recipes.map((obj, index) => {
+      const drink = obj.type === 'bebida';
+      const route = drink ? `/bebidas/${obj.id}` : `/comidas/${obj.id}`;
+      return (
+        <div key={ index }>
           <Link to={ route }>
             <img
               alt="Card img"
               data-testid={ `${index}-horizontal-image` }
-              src={ resultObj[`str${keyType}Thumb`] }
+              src={ obj.image }
             />
           </Link>
           <div>
             <h5 data-testid={ `${index}-horizontal-top-text` }>
               {
                 drink
-                  ? resultObj.strAlcoholic
-                  : `${resultObj.strCategory} - ${resultObj.strArea}`
+                  ? obj.alcoholicOrNot
+                  : `${obj.category} - ${obj.area}`
               }
             </h5>
             <ShareButton data-testid={ `${index}-horizontal-share-btn` } URL={ route } />
           </div>
           <Link to={ route }>
             <h3 data-testid={ `${index}-horizontal-name` }>
-              {resultObj[`str${keyType}`]}
+              {obj.name}
             </h3>
           </Link>
-          <p data-testid={ `${index}-horizontal-done-date` }>data</p>
+          <p data-testid={ `${index}-horizontal-done-date` }>{obj.doneDate}</p>
           <div>
             {
-              !drink
-                && resultObj.strTags.split(',')
-                  .filter((_, i) => i >= two).map((tag, i) => (
-                    <span
-                      data-testid={ `${index}-${tag}-horizontal-tag` }
-                      key={ i }
-                    >
-                      {tag}
-                    </span>
-                  ))
+              !drink && obj.tags.filter((_, i) => two > i).map((tag, i) => (
+                <span
+                  data-testid={ `${index}-${tag}-horizontal-tag` }
+                  key={ i }
+                >
+                  {tag}
+                </span>
+              ))
             }
           </div>
         </div>
-      )
+      );
+    })
   );
 }
-
-HorizontalCard.defaultProps = {
-  drink: true,
-};
-
-HorizontalCard.propTypes = {
-  id: PropTypes.string.isRequired,
-  index: PropTypes.number.isRequired,
-  drink: PropTypes.bool,
-};

@@ -4,12 +4,14 @@ import '../components/components.css';
 import { Button, LoadingCard, ShareButton, FavoriteFoodButton,
   CheckListIngredients, NotFound,
 } from '../components';
-import { useFetchApi } from '../hooks';
+import { useFetchApi, useDoneRecipes } from '../hooks';
 import { getURL } from '../Services';
 import './css/recipeInProgress.css';
 
 export default function RecipeFoodInProgress() {
   const [completRecipe, setComplet] = useState(false);
+
+  const { setNewRecipe } = useDoneRecipes();
 
   const { push } = useHistory();
   const { id } = useParams();
@@ -58,7 +60,11 @@ export default function RecipeFoodInProgress() {
               testid="finish-recipe-btn"
               text="Finalizar receita"
               disabled={ !completRecipe }
-              func={ () => push('/receitas-feitas') }
+              func={ () => {
+                const drink = false;
+                setNewRecipe(mealsObj, drink);
+                push('/receitas-feitas');
+              } }
             />
           </div>
         </div>
