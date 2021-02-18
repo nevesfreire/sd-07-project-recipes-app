@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import context from '../contextAPI/context';
 import { fetchApi, getFoodRecipeId, getDrinkRecipeId } from '../services/fetchApi';
-// import shareIcon from '../images/shareIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
 // import Card from './Card';
 
 /* 34 - Realize uma request para a API passando o id da receita que deve estar disponível nos parâmetros da URL
@@ -55,23 +55,23 @@ const recipeTitle = (title) => (
   </h1>
 );
 
-// const recipeShare = (functionShare, message) => (
-//   <div>
-//     <button
-//       data-testid="share-btn"
-//       onClick={ functionShare }
-//       type="button"
-//     >
-//       <img
-//         src={ shareIcon }
-//         alt="share"
-//       />
-//     </button>
-//     <div>
-//       {message}
-//     </div>
-//   </div>
-// );
+const recipeShare = (functionShare, message) => (
+  <div>
+    <button
+      data-testid="share-btn"
+      onClick={ functionShare }
+      type="button"
+    >
+      <img
+        src={ shareIcon }
+        alt="share"
+      />
+    </button>
+    <div>
+      {message}
+    </div>
+  </div>
+);
 
 const recipeCategory = (category) => (
   <h3 data-testid="recipe-category">
@@ -135,11 +135,11 @@ const recipeVideo = (video) => (
 //   </button>
 // );
 
-// async function share(pathname, message) {
-//   navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
-//   message = 'Link copiado!';
-//   return message;
-// }
+async function share(pathname, message) {
+  navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
+  message = 'Link copiado!';
+  return message;
+}
 
 // function start() {
 //   console.log('COMEÇA A RECEITA');
@@ -176,12 +176,13 @@ function RecipeDetail() {
   const video = idData[findMatch(/youtube/i, idData)];
   const ingredients = summerizer(/ingredient/i, idData);
   const measures = summerizer(/measure/i, idData);
+  // const message = 'Link copiado!';
 
   return (
     <div className="card">
       {recipeImage(url, title)}
       {recipeTitle(title)}
-      {/* {recipeShare(share, message)} */}
+      {recipeShare(share)}
       {recipeCategory(category)}
       {recipeIngredients(ingredients, measures)}
       {recipeInstructions(instructions)}
