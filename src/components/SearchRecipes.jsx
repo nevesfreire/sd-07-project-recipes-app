@@ -9,20 +9,21 @@ import {
   FormControlLabel,
 } from '@material-ui/core';
 import context from '../contextAPI/context';
+import useSendRequestBtn from '../hooks/useSendRequestBtn';
 
-const inputSearchBar = (onChange) => (
+const inputSearchBar = (MyOnChange) => (
   <div className="input-searchbar">
     <Input
       data-testid="search-input"
       type="text"
       name="search"
       placeholder="sua busca aqui"
-      onChange={ (e) => onChange(e) }
+      onChange={ (e) => MyOnChange(e) }
     />
   </div>
 );
 
-const radioButtons = (handleChange, value) => (
+const radioButtons = (MyOnChange, value) => (
   <div className="radio-controll">
     <FormControl component="fieldset">
       <FormLabel component="legend">Receitas</FormLabel>
@@ -30,7 +31,7 @@ const radioButtons = (handleChange, value) => (
         aria-label="option"
         name="Receitas"
         value={ value }
-        onChange={ handleChange }
+        onChange={ MyOnChange }
       >
         <div className="field-set">
           <FormControlLabel
@@ -57,13 +58,13 @@ const radioButtons = (handleChange, value) => (
   </div>
 );
 
-const buttonFetch = (onClick) => (
+const buttonFetch = (setGetEvent) => (
   <div className="radio-btn">
     <Button
       data-testid="exec-search-btn"
       variant="contained"
       color="primary"
-      onClick={ (e) => onClick(e) }
+      onClick={ () => setGetEvent(Math.radom()) }
     >
       Buscar
     </Button>
@@ -71,26 +72,25 @@ const buttonFetch = (onClick) => (
 );
 
 export default function SearchRecipes() {
-  const { state, setState } = useContext(context);
+  // const { HandleTextChange, HandleRadioBtnChange } = useContext(context);
+  const [setGetEvent] = useSendRequestBtn();
 
-  const searchChanges = ({ target: { name, value } }) => {
-    setState({ ...state, [name]: value });
-  };
+  // const searchChanges = ({ target: { name, value } }) => {
+  //   console.log(name, ':', value);
+  //   // setState({ ...state, [name]: value });
+  // };
 
   const changeHandler = ({ target }) => {
     const value = target.type === 'checkbox' ? target.checked : target.value;
-    setState({ ...state, [target.name]: value });
-  };
-
-  const execFetch = () => {
-    console.log('oi');
+    console.log(target.name, ':', value);
+    // setState({ ...state, [target.name]: value });
   };
 
   return (
     <div className="search-recipes">
-      {inputSearchBar(searchChanges)}
+      {inputSearchBar(changeHandler)}
       {radioButtons(changeHandler)}
-      {buttonFetch(execFetch)}
+      {buttonFetch(setGetEvent)}
     </div>
   );
 }

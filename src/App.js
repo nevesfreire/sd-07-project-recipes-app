@@ -8,6 +8,7 @@ import Explore from './pages/explore';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import RecipeDetail from './pages/recipeDetail';
+import RecipeInProgress from './pages/recipeInProgress';
 
 function App() {
   return (
@@ -19,8 +20,8 @@ function App() {
       <Route path="/explorar" component={ Explore } />
       <Route path="/explorar/comidas/ingredientes" />
       <Route path="/explorar/bebidas/ingredientes" />
-      <Route path="/comidas/:id/in-progress" />
-      <Route path="/bebidas/:id/in-progress" />
+      <Route path="/comidas/:id/in-progress" component={ RecipeInProgress } />
+      <Route path="/bebidas/:id/in-progress" component={ RecipeInProgress } />
       <Route path="/explorar/comidas/area" />
       <Route path="/receitas-favoritas" />
       <Route path="/explorar/comidas" />
@@ -28,6 +29,7 @@ function App() {
       <Route path="/receitas-feitas" />
       <Route exact path="/comidas/:id" component={ RecipeDetail } />
       <Route exact path="/bebidas/:id" component={ RecipeDetail } />
+      <Route path="/receitas-feitas" />
     </Switch>
   );
 }

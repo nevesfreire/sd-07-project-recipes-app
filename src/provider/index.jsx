@@ -35,6 +35,8 @@ const newFunc = async (setState) => {
 
 function Provider({ children }) {
   const [login, setLogin] = useState({});
+  const [data, setData] = useState({});
+  const [detail, setDetail] = useState();
   // const [setPath] = useRedirect();
   // const [RecipesUrl, setRecipesUrl] = useState({});
   const [state, setState] = useState({
@@ -48,6 +50,22 @@ function Provider({ children }) {
     str: { food: 'strMeal', beverage: 'strDrink' },
     categories: { food: [], beverage: [] },
   });
+
+  function HandleTextChange(event) {
+    const { value } = event.target;
+    const result = value.toLowerCase();
+    setData(
+      { ...data, textSeach: result },
+    );
+  }
+
+  function HandleRadioBtnChange(event) {
+    const { value } = event.target;
+    setData(
+      { ...data, radioBtn: value },
+    );
+    return value;
+  }
 
   useEffect(() => {
     newFunc(setState);
@@ -81,10 +99,16 @@ function Provider({ children }) {
   // }, [pathname, setState]);
 
   const context = {
+    detail,
+    setDetail,
+    data,
+    setData,
     state,
     setState,
     login,
     setLogin,
+    HandleTextChange,
+    HandleRadioBtnChange,
     // pathname,
     // setPath,
   };

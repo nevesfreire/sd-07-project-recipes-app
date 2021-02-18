@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import context from '../contextAPI/context';
 import { fetchApi, getFoodRecipeId, getDrinkRecipeId } from '../services/fetchApi';
 import shareIcon from '../images/shareIcon.svg';
@@ -23,15 +23,12 @@ const findMatch = (string, object) => (
 
 const fetchId = async (pathname, state, setDetail, setRecipeStr) => {
   const id = pathname.split('/')[2];
-  console.log(pathname, id, 'achou um consolelog');
   if (pathname === `/comidas/${id}`) {
     const newData = await fetchApi(getFoodRecipeId(id));
-    console.log(newData, 'dentro');
     setDetail(newData.meals);
     setRecipeStr(state.str.food);
   } else if (pathname === `/bebidas/${id}`) {
     const newData = await fetchApi(getDrinkRecipeId(id));
-    console.log(newData, 'dentro');
     setDetail(newData.drinks);
     setRecipeStr(state.str.beverage);
   }
@@ -55,11 +52,18 @@ const recipeTitle = (title) => (
   </h1>
 );
 
-const recipeShare = (functionShare, message) => (
+async function share(pathname) {
+  navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
+  return (
+    <div className="card">Link copiado!</div>
+  );
+}
+
+const recipeShare = (pathname) => (
   <div>
     <button
       data-testid="share-btn"
-      onClick={ functionShare }
+      onClick={ () => share(pathname) }
       type="button"
     >
       <img
@@ -67,9 +71,6 @@ const recipeShare = (functionShare, message) => (
         alt="share"
       />
     </button>
-    <div>
-      {message}
-    </div>
   </div>
 );
 
@@ -125,25 +126,19 @@ const recipeVideo = (video) => (
 //   ))
 // );
 
-// const recipeStart = (funcStart) => (
-//   <button
-//     data-testid="start-recipe-btn"
-//     type="button"
-//     onClick={ funcStart }
-//   >
-//     Iniciar Receita
-//   </button>
-// );
+const start = (history, pathname) => {
+  history.push(`${pathname}/in-progress`);
+};
 
-async function share(pathname, message) {
-  navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
-  message = 'Link copiado!';
-  return message;
-}
-
-// function start() {
-//   console.log('COMEÇA A RECEITA');
-// }
+const recipeStart = (funcstart, history, pathname) => (
+  <button
+    data-testid="start-recipe-btn"
+    type="button"
+    onClick={ () => funcstart(history, pathname) }
+  >
+    Iniciar Receita
+  </button>
+);
 
 const summerizer = (stringRegex, data) => {
   const summerized = Object.entries(data)
@@ -157,10 +152,10 @@ const summerizer = (stringRegex, data) => {
 };
 
 function RecipeDetail() {
-  const { state } = useContext(context);
-  const [detail, setDetail] = useState();
+  const { state, detail, setDetail } = useContext(context);
   const [recipeStr, setRecipeStr] = useState('');
   const location = useLocation();
+  const history = useHistory();
   const { pathname } = location;
 
   useEffect(() => {
@@ -168,25 +163,26 @@ function RecipeDetail() {
   }, [pathname, state]);
 
   if (!detail) return <div>Loading...</div>;
-  const idData = detail[0];
-  const url = idData[findMatch(/Thumb/, idData)];
-  const title = idData[findMatch(recipeStr, idData)];
-  const category = idData[findMatch(/category/i, idData)];
-  const instructions = idData[findMatch(/instructions/i, idData)];
-  const video = idData[findMatch(/youtube/i, idData)];
-  const ingredients = summerizer(/ingredient/i, idData);
-  const measures = summerizer(/measure/i, idData);
+  const dataDetail = detail[0];
+  const url = dataDetail[findMatch(/Thumb/, dataDetail)];
+  const title = dataDetail[findMatch(recipeStr, dataDetail)];
+  const category = dataDetail[findMatch(/category/i, dataDetail)];
+  const instructions = dataDetail[findMatch(/instructions/i, dataDetail)];
+  const video = dataDetail[findMatch(/youtube/i, dataDetail)];
+  const ingredients = summerizer(/ingredient/i, dataDetail);
+  const measures = summerizer(/measure/i, dataDetail);
   // const message = 'Link copiado!';
 
   return (
     <div className="card">
       {recipeImage(url, title)}
       {recipeTitle(title)}
-      {recipeShare(share)}
+      {recipeShare(pathname)}
       {recipeCategory(category)}
       {recipeIngredients(ingredients, measures)}
       {recipeInstructions(instructions)}
       {recipeVideo(video)}
+      {recipeStart(start, history, pathname)}
     </div>
   );
 }
