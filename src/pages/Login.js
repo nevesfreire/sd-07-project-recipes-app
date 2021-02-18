@@ -24,8 +24,12 @@ const Login = (props) => {
   };
 
   const submit = () => {
-    const { history } = props;
-    history.push('/comidas');
+    // const { history } = props;
+    const emilObject = { email };
+    localStorage.setItem('mealsToken', '1');
+    localStorage.setItem('cocktailsToken', '1');
+    localStorage.setItem('user', JSON.stringify(emilObject));
+    // history.push('/comidas');
   };
 
   return (
