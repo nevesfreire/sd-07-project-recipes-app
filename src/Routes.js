@@ -6,7 +6,7 @@ import {
   Profile,
   Drinks,
   Explore,
-  MadeRecipes,
+  DoneRecipes,
   DetailsFood,
   DetailsDrink,
   FoodExplore,
@@ -56,7 +56,7 @@ export default function Routes() {
           path="/bebidas/:id/in-progress"
           component={ RecipeDrinkInProgress }
         />
-        <Route exact path="/receitas-feitas" component={ MadeRecipes } />
+        <Route exact path="/receitas-feitas" component={ DoneRecipes } />
       </Switch>
     </BrowserRouter>
   );

@@ -1,9 +1,8 @@
-import React from 'react';
-import { useDoneRecipes } from '../hooks';
+import React, { useState } from 'react';
 import { Header, Button, HorizontalCard } from '../components';
 
-export default function MadeRecipes() {
-  const { setFilters } = useDoneRecipes();
+export default function DoneRecipes() {
+  const [filter, setFilters] = useState(null);
   return (
     <div>
       <Header title="Receitas Feitas" search={ false } />
@@ -24,7 +23,7 @@ export default function MadeRecipes() {
           func={ () => { setFilters('bebida'); } }
         />
       </div>
-      <HorizontalCard />
+      <HorizontalCard filter={ filter } />
     </div>
   );
 }

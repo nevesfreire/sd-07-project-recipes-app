@@ -5,8 +5,8 @@ import { useDoneRecipes } from '../../hooks';
 
 const two = 2;
 
-export default function HorizontalCard() {
-  const { recipes } = useDoneRecipes();
+export default function HorizontalCard({ filter }) {
+  const { recipes } = useDoneRecipes(filter);
   return (
     recipes.map((obj, index) => {
       const drink = obj.type === 'bebida';
