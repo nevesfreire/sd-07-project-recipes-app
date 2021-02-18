@@ -24,12 +24,12 @@ const Login = (props) => {
   };
 
   const submit = () => {
-    // const { history } = props;
+    const { history } = props;
     const emilObject = { email };
     localStorage.setItem('mealsToken', '1');
     localStorage.setItem('cocktailsToken', '1');
     localStorage.setItem('user', JSON.stringify(emilObject));
-    // history.push('/comidas');
+    history.push('/comidas');
   };
 
   return (
