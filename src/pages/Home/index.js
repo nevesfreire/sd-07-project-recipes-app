@@ -1,11 +1,13 @@
 import React from 'react';
+import Header from '../components/Header';
 
-const index = () => {
+function Home() {
   return (
     <div>
+      <Header />
       Home
     </div>
   );
 }
 
-export default index;
+export default Home;
