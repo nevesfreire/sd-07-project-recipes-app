@@ -44,7 +44,7 @@ export default function DetailsFood() {
 
           <div className="favoriteShare">
             <ShareButton URL={ location } />
-            <FavoriteButton obj={ mealsObj } drink={ false } />
+            <FavoriteButton drink={ false } />
           </div>
 
           <div className="instuctionsDetails">

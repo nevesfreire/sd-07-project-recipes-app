@@ -3,19 +3,20 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import {
   Login,
   Foods,
-  Profile,
   Drinks,
   Explore,
+  Profile,
   DoneRecipes,
   DetailsFood,
-  DetailsDrink,
   FoodExplore,
   DrinkExplore,
+  DetailsDrink,
+  FavoriteRecipes,
   AreaExploreFood,
   RecipeFoodInProgress,
   RecipeDrinkInProgress,
-  IngredientsExploreDrink,
   IngredientsExploreFood,
+  IngredientsExploreDrink,
 } from './pages';
 import { NotFound } from './components';
 import tribute from './tribute/tribute';
@@ -57,6 +58,7 @@ export default function Routes() {
           component={ RecipeDrinkInProgress }
         />
         <Route exact path="/receitas-feitas" component={ DoneRecipes } />
+        <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
       </Switch>
     </BrowserRouter>
   );
