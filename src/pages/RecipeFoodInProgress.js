@@ -37,7 +37,7 @@ export default function RecipeFoodInProgress() {
             <div>
               <h3 data-testid="recipe-title">{mealsObj.strMeal}</h3>
               <ShareButton URL={ location } />
-              <FavoriteButton arr={ mealsObj } drink={ false } />
+              <FavoriteButton obj={ mealsObj } drink={ false } />
             </div>
 
             <h5 data-testid="recipe-category">{mealsObj.strCategory}</h5>

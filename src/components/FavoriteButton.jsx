@@ -4,8 +4,8 @@ import { whiteHeartIcon, blackHeartIcon } from '../images';
 import { Button } from './Contructors';
 import { useFavoriteRecipes } from '../hooks';
 
-export default function FavoriteFoodButton({ arr, drink }) {
-  const { favorite, setFavorite } = useFavoriteRecipes(arr, drink);
+export default function FavoriteButton({ obj, drink }) {
+  const { favorite, setFavorite } = useFavoriteRecipes(obj, drink);
   return (
     <Button
       testid="favorite-btn"
@@ -15,11 +15,11 @@ export default function FavoriteFoodButton({ arr, drink }) {
   );
 }
 
-FavoriteFoodButton.defaultProps = {
+FavoriteButton.defaultProps = {
   drink: true,
 };
 
-FavoriteFoodButton.propTypes = {
-  arr: PropTypes.arrayOf.isRequired,
-  drink: PropTypes.shape({}),
+FavoriteButton.propTypes = {
+  obj: PropTypes.shape({}).isRequired,
+  drink: PropTypes.bool,
 };
