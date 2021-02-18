@@ -26,17 +26,25 @@ const CategoryPanel = () => {
 
   if (!categories) return <div>Loading...</div>;
   return (
-    categories.filter((_categories, index) => index < maxCategories)
-      .map((category, index) => {
-        const { strCategory } = category;
-        return (
-          <CategoryButton
-            key={ index }
-            pathname={ pathname }
-            category={ strCategory }
-          />
-        );
-      })
+    <div>
+      <CategoryButton
+        pathname={ pathname }
+        category="All"
+      />
+      {
+        categories.filter((_categories, index) => index < maxCategories)
+          .map((category, index) => {
+            const { strCategory } = category;
+            return (
+              <CategoryButton
+                key={ index }
+                pathname={ pathname }
+                category={ strCategory }
+              />
+            );
+          })
+      }
+    </div>
   );
 };
 
