@@ -4,9 +4,8 @@ export async function fetchingFoods(radio, input) {
   if (radio === 'Ingrediente') {
     url += `filter.php?i=${input}`;
     const response = await fetch(url);
-    console.log(response);
     const result = await response.json();
-    console.log(result);
+    // console.log(result);
     return result.meals;
   }
 
@@ -14,6 +13,7 @@ export async function fetchingFoods(radio, input) {
     url += `search.php?s=${input}`;
     const response = await fetch(url);
     const result = await response.json();
+    // console.log(result);
     return result.meals;
   }
 
@@ -34,7 +34,6 @@ export async function fetchingDrinks(radio, input) {
     url2 += `filter.php?i=${input}`;
     const response = await fetch(url2);
     const result = await response.json();
-    console.log(result);
     return result.drinks;
   }
 

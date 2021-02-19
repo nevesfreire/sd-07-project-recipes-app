@@ -108,8 +108,8 @@ describe('check if login button is only abled with correct inputs', () => {
 
 describe('test if localStorage has the right tokens', () => {
   it('the keys "mealsToken" and "cocktailsToken" must have value equal to 1', () => {
-    const { history } = renderWithRouter(<App />);
-    console.log(history.location);
+    renderWithRouter(<App />);
+
     const emailInput = screen.getByTestId(EMAIL_INPUT);
     const passwordInput = screen.getByTestId(PASSWORD_INPUT);
     const loginButton = screen.getByTestId(LOGIN_BUTTON);
@@ -117,7 +117,6 @@ describe('test if localStorage has the right tokens', () => {
     userEvent.type(emailInput, EMAIL);
     userEvent.type(passwordInput, PASSWORD);
     fireEvent.click(loginButton);
-    console.log(history.location.pathname);
 
     expect(JSON.parse(localStorage.getItem('mealsToken'))).toBe(1);
     expect(JSON.parse(localStorage.getItem('cocktailsToken'))).toBe(1);
@@ -131,10 +130,18 @@ describe('test if localStorage has the right tokens', () => {
 
 describe('redirect to the main food page', () => {
   it('check if the user is redirected to main food page', () => {
-    renderWithRouter(<App />);
+    const { history } = renderWithRouter(<App />);
 
-    const foodTitle = screen.getByText('Comidas');
+    const emailInput = screen.getByTestId(EMAIL_INPUT);
+    const passwordInput = screen.getByTestId(PASSWORD_INPUT);
+    const loginButton = screen.getByTestId(LOGIN_BUTTON);
 
-    expect(foodTitle).toBeInTheDocument();
+    userEvent.type(emailInput, EMAIL);
+    userEvent.type(passwordInput, PASSWORD);
+    fireEvent.click(loginButton);
+
+    const path = history.location.pathname;
+
+    expect(path).toBe('/comidas');
   });
 });

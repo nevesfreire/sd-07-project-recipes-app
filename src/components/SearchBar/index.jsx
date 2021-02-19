@@ -28,7 +28,6 @@ export default function SearchBar() {
     const { pathname } = location;
     if (pathname === '/comidas') {
       const foods = await fetchingFoods(inputValues.radio, inputValues.input);
-      console.log(foods);
       if (foods) {
         if (foods.length === 1) push(`/comidas/${foods[0].idMeal}`);
         setMeals(foods);
