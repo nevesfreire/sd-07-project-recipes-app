@@ -1,214 +1,213 @@
+/* container principal */
+.details div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.details h5 {
+  float: center;
+}
+
+/* imagens */
+.detailsThumb {
+  display: flex;
+}
+
+.detailsThumb > img {
+  height: 300px;
+  object-fit: cover;
+}
+
+/* pratos favoritos h5 */
+.PratosFavoritos {
+  align-items: center;
+  display: flex;
+}
+
+/* recomentations tribute */
+.redomentationsCards {
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+}
+
+/* compartilhar e favoritar */
+.favoriteShare {
+  display: flex;
+  height: 50px;
+  padding: 30px 0 0 1200px;
+}
+
+.favoriteShare button {
+  display: inline-block;
+  width: 75px;
+}
+
+/* instruções */
+.instuctionsDetails {
+  align-items: center;
+  display: flex;
+  padding: 0 50px 0 30px;
+}
+
+.instuctionsDetails h4 {
+  padding: 30px 0 0 30px;
+}
+
+/* ingredientes */
+.ingredients {
+  align-items: flex-start;
+  background-color: rgba(92, 102, 98, 0.192);
+  display: flex;
+  padding: 10px;
+
+}
+
+/* video */
+.videoDetails {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  height: 600px;
+}
+
+.detailsThumb iframe {
+  object-fit: fill;
+  width: 100%;
+}
+
+/* carousel */
+.slick-slider {
+  width: 330px;
+}
+
+.slick-active {
+  height: 300px;
+  width: 300px;
+}
+
+.slick-list {
+  display: flex;
+  flex-direction: row;
+  height: 300px;
+  width: 300px;
+
+}
+
+.carousel-div button {
+  background-color: black;
+  height: 300px;
+}
+
+.slideCard img {
+  height: 300px;
+  width: 200px;
+}
+
+/* botão de iniciar receita */
+.btn-fixed {
+  background-color: rgb(67, 84, 107);
+  bottom: 0;
+  color: white;
+  position: fixed;
+}
+
+@media screen and ( max-width : 450px ) {
+
   /* container principal */
-  .details div{
+  .details div {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    flex-wrap: wrap;
   }
 
-  .details h5{
-    float: center;
-  }
   /* imagens */
   .detailsThumb {
     display: flex;
+    padding: 10px 0 -60px;
   }
 
   .detailsThumb > img {
-    object-fit: cover;
-    height: 300px;
-  }
-  /* pratos favoritos h5*/
-  .PratosFavoritos {
-    display: flex;
-    align-items: center;
-  }
-  /* recomentations tribute */
-    .redomentationsCards {
-      display: flex;
-      flex-direction: column;
-      height: 300px;
-      flex-wrap: wrap;
-    }
-
-  /* compartilhar e favoritar */
-  .favoriteShare {
-    display: flex;
-    padding: 30px 0px 0px 1200px;
-    height: 50px;
-  }
-  
-  .favoriteShare button {
-    display: inline-block;
-    width: 75px;
-  }
-
-  /* instruções */
-  .instuctionsDetails {
-    display: flex;
-    align-items: center;
-    padding: 0px 50px 0px 30px;
-  }
-
-  .instuctionsDetails h4 {
-    padding: 30px 0px 0px 30px;
-  }
-
-  /* ingredientes */
-  .ingredients {
-    background-color: rgba(92, 102, 98, 0.192);
-    display: flex;
-    align-items: flex-start;
-    padding: 10px;
-
-  }
-
-  /* video */
-  .videoDetails {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    height: 600px;
-  }
-
-  .detailsThumb iframe {
     object-fit: fill;
     width: 100%;
   }
 
-  /* carousel */
-  .slick-slider {
-    width: 330px;
-  }
-  
-  .slick-active{
-    width: 300px;
-    height: 300px;
-  }
-
-  .slick-list {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: 300px;
-    height: 300px;
-
-  }
-  
-  .carousel-div button {
-    background-color: black;
-    height: 300px;
-  }
-  
-  .slideCard img {
-    height: 300px;
-    width: 200px;
-  }
-  
-  /* botão de iniciar receita */
-  .btn-fixed {
-    background-color: rgb(67, 84, 107);
-    color: white;
-    bottom: 0px;
-    position: fixed;
-  }
-
-@media screen and (max-width: 450px) {
-  /* container principal */
-  .details div{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  /* imagens */
-  .detailsThumb {
-    display: flex;
-    padding: 10px 0px -60px 0px;
-  }
-
-  .detailsThumb > img {
-    object-fit: fill;
-    width: 100%;
-  }
-  
   /* compartilhar e favoritar */
   .favoriteShare {
-    display: flex;
-    flex-direction: column;
     align-self: flex-end;
+    display: flex;
+    flex-direction: column;
     height: 50px;
-    padding: 30px 300px 30px 0px;
+    padding: 30px 300px 30px 0;
   }
-  
+
   .favoriteShare button {
     display: inline-block;
   }
 
   /* instruções */
   .instuctionsDetails {
-    display: flex;
     align-items: center;
-    padding: 0px 10px 0px 10px;
+    display: flex;
+    padding: 0 10px;
   }
 
   /* ingredientes */
   .ingredients {
+    align-items: flex-start;
     background-color: rgba(92, 102, 98, 0.192);
     display: flex;
-    align-items: flex-start;
     padding: 10px;
 
   }
 
   /* video */
   .videoDetails {
-    display: flex;
     align-items: center;
+    display: flex;
     width: 80%;
   }
 
   .detailsThumb iframe {
+    height: 500px;
     object-fit: fill;
     width: 80%;
-    height: 500px;
   }
 
   /* carousel */
   .slick-slider {
     width: 330px;
   }
-  
-  .slick-active{
-    width: 300px;
+
+  .slick-active {
     height: 300px;
+    width: 300px;
   }
 
   .slick-list {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
-    width: 300px;
     height: 300px;
+    width: 300px;
 
   }
-  
+
   .carousel-div button {
     background-color: black;
     height: 300px;
   }
-  
+
   .slideCard img {
     height: 300px;
     width: 200px;
   }
-  
+
   /* botão de iniciar receita */
   .btn-fixed {
     background-color: rgb(67, 84, 107);
+    bottom: 0;
     color: white;
-    bottom: 0px;
     position: fixed;
     width: 100%;
   }
