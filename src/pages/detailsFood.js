@@ -96,6 +96,7 @@ function DetailsFood() {
           onClick={ () => shareClicker() }
         />
       </label>
+
       <label htmlFor="favoriteBtn">
         <input
           type="image"

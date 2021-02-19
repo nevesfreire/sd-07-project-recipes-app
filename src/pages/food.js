@@ -65,7 +65,7 @@ function Food() {
   };
 
   const setsCategory = () => {
-    setRenderCategory(false);
+    setRenderCategory(true);
     setCategoryName(undefined);
   };
 

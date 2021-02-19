@@ -15,7 +15,6 @@ function ExploreDrinks() {
     }
     randomDrink();
   }, []);
-  console.log(fetchDrink);
 
   return (
     <div>
