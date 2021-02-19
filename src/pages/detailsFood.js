@@ -6,6 +6,7 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { getFoodId } from '../services/Api';
 import DrinkRecom from '../components/DrinkRecom';
+import getArrayIngredientsAndMeasures from '../helpers/getArrayIngredientsAndMeasures';
 import './details.css';
 
 function DetailsFood() {
@@ -69,7 +70,7 @@ function DetailsFood() {
       data-testid="start-recipe-btn"
       onClick={ () => push({
         pathname: `/comidas/${idPathName[2]}/in-progress`,
-        state: dataFood,
+        state: dataFood[0],
       }) }
     >
       {start ? 'Continuar Receita' : 'Iniciar Receita'}
@@ -105,51 +106,26 @@ function DetailsFood() {
           onClick={ () => favoriteRecipe() }
         />
       </label>
-      {copied && <h3>Link copiado!</h3>}
+
       <h3 data-testid="recipe-category">{ dataFood[0].strCategory }</h3>
+
+      {copied && <h3>Link copiado!</h3>}
+
       <h3>
         Ingredientes
       </h3>
-      <p data-testid="0-ingredient-name-and-measure">
-        {dataFood[0].strIngredient1}
-        :
-        {dataFood[0].strMeasure1}
-      </p>
-      <p data-testid="1-ingredient-name-and-measure">
-        {dataFood[0].strIngredient2}
-        :
-        {dataFood[0].strMeasure2}
-      </p>
-      <p data-testid="2-ingredient-name-and-measure">
-        {dataFood[0].strIngredient3}
-        :
-        {dataFood[0].strMeasure3}
-      </p>
-      <p data-testid="3-ingredient-name-and-measure">
-        {dataFood[0].strIngredient4}
-        :
-        {dataFood[0].strMeasure4}
-      </p>
-      <p data-testid="4-ingredient-name-and-measure">
-        {dataFood[0].strIngredient5}
-        :
-        {dataFood[0].strMeasure5}
-      </p>
-      <p data-testid="5-ingredient-name-and-measure">
-        {dataFood[0].strIngredient6}
-        :
-        {dataFood[0].strMeasure6}
-      </p>
-      <p data-testid="6-ingredient-name-and-measure">
-        {dataFood[0].strIngredient7}
-        :
-        {dataFood[0].strMeasure7}
-      </p>
-      <p data-testid="7-ingredient-name-and-measure">
-        {dataFood[0].strIngredient8}
-        :
-        {dataFood[0].strMeasure8}
-      </p>
+
+      {
+        getArrayIngredientsAndMeasures(dataFood).map((obj, index) => (
+          <p
+            key={ index }
+            data-testid={ `${index}-ingredient-name-and-measure` }
+          >
+            {JSON.stringify(obj)}
+          </p>
+        ))
+      }
+
       <h2>Instruções</h2>
       <p data-testid="instructions">{ dataFood[0].strInstructions }</p>
       <embed
@@ -161,6 +137,8 @@ function DetailsFood() {
         <h2>Recomendadas</h2>
         {DrinkRecom()}
       </div>
+      <br />
+      <br />
       { !done && startRecipe() }
     </div>
   );

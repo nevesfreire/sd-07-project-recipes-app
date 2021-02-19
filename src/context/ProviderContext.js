@@ -12,6 +12,7 @@ import {
 
 function ProviderContext({ children }) {
   const [showBtn, setShowBtn] = useState(false);
+  const [favorited, setFavorited] = useState(false);
   const [data, setData] = useState({ food: [], drink: [], ingredient: '' });
 
   useEffect(() => {
@@ -72,6 +73,8 @@ function ProviderContext({ children }) {
     data,
     setData,
     getApi,
+    favorited,
+    setFavorited,
   };
 
   return (

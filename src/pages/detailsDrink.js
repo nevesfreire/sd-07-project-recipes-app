@@ -6,6 +6,7 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { getDrinkId } from '../services/Api';
 import FoodRecom from '../components/FoodRecom';
+import getArrayIngredientsAndMeasures from '../helpers/getArrayIngredientsAndMeasures';
 import './details.css';
 
 function DetailsDrink() {
@@ -20,9 +21,6 @@ function DetailsDrink() {
   const idPathName = path.split('/');
   const ZERO = 0;
 
-  console.log('dtaDrink:', dataDrink);
-  console.log(idPathName[2]);
-
   useEffect(() => {
     async function calledIdDrink() {
       setDataDrink(await getDrinkId(idPathName[2]));
@@ -35,10 +33,10 @@ function DetailsDrink() {
     return copy(`http://localhost:3000/bebidas/${idPathName[2]}`);
   };
 
-  const getFavorited = () => {
+  const getFavorited = (id) => {
     const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (recipes) {
-      return recipes[0].id === idPathName[2]
+      return id === idPathName[2]
         ? setFavorited(!favorited)
         : setFavorited(false);
     } setFavorited(false);
@@ -52,16 +50,30 @@ function DetailsDrink() {
   }, []);
 
   const favoriteRecipe = () => {
-    const recipeFavorited = [{
-      id: dataDrink[0].idDrink,
-      type: 'bebida',
-      area: '',
-      category: dataDrink[0].strCategory,
-      alcoholicOrNot: dataDrink[0].strAlcoholic,
-      name: dataDrink[0].strDrink,
-      image: dataDrink[0].strDrinkThumb,
-    }];
-    localStorage.setItem('favoriteRecipes', JSON.stringify(recipeFavorited));
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favoriteRecipes) {
+      const recipeFavorited = [...favoriteRecipes, {
+        id: dataDrink[0].idDrink,
+        type: 'bebida',
+        area: '',
+        category: dataDrink[0].strCategory,
+        alcoholicOrNot: dataDrink[0].strAlcoholic,
+        name: dataDrink[0].strDrink,
+        image: dataDrink[0].strDrinkThumb,
+      }];
+      localStorage.setItem('favoriteRecipes', JSON.stringify(recipeFavorited));
+    } else {
+      const recipeFavorited = {
+        id: dataDrink[0].idDrink,
+        type: 'bebida',
+        area: '',
+        category: dataDrink[0].strCategory,
+        alcoholicOrNot: dataDrink[0].strAlcoholic,
+        name: dataDrink[0].strDrink,
+        image: dataDrink[0].strDrinkThumb,
+      };
+      localStorage.setItem('favoriteRecipes', JSON.stringify([recipeFavorited]));
+    }
     return getFavorited();
   };
 
@@ -70,7 +82,10 @@ function DetailsDrink() {
       className="startRecipeBtn"
       type="button"
       data-testid="start-recipe-btn"
-      onClick={ () => push(`/bebidas/${idPathName[2]}/in-progress`) }
+      onClick={ () => push({
+        pathname: `/bebidas/${idPathName[2]}/in-progress`,
+        state: dataDrink[0],
+      }) }
     >
       {start ? 'Continuar Receita' : 'Iniciar Receita'}
     </button>
@@ -105,42 +120,38 @@ function DetailsDrink() {
           onClick={ () => favoriteRecipe() }
         />
       </label>
+
       <h3 data-testid="recipe-category">{ dataDrink[0].strCategory }</h3>
       <h3 data-testid="recipe-category">{ dataDrink[0].strAlcoholic }</h3>
+
       {copied && <h3>Link copiado!</h3>}
+
       <h3>
         Ingredientes
       </h3>
-      <p data-testid="0-ingredient-name-and-measure">
-        {dataDrink[0].strIngredient1}
-        :
-        {dataDrink[0].strMeasure1}
-      </p>
-      <p data-testid="1-ingredient-name-and-measure">
-        {dataDrink[0].strIngredient2}
-        :
-        {dataDrink[0].strMeasure2}
-      </p>
-      <p data-testid="2-ingredient-name-and-measure">
-        {dataDrink[0].strIngredient3}
-        :
-        {dataDrink[0].strMeasure3}
-      </p>
-      <p data-testid="3-ingredient-name-and-measure">
-        {dataDrink[0].strIngredient4}
-        :
-        {dataDrink[0].strMeasure4}
-      </p>
+
+      {
+        getArrayIngredientsAndMeasures(dataDrink).map((obj, index) => (
+          <p
+            key={ index }
+            data-testid={ `${index}-ingredient-name-and-measure` }
+          >
+            {JSON.stringify(obj)}
+          </p>
+        ))
+      }
+
       <h2>Instruções</h2>
       <p data-testid="instructions">{ dataDrink[0].strInstructions }</p>
       <div>
         <h2>Recomendadas</h2>
         {FoodRecom()}
       </div>
+      <br />
+      <br />
       { !done && startRecipe() }
     </div>
   );
-
   return (
     <div>
       {

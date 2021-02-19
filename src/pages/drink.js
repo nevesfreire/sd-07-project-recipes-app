@@ -41,7 +41,6 @@ function Drink() {
     setArrayCategory(await filterDrinkCategory(category));
     setCategoryName(category);
   };
-
   useEffect(() => {
     const getDrinkByIngredients = async () => {
       const getdrinkByIngredient = await getDrinkIngredients(data.ingredient);
@@ -49,16 +48,14 @@ function Drink() {
     };
     if (data.ingredient) {
       getDrinkByIngredients();
-    } else {
-      setArrayListDrink(data.drink);
-    }
+    } else if (!data.drink) {
+      setArrayListDrink(data.drink = []);
+    } else setArrayListDrink(data.drink);
   }, [data.drink]);
 
-  const getAlert = () => {
-    window.alert(
-      'Sinto muito, não encontramos nenhuma receita para esses filtros.',
-    );
-  };
+  const getAlert = () => window.alert(
+    'Sinto muito, não encontramos nenhuma receita para esses filtros.',
+  );
   const getLoading = () => {
     if (loading) {
       const arrayDrinks = [...arrayListDrink];
@@ -96,15 +93,11 @@ function Drink() {
   );
 
   const optionsRender = () => {
-    if (renderCategory) {
-      return ListCardsDrinkCategory(data.drink);
-    }
+    if (renderCategory) return ListCardsDrinkCategory(data.drink);
 
     if (arrayCategory.length > ZERO) return ListCardsDrinkCategory(arrayCategory);
 
-    if (data.drink === 'error' || data.drink === null) {
-      return getAlert();
-    }
+    if (data.drink === 'error' || data.drink === null) return getAlert();
 
     return getLoading();
   };
