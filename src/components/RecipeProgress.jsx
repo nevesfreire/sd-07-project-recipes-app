@@ -88,7 +88,13 @@ const recipeIngredients = (ingredients, measures) => (
         key={ index }
         data-testid={ `${index}-ingredient-step` }
       >
-        { `${ingredient} - ${measures[index]}` }
+        <input
+          type="checkbox"
+          data-testid={ `${index}-ingredient-step` }
+          name={ ingredient }
+          value="Bike"
+        />
+        <label htmlFor={ ingredient }>{`${ingredient} - ${measures}`}</label>
       </li>
     ))}
   </ul>
@@ -102,6 +108,7 @@ const recipeInstructions = (instructions) => (
     {instructions}
   </p>
 );
+
 const summerizer = (stringRegex, data) => {
   const summerized = Object.entries(data)
     .filter((entrie) => {
@@ -114,7 +121,7 @@ const summerizer = (stringRegex, data) => {
 };
 
 function RecipeProgress() {
-  const { state, detail } = useContext(context);
+  const { detail } = useContext(context);
   // const [recipeStr, setRecipeStr] = useState('');
 
   const location = useLocation();

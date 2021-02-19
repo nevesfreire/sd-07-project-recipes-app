@@ -5,17 +5,6 @@ import { fetchApi, getFoodRecipeId, getDrinkRecipeId } from '../services/fetchAp
 import shareIcon from '../images/shareIcon.svg';
 // import Card from './Card';
 
-/* 34 - Realize uma request para a API passando o id da receita que deve estar disponível nos parâmetros da URL
-Observações técnicas
-
-Verifica se a requisição para a API de comidas foi realizada. O endpoint utilizado deve ser https://www.themealdb.com/api/json/v1/1/lookup.php?i={id-da-receita};
-Verifica se a requisição para a API de bebidas foi realizada. O endpoint utilizado deve ser https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i={id-da-receita}.
-O que será verificado:
-
-- Verifica se a requisição para a API de comidas foi realizada
-- Verifica se a requisição para a API de bebidas foi realizada
- */
-
 // stackOverflow -> https://stackovetextrflow.com/questions/9907419/how-to-get-a-key-in-a-javascript-object-by-its-value
 const findMatch = (string, object) => (
   Object.keys(object).find((key) => key.match(string))
@@ -160,7 +149,7 @@ function RecipeDetail() {
 
   useEffect(() => {
     fetchId(pathname, state, setDetail, setRecipeStr);
-  }, [pathname, state]);
+  }, [pathname, state, setDetail]);
 
   if (!detail) return <div>Loading...</div>;
   const dataDetail = detail[0];
