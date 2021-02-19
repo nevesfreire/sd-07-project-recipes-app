@@ -1,20 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import { Button } from '@material-ui/core';
+import copy from 'clipboard-copy';
 import context from '../contextAPI/context';
 import { fetchApi, getFoodRecipeId, getDrinkRecipeId } from '../services/fetchApi';
-import shareIcon from '../images/shareIcon.svg';
 // import Card from './Card';
-
-/* 34 - Realize uma request para a API passando o id da receita que deve estar disponível nos parâmetros da URL
-Observações técnicas
-
-Verifica se a requisição para a API de comidas foi realizada. O endpoint utilizado deve ser https://www.themealdb.com/api/json/v1/1/lookup.php?i={id-da-receita};
-Verifica se a requisição para a API de bebidas foi realizada. O endpoint utilizado deve ser https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i={id-da-receita}.
-O que será verificado:
-
-- Verifica se a requisição para a API de comidas foi realizada
-- Verifica se a requisição para a API de bebidas foi realizada
- */
+import shareIcon from '../images/shareIcon.svg';
+import wHeartIcon from '../images/whiteHeartIcon.svg';
+import bHeartIcon from '../images/blackHeartIcon.svg';
 
 // stackOverflow -> https://stackovetextrflow.com/questions/9907419/how-to-get-a-key-in-a-javascript-object-by-its-value
 const findMatch = (string, object) => (
@@ -34,6 +27,18 @@ const fetchId = async (pathname, state, setDetail, setRecipeStr) => {
   }
 };
 
+const favoriteIt = (favoriteHeart, setFavoriteHeart) => {
+  setFavoriteHeart(!favoriteHeart);
+  // if (favoriteHeart) {
+
+  // }
+};
+//     Se o favorteH for false => const STORE = OQUEPEGUEI.filter((id) => favoritId !== id)
+//   localStorage.setItem('faotu', STORE)
+//   se troooo
+//   localStorage.setItem('faotu', ...STORE, id)
+// );
+
 const recipeImage = (url, title) => (
   <img
     src={ url }
@@ -52,31 +57,52 @@ const recipeTitle = (title) => (
   </h1>
 );
 
-async function share(pathname) {
-  navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
-  return (
-    <div className="card">Link copiado!</div>
-  );
+function share(pathname, setShared) {
+  const twoSeconds = 2000;
+  copy(`http://localhost:3000${pathname}`);
+  setShared(true);
+  setTimeout(() => setShared(false), twoSeconds);
 }
 
-const recipeShare = (pathname) => (
+const recipeShare = (pathname, setShared) => (
   <div>
-    <button
+    <Button
       data-testid="share-btn"
-      onClick={ () => share(pathname) }
+      onClick={ () => share(pathname, setShared) }
       type="button"
     >
       <img
         src={ shareIcon }
         alt="share"
       />
-    </button>
+    </Button>
   </div>
 );
 
-const recipeCategory = (category) => (
+const recipeShareMessage = (shared) => (
+  <div>
+    { shared ? 'Link copiado!' : null }
+  </div>
+);
+
+const recipeFavorite = (favoriteHeart, setFavoriteHeart) => (
+  <div>
+    <Button
+      data-testid="favorite-btn"
+      onClick={ () => favoriteIt(favoriteHeart, setFavoriteHeart) }
+      type="button"
+    >
+      <img
+        src={ favoriteHeart ? bHeartIcon : wHeartIcon }
+        alt="share"
+      />
+    </Button>
+  </div>
+);
+
+const recipeCategory = (category, alcoholic, pathname) => (
   <h3 data-testid="recipe-category">
-    {category}
+    {pathname.match('comidas') ? category : alcoholic }
   </h3>
 );
 
@@ -131,13 +157,13 @@ const start = (history, pathname) => {
 };
 
 const recipeStart = (funcstart, history, pathname) => (
-  <button
+  <Button
     data-testid="start-recipe-btn"
     type="button"
     onClick={ () => funcstart(history, pathname) }
   >
     Iniciar Receita
-  </button>
+  </Button>
 );
 
 const summerizer = (stringRegex, data) => {
@@ -154,9 +180,15 @@ const summerizer = (stringRegex, data) => {
 function RecipeDetail() {
   const { state, detail, setDetail } = useContext(context);
   const [recipeStr, setRecipeStr] = useState('');
+  const [shared, setShared] = useState(false);
+  const [favoriteHeart, setFavoriteHeart] = useState(false);
   const location = useLocation();
   const history = useHistory();
   const { pathname } = location;
+
+  useEffect(() => {
+    // localStorage.getItem('', )
+  }, []);
 
   useEffect(() => {
     fetchId(pathname, state, setDetail, setRecipeStr);
@@ -171,14 +203,17 @@ function RecipeDetail() {
   const video = dataDetail[findMatch(/youtube/i, dataDetail)];
   const ingredients = summerizer(/ingredient/i, dataDetail);
   const measures = summerizer(/measure/i, dataDetail);
+  const alcoholic = dataDetail[findMatch(/Alcoholic/i, dataDetail)];
   // const message = 'Link copiado!';
 
   return (
     <div className="card">
       {recipeImage(url, title)}
       {recipeTitle(title)}
-      {recipeShare(pathname)}
-      {recipeCategory(category)}
+      {recipeShare(pathname, setShared)}
+      {recipeShareMessage(shared)}
+      {recipeFavorite(favoriteHeart, setFavoriteHeart)}
+      {recipeCategory(category, alcoholic, pathname)}
       {recipeIngredients(ingredients, measures)}
       {recipeInstructions(instructions)}
       {recipeVideo(video)}
