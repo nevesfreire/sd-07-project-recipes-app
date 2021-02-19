@@ -192,7 +192,7 @@ function RecipeDetail() {
 
   useEffect(() => {
     fetchId(pathname, state, setDetail, setRecipeStr);
-  }, [pathname, state]);
+  }, [pathname, state, setDetail]);
 
   if (!detail) return <div>Loading...</div>;
   const dataDetail = detail[0];
