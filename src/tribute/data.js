@@ -24,7 +24,11 @@ const data = {
       foodImg: hamburguer,
     },
     img: { picture: thayProfile },
-    text: { title: 'Obrigado', text: 'Obrigado pelos plantões, pela gentileza, pela empatia e por sempre deixar nossos dias muito mais musicais!' },
+    text: { title: 'Obrigado',
+      text:
+    'Obrigado pelos plantões,'
+     + 'pela gentileza,pela empatia e por sempre deixar nossos'
+     + 'dias muito mais musicais!' },
   },
   hamaji: {
     video: {
@@ -59,7 +63,9 @@ const data = {
       foodImg: estrogonof,
     },
     img: { picture: wolfProfile },
-    text: { title: 'Obrigado', text: 'Obrigado pelos plantões, pelas dicas e por tua atenção aos detalhes.' },
+    text: { title: 'Obrigado',
+      text: 'Obrigado pelos plantões,'
+    + 'pelas dicas e por tua atenção aos detalhes.' },
   },
 };
 
