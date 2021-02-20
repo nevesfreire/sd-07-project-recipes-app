@@ -38,9 +38,9 @@
 }
 
 .carousel-container {
-  margin: 0;
   box-sizing: border-box;
-  width: 100%
+  margin: 0;
+  width: 100%;
 }
 
 .carousel-card {
@@ -51,24 +51,20 @@
   width: 140px;
 }
 
-/* @media (max-heigth: 640px) { */
+.startBtn-housing {
+  align-content: center;
+  bottom: 0;
+  display: block;
+  position: fixed;
+  height: 40px;
+  right: 0;
+  width: 100%;
+  z-index: 1;
+}
 
-  .startBtn-housing 
-  {
-    align-content: center;
-    bottom: 0;
-    display: block;
-    position: fixed;
-    height: 40px;
-    right: 0;
-    width: 100%;
-    z-index: 1;
-  }
-  
-  .startBtn {
-    bottom: 0;
-    display: flex;
-    width: 100%;
-    position: fixed;
-  }
-/* } */
+.startBtn {
+  bottom: 0;
+  display: flex;
+  width: 100%;
+  position: fixed;
+}
