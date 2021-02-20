@@ -56,7 +56,6 @@ export default function RecipeDetails({ history, match: { params: { id } } }) {
 
   return (
     <div className="recipe-detail">
-      {console.log('opa')}
       <div className="container-title-image">
         <img
           className="recipe-photo"

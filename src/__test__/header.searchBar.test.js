@@ -14,6 +14,7 @@ const NAME_SEARCH = 'name-search-radio';
 const FIRST_LETTER_SEARCH = 'first-letter-search-radio';
 const EXEC_SEARCH_BUTTON = 'exec-search-btn';
 const SEARCH_TOP_BUTTON = 'search-top-btn';
+const ELEVEN = 11;
 
 describe('search bar should render the rights elements', () => {
   it('should render the search bar elements', () => {
@@ -21,7 +22,6 @@ describe('search bar should render the rights elements', () => {
 
     const searchTopButton = screen.getByTestId(SEARCH_TOP_BUTTON);
     fireEvent.click(searchTopButton);
-
     const searchInput = screen.getByTestId(SEARCH_INPUT);
     const ingredientSearch = screen.getByTestId(INGREDIENT_SEARCH);
     const nameSearch = screen.getByTestId(NAME_SEARCH);
@@ -44,13 +44,10 @@ describe('test if fetch is called with the rights endpoints', () => {
 
     const searchTopButton = screen.getByTestId(SEARCH_TOP_BUTTON);
     fireEvent.click(searchTopButton);
-
     const ingredientSearch = screen.getByTestId(INGREDIENT_SEARCH);
     fireEvent.click(ingredientSearch);
-
     const searchInput = screen.getByTestId(SEARCH_INPUT);
     userEvent.type(searchInput, 'water');
-
     const execSearchButton = screen.getByTestId(EXEC_SEARCH_BUTTON);
     fireEvent.click(execSearchButton);
 
@@ -64,13 +61,10 @@ describe('test if fetch is called with the rights endpoints', () => {
 
     const searchTopButton = screen.getByTestId(SEARCH_TOP_BUTTON);
     fireEvent.click(searchTopButton);
-
     const nameSearch = screen.getByTestId(NAME_SEARCH);
     fireEvent.click(nameSearch);
-
     const searchInput = screen.getByTestId(SEARCH_INPUT);
     userEvent.type(searchInput, 'Corba');
-
     const execSearchButton = screen.getByTestId(EXEC_SEARCH_BUTTON);
     fireEvent.click(execSearchButton);
 
@@ -84,13 +78,10 @@ describe('test if fetch is called with the rights endpoints', () => {
 
     const searchTopButton = screen.getByTestId(SEARCH_TOP_BUTTON);
     fireEvent.click(searchTopButton);
-
     const firstLetterSearch = screen.getByTestId(FIRST_LETTER_SEARCH);
     fireEvent.click(firstLetterSearch);
-
     const searchInput = screen.getByTestId(SEARCH_INPUT);
     userEvent.type(searchInput, 'a');
-
     const execSearchButton = screen.getByTestId(EXEC_SEARCH_BUTTON);
     fireEvent.click(execSearchButton);
 
@@ -104,13 +95,10 @@ describe('test if fetch is called with the rights endpoints', () => {
 
     const searchTopButton = screen.getByTestId(SEARCH_TOP_BUTTON);
     fireEvent.click(searchTopButton);
-
     const firstLetterSearch = screen.getByTestId(FIRST_LETTER_SEARCH);
     fireEvent.click(firstLetterSearch);
-
     const searchInput = screen.getByTestId(SEARCH_INPUT);
     userEvent.type(searchInput, 'aa');
-
     const execSearchButton = screen.getByTestId(EXEC_SEARCH_BUTTON);
     fireEvent.click(execSearchButton);
 
@@ -130,13 +118,10 @@ describe('should redirect to details page if only one recipe is shown', () => {
 
     const searchTopButton = screen.getByTestId(SEARCH_TOP_BUTTON);
     userEvent.click(searchTopButton);
-
     const nameSearch = screen.getByTestId(NAME_SEARCH);
     userEvent.click(nameSearch);
-
     const searchInput = screen.getByTestId(SEARCH_INPUT);
     userEvent.type(searchInput, 'Corba');
-
     const execSearchButton = screen.getByTestId(EXEC_SEARCH_BUTTON);
     userEvent.click(execSearchButton);
 
@@ -154,13 +139,10 @@ describe('should redirect to details page if only one recipe is shown', () => {
 
     const searchTopButton = screen.getByTestId(SEARCH_TOP_BUTTON);
     userEvent.click(searchTopButton);
-
     const nameSearch = screen.getByTestId(NAME_SEARCH);
     userEvent.click(nameSearch);
-
     const searchInput = screen.getByTestId(SEARCH_INPUT);
     userEvent.type(searchInput, 'Aquamarine');
-
     const execSearchButton = screen.getByTestId(EXEC_SEARCH_BUTTON);
     userEvent.click(execSearchButton);
 
@@ -178,13 +160,15 @@ describe('show 12 cards recipes when more than 12 cards is found', () => {
 
     renderWithRouter(<App />, { route: '/comidas' });
     meals.meals.forEach(async (_, index) => {
-      const recipeCard = await waitForElement(() => screen.getByTestId(`${index}-recipe-card`));
-      if (index <= 11) {
-          expect(recipeCard).toBeInTheDocument();
-        } else {
-          expect(recipeCard).not.toBeInTheDocument();
-        }
-      });
+      const recipeCard = await waitForElement(
+        () => screen.getByTestId(`${index}-recipe-card`),
+      );
+      if (index <= ELEVEN) {
+        expect(recipeCard).toBeInTheDocument();
+      } else {
+        expect(recipeCard).not.toBeInTheDocument();
+      }
+    });
   });
 
   it('should render 12 drinks recipes', () => {
@@ -196,13 +180,15 @@ describe('show 12 cards recipes when more than 12 cards is found', () => {
 
     renderWithRouter(<App />, { route: '/bebidas' });
     drinks.drinks.forEach(async (_, index) => {
-      const recipeCard = await waitForElement(() => screen.getByTestId(`${index}-recipe-card`));
-      if (index <= 11) {
-          expect(recipeCard).toBeInTheDocument();
-        } else {
-          expect(recipeCard).not.toBeInTheDocument();
-        }
-      });
+      const recipeDrink = await waitForElement(
+        () => screen.getByTestId(`${index}-recipe-card`),
+      );
+      if (index <= ELEVEN) {
+        expect(recipeDrink).toBeInTheDocument();
+      } else {
+        expect(recipeDrink).not.toBeInTheDocument();
+      }
+    });
   });
 });
 
@@ -215,20 +201,19 @@ describe('show alert when recipes not found', () => {
     ));
 
     renderWithRouter(<App />, { route: '/comidas' });
-    
+
     const searchTopButton = screen.getByTestId(SEARCH_TOP_BUTTON);
     userEvent.click(searchTopButton);
-
     const nameSearch = screen.getByTestId(NAME_SEARCH);
     userEvent.click(nameSearch);
-
     const searchInput = screen.getByTestId(SEARCH_INPUT);
     userEvent.type(searchInput, 'Corba');
-
     const execSearchButton = screen.getByTestId(EXEC_SEARCH_BUTTON);
     userEvent.click(execSearchButton);
 
-    expect(alert).toHaveBeenCalledWith("Sinto muito, não encontramos nenhuma receita para esses filtros.")
+    expect(alert).toHaveBeenCalledWith(
+      'Sinto muito, não encontramos nenhuma receita para esses filtros.',
+    );
   });
 
   it('should show alert when drink not found', () => {
@@ -239,19 +224,18 @@ describe('show alert when recipes not found', () => {
     ));
 
     renderWithRouter(<App />, { route: '/bebidas' });
-    
+
     const searchTopButton = screen.getByTestId(SEARCH_TOP_BUTTON);
     userEvent.click(searchTopButton);
-
     const nameSearch = screen.getByTestId(NAME_SEARCH);
     userEvent.click(nameSearch);
-
     const searchInput = screen.getByTestId(SEARCH_INPUT);
     userEvent.type(searchInput, 'Aquamarine');
-
     const execSearchButton = screen.getByTestId(EXEC_SEARCH_BUTTON);
     userEvent.click(execSearchButton);
 
-    expect(alert).toHaveBeenCalledWith("Sinto muito, não encontramos nenhuma receita para esses filtros.")
+    expect(alert).toHaveBeenCalledWith(
+      'Sinto muito, não encontramos nenhuma receita para esses filtros.',
+    );
   });
 });
