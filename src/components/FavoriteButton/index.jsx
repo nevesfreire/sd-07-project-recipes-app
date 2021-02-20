@@ -47,6 +47,6 @@ export default function FavoriteButton({ recipeDetails, id }) {
 }
 
 FavoriteButton.propTypes = {
-  recipeDetails: PropTypes.shape().isRequired,
+  recipeDetails: PropTypes.arrayOf(PropTypes.object).isRequired,
   id: PropTypes.string.isRequired,
 };

@@ -1,12 +1,11 @@
 import React from 'react';
-import { screen, fireEvent, wait, waitForElement } from '@testing-library/react';
+import { screen, fireEvent, wait, cleanup } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helper/renderWithRouter';
 import App from '../App';
-import { oneMeal, oneDrink } from './mocks/oneMeal';
 import meals from './mocks/meals';
 import drinks from './mocks/drinks';
-import { emptyDrinks, emptyMeals } from './mocks/empty';
+import fetchMock from './mocks/fetch';
 
 const SEARCH_INPUT = 'search-input';
 const INGREDIENT_SEARCH = 'ingredient-search-radio';
@@ -16,12 +15,17 @@ const EXEC_SEARCH_BUTTON = 'exec-search-btn';
 const SEARCH_TOP_BUTTON = 'search-top-btn';
 const ELEVEN = 11;
 
+window.alert = jest.fn().mockImplementation(() => {});
+global.fetch = jest.fn().mockImplementation(fetchMock);
+
+afterEach(() => cleanup());
+
 describe('search bar should render the rights elements', () => {
   it('should render the search bar elements', () => {
     renderWithRouter(<App />, { route: '/comidas' });
 
-    const searchTopButton = screen.getByTestId(SEARCH_TOP_BUTTON);
-    fireEvent.click(searchTopButton);
+    fireEvent.click(screen.getByTestId(SEARCH_TOP_BUTTON));
+
     const searchInput = screen.getByTestId(SEARCH_INPUT);
     const ingredientSearch = screen.getByTestId(INGREDIENT_SEARCH);
     const nameSearch = screen.getByTestId(NAME_SEARCH);
@@ -38,69 +42,45 @@ describe('search bar should render the rights elements', () => {
 
 describe('test if fetch is called with the rights endpoints', () => {
   it('should search for for ingredients when radio is clicked', () => {
-    jest.spyOn(global, 'fetch');
-
     renderWithRouter(<App />, { route: '/comidas' });
 
-    const searchTopButton = screen.getByTestId(SEARCH_TOP_BUTTON);
-    fireEvent.click(searchTopButton);
-    const ingredientSearch = screen.getByTestId(INGREDIENT_SEARCH);
-    fireEvent.click(ingredientSearch);
-    const searchInput = screen.getByTestId(SEARCH_INPUT);
-    userEvent.type(searchInput, 'water');
-    const execSearchButton = screen.getByTestId(EXEC_SEARCH_BUTTON);
-    fireEvent.click(execSearchButton);
+    fireEvent.click(screen.getByTestId(SEARCH_TOP_BUTTON));
+    fireEvent.click(screen.getByTestId(INGREDIENT_SEARCH));
+    userEvent.type(screen.getByTestId(SEARCH_INPUT), 'water');
+    fireEvent.click(screen.getByTestId(EXEC_SEARCH_BUTTON));
 
     expect(fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/filter.php?i=water');
   });
 
   it('should search for for name when radio is clicked', () => {
-    jest.spyOn(global, 'fetch');
-
     renderWithRouter(<App />, { route: '/comidas' });
 
-    const searchTopButton = screen.getByTestId(SEARCH_TOP_BUTTON);
-    fireEvent.click(searchTopButton);
-    const nameSearch = screen.getByTestId(NAME_SEARCH);
-    fireEvent.click(nameSearch);
-    const searchInput = screen.getByTestId(SEARCH_INPUT);
-    userEvent.type(searchInput, 'Corba');
-    const execSearchButton = screen.getByTestId(EXEC_SEARCH_BUTTON);
-    fireEvent.click(execSearchButton);
+    fireEvent.click(screen.getByTestId(SEARCH_TOP_BUTTON));
+    fireEvent.click(screen.getByTestId(NAME_SEARCH));
+    userEvent.type(screen.getByTestId(SEARCH_INPUT), 'Corba');
+    fireEvent.click(screen.getByTestId(EXEC_SEARCH_BUTTON));
 
     expect(fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?s=Corba');
   });
 
   it('should search for for first letter when radio is clicked', () => {
-    jest.spyOn(global, 'fetch');
-
     renderWithRouter(<App />, { route: '/comidas' });
 
-    const searchTopButton = screen.getByTestId(SEARCH_TOP_BUTTON);
-    fireEvent.click(searchTopButton);
-    const firstLetterSearch = screen.getByTestId(FIRST_LETTER_SEARCH);
-    fireEvent.click(firstLetterSearch);
-    const searchInput = screen.getByTestId(SEARCH_INPUT);
-    userEvent.type(searchInput, 'a');
-    const execSearchButton = screen.getByTestId(EXEC_SEARCH_BUTTON);
-    fireEvent.click(execSearchButton);
+    fireEvent.click(screen.getByTestId(SEARCH_TOP_BUTTON));
+    fireEvent.click(screen.getByTestId(FIRST_LETTER_SEARCH));
+    userEvent.type(screen.getByTestId(SEARCH_INPUT), 'a');
+    fireEvent.click(screen.getByTestId(EXEC_SEARCH_BUTTON));
 
     expect(fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?f=a');
   });
 
   it('should show alert when typed more than one letters radio is clicked', () => {
-    jest.spyOn(global, 'alert');
-
     renderWithRouter(<App />, { route: '/comidas' });
 
-    const searchTopButton = screen.getByTestId(SEARCH_TOP_BUTTON);
-    fireEvent.click(searchTopButton);
-    const firstLetterSearch = screen.getByTestId(FIRST_LETTER_SEARCH);
-    fireEvent.click(firstLetterSearch);
-    const searchInput = screen.getByTestId(SEARCH_INPUT);
-    userEvent.type(searchInput, 'aa');
-    const execSearchButton = screen.getByTestId(EXEC_SEARCH_BUTTON);
-    fireEvent.click(execSearchButton);
+    fireEvent.click(screen.getByTestId(SEARCH_TOP_BUTTON));
+    fireEvent.click(screen.getByTestId(FIRST_LETTER_SEARCH));
+    userEvent.type(screen.getByTestId(SEARCH_INPUT), 'aa');
+    fireEvent.click(screen.getByTestId(EXEC_SEARCH_BUTTON));
 
     expect(alert).toHaveBeenCalledWith('Sua busca deve conter somente 1 (um) caracter');
   });
@@ -108,43 +88,23 @@ describe('test if fetch is called with the rights endpoints', () => {
 
 describe('should redirect to details page if only one recipe is shown', () => {
   it('should redirect to "/comidas" when only one food is shown', async () => {
-    global.fetch = jest.fn().mockImplementation(() => Promise.resolve(
-      {
-        json: () => Promise.resolve(oneMeal),
-      },
-    ));
-
     const { history } = renderWithRouter(<App />, { route: '/comidas' });
 
-    const searchTopButton = screen.getByTestId(SEARCH_TOP_BUTTON);
-    userEvent.click(searchTopButton);
-    const nameSearch = screen.getByTestId(NAME_SEARCH);
-    userEvent.click(nameSearch);
-    const searchInput = screen.getByTestId(SEARCH_INPUT);
-    userEvent.type(searchInput, 'Corba');
-    const execSearchButton = screen.getByTestId(EXEC_SEARCH_BUTTON);
-    userEvent.click(execSearchButton);
+    userEvent.click(screen.getByTestId(SEARCH_TOP_BUTTON));
+    userEvent.click(screen.getByTestId(NAME_SEARCH));
+    userEvent.type(screen.getByTestId(SEARCH_INPUT), 'Arrabiata');
+    fireEvent.click(screen.getByTestId(EXEC_SEARCH_BUTTON));
 
-    await wait(() => expect(history.location.pathname).toBe('/comidas/52977'));
+    await wait(() => expect(history.location.pathname).toBe('/comidas/52771'));
   });
 
   it('should redirect to "/bebidas" when only one drink is shown', async () => {
-    global.fetch = jest.fn().mockImplementation(() => Promise.resolve(
-      {
-        json: () => Promise.resolve(oneDrink),
-      },
-    ));
-
     const { history } = renderWithRouter(<App />, { route: '/bebidas' });
 
-    const searchTopButton = screen.getByTestId(SEARCH_TOP_BUTTON);
-    userEvent.click(searchTopButton);
-    const nameSearch = screen.getByTestId(NAME_SEARCH);
-    userEvent.click(nameSearch);
-    const searchInput = screen.getByTestId(SEARCH_INPUT);
-    userEvent.type(searchInput, 'Aquamarine');
-    const execSearchButton = screen.getByTestId(EXEC_SEARCH_BUTTON);
-    userEvent.click(execSearchButton);
+    userEvent.click(screen.getByTestId(SEARCH_TOP_BUTTON));
+    userEvent.click(screen.getByTestId(NAME_SEARCH));
+    userEvent.type(screen.getByTestId(SEARCH_INPUT), 'Aquamarine');
+    fireEvent.click(screen.getByTestId(EXEC_SEARCH_BUTTON));
 
     await wait(() => expect(history.location.pathname).toBe('/bebidas/178319'));
   });
@@ -152,64 +112,48 @@ describe('should redirect to details page if only one recipe is shown', () => {
 
 describe('show 12 cards recipes when more than 12 cards is found', () => {
   it('should render 12 meals recipes', () => {
-    global.fetch = jest.fn().mockImplementation(() => Promise.resolve(
-      {
-        json: () => Promise.resolve(meals),
-      },
-    ));
-
     renderWithRouter(<App />, { route: '/comidas' });
-    meals.meals.forEach(async (_, index) => {
-      const recipeCard = await waitForElement(
-        () => screen.getByTestId(`${index}-recipe-card`),
-      );
+
+    fireEvent.click(screen.getByTestId(SEARCH_TOP_BUTTON));
+    fireEvent.click(screen.getByTestId(INGREDIENT_SEARCH));
+    userEvent.type(screen.getByTestId(SEARCH_INPUT), 'soup');
+    fireEvent.click(screen.getByTestId(EXEC_SEARCH_BUTTON));
+
+    meals.meals.forEach((_, index) => {
+      const recipeCard = screen.findByTestId(`${index}-recipe-card`);
       if (index <= ELEVEN) {
-        expect(recipeCard).toBeInTheDocument();
-      } else {
-        expect(recipeCard).not.toBeInTheDocument();
+        expect(recipeCard).toBeTruthy();
       }
     });
+    expect(screen.queryByTestId('12-recipe-card')).toBeFalsy();
   });
 
   it('should render 12 drinks recipes', () => {
-    global.fetch = jest.fn().mockImplementation(() => Promise.resolve(
-      {
-        json: () => Promise.resolve(drinks),
-      },
-    ));
-
     renderWithRouter(<App />, { route: '/bebidas' });
-    drinks.drinks.forEach(async (_, index) => {
-      const recipeDrink = await waitForElement(
-        () => screen.getByTestId(`${index}-recipe-card`),
-      );
+
+    fireEvent.click(screen.getByTestId(SEARCH_TOP_BUTTON));
+    fireEvent.click(screen.getByTestId(INGREDIENT_SEARCH));
+    userEvent.type(screen.getByTestId(SEARCH_INPUT), 'gin');
+    fireEvent.click(screen.getByTestId(EXEC_SEARCH_BUTTON));
+
+    drinks.drinks.forEach((_, index) => {
+      const recipeDrink = screen.findByTestId(`${index}-recipe-card`);
       if (index <= ELEVEN) {
-        expect(recipeDrink).toBeInTheDocument();
-      } else {
-        expect(recipeDrink).not.toBeInTheDocument();
+        expect(recipeDrink).toBeTruthy();
       }
     });
+    expect(screen.queryByTestId('12-recipe-card')).toBeFalsy();
   });
 });
 
 describe('show alert when recipes not found', () => {
   it('should show alert when meal not found', () => {
-    global.fetch = jest.fn().mockImplementation(() => Promise.resolve(
-      {
-        json: () => Promise.resolve(emptyMeals),
-      },
-    ));
-
     renderWithRouter(<App />, { route: '/comidas' });
 
-    const searchTopButton = screen.getByTestId(SEARCH_TOP_BUTTON);
-    userEvent.click(searchTopButton);
-    const nameSearch = screen.getByTestId(NAME_SEARCH);
-    userEvent.click(nameSearch);
-    const searchInput = screen.getByTestId(SEARCH_INPUT);
-    userEvent.type(searchInput, 'Corba');
-    const execSearchButton = screen.getByTestId(EXEC_SEARCH_BUTTON);
-    userEvent.click(execSearchButton);
+    userEvent.click(screen.getByTestId(SEARCH_TOP_BUTTON));
+    userEvent.click(screen.getByTestId(NAME_SEARCH));
+    userEvent.type(screen.getByTestId(SEARCH_INPUT), 'Corba');
+    fireEvent.click(screen.getByTestId(EXEC_SEARCH_BUTTON));
 
     expect(alert).toHaveBeenCalledWith(
       'Sinto muito, não encontramos nenhuma receita para esses filtros.',
@@ -217,22 +161,12 @@ describe('show alert when recipes not found', () => {
   });
 
   it('should show alert when drink not found', () => {
-    global.fetch = jest.fn().mockImplementation(() => Promise.resolve(
-      {
-        json: () => Promise.resolve(emptyDrinks),
-      },
-    ));
-
     renderWithRouter(<App />, { route: '/bebidas' });
 
-    const searchTopButton = screen.getByTestId(SEARCH_TOP_BUTTON);
-    userEvent.click(searchTopButton);
-    const nameSearch = screen.getByTestId(NAME_SEARCH);
-    userEvent.click(nameSearch);
-    const searchInput = screen.getByTestId(SEARCH_INPUT);
-    userEvent.type(searchInput, 'Aquamarine');
-    const execSearchButton = screen.getByTestId(EXEC_SEARCH_BUTTON);
-    userEvent.click(execSearchButton);
+    userEvent.click(screen.getByTestId(SEARCH_TOP_BUTTON));
+    userEvent.click(screen.getByTestId(NAME_SEARCH));
+    userEvent.type(screen.getByTestId(SEARCH_INPUT), 'Aquamarine');
+    fireEvent.click(screen.getByTestId(EXEC_SEARCH_BUTTON));
 
     expect(alert).toHaveBeenCalledWith(
       'Sinto muito, não encontramos nenhuma receita para esses filtros.',

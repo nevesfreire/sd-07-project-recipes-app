@@ -28,5 +28,5 @@ export default function Ingredients({ recipeDetails }) {
 }
 
 Ingredients.propTypes = {
-  recipeDetails: PropTypes.shape(PropTypes.string).isRequired,
+  recipeDetails: PropTypes.arrayOf(PropTypes.object).isRequired,
 };

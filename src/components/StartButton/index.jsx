@@ -45,9 +45,14 @@ export default function StartButton({ idMeal, idDrink, history }) {
 }
 
 StartButton.propTypes = {
-  idMeal: PropTypes.string.isRequired,
-  idDrink: PropTypes.string.isRequired,
+  idMeal: PropTypes.string,
+  idDrink: PropTypes.string,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+};
+
+StartButton.defaultProps = {
+  idMeal: undefined,
+  idDrink: undefined,
 };
