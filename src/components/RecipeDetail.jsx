@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { Button } from '@material-ui/core';
+// import { Button } from '@material-ui/core';
 import copy from 'clipboard-copy';
 import context from '../contextAPI/context';
 import { fetchApi, getFoodRecipeId, getDrinkRecipeId } from '../services/fetchApi';
-// import Card from './Card';
+import { initialize } from '../services/localStorage';
 import shareIcon from '../images/shareIcon.svg';
-import wHeartIcon from '../images/whiteHeartIcon.svg';
-import bHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Carousel from './Carousel';
 import '../css/card.css';
 
@@ -16,16 +16,42 @@ const findMatch = (string, object) => (
   Object.keys(object).find((key) => key.match(string))
 );
 
-const fetchId = async (pathname, state, setDetail, setRecipeStr) => {
+const assembleStore = (pathname, detail, setStore, setFavoriteHeart) => {
+  const id = detail[findMatch(/id/i, detail)];
+  const url = detail[findMatch(/Thumb/, detail)];
+  const title = detail[findMatch((
+    pathname.match('comida') ? 'strMeal' : 'strDrinks'
+  ), detail)];
+  const category = detail[findMatch(/category/i, detail)];
+  const alcoholic = detail[findMatch(/Alcoholic/i, detail)];
+  const area = detail[findMatch(/area/i, detail)];
+  const type = pathname.split('/')[0];
+
+  const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const isFavorite = favorites.find((favorite) => favorite.id === id);
+  if (isFavorite) setFavoriteHeart(true);
+
+  setStore({
+    id,
+    type,
+    area,
+    category: pathname.match('comida') ? category : '',
+    alcoholicOrNot: pathname.match('bebida') ? alcoholic : '',
+    name: title,
+    image: url,
+  });
+};
+
+const fetchId = async (pathname, setDetail, setStore, setFavoriteHeart) => {
   const id = pathname.split('/')[2];
   if (pathname === `/comidas/${id}`) {
     const newData = await fetchApi(getFoodRecipeId(id));
-    setDetail(newData.meals);
-    setRecipeStr(state.str.food);
+    setDetail(newData.meals[0]);
+    assembleStore(pathname, newData.meals[0], setStore, setFavoriteHeart);
   } else if (pathname === `/bebidas/${id}`) {
     const newData = await fetchApi(getDrinkRecipeId(id));
-    setDetail(newData.drinks);
-    setRecipeStr(state.str.beverage);
+    setDetail(newData.drinks[0]);
+    assembleStore(pathname, newData.meals[0], setStore, setFavoriteHeart);
   }
 };
 
@@ -39,10 +65,7 @@ const recipeImage = (url, title) => (
 );
 
 const recipeTitle = (title) => (
-  <h1
-    data-testid="recipe-title"
-    className="card-title"
-  >
+  <h1 data-testid="recipe-title">
     {title}
   </h1>
 );
@@ -56,52 +79,37 @@ function share(pathname, setShared) {
 
 const recipeShare = (pathname, setShared) => (
   <div>
-    <Button
+    <button
       data-testid="share-btn"
       onClick={ () => share(pathname, setShared) }
       type="button"
+      className=""
     >
-      <img
-        src={ shareIcon }
-        alt="share"
-      />
-    </Button>
+      <img src={ shareIcon } alt="share" />
+    </button>
   </div>
 );
 
 const recipeShareMessage = (shared) => (
-  <div>
-    { shared ? 'Link copiado!' : null }
-  </div>
+  <div>{ shared ? 'Link copiado!' : null }</div>
 );
 
-const favoriteIt = (favoriteHeart, setFavoriteHeart, store, item) => {
+const favoriteIt = (favoriteHeart, setFavoriteHeart) => {
   setFavoriteHeart(!favoriteHeart);
-  // if (favoriteHeart) {
-  //   localStorage.setItem('favoriteRecipes', [...store, item]);
-  // } else {
-  //   const remove = store.filter((favorite) => favorite.id !== item.id);
-  //   localStorage.setItem('favoriteRecipes', JSON.stringify(remove));
-  // }
 };
-//     Se o favorteH for false => const STORE = OQUEPEGUEI.filter((id) => favoritId !== id)
-//   localStorage.setItem('faotu', STORE)
-//   se troooo
-//   localStorage.setItem('faotu', ...STORE, id)
-// );
 
 const recipeFavorite = (favoriteHeart, setFavoriteHeart) => (
   <div>
-    <Button
-      data-testid="favorite-btn"
+    <button
       onClick={ () => favoriteIt(favoriteHeart, setFavoriteHeart) }
       type="button"
     >
       <img
-        src={ favoriteHeart ? bHeartIcon : wHeartIcon }
-        alt="share"
+        data-testid="favorite-btn"
+        src={ favoriteHeart ? blackHeartIcon : whiteHeartIcon }
+        alt={ favoriteHeart ? 'blackHeartIcon' : 'whiteHeartIcon' }
       />
-    </Button>
+    </button>
   </div>
 );
 
@@ -125,10 +133,7 @@ const recipeIngredients = (ingredients, measures) => (
 );
 
 const recipeInstructions = (instructions) => (
-  <p
-    data-testid="instructions"
-    className="card-text"
-  >
+  <p data-testid="instructions" className="card-text">
     {instructions}
   </p>
 );
@@ -149,7 +154,7 @@ const start = (history, pathname) => {
 
 const recipeStart = (funcstart, history, pathname) => (
   <div className="startBtn-housing">
-    <Button
+    <button
       data-testid="start-recipe-btn"
       variant="contained"
       type="button"
@@ -157,7 +162,7 @@ const recipeStart = (funcstart, history, pathname) => (
       className="startBtn-housing"
     >
       Iniciar Receita
-    </Button>
+    </button>
   </div>
 );
 
@@ -174,37 +179,49 @@ const summerizer = (stringRegex, data) => {
 
 function RecipeDetail() {
   const { state, detail, setDetail } = useContext(context);
-  const [recipeStr, setRecipeStr] = useState('');
-  // const [store, setStore] = useState();
+  const [store, setStore] = useState({});
   const [shared, setShared] = useState(false);
-  const [favoriteHeart, setFavoriteHeart] = useState(false);
+  const [favoriteHeart, setFavoriteHeart] = useState();
   const location = useLocation();
   const history = useHistory();
   const { pathname } = location;
 
-  // useEffect(() => {
-  //   setStore(localStorage.getItem('favoriteRecipes'));
-  //   const id = pathname.split('/')[2];
-  //   const isFavorite = store.filter((favorite) => favorite.id === id);
-  //   if (isFavorite) setFavoriteHeart(true);
-  //   localStorage.setItem('favoriteRecipes', JSON.stringify([]));
-  // }, [pathname, store]);
+  useEffect(() => {
+    initialize();
+  }, [pathname]);
 
   useEffect(() => {
-    fetchId(pathname, state, setDetail, setRecipeStr);
-  }, [pathname, state, setDetail]);
+    fetchId(pathname, setDetail, setStore, setFavoriteHeart);
+  }, [pathname, setDetail, setStore, setFavoriteHeart]);
+
+  useEffect(() => {
+    if (favoriteHeart) {
+      const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      localStorage.setItem('favoriteRecipes', JSON.stringify([...favorites, store]));
+    }
+    if (!favoriteHeart) {
+      const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      const remove = favorites.filter((favorite) => favorite.id !== store.id);
+      localStorage.setItem('favoriteRecipes', JSON.stringify([...remove]));
+    }
+    console.log(store);
+  }, [favoriteHeart, store]);
 
   if (!detail) return <div>Loading...</div>;
-  const dataDetail = detail[0];
+  const dataDetail = detail;
   const url = dataDetail[findMatch(/Thumb/, dataDetail)];
-  const title = dataDetail[findMatch(recipeStr, dataDetail)];
+  const title = detail[findMatch((
+    pathname.match('comida') ? state.str.food : state.str.beverage
+  ), detail)];
   const category = dataDetail[findMatch(/category/i, dataDetail)];
   const instructions = dataDetail[findMatch(/instructions/i, dataDetail)];
   const video = dataDetail[findMatch(/youtube/i, dataDetail)];
   const ingredients = summerizer(/ingredient/i, dataDetail);
   const measures = summerizer(/measure/i, dataDetail);
   const alcoholic = dataDetail[findMatch(/Alcoholic/i, dataDetail)];
-  // const message = 'Link copiado!';
+  // const id = dataDetail[findMatch(/id/, dataDetail)];
+  // const area = dataDetail[findMatch(/area/i, dataDetail)];
+  // const type = dataDetail[findMatch(/type/i, dataDetail)];
 
   return (
     <div className="card">
@@ -217,7 +234,7 @@ function RecipeDetail() {
       {recipeCategory(category, alcoholic, pathname)}
       {recipeIngredients(ingredients, measures)}
       {recipeInstructions(instructions)}
-      {pathname.match('comida') ? recipeVideo(video) : null }
+      { pathname.match('comida') ? recipeVideo(video) : null }
       { pathname.match('comida') ? <Carousel
         recomendations={ state.data.beverage }
         str={ state.str.beverage }

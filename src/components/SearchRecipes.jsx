@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import React from 'react';
+// import React, { useContext } from 'react';
 import {
   Input,
   Radio,
@@ -8,7 +9,7 @@ import {
   FormControl,
   FormControlLabel,
 } from '@material-ui/core';
-import context from '../contextAPI/context';
+// import context from '../contextAPI/context';
 import useSendRequestBtn from '../hooks/useSendRequestBtn';
 
 const inputSearchBar = (MyOnChange) => (

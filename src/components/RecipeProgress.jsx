@@ -114,7 +114,7 @@ const summerizer = (stringRegex, data) => {
 };
 
 function RecipeProgress() {
-  const { state, detail } = useContext(context);
+  const { detail } = useContext(context);
   // const [recipeStr, setRecipeStr] = useState('');
 
   const location = useLocation();
