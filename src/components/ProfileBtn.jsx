@@ -1,8 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { getItem } from '../services/localStorage';
 
-const profileEmail = (email) => (
+const profileEmail = ({ email }) => (
   <h3
     data-testid="profile-email"
     className=""
@@ -50,7 +49,8 @@ const profileLogout = (history) => (
 );
 
 function ProfileBtns() {
-  const { email } = getItem('user');
+  const user = JSON.parse(localStorage.getItem('user'));
+  const email = user !== null ? user : '';
   const history = useHistory();
   return (
     <div>

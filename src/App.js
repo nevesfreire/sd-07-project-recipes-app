@@ -4,11 +4,11 @@ import Login from './pages/login';
 import Recipes from './pages/recipes';
 import Profile from './pages/profile';
 import Explore from './pages/explore';
-// import RecipeDetail from './components/RecipeDetail';
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import ExploreMore from './pages/exploreMore';
 import RecipeDetail from './pages/recipeDetail';
 import RecipeInProgress from './pages/recipeInProgress';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 
 function App() {
   return (
@@ -17,15 +17,15 @@ function App() {
       <Route exact path="/comidas" component={ Recipes } />
       <Route exact path="/bebidas" component={ Recipes } />
       <Route path="/perfil" component={ Profile } />
-      <Route path="/explorar" component={ Explore } />
+      <Route exact path="/explorar" component={ Explore } />
       <Route path="/explorar/comidas/ingredientes" />
       <Route path="/explorar/bebidas/ingredientes" />
       <Route path="/comidas/:id/in-progress" component={ RecipeInProgress } />
       <Route path="/bebidas/:id/in-progress" component={ RecipeInProgress } />
       <Route path="/explorar/comidas/area" />
       <Route path="/receitas-favoritas" />
-      <Route path="/explorar/comidas" />
-      <Route path="/explorar/bebidas" />
+      <Route path="/explorar/comidas" component={ ExploreMore } />
+      <Route path="/explorar/bebidas" component={ ExploreMore } />
       <Route path="/receitas-feitas" />
       <Route exact path="/comidas/:id" component={ RecipeDetail } />
       <Route exact path="/bebidas/:id" component={ RecipeDetail } />

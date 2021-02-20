@@ -65,3 +65,7 @@ export const getFoodCategory = (category) => (
 export const getDrinksCategory = (category) => (
   `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`
 );
+
+export const getRandomFood = 'https://www.themealdb.com/api/json/v1/1/random.php';
+
+export const getRandomDrink = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';

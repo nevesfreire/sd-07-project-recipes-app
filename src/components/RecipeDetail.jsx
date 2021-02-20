@@ -51,7 +51,7 @@ const fetchId = async (pathname, setDetail, setStore, setFavoriteHeart) => {
   } else if (pathname === `/bebidas/${id}`) {
     const newData = await fetchApi(getDrinkRecipeId(id));
     setDetail(newData.drinks[0]);
-    assembleStore(pathname, newData.meals[0], setStore, setFavoriteHeart);
+    assembleStore(pathname, newData.drinks[0], setStore, setFavoriteHeart);
   }
 };
 

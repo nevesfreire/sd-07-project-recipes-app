@@ -23,7 +23,7 @@ const exploreFood = (history) => (
   </button>
 );
 
-function ExploreBtns() {
+export default function ExploreBtns() {
   const history = useHistory();
   return (
     <div>
@@ -32,5 +32,3 @@ function ExploreBtns() {
     </div>
   );
 }
-
-export default ExploreBtns;
