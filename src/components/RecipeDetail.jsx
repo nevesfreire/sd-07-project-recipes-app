@@ -8,6 +8,8 @@ import { fetchApi, getFoodRecipeId, getDrinkRecipeId } from '../services/fetchAp
 import shareIcon from '../images/shareIcon.svg';
 import wHeartIcon from '../images/whiteHeartIcon.svg';
 import bHeartIcon from '../images/blackHeartIcon.svg';
+import Carousel from './Carousel';
+import '../css/card.css';
 
 // stackOverflow -> https://stackovetextrflow.com/questions/9907419/how-to-get-a-key-in-a-javascript-object-by-its-value
 const findMatch = (string, object) => (
@@ -26,18 +28,6 @@ const fetchId = async (pathname, state, setDetail, setRecipeStr) => {
     setRecipeStr(state.str.beverage);
   }
 };
-
-const favoriteIt = (favoriteHeart, setFavoriteHeart) => {
-  setFavoriteHeart(!favoriteHeart);
-  // if (favoriteHeart) {
-
-  // }
-};
-//     Se o favorteH for false => const STORE = OQUEPEGUEI.filter((id) => favoritId !== id)
-//   localStorage.setItem('faotu', STORE)
-//   se troooo
-//   localStorage.setItem('faotu', ...STORE, id)
-// );
 
 const recipeImage = (url, title) => (
   <img
@@ -84,6 +74,21 @@ const recipeShareMessage = (shared) => (
     { shared ? 'Link copiado!' : null }
   </div>
 );
+
+const favoriteIt = (favoriteHeart, setFavoriteHeart, store, item) => {
+  setFavoriteHeart(!favoriteHeart);
+  if (favoriteHeart) {
+    localStorage.setItem('favoriteRecipes', [...store, item]);
+  } else {
+    const remove = store.filter((favorite) => favorite.id !== item.id);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(remove));
+  }
+};
+//     Se o favorteH for false => const STORE = OQUEPEGUEI.filter((id) => favoritId !== id)
+//   localStorage.setItem('faotu', STORE)
+//   se troooo
+//   localStorage.setItem('faotu', ...STORE, id)
+// );
 
 const recipeFavorite = (favoriteHeart, setFavoriteHeart) => (
   <div>
@@ -138,32 +143,22 @@ const recipeVideo = (video) => (
   </video>
 );
 
-// const recipeRecommendation = (recommendation) => (
-//   recommendation.map((recommend, index) => (
-//     <Card
-//       key={ recommend[findMatch('id', recommend)] }
-//       pathname={ pathname }
-//       id={ recommend[findMatch('id', recommend)] }
-//       Name={ recommend[findMatch(recipeStr, recommend)] }
-//       Thumb={ recommend[findMatch(/Thumb/, recommend)] }
-//       Index={ index }
-//       Test="recomendation-card"
-//     />
-//   ))
-// );
-
 const start = (history, pathname) => {
   history.push(`${pathname}/in-progress`);
 };
 
 const recipeStart = (funcstart, history, pathname) => (
-  <Button
-    data-testid="start-recipe-btn"
-    type="button"
-    onClick={ () => funcstart(history, pathname) }
-  >
-    Iniciar Receita
-  </Button>
+  <div className="startBtn-housing">
+    <Button
+      data-testid="start-recipe-btn"
+      variant="contained"
+      type="button"
+      onClick={ () => funcstart(history, pathname) }
+      className="startBtn-housing"
+    >
+      Iniciar Receita
+    </Button>
+  </div>
 );
 
 const summerizer = (stringRegex, data) => {
@@ -180,6 +175,7 @@ const summerizer = (stringRegex, data) => {
 function RecipeDetail() {
   const { state, detail, setDetail } = useContext(context);
   const [recipeStr, setRecipeStr] = useState('');
+  const [store, setStore] = useState();
   const [shared, setShared] = useState(false);
   const [favoriteHeart, setFavoriteHeart] = useState(false);
   const location = useLocation();
@@ -187,12 +183,16 @@ function RecipeDetail() {
   const { pathname } = location;
 
   useEffect(() => {
-    // localStorage.getItem('', )
-  }, []);
+    setStore(localStorage.getItem('favoriteRecipes'));
+    const id = pathname.split('/')[2];
+    const isFavorite = store.filter((favorite) => favorite.id === id);
+    if (isFavorite) setFavoriteHeart(true);
+    localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+  }, [pathname, store]);
 
   useEffect(() => {
     fetchId(pathname, state, setDetail, setRecipeStr);
-  }, [pathname, state]);
+  }, [pathname, state, setDetail]);
 
   if (!detail) return <div>Loading...</div>;
   const dataDetail = detail[0];
@@ -208,6 +208,7 @@ function RecipeDetail() {
 
   return (
     <div className="card">
+      {recipeStart(start, history, pathname)}
       {recipeImage(url, title)}
       {recipeTitle(title)}
       {recipeShare(pathname, setShared)}
@@ -216,8 +217,14 @@ function RecipeDetail() {
       {recipeCategory(category, alcoholic, pathname)}
       {recipeIngredients(ingredients, measures)}
       {recipeInstructions(instructions)}
-      {recipeVideo(video)}
-      {recipeStart(start, history, pathname)}
+      {pathname.match('comida') ? recipeVideo(video) : null }
+      { pathname.match('comida') ? <Carousel
+        recomendations={ state.data.beverage }
+        str={ state.str.beverage }
+      /> : <Carousel
+        recomendations={ state.data.food }
+        str={ state.str.food }
+      /> }
     </div>
   );
 }
