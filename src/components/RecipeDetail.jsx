@@ -77,12 +77,12 @@ const recipeShareMessage = (shared) => (
 
 const favoriteIt = (favoriteHeart, setFavoriteHeart, store, item) => {
   setFavoriteHeart(!favoriteHeart);
-  if (favoriteHeart) {
-    localStorage.setItem('favoriteRecipes', [...store, item]);
-  } else {
-    const remove = store.filter((favorite) => favorite.id !== item.id);
-    localStorage.setItem('favoriteRecipes', JSON.stringify(remove));
-  }
+  // if (favoriteHeart) {
+  //   localStorage.setItem('favoriteRecipes', [...store, item]);
+  // } else {
+  //   const remove = store.filter((favorite) => favorite.id !== item.id);
+  //   localStorage.setItem('favoriteRecipes', JSON.stringify(remove));
+  // }
 };
 //     Se o favorteH for false => const STORE = OQUEPEGUEI.filter((id) => favoritId !== id)
 //   localStorage.setItem('faotu', STORE)
@@ -175,20 +175,20 @@ const summerizer = (stringRegex, data) => {
 function RecipeDetail() {
   const { state, detail, setDetail } = useContext(context);
   const [recipeStr, setRecipeStr] = useState('');
-  const [store, setStore] = useState();
+  // const [store, setStore] = useState();
   const [shared, setShared] = useState(false);
   const [favoriteHeart, setFavoriteHeart] = useState(false);
   const location = useLocation();
   const history = useHistory();
   const { pathname } = location;
 
-  useEffect(() => {
-    setStore(localStorage.getItem('favoriteRecipes'));
-    const id = pathname.split('/')[2];
-    const isFavorite = store.filter((favorite) => favorite.id === id);
-    if (isFavorite) setFavoriteHeart(true);
-    localStorage.setItem('favoriteRecipes', JSON.stringify([]));
-  }, [pathname, store]);
+  // useEffect(() => {
+  //   setStore(localStorage.getItem('favoriteRecipes'));
+  //   const id = pathname.split('/')[2];
+  //   const isFavorite = store.filter((favorite) => favorite.id === id);
+  //   if (isFavorite) setFavoriteHeart(true);
+  //   localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+  // }, [pathname, store]);
 
   useEffect(() => {
     fetchId(pathname, state, setDetail, setRecipeStr);
