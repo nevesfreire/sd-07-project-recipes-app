@@ -9,36 +9,41 @@ import fetchMock from './mocks/fetch';
 
 global.fetch = jest.fn().mockImplementation(fetchMock);
 
-afterEach(() => cleanup());
+const ELEVEN = 11;
 
 describe('the 12 cards are rendered in the pages', () => {
-  it('should render 12 meals cards', () => {
+  // passei muito mal aqui, stack-overflow salvou minha noite de sono
+  it('should render 12 meals cards', async () => {
     renderWithRouter(<App />, { route: '/comidas' });
 
-    meals.meals.forEach(async (meal, index) => {
-      const recipeCard = await screen.findByTestId(`${index}-recipe-card`);
-      const imageFood = await screen.findByTestId(`${index}-card-img`);
-      const cardName = await screen.findByTestId(`${index}-card-name`);
-      console.log(imageFood);
-      expect(recipeCard).toBeTruthy();
-      expect(imageFood).toHaveAttribute('src', meal.strMealThumb);
-      expect(cardName.innerHTML).not.toBe(meal.strMeal);
-    });
-    expect(screen.queryByTestId('12-recipe-card')).toBeFalsy();
+    await Promise.all(meals.meals.map(async (meal, index) => {
+      if (index <= ELEVEN) {
+        const recipeCard = await screen.findByTestId(`${index}-recipe-card`);
+        const imageFood = await screen.findByTestId(`${index}-card-img`);
+        const cardName = await screen.findByTestId(`${index}-card-name`);
+        expect(imageFood).toHaveAttribute('src', meal.strMealThumb);
+        expect(recipeCard).toBeTruthy();
+        expect(cardName.innerHTML).toBe(meal.strMeal);
+      }
+    }));
+    const recipeCard = screen.queryByTestId('12-recipe-card');
+    expect(recipeCard).toBeFalsy();
   });
-});
 
-describe('the 12 cards are rendered in the pages', () => {
-  it('should render 12 drinks cards', () => {
+  it('should render 12 drinks cards', async () => {
     renderWithRouter(<App />, { route: '/bebidas' });
 
-    drinks.drinks.forEach(async (drink, index) => {
-      const drinkCard = await screen.findByTestId(`${index}-recipe-card`);
-      const imageDrink = await screen.findByTestId(`${index}-card-img`);
-      expect(drinkCard).toBeTruthy();
-      expect(imageDrink).toHaveAttribute('src', drink.strDrinkThumb);
-    });
-    expect(screen.queryByTestId('12-recipe-card')).toBeFalsy();
-    // cleanup();
+    await Promise.all(drinks.drinks.map(async (drink, index) => {
+      if (index <= ELEVEN) {
+        const recipeCard = await screen.findByTestId(`${index}-recipe-card`);
+        const imageDink = await screen.findByTestId(`${index}-card-img`);
+        const cardName = await screen.findByTestId(`${index}-card-name`);
+        expect(imageDink).toHaveAttribute('src', drink.strDrinkThumb);
+        expect(recipeCard).toBeTruthy();
+        expect(cardName.firstChild.data).toBe(drink.strDrink);
+      }
+    }));
+    const recipeCard = screen.queryByTestId('12-recipe-card');
+    expect(recipeCard).toBeFalsy();
   });
 });
