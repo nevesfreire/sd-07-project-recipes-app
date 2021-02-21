@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import Login from './pages/login';
 import Recipes from './pages/recipes';
 import Profile from './pages/profile';
@@ -9,6 +9,7 @@ import EIngredients from './pages/exploreIngredients';
 import ExploreArea from './pages/exploreArea';
 import RecipeDetail from './pages/recipeDetail';
 import RecipeInProgress from './pages/recipeInProgress';
+import NotFound from './pages/notFound';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
@@ -32,6 +33,8 @@ function App() {
       <Route exact path="/comidas/:id" component={ RecipeDetail } />
       <Route exact path="/bebidas/:id" component={ RecipeDetail } />
       <Route exact path="/receitas-feitas" />
+      <Route path="/404" component={ NotFound } />
+      <Redirect to="/404" />
     </Switch>
   );
 }

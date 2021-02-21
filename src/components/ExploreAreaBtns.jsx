@@ -1,70 +1,76 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import Paper from '@material-ui/core/Paper';
-import { fetchApi, allFoodIngredients, allDrinkIngredients } from '../services/fetchApi';
+import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import context from '../contextAPI/context';
+import { fetchApi, allFood, allFoodAreas, getFoodArea } from '../services/fetchApi';
 
-const fetchIngredients = async (pathname, setIngredients) => {
-  if (pathname.match('comidas')) {
-    const newData = await fetchApi(allFoodIngredients);
-    setIngredients(newData.meals);
-  }
-  if (pathname.match('bebidas')) {
-    const newData = await fetchApi(allDrinkIngredients);
-    setIngredients(newData.drinks);
-  }
+const fetchAreas = async (pathname, setAreas) => {
+  const newData = await fetchApi(allFoodAreas);
+  console.log(newData);
+  setAreas(newData.meals);
 };
 
-const recipeImg = (recipeThumb, recipeIndex) => (
-  <img
-    src={ recipeThumb }
-    alt="recipe-img"
-    data-testid={ `${recipeIndex}-card-img` }
-    className="card-image"
-  />
-);
+const fetchArea = async (area, setState) => {
+  let newData = '';
+  if (area !== 'All') {
+    newData = await fetchApi(getFoodArea(area));
+  }
+  if (area === 'All') {
+    newData = await fetchApi(allFood);
+  }
+  setState((s) => ({
+    ...s,
+    data: { ...s.data, food: newData.meals },
+    filtered: area,
+  }
+  ));
+};
 
-const recipeTextData = (recipeName, recipeIndex) => (
-  <h3 data-testid={ `${recipeIndex}-card-name` } className="card-title">
-    {recipeName}
-  </h3>
-);
+const exploreAreaDrop = (areas, area, setArea) => {
+  const handleChange = (event) => {
+    setArea(event.target.value);
+  };
 
-const exploreIngredients = (history, pathname, ingredients) => {
-  const maxIngredients = 12;
-  return ingredients
-    .filter((_ingredient, index) => index < maxIngredients)
-    .map((ingredient, index) => {
-      const Thumb = pathname.match('comidas')
-        ? `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}-Small.png`
-        : `https://www.thecocktaildb.com/images/ingredients/${ingredient.strIngredient1}-Small.png`;
-      const Name = pathname.match('comidas')
-        ? ingredient.strIngredient
-        : ingredient.strIngredient1;
-      return (
-        <Paper key={ index } className="paper-style" elevation={ 6 }>
-          <Link to="/" replace>
-            <div data-testid={ `${index}-ingredient-card` }>
-              {recipeImg(Thumb, index)}
-              {recipeTextData(Name, index)}
-            </div>
-          </Link>
-        </Paper>
-      );
-    });
+  return (
+    <select
+      className="form-select form-select-lg mb-3"
+      value={ area }
+      onChange={ handleChange }
+      data-testid="explore-by-area-dropdown"
+    >
+      <option data-testid="All-option" value="All">All</option>
+      {
+        areas
+          .map((a, index) => (
+            <option
+              key={ index }
+              value={ a.strArea }
+              data-testid={ `${a.strArea}-option` }
+            >
+              {a.strArea}
+            </option>
+          ))
+      }
+    </select>
+  );
 };
 
 export default function ExploreIngredientsBtns() {
-  const [ingredients, setIngredients] = useState();
+  const { setState } = useContext(context);
+  const [areas, setAreas] = useState();
+  const [area, setArea] = useState('');
   const history = useHistory();
-  const {
-    location: { pathname },
-  } = history;
+  const { location: { pathname } } = history;
 
   useEffect(() => {
-    fetchIngredients(pathname, setIngredients);
+    fetchAreas(pathname, setAreas);
   }, [pathname]);
 
-  if (!ingredients) return <div>Loading...</div>;
+  useEffect(() => {
+    fetchArea(area, setState);
+    // maria luisa abreu flores
+  }, [area, setState]);
 
-  return <div>{exploreIngredients(history, pathname, ingredients)}</div>;
+  if (!areas) return <div>Loading...</div>;
+
+  return <div>{exploreAreaDrop(areas, area, setArea)}</div>;
 }

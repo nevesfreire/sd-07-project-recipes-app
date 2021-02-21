@@ -11,10 +11,10 @@ const findMatch = (string, object) => (
 );
 
 const newCards = async (pathname, setCards, setRecipeStr, state) => {
-  if (pathname === '/comidas') {
+  if (pathname.match('comidas')) {
     setCards(state.data.food);
     setRecipeStr(state.str.food);
-  } else if (pathname === '/bebidas') {
+  } else if (pathname.match('bebidas')) {
     setCards(state.data.beverage);
     setRecipeStr(state.str.beverage);
   }

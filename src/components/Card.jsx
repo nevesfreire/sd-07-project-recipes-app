@@ -31,10 +31,14 @@ function Card(props) {
     Index,
     Test,
   } = props;
+  const correctPath = (pname) => {
+    if (pname.match('comidas')) return 'comidas';
+    if (pname.match('bebidas')) return 'bebidas';
+  };
 
   return (
     <Paper className="paper-style" elevation={ 6 }>
-      <Link to={ `${pathname}/${id}` } replace>
+      <Link to={ `/${correctPath(pathname)}/${id}` } replace>
         <div className="image-card" data-testid={ `${Index}-${Test}` }>
           {recipeImg(Thumb, Index)}
           {recipeTextData(Name, Index)}

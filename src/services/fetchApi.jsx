@@ -1,6 +1,7 @@
 export async function fetchApi(endpoint) {
   const result = await fetch(endpoint);
   const jsonData = await result.json();
+  console.log(jsonData);
   return jsonData;
 }
 
@@ -26,6 +27,10 @@ export const getFoodRecipeId = (id) => (
 
 export const getFoodCategory = (category) => (
   `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`
+);
+
+export const getFoodArea = (area) => (
+  `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`
 );
 
 export const getFoodList = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
