@@ -6,6 +6,7 @@ import Profile from './pages/profile';
 import Explore from './pages/explore';
 import ExploreMore from './pages/exploreMore';
 import EIngredients from './pages/exploreIngredients';
+import ExploreArea from './pages/exploreArea';
 import RecipeDetail from './pages/recipeDetail';
 import RecipeInProgress from './pages/recipeInProgress';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -23,7 +24,7 @@ function App() {
       <Route exact path="/explorar/bebidas/ingredientes" component={ EIngredients } />
       <Route exact path="/comidas/:id/in-progress" component={ RecipeInProgress } />
       <Route exact path="/bebidas/:id/in-progress" component={ RecipeInProgress } />
-      <Route exact path="/explorar/comidas/area" />
+      <Route exact path="/explorar/comidas/area" component={ ExploreArea } />
       <Route exact path="/receitas-favoritas" />
       <Route exact path="/explorar/comidas" component={ ExploreMore } />
       <Route exact path="/explorar/bebidas" component={ ExploreMore } />
