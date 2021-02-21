@@ -7,7 +7,7 @@ const renderWithRouter = (
   component,
   {
     route = '/',
-    history = createMemoryHistory({ initialEntries: [route] })
+    history = createMemoryHistory({ initialEntries: [route] }),
   } = {},
 ) => ({ ...render(<Router history={ history }>{component}</Router>), history });
 

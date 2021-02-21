@@ -1,6 +1,6 @@
 import React from 'react';
 import { screen, wait } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+// import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helper/renderWithRouter';
 import App from '../App';
 import fetchMock from './mocks/fetch';
