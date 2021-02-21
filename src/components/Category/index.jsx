@@ -46,6 +46,11 @@ export default function Category({ category, fetchRandomFoods, fetchDrinks }) {
 
 Category.propTypes = {
   category: PropTypes.shape().isRequired,
-  fetchRandomFoods: PropTypes.func.isRequired,
-  fetchDrinks: PropTypes.func.isRequired,
+  fetchRandomFoods: PropTypes.func,
+  fetchDrinks: PropTypes.func,
+};
+
+Category.defaultProps = {
+  fetchRandomFoods: undefined,
+  fetchDrinks: undefined,
 };
