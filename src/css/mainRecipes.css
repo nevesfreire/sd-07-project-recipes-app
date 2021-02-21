@@ -1,0 +1,155 @@
+body {
+    margin: 50px;
+    background-color: #E1EBEE;
+}
+
+
+#bebidas:target {
+    display: none;
+}
+
+.title-header {
+    font-family: Bradley Hand, cursive;
+    text-align: center;
+    width: 100%;
+}
+
+.title-header-food {
+    font-family: Bradley Hand, cursive;
+    text-align: center;
+    width: 100%;
+}
+
+.title-header-drink {
+    font-family: Bradley Hand, cursive;
+    text-align: center;
+    width: 100%;
+}
+
+.explore-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 55%;
+    padding: 20px;
+}
+
+.explore-by-ingredient {
+    margin: 5px;
+}
+
+.explore-by-area {
+    margin: 5px;
+}
+
+.explore-surprise {
+    margin: 5px;
+}
+
+.explore-btn {
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.384);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 50%;
+    padding: 20px;
+}
+
+.explore-food {
+    margin: 5px;
+}
+
+.explore-drinks {
+    margin: 5px;
+}
+
+.loading {
+   margin-left: 38em;
+}
+
+.search-btn {
+    justify-content: center;
+}
+
+.card-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.subtitle-controller {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.image-card {
+   text-align: center;
+   margin:30px;
+}
+
+.image-food {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+    height: 200px;
+    width: 220px;
+    margin-left: 15px;
+    padding-bottom: 20px;
+}
+
+.dish-tile {
+    margin-bottom: 15px;
+}
+
+.footer-container {
+    align-content: center;
+    bottom: 0;
+    width: 100%;
+    position: fixed;
+}
+
+.drinks-container {
+    text-align: center;
+}
+
+.perfil-container {
+    text-align: center;
+}
+
+.main-icons {
+   display: flex;
+   flex-direction: row;
+   justify-content: space-around;
+}
+
+.rigth-side-icons {
+    display: flex;
+    flex-direction: row;
+    margin-left: 64em;
+}
+
+.search-input { 
+    display: flex;
+    justify-content:space-between;
+    margin-top: 30px;
+}
+
+.radio-group-controll {
+    display: flex;
+    flex-direction: row;
+}
+
+@media screen and (min-width: 360px) {
+    .explore-btn {
+        border: 1px solid rgba(0, 0, 0, 0.384);
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin-left: 100px;
+        width: 32%;
+        padding: 20px;
+        background-color: rgb(243, 242, 241);
+    }
+}
