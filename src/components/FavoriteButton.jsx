@@ -3,20 +3,9 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function FavoriteButton() {
-  // const [favoritedRecipeFound, setFavoriteRecipeFound] = useState();
+
   const [iconButtonColor, setIconButtonColor] = useState(whiteHeartIcon);
 
-  // const filterRecipe = (parseSearchFavoriteBttn) => {
-  //   const getRecipe = parseSearchFavoriteBttn.find((rec) => rec.id === id);
-  //   console.log(getRecipe);
-  //   if (getRecipe) setIconButtonColor(blackHeartIcon);
-  // };
-
-  // const favoritedRecipe = () => {
-  //   const searchFavoriteBttn = localStorage.getItem('favoriteRecipes');
-  //   const parseSearchFavoriteBttn = JSON.parse(searchFavoriteBttn);
-  //   return parseSearchFavoriteBttn ? filterRecipe(parseSearchFavoriteBttn) : '';
-  // };
 
   const removeFromFavorites = (favoriteList, removedRecipe) => {
     const remove = favoriteList
@@ -33,7 +22,6 @@ function FavoriteButton() {
   };
 
   const setFavoriteRecipe = () => {
-    console.log('receita para adicionar', recipe);
     const searchFavoriteBttn = localStorage.getItem('favoriteRecipes');
     const parseSearchFavoriteBttn = JSON.parse(searchFavoriteBttn);
     if (parseSearchFavoriteBttn) {

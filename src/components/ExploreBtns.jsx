@@ -6,6 +6,7 @@ const exploreDrinks = (history) => (
   <Button
     type="button"
     variant="contained"
+    className=""
     data-testid="explore-drinks"
     onClick={ () => history.push('/explorar/bebidas') }
   >

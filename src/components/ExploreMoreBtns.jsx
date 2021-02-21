@@ -6,12 +6,10 @@ import { fetchApi, getRandomFood, getRandomDrink } from '../services/fetchApi';
 const fetchRandom = async (pathname, setIdRandom) => {
   if (pathname.match('comidas')) {
     const newData = await fetchApi(getRandomFood);
-    console.log(newData);
     setIdRandom(newData.meals[0].idMeal);
   }
   if (pathname.match('bebidas')) {
     const newData = await fetchApi(getRandomDrink);
-    console.log(newData);
     setIdRandom(newData.drinks[0].idDrink);
   }
 };
@@ -40,7 +38,6 @@ const exploreOrigin = (history, pathname) => (
 
 const exploreSurprise = (history, pathname, idRandom) => {
   const random = pathname.split('/')[2];
-  console.log(random);
   return (
     <Button
       type="button"

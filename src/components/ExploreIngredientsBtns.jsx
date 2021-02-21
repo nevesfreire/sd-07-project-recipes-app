@@ -6,12 +6,10 @@ import { fetchApi, allFoodIngredients, allDrinkIngredients } from '../services/f
 const fetchIngredients = async (pathname, setIngredients) => {
   if (pathname.match('comidas')) {
     const newData = await fetchApi(allFoodIngredients);
-    console.log(newData);
     setIngredients(newData.meals);
   }
   if (pathname.match('bebidas')) {
     const newData = await fetchApi(allDrinkIngredients);
-    console.log(newData);
     setIngredients(newData.drinks);
   }
 };

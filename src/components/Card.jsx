@@ -32,10 +32,6 @@ function Card(props) {
     Test,
   } = props;
 
-  // useEffect(() => {
-  //   const Newid = pathname.split('/')[2];
-  //   console.log(Newid);
-  // }, [pathname]);
   return (
     <Paper className="paper-style" elevation={ 6 }>
       <Link to={ `${pathname}/${id}` } replace>
