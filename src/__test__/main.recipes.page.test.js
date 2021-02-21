@@ -23,6 +23,7 @@ global.fetch = jest.fn().mockImplementation(fetchMock);
 
 const FIVE = 5;
 const ELEVEN = 11;
+const LAST_CARD = '12-recipe-card';
 
 describe('the 12 cards are rendered in the pages', () => {
   // passei muito mal aqui, stack-overflow salvou minha noite de sono
@@ -38,7 +39,7 @@ describe('the 12 cards are rendered in the pages', () => {
         expect(cardName.innerHTML).toBe(meal.strMeal);
       }
     }));
-    expect(screen.queryByTestId('12-recipe-card')).toBeFalsy();
+    expect(screen.queryByTestId(LAST_CARD)).toBeFalsy();
     expect(fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?s=');
   });
   it('should render 12 drinks cards', async () => {
@@ -53,7 +54,7 @@ describe('the 12 cards are rendered in the pages', () => {
         expect(cardName.firstChild.data).toBe(drink.strDrink);
       }
     }));
-    expect(screen.queryByTestId('12-recipe-card')).toBeFalsy();
+    expect(screen.queryByTestId(LAST_CARD)).toBeFalsy();
     expect(fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
   });
 });
@@ -108,7 +109,7 @@ describe('render the meals recipes by category', () => {
         expect(cardName.firstChild.data).toBe(beef.strMeal);
       }
     }));
-    expect(screen.queryByTestId('12-recipe-card')).toBeFalsy();
+    expect(screen.queryByTestId(LAST_CARD)).toBeFalsy();
   });
   it('should render all the breakfast categories', async () => {
     renderWithRouter(<App />, { route: '/comidas' });
@@ -122,7 +123,7 @@ describe('render the meals recipes by category', () => {
         expect(cardName.firstChild.data).toBe(breakfast.strMeal);
       }
     }));
-    expect(screen.queryByTestId('12-recipe-card')).toBeFalsy();
+    expect(screen.queryByTestId(LAST_CARD)).toBeFalsy();
   });
   it('should render all the chicken categories', async () => {
     renderWithRouter(<App />, { route: '/comidas' });
@@ -136,7 +137,7 @@ describe('render the meals recipes by category', () => {
         expect(cardName.firstChild.data).toBe(chicken.strMeal);
       }
     }));
-    expect(screen.queryByTestId('12-recipe-card')).toBeFalsy();
+    expect(screen.queryByTestId(LAST_CARD)).toBeFalsy();
   });
   it('should render all the dessert categories', async () => {
     renderWithRouter(<App />, { route: '/comidas' });
@@ -150,7 +151,7 @@ describe('render the meals recipes by category', () => {
         expect(cardName.firstChild.data).toBe(dessert.strMeal);
       }
     }));
-    expect(screen.queryByTestId('12-recipe-card')).toBeFalsy();
+    expect(screen.queryByTestId(LAST_CARD)).toBeFalsy();
   });
   it('should render all the goat categories', async () => {
     renderWithRouter(<App />, { route: '/comidas' });
@@ -164,7 +165,7 @@ describe('render the meals recipes by category', () => {
         expect(cardName.firstChild.data).toBe(goat.strMeal);
       }
     }));
-    expect(screen.queryByTestId('12-recipe-card')).toBeFalsy();
+    expect(screen.queryByTestId(LAST_CARD)).toBeFalsy();
   });
 });
 describe('render the drinks recipes by category', () => {
@@ -180,7 +181,7 @@ describe('render the drinks recipes by category', () => {
         expect(cardName.firstChild.data).toBe(ordinary.strDrink);
       }
     }));
-    expect(screen.queryByTestId('12-recipe-card')).toBeFalsy();
+    expect(screen.queryByTestId(LAST_CARD)).toBeFalsy();
   });
   it('should render all the cocktail categories', async () => {
     renderWithRouter(<App />, { route: '/bebidas' });
@@ -194,7 +195,7 @@ describe('render the drinks recipes by category', () => {
         expect(cardName.firstChild.data).toBe(cocktail.strDrink);
       }
     }));
-    expect(screen.queryByTestId('12-recipe-card')).toBeFalsy();
+    expect(screen.queryByTestId(LAST_CARD)).toBeFalsy();
   });
   it('should render all the milk categories', async () => {
     renderWithRouter(<App />, { route: '/bebidas' });
@@ -208,7 +209,7 @@ describe('render the drinks recipes by category', () => {
         expect(cardName.firstChild.data).toBe(milk.strDrink);
       }
     }));
-    expect(screen.queryByTestId('12-recipe-card')).toBeFalsy();
+    expect(screen.queryByTestId(LAST_CARD)).toBeFalsy();
   });
   it('should render all the other drinks categories', async () => {
     renderWithRouter(<App />, { route: '/bebidas' });
@@ -222,7 +223,7 @@ describe('render the drinks recipes by category', () => {
         expect(cardName.firstChild.data).toBe(other.strDrink);
       }
     }));
-    expect(screen.queryByTestId('12-recipe-card')).toBeFalsy();
+    expect(screen.queryByTestId(LAST_CARD)).toBeFalsy();
   });
   it('should render all the cocoa categories', async () => {
     renderWithRouter(<App />, { route: '/bebidas' });
@@ -237,6 +238,6 @@ describe('render the drinks recipes by category', () => {
         expect(cardName.firstChild.data).toBe(cocoa.strDrink);
       }
     }));
-    expect(screen.queryByTestId('12-recipe-card')).toBeFalsy();
+    expect(screen.queryByTestId(LAST_CARD)).toBeFalsy();
   });
 });

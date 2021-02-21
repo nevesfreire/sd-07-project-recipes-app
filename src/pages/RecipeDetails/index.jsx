@@ -5,7 +5,7 @@ import Ingredients from './Ingredients';
 import Recomendations from './Recomendations';
 
 export default function RecipeDetails({ history, match: { params: { id } } }) {
-  const [recipeDetails, setRecipeDetails] = useState([]);
+  const [recipeDetails, setRecipeDetails] = useState({});
   const { location: { pathname } } = history;
   const path = pathname.split('/')[1];
   const {
