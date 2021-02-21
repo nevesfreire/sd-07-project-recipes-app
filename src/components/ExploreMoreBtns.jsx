@@ -21,7 +21,7 @@ const exploreIngredients = (history, pathname) => (
     type="button"
     className="btn btn-secondary"
     data-testid="explore-by-ingredient"
-    onClick={ () => history.push(`${pathname}/ingredients`) }
+    onClick={ () => history.push(`${pathname}/ingredientes`) }
   >
     Por Ingredientes
   </Button>

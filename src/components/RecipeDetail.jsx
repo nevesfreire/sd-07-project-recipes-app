@@ -204,7 +204,6 @@ function RecipeDetail() {
       const remove = favorites.filter((favorite) => favorite.id !== store.id);
       localStorage.setItem('favoriteRecipes', JSON.stringify([...remove]));
     }
-    console.log(store);
   }, [favoriteHeart, store]);
 
   if (!detail) return <div>Loading...</div>;

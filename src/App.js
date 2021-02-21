@@ -5,6 +5,7 @@ import Recipes from './pages/recipes';
 import Profile from './pages/profile';
 import Explore from './pages/explore';
 import ExploreMore from './pages/exploreMore';
+import EIngredients from './pages/exploreIngredients';
 import RecipeDetail from './pages/recipeDetail';
 import RecipeInProgress from './pages/recipeInProgress';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -16,20 +17,20 @@ function App() {
       <Route exact path="/" component={ Login } />
       <Route exact path="/comidas" component={ Recipes } />
       <Route exact path="/bebidas" component={ Recipes } />
-      <Route path="/perfil" component={ Profile } />
+      <Route exact path="/perfil" component={ Profile } />
       <Route exact path="/explorar" component={ Explore } />
-      <Route path="/explorar/comidas/ingredientes" />
-      <Route path="/explorar/bebidas/ingredientes" />
-      <Route path="/comidas/:id/in-progress" component={ RecipeInProgress } />
-      <Route path="/bebidas/:id/in-progress" component={ RecipeInProgress } />
-      <Route path="/explorar/comidas/area" />
-      <Route path="/receitas-favoritas" />
-      <Route path="/explorar/comidas" component={ ExploreMore } />
-      <Route path="/explorar/bebidas" component={ ExploreMore } />
-      <Route path="/receitas-feitas" />
+      <Route exact path="/explorar/comidas/ingredientes" component={ EIngredients } />
+      <Route exact path="/explorar/bebidas/ingredientes" component={ EIngredients } />
+      <Route exact path="/comidas/:id/in-progress" component={ RecipeInProgress } />
+      <Route exact path="/bebidas/:id/in-progress" component={ RecipeInProgress } />
+      <Route exact path="/explorar/comidas/area" />
+      <Route exact path="/receitas-favoritas" />
+      <Route exact path="/explorar/comidas" component={ ExploreMore } />
+      <Route exact path="/explorar/bebidas" component={ ExploreMore } />
+      <Route exact path="/receitas-feitas" />
       <Route exact path="/comidas/:id" component={ RecipeDetail } />
       <Route exact path="/bebidas/:id" component={ RecipeDetail } />
-      <Route path="/receitas-feitas" />
+      <Route exact path="/receitas-feitas" />
     </Switch>
   );
 }

@@ -39,6 +39,18 @@ export const getFoodRecipeId = (id) => (
   `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
 );
 
+export const getFoodCategory = (category) => (
+  `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`
+);
+
+export const getFoodList = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+
+export const allFoodIngredients = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+
+export const allFoodAreas = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+
+export const getRandomFood = 'https://www.themealdb.com/api/json/v1/1/random.php';
+
 export const getDrinkIngredients = (inputText) => (
   `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${inputText}`
 );
@@ -54,18 +66,13 @@ export const getDrinkFLetter = (inputText) => (
 export const getDrinkRecipeId = (id) => (
   `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`
 );
-export const getFoodList = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
-
-export const getDrinksList = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
-
-export const getFoodCategory = (category) => (
-  `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`
-);
 
 export const getDrinksCategory = (category) => (
   `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`
 );
 
-export const getRandomFood = 'https://www.themealdb.com/api/json/v1/1/random.php';
+export const getDrinksList = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+
+export const allDrinkIngredients = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
 
 export const getRandomDrink = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';

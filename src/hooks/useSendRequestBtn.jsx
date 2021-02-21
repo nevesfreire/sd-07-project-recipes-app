@@ -48,7 +48,8 @@ function useSendRequestBtn() {
       }
     }
     fetchData();
-  }, [getEvent]);
+  },
+  [choice, data, getEvent, radio.byName, radio.ingredient, radioBtn, setData, textSeach]);
 
   return [setGetEvent];
 }
