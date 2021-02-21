@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-// import { Button } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import copy from 'clipboard-copy';
 import context from '../contextAPI/context';
 import { fetchApi, getFoodRecipeId, getDrinkRecipeId } from '../services/fetchApi';
@@ -65,9 +65,7 @@ const recipeImage = (url, title) => (
 );
 
 const recipeTitle = (title) => (
-  <h1 data-testid="recipe-title">
-    {title}
-  </h1>
+  <h1 data-testid="recipe-title">{title}</h1>
 );
 
 function share(pathname, setShared) {
@@ -79,14 +77,15 @@ function share(pathname, setShared) {
 
 const recipeShare = (pathname, setShared) => (
   <div>
-    <button
+    <Button
       data-testid="share-btn"
+      variant="contained"
+      className="noShowBtn"
       onClick={ () => share(pathname, setShared) }
       type="button"
-      className=""
     >
       <img src={ shareIcon } alt="share" />
-    </button>
+    </Button>
   </div>
 );
 
@@ -100,7 +99,9 @@ const favoriteIt = (favoriteHeart, setFavoriteHeart) => {
 
 const recipeFavorite = (favoriteHeart, setFavoriteHeart) => (
   <div>
-    <button
+    <Button
+      variant="contained"
+      className="noShowBtn"
       onClick={ () => favoriteIt(favoriteHeart, setFavoriteHeart) }
       type="button"
     >
@@ -109,7 +110,7 @@ const recipeFavorite = (favoriteHeart, setFavoriteHeart) => (
         src={ favoriteHeart ? blackHeartIcon : whiteHeartIcon }
         alt={ favoriteHeart ? 'blackHeartIcon' : 'whiteHeartIcon' }
       />
-    </button>
+    </Button>
   </div>
 );
 
