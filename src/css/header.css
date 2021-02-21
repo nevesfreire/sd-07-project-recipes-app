@@ -25,6 +25,7 @@
 }
 
 .header-buttons {
+  box-sizing: border-box;
   display: flex;
   flex-direction: row;
   height: 54px;

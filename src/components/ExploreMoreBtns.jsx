@@ -19,8 +19,8 @@ const fetchRandom = async (pathname, setIdRandom) => {
 const exploreIngredients = (history, pathname) => (
   <Button
     type="button"
-    className="btn btn-secondary"
     data-testid="explore-by-ingredient"
+    variant="contained"
     onClick={ () => history.push(`${pathname}/ingredientes`) }
   >
     Por Ingredientes
@@ -30,7 +30,7 @@ const exploreIngredients = (history, pathname) => (
 const exploreOrigin = (history, pathname) => (
   <Button
     type="button"
-    className="btn btn-secondary"
+    variant="contained"
     data-testid="explore-by-area"
     onClick={ () => history.push(`${pathname}/area`) }
   >
@@ -44,7 +44,7 @@ const exploreSurprise = (history, pathname, idRandom) => {
   return (
     <Button
       type="button"
-      className="btn btn-secondary"
+      variant="contained"
       data-testid="explore-surprise"
       onClick={ () => history.push(`/${random}/${idRandom}`) }
     >

@@ -1,26 +1,27 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { Button } from '@material-ui/core';
 
 const exploreDrinks = (history) => (
-  <button
+  <Button
     type="button"
-    className="btn btn-secondary"
+    variant="contained"
     data-testid="explore-drinks"
     onClick={ () => history.push('/explorar/bebidas') }
   >
     Explorar Bebidas
-  </button>
+  </Button>
 );
 
 const exploreFood = (history) => (
-  <button
+  <Button
     type="button"
-    className="btn btn-secondary"
+    variant="contained"
     data-testid="explore-food"
     onClick={ () => history.push('/explorar/comidas') }
   >
     Explorar Comidas
-  </button>
+  </Button>
 );
 
 export default function ExploreBtns() {
