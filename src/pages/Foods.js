@@ -1,42 +1,27 @@
 import React, { useContext } from 'react';
-import {
-  Header, Footer, CategoryButtons, CardsFactory,
-} from '../components';
+import { Header, Footer, CategoryButtons, CardsFactory } from '../components';
 import { CupNodesContext } from '../contexts';
+import { getURL } from '../Services';
+import './css/recomendedScreen.css';
 
-function filterURL({ option, text }) {
-  const newText = text.toLowerCase();
-  switch (option) {
-  case 'ingrediente':
-    return `https://www.themealdb.com/api/json/v1/1/filter.php?i=${text.toLowerCase()}`;
-  case 'nome':
-    return `https://www.themealdb.com/api/json/v1/1/search.php?s=${newText}`;
-  case 'primeiraLetra':
-    return `https://www.themealdb.com/api/json/v1/1/search.php?f=${text}`;
-  default:
-    return text;
-  }
-}
-
-const whatchCards = (category, search) => {
-  if (!search.text && !!category) {
-    const URL = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
-    return (<CardsFactory URL={ URL } drink={ false } number={ 12 } />);
+const newURL = (category, search) => {
+  const drink = false;
+  if (category) {
+    return getURL({ category }, drink);
   } if (search.text) {
-    const URL = filterURL(search);
-    return (<CardsFactory URL={ URL } drink={ false } number={ 12 } />);
+    return getURL({ search }, drink);
   }
-  const URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-  return (<CardsFactory URL={ URL } drink={ false } number={ 12 } />);
+  return getURL({}, drink);
 };
 
 export default function Foods() {
   const { filterDates: { category, search } } = useContext(CupNodesContext);
+  const URL = newURL(category, search);
   return (
-    <div>
+    <div className="cardsList">
       <Header title="Comidas" />
       <CategoryButtons number={ 5 } drink={ false } />
-      {whatchCards(category, search)}
+      <CardsFactory number={ 12 } URL={ URL } drink={ false } />
       <Footer />
     </div>
   );

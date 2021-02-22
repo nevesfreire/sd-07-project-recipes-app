@@ -1,24 +1,32 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Button, FoodRecomendation, LoadingCard, ShareButton, FavoriteDrinkButton,
+import React, { useMemo } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
+import { Button, FoodRecomendation, LoadingCard,
+  ShareButton, FavoriteButton, NotFound,
 } from '../components';
-import { useFetchApi } from '../hooks';
-import '../components/components.css';
+import { useFetchApi, useRecipeInProgress } from '../hooks';
+import { getKeys, getURL } from '../Services';
+import './css/details.css';
 
-const filterDrinks = (arr, str) => Object.entries(arr).filter((key) => (
-  key[0].includes(str) && !!key[1]
-));
+export default function DetailsDrink() {
+  const { push } = useHistory();
+  const { id } = useParams();
 
-const getLink = (idDrink) => (
-  Number.isNaN(Number(idDrink))
-    ? 'https://www.thecocktaildb.com/api/json/v1/1/random.php'
-    : `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idDrink}`
-);
-
-export default function DetailsDrink({ history, match }) {
-  const { params: { idDrink } } = match;
-  const URL = getLink(idDrink);
+  const URL = getURL({ id: id || 'random' });
   const [loading, { drinks }] = useFetchApi(URL);
+  const [drinkObj] = drinks || [''];
+
+  const ingredients = getKeys(drinkObj, 'strIngredient');
+  const measures = getKeys(drinkObj, 'strMeasure');
+
+  const [itemsChecks] = useRecipeInProgress(id);
+  const recipeInProgress = useMemo(() => (
+    itemsChecks.length !== ingredients.length
+  ), [itemsChecks, ingredients]);
+
+  if (!loading && !drinkObj) return (<NotFound />);
+
+  const location = window.location.href;
+
   return (
     loading
       ? (<LoadingCard />)
@@ -26,29 +34,30 @@ export default function DetailsDrink({ history, match }) {
         <div>
           <img
             data-testid="recipe-photo"
-            src={ drinks[0].strDrinkThumb }
+            src={ drinkObj.strDrinkThumb }
             alt="foto"
             style={ { width: 360 } }
           />
           <div>
             <div>
-              <h3 data-testid="recipe-title">{drinks[0].strDrink}</h3>
-              <ShareButton />
-              <FavoriteDrinkButton drinksArr={ drinks[0] } />
+              <h3 data-testid="recipe-title">{drinkObj.strDrink}</h3>
+              <ShareButton URL={ location } data-testid="share-btn" />
+              <FavoriteButton data-testid="favorite-btn" drink />
             </div>
-            <h5 data-testid="recipe-category">{drinks[0].strAlcoholic}</h5>
+            <h5 data-testid="recipe-category">{drinkObj.strAlcoholic}</h5>
             <div>
               <h4>Ingredients</h4>
               <ul>
                 {
-                  filterDrinks(drinks[0], 'strIngredient').map((key, i) => {
-                    const measures = filterDrinks(drinks[0], 'strMeasure');
+                  ingredients.map((key, i) => {
+                    const [, ingredient] = key || ['', ''];
+                    const [, measure] = measures[i] || ['', ''];
                     return (
                       <li
                         data-testid={ `${i}-ingredient-name-and-measure` }
                         key={ i }
                       >
-                        {`${key && key[1]} - ${measures[i] && measures[i][1]}`}
+                        {`${ingredient} - ${measure}`}
                       </li>
                     );
                   })
@@ -58,7 +67,7 @@ export default function DetailsDrink({ history, match }) {
             <div>
               <h4>Instruções</h4>
               <p data-testid="instructions">
-                {drinks[0].strInstructions}
+                {drinkObj.strInstructions}
               </p>
             </div>
             <div>
@@ -67,9 +76,9 @@ export default function DetailsDrink({ history, match }) {
             </div>
             <Button
               testid="start-recipe-btn"
-              text="Iniciar Receita"
+              text={ recipeInProgress ? 'Continuar Receita' : 'Iniciar Receita' }
               position="btn-fixed"
-              func={ () => { history.push(`/bebidas/${idDrink}/in-progress`); } }
+              func={ () => { push(`/bebidas/${id}/in-progress`); } }
             />
           </div>
         </div>
@@ -77,10 +86,3 @@ export default function DetailsDrink({ history, match }) {
 
   );
 }
-
-DetailsDrink.propTypes = {
-  history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired,
-  match: PropTypes.shape({
-    params: PropTypes.shape({ idDrink: PropTypes.string.isRequired }).isRequired,
-  }).isRequired,
-};

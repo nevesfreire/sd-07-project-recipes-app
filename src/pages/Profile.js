@@ -4,13 +4,14 @@ import { useLocalStorage } from '../hooks';
 import { Header, Footer, Button } from '../components';
 
 export default function Profile() {
+  const [{ email }] = useLocalStorage('user');
   const { push } = useHistory();
-  const [{ email }, setStorage] = useLocalStorage('user');
-  console.log(email);
   return (
     <div>
       <Header title="Perfil" search={ false } />
-      <h3 data-testid="profile-email">{email}</h3>
+      <div>
+        <h1 data-testid="profile-email">{email}</h1>
+      </div>
       <Button
         testid="profile-done-btn"
         text="Receitas Feitas"
@@ -25,7 +26,7 @@ export default function Profile() {
         testid="profile-logout-btn"
         text="Sair"
         func={ () => {
-          setStorage({ email: '' });
+          localStorage.clear();
           push('/');
         } }
       />

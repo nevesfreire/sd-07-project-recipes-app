@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import { useFetchApi } from '../hooks';
 import { LoadingCard, NotFound } from './Contructors';
+import { getURL } from '../Services';
 import './components.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 export default function FoodRecomendation() {
-  const URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  const drink = false;
+  const URL = getURL({}, drink);
   const [loading, { meals }] = useFetchApi(URL);
   const settings = {
     dots: true,

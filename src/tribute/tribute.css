@@ -1,0 +1,72 @@
+.containerTribute {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.headerTribute {
+  display: flex;
+  height: 90px;
+  justify-content: center;
+  width: 100%;
+}
+
+.headerTribute img {
+  border-color: blueviolet;
+  height: 50px;
+  margin: 20px;
+  width: 50px;
+}
+
+.headerTribute > h1 {
+  align-self: center;
+  border-color: blueviolet;
+  margin: 20px 43%;
+}
+
+.containerVideo {
+  align-items: center;
+  border: 2px solid blue;
+  display: flex;
+  flex-direction: column;
+  height: 600px;
+  justify-content: center;
+  width: 1000px;
+}
+
+.texto {
+  align-items: center;
+  border: 2px solid red;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 90%;
+}
+
+/* Recomendations */
+.recomendation {
+  display: flex;
+  justify-content: space-around;
+  width: 90%;
+}
+
+.cardFood {
+  align-items: center;
+  border: 2px solid green;
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  justify-content: center;
+  width: 300px;
+}
+
+.cardDrink {
+  align-items: center;
+  border: 2px solid yellow;
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  justify-content: center;
+  width: 300px;
+}

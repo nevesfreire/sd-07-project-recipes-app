@@ -21,16 +21,9 @@ export default function SearchBar({ title }) {
     dispatchFilter({ type: SUBMIT_SEARCH, payload: state });
   };
   return (
-    <div>
-      <input
-        id="text"
-        data-testid="search-input"
-        type="text"
-        onChange={ handleChange }
-      />
+    <div className="searchBar">
       <div onChange={ handleChange }>
         <label htmlFor="ingredient-search-radio">
-          Ingrediente
           <input
             id="option"
             type="radio"
@@ -38,9 +31,10 @@ export default function SearchBar({ title }) {
             name="options"
             data-testid="ingredient-search-radio"
           />
+          <span> </span>
+          Ingrediente
         </label>
         <label htmlFor="name-search-radio">
-          Nome
           <input
             id="option"
             type="radio"
@@ -48,9 +42,10 @@ export default function SearchBar({ title }) {
             name="options"
             data-testid="name-search-radio"
           />
+          <span> </span>
+          Nome
         </label>
         <label htmlFor="first-letter-search-radio">
-          Primeira letra
           <input
             id="option"
             type="radio"
@@ -58,8 +53,16 @@ export default function SearchBar({ title }) {
             name="options"
             data-testid="first-letter-search-radio"
           />
+          <span> </span>
+          Primeira letra
         </label>
       </div>
+      <input
+        id="text"
+        data-testid="search-input"
+        type="text"
+        onChange={ handleChange }
+      />
       <Button
         testid="exec-search-btn"
         text="Buscar..."

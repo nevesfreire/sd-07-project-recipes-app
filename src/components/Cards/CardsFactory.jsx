@@ -1,28 +1,43 @@
 import React, { useCallback, useEffect, useContext } from 'react';
 // import { useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useFetchApi } from '../../hooks';
-import { LoadingCard } from '../Contructors';
+import { LoadingCard, NotFound } from '../Contructors';
 import { factoryCard } from '../../Services';
 import { CLEAR_ALL_FILTERS } from '../../reducers';
 import { CupNodesContext } from '../../contexts';
+
+const magicOne = 1;
 
 export default function CardsFactory(
   { URL, number, testidImg, testidCard, testidTitle, drink },
 ) {
   const { dispatchFilter } = useContext(CupNodesContext);
-  const dispatchFil = useCallback(() => {
+  const clearFilters = useCallback(() => {
     dispatchFilter({ type: CLEAR_ALL_FILTERS });
   }, [dispatchFilter]);
-  // const { push } = useHistory();
+
   const [loading, result] = useFetchApi(URL);
   const resultArr = drink ? result.drinks : result.meals;
   const parameters = testidCard ? { testidImg, testidCard, testidTitle } : '';
-  useEffect(dispatchFil, [dispatchFil]);
-  if (!loading && !resultArr) {
-    return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+
+  useEffect(() => {
+    if (!loading && !resultArr) {
+      clearFilters();
+      window.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
+  }, [clearFilters, loading, resultArr]);
+
+  if (resultArr && resultArr.length === magicOne) {
+    const [obj] = resultArr || [''];
+    const key = drink ? 'idDrink' : 'idMeal';
+    const route = drink ? `/bebidas/${obj[key]}` : `/comidas/${obj[key]}`;
+    return <Redirect to={ route } />;
   }
-  // if (!loading && resultArr.length === 1) console.log(resultArr);
+
+  if (!loading && !resultArr) return (<NotFound />);
+
   return (
     <div className="cards">
       {

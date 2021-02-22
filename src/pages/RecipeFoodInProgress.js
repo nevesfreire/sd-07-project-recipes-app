@@ -1,102 +1,74 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
 import '../components/components.css';
-import PropTypes from 'prop-types';
-import {
-  Button, LoadingCard, ShareButton, FavoriteDrinkButton, CheckListIngredients, NotFound,
+import { Button, LoadingCard, ShareButton, FavoriteButton,
+  CheckListIngredients, NotFound,
 } from '../components';
-import { useFetchApi, useLocalStorage } from '../hooks';
-import { getKeys } from '../Services';
+import { useFetchApi, useDoneRecipes } from '../hooks';
+import { getURL } from '../Services';
+import './css/recipeInProgress.css';
 
-const initialState = (id) => (
-  { cocktails: { [id]: [] } }
-);
+export default function RecipeFoodInProgress() {
+  const [completRecipe, setComplet] = useState(false);
 
-const removeItem = (itemRm, arr) => (
-  arr.filter((item) => itemRm !== item)
-);
+  const { setNewRecipe } = useDoneRecipes();
 
-export default function RecipeFoodInProgress({ history: { push }, match }) {
-  const { params: { idDrink } } = match;
-  const URL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idDrink}`;
-  const [loading, { drinks }] = useFetchApi(URL);
+  const { push } = useHistory();
+  const { id } = useParams();
 
-  const [inProgressRecipes, setRecipeStorage] = useLocalStorage('inProgressRecipes');
-  const initialRecipeInProgress = inProgressRecipes
-    && inProgressRecipes.cocktails[idDrink]
-    ? inProgressRecipes
-    : initialState(idDrink);
-  const [recipeInProgress, setRecipe] = useState(initialRecipeInProgress);
+  const URL = getURL({ id }, false);
+  const [loading, { meals }] = useFetchApi(URL);
+  const [mealsObj] = meals || [''];
 
-  const setStorage = useCallback((date) => setRecipeStorage(date), [setRecipeStorage]);
-  useEffect(() => {
-    setStorage(recipeInProgress);
-  }, [recipeInProgress, setStorage]);
+  if (!loading && !mealsObj) return (<NotFound />);
 
-  if (!loading && !drinks) return (<NotFound />);
+  const location = window.location.href.replace('/in-progress', '');
 
-  const itens = recipeInProgress.cocktails[idDrink];
-  const legthIngredients = drinks && getKeys(drinks[0], 'strIngredient').length;
-  const checkItem = (value) => {
-    const exist = itens.includes(value);
-    return exist
-      ? setRecipe({
-        ...recipeInProgress,
-        cocktails: { [idDrink]: removeItem(value, itens) },
-      })
-      : setRecipe({
-        ...recipeInProgress,
-        cocktails: { [idDrink]: [...itens, value] },
-      });
-  };
   return (
     loading
       ? (<LoadingCard />)
       : (
         <div>
-          <img data-testid="recipe-photo" src={ drinks[0].strDrinkThumb } alt="foto" />
+
+          <img data-testid="recipe-photo" src={ mealsObj.strMealThumb } alt="foto" />
+
           <div>
+
             <div>
-              <h3 data-testid="recipe-title">{drinks[0].strDrink}</h3>
-              <ShareButton />
-              <FavoriteDrinkButton drinksArr={ drinks[0] } />
+              <h3 data-testid="recipe-title">{mealsObj.strMeal}</h3>
+              <ShareButton URL={ location } data-testid="share-btn" />
+              <FavoriteButton drink={ false } data-testid="favorite-btn" />
             </div>
-            <h5 data-testid="recipe-category">{drinks[0].strAlcoholic}</h5>
+
+            <h5 data-testid="recipe-category">{mealsObj.strCategory}</h5>
+
             <CheckListIngredients
-              ingreObj={ drinks[0] }
-              checkItem={ checkItem }
-              itens={ itens }
+              recipeId={ id }
+              drink={ false }
+              setComplet={ setComplet }
+              ingreObj={ mealsObj }
             />
+
             <div>
               <h4>Instruções</h4>
               <p data-testid="instructions">
-                {drinks[0].strInstructions}
+                {mealsObj.strInstructions}
               </p>
             </div>
-            { legthIngredients === itens.length && !!itens.length
-              ? (
-                <Button
-                  testid="finish-recipe-btn"
-                  text="Finalizar receita"
-                  func={ () => {
-                    push('/receitas-feitas');
-                  } }
-                />
-              )
-              : (
-                <button type="button" testid="finish-recipe-btn" disabled>
-                  Finalizar receita
-                </button>
-              )}
+
+            <Button
+              testid="finish-recipe-btn"
+              text="Finalizar receita"
+              disabled={ !completRecipe }
+              func={ () => {
+                const drink = false;
+                setNewRecipe(mealsObj, drink);
+                push('/receitas-feitas');
+              } }
+            />
           </div>
         </div>
       )
 
   );
 }
-
-RecipeFoodInProgress.propTypes = {
-  history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired,
-  match: PropTypes.shape({
-    params: PropTypes.shape({ idDrink: PropTypes.string.isRequired }).isRequired,
-  }).isRequired,
-};

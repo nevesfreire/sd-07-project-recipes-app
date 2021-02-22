@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import { useFetchApi } from '../hooks';
 import { LoadingCard, NotFound } from './Contructors';
+import { getURL } from '../Services';
 import './components.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 export default function DrinkRecomendation() {
-  const URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+  const URL = getURL();
   const [loading, { drinks }] = useFetchApi(URL);
   const settings = {
     dots: true,
@@ -32,6 +33,7 @@ export default function DrinkRecomendation() {
                   <Link
                     to={ `/bebidas/${idDrink}` }
                     key={ i }
+                    className="slideCard"
                     data-testid={ `${i}-recomendation-card` }
                   >
                     <img src={ strDrinkThumb } alt="ico" className="recomendation-card" />

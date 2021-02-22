@@ -1,0 +1,111 @@
+.btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  height: 3vw;
+  width: 100vw;
+}
+
+.header {
+  display: flex;
+  height: auto;
+  justify-content: space-between;
+  opacity: 0.7;
+  width: 100%;
+
+}
+
+.searchBar {
+  background-color: rgba(255, 255, 255, 0.466);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.searchBar > input {
+  background-color: rgba(#6c757d);
+  display: block;
+  width: 50%;
+}
+
+.searchBar label {
+  background-color: rgba(#6c757d);
+  font-size: large;
+}
+
+.searchBar > button {
+  background-color: rgba(#6c757d);
+  display: inline-block;
+  margin-left: 10px;
+  width: 15%;
+}
+
+.cardLink {
+  align-items: center;
+
+}
+
+.card {
+  align-items: center;
+  color: black;
+  width: 18rem;
+}
+
+.cards {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding-top: 50px;
+}
+
+.footer {
+  background-color: white;
+  bottom: 0;
+  display: flex;
+  flex-flow: row wrap;
+  height: auto;
+  justify-content: space-between;
+  left: 0;
+  opacity: 0.7;
+  position: fixed;
+  width: 100%;
+}
+
+@media screen and ( max-width : 360px ) {
+
+  /* barra de categorias */
+  .btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    height: 3vw;
+    width: 100%;
+  }
+
+  /* barra de pesquisa */
+  .searchBar {
+    background-color: rgba(255, 255, 255, 0.466);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding-bottom: 10px;
+  }
+
+  .searchBar > input {
+    background-color: rgba(#6c757d);
+    display: block;
+    width: 50%;
+  }
+
+  .searchBar label {
+    background-color: rgba(#6c757d);
+    font-size: large;
+    padding: 10px;
+  }
+
+  .searchBar > button {
+    background-color: rgba(#6c757d);
+    display: inline-block;
+    margin-left: 10px;
+    width: 30vw;
+  }
+}

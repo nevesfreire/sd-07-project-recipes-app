@@ -1,28 +1,35 @@
 import React, { useState } from 'react';
 import copy from 'clipboard-copy';
-import { useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { Button, CopiedMSG } from './Contructors';
 import { shareIcon } from '../images';
 
-export default function ShareButton() {
-  const location = 'http://localhost:3000';
-  const { pathname } = useLocation();
+export default function ShareButton({ URL, 'data-testid': testid }) {
   const [copied, setState] = useState(false);
   const treeSecond = 3000;
   return (
-    <div>
+    <>
       { copied && (<CopiedMSG />)}
       <Button
-        testid="share-btn"
+        testid={ testid }
         icon={ shareIcon }
         func={ () => {
-          copy(location + pathname);
+          copy(URL);
           setState(true);
           setTimeout(() => {
             setState(false);
           }, treeSecond);
         } }
       />
-    </div>
+    </>
   );
 }
+
+ShareButton.defaultProps = {
+  'data-testid': '',
+};
+
+ShareButton.propTypes = {
+  URL: PropTypes.string.isRequired,
+  'data-testid': PropTypes.string,
+};
