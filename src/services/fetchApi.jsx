@@ -9,16 +9,16 @@ export const allFood = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 
 export const allDrink = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 
-export const getFoodIngredients = (inputText) => (
-  `https://www.themealdb.com/api/json/v1/1/filter.php?i=${inputText}`
+export const getFoodIngredients = (ingredient) => (
+  `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`
 );
 
-export const getFoodName = (inputText) => (
-  `https://www.themealdb.com/api/json/v1/1/search.php?s=${inputText}`
+export const getFoodName = (name) => (
+  `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`
 );
 
-export const getFoodFLetter = (inputText) => (
-  `https://www.themealdb.com/api/json/v1/1/search.php?f=${inputText}`
+export const getFoodFLetter = (firstLetter) => (
+  `https://www.themealdb.com/api/json/v1/1/search.php?f=${firstLetter}`
 );
 
 export const getFoodRecipeId = (id) => (
@@ -41,16 +41,16 @@ export const allFoodAreas = 'https://www.themealdb.com/api/json/v1/1/list.php?a=
 
 export const getRandomFood = 'https://www.themealdb.com/api/json/v1/1/random.php';
 
-export const getDrinkIngredients = (inputText) => (
-  `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${inputText}`
+export const getDrinkIngredients = (ingredient) => (
+  `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`
 );
 
-export const getDrinkName = (inputText) => (
-  `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${inputText}`
+export const getDrinkName = (name) => (
+  `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`
 );
 
-export const getDrinkFLetter = (inputText) => (
-  `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${inputText}`
+export const getDrinkFLetter = (firstLetter) => (
+  `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${firstLetter}`
 );
 
 export const getDrinkRecipeId = (id) => (

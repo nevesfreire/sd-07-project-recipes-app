@@ -9,6 +9,7 @@ import EIngredients from './pages/exploreIngredients';
 import ExploreArea from './pages/exploreArea';
 import RecipeDetail from './pages/recipeDetail';
 import RecipeInProgress from './pages/recipeInProgress';
+import RecipeList from './pages/recipeList';
 import NotFound from './pages/notFound';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -26,13 +27,12 @@ function App() {
       <Route exact path="/comidas/:id/in-progress" component={ RecipeInProgress } />
       <Route exact path="/bebidas/:id/in-progress" component={ RecipeInProgress } />
       <Route exact path="/explorar/comidas/area" component={ ExploreArea } />
-      <Route exact path="/receitas-favoritas" />
+      <Route exact path="/receitas-favoritas" component={ RecipeList } />
+      <Route exact path="/receitas-feitas" component={ RecipeList } />
       <Route exact path="/explorar/comidas" component={ ExploreMore } />
       <Route exact path="/explorar/bebidas" component={ ExploreMore } />
-      <Route exact path="/receitas-feitas" />
       <Route exact path="/comidas/:id" component={ RecipeDetail } />
       <Route exact path="/bebidas/:id" component={ RecipeDetail } />
-      <Route exact path="/receitas-feitas" />
       <Route path="/404" component={ NotFound } />
       <Redirect to="/404" />
     </Switch>

@@ -1,7 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
-import { fetchApi, allFoodIngredients, allDrinkIngredients } from '../services/fetchApi';
+// import { Button } from '@material-ui/core';
+import context from '../contextAPI/context';
+import {
+  fetchApi,
+  allFoodIngredients,
+  allDrinkIngredients,
+  getFoodIngredients,
+  getDrinkIngredients,
+} from '../services/fetchApi';
 
 const fetchIngredients = async (pathname, setIngredients) => {
   if (pathname.match('comidas')) {
@@ -11,6 +19,27 @@ const fetchIngredients = async (pathname, setIngredients) => {
   if (pathname.match('bebidas')) {
     const newData = await fetchApi(allDrinkIngredients);
     setIngredients(newData.drinks);
+  }
+};
+const fetchIngredient = async (pathname, ingredient, setState) => {
+  let newData = '';
+  if (pathname.match('comidas')) {
+    newData = await fetchApi(getFoodIngredients(ingredient));
+    setState((s) => ({
+      ...s,
+      data: { ...s.data, food: newData.meals },
+      filtered: ingredient,
+    }
+    ));
+  }
+  if (pathname.match('bebidas')) {
+    newData = await fetchApi(getDrinkIngredients(ingredient));
+    setState((s) => ({
+      ...s,
+      data: { ...s.data, beverage: newData.drinks },
+      filtered: ingredient,
+    }
+    ));
   }
 };
 
@@ -29,8 +58,18 @@ const recipeTextData = (recipeName, recipeIndex) => (
   </h3>
 );
 
-const exploreIngredients = (history, pathname, ingredients) => {
+const exploreIngredients = (pathname, ingredients, setIngredient) => {
+  const handleClick = (ingredientName) => {
+    console.log(ingredientName);
+    setIngredient(ingredientName);
+  };
+
   const maxIngredients = 12;
+  const correctPath = (pname) => {
+    if (pname.match('comidas')) return 'comidas';
+    if (pname.match('bebidas')) return 'bebidas';
+  };
+
   return ingredients
     .filter((_ingredient, index) => index < maxIngredients)
     .map((ingredient, index) => {
@@ -40,21 +79,34 @@ const exploreIngredients = (history, pathname, ingredients) => {
       const Name = pathname.match('comidas')
         ? ingredient.strIngredient
         : ingredient.strIngredient1;
+      console.log(Name);
       return (
-        <Paper key={ index } className="paper-style" elevation={ 6 }>
-          <Link to="/" replace>
-            <div data-testid={ `${index}-ingredient-card` }>
+        <Link
+          key={ index }
+          role="button"
+          to={ `/${correctPath(pathname)}` }
+          onClick={ () => handleClick(Name) }
+        >
+          <Paper
+            className="paper-style"
+            elevation={ 6 }
+          >
+            <div
+              data-testid={ `${index}-ingredient-card` }
+            >
               {recipeImg(Thumb, index)}
               {recipeTextData(Name, index)}
             </div>
-          </Link>
-        </Paper>
+          </Paper>
+        </Link>
       );
     });
 };
 
 export default function ExploreIngredientsBtns() {
+  const { setState } = useContext(context);
   const [ingredients, setIngredients] = useState();
+  const [ingredient, setIngredient] = useState('');
   const history = useHistory();
   const {
     location: { pathname },
@@ -64,7 +116,11 @@ export default function ExploreIngredientsBtns() {
     fetchIngredients(pathname, setIngredients);
   }, [pathname]);
 
+  useEffect(() => {
+    fetchIngredient(pathname, ingredient, setState);
+  }, [ingredient, pathname, setState]);
+
   if (!ingredients) return <div>Loading...</div>;
 
-  return <div>{exploreIngredients(history, pathname, ingredients)}</div>;
+  return <div>{exploreIngredients(pathname, ingredients, setIngredient)}</div>;
 }
