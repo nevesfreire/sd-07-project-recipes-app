@@ -38,7 +38,6 @@ const fetchIngredient = async (pathname, ingredient, setState) => {
     setState((s) => ({
       ...s,
       data: { ...s.data, food: newData.meals },
-      filtered: ingredient,
     }
     ));
   }
@@ -47,7 +46,6 @@ const fetchIngredient = async (pathname, ingredient, setState) => {
     setState((s) => ({
       ...s,
       data: { ...s.data, beverage: newData.drinks },
-      filtered: ingredient,
     }
     ));
   }
