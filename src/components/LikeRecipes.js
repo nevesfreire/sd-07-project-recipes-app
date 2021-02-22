@@ -19,6 +19,7 @@ class LikeRecipes extends React.Component {
       .getItem('favoriteRecipes'));
     this.setState({ favoriteRecipes });
   }
+
   render() {
     const { favoriteRecipes } = this.state;
     const magicNumber = 0;
@@ -27,9 +28,7 @@ class LikeRecipes extends React.Component {
     }
 
     return (
-      <div 
-      // className="card-list"
-      >
+      <div>
         <RecipesLiked
           favoriteRecipes={ favoriteRecipes }
         />

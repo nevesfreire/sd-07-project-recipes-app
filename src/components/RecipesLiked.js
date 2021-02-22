@@ -55,57 +55,56 @@ class RecipesLiked extends React.Component {
     const { showMessage } = this.state;
 
     return (
-      <div  
-      >
+      <div>
         <div className="navbar">
           <button
             className="navbar-button"
-            onClick={() => this.filtro('comida')}
+            onClick={ () => this.filtro('comida') }
             type="button"
             data-testid="filter-by-food-btn"
           >
             Food
-        </button>
+          </button>
 
           <button
             className="navbar-button"
-            onClick={() => this.filtro('bebida')}
+            onClick={ () => this.filtro('bebida') }
             type="button"
             data-testid="filter-by-drink-btn"
           >
             Drinks
-        </button>
+          </button>
           <button
             className="navbar-button"
-            onClick={() => this.filtro('all')}
+            onClick={ () => this.filtro('all') }
             type="button"
             data-testid="filter-by-all-btn"
           >
             All
-        </button>
+          </button>
         </div>
         <div
           className="card-list"
         >
           {favoriteList.map((receita, index) => (
-            <div key={`receita-${index}`} className="item-card">
-              <a href={`http://localhost:3000/${receita.type === 'comida' ? 'comidas' : 'bebidas'}/${receita.id}`}>
+            <div key={ `receita-${index}` } className="item-card">
+              <a href={ `http://localhost:3000/${receita.type === 'comida' ? 'comidas' : 'bebidas'}/${receita.id}` }>
                 <img
-                  src={receita.image}
+                  src={ receita.image }
                   width="100%"
                   alt="foto de uma comida"
-                  data-testid={`${index}-horizontal-image`}
+                  data-testid={ `${index}-horizontal-image` }
                 />
               </a>
-              <a href={`http://localhost:3000/${receita.type === 'comida' ? 'comidas' : 'bebidas'}/${receita.id}`}>
+              <a href={ `http://localhost:3000/${receita.type === 'comida' ? 'comidas' : 'bebidas'}/${receita.id}` }>
                 <p
-                  data-testid={`${index}-horizontal-name`}
+                  data-testid={ `${index}-horizontal-name` }
                 >
                   {receita.name}
                 </p>
               </a>
               <p
-                data-testid={`${index}-horizontal-top-text`}
+                data-testid={ `${index}-horizontal-top-text` }
               >
                 {receita.type === 'Drink' ? null
                   : `${receita.area} - ${receita.category}`}
@@ -114,7 +113,7 @@ class RecipesLiked extends React.Component {
                 ? null
                 : (
                   <p
-                    data-testid={`${index}-horizontal-top-text`}
+                    data-testid={ `${index}-horizontal-top-text` }
                   >
                     {receita.alcoholicOrNot}
                   </p>)}
@@ -123,12 +122,12 @@ class RecipesLiked extends React.Component {
                 <button
                   className="icon-button"
                   type="button"
-                  data-testid={`${index}-horizontal-share-btn`}
-                  onClick={() => this.copyLink(receita.id, receita.type)}
+                  data-testid={ `${index}-horizontal-share-btn` }
+                  onClick={ () => this.copyLink(receita.id, receita.type) }
                 >
                   <img
                     className="button-img"
-                    src={shareIcon}
+                    src={ shareIcon }
                     alt="share-icon"
                     width="10px"
                   />
@@ -138,19 +137,19 @@ class RecipesLiked extends React.Component {
                   className="icon-button"
                   type="button"
                   tabIndex="0"
-                  data-testid={`${index}-horizontal-favorite-btn`}
-                  onClick={() => this.deleteFavorites(receita.id)}
+                  data-testid={ `${index}-horizontal-favorite-btn` }
+                  onClick={ () => this.deleteFavorites(receita.id) }
                 >
                   <img
                     className="button-img"
-                    src={heartIcon}
+                    src={ heartIcon }
                     alt="heartIcon"
                     width="50px"
                   />
                 </button>
               </div>
 
-              <h4 hidden={showMessage}>Link copiado!</h4>
+              <h4 hidden={ showMessage }>Link copiado!</h4>
             </div>))}
         </div>
       </div>

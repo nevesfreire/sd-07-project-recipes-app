@@ -5,7 +5,7 @@ import Forkinho from '../images/Forkinho.jpeg';
 function Login() {
   return (
     <div className="form-page">
-      <img className="img-login" src={ Forkinho } alt='Foky toy'/>
+      <img className="img-login" src={ Forkinho } alt="Foky toy" />
       <LoginForm />
     </div>
   );

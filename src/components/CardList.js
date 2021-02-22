@@ -12,10 +12,11 @@ function CardList({ arrayOfCard, typeOfCard, sideScroll, recommendation }) {
 
   return (
     <div
-      className={ `card-list${sideScroll}` }
+      className={`card-list${sideScroll}`}
     >
-      { arrayOfCard.length > magicNumberZero
-        && arrayOfCard.map((item, index) => (
+      { arrayOfCard.length === magicNumberZero
+        ? (<h3>Carregando...</h3>) 
+        : arrayOfCard.map((item, index) => (
           <div
             data-testid={
               recommendation === 'true'
@@ -23,12 +24,12 @@ function CardList({ arrayOfCard, typeOfCard, sideScroll, recommendation }) {
                 : `${index}-recipe-card`
             }
             className="item-card"
-            key={ item[id] }
+            key={item[id]}
           >
-            <a href={ `/${pathType}/${item[id]}` }>
+            <a href={`/${pathType}/${item[id]}`}>
               <img
-                data-testid={ `${index}-card-img` }
-                src={ item[src] }
+                data-testid={`${index}-card-img`}
+                src={item[src]}
                 alt="item"
               />
               <h3
