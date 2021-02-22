@@ -14,6 +14,7 @@ const filterCategory = async (pathname, category, state, setState) => {
         ...s,
         data: { ...s.data, food: newData.meals },
         filtered: category,
+        filter: 'category',
       }));
     } else if (pathname === '/bebidas') {
       const newData = await fetchApi(getDrinksCategory(category));
@@ -21,6 +22,7 @@ const filterCategory = async (pathname, category, state, setState) => {
         ...s,
         data: { ...s.data, beverage: newData.drinks },
         filtered: category,
+        filter: 'category',
       }));
     }
   }
@@ -31,6 +33,7 @@ const filterCategory = async (pathname, category, state, setState) => {
         ...s,
         data: { ...s.data, food: newData.meals },
         filtered: '',
+        filter: 'category',
       }));
     } else if (pathname === '/bebidas') {
       const newData = await fetchApi(allDrink);
@@ -38,6 +41,7 @@ const filterCategory = async (pathname, category, state, setState) => {
         ...s,
         data: { ...s.data, beverage: newData.drinks },
         filtered: '',
+        filter: 'category',
       }));
     }
   }

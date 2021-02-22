@@ -1,5 +1,5 @@
-import React from 'react';
-// import React, { useContext } from 'react';
+import React, { useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 import {
   Input,
   Radio,
@@ -9,8 +9,7 @@ import {
   FormControl,
   FormControlLabel,
 } from '@material-ui/core';
-// import context from '../contextAPI/context';
-import useSendRequestBtn from '../hooks/useSendRequestBtn';
+import context from '../contextAPI/context';
 
 const inputSearchBar = (MyOnChange) => (
   <div className="input-searchbar">
@@ -59,13 +58,13 @@ const radioButtons = (MyOnChange, value) => (
   </div>
 );
 
-const buttonFetch = (setGetEvent) => (
+const buttonFetch = () => (
   <div className="radio-btn">
     <Button
       data-testid="exec-search-btn"
       variant="contained"
       color="primary"
-      onClick={ () => setGetEvent(Math.radom()) }
+      onClick={ () => console.log('clicou') }
     >
       Buscar
     </Button>
@@ -73,25 +72,34 @@ const buttonFetch = (setGetEvent) => (
 );
 
 export default function SearchRecipes() {
-  // const { HandleTextChange, HandleRadioBtnChange } = useContext(context);
-  const [setGetEvent] = useSendRequestBtn();
+  const { setState } = useContext(context);
+  const location = useLocation();
+  const { pathname } = location;
 
-  // const searchChanges = ({ target: { name, value } }) => {
-  //   console.log(name, ':', value);
-  //   // setState({ ...state, [name]: value });
-  // };
+  const search = ({ target: { name, value } }) => {
+    console.log(name, ':', value);
+    setState((s) => ({
+      ...s,
+      pathname,
+      filtered: value,
+    }));
+  };
 
   const changeHandler = ({ target }) => {
     const value = target.type === 'checkbox' ? target.checked : target.value;
     console.log(target.name, ':', value);
-    // setState({ ...state, [target.name]: value });
+    setState((s) => ({
+      ...s,
+      pathname,
+      filter: value,
+    }));
   };
 
   return (
     <div className="search-recipes">
-      {inputSearchBar(changeHandler)}
+      {inputSearchBar(search)}
       {radioButtons(changeHandler)}
-      {buttonFetch(setGetEvent)}
+      {buttonFetch()}
     </div>
   );
 }

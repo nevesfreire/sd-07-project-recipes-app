@@ -7,11 +7,13 @@ import {
   fetchApi,
   getDrinksList,
   getFoodList,
+  getFoodIngredients,
+  getDrinkIngredients,
 } from '../services/fetchApi';
 // import useRedirect from '../hooks/useRedirect';
 // import siteMap from '../helpers/siteMap';
 
-const newFunc = async (setState) => {
+const fetchFirst = async (setState) => {
   const dataFood = await fetchApi(allFood);
   const dataBeverage = await fetchApi(allDrink);
   const categoriesFood = await fetchApi(getFoodList);
@@ -29,6 +31,28 @@ const newFunc = async (setState) => {
   }));
 };
 
+const fetchIngredient = async (pathname, ingredient, setState) => {
+  let newData = '';
+  if (pathname.match('comidas')) {
+    newData = await fetchApi(getFoodIngredients(ingredient));
+    setState((s) => ({
+      ...s,
+      data: { ...s.data, food: newData.meals },
+      filtered: ingredient,
+    }
+    ));
+  }
+  if (pathname.match('bebidas')) {
+    newData = await fetchApi(getDrinkIngredients(ingredient));
+    setState((s) => ({
+      ...s,
+      data: { ...s.data, beverage: newData.drinks },
+      filtered: ingredient,
+    }
+    ));
+  }
+};
+
 // const findMatch = (string, object) => (
 //   Object.keys(object).find((key) => key.match(string))
 // );
@@ -37,6 +61,7 @@ function Provider({ children }) {
   const [login, setLogin] = useState({});
   const [data, setData] = useState({});
   const [detail, setDetail] = useState();
+  const [ingredient, setIngredient] = useState('');
   // const [setPath] = useRedirect();
   // const [RecipesUrl, setRecipesUrl] = useState({});
   const [state, setState] = useState({
@@ -49,28 +74,26 @@ function Provider({ children }) {
     data: { food: [], beverage: [] },
     str: { food: 'strMeal', beverage: 'strDrink' },
     categories: { food: [], beverage: [] },
+    filter: '',
+    filtered: '',
   });
 
-  function HandleTextChange(event) {
-    const { value } = event.target;
-    const result = value.toLowerCase();
-    setData(
-      { ...data, textSeach: result },
-    );
-  }
-
-  function HandleRadioBtnChange(event) {
-    const { value } = event.target;
-    setData(
-      { ...data, radioBtn: value },
-    );
-    return value;
-  }
-
   useEffect(() => {
-    newFunc(setState);
+    fetchFirst(setState);
     // localStorage.clear();
   }, []);
+
+  useEffect(() => {
+    const { filter, pathname } = state;
+    if (!filter) {
+      if (filter === 'ingredient') {
+        fetchIngredient(pathname, ingredient, setState);
+      }
+      // if (filter === 'nome') {
+
+      // }
+    }
+  }, [ingredient, state]);
 
   useEffect(() => {
     const NUM_PASSWORD = 6;
@@ -86,18 +109,6 @@ function Provider({ children }) {
     }
   }, [login]);
 
-  // useEffect(() => {
-  //   if (RecipesUrl !== '') {
-  //     fetchApi(RecipesUrl)
-  //       .then((r) => setState((s) => ({ ...s, data: r })));
-  //   }
-  // }, [RecipesUrl]);
-
-  // useEffect(() => {
-  //   const newHeader = siteMap[findMatch(pathname.split('/')[1], siteMap)].header;
-  //   setState((s) => ({ ...s, header: newHeader }));
-  // }, [pathname, setState]);
-
   const context = {
     detail,
     setDetail,
@@ -107,8 +118,10 @@ function Provider({ children }) {
     setState,
     login,
     setLogin,
-    HandleTextChange,
-    HandleRadioBtnChange,
+    ingredient,
+    setIngredient,
+    // HandleTextChange,
+    // HandleRadioBtnChange,
     // pathname,
     // setPath,
   };

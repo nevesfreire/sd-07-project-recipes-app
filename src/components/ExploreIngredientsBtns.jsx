@@ -7,8 +7,6 @@ import {
   fetchApi,
   allFoodIngredients,
   allDrinkIngredients,
-  getFoodIngredients,
-  getDrinkIngredients,
 } from '../services/fetchApi';
 
 const fetchIngredients = async (pathname, setIngredients) => {
@@ -19,27 +17,6 @@ const fetchIngredients = async (pathname, setIngredients) => {
   if (pathname.match('bebidas')) {
     const newData = await fetchApi(allDrinkIngredients);
     setIngredients(newData.drinks);
-  }
-};
-const fetchIngredient = async (pathname, ingredient, setState) => {
-  let newData = '';
-  if (pathname.match('comidas')) {
-    newData = await fetchApi(getFoodIngredients(ingredient));
-    setState((s) => ({
-      ...s,
-      data: { ...s.data, food: newData.meals },
-      filtered: ingredient,
-    }
-    ));
-  }
-  if (pathname.match('bebidas')) {
-    newData = await fetchApi(getDrinkIngredients(ingredient));
-    setState((s) => ({
-      ...s,
-      data: { ...s.data, beverage: newData.drinks },
-      filtered: ingredient,
-    }
-    ));
   }
 };
 
@@ -58,10 +35,15 @@ const recipeTextData = (recipeName, recipeIndex) => (
   </h3>
 );
 
-const exploreIngredients = (pathname, ingredients, setIngredient) => {
+const exploreIngredients = (pathname, ingredients, setIngredient, setState) => {
   const handleClick = (ingredientName) => {
-    console.log(ingredientName);
+    console.log('AFF', ingredientName);
     setIngredient(ingredientName);
+    setState((s) => ({
+      ...s,
+      filtered: ingredientName,
+      filter: 'ingredient',
+    }));
   };
 
   const maxIngredients = 12;
@@ -71,19 +53,19 @@ const exploreIngredients = (pathname, ingredients, setIngredient) => {
   };
 
   return ingredients
-    .filter((_ingredient, index) => index < maxIngredients)
-    .map((ingredient, index) => {
+    .filter((_ing, index) => index < maxIngredients)
+    .map((ing, index) => {
       const Thumb = pathname.match('comidas')
-        ? `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}-Small.png`
-        : `https://www.thecocktaildb.com/images/ingredients/${ingredient.strIngredient1}-Small.png`;
+        ? `https://www.themealdb.com/images/ingredients/${ing.strIngredient}-Small.png`
+        : `https://www.thecocktaildb.com/images/ingredients/${ing.strIngredient1}-Small.png`;
       const Name = pathname.match('comidas')
-        ? ingredient.strIngredient
-        : ingredient.strIngredient1;
+        ? ing.strIngredient
+        : ing.strIngredient1;
       console.log(Name);
       return (
         <Link
           key={ index }
-          role="button"
+          className="image-card"
           to={ `/${correctPath(pathname)}` }
           onClick={ () => handleClick(Name) }
         >
@@ -104,9 +86,8 @@ const exploreIngredients = (pathname, ingredients, setIngredient) => {
 };
 
 export default function ExploreIngredientsBtns() {
-  const { setState } = useContext(context);
+  const { setState, setIngredient } = useContext(context);
   const [ingredients, setIngredients] = useState();
-  const [ingredient, setIngredient] = useState('');
   const history = useHistory();
   const {
     location: { pathname },
@@ -116,11 +97,11 @@ export default function ExploreIngredientsBtns() {
     fetchIngredients(pathname, setIngredients);
   }, [pathname]);
 
-  useEffect(() => {
-    fetchIngredient(pathname, ingredient, setState);
-  }, [ingredient, pathname, setState]);
+  // useEffect(() => {
+  //   fetchIngredient(pathname, ingredient, setState);
+  // }, [ingredient, pathname, setState]);
 
   if (!ingredients) return <div>Loading...</div>;
 
-  return <div>{exploreIngredients(pathname, ingredients, setIngredient)}</div>;
+  return <div>{exploreIngredients(pathname, ingredients, setIngredient, setState)}</div>;
 }
