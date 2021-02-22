@@ -16,7 +16,6 @@ export default function DoneCard({ recipe, index }) {
     tags,
   } = recipe;
   const [showCopied, setShowCopied] = useState(false);
-  console.log(recipe);
   const renderTopText = () => {
     if (type === 'comida') {
       return (
@@ -97,7 +96,7 @@ DoneCard.propTypes = {
     category: PropTypes.string.isRequired,
     area: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
-    doneDate: PropTypes.string.isRequired,
-    tags: PropTypes.shape().isRequired,
+    doneDate: PropTypes.number.isRequired,
+    tags: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
 };
