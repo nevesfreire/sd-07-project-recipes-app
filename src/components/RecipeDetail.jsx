@@ -187,6 +187,20 @@ function RecipeDetail() {
   const { pathname } = location;
 
   useEffect(() => {
+    if (localStorage.getItem('inProgressRecipes') === null) {
+      localStorage.setItem('inProgressRecipes',
+        JSON.stringify({
+          cocktails: {
+
+          },
+          meals: {
+
+          },
+        }));
+    }
+  }, []);
+
+  useEffect(() => {
     initialize();
   }, [pathname]);
 

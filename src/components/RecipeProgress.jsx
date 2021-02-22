@@ -1,20 +1,24 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import context from '../contextAPI/context';
 import shareIcon from '../images/shareIcon.svg';
+import { fetchApi, getFoodRecipeId, getDrinkRecipeId } from '../services/fetchApi';
+import RecipeIntens from './RecipeItens';
 
-// const fetchId = async (pathname, state, setDetail, setRecipeStr) => {
-//   const id = pathname.split('/')[2];
-//   if (pathname === `/comidas/${id}`) {
-//     const newData = await fetchApi(getFoodRecipeId(id));
-//     setDetail(newData.meals);
-//     setRecipeStr(state.str.food);
-//   } else if (pathname === `/bebidas/${id}`) {
-//     const newData = await fetchApi(getDrinkRecipeId(id));
-//     setDetail(newData.drinks);
-//     setRecipeStr(state.str.beverage);
-//   }
-// };
+import '../css/card.css';
+
+const fetchId = async (pathname, state, setDetail, setRecipeStr) => {
+  const id = pathname.split('/')[2];
+  if (pathname === `/comidas/${id}`) {
+    const newData = await fetchApi(getFoodRecipeId(id));
+    setDetail(newData.meals);
+    setRecipeStr(state.str.food);
+  } else if (pathname === `/bebidas/${id}`) {
+    const newData = await fetchApi(getDrinkRecipeId(id));
+    setDetail(newData.drinks);
+    setRecipeStr(state.str.beverage);
+  }
+};
 
 // stackOverflow -> https://stackovetextrflow.com/questions/9907419/how-to-get-a-key-in-a-javascript-object-by-its-value
 const findMatch = (string, object) => (
@@ -84,12 +88,26 @@ const recipeShare = () => (
 const recipeIngredients = (ingredients, measures) => (
   <ul className="">
     { ingredients.map((ingredient, index) => (
-      <li
+      <RecipeIntens
         key={ index }
-        data-testid={ `${index}-ingredient-step` }
-      >
-        { `${ingredient} - ${measures[index]}` }
-      </li>
+        ingredient={ ingredient }
+        measures={ measures }
+        index={ index }
+      />
+      // <li
+      //   key={ index }
+      //   data-testid={ `${index}-ingredient-step` }
+      // >
+      //   <input
+      //   type="checkbox"
+      //   id="ingredients"
+      //   name="ingredients"
+      //   value="ingredients"
+      //   >
+      //     { `${ingredient} - ${measures[index]}` }
+      //     <label for="ingredients"> Ingredientes e medidas</label>
+
+      // </li>
     ))}
   </ul>
 );
@@ -116,13 +134,14 @@ const summerizer = (stringRegex, data) => {
 function RecipeProgress() {
   const { detail } = useContext(context);
   // const [recipeStr, setRecipeStr] = useState('');
-
   const location = useLocation();
   const { pathname } = location;
   const history = useHistory();
 
+  console.log(detail);
+
   if (!detail) return <div>Loading...</div>;
-  const idData = detail[0];
+  const idData = detail;
   const title = idData[findMatch(/title/i, idData)];
   const url = idData[findMatch(/Thumb/, idData)];
   // const title = idData[findMatch(recipeStr, idData)];
