@@ -8,6 +8,7 @@ import { initialize } from '../services/localStorage';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import MainDetail from '../components/MainDetail';
 import Carousel from './Carousel';
 import '../css/card.css';
 
@@ -236,9 +237,10 @@ function RecipeDetail() {
   // const id = dataDetail[findMatch(/id/, dataDetail)];
   // const area = dataDetail[findMatch(/area/i, dataDetail)];
   // const type = dataDetail[findMatch(/type/i, dataDetail)];
-
+console.log('estou passando');
   return (
     <div className="card">
+      {MainDetail(history)}
       {recipeStart(start, history, pathname)}
       {recipeImage(url, title)}
       {recipeTitle(title)}

@@ -34,9 +34,17 @@ const newFunc = async (setState) => {
 // );
 
 function Provider({ children }) {
+  const initial = false;
   const [login, setLogin] = useState({});
-  const [data, setData] = useState({});
+  const [data, setData] = useState({
+    radioBtn: '',
+    textSeach: '',
+    filterByName: [],
+    filterByFirstchar: [],
+    filterByIngredient: [],
+  });
   const [detail, setDetail] = useState();
+  const [search, setSearch] = useState(initial);
   // const [setPath] = useRedirect();
   // const [RecipesUrl, setRecipesUrl] = useState({});
   const [state, setState] = useState({
@@ -50,6 +58,10 @@ function Provider({ children }) {
     str: { food: 'strMeal', beverage: 'strDrink' },
     categories: { food: [], beverage: [] },
   });
+
+  const { filterByIngredient } = data;
+
+  console.log('estou no provider', filterByIngredient);
 
   function HandleTextChange(event) {
     const { value } = event.target;
@@ -97,8 +109,12 @@ function Provider({ children }) {
   //   const newHeader = siteMap[findMatch(pathname.split('/')[1], siteMap)].header;
   //   setState((s) => ({ ...s, header: newHeader }));
   // }, [pathname, setState]);
+  const changeClick = ((change) => setSearch({ change }));
 
   const context = {
+    setSearch,
+    search,
+    changeClick,
     detail,
     setDetail,
     data,
