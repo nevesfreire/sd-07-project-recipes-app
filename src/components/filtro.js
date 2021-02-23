@@ -1,6 +1,8 @@
 export default function filtro(type, setFinishedList) {
   let favList = JSON.parse(localStorage.getItem('doneRecipes'));
-  if (type === 'all') { setFinishedList(favList); } else {
+  if (type === 'all') {
+    setFinishedList(favList);
+  } else {
     favList = favList.filter((item) => item.type === type);
     setFinishedList(favList);
   }

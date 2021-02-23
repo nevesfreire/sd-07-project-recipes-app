@@ -24,4 +24,5 @@ function TelaExplorar() {
     </nav>
   );
 }
+
 export default TelaExplorar;

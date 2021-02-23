@@ -11,24 +11,23 @@ class RecipesLiked extends React.Component {
     this.state = {
       showMessage: 'hidden',
       favoriteList: [],
-
     };
     this.deleteFavorites = this.deleteFavorites.bind(this);
     this.copyLink = this.copyLink.bind(this);
   }
 
   componentDidMount() {
-    this.naoSouComponentDidMount();
+    this.setFavoriteRecipes();
   }
 
-  naoSouComponentDidMount() {
+  setFavoriteRecipes() {
     const { favoriteRecipes } = this.props;
     this.setState({
       favoriteList: favoriteRecipes,
     });
   }
 
-  filtro(type) {
+  filterByType(type) {
     let favList = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (type === 'all') { this.setState({ favoriteList: favList }); } else {
       favList = favList.filter((item) => item.type === type);
@@ -51,7 +50,6 @@ class RecipesLiked extends React.Component {
 
   render() {
     const { favoriteList } = this.state;
-    console.log(favoriteList);
     const { showMessage } = this.state;
 
     return (
@@ -59,16 +57,15 @@ class RecipesLiked extends React.Component {
         <div className="navbar">
           <button
             className="navbar-button"
-            onClick={ () => this.filtro('comida') }
+            onClick={ () => this.filterByType('comida') }
             type="button"
             data-testid="filter-by-food-btn"
           >
             Food
           </button>
-
           <button
             className="navbar-button"
-            onClick={ () => this.filtro('bebida') }
+            onClick={ () => this.filterByType('bebida') }
             type="button"
             data-testid="filter-by-drink-btn"
           >
@@ -76,7 +73,7 @@ class RecipesLiked extends React.Component {
           </button>
           <button
             className="navbar-button"
-            onClick={ () => this.filtro('all') }
+            onClick={ () => this.filterByType('all') }
             type="button"
             data-testid="filter-by-all-btn"
           >
@@ -118,7 +115,6 @@ class RecipesLiked extends React.Component {
                     {receita.alcoholicOrNot}
                   </p>)}
               <div className="detalhes-top">
-
                 <button
                   className="icon-button"
                   type="button"
@@ -132,7 +128,6 @@ class RecipesLiked extends React.Component {
                     width="10px"
                   />
                 </button>
-
                 <button
                   className="icon-button"
                   type="button"
@@ -148,7 +143,6 @@ class RecipesLiked extends React.Component {
                   />
                 </button>
               </div>
-
               <h4 hidden={ showMessage }>Link copiado!</h4>
             </div>))}
         </div>

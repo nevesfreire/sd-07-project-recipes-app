@@ -31,16 +31,20 @@ function Bebidas() {
     if (dataToRender.length === 1) history.push(`/bebidas/${dataToRender[0].idDrink}`);
   };
 
+  const showAlert = (message) => {
+    alert(message);
+  };
+
   const getEndPointAndFetch = async () => {
     setFilteredByCategory([]);
     switch (typeOfFetch) {
     case 'ingredient': {
       const fetchValue = await fetchDrinkByIngredients(valueToFetch);
-      return fetchValue ? setFilteredBySearchBar(fetchValue) : alert(noFindRecipe);
+      return fetchValue ? setFilteredBySearchBar(fetchValue) : showAlert(noFindRecipe);
     }
     case 'name': {
       const fetchValue = await fetchDrinkByName(valueToFetch);
-      return fetchValue ? setFilteredBySearchBar(fetchValue) : alert(noFindRecipe);
+      return fetchValue ? setFilteredBySearchBar(fetchValue) : showAlert(noFindRecipe);
     }
     case 'first-letter': {
       if (valueToFetch.length === 1) {
@@ -48,10 +52,10 @@ function Bebidas() {
         if (fetchValue) {
           setFilteredBySearchBar(fetchValue);
         } if (!fetchValue) {
-          alert(noFindRecipe);
+          showAlert(noFindRecipe);
         }
       } else if (valueToFetch !== 1) {
-        alert('Sua busca deve conter somente 1 (um) caracter');
+        showAlert('Sua busca deve conter somente 1 (um) caracter');
       }
 
       break;
@@ -95,7 +99,6 @@ function Bebidas() {
       const dataDrinks = data;
       if (dataDrinks.length > magicNumberZero) setFilteredByCategory(dataDrinks);
     }
-
     getDrinksByCategory();
   }, [category]);
 

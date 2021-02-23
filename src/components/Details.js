@@ -66,25 +66,18 @@ function Details({ itemId, mealType }) {
   }, [itemId, mealType, recommendation]);
   const forwardToInProgress = () => {
     let progressList = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (progressList === null) {
-      progressList = { cocktails: {}, meals: {} };
-    }
+    if (progressList === null) progressList = { cocktails: {}, meals: {} };
     if (mealType === 'Meal') progressList.meals[itemId] = [];
     else progressList.cocktails[itemId] = [];
     localStorage.setItem('inProgressRecipes', JSON.stringify(progressList));
-    if (mealType === 'Meal') {
-      history.push(`/comidas/${itemId}/in-progress`);
-    }
-    if (mealType === 'Drink') {
-      history.push(`/bebidas/${itemId}/in-progress`);
-    }
+    if (mealType === 'Meal') history.push(`/comidas/${itemId}/in-progress`);
+    if (mealType === 'Drink') history.push(`/bebidas/${itemId}/in-progress`);
   };
   const loadIngredients = () => {
     const ingredientsList = [];
     for (let i = 1; i <= quinze; i += 1) {
       if (details[`strIngredient${i}`]) {
-        ingredientsList.push({
-          ingredient: details[`strIngredient${i}`],
+        ingredientsList.push({ ingredient: details[`strIngredient${i}`],
           measure: details[`strMeasure${i}`],
         });
       }
@@ -161,8 +154,7 @@ function Details({ itemId, mealType }) {
               ? details.strCategory
               : details.strAlcoholic
           }
-
-          <h5 hidden={ showMessage }>Link copiado!</h5>
+          <p hidden={ showMessage }>Link copiado!</p>
         </h5>
         <span>
           <button
@@ -189,11 +181,7 @@ function Details({ itemId, mealType }) {
         </span>
       </div>
       { loadIngredients()}
-      <p
-        data-testid="instructions"
-      >
-        {details.strInstructions}
-      </p>
+      <p data-testid="instructions">{details.strInstructions}</p>
       {mealType === 'Meal'
         && (
           <iframe
@@ -221,9 +209,7 @@ function Details({ itemId, mealType }) {
     </div>
   );
   return (
-    <div>
-      {showDetails()}
-    </div>
+    <div>{showDetails()}</div>
   );
 }
 

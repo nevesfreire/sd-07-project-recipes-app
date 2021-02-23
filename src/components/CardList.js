@@ -12,10 +12,10 @@ function CardList({ arrayOfCard, typeOfCard, sideScroll, recommendation }) {
 
   return (
     <div
-      className={`card-list${sideScroll}`}
+      className={ `card-list${sideScroll}` }
     >
       { arrayOfCard.length === magicNumberZero
-        ? (<h3>Carregando...</h3>) 
+        ? (<h3>Carregando...</h3>)
         : arrayOfCard.map((item, index) => (
           <div
             data-testid={
@@ -24,12 +24,12 @@ function CardList({ arrayOfCard, typeOfCard, sideScroll, recommendation }) {
                 : `${index}-recipe-card`
             }
             className="item-card"
-            key={item[id]}
+            key={ item[id] }
           >
-            <a href={`/${pathType}/${item[id]}`}>
+            <a href={ `/${pathType}/${item[id]}` }>
               <img
-                data-testid={`${index}-card-img`}
-                src={item[src]}
+                data-testid={ `${index}-card-img` }
+                src={ item[src] }
                 alt="item"
               />
               <h3
@@ -52,7 +52,7 @@ CardList.propTypes = {
   arrayOfCard: PropTypes.arrayOf(PropTypes.objectOf).isRequired,
   typeOfCard: PropTypes.string.isRequired,
   sideScroll: PropTypes.string.isRequired,
-  recommendation: PropTypes.bool.isRequired,
+  recommendation: PropTypes.string.isRequired,
 };
 
 export default CardList;

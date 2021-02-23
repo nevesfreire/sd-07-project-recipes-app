@@ -13,7 +13,6 @@ function checksUnited(itemId, setHideBtn, setIsFavorite) {
       setIsFavorite(true);
     }
   };
-
   checkFavorites();
   checkForCompletion();
 }

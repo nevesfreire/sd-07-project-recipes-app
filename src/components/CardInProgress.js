@@ -32,11 +32,8 @@ function CardInProgress() {
     const loadIngredients = () => {
       setIngredientState(getIngredients(details));
     };
-
     ingredientsAndFavorites(itemId, mealTypeChain, setIngredientsList, setIsFavorite);
-    // checkFavorites();
     loadIngredients();
-    // checkedIngredients();
   }, [itemId, mealType, details, mealTypeChain]);
 
   useEffect(() => {
@@ -146,7 +143,6 @@ function CardInProgress() {
       >
         Finish
       </button>
-
     </div>
   );
 }

@@ -5,7 +5,6 @@ import { fetchRamdonDrink, fetchRamdonFood } from '../services/API';
 
 function ExplorarSearchBar({ hideAreaButton, mealType }) {
   const history = useHistory();
-
   const redirectTo = (searchType) => {
     history.push(`/explorar/${mealType}/${searchType}`);
   };

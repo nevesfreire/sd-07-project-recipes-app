@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import filtro from './filtro';
 import getListFromLocal from './getListFromLocal';
-// import addToFavorites from './addToFavorites';
 import heartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 

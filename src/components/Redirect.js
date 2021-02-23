@@ -4,7 +4,7 @@ export default function RedirectToDone(itemId, mealType, details) {
   const year = today.getFullYear();
   const month = today.getMonth() < dez ? `0${today.getMonth()}` : today.getMonth();
   const day = today.getDate() < dez ? `0${today.getDate()}` : today.getDate();
-  console.log(details.strTags);
+
   const item = {
     id: itemId,
     type: mealType === 'Meal' ? 'comida' : 'bebida',
@@ -16,7 +16,7 @@ export default function RedirectToDone(itemId, mealType, details) {
     doneDate: `${day}/${month}/${year}`,
     tags: details.strTags ? (details.strTags).split(',') : [],
   };
-  // 'strTags': 'Pasta,Curry',
+
   const list = JSON.parse(localStorage.getItem('doneRecipes'));
   if (list) {
     list.push(item);

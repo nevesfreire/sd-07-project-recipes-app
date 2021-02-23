@@ -45,16 +45,20 @@ function Comidas() {
     setmealCategories(data);
   };
 
+  const showAlert = (message) => {
+    alert(message);
+  };
+
   const getEndPointAndFetch = async () => {
     setFilteredByCategory([]);
     switch (typeOfFetch) {
     case 'ingredient': {
       const fetchValue = await fetchMealByIngredients(valueToFetch);
-      return fetchValue ? setFilteredBySearchBar(fetchValue) : alert(noFindRecipe);
+      return fetchValue ? setFilteredBySearchBar(fetchValue) : showAlert(noFindRecipe);
     }
     case 'name': {
       const fetchValue = await fetchMealByName(valueToFetch);
-      return fetchValue ? setFilteredBySearchBar(fetchValue) : alert(noFindRecipe);
+      return fetchValue ? setFilteredBySearchBar(fetchValue) : showAlert(noFindRecipe);
     }
     case 'first-letter': {
       if (valueToFetch.length === 1) {
@@ -62,10 +66,10 @@ function Comidas() {
         if (fetchValue) {
           setFilteredBySearchBar(fetchValue);
         } if (!fetchValue) {
-          alert(noFindRecipe);
+          showAlert(noFindRecipe);
         }
       } else if (valueToFetch !== 1) {
-        alert('Sua busca deve conter somente 1 (um) caracter');
+        showAlert('Sua busca deve conter somente 1 (um) caracter');
       }
 
       break;
@@ -85,7 +89,6 @@ function Comidas() {
         setValueToFetch(location.state);
         setFetch('ingredient');
       } else {
-        console.log('entrou no else');
         getGlobalMealData();
       }
     }
