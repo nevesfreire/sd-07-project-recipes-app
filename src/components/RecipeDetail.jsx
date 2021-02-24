@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-// import { Button } from '@material-ui/core';
 import copy from 'clipboard-copy';
 import context from '../contextAPI/context';
 import { fetchApi, getFoodRecipeId, getDrinkRecipeId } from '../services/fetchApi';
@@ -191,10 +190,8 @@ function RecipeDetail() {
       localStorage.setItem('inProgressRecipes',
         JSON.stringify({
           cocktails: {
-
           },
           meals: {
-
           },
         }));
     }
@@ -233,9 +230,6 @@ function RecipeDetail() {
   const ingredients = summerizer(/ingredient/i, dataDetail);
   const measures = summerizer(/measure/i, dataDetail);
   const alcoholic = dataDetail[findMatch(/Alcoholic/i, dataDetail)];
-  // const id = dataDetail[findMatch(/id/, dataDetail)];
-  // const area = dataDetail[findMatch(/area/i, dataDetail)];
-  // const type = dataDetail[findMatch(/type/i, dataDetail)];
 
   return (
     <div className="card">
