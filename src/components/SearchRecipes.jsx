@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import {
   Input,
   Radio,
@@ -9,7 +10,6 @@ import {
   FormControlLabel,
 } from '@material-ui/core';
 import radioData from '../data/helperParam';
-import FoodDetails from './FoodDetails';
 import context from '../contextAPI/context';
 import useSendRequestBtn from '../hooks/useSendRequestBtn';
 
@@ -132,6 +132,8 @@ const radioButtons = (HandleRadioBtnChange) => (
 export default function SearchRecipes() {
   const { HandleTextChange, HandleRadioBtnChange, state } = useContext(context);
   const [setGetEvent] = useSendRequestBtn();
+  const location = useLocation();
+  const { pathname } = location;
 
   const buttonFetch = () => (
     <div className="radio-btn">
@@ -145,17 +147,9 @@ export default function SearchRecipes() {
       </Button>
     </div>
   );
-  // const searchChanges = ({ target: { name, value } }) => {
-  //   console.log(name, ':', value);
-  //   // setState({ ...state, [name]: value });
-  // };
 
-  // const changeHandler = ({ target }) => {
-  //   const value = target.type === 'checkbox' ? target.checked : target.value;
-  //   console.log(target.name, ':', value);
-  //   // setState({ ...state, [target.name]: value });
-  // };
   let array;
+  let alter;
   const { radio } = radioData;
 
   const { setState } = useContext(context);
@@ -165,18 +159,21 @@ export default function SearchRecipes() {
     filterByFirstchar,
     filterByIngredient,
   } = state;
-  console.log('estou em fooddetail', filterByIngredient);
 
-  if (filterByIngredient || filterByName || filterByFirstchar) {
+  if (pathname.match('comidas')) (alter = 'meals');
+  if (pathname.match('bebidas')) (alter = 'drinks');
+  if (filterByIngredient
+    || filterByName
+    || filterByFirstchar) {
     switch (radioBtn) {
     case radio.ingredient:
-      array = filterByIngredient.meals;
+      array = filterByIngredient[alter];
       break;
     case radio.byName:
-      array = filterByName.meals;
+      array = filterByName[alter];
       break;
     case radio.firstChar:
-      array = filterByFirstchar.meals;
+      array = filterByFirstchar;
       break;
     default:
       array = state.data.food;
@@ -184,12 +181,25 @@ export default function SearchRecipes() {
   }
 
   useEffect(() => {
-    setState({
-      data: {
-        food: array,
-      },
-    });
-  }, [array]);
+    if (pathname.match('comidas')) {
+      setState((s) => ({
+        ...s,
+        data: {
+          ...s.data,
+          food: array,
+        },
+      }));
+    }
+    if (pathname.match('bebidas')) {
+      setState((s) => ({
+        ...s,
+        data: {
+          ...s.data,
+          beverage: array,
+        },
+      }));
+    }
+  }, [array, setState]);
 
   return (
     <div className="search-recipes">
