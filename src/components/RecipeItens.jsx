@@ -9,10 +9,10 @@ function RecipeIntens(props) {
   function managelocalStorage(ingredient1) {
     console.log(ingredient1);
     console.log(inProgress.meals);
-    
+
     setdone(done === '' ? 'complete' : '');
     if (isMeal) {
-      localStorage.setItem('inProgressRecipes{meals}', ingredient1);
+      localStorage.setItem('inProgressRecipes', 'ingredient1');
     } else {
       localStorage.setItem();
     }
