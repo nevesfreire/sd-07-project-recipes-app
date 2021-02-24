@@ -176,7 +176,8 @@ export default function SearchRecipes() {
       array = filterByFirstchar;
       break;
     default:
-      array = state.data.food;
+      if (pathname.match('comidas')) (array = state.data.food);
+      if (pathname.match('bebidas')) (array = state.data.beverage);
     }
   }
 
