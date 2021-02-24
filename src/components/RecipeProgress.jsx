@@ -2,22 +2,16 @@ import React, { useContext, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import context from '../contextAPI/context';
 import shareIcon from '../images/shareIcon.svg';
-import { fetchApi, getFoodRecipeId, getDrinkRecipeId } from '../services/fetchApi';
 import RecipeIntens from './RecipeItens';
 
 import '../css/card.css';
 
-const fetchId = async (pathname, state, setDetail, setRecipeStr) => {
+const isMeal = async (pathname) => {
   const id = pathname.split('/')[2];
   if (pathname === `/comidas/${id}`) {
-    const newData = await fetchApi(getFoodRecipeId(id));
-    setDetail(newData.meals);
-    setRecipeStr(state.str.food);
-  } else if (pathname === `/bebidas/${id}`) {
-    const newData = await fetchApi(getDrinkRecipeId(id));
-    setDetail(newData.drinks);
-    setRecipeStr(state.str.beverage);
+    return true;
   }
+  return false;
 };
 
 // stackOverflow -> https://stackovetextrflow.com/questions/9907419/how-to-get-a-key-in-a-javascript-object-by-its-value
@@ -85,32 +79,23 @@ const recipeShare = () => (
   </div>
 );
 
-const recipeIngredients = (ingredients, measures) => (
-  <ul className="">
-    { ingredients.map((ingredient, index) => (
-      <RecipeIntens
-        key={ index }
-        ingredient={ ingredient }
-        measures={ measures }
-        index={ index }
-      />
-      // <li
-      //   key={ index }
-      //   data-testid={ `${index}-ingredient-step` }
-      // >
-      //   <input
-      //   type="checkbox"
-      //   id="ingredients"
-      //   name="ingredients"
-      //   value="ingredients"
-      //   >
-      //     { `${ingredient} - ${measures[index]}` }
-      //     <label for="ingredients"> Ingredientes e medidas</label>
+const recipeIngredients = (ingredients, measures) => {
+  const type = isMeal();
+  return (
 
-      // </li>
-    ))}
-  </ul>
-);
+    <ul className="">
+      { ingredients.map((ingredient, index) => (
+        <RecipeIntens
+          key={ index }
+          isMeal={ type }
+          ingredient={ ingredient }
+          measures={ measures }
+          index={ index }
+        />
+      ))}
+    </ul>
+  );
+};
 
 const recipeInstructions = (instructions) => (
   <p
