@@ -7,6 +7,7 @@ import { initialize } from '../services/localStorage';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import MainDetail from './MainDetail';
 import Carousel from './Carousel';
 import '../css/card.css';
 
@@ -230,9 +231,9 @@ function RecipeDetail() {
   const ingredients = summerizer(/ingredient/i, dataDetail);
   const measures = summerizer(/measure/i, dataDetail);
   const alcoholic = dataDetail[findMatch(/Alcoholic/i, dataDetail)];
-
   return (
     <div className="card">
+      {MainDetail(history)}
       {recipeStart(start, history, pathname)}
       {recipeImage(url, title)}
       {recipeTitle(title)}

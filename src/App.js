@@ -29,6 +29,10 @@ function App() {
       <Route path="/receitas-feitas" />
       <Route exact path="/comidas/:id" component={ RecipeDetail } />
       <Route exact path="/bebidas/:id" component={ RecipeDetail } />
+
+      {/* <Route exact path="/comidas/:id" component={ MainDetails } />
+      <Route exact path="/bebidas/:id" component={ MainDetails } /> */}
+
       <Route path="/receitas-feitas" />
     </Switch>
   );
