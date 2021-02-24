@@ -13,6 +13,7 @@ function FoodDetails(props) {
     filterByName,
     filterByFirstchar,
     filterByIngredient } } = useContext(context);
+  console.log('estou recebendo food', food);
   console.log('estou em fooddetail', filterByIngredient);
   const { meals: mealsByName } = filterByName;
   const { meals: mealsByIngredient } = filterByIngredient;
