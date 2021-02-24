@@ -10,8 +10,8 @@ function useSendRequestBtn() {
   const { location: { pathname } } = history;
   const randonNumber = 0;
   const [getEvent, setGetEvent] = useState(randonNumber);
-  const { data, setData } = useContext(context);
-  const { radioBtn, textSeach } = data;
+  const { state, setState } = useContext(context);
+  const { radioBtn, textSeach } = state;
 
   const { radio, filter, typeOf } = paramArray;
 
@@ -28,7 +28,7 @@ function useSendRequestBtn() {
           typeOf.ingredientType,
         );
         console.log('meus items: ', item);
-        setData({ ...data, filterByIngredient: item });
+        setState({ ...state, filterByIngredient: item });
       }
 
       if (radioBtn === radio.byName) {
@@ -40,7 +40,7 @@ function useSendRequestBtn() {
           typeOf.nameType,
         );
         console.log('meus items: ', item);
-        setData({ ...data, filterByName: item });
+        setState({ ...state, filterByName: item });
       }
 
       if (radioBtn === radio.firstChar) {
@@ -54,12 +54,12 @@ function useSendRequestBtn() {
         console.log('meus items: ', item);
         if (myPath === 'meal') {
           const { meals } = item;
-          setData({ ...data, filterByFirstchar: meals });
+          setState({ ...state, filterByFirstchar: meals });
         }
 
         if (myPath === 'cocktail') {
           const { drinks } = item;
-          setData({ ...data, filterByFirstchar: drinks });
+          setState({ ...state, filterByFirstchar: drinks });
         }
       }
     }

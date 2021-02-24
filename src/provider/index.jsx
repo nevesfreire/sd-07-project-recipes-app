@@ -36,13 +36,13 @@ const newFunc = async (setState) => {
 function Provider({ children }) {
   const initial = false;
   const [login, setLogin] = useState({});
-  const [data, setData] = useState({
-    radioBtn: '',
-    textSeach: '',
-    filterByName: [],
-    filterByFirstchar: [],
-    filterByIngredient: [],
-  });
+  // const [data, setData] = useState({
+  //   radioBtn: '',
+  //   textSeach: '',
+  //   filterByName: [],
+  //   filterByFirstchar: [],
+  //   filterByIngredient: [],
+  // });
   const [detail, setDetail] = useState();
   const [search, setSearch] = useState(initial);
   // const [setPath] = useRedirect();
@@ -57,24 +57,31 @@ function Provider({ children }) {
     data: { food: [], beverage: [] },
     str: { food: 'strMeal', beverage: 'strDrink' },
     categories: { food: [], beverage: [] },
+    radioBtn: '',
+    textSeach: '',
+    filterByName: [],
+    filterByFirstchar: [],
+    filterByIngredient: [],
   });
 
-  const { filterByIngredient } = data;
+  const { filterByIngredient, filterByName, filterByFirstchar } = state;
 
   console.log('estou no provider', filterByIngredient);
+  console.log(filterByName);
+  console.log(filterByFirstchar);
 
   function HandleTextChange(event) {
     const { value } = event.target;
     const result = value.toLowerCase();
-    setData(
-      { ...data, textSeach: result },
+    setState(
+      { ...state, textSeach: result },
     );
   }
 
   function HandleRadioBtnChange(event) {
     const { value } = event.target;
-    setData(
-      { ...data, radioBtn: value },
+    setState(
+      { ...state, radioBtn: value },
     );
     return value;
   }
@@ -117,8 +124,8 @@ function Provider({ children }) {
     changeClick,
     detail,
     setDetail,
-    data,
-    setData,
+    // data,
+    // setData,
     state,
     setState,
     login,

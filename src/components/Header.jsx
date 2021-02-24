@@ -85,7 +85,7 @@ export default function Header() {
   const { pathname } = location;
 
   useEffect(() => {
-    const newHeader = siteMap[findMatch(pathname.split('/')[1], siteMap)].header;
+    const newHeader = siteMap[findMatch(pathname, siteMap)].header;
     setState((s) => ({ ...s, header: newHeader }));
   }, [pathname, setState]);
 
