@@ -16,6 +16,17 @@
 //     filterByFirstchar,
 //     filterByIngredient } = state;
 //   console.log('estou em fooddetail', filterByIngredient);
+// const { data: { food,
+//   radioBtn,
+//   filterByName,
+//   filterByFirstchar,
+//   filterByIngredient } } = useContext(context);
+// console.log('estou recebendo food', food);
+// console.log('estou em fooddetail', filterByIngredient);
+// const { meals: mealsByName } = filterByName;
+// const { meals: mealsByIngredient } = filterByIngredient;
+// const { meals } = food;
+// array = meals;
 
 //   if (filterByIngredient || filterByName || filterByFirstchar) {
 //     switch (radioBtn) {
@@ -32,7 +43,6 @@
 //       array = food;
 //     }
 //   }
-  
 //   // const { foodPath } = props;
 //   // const { location: { pathname } } = foodPath;
 //   // const pathString = pathname.split('/');
