@@ -1,18 +1,9 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import context from '../contextAPI/context';
 import shareIcon from '../images/shareIcon.svg';
 import RecipeIntens from './RecipeItens';
-
 import '../css/card.css';
-
-const isMeal = async (pathname) => {
-  const id = pathname.split('/')[2];
-  if (pathname === `/comidas/${id}`) {
-    return true;
-  }
-  return false;
-};
 
 // stackOverflow -> https://stackovetextrflow.com/questions/9907419/how-to-get-a-key-in-a-javascript-object-by-its-value
 const findMatch = (string, object) => (
@@ -79,24 +70,6 @@ const recipeShare = () => (
   </div>
 );
 
-const recipeIngredients = (ingredients, measures) => {
-  const type = isMeal();
-  return (
-
-    <ul className="">
-      { ingredients.map((ingredient, index) => (
-        <RecipeIntens
-          key={ index }
-          isMeal={ type }
-          ingredient={ ingredient }
-          measures={ measures }
-          index={ index }
-        />
-      ))}
-    </ul>
-  );
-};
-
 const recipeInstructions = (instructions) => (
   <p
     data-testid="instructions"
@@ -126,15 +99,40 @@ function RecipeProgress() {
   console.log(detail);
 
   if (!detail) return <div>Loading...</div>;
-  const idData = detail;
-  const title = idData[findMatch(/title/i, idData)];
-  const url = idData[findMatch(/Thumb/, idData)];
-  // const title = idData[findMatch(recipeStr, idData)];
-  const category = idData[findMatch(/category/i, idData)];
-  const instructions = idData[findMatch(/instructions/i, idData)];
-  // const video = idData[findMatch(/youtube/i, idData)];
-  const ingredients = summerizer(/ingredient/i, idData);
-  const measures = summerizer(/measure/i, idData);
+  const id = detail[findMatch(/id/i, detail)];
+  const title = detail[findMatch(/title/i, detail)];
+  const url = detail[findMatch(/Thumb/, detail)];
+  // const title = detail[findMatch(recipeStr, detail)];
+  const category = detail[findMatch(/category/i, detail)];
+  const instructions = detail[findMatch(/instructions/i, detail)];
+  // const video = detail[findMatch(/youtube/i, detail)];
+  const ingredients = summerizer(/ingredient/i, detail);
+  const measures = summerizer(/measure/i, detail);
+
+  const isMeal = async (caminho) => {
+    if (caminho.match('comidas')) {
+      return true;
+    }
+    return false;
+  };
+
+  const recipeIngredients = (recipeIng, measu) => {
+    const type = isMeal(pathname);
+    return (
+      <ul className="">
+        { recipeIng.map((ingredient, index) => (
+          <RecipeIntens
+            key={ index }
+            id={ id }
+            isMeal={ type }
+            ingredient={ ingredient }
+            measures={ measu }
+            index={ index }
+          />
+        ))}
+      </ul>
+    );
+  };
 
   return (
     <div>

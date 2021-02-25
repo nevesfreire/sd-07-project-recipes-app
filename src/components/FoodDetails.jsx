@@ -9,6 +9,13 @@
 //   let array;
 //   const { radio } = radioData;
 
+//   const { state, setState } = useContext(context);
+//   const { data,
+//     radioBtn,
+//     filterByName,
+//     filterByFirstchar,
+//     filterByIngredient } = state;
+//   console.log('estou em fooddetail', filterByIngredient);
 // const { data: { food,
 //   radioBtn,
 //   filterByName,
@@ -36,7 +43,6 @@
 //       array = food;
 //     }
 //   }
-
 //   // const { foodPath } = props;
 //   // const { location: { pathname } } = foodPath;
 //   // const pathString = pathname.split('/');
