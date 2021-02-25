@@ -106,7 +106,9 @@ export default function Header() {
         {pageTitle(title)}
         {searchBtn(searchButton, toggleSearch, callSearch)}
       </div>
-      {searchRecipeComponent(pathname, toggleSearch, title)}
+      <div className="header-search">
+        {searchRecipeComponent(pathname, toggleSearch, title)}
+      </div>
     </div>
   );
 }
