@@ -2,6 +2,17 @@
   width: 250px;
 }
 
+.detalhes {
+  margin-left: 30rem;
+  justify-content: center;
+  width: 20rem;
+}
+
+.card-progress {
+  margin-left: 30rem;
+  width: 20rem;
+}
+
 .card-title {
   color: rgba(0, 0, 0, 0.801);
   font-size: medium;

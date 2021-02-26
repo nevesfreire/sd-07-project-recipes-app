@@ -105,7 +105,7 @@ export default function SearchRecipes() {
     <div className="search-recipes">
       {inputSearchBar(HandleTextChange)}
       {radioButtons(HandleRadioBtnChange)}
-      {buttonFetch(setGetEvent)}
+      {buttonFetch()}
     </div>
   );
 }

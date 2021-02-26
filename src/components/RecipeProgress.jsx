@@ -71,7 +71,7 @@ async function share(pathname) {
 }
 
 const recipeShare = () => (
-  <div>
+  <div className="colocaClassNameGente-2">
     <button
       data-testid="share-btn"
       onClick={ () => share() }
@@ -152,7 +152,7 @@ function RecipeProgress() {
   const measures = summerizer(/measure/i, idData);
 
   return (
-    <div>
+    <div className="card-progress">
       {recipeTitle(title)}
       {recipeCategory(category)}
       {recipeImage(url, title)}

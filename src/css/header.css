@@ -16,8 +16,8 @@
 .header {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
+  justify-content: space-around;
+  width: 80rem;
 }
 
 .header-page {
@@ -44,5 +44,6 @@
   align-items: center;
   display: flex;
   justify-content: space-around;
-  width: 100%;
+  width: 60rem;
+  margin-left: 15rem;
 }

@@ -60,8 +60,6 @@ const searchBtn = (searchButton, toggleSearch, onClick) => {
     <Button
       type="button"
       data-testid="header_search_bar"
-      variant="contained"
-      // color="primary"
       onClick={ (e) => onClick(e) }
       className="header-button"
     >

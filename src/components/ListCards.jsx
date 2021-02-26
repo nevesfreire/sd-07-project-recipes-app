@@ -4,6 +4,7 @@ import context from '../contextAPI/context';
 // import { fetchApi, allFood, allDrink } from '../services/fetchApi';
 // import siteMap from '../helpers/siteMap';
 import Card from './Card';
+import radioData from '../data/helperParam';
 
 // stackOverflow -> https://stackoverflow.com/questions/9907419/how-to-get-a-key-in-a-javascript-object-by-its-value
 const findMatch = (string, object) => (
@@ -21,23 +22,46 @@ const newCards = async (pathname, setCards, setRecipeStr, state) => {
 };
 
 const ListCards = () => {
-  const { state } = useContext(context);
+  let array;
+
+  const { state, filterData } = useContext(context);
   const [cards, setCards] = useState([]);
   const [recipeStr, setRecipeStr] = useState('');
   const history = useHistory();
   const { location: { pathname } } = history;
-  const { data } = state;
+  const { radio } = radioData;
   const maxRecipesNumber = 12;
+
+  array = cards;
+
+  const { radioBtn } = filterData;
+  const { filterByName, filterByFirstchar, filterByIngredient } = filterData;
+  console.log('o que tem em mim :', filterByFirstchar);
+
+  if (radioBtn) {
+    switch (radioBtn) {
+    case radio.ingredient:
+      array = filterByIngredient;
+      break;
+    case radio.byName:
+      array = filterByName;
+      break;
+    case radio.firstChar:
+      array = filterByFirstchar;
+      break;
+    default:
+      array = cards;
+    }
+  }
 
   useEffect(() => {
     newCards(pathname, setCards, setRecipeStr, state);
   }, [pathname, state]);
 
-  console.log(data);
-  if (!cards) return <div>Loading...</div>;
+  if (!array) return <div>Loading...</div>;
 
   return (
-    cards.filter((_recipe, index) => index < maxRecipesNumber)
+    array.filter((_recipe, index) => index < maxRecipesNumber)
       .map((recipe, index) => (
         <Card
           key={ recipe[findMatch('id', recipe)] }

@@ -31,14 +31,14 @@ function Card(props) {
     Index,
     Test,
   } = props;
-
+  console.log('estou em', pathname);
   // useEffect(() => {
   //   const Newid = pathname.split('/')[2];
   //   console.log(Newid);
   // }, [pathname]);
   return (
     <Paper className="paper-style" elevation={ 6 }>
-      <Link to={ `${pathname}/${id}` } replace>
+      <Link to={ { pathname: `${pathname}/${id}` } }>
         <div className="image-card" data-testid={ `${Index}-${Test}` }>
           {recipeImg(Thumb, Index)}
           {recipeTextData(Name, Index)}

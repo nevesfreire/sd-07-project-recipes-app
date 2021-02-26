@@ -3,7 +3,7 @@ import RecipeDetail from '../components/RecipeDetail';
 // import { getFoodRecipeId, getDrinkRecipeId } from '../services/fetchApi';
 import '../css/card.css';
 
-function ShowRecipeDetail() {
+function MainRecipeDetail() {
   return (
     <div className="detalhes">
       <RecipeDetail />
@@ -11,4 +11,4 @@ function ShowRecipeDetail() {
   );
 }
 
-export default ShowRecipeDetail;
+export default MainRecipeDetail;

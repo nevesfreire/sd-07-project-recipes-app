@@ -7,7 +7,7 @@ function useRedirect() {
 
   useEffect(() => {
     history.push(path);
-  }, [path, history]);
+  }, [path]);
 
   return [setPath];
 }

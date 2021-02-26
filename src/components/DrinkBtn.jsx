@@ -10,18 +10,18 @@ const DrinkBtn = () => {
   const [setPath] = useRedirect();
   const { setState } = useContext(context);
 
-  const onClick = () => {
+  const handleClick = () => {
+    setPath(PATH);
     setState((s) => ({
       ...s,
       toggleSearch: false,
     }));
-    setPath(PATH);
   };
 
   return (
     <div className="drinks-btn">
       <Button
-        onClick={ onClick }
+        onClick={ handleClick }
         variant="contained"
         className="footer-buttons"
       >

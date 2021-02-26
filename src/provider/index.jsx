@@ -36,13 +36,6 @@ const newFunc = async (setState) => {
 function Provider({ children }) {
   const initial = false;
   const [login, setLogin] = useState({});
-  const [data, setData] = useState({
-    radioBtn: '',
-    textSeach: '',
-    filterByName: [],
-    filterByFirstchar: [],
-    filterByIngredient: [],
-  });
   const [detail, setDetail] = useState();
   const [search, setSearch] = useState(initial);
   // const [setPath] = useRedirect();
@@ -59,22 +52,32 @@ function Provider({ children }) {
     categories: { food: [], beverage: [] },
   });
 
-  const { filterByIngredient } = data;
+  const [filterData, setFilterData] = useState({
+    radioBtn: '',
+    textSeach: '',
+    filterByName: [],
+    filterByFirstchar: [],
+    filterByIngredient: [],
+  });
 
-  console.log('estou no provider', filterByIngredient);
+  const { radioBtn } = filterData;
 
   function HandleTextChange(event) {
     const { value } = event.target;
     const result = value.toLowerCase();
-    setData(
-      { ...data, textSeach: result },
+    if (radioBtn === 'firstChar' && value.length > 1) {
+      window.alert('Sua busca deve conter somente 1 (um) caracter');
+      // setSearch({ change: false });
+    }
+    setFilterData(
+      { ...filterData, textSeach: result },
     );
   }
 
   function HandleRadioBtnChange(event) {
     const { value } = event.target;
-    setData(
-      { ...data, radioBtn: value },
+    setFilterData(
+      { ...filterData, radioBtn: value },
     );
     return value;
   }
@@ -117,8 +120,8 @@ function Provider({ children }) {
     changeClick,
     detail,
     setDetail,
-    data,
-    setData,
+    filterData,
+    setFilterData,
     state,
     setState,
     login,

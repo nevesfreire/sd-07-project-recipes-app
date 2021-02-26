@@ -5,7 +5,7 @@ import Recipes from './pages/recipes';
 import Profile from './pages/profile';
 import Explore from './pages/explore';
 import ExploreMore from './pages/exploreMore';
-import RecipeDetail from './pages/recipeDetail';
+import MainRecipeDetail from './pages/MainRecipeDetail';
 import RecipeInProgress from './pages/recipeInProgress';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -27,8 +27,8 @@ function App() {
       <Route path="/explorar/comidas" component={ ExploreMore } />
       <Route path="/explorar/bebidas" component={ ExploreMore } />
       <Route path="/receitas-feitas" />
-      <Route exact path="/comidas/:id" component={ RecipeDetail } />
-      <Route exact path="/bebidas/:id" component={ RecipeDetail } />
+      <Route exact path="/comidas/:id" component={ MainRecipeDetail } />
+      <Route exact path="/bebidas/:id" component={ MainRecipeDetail } />
 
       {/* <Route exact path="/comidas/:id" component={ MainDetails } />
       <Route exact path="/bebidas/:id" component={ MainDetails } /> */}
