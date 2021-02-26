@@ -4,7 +4,7 @@ import copy from 'clipboard-copy';
 import context from '../contextAPI/context';
 import { fetchApi, getFoodRecipeId, getDrinkRecipeId } from '../services/fetchApi';
 import { initialize } from '../services/localStorage';
-import shareIcon from '../images/shareIcon.svg';
+import recipeShare from './recipeShare';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Carousel from './Carousel';
@@ -67,26 +67,6 @@ const recipeTitle = (title) => (
   <h1 data-testid="recipe-title">
     {title}
   </h1>
-);
-
-function share(pathname, setShared) {
-  const twoSeconds = 2000;
-  copy(`http://localhost:3000${pathname}`);
-  setShared(true);
-  setTimeout(() => setShared(false), twoSeconds);
-}
-
-const recipeShare = (pathname, setShared) => (
-  <div>
-    <button
-      data-testid="share-btn"
-      onClick={ () => share(pathname, setShared) }
-      type="button"
-      className=""
-    >
-      <img src={ shareIcon } alt="share" />
-    </button>
-  </div>
 );
 
 const recipeShareMessage = (shared) => (
