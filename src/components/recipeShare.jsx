@@ -1,4 +1,4 @@
-export function recipeShare ({
+export function recipeShare {
 
 
 function share(pathname, setShared) {
@@ -19,5 +19,5 @@ const recipeShare = (pathname, setShared) => {
       <img src={ shareIcon } alt="share" />
     </button>
   </div>
-);
-)
+};
+}
