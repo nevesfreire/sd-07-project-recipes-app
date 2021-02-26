@@ -7,27 +7,28 @@ function RecipeIntens(props) {
   let inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
   console.log(inProgress);
 
-  // ({
-  //   ...s,
-  //   data: {
-  //     ...s.data,
-  //     food: array,
-  //   },
-  // })
   function managelocalStorage(ingredient1, idReceita) {
     setdone(done === '' ? 'complete' : '');
     inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (isMeal) {
+
+    if (isMeal && inProgress.meals.length) {
       localStorage.setItem('inProgressRecipes',
         JSON.stringify({
           ...inProgress,
           meals: {
             ...inProgress.meals,
-            [idReceita]: [...idReceita, ingredient1],
+            [idReceita]: [...inProgress.meals[idReceita], ingredient1],
           },
         }));
-    } else {
-      localStorage.setItem();
+    } else if (inProgress.drinks.length) {
+      localStorage.setItem('inProgressRecipes',
+        JSON.stringify({
+          ...inProgress,
+          drinks: {
+            ...inProgress.drinks,
+            [idReceita]: [...inProgress.drinks[idReceita], ingredient1],
+          },
+        }));
     }
   }
   return (

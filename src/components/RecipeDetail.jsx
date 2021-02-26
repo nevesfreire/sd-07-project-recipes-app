@@ -189,10 +189,8 @@ function RecipeDetail() {
     if (localStorage.getItem('inProgressRecipes') === null) {
       localStorage.setItem('inProgressRecipes',
         JSON.stringify({
-          cocktails: {
-          },
-          meals: {
-          },
+          cocktails: { },
+          meals: { },
         }));
     }
   }, []);
