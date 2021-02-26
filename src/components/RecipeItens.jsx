@@ -10,7 +10,8 @@ function RecipeIntens(props) {
   function managelocalStorage(ingredient1, idReceita) {
     setdone(done === '' ? 'complete' : '');
     inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (isMeal) {
+
+    if (isMeal && inProgress.meals.length) {
       localStorage.setItem('inProgressRecipes',
         JSON.stringify({
           ...inProgress,
@@ -19,7 +20,7 @@ function RecipeIntens(props) {
             [idReceita]: [...inProgress.meals[idReceita], ingredient1],
           },
         }));
-    } else {
+    } else if (inProgress.drinks.length) {
       localStorage.setItem('inProgressRecipes',
         JSON.stringify({
           ...inProgress,
