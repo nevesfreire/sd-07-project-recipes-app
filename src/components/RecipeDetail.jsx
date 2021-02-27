@@ -188,6 +188,16 @@ function RecipeDetail() {
   const { pathname } = location;
 
   useEffect(() => {
+    if (localStorage.getItem('inProgressRecipes') === null) {
+      localStorage.setItem('inProgressRecipes',
+        JSON.stringify({
+          cocktails: { },
+          meals: { },
+        }));
+    }
+  }, []);
+
+  useEffect(() => {
     initialize();
   }, [pathname]);
 
@@ -219,9 +229,6 @@ function RecipeDetail() {
   const ingredients = summerizer(/ingredient/i, dataDetail);
   const measures = summerizer(/measure/i, dataDetail);
   const alcoholic = dataDetail[findMatch(/Alcoholic/i, dataDetail)];
-  // const id = dataDetail[findMatch(/id/, dataDetail)];
-  // const area = dataDetail[findMatch(/area/i, dataDetail)];
-  // const type = dataDetail[findMatch(/type/i, dataDetail)];
 
   return (
     <div className="card">

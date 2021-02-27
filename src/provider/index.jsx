@@ -56,10 +56,18 @@ const fetchIngredient = async (pathname, ingredient, setState) => {
 // );
 
 function Provider({ children }) {
+  const initial = false;
   const [login, setLogin] = useState({});
-  const [data, setData] = useState({});
+  // const [data, setData] = useState({
+  //   radioBtn: '',
+  //   textSeach: '',
+  //   filterByName: [],
+  //   filterByFirstchar: [],
+  //   filterByIngredient: [],
+  // });
   const [detail, setDetail] = useState();
   const [ingredient, setIngredient] = useState('');
+  const [search, setSearch] = useState(initial);
   // const [setPath] = useRedirect();
   // const [RecipesUrl, setRecipesUrl] = useState({});
   const [state, setState] = useState({
@@ -72,9 +80,34 @@ function Provider({ children }) {
     data: { food: [], beverage: [] },
     str: { food: 'strMeal', beverage: 'strDrink' },
     categories: { food: [], beverage: [] },
-    filter: '',
-    filtered: '',
+    radioBtn: '',
+    textSeach: '',
+    filterByName: [],
+    filterByFirstchar: [],
+    filterByIngredient: [],
   });
+
+  const { filterByIngredient, filterByName, filterByFirstchar } = state;
+
+  console.log('estou no provider', filterByIngredient);
+  console.log(filterByName);
+  console.log(filterByFirstchar);
+
+  function HandleTextChange(event) {
+    const { value } = event.target;
+    const result = value.toLowerCase();
+    setState(
+      { ...state, textSeach: result },
+    );
+  }
+
+  function HandleRadioBtnChange(event) {
+    const { value } = event.target;
+    setState(
+      { ...state, radioBtn: value },
+    );
+    return value;
+  }
 
   useEffect(() => {
     fetchFirst(setState);
@@ -107,11 +140,27 @@ function Provider({ children }) {
     }
   }, [login]);
 
+  // useEffect(() => {
+  //   if (RecipesUrl !== '') {
+  //     fetchApi(RecipesUrl)
+  //       .then((r) => setState((s) => ({ ...s, data: r })));
+  //   }
+  // }, [RecipesUrl]);
+
+  // useEffect(() => {
+  //   const newHeader = siteMap[findMatch(pathname.split('/')[1], siteMap)].header;
+  //   setState((s) => ({ ...s, header: newHeader }));
+  // }, [pathname, setState]);
+  const changeClick = ((change) => setSearch({ change }));
+
   const context = {
+    setSearch,
+    search,
+    changeClick,
     detail,
     setDetail,
-    data,
-    setData,
+    // data,
+    // setData,
     state,
     setState,
     login,
