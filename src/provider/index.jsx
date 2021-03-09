@@ -167,8 +167,8 @@ function Provider({ children }) {
     setLogin,
     ingredient,
     setIngredient,
-    // HandleTextChange,
-    // HandleRadioBtnChange,
+    HandleTextChange,
+    HandleRadioBtnChange,
     // pathname,
     // setPath,
   };

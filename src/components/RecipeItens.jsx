@@ -2,16 +2,41 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 function RecipeIntens(props) {
-  const { id, ingredient, measures, index, isMeal } = props;
+  const { id, ingredient, measures, index, type } = props;
   const [done, setdone] = useState('');
   let inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
   console.log(inProgress);
+  if (type === 'meals') {
+    if (!inProgress.meals[id]) {
+      inProgress.meals[id] = [];
+    }
+  }
 
   function managelocalStorage(ingredient1, idReceita) {
     setdone(done === '' ? 'complete' : '');
     inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    console.log(inProgress);
+    // if (isMeal && !inProgress.meals) {
+    //   localStorage.setItem('inProgressRecipes',
+    //     JSON.stringify({
+    //       ...inProgress,
+    //       meals: {
+    //         ...inProgress.meals,
+    //         [idReceita]: [],
+    //       },
+    //     }));
+    // } else if (!isMeal && !inProgress.cocktails) {
+    //   localStorage.setItem('inProgressRecipes',
+    //     JSON.stringify({
+    //       ...inProgress,
+    //       cocktails: {
+    //         ...inProgress.cocktails,
+    //         [idReceita]: [],
+    //       },
+    //     }));
+    // }
 
-    if (isMeal && inProgress.meals.length) {
+    if (type === 'meals') {
       localStorage.setItem('inProgressRecipes',
         JSON.stringify({
           ...inProgress,
@@ -20,13 +45,13 @@ function RecipeIntens(props) {
             [idReceita]: [...inProgress.meals[idReceita], ingredient1],
           },
         }));
-    } else if (inProgress.drinks.length) {
+    } else if (type === 'cocktails') {
       localStorage.setItem('inProgressRecipes',
         JSON.stringify({
           ...inProgress,
-          drinks: {
-            ...inProgress.drinks,
-            [idReceita]: [...inProgress.drinks[idReceita], ingredient1],
+          cocktails: {
+            ...inProgress.cocktails,
+            [idReceita]: [...inProgress.cocktails[idReceita], ingredient1],
           },
         }));
     }
@@ -57,7 +82,7 @@ RecipeIntens.propTypes = {
   ingredient: PropTypes.string.isRequired,
   measures: PropTypes.arrayOf(PropTypes.string).isRequired,
   index: PropTypes.number.isRequired,
-  isMeal: PropTypes.bool.isRequired,
+  type: PropTypes.bool.isRequired,
 };
 
 export default RecipeIntens;

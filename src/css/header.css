@@ -46,5 +46,6 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  width: 300px;
+  margin-top: 10px;
+  width: 350px;
 }

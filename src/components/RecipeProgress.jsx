@@ -1,7 +1,8 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import context from '../contextAPI/context';
 import shareIcon from '../images/shareIcon.svg';
+import { fetchApi, getFoodRecipeId, getDrinkRecipeId } from '../services/fetchApi';
 import RecipeIntens from './RecipeItens';
 import '../css/card.css';
 
@@ -9,6 +10,17 @@ import '../css/card.css';
 const findMatch = (string, object) => (
   Object.keys(object).find((key) => key.match(string))
 );
+
+const fetchId = async (pathname, setDetail) => {
+  const id = pathname.split('/')[2];
+  if (pathname.match('comidas')) {
+    const newData = await fetchApi(getFoodRecipeId(id));
+    setDetail(newData.meals[0]);
+  } else if (pathname.match('bebidas')) {
+    const newData = await fetchApi(getDrinkRecipeId(id));
+    setDetail(newData.drinks[0]);
+  }
+};
 
 const recipeTitle = (title) => (
   <h1
@@ -78,6 +90,7 @@ const recipeInstructions = (instructions) => (
     {instructions}
   </p>
 );
+
 const summerizer = (stringRegex, data) => {
   const summerized = Object.entries(data)
     .filter((entrie) => {
@@ -90,13 +103,17 @@ const summerizer = (stringRegex, data) => {
 };
 
 function RecipeProgress() {
-  const { detail } = useContext(context);
   // const [recipeStr, setRecipeStr] = useState('');
+  const { detail, setDetail } = useContext(context);
   const location = useLocation();
   const { pathname } = location;
   const history = useHistory();
 
   console.log(detail);
+
+  useEffect(() => {
+    fetchId(pathname, setDetail);
+  }, [pathname, setDetail]);
 
   if (!detail) return <div>Loading...</div>;
   const id = detail[findMatch(/id/i, detail)];
@@ -109,22 +126,22 @@ function RecipeProgress() {
   const ingredients = summerizer(/ingredient/i, detail);
   const measures = summerizer(/measure/i, detail);
 
-  const isMeal = async (caminho) => {
+  const type = (caminho) => {
     if (caminho.match('comidas')) {
-      return true;
+      return 'meals';
     }
-    return false;
+    return 'cocktails';
   };
 
   const recipeIngredients = (recipeIng, measu) => {
-    const type = isMeal(pathname);
+    const thistype = type(pathname);
     return (
       <ul className="">
         { recipeIng.map((ingredient, index) => (
           <RecipeIntens
             key={ index }
             id={ id }
-            isMeal={ type }
+            type={ thistype }
             ingredient={ ingredient }
             measures={ measu }
             index={ index }

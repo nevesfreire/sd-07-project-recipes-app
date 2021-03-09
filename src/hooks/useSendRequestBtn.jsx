@@ -27,7 +27,7 @@ function useSendRequestBtn() {
           filter.ingredient,
           typeOf.ingredientType,
         );
-        console.log('meus items: ', item);
+        console.log('meus ingredients: ', item);
         setState({ ...state, filterByIngredient: item });
       }
 
@@ -39,7 +39,7 @@ function useSendRequestBtn() {
           filter.byNameOrFistChar,
           typeOf.nameType,
         );
-        console.log('meus items: ', item);
+        console.log('meus first Char: ', item);
         setState({ ...state, filterByName: item });
       }
 
