@@ -116,14 +116,12 @@ function Provider({ children }) {
 
   useEffect(() => {
     const { filter, pathname } = state;
-    if (!filter) {
-      if (filter === 'ingredient') {
-        fetchIngredient(pathname, ingredient, setState);
-      }
-      // if (filter === 'nome') {
-
-      // }
+    if (!filter && filter === 'ingredient') {
+      fetchIngredient(pathname, ingredient, setState);
     }
+    // if (filter === 'nome') {
+
+    // }
   }, [ingredient, state]);
 
   useEffect(() => {

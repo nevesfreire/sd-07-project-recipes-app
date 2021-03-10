@@ -62,75 +62,41 @@ const radioButtons = (HandleRadioBtnChange) => (
   </div>
 );
 
-// const buttonFetch = (setGetEvent) => (
-//   <div className="radio-btn">
-//     <Button
-//       data-testid="exec-search-btn"
-//       variant="contained"
-//       color="primary"
-//       onClick={ (e) => setGetEvent(e) }
-//     >
-//       Buscar
-//     </Button>
-//   </div>
-// );
+function filterSelection(path, state, arr) {
+  const { radio } = radioData;
+  let alter;
+  const {
+    radioBtn,
+    filterByName,
+    filterByFirstchar,
+    filterByIngredient,
+  } = state;
 
-// function FoodDetails() {
-//   let array;
-//   const { radio } = radioData;
-
-//   const { data, setState } = useContext(context);
-//   const { food,
-//     radioBtn,
-//     filterByName,
-//     filterByFirstchar,
-//     filterByIngredient } = data;
-//   console.log('estou em fooddetail', filterByIngredient);
-//   const { meals: mealsByName } = filterByName;
-//   const { meals: mealsByIngredient } = filterByIngredient;
-//   const { meals } = food;
-//   array = meals;
-
-//   if (mealsByIngredient || mealsByName || filterByFirstchar) {
-//     switch (radioBtn) {
-//     case radio.ingredient:
-//       array = mealsByIngredient;
-//       break;
-//     case radio.byName:
-//       array = mealsByName;
-//       break;
-//     case radio.firstChar:
-//       array = filterByFirstchar;
-//       break;
-//     default:
-//       array = meals;
-//     }
-//     console.log('dentro do switch', array);
-//   }
-//   useEffect(() => {
-//     setState((s) => ({ ...s,
-//       data: {
-//         food: array,
-//       },
-//     }));
-//   }, [data, array, setState]);
-
-//   // const { foodPath } = props;
-//   // const { location: { pathname } } = foodPath;
-//   // const pathString = pathname.split('/');
-//   // const idFood = pathString[2];
-
-//   // return (
-//   //   <div className="card-container">
-//   //     {
-//   //       RenderFoodCardDetail(array, idFood)
-//   //     }
-//   //   </div>
-//   // );
-// }
+  if (path.match('comidas')) (alter = 'meals');
+  if (path.match('bebidas')) (alter = 'drinks');
+  if (filterByIngredient
+    || filterByName
+    || filterByFirstchar) {
+    switch (radioBtn) {
+    case radio.ingredient:
+      arr = filterByIngredient[alter];
+      return arr;
+    case radio.byName:
+      arr = filterByName[alter];
+      return arr;
+    case radio.firstChar:
+      arr = filterByFirstchar;
+      return arr;
+    default:
+      if (path.match('comidas')) (arr = state.data.food);
+      if (path.match('bebidas')) (arr = state.data.beverage);
+      return arr;
+    }
+  }
+}
 
 export default function SearchRecipes() {
-  const { HandleTextChange, HandleRadioBtnChange, state } = useContext(context);
+  const { HandleTextChange, HandleRadioBtnChange, state, setState } = useContext(context);
   const [setGetEvent] = useSendRequestBtn();
   const location = useLocation();
   const { pathname } = location;
@@ -149,37 +115,7 @@ export default function SearchRecipes() {
   );
 
   let array;
-  let alter;
-  const { radio } = radioData;
-
-  const { setState } = useContext(context);
-  const {
-    radioBtn,
-    filterByName,
-    filterByFirstchar,
-    filterByIngredient,
-  } = state;
-
-  if (pathname.match('comidas')) (alter = 'meals');
-  if (pathname.match('bebidas')) (alter = 'drinks');
-  if (filterByIngredient
-    || filterByName
-    || filterByFirstchar) {
-    switch (radioBtn) {
-    case radio.ingredient:
-      array = filterByIngredient[alter];
-      break;
-    case radio.byName:
-      array = filterByName[alter];
-      break;
-    case radio.firstChar:
-      array = filterByFirstchar;
-      break;
-    default:
-      if (pathname.match('comidas')) (array = state.data.food);
-      if (pathname.match('bebidas')) (array = state.data.beverage);
-    }
-  }
+  filterSelection(pathname, state, array);
 
   useEffect(() => {
     if (pathname.match('comidas')) {

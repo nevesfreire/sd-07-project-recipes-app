@@ -6,10 +6,10 @@ function RecipeIntens(props) {
   const [done, setdone] = useState('');
   let inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
   console.log(inProgress);
-  if (type === 'meals') {
-    if (!inProgress.meals[id]) {
-      inProgress.meals[id] = [];
-    }
+  if (type === 'meals' && !inProgress.meals[id]) {
+    inProgress.meals[id] = [];
+  } else if (type === 'cocktails' && !inProgress.cocktails[id]) {
+    inProgress.cocktails[id] = [];
   }
 
   function managelocalStorage(ingredient1, idReceita) {
@@ -56,6 +56,7 @@ function RecipeIntens(props) {
         }));
     }
   }
+
   return (
 
     <li
