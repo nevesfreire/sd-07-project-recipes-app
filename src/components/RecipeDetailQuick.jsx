@@ -25,6 +25,7 @@ const recipeShareMessage = (shared) => (
 const favoriteIt = (favoriteHeart, setFavoriteHeart) => {
   setFavoriteHeart(!favoriteHeart);
 };
+
 const recipeFavorite = (favoriteHeart, setFavoriteHeart) => (
   <div>
     <Button

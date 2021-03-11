@@ -1,12 +1,14 @@
 export const initialize = () => {
   if (localStorage.getItem('user') === null) {
     localStorage.setItem('user', JSON.stringify({ email: '' }));
-    localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     localStorage.setItem('doneRecipes', JSON.stringify([]));
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
     const inProgressRecipes = { cocktails: {}, meals: {} };
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+  }
+  if (localStorage.getItem('favoriteRecipes') === null) {
+    localStorage.setItem('favoriteRecipes', JSON.stringify([]));
   }
 };
 

@@ -26,22 +26,23 @@ const assembleStore = (pathname, detail, setStore, setFavoriteHeart) => {
   const id = detail[findMatch(/id/i, detail)];
   const url = detail[findMatch(/Thumb/, detail)];
   const title = detail[findMatch((
-    pathname.match('comida') ? 'strMeal' : 'strDrinks'
+    pathname.match('comida') ? 'strMeal' : 'strDrink'
   ), detail)];
   const category = detail[findMatch(/category/i, detail)];
   const alcoholic = detail[findMatch(/Alcoholic/i, detail)];
   const area = detail[findMatch(/area/i, detail)];
-  const type = pathname.split('/')[0];
+  const zero = 0;
+  const umCaractMenos = -1;
+  const type = (pathname.split('/')[1]).slice(zero, umCaractMenos);
 
   const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
   const isFavorite = favorites.find((favorite) => favorite.id === id);
   if (isFavorite) setFavoriteHeart(true);
-
   setStore({
     id,
     type,
-    area,
-    category: pathname.match('comida') ? category : '',
+    area: pathname.match('comida') ? area : '',
+    category: pathname.match('comida') ? category : 'Cocktail',
     alcoholicOrNot: pathname.match('bebida') ? alcoholic : '',
     name: title,
     image: url,
@@ -115,14 +116,15 @@ function RecipeDetail() {
   }, [pathname, setDetail, setStore, setFavoriteHeart]);
 
   useEffect(() => {
-    if (favoriteHeart) {
-      const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      localStorage.setItem('favoriteRecipes', JSON.stringify([...favorites, store]));
-    }
-    if (!favoriteHeart) {
-      const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      const remove = favorites.filter((favorite) => favorite.id !== store.id);
-      localStorage.setItem('favoriteRecipes', JSON.stringify([...remove]));
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const favoriteIds = favorites.map((favorite) => favorite.id);
+    if (store) {
+      if (favoriteHeart && !favoriteIds.includes(pathname.split('/')[2])) {
+        localStorage.setItem('favoriteRecipes', JSON.stringify([...favorites, store]));
+      } else if (!favoriteHeart) {
+        const remove = favorites.filter((favorite) => favorite.id !== store.id);
+        localStorage.setItem('favoriteRecipes', JSON.stringify([...remove]));
+      }
     }
   }, [favoriteHeart, store]);
 
