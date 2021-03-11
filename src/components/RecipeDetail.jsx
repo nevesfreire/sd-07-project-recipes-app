@@ -66,7 +66,7 @@ const start = (history, pathname) => {
   history.push(`${pathname}/in-progress`);
 };
 
-const recipeStart = (funcstart, history, pathname) => (
+const recipeStart = (funcstart, history, pathname, initiate) => (
   <div className="startBtn-housing">
     <button
       data-testid="start-recipe-btn"
@@ -75,7 +75,7 @@ const recipeStart = (funcstart, history, pathname) => (
       onClick={ () => funcstart(history, pathname) }
       className="startBtn-housing"
     >
-      Iniciar Receita
+      {initiate ? 'Iniciar Receita' : 'Continuar Receita'}
     </button>
   </div>
 );
@@ -130,6 +130,13 @@ function RecipeDetail() {
 
   if (!detail) return <div>Loading...</div>;
   const dataDetail = detail;
+
+  const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const inProgressId = Object
+    .keys(inProgress[pathname.match('comida') ? 'meals' : 'cocktails']);
+  console.log('inProgressId', inProgressId);
+  const initiate = !inProgressId.includes(pathname.split('/')[2]);
+
   const url = dataDetail[findMatch(/Thumb/, dataDetail)];
   const title = detail[findMatch((
     pathname.match('comida') ? state.str.food : state.str.beverage
@@ -143,7 +150,7 @@ function RecipeDetail() {
 
   return (
     <div className="card">
-      {recipeStart(start, history, pathname)}
+      {recipeStart(start, history, pathname, initiate)}
       {recipeImage(url, title)}
       {recipeTitle(title)}
       {recipeShare(pathname, setShared)}

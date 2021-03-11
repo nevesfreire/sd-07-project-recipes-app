@@ -4,11 +4,13 @@ export const initialize = () => {
     localStorage.setItem('doneRecipes', JSON.stringify([]));
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
-    const inProgressRecipes = { cocktails: {}, meals: {} };
-    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
   }
   if (localStorage.getItem('favoriteRecipes') === null) {
     localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+  }
+  if (localStorage.getItem('inProgressRecipes') === null) {
+    const inProgressRecipes = { cocktails: {}, meals: {} };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
   }
 };
 
