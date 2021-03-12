@@ -134,7 +134,6 @@ function RecipeDetail() {
   const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
   const inProgressId = Object
     .keys(inProgress[pathname.match('comida') ? 'meals' : 'cocktails']);
-  console.log('inProgressId', inProgressId);
   const initiate = !inProgressId.includes(pathname.split('/')[2]);
 
   const url = dataDetail[findMatch(/Thumb/, dataDetail)];

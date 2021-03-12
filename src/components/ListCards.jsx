@@ -32,7 +32,6 @@ const ListCards = () => {
     newCards(pathname, setCards, setRecipeStr, state);
   }, [pathname, state]);
 
-  console.log(state);
   if (!cards) return <div>Loading...</div>;
 
   return (

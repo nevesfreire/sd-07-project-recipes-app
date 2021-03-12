@@ -5,7 +5,6 @@ import { fetchApi, allFood, allFoodAreas, getFoodArea } from '../services/fetchA
 
 const fetchAreas = async (pathname, setAreas) => {
   const newData = await fetchApi(allFoodAreas);
-  console.log(newData);
   setAreas(newData.meals);
 };
 

@@ -109,23 +109,8 @@ function RecipeProgress() {
   const { pathname } = location;
   const history = useHistory();
 
-  console.log(detail);
-
   useEffect(() => {
     fetchId(pathname, setDetail);
-    // const comidas = pathname.match('comidas');
-    // const bebidas = pathname.match('bebidas');
-    // const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    // const initId = pathname.split('/')[2];
-    // console.log(inProgress);
-    // if (inProgress !== null) {
-    //   if (comidas && !Object.keys(inProgress.meals).includes(initId)) {
-    //     inProgress.meals[initId] = [];
-    //   } else if (bebidas && !Object.keys(inProgress.meals).includes(initId)) {
-    //     inProgress.cocktails[initId] = [];
-    //   }
-    //   localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
-    // }
   }, []);
 
   if (!detail) return <div>Loading...</div>;
@@ -133,7 +118,7 @@ function RecipeProgress() {
   const bebidas = pathname.match('bebidas');
   const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
   const initId = pathname.split('/')[2];
-  console.log(inProgress);
+
   if (inProgress !== null) {
     if (comidas && !Object.keys(inProgress.meals).includes(initId)) {
       inProgress.meals[initId] = [];
