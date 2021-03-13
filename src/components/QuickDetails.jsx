@@ -27,7 +27,7 @@ const favoriteIt = (favoriteHeart, setFavoriteHeart) => {
 };
 
 const recipeFavorite = (favoriteHeart, setFavoriteHeart) => (
-  <div>
+  <div className="quickDetail">
     <Button
       variant="contained"
       className="noShowBtn"

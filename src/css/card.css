@@ -1,3 +1,4 @@
+
 .card-image {
   width: 250px;
 }
@@ -71,4 +72,37 @@
   display: flex;
   position: fixed;
   width: 100%;
+}
+
+.card {
+  margin-left: 33rem;
+  width: 20rem;
+}
+
+.recepeInProgress {
+  margin-left: 20rem;
+  width: 20rem;
+}
+
+@media(max-width: 1080px) {
+  html {
+      font-size: 93.75%;
+  }
+}
+
+@media(max-width: 360px) {
+  html {
+      font-size: 85.5%;
+  }
+
+  .card {
+    margin-left: 0.6rem;
+    width: 25rem;
+  }
+
+  .recepeInProgress {
+    margin-left: 0.5rem;
+    width: 15rem;
+  }
+  
 }

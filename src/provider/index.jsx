@@ -91,7 +91,7 @@ function Provider({ children }) {
 
   console.log('estou no provider', filterByIngredient);
   console.log(filterByName);
-  console.log(filterByFirstchar);
+  console.log('estou no provider', filterByFirstchar);
 
   function HandleTextChange(event) {
     const { value } = event.target;
@@ -111,7 +111,6 @@ function Provider({ children }) {
 
   useEffect(() => {
     fetchFirst(setState);
-    // localStorage.clear();
   }, []);
 
   useEffect(() => {

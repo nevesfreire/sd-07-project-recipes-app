@@ -20,14 +20,12 @@ function useSendRequestBtn() {
   useEffect(() => {
     async function fetchData() {
       if (radioBtn === radio.ingredient) {
-        console.log('entrei ingredientes');
         const item = await searchItemResidual(
           textSeach,
           myPath,
           filter.ingredient,
           typeOf.ingredientType,
         );
-        console.log('meus ingredients: ', item);
         setState({ ...state, filterByIngredient: item });
       }
 
@@ -45,6 +43,9 @@ function useSendRequestBtn() {
 
       if (radioBtn === radio.firstChar) {
         console.log('entrei first word');
+        if (textSeach.length > 1) {
+          alert("Sua busca deve conter somente 1 (um) caracter");
+        }
         const item = await searchItemResidual(
           textSeach,
           myPath,
