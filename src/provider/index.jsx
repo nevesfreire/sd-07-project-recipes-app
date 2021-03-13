@@ -87,6 +87,12 @@ function Provider({ children }) {
     filterByIngredient: [],
   });
 
+  const { filterByIngredient, filterByName, filterByFirstchar } = state;
+
+  console.log('estou no provider', filterByIngredient);
+  console.log(filterByName);
+  console.log(filterByFirstchar);
+
   function HandleTextChange(event) {
     const { value } = event.target;
     const result = value.toLowerCase();
