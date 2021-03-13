@@ -62,9 +62,10 @@ const radioButtons = (HandleRadioBtnChange) => (
   </div>
 );
 
-function filterSelection(path, state, arr) {
+function filterSelection(path, state) {
   const { radio } = radioData;
   let alter;
+  let arr;
   const {
     radioBtn,
     filterByName,
@@ -114,8 +115,7 @@ export default function SearchRecipes() {
     </div>
   );
 
-  let array;
-  filterSelection(pathname, state, array);
+  const array = filterSelection(pathname, state);
 
   useEffect(() => {
     if (pathname.match('comidas')) {
