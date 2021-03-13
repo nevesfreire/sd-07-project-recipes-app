@@ -2,10 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import context from '../contextAPI/context';
 import { fetchApi, getFoodRecipeId, getDrinkRecipeId } from '../services/fetchApi';
-<<<<<<< HEAD
-import shareIcon from '../images/shareIcon.svg';
-// import Card from './Card';
-=======
 import { initialize } from '../services/localStorage';
 import {
   recipeImage,
@@ -20,7 +16,6 @@ import {
 } from './QuickDetails';
 import Carousel from './Carousel';
 import '../css/card.css';
->>>>>>> df7762f2eac2620e5f7d187e765182e19bc41af3
 
 // stackOverflow -> https://stackovetextrflow.com/questions/9907419/how-to-get-a-key-in-a-javascript-object-by-its-value
 const findMatch = (string, object) => (
@@ -106,10 +101,6 @@ function RecipeDetail() {
   const { pathname } = location;
 
   useEffect(() => {
-<<<<<<< HEAD
-    fetchId(pathname, state, setDetail, setRecipeStr);
-  }, [pathname, state, setDetail]);
-=======
     if (localStorage.getItem('inProgressRecipes') === null) {
       localStorage.setItem('inProgressRecipes',
         JSON.stringify({ cocktails: { }, meals: { } }));
@@ -136,7 +127,6 @@ function RecipeDetail() {
       }
     }
   }, [favoriteHeart, store]);
->>>>>>> df7762f2eac2620e5f7d187e765182e19bc41af3
 
   if (!detail) return <div>Loading...</div>;
   const dataDetail = detail;

@@ -44,74 +44,6 @@ const recipeFinish = (history, pathname) => (
   </button>
 );
 
-<<<<<<< HEAD
-const recipeImage = (url, title) => (
-  <img
-    src={ url }
-    alt={ title }
-    data-testid="recipe-photo"
-    className="card-img-top"
-  />
-);
-
-const recipeCategory = (category) => (
-  <h3 data-testid="recipe-category">
-    {category}
-  </h3>
-);
-
-async function share(pathname) {
-  navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
-  return (
-    <div className="card">Link copiado!</div>
-  );
-}
-
-const recipeShare = () => (
-  <div>
-    <button
-      data-testid="share-btn"
-      onClick={ () => share() }
-      type="button"
-    >
-      <img
-        src={ shareIcon }
-        alt="share"
-      />
-    </button>
-  </div>
-);
-
-const recipeIngredients = (ingredients, measures) => (
-  <ul className="">
-    { ingredients.map((ingredient, index) => (
-      <li
-        key={ index }
-        data-testid={ `${index}-ingredient-step` }
-      >
-        <input
-          type="checkbox"
-          data-testid={ `${index}-ingredient-step` }
-          name={ ingredient }
-          value="Bike"
-        />
-        <label htmlFor={ ingredient }>{`${ingredient} - ${measures}`}</label>
-      </li>
-    ))}
-  </ul>
-);
-
-const recipeInstructions = (instructions) => (
-  <p
-    data-testid="instructions"
-    className="card-text"
-  >
-    {instructions}
-  </p>
-);
-
-=======
->>>>>>> df7762f2eac2620e5f7d187e765182e19bc41af3
 const summerizer = (stringRegex, data) => {
   const summerized = Object.entries(data)
     .filter((entrie) => {
@@ -124,10 +56,6 @@ const summerizer = (stringRegex, data) => {
 };
 
 function RecipeProgress() {
-<<<<<<< HEAD
-  const { detail } = useContext(context);
-=======
->>>>>>> df7762f2eac2620e5f7d187e765182e19bc41af3
   // const [recipeStr, setRecipeStr] = useState('');
   const { detail, setDetail } = useContext(context);
   const [shared, setShared] = useState(false);
