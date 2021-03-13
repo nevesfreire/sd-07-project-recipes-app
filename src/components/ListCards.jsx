@@ -11,10 +11,10 @@ const findMatch = (string, object) => (
 );
 
 const newCards = async (pathname, setCards, setRecipeStr, state) => {
-  if (pathname === '/comidas') {
+  if (pathname.match('comidas')) {
     setCards(state.data.food);
     setRecipeStr(state.str.food);
-  } else if (pathname === '/bebidas') {
+  } else if (pathname.match('bebidas')) {
     setCards(state.data.beverage);
     setRecipeStr(state.str.beverage);
   }
@@ -26,14 +26,12 @@ const ListCards = () => {
   const [recipeStr, setRecipeStr] = useState('');
   const history = useHistory();
   const { location: { pathname } } = history;
-  const { data } = state;
   const maxRecipesNumber = 12;
 
   useEffect(() => {
     newCards(pathname, setCards, setRecipeStr, state);
   }, [pathname, state]);
 
-  console.log(data);
   if (!cards) return <div>Loading...</div>;
 
   return (

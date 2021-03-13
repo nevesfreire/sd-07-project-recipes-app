@@ -85,7 +85,7 @@ export default function Header() {
   const { pathname } = location;
 
   useEffect(() => {
-    const newHeader = siteMap[findMatch(pathname.split('/')[1], siteMap)].header;
+    const newHeader = siteMap[findMatch(pathname, siteMap)].header;
     setState((s) => ({ ...s, header: newHeader }));
   }, [pathname, setState]);
 
@@ -106,7 +106,9 @@ export default function Header() {
         {pageTitle(title)}
         {searchBtn(searchButton, toggleSearch, callSearch)}
       </div>
-      {searchRecipeComponent(pathname, toggleSearch, title)}
+      <div className="header-search">
+        {searchRecipeComponent(pathname, toggleSearch, title)}
+      </div>
     </div>
   );
 }

@@ -2,131 +2,87 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import context from '../contextAPI/context';
 import { fetchApi, getFoodRecipeId, getDrinkRecipeId } from '../services/fetchApi';
+<<<<<<< HEAD
 import shareIcon from '../images/shareIcon.svg';
 // import Card from './Card';
+=======
+import { initialize } from '../services/localStorage';
+import {
+  recipeImage,
+  recipeTitle,
+  recipeShareMessage,
+  recipeFavorite,
+  recipeShare,
+  recipeCategory,
+  recipeIngredients,
+  recipeInstructions,
+  recipeVideo,
+} from './QuickDetails';
+import Carousel from './Carousel';
+import '../css/card.css';
+>>>>>>> df7762f2eac2620e5f7d187e765182e19bc41af3
 
 // stackOverflow -> https://stackovetextrflow.com/questions/9907419/how-to-get-a-key-in-a-javascript-object-by-its-value
 const findMatch = (string, object) => (
   Object.keys(object).find((key) => key.match(string))
 );
 
-const fetchId = async (pathname, state, setDetail, setRecipeStr) => {
+const assembleStore = (pathname, detail, setStore, setFavoriteHeart) => {
+  const id = detail[findMatch(/id/i, detail)];
+  const url = detail[findMatch(/Thumb/, detail)];
+  const title = detail[findMatch((
+    pathname.match('comida') ? 'strMeal' : 'strDrink'
+  ), detail)];
+  const category = detail[findMatch(/category/i, detail)];
+  const alcoholic = detail[findMatch(/Alcoholic/i, detail)];
+  const area = detail[findMatch(/area/i, detail)];
+  const zero = 0;
+  const umCaractMenos = -1;
+  const type = (pathname.split('/')[1]).slice(zero, umCaractMenos);
+
+  const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const isFavorite = favorites.find((favorite) => favorite.id === id);
+  if (isFavorite) setFavoriteHeart(true);
+  setStore({
+    id,
+    type,
+    area: pathname.match('comida') ? area : '',
+    category: pathname.match('comida') ? category : 'Cocktail',
+    alcoholicOrNot: pathname.match('bebida') ? alcoholic : '',
+    name: title,
+    image: url,
+  });
+};
+
+const fetchId = async (pathname, setDetail, setStore, setFavoriteHeart) => {
   const id = pathname.split('/')[2];
   if (pathname === `/comidas/${id}`) {
     const newData = await fetchApi(getFoodRecipeId(id));
-    setDetail(newData.meals);
-    setRecipeStr(state.str.food);
+    setDetail(newData.meals[0]);
+    assembleStore(pathname, newData.meals[0], setStore, setFavoriteHeart);
   } else if (pathname === `/bebidas/${id}`) {
     const newData = await fetchApi(getDrinkRecipeId(id));
-    setDetail(newData.drinks);
-    setRecipeStr(state.str.beverage);
+    setDetail(newData.drinks[0]);
+    assembleStore(pathname, newData.drinks[0], setStore, setFavoriteHeart);
   }
 };
-
-const recipeImage = (url, title) => (
-  <img
-    src={ url }
-    alt={ title }
-    data-testid="recipe-photo"
-    className="card-img-top"
-  />
-);
-
-const recipeTitle = (title) => (
-  <h1
-    data-testid="recipe-title"
-    className="card-title"
-  >
-    {title}
-  </h1>
-);
-
-async function share(pathname) {
-  navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
-  return (
-    <div className="card">Link copiado!</div>
-  );
-}
-
-const recipeShare = (pathname) => (
-  <div>
-    <button
-      data-testid="share-btn"
-      onClick={ () => share(pathname) }
-      type="button"
-    >
-      <img
-        src={ shareIcon }
-        alt="share"
-      />
-    </button>
-  </div>
-);
-
-const recipeCategory = (category) => (
-  <h3 data-testid="recipe-category">
-    {category}
-  </h3>
-);
-
-const recipeIngredients = (ingredients, measures) => (
-  <ul className="">
-    { ingredients.map((ingredient, index) => (
-      <li
-        key={ index }
-        data-testid={ `${index}-ingredient-name-and-measure` }
-      >
-        { `${ingredient} - ${measures[index]}` }
-      </li>
-    ))}
-  </ul>
-);
-
-const recipeInstructions = (instructions) => (
-  <p
-    data-testid="instructions"
-    className="card-text"
-  >
-    {instructions}
-  </p>
-);
-
-const recipeVideo = (video) => (
-  <video
-    data-testid="video"
-    controls
-    src={ video }
-  >
-    <track src={ video } kind="captions" srcLang="en" />
-  </video>
-);
-
-// const recipeRecommendation = (recommendation) => (
-//   recommendation.map((recommend, index) => (
-//     <Card
-//       key={ recommend[findMatch('id', recommend)] }
-//       pathname={ pathname }
-//       id={ recommend[findMatch('id', recommend)] }
-//       Name={ recommend[findMatch(recipeStr, recommend)] }
-//       Thumb={ recommend[findMatch(/Thumb/, recommend)] }
-//       Index={ index }
-//       Test="recomendation-card"
-//     />
-//   ))
-// );
 
 const start = (history, pathname) => {
   history.push(`${pathname}/in-progress`);
 };
 
-const recipeStart = (funcstart, history, pathname) => (
-  <button
-    data-testid="start-recipe-btn"
-    type="button"
-    onClick={ () => funcstart(history, pathname) }
-  >
-    Iniciar Receita
-  </button>
+const recipeStart = (funcstart, history, pathname, initiate) => (
+  <div className="startBtn-housing">
+    <button
+      data-testid="start-recipe-btn"
+      variant="contained"
+      type="button"
+      onClick={ () => funcstart(history, pathname) }
+      className="startBtn-housing"
+    >
+      {initiate ? 'Iniciar Receita' : 'Continuar Receita'}
+    </button>
+  </div>
 );
 
 const summerizer = (stringRegex, data) => {
@@ -142,36 +98,84 @@ const summerizer = (stringRegex, data) => {
 
 function RecipeDetail() {
   const { state, detail, setDetail } = useContext(context);
-  const [recipeStr, setRecipeStr] = useState('');
+  const [store, setStore] = useState({});
+  const [shared, setShared] = useState(false);
+  const [favoriteHeart, setFavoriteHeart] = useState();
   const location = useLocation();
   const history = useHistory();
   const { pathname } = location;
 
   useEffect(() => {
+<<<<<<< HEAD
     fetchId(pathname, state, setDetail, setRecipeStr);
   }, [pathname, state, setDetail]);
+=======
+    if (localStorage.getItem('inProgressRecipes') === null) {
+      localStorage.setItem('inProgressRecipes',
+        JSON.stringify({ cocktails: { }, meals: { } }));
+    }
+  }, []);
+
+  useEffect(() => {
+    initialize();
+  }, [pathname]);
+
+  useEffect(() => {
+    fetchId(pathname, setDetail, setStore, setFavoriteHeart);
+  }, [pathname, setDetail, setStore, setFavoriteHeart]);
+
+  useEffect(() => {
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const favoriteIds = favorites.map((favorite) => favorite.id);
+    if (store) {
+      if (favoriteHeart && !favoriteIds.includes(pathname.split('/')[2])) {
+        localStorage.setItem('favoriteRecipes', JSON.stringify([...favorites, store]));
+      } else if (!favoriteHeart) {
+        const remove = favorites.filter((favorite) => favorite.id !== store.id);
+        localStorage.setItem('favoriteRecipes', JSON.stringify([...remove]));
+      }
+    }
+  }, [favoriteHeart, store]);
+>>>>>>> df7762f2eac2620e5f7d187e765182e19bc41af3
 
   if (!detail) return <div>Loading...</div>;
-  const dataDetail = detail[0];
+  const dataDetail = detail;
+
+  const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const inProgressId = Object
+    .keys(inProgress[pathname.match('comida') ? 'meals' : 'cocktails']);
+  const initiate = !inProgressId.includes(pathname.split('/')[2]);
+
   const url = dataDetail[findMatch(/Thumb/, dataDetail)];
-  const title = dataDetail[findMatch(recipeStr, dataDetail)];
+  const title = detail[findMatch((
+    pathname.match('comida') ? state.str.food : state.str.beverage
+  ), detail)];
   const category = dataDetail[findMatch(/category/i, dataDetail)];
   const instructions = dataDetail[findMatch(/instructions/i, dataDetail)];
   const video = dataDetail[findMatch(/youtube/i, dataDetail)];
   const ingredients = summerizer(/ingredient/i, dataDetail);
   const measures = summerizer(/measure/i, dataDetail);
-  // const message = 'Link copiado!';
+  const alcoholic = dataDetail[findMatch(/Alcoholic/i, dataDetail)];
 
   return (
     <div className="card">
+      {recipeStart(start, history, pathname, initiate)}
       {recipeImage(url, title)}
       {recipeTitle(title)}
-      {recipeShare(pathname)}
-      {recipeCategory(category)}
+      {recipeShare(pathname, setShared)}
+      {recipeShareMessage(shared)}
+      {recipeFavorite(favoriteHeart, setFavoriteHeart)}
+      {recipeCategory(category, alcoholic, pathname)}
       {recipeIngredients(ingredients, measures)}
       {recipeInstructions(instructions)}
-      {recipeVideo(video)}
-      {recipeStart(start, history, pathname)}
+      { pathname.match('comida') ? recipeVideo(video) : null }
+      { pathname.match('comida') ? <Carousel
+        recomendations={ state.data.beverage }
+        str={ state.str.beverage }
+      /> : <Carousel
+        recomendations={ state.data.food }
+        str={ state.str.food }
+      /> }
     </div>
   );
 }

@@ -73,6 +73,7 @@ export default function InputLogin() {
       toggleSearch: false,
     }));
     localStorage.setItem('user', JSON.stringify({ email: state.user }));
+    localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     return setPath(PATH);
   };
 

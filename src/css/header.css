@@ -21,10 +21,11 @@
 }
 
 .header-page {
-  height: 150px;
+  height: 220px;
 }
 
 .header-buttons {
+  box-sizing: border-box;
   display: flex;
   flex-direction: row;
   height: 54px;
@@ -40,9 +41,11 @@
   margin-left: 10px;
 }
 
-.search-recipes {
+.header-search {
   align-items: center;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
-  width: 100%;
+  margin-top: 10px;
+  width: 350px;
 }
