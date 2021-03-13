@@ -13,7 +13,7 @@ import {
   recipeIngredients,
   recipeInstructions,
   recipeVideo,
-} from './RecipeDetailQuick';
+} from './QuickDetails';
 import Carousel from './Carousel';
 import '../css/card.css';
 

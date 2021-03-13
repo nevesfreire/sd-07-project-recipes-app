@@ -1,30 +1,44 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-function RecipeIntens(props) {
-  const { id, ingredient, measures, index, type } = props;
-  const [done, setdone] = useState('');
-  let inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-
-  function managelocalStorage(ingr) {
-    setdone(done === '' ? 'complete' : '');
-    inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-
+function managelocalStorage(ingr, done, setdone, type, id) {
+  setdone(done === '' ? 'complete' : '');
+  const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  if (inProgress) {
     if (type === 'meals') {
-      inProgress.meals[id].push(ingr);
+      if (done !== 'complete') {
+        inProgress.meals[id].push(ingr);
+      } else {
+        console.log('else', done);
+        inProgress.meals[id] = inProgress.meals[id]
+          .filter((ingredient) => ingredient !== ingr);
+      }
     }
     if (type === 'cocktails') {
-      inProgress.cocktails[id].push(ingr);
+      if (done !== 'complete') {
+        inProgress.cocktails[id].push(ingr);
+      } else {
+        console.log('else', done);
+        inProgress.meals[id] = inProgress.cocktails[id]
+          .filter((ingredient) => ingredient !== ingr);
+      }
     }
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
   }
+}
+function RecipeIntens(props) {
+  const { id, ingredient, measures, index, type } = props;
+  const [done, setdone] = useState('');
+  const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
 
   useEffect(() => {
-    if (type === 'meals' && inProgress.meals[id].includes(ingredient)) {
-      setdone(done === '' ? 'complete' : '');
-    }
-    if (type === 'cocktails' && inProgress.cocktails[id].includes(ingredient)) {
-      setdone(done === '' ? 'complete' : '');
+    if (inProgress) {
+      if (type === 'meals' && inProgress.meals[id].includes(ingredient)) {
+        setdone(done === '' ? 'complete' : '');
+      }
+      if (type === 'cocktails' && inProgress.cocktails[id].includes(ingredient)) {
+        setdone(done === '' ? 'complete' : '');
+      }
     }
   }, []);
 
@@ -41,7 +55,8 @@ function RecipeIntens(props) {
         id="ingredients"
         name="ingredients"
         value={ ingredient }
-        onClick={ () => managelocalStorage(ingredient) }
+        checked={ done === 'complete' }
+        onChange={ () => managelocalStorage(ingredient, done, setdone, type, id) }
       />
       { `${ingredient} - ${measures[index]}` }
 

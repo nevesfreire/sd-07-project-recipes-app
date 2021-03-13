@@ -1,8 +1,16 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import context from '../contextAPI/context';
-import shareIcon from '../images/shareIcon.svg';
 import { fetchApi, getFoodRecipeId, getDrinkRecipeId } from '../services/fetchApi';
+import {
+  recipeImage,
+  recipeTitle,
+  recipeShareMessage,
+  recipeFavorite,
+  recipeShare,
+  recipeCategory,
+  recipeInstructions,
+} from './QuickDetails';
 import RecipeIntens from './RecipeItens';
 import '../css/card.css';
 
@@ -22,15 +30,6 @@ const fetchId = async (pathname, setDetail) => {
   }
 };
 
-const recipeTitle = (title) => (
-  <h1
-    data-testid="recipe-title"
-    className="card-title"
-  >
-    {title}
-  </h1>
-);
-
 const finish = (history, pathname) => {
   history.push(`${pathname}/receitas-feitas`);
 };
@@ -43,52 +42,6 @@ const recipeFinish = (history, pathname) => (
   >
     Finalizar Receita
   </button>
-);
-
-const recipeImage = (url, title) => (
-  <img
-    src={ url }
-    alt={ title }
-    data-testid="recipe-photo"
-    className="card-img-top"
-  />
-);
-
-const recipeCategory = (category) => (
-  <h3 data-testid="recipe-category">
-    {category}
-  </h3>
-);
-
-async function share(pathname) {
-  navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
-  return (
-    <div className="card">Link copiado!</div>
-  );
-}
-
-const recipeShare = () => (
-  <div>
-    <button
-      data-testid="share-btn"
-      onClick={ () => share() }
-      type="button"
-    >
-      <img
-        src={ shareIcon }
-        alt="share"
-      />
-    </button>
-  </div>
-);
-
-const recipeInstructions = (instructions) => (
-  <p
-    data-testid="instructions"
-    className="card-text"
-  >
-    {instructions}
-  </p>
 );
 
 const summerizer = (stringRegex, data) => {
@@ -105,6 +58,8 @@ const summerizer = (stringRegex, data) => {
 function RecipeProgress() {
   // const [recipeStr, setRecipeStr] = useState('');
   const { detail, setDetail } = useContext(context);
+  const [shared, setShared] = useState(false);
+  const [favoriteHeart, setFavoriteHeart] = useState();
   const location = useLocation();
   const { pathname } = location;
   const history = useHistory();
@@ -113,20 +68,23 @@ function RecipeProgress() {
     fetchId(pathname, setDetail);
   }, []);
 
-  if (!detail) return <div>Loading...</div>;
   const comidas = pathname.match('comidas');
   const bebidas = pathname.match('bebidas');
   const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  console.log('inprogress', inProgress);
   const initId = pathname.split('/')[2];
 
   if (inProgress !== null) {
     if (comidas && !Object.keys(inProgress.meals).includes(initId)) {
       inProgress.meals[initId] = [];
-    } else if (bebidas && !Object.keys(inProgress.meals).includes(initId)) {
+    } else if (bebidas && !Object.keys(inProgress.cocktails).includes(initId)) {
       inProgress.cocktails[initId] = [];
     }
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
   }
+
+  if (!detail) return <div>Loading...</div>;
+  console.log(detail);
   const id = detail[findMatch(/id/i, detail)];
   const title = detail[findMatch(/title/i, detail)];
   const url = detail[findMatch(/Thumb/, detail)];
@@ -136,6 +94,7 @@ function RecipeProgress() {
   // const video = detail[findMatch(/youtube/i, detail)];
   const ingredients = summerizer(/ingredient/i, detail);
   const measures = summerizer(/measure/i, detail);
+  const alcoholic = detail[findMatch(/Alcoholic/i, detail)];
 
   const type = (caminho) => {
     if (caminho.match('comidas')) {
@@ -165,9 +124,11 @@ function RecipeProgress() {
   return (
     <div>
       {recipeTitle(title)}
-      {recipeCategory(category)}
+      {recipeCategory(category, alcoholic, pathname)}
       {recipeImage(url, title)}
-      {recipeShare()}
+      {recipeShare(pathname, setShared)}
+      {recipeShareMessage(shared)}
+      {recipeFavorite(favoriteHeart, setFavoriteHeart)}
       {recipeIngredients(ingredients, measures)}
       {recipeInstructions(instructions)}
       {recipeFinish(history, pathname)}
