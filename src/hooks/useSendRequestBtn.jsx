@@ -73,12 +73,12 @@ function useSendRequestBtn() {
 
         if (myPath === 'meal') {
           const { meals } = item;
-          setData({ ...data, filterByFirstchar: meals });
+          setState({ ...state, filterByFirstchar: meals });
         }
 
         if (myPath === 'cocktail') {
           const { drinks } = item;
-          setData({ ...data, filterByFirstchar: drinks });
+          setState({ ...state, filterByFirstchar: drinks });
         }
       }
     }
