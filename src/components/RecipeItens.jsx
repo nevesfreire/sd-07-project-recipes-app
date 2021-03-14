@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-function managelocalStorage(ingr, done, setdone, type, id) {
+function managelocalStorage(param) {
+  const { ingr, done, setdone, type, id } = param;
   setdone(done === '' ? 'complete' : '');
   const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
   if (inProgress) {
