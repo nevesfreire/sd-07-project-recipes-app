@@ -27,7 +27,7 @@ const ListCards = () => {
   const isOver = 0;
   const oneSecond = 1000;
   let myId = '';
-  let goatIgredient = ''
+  let goatIgredient = '';
 
   const { setHasFinished, setActive, active, time, setTime, state } = useContext(context);
   const [cards, setCards] = useState([]);
@@ -70,7 +70,7 @@ const ListCards = () => {
     console.log('wait...');
   } else {
     const { strMeal } = goat;
-    goatIgredient = strMeal
+    goatIgredient = strMeal;
     console.log('tem esse bicho ahe', goatIgredient);
   }
 
