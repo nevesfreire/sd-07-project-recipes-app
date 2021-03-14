@@ -29,13 +29,17 @@ function Card(props) {
     Name,
     Thumb,
     Index,
-    test,
+    Test,
   } = props;
+  const correctPath = (pname) => {
+    if (pname.match('comidas')) return 'comidas';
+    if (pname.match('bebidas')) return 'bebidas';
+  };
 
   return (
     <Paper className="paper-style" elevation={ 6 }>
-      <Link to={ `${pathname}/${id}` } replace>
-        <div className="image-card" data-testid={ `${Index}-${test}` }>
+      <Link to={ `/${correctPath(pathname)}/${id}` } replace>
+        <div className="image-card" data-testid={ `${Index}-${Test}` }>
           {recipeImg(Thumb, Index)}
           {recipeTextData(Name, Index)}
         </div>
@@ -47,9 +51,10 @@ function Card(props) {
 Card.propTypes = {
   id: PropTypes.string.isRequired,
   pathname: PropTypes.string.isRequired,
-  recipeName: PropTypes.string.isRequired,
-  recipeThumb: PropTypes.string.isRequired,
-  recipeIndex: PropTypes.element.isRequired,
+  Name: PropTypes.string.isRequired,
+  Thumb: PropTypes.string.isRequired,
+  Index: PropTypes.number.isRequired,
+  Test: PropTypes.string.isRequired,
 };
 
 export default Card;

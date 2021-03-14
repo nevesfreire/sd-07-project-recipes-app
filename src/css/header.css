@@ -1,44 +1,51 @@
 .header-container {
-    display: flex;
-    flex-direction: column;
-    margin:50px;
+  display: flex;
+  flex-direction: column;
 }
 
 .radio-controll {
-    width: 330px;
+  width: 330px;
 }
 
 .field-set {
-    display: flex;
-    flex-direction: row;
-    width: 345px;
+  display: flex;
+  flex-direction: row;
+  width: 345px;
 }
 
 .header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .header-page {
-    height: 210px;
+  height: 220px;
 }
 
 .header-buttons {
-    display: flex;
-    flex-direction: row;
-    margin-left: 40em;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  height: 54px;
+  width: 64px;
 }
 
 .noShowBtn {
-  width: 64px;
   height: 54px;
+  width: 64px;
 }
 
 .input-searchbar {
-    margin-top: 25px;
+  margin-left: 10px;
 }
 
-.search-recipes {
-    height: 0px;
+.header-search {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-top: 10px;
+  width: 350px;
 }

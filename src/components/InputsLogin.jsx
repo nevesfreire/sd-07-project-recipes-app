@@ -7,31 +7,33 @@ import '../css/login.css';
 import useRedirect from '../hooks/useRedirect';
 
 const inputText = (onChange) => (
-  <div className="input-email">
+  <div>
     <input
       data-testid="email-input"
       type="email"
       name="user"
       placeholder="email@email.com"
       onChange={ (e) => onChange(e) }
+      className="input-email"
     />
   </div>
 );
 
 const inputPasswd = (onChange) => (
-  <div className="input-senha">
+  <div>
     <input
       data-testid="password-input"
       type="password"
       name="passwd"
       placeholder="sua senha aqui"
       onChange={ (e) => onChange(e) }
+      className="input-senha"
     />
   </div>
 );
 
 const buttonLogin = (onClick, enable) => (
-  <div className="input-button">
+  <div>
     <button
       data-testid="login-submit-btn"
       type="button"
@@ -39,6 +41,7 @@ const buttonLogin = (onClick, enable) => (
       color="primary"
       disabled={ enable }
       onClick={ (e) => onClick(e) }
+      className="input-button"
     >
       Entrar
     </button>
@@ -48,8 +51,7 @@ const buttonLogin = (onClick, enable) => (
 export default function InputLogin() {
   const PATH = '/comidas';
   const [setPath] = useRedirect();
-  const { login, setLogin } = useContext(context);
-  const { state, setState } = useContext(context);
+  const { login, setLogin, state, setState } = useContext(context);
   const { isDisabled } = state;
 
   const loginChanges = ({ target: { name, value } }) => {
@@ -57,21 +59,28 @@ export default function InputLogin() {
   };
 
   const callRoute = async () => {
+    // const response = fetchApi(allFood);
+    // const { meals } = response;
     setState((s) => ({
       ...s,
-      profileButton: true,
-      title: 'Comidas',
-      searchButton: true,
+      header: {
+        // data: meals,
+        profileButton: true,
+        // recipeStr: 'strMeal',
+        searchButton: true,
+        title: 'Comidas',
+      },
       toggleSearch: false,
     }));
     localStorage.setItem('user', JSON.stringify({ email: state.user }));
+    localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     return setPath(PATH);
   };
 
   return (
     <div className="input-login">
-      {inputText(loginChanges, login)}
-      {inputPasswd(loginChanges, login)}
+      {inputText(loginChanges)}
+      {inputPasswd(loginChanges)}
       {buttonLogin(callRoute, isDisabled)}
     </div>
   );

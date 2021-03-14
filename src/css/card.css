@@ -1,20 +1,21 @@
 .card-image {
-  width: 160px;
+  width: 250px;
 }
 
 .card-title {
   color: rgba(0, 0, 0, 0.801);
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
-    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  font-style: normal;
   font-size: medium;
-  font-weight: bolder;
-  text-decoration: none;
+  font-style: normal;
   text-align: center;
+  text-decoration: none;
 }
 
 .card-title h3 {
-  margin-top: 1px;
+  margin-top: 10px;
+}
+
+.complete {
+  text-decoration: line-through;
 }
 
 .paper-style {
@@ -26,7 +27,48 @@
 }
 
 .cards-container {
+  align-items: center;
   display: flex;
   flex-wrap: wrap;
-  margin: 20px;
+  justify-content: center;
+}
+
+.category-buttons {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  height: 80px;
+  justify-content: space-evenly;
+}
+
+.carousel-container {
+  box-sizing: border-box;
+  margin: 0;
+  width: 100%;
+}
+
+.carousel-card {
+  margin: 10px;
+}
+
+.carousel-img {
+  width: 140px;
+}
+
+.startBtn-housing {
+  align-content: center;
+  bottom: 0;
+  display: block;
+  height: 40px;
+  position: fixed;
+  right: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.startBtn {
+  bottom: 0;
+  display: flex;
+  position: fixed;
+  width: 100%;
 }

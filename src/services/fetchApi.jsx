@@ -1,66 +1,68 @@
-export const fetchApi = async (endpoint) => {
-  let data = null;
-  try {
-    const response = await fetch(endpoint);
-    data = await response.json();
-  } catch (err) {
-    console.error(err);
-    console.warn(err);
-  }
-  return data;
-};
+export async function fetchApi(endpoint) {
+  const result = await fetch(endpoint);
+  const jsonData = await result.json();
+  console.log(jsonData);
+  return jsonData;
+}
 
 export const allFood = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 
 export const allDrink = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 
-export const getFoodIngredients = (inputText) => (
-  `https://www.themealdb.com/api/json/v1/1/filter.php?i=${inputText}`
+export const getFoodIngredients = (ingredient) => (
+  `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`
 );
 
-export const getFoodName = (inputText) => (
-  `https://www.themealdb.com/api/json/v1/1/search.php?s=${inputText}`
+export const getFoodName = (name) => (
+  `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`
 );
 
-export const getFoodFLetter = (inputText) => (
-  `https://www.themealdb.com/api/json/v1/1/search.php?f=${inputText}`
+export const getFoodFLetter = (firstLetter) => (
+  `https://www.themealdb.com/api/json/v1/1/search.php?f=${firstLetter}`
 );
 
 export const getFoodRecipeId = (id) => (
   `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
 );
 
-export const getDrinkIngredients = (inputText) => (
-  `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${inputText}`
+export const getFoodCategory = (category) => (
+  `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`
 );
 
-export const getDrinkName = (inputText) => (
-  `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${inputText}`
+export const getFoodArea = (area) => (
+  `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`
 );
 
-export const getDrinkFLetter = (inputText) => (
-  `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${inputText}`
+export const getFoodList = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+
+export const allFoodIngredients = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+
+export const allFoodAreas = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+
+export const getRandomFood = 'https://www.themealdb.com/api/json/v1/1/random.php';
+
+export const getDrinkIngredients = (ingredient) => (
+  `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`
+);
+
+export const getDrinkName = (name) => (
+  `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`
+);
+
+export const getDrinkFLetter = (firstLetter) => (
+  `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${firstLetter}`
 );
 
 export const getDrinkRecipeId = (id) => (
   `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`
 );
 
-const handleSucessAPIResponse = (recipesData, dispatchRecipes, type) => {
-  if (recipesData && recipesData[type] !== null) {
-    const recipesResults = recipesData;
-    dispatchRecipes(recipesResults);
-  }
-};
+export const getDrinksCategory = (category) => (
+  `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`
+);
 
-const handleNullAPIResponse = (recipesData, _dispatchRecipes, type) => {
-  if (recipesData === null || recipesData[type] === null) {
-    const message = 'Não encontramos receita com o pesquisado';
-    return message;
-  }
-};
+export const getDrinksList = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
 
-export const handleAPIResponse = (recipesData, dispatchRecipes, { type }) => {
-  handleNullAPIResponse(recipesData, dispatchRecipes, type);
-  handleSucessAPIResponse(recipesData, dispatchRecipes, type);
-};
+export const allDrinkIngredients = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
+
+export const getRandomDrink = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';

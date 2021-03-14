@@ -1,54 +1,73 @@
- import React, { useEffect, useState } from 'react';
+/* eslint-disable no-alert */
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-// import context from '../contextAPI/context';
-import { fetchApi, allFood, allDrink } from '../services/fetchApi';
+import context from '../contextAPI/context';
+import resetCountdown from '../helpers/resetCountdown';
+// import { fetchApi, allFood, allDrink } from '../services/fetchApi';
 // import siteMap from '../helpers/siteMap';
 import Card from './Card';
 
+// stackOverflow -> https://stackoverflow.com/questions/9907419/how-to-get-a-key-in-a-javascript-object-by-its-value
 const findMatch = (string, object) => (
   Object.keys(object).find((key) => key.match(string))
 );
 
-const newFunc = async (pathname, setRecipes, setRecipeStr) => {
-  if (pathname === '/comidas') {
-    const data = await fetchApi(allFood);
-    const { meals } = data;
-    console.log(meals);
-    setRecipes(meals);
-    setRecipeStr('strMeal');
-  } else if (pathname === '/bebidas') {
-    const data = await fetchApi(allDrink);
-    const { drinks } = data;
-    setRecipeStr('strDrink');
-    setRecipes(drinks);
+const newCards = async (pathname, setCards, setRecipeStr, state) => {
+  if (pathname.match('comidas')) {
+    setCards(state.data.food);
+    setRecipeStr(state.str.food);
+  } else if (pathname.match('bebidas')) {
+    setCards(state.data.beverage);
+    setRecipeStr(state.str.beverage);
   }
 };
 
 const ListCards = () => {
-  // const { state, setRecipesUrl } = useContext(context);
-  const [recipes, setRecipes] = useState();
-  const [recipeStr, setRecipeStr] = useState();
+  const oneSecond = 1000;
+  const isOver = 0;
 
+  const { setHasFinished, setActive, active, time, setTime, state } = useContext(context);
+  const [cards, setCards] = useState([]);
+  const [recipeStr, setRecipeStr] = useState('');
   const history = useHistory();
   const { location: { pathname } } = history;
-
   const maxRecipesNumber = 12;
 
   useEffect(() => {
-    newFunc(pathname, setRecipes, setRecipeStr);
-  }, [pathname]);
+    newCards(pathname, setCards, setRecipeStr, state);
+  }, [pathname, state]);
 
-  if (!recipes) return <div>Loading...</div>;
+  useEffect(() => {
+    if (active && time > isOver) {
+      setTimeout(() => {
+        setTime(time - 1);
+      }, oneSecond);
+    } else if (active && time === isOver) {
+      setHasFinished(true);
+      setActive(false);
+    }
+  }, [active, time]);
+
+  if (!active && !cards && time === isOver && setHasFinished) {
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    resetCountdown(setActive, setTime);
+  }
+
+  if (!cards) return <div>Loading...</div>;
+
   return (
-    recipes.filter((_recipe, index) => index < maxRecipesNumber)
-      .map((recipe, index) => (<Card
-        key={ recipe[findMatch('id', recipe)] }
-        pathname={ pathname }
-        id={ recipe[findMatch('id', recipe)] }
-        recipeName={ recipe[findMatch(recipeStr, recipe)] }
-        recipeThumb={ recipe[findMatch(/Thumb/, recipe)] }
-        recipeIndex={ index }
-      />))
+    cards.filter((_recipe, index) => index < maxRecipesNumber)
+      .map((recipe, index) => (
+        <Card
+          key={ recipe[findMatch('id', recipe)] }
+          pathname={ pathname }
+          id={ recipe[findMatch('id', recipe)] }
+          Name={ recipe[findMatch(recipeStr, recipe)] }
+          Thumb={ recipe[findMatch(/Thumb/, recipe)] }
+          Index={ index }
+          Test="recipe-card"
+        />
+      ))
   );
 };
 

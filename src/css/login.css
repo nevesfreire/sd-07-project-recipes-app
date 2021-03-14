@@ -1,9 +1,18 @@
+.background {
+
+  /* background-image: url('../images/joshua-newton-7qjqQjt7zXQ-unsplash.jpg'); */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+}
+
 .main-container {
+  left: 50%;
   margin: 0;
+  margin-right: -50%;
   position: absolute;
   top: 30%;
-  left: 50%;
-  margin-right: -50%;
   transform: translate(-50%, -50%);
   width: 350px;
 }
@@ -12,20 +21,21 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   height: 150px;
+  justify-content: space-around;
 }
 
 .description-login {
   align-items: center;
+  color: rgb(228, 228, 211);
   display: flex;
   flex-direction: column;
   width: 100%;
 }
 
 .top-title {
-  color: rgb(5, 44, 5);
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  color: rgb(228, 228, 211);
+  font-family: Georgia , Times New Roman , Times , serif;
   font-style: inherit;
 }
 
@@ -35,8 +45,7 @@
 
 .main-input {
   align-self: center;
-  padding-top: 30px;
-  background-color: rgba(33, 211, 224, 0.068);
+  background-color: rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(0, 0, 0, 0.342);
   border-radius: 20px;
   box-sizing: border-box;
@@ -44,6 +53,7 @@
   flex-direction: column;
   height: 300px;
   justify-content: space-around;
+  padding-top: 30px;
   width: 350px;
 }
 

@@ -4,10 +4,12 @@ import Description from '../components/Description';
 
 function Login() {
   return (
-    <section className="main-container">
-      <div className="main-input">
-        <Description />
-        <InputsLogin />
+    <section className="background">
+      <div className="main-container">
+        <div className="main-input">
+          <Description />
+          <InputsLogin />
+        </div>
       </div>
     </section>
   );
