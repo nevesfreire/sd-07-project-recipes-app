@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, {useContext} from 'react';
 import { Button } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import context from '../contextAPI/context';

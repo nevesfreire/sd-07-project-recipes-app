@@ -1,14 +1,23 @@
-import React from 'react';
-import RecipeDetail from '../components/RecipeDetail';
-// import { getFoodRecipeId, getDrinkRecipeId } from '../services/fetchApi';
-import '../css/card.css';
+// import React from 'react';
+import { getFoodRecipeId, getDrinkRecipeId } from '../services/fetchApi';
 
-function ShowRecipeDetail() {
-  return (
-    <div className="detalhes">
-      <RecipeDetail />
-    </div>
-  );
+const newFunc = async (pathname, setRecipes, setRecipeStr) => {
+  if (pathname === '/comidas') {
+    const data = await fetchApi(getFoodRecipeId);
+    const { meals } = data;
+    console.log(meals);
+    setRecipes(meals);
+    setRecipeStr('strMeal');
+  } else if (pathname === '/bebidas') {
+    const data = await fetchApi(getDrinkRecipeId);
+    const { drinks } = data;
+    setRecipeStr('strDrink');
+    setRecipes(drinks);
+  }
+};
+
+function RecipeDetail() {
+  newFunc();
 }
 
-export default ShowRecipeDetail;
+export default RecipeDetail;

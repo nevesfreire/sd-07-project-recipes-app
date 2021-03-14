@@ -38,7 +38,7 @@ const siteMap = {
       searchButton: false,
       title: 'Explorar',
     },
-  },
+  },  
   '/explorar/comidas': {
     header: {
       profileButton: true,

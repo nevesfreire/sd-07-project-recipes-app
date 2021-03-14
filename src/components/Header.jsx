@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import context from '../contextAPI/context';
 import profileIcon from '../images/profileIcon.svg';
@@ -7,7 +7,6 @@ import searchIcon from '../images/searchIcon.svg';
 import SearchRecipes from './SearchRecipes';
 import '../css/header.css';
 import UseRedirect from '../hooks/useRedirect';
-import siteMap from '../helpers/siteMap';
 
 const profileTopBtn = (profileButton) => {
   const PATH = '/perfil';
@@ -16,9 +15,9 @@ const profileTopBtn = (profileButton) => {
     return (
       <Button
         type="button"
-        // variant="contained"
+        variant="contained"
         onClick={ () => setPath(PATH) }
-        className="header-button"
+        className="header"
       >
         <img
           src={ profileIcon }
@@ -29,20 +28,22 @@ const profileTopBtn = (profileButton) => {
     );
   }
   return (
-    <div className="noShowBtn" />
-  );
+    <div className="noShowBtn">
+      X
+    </div>
+  )
 };
 
 const pageTitle = (title) => {
-  if (!title) return ('Aqui um Titulo');
+  if (!title) return ('Aqui um Titulo')
   return (
     <h1
       data-testid="page-title"
-      className="top-title"
+      className="header"
     >
       {title}
     </h1>
-  );
+  )
 };
 
 const searchRecipeComponent = (pathname, toggleSearch, title) => (
@@ -55,15 +56,15 @@ const searchRecipeComponent = (pathname, toggleSearch, title) => (
 );
 
 const searchBtn = (searchButton, toggleSearch, onClick) => {
-  if (!searchButton) return (<div className="noShowBtn" />);
+  if (!searchButton) return (<div className="noShowBtn">X</div>);
   return (
     <Button
       type="button"
       data-testid="header_search_bar"
-      // variant="contained"
+      variant="contained"
       // color="primary"
       onClick={ (e) => onClick(e) }
-      className="header-button"
+      className="header"
     >
       <img
         data-testid="search-top-btn"
@@ -74,23 +75,12 @@ const searchBtn = (searchButton, toggleSearch, onClick) => {
   );
 };
 
-const findMatch = (string, object) => (
-  Object.keys(object).find((key) => key.match(string))
-);
-
 export default function Header() {
   const { state, setState } = useContext(context);
 
-  const location = useLocation();
-  const { pathname } = location;
-
-  useEffect(() => {
-    const newHeader = siteMap[findMatch(pathname, siteMap)].header;
-    setState((s) => ({ ...s, header: newHeader }));
-  }, [pathname, setState]);
-
-  const { header, toggleSearch } = state;
-  const { searchButton, profileButton, title } = header;
+  const history = useHistory();
+  const { location: { pathname } } = history;
+  const { searchButton, profileButton, title, toggleSearch } = state;
 
   const callSearch = () => {
     setState((s) => ({
@@ -99,16 +89,16 @@ export default function Header() {
     }));
   };
 
-  return (
-    <div className="header-container">
+  const render = () => (
+    <div className="main-reader-controller">
       <div className="header">
         {profileTopBtn(profileButton)}
         {pageTitle(title)}
         {searchBtn(searchButton, toggleSearch, callSearch)}
       </div>
-      <div className="header-search">
-        {searchRecipeComponent(pathname, toggleSearch, title)}
-      </div>
+      {searchRecipeComponent(pathname, toggleSearch, title)}
     </div>
   );
+
+  return render();
 }

@@ -1,31 +1,29 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { Button } from '@material-ui/core';
 
 const exploreDrinks = (history) => (
-  <Button
+  <button
     type="button"
-    variant="contained"
-    className=""
+    className="btn btn-secondary"
     data-testid="explore-drinks"
     onClick={ () => history.push('/explorar/bebidas') }
   >
     Explorar Bebidas
-  </Button>
+  </button>
 );
 
 const exploreFood = (history) => (
-  <Button
+  <button
     type="button"
-    variant="contained"
+    className="btn btn-secondary"
     data-testid="explore-food"
     onClick={ () => history.push('/explorar/comidas') }
   >
     Explorar Comidas
-  </Button>
+  </button>
 );
 
-export default function ExploreBtns() {
+function ExploreBtns() {
   const history = useHistory();
   return (
     <div>
@@ -34,3 +32,5 @@ export default function ExploreBtns() {
     </div>
   );
 }
+
+export default ExploreBtns;

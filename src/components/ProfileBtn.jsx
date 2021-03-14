@@ -1,8 +1,8 @@
 import React from 'react';
-import { Button } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
+import { getItem } from '../services/localStorage';
 
-const profileEmail = ({ email }) => (
+const profileEmail = (email) => (
   <h3
     data-testid="profile-email"
     className=""
@@ -12,47 +12,45 @@ const profileEmail = ({ email }) => (
 );
 
 const profileDone = (history) => (
-  <Button
+  <button
     type="button"
-    variant="contained"
+    className="btn btn-secondary"
     data-testid="profile-done-btn"
     onClick={ () => history.push('/receitas-feitas') }
   >
     Receitas Feitas
-  </Button>
+  </button>
 );
 
 const profileFavorite = (history) => (
-  <Button
+  <button
     type="button"
-    variant="contained"
+    className="btn btn-secondary"
     data-testid="profile-favorite-btn"
     onClick={ () => history.push('/receitas-favoritas') }
   >
     Receitas Favoritas
-  </Button>
+  </button>
 );
 
-const logout = async (history) => {
+const logout = (history) => {
   localStorage.clear();
   history.push('/');
 };
 
 const profileLogout = (history) => (
-  <Button
+  <button
     type="button"
-    variant="contained"
-    color="secondary"
+    className="btn btn-danger"
     data-testid="profile-logout-btn"
     onClick={ () => logout(history) }
   >
     Sair
-  </Button>
+  </button>
 );
 
 function ProfileBtns() {
-  const user = JSON.parse(localStorage.getItem('user'));
-  const email = user !== null ? user : '';
+  const { email } = getItem('user');
   const history = useHistory();
   return (
     <div>
