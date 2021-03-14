@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
-// import { Button } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import context from '../contextAPI/context';
 import {
   fetchApi,
   allFoodIngredients,
   allDrinkIngredients,
+  getFoodIngredients,
+  getDrinkIngredients,
 } from '../services/fetchApi';
 
 const fetchIngredients = async (pathname, setIngredients) => {
@@ -35,22 +37,38 @@ const recipeTextData = (recipeName, recipeIndex) => (
   </h3>
 );
 
-const exploreIngredients = (pathname, ingredients, setIngredient, setState) => {
-  const handleClick = (ingredientName) => {
-    console.log('AFF', ingredientName);
-    setIngredient(ingredientName);
-    setState((s) => ({
-      ...s,
-      filtered: ingredientName,
-      filter: 'ingredient',
-    }));
-  };
+const exploreIngredients = (parameter) => {
+  const { pathname, ingredients, setState, history } = parameter;
 
-  const maxIngredients = 12;
   const correctPath = (pname) => {
     if (pname.match('comidas')) return 'comidas';
     if (pname.match('bebidas')) return 'bebidas';
   };
+
+  const handleClick = async (ingredientName) => {
+    console.log('clicado', ingredientName);
+    if (pathname.match('comidas')) {
+      const foodData = await fetchApi(getFoodIngredients(ingredientName));
+      setState((s) => ({ ...s,
+        data: {
+          food: foodData.meals,
+          ...s.data.beverage,
+        },
+      }));
+    }
+    if (pathname.match('bebidas')) {
+      const beverageData = await fetchApi(getDrinkIngredients(ingredientName));
+      setState((s) => ({ ...s,
+        data: {
+          ...s.data.food,
+          beverage: beverageData.drinks,
+        },
+      }));
+    }
+    history.push(`/${correctPath(pathname)}`);
+  };
+
+  const maxIngredients = 12;
 
   return ingredients
     .filter((_ing, index) => index < maxIngredients)
@@ -63,10 +81,10 @@ const exploreIngredients = (pathname, ingredients, setIngredient, setState) => {
         : ing.strIngredient1;
       console.log(Name);
       return (
-        <Link
+        <Button
           key={ index }
+          type="button"
           className="image-card"
-          to={ `/${correctPath(pathname)}` }
           onClick={ () => handleClick(Name) }
         >
           <Paper
@@ -80,7 +98,7 @@ const exploreIngredients = (pathname, ingredients, setIngredient, setState) => {
               {recipeTextData(Name, index)}
             </div>
           </Paper>
-        </Link>
+        </Button>
       );
     });
 };
@@ -102,6 +120,7 @@ export default function ExploreIngredientsBtns() {
   // }, [ingredient, pathname, setState]);
 
   if (!ingredients) return <div>Loading...</div>;
+  const params = { pathname, ingredients, setState, history };
 
-  return <div>{exploreIngredients(pathname, ingredients, setIngredient, setState)}</div>;
+  return <div>{exploreIngredients(params)}</div>;
 }

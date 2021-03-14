@@ -58,8 +58,6 @@ const fetchIngredient = async (pathname, ingredient, setState) => {
 function Provider({ children }) {
   const oneMinute = 60;
   const threeSeconds = 0.05;
-  const oneSecond = 1000;
-  const isOver = 0;
 
   const initial = false;
   const [login, setLogin] = useState({});
@@ -114,6 +112,7 @@ function Provider({ children }) {
 
   function HandleRadioBtnChange(event) {
     const { value } = event.target;
+    console.log('radio value', value);
     setState(
       { ...state, radioBtn: value },
     );
@@ -123,17 +122,6 @@ function Provider({ children }) {
   useEffect(() => {
     fetchFirst(setState);
   }, []);
-
-  useEffect(() => {
-    if (active && time > isOver) {
-      setTimeout(() => {
-        setTime(time - 1);
-      }, oneSecond);
-    } else if (active && time === isOver) {
-      setHasFinished(true);
-      setActive(false);
-    }
-  }, [active, time]);
 
   useEffect(() => {
     const { filter, pathname } = state;
