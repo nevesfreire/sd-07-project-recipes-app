@@ -104,7 +104,7 @@ function Provider({ children }) {
 
   function HandleTextChange(event) {
     const { value } = event.target;
-    const result = value.toLowerCase();
+    const result = value;
     setState(
       { ...state, textSeach: result },
     );
