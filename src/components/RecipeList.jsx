@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 // import { fetchApi, allFood, allDrink } from '../services/fetchApi';
 // import siteMap from '../helpers/siteMap';
@@ -21,16 +22,28 @@ const filter = (text, setRecipeFilter) => (
 const RecipeList = () => {
   const [cards, setCards] = useState([]);
   const [recipeFilter, setRecipeFilter] = useState('all');
+  const history = useHistory();
+  const {
+    location: { pathname },
+  } = history;
 
   useEffect(() => {
     console.log(recipeFilter);
-    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-    if (doneRecipes) {
-      setCards(doneRecipes);
+    if (pathname.match('receitas-feitas')) {
+      const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+      if (doneRecipes) {
+        setCards(doneRecipes);
+      }
+    }
+    if (pathname.match('receitas-favoritas')) {
+      const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      if (favoriteRecipes) {
+        setCards(favoriteRecipes);
+      }
     }
   }, [recipeFilter]);
 
-  // useEffect(() => {
+  useEffect(() => {
   //   const doneRecipes = [
   //     {
   //       id: '52771',
@@ -56,7 +69,28 @@ const RecipeList = () => {
   //     },
   //   ];
   //   localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
-  // }, []);
+    const favoriteRecipes = [
+      {
+        id: '52771',
+        type: 'comida',
+        area: 'Italian',
+        category: 'Vegetarian',
+        alcoholicOrNot: '',
+        name: 'Spicy Arrabiata Penne',
+        image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
+      },
+      {
+        id: '178319',
+        type: 'bebida',
+        area: '',
+        category: 'Cocktail',
+        alcoholicOrNot:  'Alcoholic',
+        name: 'Aquamarine',
+        image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
+      },
+    ];
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+  }, []);
 
   if (!cards) return <div>Loading...</div>;
   console.log('cardsList', cards);
@@ -84,8 +118,8 @@ const RecipeList = () => {
               Name={ recipe.name }
               Thumb={ recipe.image }
               Index={ index }
-              DoneDate={ recipe.doneDate.toString() }
-              Tags={ recipe.tags }
+              DoneDate={ pathname.match('receitas-feitas') && recipe.doneDate.toString() }
+              Tags={ pathname.match('receitas-feitas') && recipe.tags }
               Test="horizontal"
             />
           ))

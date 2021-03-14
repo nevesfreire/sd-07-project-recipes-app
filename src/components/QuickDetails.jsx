@@ -43,6 +43,23 @@ const recipeFavorite = (favoriteHeart, setFavoriteHeart) => (
   </div>
 );
 
+const recipeFavoriteOnList = (favoriteHeart, setFavoriteHeart, index, test) => (
+  <div className="quickDetail">
+    <Button
+      variant="contained"
+      className="noShowBtn"
+      onClick={ () => favoriteIt(favoriteHeart, setFavoriteHeart) }
+      type="button"
+    >
+      <img
+        data-testid={ `${index}-${test}-favorite-btn` }
+        src={ favoriteHeart ? blackHeartIcon : whiteHeartIcon }
+        alt={ favoriteHeart ? 'blackHeartIcon' : 'whiteHeartIcon' }
+      />
+    </Button>
+  </div>
+);
+
 function share(pathname, setShared) {
   const twoSeconds = 2000;
   copy(`http://localhost:3000${pathname}`);
@@ -122,6 +139,7 @@ export {
   recipeTitle,
   recipeShareMessage,
   recipeFavorite,
+  recipeFavoriteOnList,
   recipeShare,
   recipeShareOnList,
   recipeCategory,

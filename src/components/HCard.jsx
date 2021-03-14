@@ -3,7 +3,11 @@ import { Link } from 'react-router-dom';
 import PropTypes, { string } from 'prop-types';
 import Paper from '@material-ui/core/Paper';
 import '../css/card.css';
-import { recipeShareOnList, recipeShareMessage } from './QuickDetails';
+import {
+  recipeShareOnList,
+  recipeShareMessage,
+  recipeFavoriteOnList,
+} from './QuickDetails';
 
 // cy.get('[data-testid="0-horizontal-image"]');
 // cy.get('[data-testid="0-horizontal-top-text"]');
@@ -58,16 +62,18 @@ const recipeDate = (recipeIndex, doneDate, Test) => (
   </h4>
 );
 
-const recipeTags = (ind, tags, Test) => (
-  tags.map((tag, index) => (
-    <p
-      key={ index }
-      data-testid={ `${ind}-${tag}-${Test}-tag` }
-    >
-      {tag}
-    </p>
-  ))
-);
+const recipeTags = (ind, tags, Test) => {
+  if (tags) {
+    return tags.map((tag, index) => (
+      <p
+        key={ index }
+        data-testid={ `${ind}-${tag}-${Test}-tag` }
+      >
+        {tag}
+      </p>
+    ));
+  }
+};
 
 function Card(props) {
   // key={ recipe.id }
@@ -82,6 +88,7 @@ function Card(props) {
   // doneDate={ recipe.doneDate }
   // tags={ recipe.tags }
   const [shared, setShared] = useState(false);
+  const [favoriteHeart, setFavoriteHeart] = useState();
 
   const {
     id,
@@ -111,6 +118,7 @@ function Card(props) {
         {recipeTags(Index, Tags, Test)}
         {recipeShareOnList(sharepath, setShared, Index, Test)}
         {recipeShareMessage(shared)}
+        {recipeFavoriteOnList(favoriteHeart, setFavoriteHeart, Index, Test)}
       </div>
     </Paper>
   );
