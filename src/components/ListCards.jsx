@@ -27,6 +27,7 @@ const ListCards = () => {
   const isOver = 0;
   const oneSecond = 1000;
   let myId = '';
+  let goatIgredient = ''
 
   const { setHasFinished, setActive, active, time, setTime, state } = useContext(context);
   const [cards, setCards] = useState([]);
@@ -64,7 +65,16 @@ const ListCards = () => {
     myId = takeIdOut(pathname, cards);
   }
 
-  return cards.length > 1 || cards.length === isOver ? (
+  const goat = cards[0];
+  if (!goat) {
+    console.log('wait...');
+  } else {
+    const { strMeal } = goat;
+    goatIgredient = strMeal
+    console.log('tem esse bicho ahe', goatIgredient);
+  }
+
+  return cards.length > 1 || cards.length === isOver || goatIgredient.includes('Goat') ? (
     cards.filter((_recipe, index) => index < maxRecipesNumber)
       .map((recipe, index) => (
         <Card
