@@ -29,6 +29,7 @@ async function fetchData(state, setState, myPath) {
   if (radioBtn === radio.firstChar) {
     console.log('entrei first word');
     if (textSeach.length > 1) {
+      // eslint-disable-next-line no-alert
       alert('Sua busca deve conter somente 1 (um) caracter');
     }
 
