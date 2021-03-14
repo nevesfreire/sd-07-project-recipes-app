@@ -36,7 +36,8 @@ const ListCards = () => {
   }, [pathname, state]);
 
   if (!active && !cards && time === isOver && setHasFinished) {
-    alert("Sinto muito, não encontramos nenhuma receita para esses filtros.");
+    // eslint-disable-next-line no-alert
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     resetCountdown(setActive, setTime);
   }
 
