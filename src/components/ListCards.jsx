@@ -23,6 +23,7 @@ const newCards = async (pathname, setCards, setRecipeStr, state) => {
 
 const ListCards = () => {
   const isOver = 0;
+  const oneSecond = 1000;
 
   const { setHasFinished, setActive, active, time, setTime, state } = useContext(context);
   const [cards, setCards] = useState([]);
@@ -34,6 +35,17 @@ const ListCards = () => {
   useEffect(() => {
     newCards(pathname, setCards, setRecipeStr, state);
   }, [pathname, state]);
+
+  useEffect(() => {
+    if (active && time > isOver) {
+      setTimeout(() => {
+        setTime(time - 1);
+      }, oneSecond);
+    } else if (active && time === isOver) {
+      setHasFinished(true);
+      setActive(false);
+    }
+  }, [active, time]);
 
   if (!active && !cards && time === isOver && setHasFinished) {
     alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
