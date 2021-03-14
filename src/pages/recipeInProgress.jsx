@@ -2,7 +2,7 @@ import React from 'react';
 import RecipeProgress from '../components/RecipeProgress';
 
 const RecipeInProgress = () => (
-  <section>
+  <section className="recepeInProgress">
     <RecipeProgress />
   </section>
 );

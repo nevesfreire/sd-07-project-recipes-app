@@ -16,7 +16,7 @@ const profileTopBtn = (profileButton) => {
     return (
       <Button
         type="button"
-        variant="contained"
+        // variant="contained"
         onClick={ () => setPath(PATH) }
         className="header-button"
       >
@@ -60,7 +60,7 @@ const searchBtn = (searchButton, toggleSearch, onClick) => {
     <Button
       type="button"
       data-testid="header_search_bar"
-      variant="contained"
+      // variant="contained"
       // color="primary"
       onClick={ (e) => onClick(e) }
       className="header-button"
