@@ -99,6 +99,7 @@ const RecipeList = () => {
 
   if (!cards) return <div>Loading...</div>;
   console.log('cardsList', cards);
+  const receitasFeitas = pathname.match('receitas-feitas');
 
   return (
     <div>
