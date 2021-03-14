@@ -19,6 +19,7 @@ function useSendRequestBtn() {
     if (getEvent > isOver) startCountdown(setActive);
 
     fetchData(state, setState, myPath);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getEvent]);
 
   return [setGetEvent];

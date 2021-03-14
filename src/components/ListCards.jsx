@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import context from '../contextAPI/context';
@@ -22,6 +23,7 @@ const newCards = async (pathname, setCards, setRecipeStr, state) => {
 };
 
 const ListCards = () => {
+  const oneSecond = 1000;
   const isOver = 0;
 
   const { setHasFinished, setActive, active, time, setTime, state } = useContext(context);
@@ -35,8 +37,18 @@ const ListCards = () => {
     newCards(pathname, setCards, setRecipeStr, state);
   }, [pathname, state]);
 
+  useEffect(() => {
+    if (active && time > isOver) {
+      setTimeout(() => {
+        setTime(time - 1);
+      }, oneSecond);
+    } else if (active && time === isOver) {
+      setHasFinished(true);
+      setActive(false);
+    }
+  }, [active, time]);
+
   if (!active && !cards && time === isOver && setHasFinished) {
-    // eslint-disable-next-line no-alert
     alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     resetCountdown(setActive, setTime);
   }
