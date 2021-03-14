@@ -19,6 +19,23 @@ const filter = (text, setRecipeFilter) => (
   </Button>
 );
 
+const setingCards = (pathname, setCards) => {
+  const receitasFeitas = pathname.match('receitas-feitas');
+  const receitasFavoritas = pathname.match('receitas-favoritas');
+  if (receitasFeitas) {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (doneRecipes) {
+      setCards(doneRecipes);
+    }
+  }
+  if (receitasFavoritas) {
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favoriteRecipes) {
+      setCards(favoriteRecipes);
+    }
+  }
+};
+
 const RecipeList = () => {
   const [cards, setCards] = useState([]);
   const [recipeFilter, setRecipeFilter] = useState('all');
@@ -28,23 +45,36 @@ const RecipeList = () => {
   } = history;
 
   useEffect(() => {
-    console.log(recipeFilter);
-    if (pathname.match('receitas-feitas')) {
-      const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-      if (doneRecipes) {
-        setCards(doneRecipes);
-      }
-    }
-    if (pathname.match('receitas-favoritas')) {
-      const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      if (favoriteRecipes) {
-        setCards(favoriteRecipes);
-      }
-    }
+    setingCards(pathname, setCards);
   }, [recipeFilter]);
 
-  useEffect(() => {
-  //   const doneRecipes = [
+  // useEffect(() => {
+  // //   const doneRecipes = [
+  // //     {
+  // //       id: '52771',
+  // //       type: 'comida',
+  // //       area: 'Italian',
+  // //       category: 'Vegetarian',
+  // //       alcoholicOrNot: '',
+  // //       name: 'Spicy Arrabiata Penne',
+  // //       image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
+  // //       doneDate: '23/06/2020',
+  // //       tags: ['Pasta', 'Curry'],
+  // //     },
+  // //     {
+  // //       id: '178319',
+  // //       type: 'bebida',
+  // //       area: '',
+  // //       category: 'Cocktail',
+  // //       alcoholicOrNot:  'Alcoholic',
+  // //       name: 'Aquamarine',
+  // //       image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
+  // //       doneDate: '23/06/2020',
+  // //       tags: [],
+  // //     },
+  // //   ];
+  // //   localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+  //   const favoriteRecipes = [
   //     {
   //       id: '52771',
   //       type: 'comida',
@@ -53,8 +83,6 @@ const RecipeList = () => {
   //       alcoholicOrNot: '',
   //       name: 'Spicy Arrabiata Penne',
   //       image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-  //       doneDate: '23/06/2020',
-  //       tags: ['Pasta', 'Curry'],
   //     },
   //     {
   //       id: '178319',
@@ -64,33 +92,10 @@ const RecipeList = () => {
   //       alcoholicOrNot:  'Alcoholic',
   //       name: 'Aquamarine',
   //       image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-  //       doneDate: '23/06/2020',
-  //       tags: [],
   //     },
   //   ];
-  //   localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
-    const favoriteRecipes = [
-      {
-        id: '52771',
-        type: 'comida',
-        area: 'Italian',
-        category: 'Vegetarian',
-        alcoholicOrNot: '',
-        name: 'Spicy Arrabiata Penne',
-        image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-      },
-      {
-        id: '178319',
-        type: 'bebida',
-        area: '',
-        category: 'Cocktail',
-        alcoholicOrNot:  'Alcoholic',
-        name: 'Aquamarine',
-        image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-      },
-    ];
-    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
-  }, []);
+  //   localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+  // }, []);
 
   if (!cards) return <div>Loading...</div>;
   console.log('cardsList', cards);
@@ -118,8 +123,8 @@ const RecipeList = () => {
               Name={ recipe.name }
               Thumb={ recipe.image }
               Index={ index }
-              DoneDate={ pathname.match('receitas-feitas') && recipe.doneDate.toString() }
-              Tags={ pathname.match('receitas-feitas') && recipe.tags }
+              DoneDate={ receitasFeitas && recipe.doneDate.toString() }
+              Tags={ receitasFeitas && recipe.tags }
               Test="horizontal"
             />
           ))
