@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import context from '../contextAPI/context';
+import resetCountdown from '../helpers/resetCountdown';
 // import { fetchApi, allFood, allDrink } from '../services/fetchApi';
 // import siteMap from '../helpers/siteMap';
 import Card from './Card';
@@ -21,7 +22,9 @@ const newCards = async (pathname, setCards, setRecipeStr, state) => {
 };
 
 const ListCards = () => {
-  const { state } = useContext(context);
+  const isOver = 0;
+
+  const { setHasFinished, setActive, active, time, setTime, state } = useContext(context);
   const [cards, setCards] = useState([]);
   const [recipeStr, setRecipeStr] = useState('');
   const history = useHistory();
@@ -31,6 +34,11 @@ const ListCards = () => {
   useEffect(() => {
     newCards(pathname, setCards, setRecipeStr, state);
   }, [pathname, state]);
+
+  if (!active && !cards && time === isOver && setHasFinished) {
+    alert("Sinto muito, não encontramos nenhuma receita para esses filtros.");
+    resetCountdown(setActive, setTime);
+  }
 
   if (!cards) return <div>Loading...</div>;
 

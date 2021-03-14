@@ -56,6 +56,11 @@ const fetchIngredient = async (pathname, ingredient, setState) => {
 // );
 
 function Provider({ children }) {
+  const oneMinute = 60;
+  const threeSeconds = 0.05;
+  const oneSecond = 1000;
+  const isOver = 0;
+
   const initial = false;
   const [login, setLogin] = useState({});
   // const [data, setData] = useState({
@@ -68,6 +73,11 @@ function Provider({ children }) {
   const [detail, setDetail] = useState();
   const [ingredient, setIngredient] = useState('');
   const [search, setSearch] = useState(initial);
+
+  const [active, setActive] = useState(false);
+  const [time, setTime] = useState(threeSeconds * oneMinute);
+  const [hasFinished, setHasFinished] = useState(false);
+
   // const [setPath] = useRedirect();
   // const [RecipesUrl, setRecipesUrl] = useState({});
   const [state, setState] = useState({
@@ -87,9 +97,10 @@ function Provider({ children }) {
     filterByIngredient: [],
   });
 
-  const { filterByIngredient, filterByName, filterByFirstchar } = state;
+  console.log('o tempo está acabando: ', active, time);
 
-  console.log('estou no provider', filterByIngredient);
+  const { filterByIngredient, filterByName, filterByFirstchar } = state;
+  console.log('estou no provider aqui', filterByIngredient);
   console.log(filterByName);
   console.log('estou no provider', filterByFirstchar);
 
@@ -112,6 +123,17 @@ function Provider({ children }) {
   useEffect(() => {
     fetchFirst(setState);
   }, []);
+
+  useEffect(() => {
+    if (active && time > isOver) {
+      setTimeout(() => {
+        setTime(time - 1);
+      }, oneSecond);
+    } else if (active && time === isOver) {
+      setHasFinished(true);
+      setActive(false);
+    }
+  }, [active, time]);
 
   useEffect(() => {
     const { filter, pathname } = state;
@@ -156,8 +178,14 @@ function Provider({ children }) {
     changeClick,
     detail,
     setDetail,
+    active,
+    setActive,
+    time,
+    hasFinished,
+    setTime,
     // data,
     // setData,
+    setHasFinished,
     state,
     setState,
     login,
