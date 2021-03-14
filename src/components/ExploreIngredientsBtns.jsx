@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
 import { Button } from '@material-ui/core';
 import context from '../contextAPI/context';
@@ -104,7 +104,7 @@ const exploreIngredients = (parameter) => {
 };
 
 export default function ExploreIngredientsBtns() {
-  const { setState, setIngredient } = useContext(context);
+  const { setState } = useContext(context);
   const [ingredients, setIngredients] = useState();
   const history = useHistory();
   const {
