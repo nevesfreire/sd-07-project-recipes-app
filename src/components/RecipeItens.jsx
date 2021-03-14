@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-function managelocalStorage(ingr, done, setdone, type, id) {
+function managelocalStorage(params) {
+  const { ingr, done, setdone, type, id } = params;
   setdone(done === '' ? 'complete' : '');
   const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
   if (inProgress) {
@@ -41,6 +42,8 @@ function RecipeIntens(props) {
     }
   }, []);
 
+  const params = { ingredient, done, setdone, type, id };
+
   return (
 
     <li
@@ -55,7 +58,7 @@ function RecipeIntens(props) {
         name="ingredients"
         value={ ingredient }
         checked={ done === 'complete' }
-        onChange={ () => managelocalStorage(ingredient, done, setdone, type, id) }
+        onChange={ () => managelocalStorage(params) }
       />
       { `${ingredient} - ${measures[index]}` }
 
