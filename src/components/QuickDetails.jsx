@@ -64,6 +64,24 @@ const recipeShare = (pathname, setShared) => (
   </div>
 );
 
+const recipeShareOnList = (pathname, setShared, index, test) => (
+  <div>
+    <Button
+      // data-testid={ `${index}-${test}-share-btn` }
+      variant="contained"
+      className="noShowBtn"
+      onClick={ () => share(pathname, setShared) }
+      type="button"
+    >
+      <img
+        data-testid={ `${index}-${test}-share-btn` }
+        src={ shareIcon }
+        alt={ `${index}-${test}-share-btn` }
+      />
+    </Button>
+  </div>
+);
+
 const recipeCategory = (category, alcoholic, pathname) => (
   <h3 data-testid="recipe-category">
     {pathname.match('comidas') ? category : alcoholic }
@@ -105,6 +123,7 @@ export {
   recipeShareMessage,
   recipeFavorite,
   recipeShare,
+  recipeShareOnList,
   recipeCategory,
   recipeIngredients,
   recipeInstructions,
