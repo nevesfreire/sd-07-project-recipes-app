@@ -1,7 +1,9 @@
+/* eslint-disable no-alert */
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import context from '../contextAPI/context';
 import resetCountdown from '../helpers/resetCountdown';
+import takeIdOut from '../helpers/takeIdOut';
 // import { fetchApi, allFood, allDrink } from '../services/fetchApi';
 // import siteMap from '../helpers/siteMap';
 import Card from './Card';
@@ -24,6 +26,7 @@ const newCards = async (pathname, setCards, setRecipeStr, state) => {
 const ListCards = () => {
   const isOver = 0;
   const oneSecond = 1000;
+  let myId = '';
 
   const { setHasFinished, setActive, active, time, setTime, state } = useContext(context);
   const [cards, setCards] = useState([]);
@@ -36,6 +39,8 @@ const ListCards = () => {
     newCards(pathname, setCards, setRecipeStr, state);
   }, [pathname, state]);
 
+  const myPathName = pathname;
+
   useEffect(() => {
     if (active && time > isOver) {
       setTimeout(() => {
@@ -45,6 +50,7 @@ const ListCards = () => {
       setHasFinished(true);
       setActive(false);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active, time]);
 
   if (!active && !cards && time === isOver && setHasFinished) {
@@ -54,7 +60,11 @@ const ListCards = () => {
 
   if (!cards) return <div>Loading...</div>;
 
-  return (
+  if (cards.length !== isOver) {
+    myId = takeIdOut(pathname, cards);
+  }
+
+  return cards.length > 1 || cards.length === isOver ? (
     cards.filter((_recipe, index) => index < maxRecipesNumber)
       .map((recipe, index) => (
         <Card
@@ -67,7 +77,7 @@ const ListCards = () => {
           Test="recipe-card"
         />
       ))
-  );
+  ) : <Redirect to={ `${myPathName}/${myId}` } />;
 };
 
 export default ListCards;
