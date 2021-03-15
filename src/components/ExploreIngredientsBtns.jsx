@@ -46,7 +46,6 @@ const exploreIngredients = (parameter) => {
   };
 
   const handleClick = async (ingredientName) => {
-    console.log('clicado', ingredientName);
     if (pathname.match('comidas')) {
       const foodData = await fetchApi(getFoodIngredients(ingredientName));
       setState((s) => ({ ...s,
@@ -79,7 +78,6 @@ const exploreIngredients = (parameter) => {
       const Name = pathname.match('comidas')
         ? ing.strIngredient
         : ing.strIngredient1;
-      console.log(Name);
       return (
         <Button
           key={ index }

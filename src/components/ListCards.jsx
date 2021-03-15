@@ -4,6 +4,7 @@ import { Redirect, useHistory } from 'react-router-dom';
 import context from '../contextAPI/context';
 import resetCountdown from '../helpers/resetCountdown';
 import takeIdOut from '../helpers/takeIdOut';
+
 // import { fetchApi, allFood, allDrink } from '../services/fetchApi';
 // import siteMap from '../helpers/siteMap';
 import Card from './Card';
@@ -27,9 +28,11 @@ const ListCards = () => {
   const isOver = 0;
   const oneSecond = 1000;
   let myId = '';
-  let goatIgredient = '';
+  // let goatIgredient = '';
+  const inputText = document.getElementById('search-bar');
 
-  const { setHasFinished, setActive, active, time, setTime, state } = useContext(context);
+  const { setActive, active, time, setTime, setState, state } = useContext(context);
+  const { setHasFinished } = useContext(context);
   const [cards, setCards] = useState([]);
   const [recipeStr, setRecipeStr] = useState('');
   const history = useHistory();
@@ -39,8 +42,6 @@ const ListCards = () => {
   useEffect(() => {
     newCards(pathname, setCards, setRecipeStr, state);
   }, [pathname, state]);
-
-  const myPathName = pathname;
 
   useEffect(() => {
     if (active && time > isOver) {
@@ -56,7 +57,9 @@ const ListCards = () => {
 
   if (!active && !cards && time === isOver && setHasFinished) {
     alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    inputText.focus();
     resetCountdown(setActive, setTime);
+    setState({ ...state, textSeach: '' });
   }
 
   if (!cards) return <div>Loading...</div>;
@@ -65,16 +68,16 @@ const ListCards = () => {
     myId = takeIdOut(pathname, cards);
   }
 
-  const goat = cards[0];
-  if (!goat) {
-    console.log('wait...');
-  } else {
-    const { strMeal } = goat;
-    goatIgredient = strMeal;
-    console.log('tem esse bicho ahe', goatIgredient);
-  }
+  // const goat = cards[0];
+  // if (!goat) {
+  //   console.log('wait...');
+  // } else {
+  //   const { strMeal } = goat;
+  //   goatIgredient = strMeal;
+  // }
+  // || goatIgredient.includes('Goat')
 
-  return cards.length > 1 || cards.length === isOver || goatIgredient.includes('Goat') ? (
+  return cards.length > 1 || cards.length === isOver ? (
     cards.filter((_recipe, index) => index < maxRecipesNumber)
       .map((recipe, index) => (
         <Card
@@ -87,7 +90,7 @@ const ListCards = () => {
           Test="recipe-card"
         />
       ))
-  ) : <Redirect to={ `${myPathName}/${myId}` } />;
+  ) : <Redirect to={ `${pathname}/${myId}` } />;
 };
 
 export default ListCards;

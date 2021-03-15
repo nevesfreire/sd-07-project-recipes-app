@@ -48,8 +48,14 @@ const RecipeList = () => {
   } = history;
 
   useEffect(() => {
+<<<<<<< HEAD
     if (reload) {
       setingCards(pathname, setCards, setReload);
+=======
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (doneRecipes) {
+      setCards(doneRecipes);
+>>>>>>> b54c9d33585739d50098c39e3f60b0a0bf4169a1
     }
   }, [recipeFilter, reload]);
 
@@ -104,8 +110,11 @@ const RecipeList = () => {
   // }, []);
 
   if (!cards) return <div>Loading...</div>;
+<<<<<<< HEAD
   console.log('cardsList', cards);
   const receitasFeitas = pathname.match('receitas-feitas');
+=======
+>>>>>>> b54c9d33585739d50098c39e3f60b0a0bf4169a1
 
   return (
     <div>

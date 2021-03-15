@@ -95,13 +95,6 @@ function Provider({ children }) {
     filterByIngredient: [],
   });
 
-  console.log('o tempo está acabando: ', active, time);
-
-  const { filterByIngredient, filterByName, filterByFirstchar } = state;
-  console.log('estou no provider aqui', filterByIngredient);
-  console.log(filterByName);
-  console.log('estou no provider', filterByFirstchar);
-
   function HandleTextChange(event) {
     const { value } = event.target;
     const result = value;
@@ -112,7 +105,6 @@ function Provider({ children }) {
 
   function HandleRadioBtnChange(event) {
     const { value } = event.target;
-    console.log('radio value', value);
     setState(
       { ...state, radioBtn: value },
     );
