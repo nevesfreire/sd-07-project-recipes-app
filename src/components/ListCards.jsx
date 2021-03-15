@@ -62,8 +62,6 @@ const ListCards = () => {
     setState({ ...state, textSeach: '' });
   }
 
-  if (!cards) return <div>Loading...</div>;
-
   if (cards.length !== isOver) {
     myId = takeIdOut(pathname, cards);
   }
@@ -77,9 +75,12 @@ const ListCards = () => {
   // }
   // || goatIgredient.includes('Goat')
 
+  if (!cards) return <div>Loading...</div>;
+
   return cards.length > 1 || cards.length === isOver ? (
     cards.filter((_recipe, index) => index < maxRecipesNumber)
       .map((recipe, index) => (
+
         <Card
           key={ recipe[findMatch('id', recipe)] }
           pathname={ pathname }
@@ -90,6 +91,7 @@ const ListCards = () => {
           Test="recipe-card"
         />
       ))
+
   ) : <Redirect to={ `${pathname}/${myId}` } />;
 };
 
