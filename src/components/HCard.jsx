@@ -88,16 +88,18 @@ function Card(props) {
 
   useEffect(() => {
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const isFavorite = favorites.find((favorite) => favorite.id === id);
-    if (isFavorite) setFavoriteHeart(true);
-    setStore({
-      favorites,
-    });
+    if (favorites) {
+      const isFavorite = favorites.find((favorite) => favorite.id === id);
+      if (isFavorite) setFavoriteHeart(true);
+      setStore({
+        favorites,
+      });
+    }
   }, []);
 
   useEffect(() => {
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (store) {
+    if (store && favorites) {
       if (favoriteHeart) {
         localStorage.setItem('favoriteRecipes', JSON.stringify([...favorites, store]));
         Reload(true);
