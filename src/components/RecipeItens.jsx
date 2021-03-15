@@ -18,7 +18,6 @@ function managelocalStorage(param) {
       if (done !== 'complete') {
         inProgress.cocktails[id].push(ingr);
       } else {
-        console.log('else', done);
         inProgress.meals[id] = inProgress.cocktails[id]
           .filter((ingredient) => ingredient !== ingr);
       }

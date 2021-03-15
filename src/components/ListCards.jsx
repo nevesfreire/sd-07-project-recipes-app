@@ -4,6 +4,7 @@ import { Redirect, useHistory } from 'react-router-dom';
 import context from '../contextAPI/context';
 import resetCountdown from '../helpers/resetCountdown';
 import takeIdOut from '../helpers/takeIdOut';
+import foodOrDrink from '../helpers/FoodOrDrink';
 // import { fetchApi, allFood, allDrink } from '../services/fetchApi';
 // import siteMap from '../helpers/siteMap';
 import Card from './Card';
@@ -65,16 +66,17 @@ const ListCards = () => {
     myId = takeIdOut(pathname, cards);
   }
 
-  const goat = cards[0];
-  if (!goat) {
-    console.log('wait...');
-  } else {
-    const { strMeal } = goat;
-    goatIgredient = strMeal;
-    console.log('tem esse bicho ahe', goatIgredient);
-  }
+  // const goat = cards[0];
+  // if (!goat) {
+  //   console.log('wait...');
+  // } else {
+  //   const { strMeal } = goat;
+  //   goatIgredient = strMeal;
+  // }
+  // || goatIgredient.includes('Goat')
 
-  return cards.length > 1 || cards.length === isOver || goatIgredient.includes('Goat') ? (
+  console.log(goatIgredient);
+  return cards.length > 1 || cards.length === isOver ? (
     cards.filter((_recipe, index) => index < maxRecipesNumber)
       .map((recipe, index) => (
         <Card
@@ -87,7 +89,7 @@ const ListCards = () => {
           Test="recipe-card"
         />
       ))
-  ) : <Redirect to={ `${myPathName}/${myId}` } />;
+  ) : <Redirect to={ `${pathname}/${myId}` } />;
 };
 
 export default ListCards;

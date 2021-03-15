@@ -71,7 +71,6 @@ function RecipeProgress() {
   const comidas = pathname.match('comidas');
   const bebidas = pathname.match('bebidas');
   const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  console.log('inprogress', inProgress);
   const initId = pathname.split('/')[2];
 
   if (inProgress !== null) {
@@ -84,7 +83,6 @@ function RecipeProgress() {
   }
 
   if (!detail) return <div>Loading...</div>;
-  console.log(detail);
   const id = detail[findMatch(/id/i, detail)];
   const title = detail[findMatch(/title/i, detail)];
   const url = detail[findMatch(/Thumb/, detail)];

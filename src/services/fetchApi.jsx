@@ -1,7 +1,6 @@
 export async function fetchApi(endpoint) {
   const result = await fetch(endpoint);
   const jsonData = await result.json();
-  console.log(jsonData);
   return jsonData;
 }
 

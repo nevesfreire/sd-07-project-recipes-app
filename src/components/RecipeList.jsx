@@ -23,7 +23,6 @@ const RecipeList = () => {
   const [recipeFilter, setRecipeFilter] = useState('all');
 
   useEffect(() => {
-    console.log(recipeFilter);
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     if (doneRecipes) {
       setCards(doneRecipes);
@@ -59,7 +58,6 @@ const RecipeList = () => {
   // }, []);
 
   if (!cards) return <div>Loading...</div>;
-  console.log('cardsList', cards);
 
   return (
     <div>
