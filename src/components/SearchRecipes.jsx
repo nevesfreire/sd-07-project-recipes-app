@@ -13,12 +13,15 @@ import radioData from '../data/helperParam';
 import context from '../contextAPI/context';
 import useSendRequestBtn from '../hooks/useSendRequestBtn';
 
-const inputSearchBar = (HandleTextChange) => (
+const inputSearchBar = (textSeach, HandleTextChange) => (
   <div className="input-searchbar">
     <Input
+      id="search-bar"
       data-testid="search-input"
+      autoFocus
       type="text"
       name="search"
+      value={ textSeach }
       placeholder="sua busca aqui"
       onChange={ HandleTextChange }
     />
@@ -117,6 +120,8 @@ export default function SearchRecipes() {
 
   const array = filterSelection(pathname, state);
 
+  const { textSeach } = state;
+
   useEffect(() => {
     if (pathname.match('comidas')) {
       setState((s) => ({
@@ -140,7 +145,7 @@ export default function SearchRecipes() {
 
   return (
     <div className="search-recipes">
-      {inputSearchBar(HandleTextChange)}
+      {inputSearchBar(textSeach, HandleTextChange)}
       {radioButtons(HandleRadioBtnChange)}
       {buttonFetch()}
     </div>

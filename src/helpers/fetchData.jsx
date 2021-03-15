@@ -28,6 +28,7 @@ async function fetchData(state, setState, myPath) {
   if (radioBtn === radio.firstChar) {
     if (textSeach.length > 1) {
       alert('Sua busca deve conter somente 1 (um) caracter');
+      setState({ ...state, textSeach: '' });
     }
 
     const item = await searchItemResidual(
