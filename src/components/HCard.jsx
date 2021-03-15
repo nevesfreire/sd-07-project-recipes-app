@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes, { string } from 'prop-types';
 import Paper from '@material-ui/core/Paper';
@@ -8,14 +8,6 @@ import {
   recipeShareMessage,
   recipeFavoriteOnList,
 } from './QuickDetails';
-
-// cy.get('[data-testid="0-horizontal-image"]');
-// cy.get('[data-testid="0-horizontal-top-text"]');
-// cy.get('[data-testid="0-horizontal-name"]');
-// cy.get('[data-testid="0-horizontal-done-date"]');
-// cy.get('[data-testid="0-horizontal-share-btn"]');
-// cy.get('[data-testid="0-Pasta-horizontal-tag"]');
-// cy.get('[data-testid="0-Curry-horizontal-tag"]');
 
 const recipeImg = (recipeIndex, recipeThumb, Test) => (
   <img
@@ -28,7 +20,6 @@ const recipeImg = (recipeIndex, recipeThumb, Test) => (
 
 const recipeType = (recipeIndex, type) => (
   <h3
-    // data-testid={ `${recipeIndex}-${Test}-top-text` }
     className="card-title"
   >
     {type}
@@ -76,17 +67,7 @@ const recipeTags = (ind, tags, Test) => {
 };
 
 function Card(props) {
-  // key={ recipe.id }
-  // id={ recipe.id }
-  // Type={ recipe.type }
-  // Area={ recipe.area }
-  // Category={ recipe.category }
-  // Alcoholic={ recipe.alcoholicOrNot }
-  // Name={ recipe.name }
-  // Thumb={ recipe.image }
-  // Index={ index }
-  // doneDate={ recipe.doneDate }
-  // tags={ recipe.tags }
+  const [store, setStore] = useState({});
   const [shared, setShared] = useState(false);
   const [favoriteHeart, setFavoriteHeart] = useState();
 
@@ -102,7 +83,31 @@ function Card(props) {
     DoneDate,
     Tags,
     Test,
+    Reload,
   } = props;
+
+  useEffect(() => {
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const isFavorite = favorites.find((favorite) => favorite.id === id);
+    if (isFavorite) setFavoriteHeart(true);
+    setStore({
+      favorites,
+    });
+  }, []);
+
+  useEffect(() => {
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (store) {
+      if (favoriteHeart) {
+        localStorage.setItem('favoriteRecipes', JSON.stringify([...favorites, store]));
+        Reload(true);
+      } else if (!favoriteHeart) {
+        const remove = favorites.filter((favorite) => favorite.id !== store.id);
+        localStorage.setItem('favoriteRecipes', JSON.stringify([...remove]));
+        Reload(true);
+      }
+    }
+  }, [favoriteHeart, store]);
 
   const sharepath = `/${Type === 'comida' ? 'comidas' : 'bebidas'}/${id}`;
   return (
@@ -136,6 +141,7 @@ Card.propTypes = {
   DoneDate: PropTypes.string.isRequired,
   Tags: PropTypes.arrayOf(string).isRequired,
   Test: PropTypes.string.isRequired,
+  Reload: PropTypes.func.isRequired,
 };
 
 export default Card;

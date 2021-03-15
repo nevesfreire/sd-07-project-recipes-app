@@ -19,19 +19,21 @@ const filter = (text, setRecipeFilter) => (
   </Button>
 );
 
-const setingCards = (pathname, setCards) => {
+const setingCards = (pathname, setCards, setReload) => {
   const receitasFeitas = pathname.match('receitas-feitas');
   const receitasFavoritas = pathname.match('receitas-favoritas');
   if (receitasFeitas) {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     if (doneRecipes) {
       setCards(doneRecipes);
+      setReload(false);
     }
   }
   if (receitasFavoritas) {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (favoriteRecipes) {
       setCards(favoriteRecipes);
+      setReload(false);
     }
   }
 };
@@ -39,15 +41,19 @@ const setingCards = (pathname, setCards) => {
 const RecipeList = () => {
   const [cards, setCards] = useState([]);
   const [recipeFilter, setRecipeFilter] = useState('all');
+  const [reload, setReload] = useState(true);
   const history = useHistory();
   const {
     location: { pathname },
   } = history;
 
   useEffect(() => {
-    setingCards(pathname, setCards);
-  }, [recipeFilter]);
+    if (reload) {
+      setingCards(pathname, setCards, setReload);
+    }
+  }, [recipeFilter, reload]);
 
+  // MOCKUP RECIPES IN PROGRESS BECAUSE IS NOT IMPLEMENTED
   // useEffect(() => {
   // //   const doneRecipes = [
   // //     {
@@ -127,6 +133,7 @@ const RecipeList = () => {
               DoneDate={ receitasFeitas && recipe.doneDate.toString() }
               Tags={ receitasFeitas && recipe.tags }
               Test="horizontal"
+              Reload={ setReload }
             />
           ))
       }
